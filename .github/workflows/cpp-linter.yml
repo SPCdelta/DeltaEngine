@@ -19,7 +19,7 @@ jobs:
         id: linter
         continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
         with:
           style: file
           files-changed-only: false
@@ -27,7 +27,4 @@ jobs:
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed != 0
-        run: |
-          echo "some linter checks failed. ${{ steps.linter.outputs.checks-failed }}"
-        # for actual deployment
-        # run: exit 1
+        run: exit 1
