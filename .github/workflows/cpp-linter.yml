@@ -25,6 +25,8 @@ jobs:
           files-changed-only: false
           thread-comments: false
           step-summary: true
+          tidy-review: true
+          file-annotations: true
 
       - name: Fail fast?!
         if: steps.linter.outputs.clang-tidy-checks-failed > 0
