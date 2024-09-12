@@ -24,7 +24,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
         with:
           version: 18
-          tidy-checks: ''
+          style: file
+          tidy-checks: 'cppcoreguidelines-*'
           files-changed-only: false
           thread-comments: true
           step-summary: true
