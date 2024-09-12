@@ -25,7 +25,7 @@ jobs:
         with:
           version: 18
           style: file
-          tidy-checks: 'modernize-'
+          tidy-checks: 'boost,bugprone,performance,readability,portability,modernize-*,clang-analyzer,cppcoreguidelines'
           files-changed-only: false
           thread-comments: true
           step-summary: true
