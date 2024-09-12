@@ -13,6 +13,8 @@ on:
 jobs:
   cpp-linter:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: cpp-linter/cpp-linter-action@main
@@ -30,8 +32,6 @@ jobs:
           file-annotations: true
           tidy-review: true
           format-review: true
-        permissions:
-          pull-requests: write
 
       - name: Fail if code does not conform coding guidelines
         if: steps.linter.outputs.checks-failed > 0
