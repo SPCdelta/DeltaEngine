@@ -1,2 +1,2 @@
-[![cpp-linter](https://github.com/cpp-linter/cpp-linter-action/actions/workflows/cpp-linter.yml/badge.svg)](https://github.com/cpp-linter/cpp-linter-action/actions/workflows/cpp-linter.yml)
+[![cpp-linter](https://github.com/SPCdelta/DeltaEngine/actions/workflows/cpp-linter.yml/badge.svg)](https://github.com/SPCdelta/DeltaEngine/actions/workflows/cpp-linter.yml)
 # DeltaEngine

@@ -25,7 +25,6 @@ jobs:
         with:
           version: 18
           style: file
-          tidy-checks: ''
           files-changed-only: false
           thread-comments: true
           step-summary: true
