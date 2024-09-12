@@ -8,5 +8,6 @@ int main()
 	else
 	{          // Spaces around else.
 	}
+	int _vieze1variabelNaam = 0;
 	std::cout << "Meow!" << std::endl;
 }
