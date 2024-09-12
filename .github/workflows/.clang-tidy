@@ -27,6 +27,14 @@
 #      avoiding C arrays often makes the code less readable, and std::array is
 #      not a drop-in replacement because it doesn't deduce the size.
 #
+#  -modernize-use-trailing-return-type: In most cases, continue to use the older 
+#      style of function declaration where the return type goes before the function 
+#      name. Use the new trailing-return-type form only in cases where it's required 
+#      (such as lambdas) or where, by putting the type after the function's parameter 
+#      list, it allows you to write the type in a much more readable way. The latter 
+#      case should be rare; it's mostly an issue in fairly complicated template 
+#      code, which is discouraged in most cases.
+#
 #  -performance-move-const-arg: This warning requires the developer to
 #      know/care more about the implementation details of types/functions than
 #      should be necessary. For example, `A a; F(std::move(a));` will trigger a
@@ -86,7 +94,6 @@ Checks: >
   -misc-const-correctness,
   -misc-include-cleaner,
   -modernize-return-braced-init-list,
-  -modernize-use-trailing-return-type,
   -modernize-concat-nested-namespaces,
   -modernize-use-nodiscard,
   -modernize-avoid-c-arrays,
