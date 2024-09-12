@@ -4,6 +4,5 @@ void DoSomething() {
 	if (_badvariableName1 == 10){
 		int x= 1;
 	}else
-	{ // do nothing 
-	}
+	{ }
 }
