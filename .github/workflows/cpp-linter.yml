@@ -30,7 +30,6 @@ jobs:
           thread-comments: true
           step-summary: true
           file-annotations: true
-          tidy-review: true
           format-review: true
           
       - name: Fail if code does not conform coding guidelines
