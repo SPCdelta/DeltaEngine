@@ -21,7 +21,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
         with:
-          style: file
           files-changed-only: false
           thread-comments: false
           step-summary: true
