@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-      contents: read, write
     steps:
       - uses: actions/checkout@v4
       - uses: cpp-linter/cpp-linter-action@main
