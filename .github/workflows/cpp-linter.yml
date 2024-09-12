@@ -26,6 +26,7 @@ jobs:
           thread-comments: false
           step-summary: true
           file-annotations: true
+          tidy-checks: ''
 
       - name: Fail if code does not conform coding guidelines
         if: steps.linter.outputs.checks-failed > 0
