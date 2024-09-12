@@ -22,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
         with:
           style: file
-          clang-tidy: ''
+          tidy-checks: ''
           files-changed-only: false
           thread-comments: false
           step-summary: true
