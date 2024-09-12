@@ -32,7 +32,9 @@ jobs:
           file-annotations: true
           tidy-review: true
           format-review: true
-
+          
+      - name: Echo TOKEN
+        run: echo ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
       - name: Fail if code does not conform coding guidelines
         if: steps.linter.outputs.checks-failed > 0
         run: exit 1
