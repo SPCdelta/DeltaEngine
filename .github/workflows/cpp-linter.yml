@@ -25,7 +25,6 @@ jobs:
           files-changed-only: false
           thread-comments: false
           step-summary: true
-          tidy-review: true
           file-annotations: true
 
       - name: Fail if code does not conform coding guidelines
