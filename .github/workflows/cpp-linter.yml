@@ -22,11 +22,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
         with:
           style: file
+          clang-tidy: ''
           files-changed-only: false
           thread-comments: false
           step-summary: true
           file-annotations: true
-          tidy-checks: ''
 
       - name: Fail if code does not conform coding guidelines
         if: steps.linter.outputs.checks-failed > 0
