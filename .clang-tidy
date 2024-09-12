@@ -97,6 +97,7 @@ Checks: >
   -modernize-concat-nested-namespaces,
   -modernize-use-nodiscard,
   -modernize-avoid-c-arrays,
+  -modernize-use-trailing-return-type,
   -performance-move-const-arg,
   -performance-avoid-endl,
   -performance-enum-size,
