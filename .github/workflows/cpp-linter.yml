@@ -11,25 +11,15 @@ on:
       - 'feature/**'
 
 jobs:
-  test-token:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Test GitHub Token
-        env:
-          GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
-        run: |
-          curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user
-
   cpp-linter:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: cpp-linter/cpp-linter-action@main
+
+      - name: Run C++ Linter
+        uses: cpp-linter/cpp-linter-action@main
         id: linter
         continue-on-error: true
         env:
