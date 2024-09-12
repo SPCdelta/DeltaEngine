@@ -23,7 +23,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
         with:
-          style: file
+          version: 18
           tidy-checks: ''
           files-changed-only: false
           thread-comments: true
