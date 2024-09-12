@@ -30,6 +30,8 @@ jobs:
           file-annotations: true
           tidy-review: true
           format-review: true
+        permissions:
+          pull-requests: write
 
       - name: Fail if code does not conform coding guidelines
         if: steps.linter.outputs.checks-failed > 0
