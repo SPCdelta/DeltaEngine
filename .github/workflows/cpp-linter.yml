@@ -24,3 +24,7 @@ jobs:
           style: file
           files-changed-only: false
           thread-comments: false
+
+      - name: Fail fast?!
+        if: steps.linter.outputs.clang-tidy-checks-failed > 0
+        run: exit 1
