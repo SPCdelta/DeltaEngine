@@ -24,7 +24,10 @@ jobs:
           style: file
           files-changed-only: false
           thread-comments: false
+          step-summary: true
+          tidy-review: true
+          file-annotations: true
 
-      - name: Fail fast?!
-        if: steps.linter.outputs.clang-tidy-checks-failed > 0
+      - name: Fail if code does not conform coding guidelines
+        if: steps.linter.outputs.checks-failed > 0
         run: exit 1
