@@ -7,6 +7,7 @@ void DoSomething()
 	{
 		int x = 1;
 	}
-	else
+	else { // bad comment
+	}
 
 }
