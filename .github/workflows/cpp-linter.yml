@@ -21,13 +21,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
         with:
-          extra-args: '-checks=-modernize-trailing-return-type'
           files-changed-only: false
           thread-comments: false
           step-summary: true
           file-annotations: true
           tidy-review: true
           format-review: true
+          tidy-checks: 'modernize-, cppcoreguidelines'
 
       - name: Fail if code does not conform coding guidelines
         if: steps.linter.outputs.checks-failed > 0
