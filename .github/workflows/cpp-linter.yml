@@ -11,20 +11,8 @@ on:
       - 'feature/**'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
-
-      - name: List files
-        run: ls -la
   cpp-linter:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
