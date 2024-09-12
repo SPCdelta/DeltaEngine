@@ -1,3 +1,4 @@
+
 void DoSomething()
 {
 	int _badvariableName1 = 10;
@@ -7,6 +8,5 @@ void DoSomething()
 		int x = 1;
 	}
 	else
-	{ // do nothing 
-	}
+
 }

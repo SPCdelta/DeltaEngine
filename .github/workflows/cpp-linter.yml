@@ -1,0 +1,38 @@
+name: cpp-linter
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+  pull_request:
+    branches:
+      - master
+      - development
+      - 'feature/**'
+
+jobs:
+  cpp-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run C++ Linter
+        uses: cpp-linter/cpp-linter-action@main
+        id: linter
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.CPP_LINTER_GITHUB_TOKEN }}
+        with:
+          version: 18
+          style: file
+          tidy-checks: 'cppcoreguidelines-*'
+          files-changed-only: false
+          thread-comments: true
+          step-summary: true
+          file-annotations: true
+          tidy-review: true
+          format-review: true
+          
+      - name: Fail if code does not conform coding guidelines
+        if: steps.linter.outputs.checks-failed > 0
+        run: exit 1
