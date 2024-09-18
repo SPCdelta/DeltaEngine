@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - 'feature/**'
+      - 'fix/**'
   pull_request:
     branches:
       - master
       - development
       - 'feature/**'
+      - 'fix/**'
 
 jobs:
   cpp-linter:
