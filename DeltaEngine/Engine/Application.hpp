@@ -11,6 +11,8 @@
 
 #include "Rendering/Viewport.hpp"
 
+#include "Systems/DebugSystem.hpp"
+
 class Application
 {
 public:
@@ -43,7 +45,7 @@ public:
 	//}
 
 protected:
-	//ecs::Registry _reg;
+	ecs::Registry _reg;
 	//ecs::EntityId camera;
 	//Camera* _cameraComponent = nullptr;
 
@@ -63,7 +65,7 @@ private:
 	ViewportData _viewportData{ 50.0f, 1280, 720 };
 
 	// Engine?
-	//std::shared_ptr<RenderSystem> _renderSystem;
+	std::shared_ptr<DebugSystem> _debugSystem;
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	//std::shared_ptr<UpdateSystem> _updateSystem;
