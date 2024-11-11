@@ -202,6 +202,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.hpp" />
+    <ClInclude Include="Engine\Core\Events\Event.hpp" />
+    <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
+    <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
+    <ClInclude Include="Engine\Core\Math\Point.hpp" />
+    <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
