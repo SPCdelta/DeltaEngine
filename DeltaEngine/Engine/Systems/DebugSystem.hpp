@@ -28,8 +28,8 @@ public:
 	{
 		for (ecs::EntityId entityId : _view)
 		{
-			std::cout << "A: " << _view.get<A>(entityId).a << std::endl;
-			std::cout << "B: " << _view.get<B>(entityId).b << std::endl;
+			//std::cout << "A: " << _view.get<A>(entityId).a << std::endl;
+			//std::cout << "B: " << _view.get<B>(entityId).b << std::endl;
 		}
 	}
 };
