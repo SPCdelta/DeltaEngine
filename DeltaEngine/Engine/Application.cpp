@@ -5,7 +5,21 @@ bool Application::_isRunning = true;
 Application::Application()
 	: _window("Meow!", 1280, 720)
 {
-	
+	// Init SDL2
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+	{
+		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
+	}
+	// Init SDL2_image
+	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
+	{
+		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
+	}
+	// Init SDL2_ttf
+	if (TTF_Init() < 0)
+	{
+		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
+	}
 }
 
 Application::~Application()

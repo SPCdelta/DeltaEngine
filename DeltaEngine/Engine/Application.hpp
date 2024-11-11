@@ -1,4 +1,10 @@
 #pragma once
+#define SDL_MAIN_HANDLED
+
+#include <iostream>
+
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 #include <SDL_image.h>
 #include "Window.hpp"
@@ -22,6 +28,11 @@ public:
 	{
 		_window.Close();
 		_isRunning = false;
+
+		SDL_Quit();
+		TTF_Quit();
+		IMG_Quit();
+		Mix_Quit();
 	}
 
 	virtual void Input(float dt) { }
