@@ -20,6 +20,13 @@ Application::Application()
 	{
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
+
+	//
+	ecs::EntityId debug = _reg.CreateEntity();
+	_reg.AddComponent<A>(debug, {});
+	_reg.AddComponent<B>(debug, {});
+
+	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 }
 
 Application::~Application()
@@ -62,6 +69,7 @@ void Application::Run()
 
 		// Input
 		Input(_dt);
+		_debugSystem->Update();
 
 		// Update
 		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);

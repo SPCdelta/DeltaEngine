@@ -71,24 +71,32 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\DeltaEngine\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\DeltaEngine\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+    <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\DeltaEngine\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\DeltaEngine\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+    <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\DeltaEngine\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\DeltaEngine\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+    <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\DeltaEngine\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\DeltaEngine\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+    <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -194,8 +202,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.hpp" />
+    <ClInclude Include="Engine\Ecs\View.hpp" />
+    <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
+    <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Window.hpp" />
+    <ClInclude Include="Engine\Ecs\Registry.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
