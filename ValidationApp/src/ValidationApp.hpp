@@ -1,6 +1,8 @@
 #pragma once
 
-class ValidationApp
+#include "Engine/Application.hpp"
+
+class ValidationApp : public Application
 {
 public:
 
