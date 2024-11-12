@@ -6,9 +6,9 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
-#include <SDL_image.h>
 #include "Window.hpp"
 
+#include "Rendering/Rendering.hpp"
 #include "Rendering/Viewport.hpp"
 
 #include "Systems/DebugSystem.hpp"
@@ -31,9 +31,9 @@ public:
 		_window.Close();
 		_isRunning = false;
 
-		SDL_Quit();
+		Rendering::Facade::Quit();
 		TTF_Quit();
-		IMG_Quit();
+		Rendering::Facade::Quit_Image();
 		Mix_Quit();
 	}
 
@@ -61,7 +61,7 @@ private:
 	float _nbFrames{ 0.0f };
 
 	Window _window;
-	SDL_Event _windowEvent{};
+	Rendering::Event _windowEvent{};
 	ViewportData _viewportData{ 50.0f, 1280, 720 };
 
 	// Engine?

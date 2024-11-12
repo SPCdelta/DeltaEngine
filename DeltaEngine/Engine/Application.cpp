@@ -6,15 +6,17 @@ Application::Application()
 	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+	if (Rendering::Facade::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
 	{
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
 	}
+
 	// Init SDL2_image
-	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
+	if (!(Rendering::Facade::Initialize_image(Rendering::INIT_PNG) & Rendering::INIT_PNG))
 	{
 		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
 	}
+
 	// Init SDL2_ttf
 	if (TTF_Init() < 0)
 	{
@@ -40,22 +42,22 @@ void Application::Run()
 
 	while (!_window.ShouldWindowClose())
 	{
-		SDL_PollEvent(&_windowEvent);
+		Rendering::Facade::PollEvent(_windowEvent); // TODO &_windowEvent ?
 
-		if (!Application::_isRunning || _windowEvent.type == SDL_QUIT)
+		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
 		{
 			Stop();
 			break;
 		}
 
-		SDL_GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
+		Rendering::Facade::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
 
 		// Internal Input
-		if (_windowEvent.type == SDL_KEYDOWN)
+		if (_windowEvent.type == Rendering::KEYDOWN)
 		{
 			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 1.0f);
 		}
-		else if (_windowEvent.type == SDL_KEYUP)
+		else if (_windowEvent.type == Rendering::KEYUP)
 		{
 			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 0.0f);
 		}
@@ -64,8 +66,8 @@ void Application::Run()
 
 		_window.Update();
 
-		SDL_SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
-		SDL_RenderClear(_window.GetRenderer());
+		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
+		Rendering::Facade::RenderClear(_window.GetRenderer());
 
 		// Input
 		Input(_dt);
@@ -79,12 +81,12 @@ void Application::Run()
 		// Render
 		//_renderSystem->Update();
 		//_fontRenderSystem->Update();
-		SDL_RenderPresent(_window.GetRenderer());
+		Rendering::Facade::RenderPresent(_window.GetRenderer());
 
 		ShowFpsInWindowTitleBar();
 
 		// Framerate
-		SDL_Delay(1000 / 60);
+		Rendering::Facade::Delay(1000 / 60);
 	}
 }
 
