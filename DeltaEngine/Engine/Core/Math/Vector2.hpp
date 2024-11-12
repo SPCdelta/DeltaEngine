@@ -6,13 +6,12 @@ namespace Math
 	{
 	public:
 		Vector2()
-			: _x{ 0.0f }, _y{ 0.0f } { }
+			: x{ 0.0f }, y{ 0.0f } { }
 
 		Vector2(float x, float y)
-			: _x{ x }, _y{ y } { }
+			: x{ x }, y{ y } { }
 
-	private:
-		float _x;
-		float _y;
+		float x;
+		float y;
 	};
 }

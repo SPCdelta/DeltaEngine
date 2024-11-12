@@ -198,6 +198,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
+    <ClCompile Include="Engine\Physics\Rigidbody.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +211,12 @@
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
+    <ClInclude Include="Engine\Physics\BoxCollider.hpp" />
+    <ClInclude Include="Engine\Physics\CircleCollider.hpp" />
+    <ClInclude Include="Engine\Physics\Collider.hpp" />
+    <ClInclude Include="Engine\Physics\Physics.hpp" />
+    <ClInclude Include="Engine\Physics\PhysicsWorld.hpp" />
+    <ClInclude Include="Engine\Physics\Rigidbody.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Window.hpp" />
