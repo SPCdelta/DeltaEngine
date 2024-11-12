@@ -23,6 +23,33 @@ namespace Physics
 			return _data.id;
 		}
 
+		void Update()
+		{
+			b2SensorEvents sensorEvents = b2World_GetSensorEvents(_data.id);
+
+			// # Collision Event
+			// Exits
+
+
+			// Enters
+			
+
+			// # Trigger Events
+			// Exits
+			for (int i = 0; i < sensorEvents.endCount; ++i)
+			{
+				b2SensorEndTouchEvent* touch = sensorEvents.endEvents + i;
+				// TODO: call on Collider => OnTriggerExit
+			}
+
+			// Enters
+			for (int i = 0; i < sensorEvents.beginCount; ++i)
+			{
+				b2SensorBeginTouchEvent* touch = sensorEvents.beginEvents + i;
+				// TODO: call on Collider => OnTriggerEnter
+			}
+		}
+
 	private:
 		WorldData _data;
 	};
