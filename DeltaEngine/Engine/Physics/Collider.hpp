@@ -1,9 +1,6 @@
 #pragma once
 
-#include "Physics.hpp"
 #include "PhysicsWorld.hpp"
-
-class Rigidbody;
 
 namespace Physics
 {
@@ -12,6 +9,8 @@ namespace Physics
 		BOX = 0,
 		CIRCLE = 1
 	};
+
+	class Rigidbody;
 
 	class Collider
 	{
@@ -48,6 +47,8 @@ namespace Physics
 			_shape.shape.enableSensorEvents = trigger;
 			_shape.id = Physics::Facade::ToPhysicsId(b2CreatePolygonShape(_bodyId, &_shape.shape, &_polygon));
 			_isTrigger = trigger;
+
+			CallOnShapeChanged();
 		}
 
 		bool IsTrigger() const
@@ -60,6 +61,12 @@ namespace Physics
 		PhysicsId _bodyId; // _b2bodyId
 		PhysicsPolygon _polygon; // _b2polygon
 		PhysicsShape _shape;
+		Events::EventDispatcher<const PhysicsShape&> _onShapeChanged{};
 		bool _isTrigger{ false };
+
+		void CallOnShapeChanged()
+		{
+			_onShapeChanged.Dispatch(_shape);
+		}
 	};
 }

@@ -5,6 +5,7 @@
 #include <box2d/box2d.h>
 
 #include "../Core/Math/Vector2.hpp"
+#include "../Core/Events/EventDispatcher.hpp"
 
 #include "../Transform.hpp"
 
@@ -49,6 +50,42 @@ namespace Physics
 		Shape shape; // _b2shapeDef
 		PhysicsId id; // _b2shapeId
 	};
+
+	static bool AreEqual(const Physics::PhysicsId id1, const Physics::PhysicsId id2)
+	{
+		return
+			id1.index1 == id2.index1 &&
+			id1.revision == id2.revision &&
+			id1.world0 == id2.world0;
+	}
+
+	namespace Event
+	{
+		//class CollisionEventData : public Events::Event
+		//{
+		//public:
+		//	CollisionEventData()
+		//	{
+
+		//	}
+		//};
+
+		class SensorEventData : public Events::Event
+		{
+		public:
+			SensorEventData(PhysicsShape shape)
+				: _shape{ shape }
+			{ }
+
+			PhysicsShape GetShape() const
+			{
+				return _shape;
+			}
+
+		private:
+			PhysicsShape _shape;
+		};
+	}
 
 	namespace Facade
 	{

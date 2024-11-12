@@ -15,7 +15,7 @@ public:
 	void Update();
 
 	void SetTitle(const char* title);
-	const char* GetTitle();
+	const char* GetTitle() const;
 
 	SDL_Renderer* GetRenderer()
 	{

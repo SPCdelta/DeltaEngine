@@ -18,23 +18,37 @@ namespace Physics
 		IMPULSE = 1,
 	};
 
+	class PhysicsWorld;
+
 	class Rigidbody
 	{
 	public:
-		Rigidbody(const Collider& collider)
+		Rigidbody(Collider& collider)
 			: _collider{ collider }
 		{
-
+			
 		}
+
+		friend class PhysicsWorld;
+
+		Events::EventDispatcher<Collider&> onTriggerEnter{};
+		Events::EventDispatcher<Collider&> onTriggerExit{};
+
+		const PhysicsShape& GetShape() const { return _collider._shape; }
 
 		void SetType(RigidbodyType type)
 		{
 			b2Body_SetType(_collider._bodyId, static_cast<b2BodyType>(type));
 		}
 
-		RigidbodyType GetType()
+		RigidbodyType GetType() const
 		{
 			return static_cast<RigidbodyType>(b2Body_GetType(_collider._bodyId));
+		}
+
+		Collider& GetCollider() const
+		{
+			return _collider;
 		}
 
 		void AddForce(Math::Vector2 force, ForceMode forceMode)
@@ -69,13 +83,13 @@ namespace Physics
 			b2Body_SetGravityScale(_collider._bodyId, gravityScale);
 		}
 
-		float GetGravityScale()
+		float GetGravityScale() const
 		{
 			return b2Body_GetGravityScale(_collider._bodyId);
 		}
 
 	private:
-		const Collider _collider;
+		Collider& _collider;
 
 		float _mass{ 1.0f };
 	};

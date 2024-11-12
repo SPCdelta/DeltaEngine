@@ -42,7 +42,7 @@ void Window::SetTitle(const char* title)
 	SDL_SetWindowTitle(_window, title);
 }
 
-const char* Window::GetTitle()
+const char* Window::GetTitle() const
 {
 	return SDL_GetWindowTitle(_window);
 }
