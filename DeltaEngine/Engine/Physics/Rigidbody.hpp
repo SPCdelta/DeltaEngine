@@ -18,8 +18,6 @@ namespace Physics
 		IMPULSE = 1,
 	};
 
-	class PhysicsWorld;
-
 	class Rigidbody
 	{
 	public:
@@ -28,8 +26,6 @@ namespace Physics
 		{
 			
 		}
-
-		friend class PhysicsWorld;
 
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
 		Events::EventDispatcher<Collider&> onTriggerExit{};

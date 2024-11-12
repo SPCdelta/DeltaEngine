@@ -11,6 +11,7 @@ namespace Physics
 	};
 
 	class Rigidbody;
+	class CollisionSystem;
 
 	class Collider
 	{
@@ -36,6 +37,7 @@ namespace Physics
 			_shape.id = Physics::Facade::ToPhysicsId(b2CreatePolygonShape(_bodyId, &_shape.shape, &_polygon));
 		}
 
+		friend class CollisionSystem;
 		friend class Rigidbody;
 
 		void SetTrigger(bool trigger)
