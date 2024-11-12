@@ -29,12 +29,12 @@ namespace Physics
 
 		void SetType(RigidbodyType type)
 		{
-			b2Body_SetType(_collider._b2bodyId, static_cast<b2BodyType>(type));
+			b2Body_SetType(_collider._bodyId, static_cast<b2BodyType>(type));
 		}
 
 		RigidbodyType GetType()
 		{
-			return static_cast<RigidbodyType>(b2Body_GetType(_collider._b2bodyId));
+			return static_cast<RigidbodyType>(b2Body_GetType(_collider._bodyId));
 		}
 
 		void AddForce(Math::Vector2 force, ForceMode forceMode)
@@ -44,10 +44,10 @@ namespace Physics
 			switch (forceMode)
 			{
 				case ForceMode::ACCELERATE:
-					b2Body_ApplyForceToCenter(_collider._b2bodyId, b2Force, true);
+					b2Body_ApplyForceToCenter(_collider._bodyId, b2Force, true);
 					break;
 				case ForceMode::IMPULSE:
-					b2Body_ApplyLinearImpulseToCenter(_collider._b2bodyId, b2Force, true);
+					b2Body_ApplyLinearImpulseToCenter(_collider._bodyId, b2Force, true);
 					break;
 			}
 		}
@@ -55,23 +55,23 @@ namespace Physics
 		void SetVelocity(Math::Vector2 velocity)
 		{
 			b2Vec2 b2Velocity(velocity.x, velocity.y);
-			b2Body_SetLinearVelocity(_collider._b2bodyId, b2Velocity);
+			b2Body_SetLinearVelocity(_collider._bodyId, b2Velocity);
 		}
 
 		const Math::Vector2 GetVelocity() const
 		{
-			b2Vec2 b2Velocity = b2Body_GetLinearVelocity(_collider._b2bodyId);
+			b2Vec2 b2Velocity = b2Body_GetLinearVelocity(_collider._bodyId);
 			return Math::Vector2(b2Velocity.x, b2Velocity.y);
 		}
 
 		void SetGravityScale(float gravityScale)
 		{
-			b2Body_SetGravityScale(_collider._b2bodyId, gravityScale);
+			b2Body_SetGravityScale(_collider._bodyId, gravityScale);
 		}
 
 		float GetGravityScale()
 		{
-			return b2Body_GetGravityScale(_collider._b2bodyId);
+			return b2Body_GetGravityScale(_collider._bodyId);
 		}
 
 	private:

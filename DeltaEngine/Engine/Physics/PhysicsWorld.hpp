@@ -9,17 +9,21 @@ namespace Physics
 	public:
 		PhysicsWorld()
 		{
-			_worldDef = b2DefaultWorldDef();
-			_worldId = b2CreateWorld(&_worldDef);
+			_data.world = b2DefaultWorldDef();
+			_data.id = Physics::Facade::ToWorldId(b2CreateWorld(&_data.world));
 		}
 
 		~PhysicsWorld()
 		{
-			b2DestroyWorld(_worldId);
+			b2DestroyWorld(static_cast<b2WorldId>(_data.id));
+		}
+
+		const WorldId& GetWorldId() const
+		{
+			return _data.id;
 		}
 
 	private:
-		b2WorldDef _worldDef;
-		b2WorldId _worldId;
+		WorldData _data;
 	};
 }
