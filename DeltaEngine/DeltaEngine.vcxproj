@@ -199,6 +199,8 @@
   <ItemGroup>
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Scene\Scene.cpp" />
+    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
   </ItemGroup>
@@ -214,6 +216,8 @@
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
+    <ClInclude Include="Engine\Scene\Scene.hpp" />
+    <ClInclude Include="Engine\Scene\SceneManager.hpp" />
     <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />

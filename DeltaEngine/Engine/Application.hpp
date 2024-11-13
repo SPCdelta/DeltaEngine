@@ -13,6 +13,7 @@
 
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
+#include "Scene/SceneManager.hpp"
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
@@ -74,6 +75,8 @@ private:
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
+
+	SceneManager _sceneManager;
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();
