@@ -197,12 +197,23 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Audio\AudioSystem.cpp" />
+    <ClCompile Include="Engine\Audio\AudioSource.cpp" />
+    <ClCompile Include="Engine\Audio\AudioLoader.cpp" />
+    <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
+    <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\Audio\MusicSource.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Audio\AudioSystem.hpp" />
+    <ClInclude Include="Engine\Audio\AudioSource.hpp" />
+    <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
+    <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
+    <ClInclude Include="Engine\Audio\SFXSource.hpp" />
     <ClInclude Include="Engine\BehaviourScript.hpp" />
     <ClInclude Include="Engine\Application.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
@@ -221,6 +232,7 @@
     <ClInclude Include="Engine\Window.hpp" />
     <ClInclude Include="Engine\Ecs\Registry.hpp" />
     <ClInclude Include="Engine\GameObject.hpp" />
+    <ClInclude Include="Engine\Audio\MusicSource.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
