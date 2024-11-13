@@ -62,7 +62,7 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-	ViewportData _viewportData{ 50.0f, 1280, 720 };
+	ViewportData _viewportData{50.0f, 1280, 720};
 
 	// Engine?
 	std::shared_ptr<DebugSystem> _debugSystem;
