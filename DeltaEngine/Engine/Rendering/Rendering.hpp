@@ -1,5 +1,7 @@
 #pragma once
 
+#define SDL_MAIN_HANDLED
+
 #include <SDL.h>
 #include <SDL_image.h>
 
@@ -7,14 +9,17 @@
 
 namespace Rendering
 {
+	constexpr int SUCCESS = 0;
+	constexpr int COLOR_ALPHA_VAL = 255;
+
 	// Constants for SDL flags and event types
 	constexpr auto WINDOW_FULLSCREEN = SDL_WINDOW_FULLSCREEN;
 	constexpr auto WINDOWPOS_CENTERED = SDL_WINDOWPOS_CENTERED;
 	constexpr auto INIT_EVERYTHING = SDL_INIT_EVERYTHING;
 	constexpr auto KEYDOWN = SDL_KEYDOWN;
 	constexpr auto KEYUP = SDL_KEYUP;
-	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN; // TODO keep or leave ? is input ?
-	constexpr auto BUTTON_LEFT = SDL_BUTTON_LEFT; // TODO keep or leave? is input ?
+	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN; 
+	constexpr auto BUTTON_LEFT = SDL_BUTTON_LEFT; 
 	constexpr auto QUIT = SDL_QUIT;
 	constexpr auto RENDERER_ACCELERATED = SDL_RENDERER_ACCELERATED;
 	constexpr auto RENDERER_PRESENTVSYNC = SDL_RENDERER_PRESENTVSYNC;
@@ -27,24 +32,21 @@ namespace Rendering
 	using Texture = SDL_Texture;
 	using Rect = SDL_Rect;
 	using Event = SDL_Event;
-
-	// TODO keep or leave these ? also, the name of time might need to be changed
 	using Color = SDL_Color;
-	using Time = Uint32;
+	using UnsignInt = Uint32;
 	
-
-	namespace Facade // TODO make some const ? can/should i do that ?
+	namespace Facade 
 	{
 		// Initialize SDL
 		inline bool Initialize(Uint32 flags = SDL_INIT_EVERYTHING)
 		{
-			return SDL_Init(flags) == 0; // TODO magic number?
+			return SDL_Init(flags) == SUCCESS;
 		}
 
 		// Initialize SDL image
 		inline bool Initialize_image(int flags)
 		{
-			return IMG_Init(flags) == 0; // TODO magic number?
+			return IMG_Init(flags) == SUCCESS; 
 		}
 
 		// Create window
@@ -90,7 +92,7 @@ namespace Rendering
 		}
 
 		// Set render draw color
-		inline void SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255) // TODO magic number
+		inline void SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a = COLOR_ALPHA_VAL) 
 		{
 			SDL_SetRenderDrawColor(renderer, r, g, b, a);
 		}
@@ -122,11 +124,11 @@ namespace Rendering
 		// Poll events
 		inline bool PollEvent(Event& event)
 		{
-			return SDL_PollEvent(&event) != 0;
+			return SDL_PollEvent(&event) != SUCCESS;
 		}
 
 		// Get SDL ticks 
-		inline Time GetTicks()
+		inline UnsignInt GetTicks()
 		{
 			return SDL_GetTicks();
 		}

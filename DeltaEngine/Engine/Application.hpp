@@ -1,5 +1,6 @@
 #pragma once
-#define SDL_MAIN_HANDLED
+
+#include "Rendering/Rendering.hpp"
 
 #include <iostream>
 
@@ -8,7 +9,6 @@
 
 #include "Window.hpp"
 
-#include "Rendering/Rendering.hpp"
 #include "Rendering/Viewport.hpp"
 
 #include "Systems/DebugSystem.hpp"
