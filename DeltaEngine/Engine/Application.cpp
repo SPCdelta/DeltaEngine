@@ -13,7 +13,8 @@ Application::Application()
 	}
 
 	// Init SDL2_image
-	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) & Rendering::INIT_PNG))
+	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) &
+		  Rendering::INIT_PNG))
 	{
 		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
 	}
