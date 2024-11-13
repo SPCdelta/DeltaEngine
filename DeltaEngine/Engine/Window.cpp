@@ -3,7 +3,9 @@
 Window::Window(const char* title, int width, int height)
 {
 	// Create Window
-	_window = Rendering::Facade::CreateWindow(title, Rendering::WINDOWPOS_CENTERED, Rendering::WINDOWPOS_CENTERED, width, height, 0); 
+	_window = Rendering::Facade::CreateWindow(
+		title, Rendering::WINDOWPOS_CENTERED, Rendering::WINDOWPOS_CENTERED,
+		width, height, 0);
 	if (!_window)
 	{
 		std::cerr << "Failed to create window" << std::endl;
