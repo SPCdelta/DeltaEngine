@@ -12,7 +12,8 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
 	}
 
-	// Init SDL2_image
+	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) &
+		  Rendering::INIT_PNG))
 	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) &
 		  Rendering::INIT_PNG))
 	{
@@ -43,7 +44,7 @@ void Application::Run()
 	//_updateSystem->OnStart();
 
 	while (!_window.ShouldWindowClose())
-	{
+		Rendering::Facade::PollEvent(_windowEvent);
 		Rendering::Facade::PollEvent(_windowEvent);
 
 		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
@@ -51,7 +52,8 @@ void Application::Run()
 			Stop();
 			break;
 		}
-
+		Rendering::Facade::GetWindowSize(_window, &_viewportData.width,
+										 &_viewportData.height);
 		Rendering::Facade::GetWindowSize(_window, &_viewportData.width,
 										 &_viewportData.height);
 
@@ -68,7 +70,8 @@ void Application::Run()
 		GetDeltaTime();
 
 		_window.Update();
-
+		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10,
+											  255);
 		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10,
 											  255);
 		Rendering::Facade::RenderClear(_window.GetRenderer());
