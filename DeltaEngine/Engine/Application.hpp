@@ -11,7 +11,12 @@
 
 #include "Rendering/Viewport.hpp"
 
+#include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
+
+//Temp
+#include "Temp/TempBehaviour.hpp"
+#include "GameObject.hpp"
 
 class Application
 {
@@ -68,7 +73,7 @@ private:
 	std::shared_ptr<DebugSystem> _debugSystem;
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
-	//std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<UpdateSystem> _updateSystem;
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();
