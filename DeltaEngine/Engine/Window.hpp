@@ -19,10 +19,7 @@ public:
 
 	Rendering::Renderer* GetRenderer() { return _renderer; }
 
-	operator Rendering::Window* () const
-	{
-		return _window;
-	}
+	operator Rendering::Window*() const { return _window; }
 
 private:
 	Rendering::Window* _window;
