@@ -56,21 +56,10 @@ public:
 		return _reg.GetComponent<T>(_id);
 	}
 
-	GameObject(ecs::Registry& reg)
-		: _reg(reg)
-	{
-		_id = reg.CreateEntity();
-		transform = &_reg.AddComponent<Transform>(_id, Transform({ 0.0f, 0.0f }, 0.0f, { 1.0f, 1.0f }));
-	}
+	GameObject(ecs::Registry& reg);
 
-	bool IsActive() const
-	{
-		return _active;
-	}
-	bool SetActive(bool active)
-	{
-		_active = active;
-	}
+	bool IsActive() const { return _active; }
+	bool SetActive(bool active) { _active = active; }
 
 	// Due to how EnTT works, this cannot be a smart pointer
 	// if this objects Transform is accessed without it existing,
