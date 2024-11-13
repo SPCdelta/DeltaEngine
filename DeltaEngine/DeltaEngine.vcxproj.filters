@@ -68,6 +68,9 @@
     <ClInclude Include="Engine\Transform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Rendering\Rendering.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

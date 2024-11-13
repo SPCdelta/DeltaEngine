@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include <SDL.h>
+#include "Rendering/Rendering.hpp"
 
 class Window
 {
@@ -17,19 +17,13 @@ public:
 	void SetTitle(const char* title);
 	const char* GetTitle();
 
-	SDL_Renderer* GetRenderer()
-	{
-		return _renderer;
-	}
+	Rendering::Renderer* GetRenderer() { return _renderer; }
 
-	operator SDL_Window* () const
-	{
-		return _window;
-	}
+	operator Rendering::Window*() const { return _window; }
 
-private:
-	SDL_Window* _window;
-	SDL_Renderer* _renderer;
+   private:
+	Rendering::Window* _window;
+	Rendering::Renderer* _renderer;
 
-	bool _shouldWindowClose{ false };
+	bool _shouldWindowClose{false};
 };
