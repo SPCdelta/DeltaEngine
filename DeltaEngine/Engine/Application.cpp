@@ -12,8 +12,7 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
 	}
 
-	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) &
-		  Rendering::INIT_PNG))
+	// Init SDL2 image 
 	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) &
 		  Rendering::INIT_PNG))
 	{
@@ -26,7 +25,6 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	//
 	ecs::EntityId debug = _reg.CreateEntity();
 	_reg.AddComponent<A>(debug, {});
 	_reg.AddComponent<B>(debug, {});
@@ -44,7 +42,7 @@ void Application::Run()
 	//_updateSystem->OnStart();
 
 	while (!_window.ShouldWindowClose())
-		Rendering::Facade::PollEvent(_windowEvent);
+	{
 		Rendering::Facade::PollEvent(_windowEvent);
 
 		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
@@ -52,10 +50,9 @@ void Application::Run()
 			Stop();
 			break;
 		}
+
 		Rendering::Facade::GetWindowSize(_window, &_viewportData.width,
-										 &_viewportData.height);
-		Rendering::Facade::GetWindowSize(_window, &_viewportData.width,
-										 &_viewportData.height);
+												  &_viewportData.height);
 
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)
@@ -70,10 +67,7 @@ void Application::Run()
 		GetDeltaTime();
 
 		_window.Update();
-		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10,
-											  255);
-		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10,
-											  255);
+		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
 		Rendering::Facade::RenderClear(_window.GetRenderer());
 
 		// Input
@@ -116,4 +110,5 @@ void Application::GetDeltaTime()
 
 void Application::ShowFpsInWindowTitleBar()
 {
+
 }
