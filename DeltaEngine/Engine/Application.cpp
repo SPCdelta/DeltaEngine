@@ -6,15 +6,13 @@ Application::Application()
 	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2
-	if (Rendering::Facade::Initialize(Rendering::INIT_VIDEO |
-									  Rendering::INIT_AUDIO) < 0)
+	if (Rendering::Facade::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
 	{
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
 	}
 
 	// Init SDL2 image 
-	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) &
-		  Rendering::INIT_PNG))
+	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) & Rendering::INIT_PNG))
 	{
 		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
 	}
@@ -51,8 +49,7 @@ void Application::Run()
 			break;
 		}
 
-		Rendering::Facade::GetWindowSize(_window, &_viewportData.width,
-												  &_viewportData.height);
+		Rendering::Facade::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
 
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)

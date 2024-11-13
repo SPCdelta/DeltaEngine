@@ -81,8 +81,7 @@ namespace Rendering
 		}
 
 		// Create window
-		inline Window* CreateWindow(const char* title, int x, int y, int w, int h,
-									Uint32 flags)
+		inline Window* CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags)
 		{
 			return SDL_CreateWindow(title, x, y, w, h, flags);
 		}
@@ -124,8 +123,7 @@ namespace Rendering
 		}
 
 		// Set render draw color
-		inline int SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b,
-									  Uint8 a = COLOR_ALPHA_VAL)
+		inline int SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a = COLOR_ALPHA_VAL)
 		{
 			return SDL_SetRenderDrawColor(renderer, r, g, b, a);
 		}
