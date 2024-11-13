@@ -17,10 +17,7 @@ public:
 	void SetTitle(const char* title);
 	const char* GetTitle();
 
-	Rendering::Renderer* GetRenderer()
-	{
-		return _renderer;
-	}
+	Rendering::Renderer* GetRenderer() { return _renderer; }
 
 	operator Rendering::Window* () const
 	{
