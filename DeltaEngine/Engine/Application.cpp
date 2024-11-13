@@ -22,11 +22,13 @@ Application::Application()
 	}
 
 	//
-	ecs::EntityId debug = _reg.CreateEntity();
-	_reg.AddComponent<A>(debug, {});
-	_reg.AddComponent<B>(debug, {});
+	GameObject* gameObject = new GameObject( _reg );
+	gameObject->AddComponent<A>();
+	gameObject->AddComponent<B>();
+	gameObject->AddComponent<TempBehaviour>();
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
+	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 }
 
 Application::~Application()
@@ -36,7 +38,7 @@ Application::~Application()
 
 void Application::Run()
 {
-	//_updateSystem->OnStart();
+	_updateSystem->OnStart();
 
 	while (!_window.ShouldWindowClose())
 	{
@@ -72,8 +74,8 @@ void Application::Run()
 		_debugSystem->Update();
 
 		// Update
-		//b2World_Step(Singleton::get_instance()._worldId, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
-		//_updateSystem->Update();
+		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
+		_updateSystem->Update();
 		//_physicsSystem->Update();
 
 		// Render
