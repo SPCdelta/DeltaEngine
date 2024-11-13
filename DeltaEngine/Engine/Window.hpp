@@ -21,7 +21,7 @@ public:
 
 	operator Rendering::Window*() const { return _window; }
 
-private:
+   private:
 	Rendering::Window* _window;
 	Rendering::Renderer* _renderer;
 
