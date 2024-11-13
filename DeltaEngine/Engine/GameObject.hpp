@@ -4,6 +4,8 @@
 #include <type_traits>
 
 #include "Transform.hpp"
+#include "BehaviourScript.hpp"
+
 #include "Ecs/Registry.hpp"
 
 class GameObject
@@ -41,7 +43,16 @@ public:
 		//	return static_cast<T*>(AddComponent<T>({}));
 		//}
 
-		return static_cast<T*>(AddComponent<T>({}));
+		if constexpr (std::is_base_of_v<BehaviourScript, T>)
+		{
+			T* t{ static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T())) };
+			static_cast<BehaviourScript*>(t)->SetGameObject(this);
+			return t;
+		}
+		else
+		{
+			return static_cast<T*>(AddComponent<T>({}));
+		}
 	}
 
 	template<typename T>
