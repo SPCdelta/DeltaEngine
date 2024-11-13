@@ -1,4 +1,3 @@
-#include "AudioSource.hpp"
 #include "AudioLoader.hpp"
 #include "SFXSource.hpp"
 
@@ -13,7 +12,7 @@ SFXSource::SFXSource(const std::string& path, bool playOnAwake,
 
 void SFXSource::Play()
 {
-	_audioFacade.PlaySFX(*this);
+	_audioFacade.PlaySFX(_source.get(), _loops);
 }
 
 void SFXSource::Pause()
@@ -33,12 +32,12 @@ void SFXSource::Stop()
 
 void SFXSource::SetVolume(int volume)
 {
-	_audioFacade.SetSFXVolume(*this, volume);
+	_audioFacade.SetSFXVolume(_source.get(), volume);
 }
 
 void SFXSource::IncreaseVolume(int volume)
 {
-	_audioFacade.IncreaseSFXVolume(*this, volume);
+	_audioFacade.IncreaseSFXVolume(_source.get(), volume);
 }
 
 Mix_Chunk* SFXSource::GetSource() const

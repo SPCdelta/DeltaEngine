@@ -13,7 +13,7 @@ MusicSource::MusicSource(const std::string& path, bool playOnAwake,
 
 void MusicSource::Play()
 {
-	_audioFacade.PlayMusic(*this);
+	_audioFacade.PlayMusic(_source.get(), _loops);
 }
 
 void MusicSource::Pause()

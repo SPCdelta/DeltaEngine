@@ -1,8 +1,6 @@
 #pragma once
 
 #include <SDL_mixer.h>
-#include "MusicSource.hpp"
-#include "SFXSource.hpp"
 
 namespace Audio
 {
@@ -15,14 +13,14 @@ namespace Audio
 	class AudioFacade
 	{
 	public:
-		AudioFacade() = default;
+		AudioFacade();
 		AudioFacade(const AudioFacade& other) = delete;
 		AudioFacade& operator=(const AudioFacade&& other) = delete;
 		AudioFacade(AudioFacade&& other) = delete;
 		AudioFacade operator=(AudioFacade&& other) = delete;
 		~AudioFacade();
-		void PlayMusic(MusicSource& music);
-		void PlaySFX(SFXSource& sfx);
+		void PlayMusic(Mix_Music* music, int loops);
+		void PlaySFX(Mix_Chunk* sfx, int loops);
 		void PauseMusic();
 		void PauseSFX();
 		void ResumeMusic();
@@ -30,10 +28,9 @@ namespace Audio
 		void StopMusic();
 		void StopSFX();
 		void SetMusicVolume(int volume);
-		void SetSFXVolume(SFXSource& sfx, int volume);
+		void SetSFXVolume(Mix_Chunk* sfx, int volume);
 		void IncreaseMusicVolume(int volume);
-		void IncreaseSFXVolume(SFXSource& sfx, int volume);
+		void IncreaseSFXVolume(Mix_Chunk* sfx, int volume);
 	private:
 	};
 }
-
