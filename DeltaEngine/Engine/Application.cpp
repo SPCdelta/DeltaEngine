@@ -51,7 +51,9 @@ void Application::Run()
 			break;
 		}
 
-		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
+		int width = _window.GetViewportData().width;
+		int height = _window.GetViewportData().height;
+		Rendering::GetWindowSize(_window, &width, &height);
 
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)
@@ -64,10 +66,14 @@ void Application::Run()
 		}
 
 		GetDeltaTime();
-
 		_window.Update();
+
 		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
 		Rendering::RenderClear(_window.GetRenderer());
+
+		_window.SetViewportSize(400, 400);
+		_window.SetViewportPos(100, 50);
+		_window.RenderViewport(255, 255, 255, 255);
 
 		// Input
 		Input(_dt);
