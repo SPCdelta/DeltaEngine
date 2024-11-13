@@ -15,10 +15,12 @@ namespace Rendering
 	// Constants for SDL flags and event types
 	constexpr auto WINDOW_FULLSCREEN = SDL_WINDOW_FULLSCREEN;
 	constexpr auto WINDOWPOS_CENTERED = SDL_WINDOWPOS_CENTERED;
+	constexpr auto WINDOWPOS_UNDEFINED = SDL_WINDOWPOS_UNDEFINED;
 	constexpr auto INIT_EVERYTHING = SDL_INIT_EVERYTHING;
 	constexpr auto KEYDOWN = SDL_KEYDOWN;
 	constexpr auto KEYUP = SDL_KEYUP;
 	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN; 
+	constexpr auto MOUSEBUTTONUP = SDL_MOUSEBUTTONUP;
 	constexpr auto BUTTON_LEFT = SDL_BUTTON_LEFT; 
 	constexpr auto QUIT = SDL_QUIT;
 	constexpr auto RENDERER_ACCELERATED = SDL_RENDERER_ACCELERATED;
@@ -34,6 +36,7 @@ namespace Rendering
 	using Event = SDL_Event;
 	using Color = SDL_Color;
 	using UnsignInt = Uint32;
+	using Surface = SDL_Surface;
 	
 	namespace Facade 
 	{
@@ -109,10 +112,28 @@ namespace Rendering
 			SDL_RenderPresent(renderer);
 		}
 
+		// Copy a portion of the texture to the current rendering
+		inline void RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* des)
+		{
+			SDL_RenderCopy(renderer, texture, src, des);
+		}
+
 		// Load a image texture from file
 		inline Texture* LoadTexture(SDL_Renderer* renderer, const std::string& filePath)
 		{
 			return IMG_LoadTexture(renderer, filePath.c_str());
+		}
+
+		// Create a texture from a surface
+		inline void CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface)
+		{
+			SDL_CreateTextureFromSurface(renderer, surface);
+		}
+
+		// Set an additional color value into render copy operations
+		inline void QueryTexture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h)
+		{
+			SDL_QueryTexture(texture, format, access, w, h);
 		}
 
 		// Destroy a texture
@@ -121,10 +142,22 @@ namespace Rendering
 			SDL_DestroyTexture(texture);
 		}
 
+		// Free a surface 
+		inline void FreeSurface(SDL_Surface* surface)
+		{
+			SDL_FreeSurface(surface);
+		}
+
 		// Poll events
 		inline bool PollEvent(Event& event)
 		{
 			return SDL_PollEvent(&event) != SUCCESS;
+		}
+
+		// Get current mouse state
+		inline void GetMouseState(int* x, int* y)
+		{
+			SDL_GetMouseState(x, y);
 		}
 
 		// Get SDL ticks 
