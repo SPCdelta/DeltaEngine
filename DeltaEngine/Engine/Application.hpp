@@ -31,9 +31,9 @@ public:
 		_window.Close();
 		_isRunning = false;
 
-		Rendering::Facade::Quit();
+		Rendering::Quit();
 		TTF_Quit();
-		Rendering::Facade::QuitImage();
+		Rendering::QuitImage();
 		Mix_Quit();
 	}
 

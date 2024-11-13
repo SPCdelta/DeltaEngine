@@ -6,13 +6,13 @@ Application::Application()
 	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2
-	if (Rendering::Facade::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
+	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
 	{
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
 	}
 
 	// Init SDL2 image 
-	if (!(Rendering::Facade::InitializeImage(Rendering::INIT_PNG) & Rendering::INIT_PNG))
+	if (!(Rendering::InitializeImage(Rendering::INIT_PNG) & Rendering::INIT_PNG))
 	{
 		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
 	}
@@ -41,7 +41,7 @@ void Application::Run()
 
 	while (!_window.ShouldWindowClose())
 	{
-		Rendering::Facade::PollEvent(_windowEvent);
+		Rendering::PollEvent(_windowEvent);
 
 		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
 		{
@@ -49,7 +49,7 @@ void Application::Run()
 			break;
 		}
 
-		Rendering::Facade::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
+		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
 
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)
@@ -64,8 +64,8 @@ void Application::Run()
 		GetDeltaTime();
 
 		_window.Update();
-		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
-		Rendering::Facade::RenderClear(_window.GetRenderer());
+		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
+		Rendering::RenderClear(_window.GetRenderer());
 
 		// Input
 		Input(_dt);
@@ -79,12 +79,12 @@ void Application::Run()
 		// Render
 		//_renderSystem->Update();
 		//_fontRenderSystem->Update();
-		Rendering::Facade::RenderPresent(_window.GetRenderer());
+		Rendering::RenderPresent(_window.GetRenderer());
 
 		ShowFpsInWindowTitleBar();
 
 		// Framerate
-		Rendering::Facade::Delay(1000 / 60);
+		Rendering::Delay(1000 / 60);
 	}
 }
 
