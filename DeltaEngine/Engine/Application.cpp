@@ -52,7 +52,8 @@ void Application::Run()
 			break;
 		}
 
-		Rendering::Facade::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
+		Rendering::Facade::GetWindowSize(_window, &_viewportData.width,
+										 &_viewportData.height);
 
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)
