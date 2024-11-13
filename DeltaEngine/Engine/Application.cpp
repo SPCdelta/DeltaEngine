@@ -51,11 +51,6 @@ void Application::Run()
 			break;
 		}
 
-		// TODO ? 
-		int width = _window.GetViewport().width;
-		int height = _window.GetViewport().height;
-		Rendering::GetWindowSize(_window, &width, &height);
-
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)
 		{

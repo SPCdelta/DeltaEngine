@@ -58,7 +58,7 @@ void Window::SetViewportSize(int width, int height)
 	int windowWidth, windowHeight;
 	Rendering::GetWindowSize(_window, &windowWidth, &windowHeight);
 
-	if (!(width > windowWidth || height > windowHeight) && width > 0 && height > 0)
+	if (width <= windowWidth && height <= windowHeight && width > 0 && height > 0)
 	{
 		_viewportData.width = width;
 		_viewportData.height = height;
