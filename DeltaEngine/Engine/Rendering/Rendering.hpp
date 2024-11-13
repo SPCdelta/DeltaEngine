@@ -16,19 +16,36 @@ namespace Rendering
 	constexpr auto WINDOW_FULLSCREEN = SDL_WINDOW_FULLSCREEN;
 	constexpr auto WINDOWPOS_CENTERED = SDL_WINDOWPOS_CENTERED;
 	constexpr auto WINDOWPOS_UNDEFINED = SDL_WINDOWPOS_UNDEFINED;
+
 	constexpr auto INIT_EVERYTHING = SDL_INIT_EVERYTHING;
+	constexpr auto INIT_VIDEO = SDL_INIT_VIDEO;
+	constexpr auto INIT_AUDIO = SDL_INIT_AUDIO;
+	constexpr auto INIT_PNG = IMG_INIT_PNG;
+	constexpr auto QUIT = SDL_QUIT;
+
+	constexpr auto RENDERER_ACCELERATED = SDL_RENDERER_ACCELERATED;
+	constexpr auto RENDERER_PRESENTVSYNC = SDL_RENDERER_PRESENTVSYNC;
+
 	constexpr auto KEYDOWN = SDL_KEYDOWN;
 	constexpr auto KEYUP = SDL_KEYUP;
 	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN; 
 	constexpr auto MOUSEBUTTONUP = SDL_MOUSEBUTTONUP;
 	constexpr auto BUTTON_LEFT = SDL_BUTTON_LEFT; 
-	constexpr auto QUIT = SDL_QUIT;
-	constexpr auto RENDERER_ACCELERATED = SDL_RENDERER_ACCELERATED;
-	constexpr auto RENDERER_PRESENTVSYNC = SDL_RENDERER_PRESENTVSYNC;
-	constexpr auto INIT_VIDEO = SDL_INIT_VIDEO;
-	constexpr auto INIT_AUDIO = SDL_INIT_AUDIO;
-	constexpr auto INIT_PNG = IMG_INIT_PNG;
+	constexpr auto BUTTON_RIGHT = SDL_BUTTON_RIGHT;
+	constexpr auto SCANCODE_W = SDL_SCANCODE_W;
+	constexpr auto SCANCODE_A = SDL_SCANCODE_A;
+	constexpr auto SCANCODE_S = SDL_SCANCODE_S;
+	constexpr auto SCANCODE_D = SDL_SCANCODE_D;
+	constexpr auto SCANCODE_LEFT = SDL_SCANCODE_LEFT;
+	constexpr auto SCANCODE_RIGHT = SDL_SCANCODE_RIGHT;
+	constexpr auto SCANCODE_UP = SDL_SCANCODE_UP;
+	constexpr auto SCANCODE_DOWN = SDL_SCANCODE_DOWN;
+	constexpr auto SCANCODE_SPACE = SDL_SCANCODE_SPACE;
 
+	constexpr auto FLIP_HORIZONTAL = SDL_FLIP_HORIZONTAL;
+	constexpr auto FLIP_VERTICAL = SDL_FLIP_VERTICAL;
+	constexpr auto FLIP_NONE = SDL_FLIP_NONE;
+	
 	using Window = SDL_Window;
 	using Renderer = SDL_Renderer;
 	using Texture = SDL_Texture;
@@ -37,7 +54,9 @@ namespace Rendering
 	using Color = SDL_Color;
 	using UnsignInt = Uint32;
 	using Surface = SDL_Surface;
-	
+	using RendererFlip = SDL_RendererFlip;
+	using Point = SDL_Point;
+
 	namespace Facade 
 	{
 		// Initialize SDL
@@ -112,10 +131,17 @@ namespace Rendering
 			SDL_RenderPresent(renderer);
 		}
 
-		// Copy a portion of the texture to the current rendering
-		inline void RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* des)
+		// Copy a portion of the current rendering
+		inline void RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest)
 		{
-			SDL_RenderCopy(renderer, texture, src, des);
+			SDL_RenderCopy(renderer, texture, src, dest);
+		}
+
+		// Copy a portion of the current rendering, with optional rotation and flipping 
+		inline void RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, const double angle, 
+			const SDL_Point* center, const SDL_RendererFlip flip)
+		{
+			SDL_RenderCopyEx(renderer, texture, src, dest, angle, center, flip);
 		}
 
 		// Load a image texture from file
@@ -130,7 +156,7 @@ namespace Rendering
 			SDL_CreateTextureFromSurface(renderer, surface);
 		}
 
-		// Set an additional color value into render copy operations
+		// Query the attributes of a texture
 		inline void QueryTexture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h)
 		{
 			SDL_QueryTexture(texture, format, access, w, h);
@@ -158,6 +184,12 @@ namespace Rendering
 		inline void GetMouseState(int* x, int* y)
 		{
 			SDL_GetMouseState(x, y);
+		}
+
+		// Get current keyboard state
+		inline void GetKeyboardState(int* numkeys)
+		{
+			SDL_GetKeyboardState(numkeys);
 		}
 
 		// Get SDL ticks 
