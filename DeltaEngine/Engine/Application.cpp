@@ -42,7 +42,7 @@ void Application::Run()
 
 	while (!_window.ShouldWindowClose())
 	{
-		Rendering::Facade::PollEvent(_windowEvent); // TODO &_windowEvent ?
+		Rendering::Facade::PollEvent(_windowEvent); 
 
 		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
 		{
