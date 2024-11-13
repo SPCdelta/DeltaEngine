@@ -51,6 +51,7 @@ void Application::Run()
 			break;
 		}
 
+		// TODO ? 
 		int width = _window.GetViewportData().width;
 		int height = _window.GetViewportData().height;
 		Rendering::GetWindowSize(_window, &width, &height);
@@ -68,9 +69,11 @@ void Application::Run()
 		GetDeltaTime();
 		_window.Update();
 
+		// Setting up window renderer
 		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
 		Rendering::RenderClear(_window.GetRenderer());
 
+		// Setting up viewport of window
 		_window.SetViewportSize(400, 400);
 		_window.SetViewportPos(100, 50);
 		_window.RenderViewport(255, 255, 255, 255);
