@@ -69,7 +69,8 @@ void Application::Run()
 
 		_window.Update();
 
-		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
+		Rendering::Facade::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10,
+											  255);
 		Rendering::Facade::RenderClear(_window.GetRenderer());
 
 		// Input
