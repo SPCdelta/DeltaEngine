@@ -12,7 +12,9 @@ Window::Window(const char* title, int width, int height)
 	}
 
 	// Create renderer
-	_renderer = Rendering::Facade::CreateRenderer(_window, -1, Rendering::RENDERER_ACCELERATED | Rendering::RENDERER_PRESENTVSYNC); 
+	_renderer = Rendering::Facade::CreateRenderer(
+		_window, -1,
+		Rendering::RENDERER_ACCELERATED | Rendering::RENDERER_PRESENTVSYNC);
 	if (!_renderer)
 	{
 		std::cerr << "Failed to create renderer: " << Rendering::Facade::GetError() << std::endl;
