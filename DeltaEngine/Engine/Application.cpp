@@ -6,7 +6,8 @@ Application::Application()
 	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2
-	if (Rendering::Facade::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
+	if (Rendering::Facade::Initialize(Rendering::INIT_VIDEO |
+									  Rendering::INIT_AUDIO) < 0)
 	{
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
 	}
