@@ -16,6 +16,8 @@ namespace Rendering
 	constexpr auto WINDOW_FULLSCREEN = SDL_WINDOW_FULLSCREEN;
 	constexpr auto WINDOWPOS_CENTERED = SDL_WINDOWPOS_CENTERED;
 	constexpr auto WINDOWPOS_UNDEFINED = SDL_WINDOWPOS_UNDEFINED;
+	constexpr auto WINDOW_RESIZABLE = SDL_WINDOW_RESIZABLE;
+	constexpr auto WINDOW_MAXIMIZED = SDL_WINDOW_MAXIMIZED;
 
 	constexpr auto INIT_EVERYTHING = SDL_INIT_EVERYTHING;
 	constexpr auto INIT_VIDEO = SDL_INIT_VIDEO;
@@ -30,12 +32,15 @@ namespace Rendering
 	constexpr auto KEYUP = SDL_KEYUP;
 	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN; 
 	constexpr auto MOUSEBUTTONUP = SDL_MOUSEBUTTONUP;
+	constexpr auto MOUSEMOTION = SDL_MOUSEMOTION;
 	constexpr auto BUTTON_LEFT = SDL_BUTTON_LEFT; 
 	constexpr auto BUTTON_RIGHT = SDL_BUTTON_RIGHT;
 	constexpr auto SCANCODE_W = SDL_SCANCODE_W;
 	constexpr auto SCANCODE_A = SDL_SCANCODE_A;
 	constexpr auto SCANCODE_S = SDL_SCANCODE_S;
 	constexpr auto SCANCODE_D = SDL_SCANCODE_D;
+	constexpr auto KEYCODE_LEFT = SDLK_LEFT;
+	constexpr auto KEYCODE_RIGHT = SDLK_RIGHT;
 	constexpr auto SCANCODE_LEFT = SDL_SCANCODE_LEFT;
 	constexpr auto SCANCODE_RIGHT = SDL_SCANCODE_RIGHT;
 	constexpr auto SCANCODE_UP = SDL_SCANCODE_UP;
@@ -117,6 +122,12 @@ namespace Rendering
 		inline void SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a = COLOR_ALPHA_VAL) 
 		{
 			SDL_SetRenderDrawColor(renderer, r, g, b, a);
+		}
+
+		// Fill rect with draw color
+		inline void RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect)
+		{
+			SDL_RenderFillRect(renderer, rect);
 		}
 
 		// Clear renderer
