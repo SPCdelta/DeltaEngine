@@ -17,7 +17,8 @@ Window::Window(const char* title, int width, int height)
 		Rendering::RENDERER_ACCELERATED | Rendering::RENDERER_PRESENTVSYNC);
 	if (!_renderer)
 	{
-		std::cerr << "Failed to create renderer: " << Rendering::Facade::GetError() << std::endl;
+		std::cerr << "Failed to create renderer: "
+				  << Rendering::Facade::GetError() << std::endl;
 	}
 }
 
