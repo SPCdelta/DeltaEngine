@@ -9,7 +9,6 @@
 
 namespace Rendering
 {
-	constexpr int SUCCESS = 0;
 	constexpr int COLOR_ALPHA_VAL = 255;
 
 	// Window constants
@@ -62,6 +61,7 @@ namespace Rendering
 	using Event = SDL_Event;
 	using Color = SDL_Color;
 	using UnsignInt32 = Uint32;
+	using UnsignInt8 = Uint8;
 	using Surface = SDL_Surface;
 	using RendererFlip = SDL_RendererFlip;
 	using Point = SDL_Point;
@@ -69,15 +69,15 @@ namespace Rendering
 	namespace Facade 
 	{
 		// Initialize SDL
-		inline bool Initialize(Uint32 flags = SDL_INIT_EVERYTHING)
+		inline int Initialize(Uint32 flags = SDL_INIT_EVERYTHING)
 		{
-			return SDL_Init(flags) == SUCCESS;
+			return SDL_Init(flags);
 		}
 
 		// Initialize SDL image
-		inline bool InitializeImage(int flags)
+		inline int InitializeImage(int flags)
 		{
-			return IMG_Init(flags) == SUCCESS; 
+			return IMG_Init(flags); 
 		}
 
 		// Create window
@@ -123,21 +123,21 @@ namespace Rendering
 		}
 
 		// Set render draw color
-		inline void SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a = COLOR_ALPHA_VAL) 
+		inline int SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a = COLOR_ALPHA_VAL) 
 		{
-			SDL_SetRenderDrawColor(renderer, r, g, b, a);
+			return SDL_SetRenderDrawColor(renderer, r, g, b, a);
 		}
 
 		// Fill rect with draw color
-		inline void RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect)
+		inline int RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect)
 		{
-			SDL_RenderFillRect(renderer, rect);
+			return SDL_RenderFillRect(renderer, rect);
 		}
 
 		// Clear renderer
-		inline void RenderClear(SDL_Renderer* renderer)
+		inline int RenderClear(SDL_Renderer* renderer)
 		{
-			SDL_RenderClear(renderer);
+			return SDL_RenderClear(renderer);
 		}
 
 		// Present the renderer
@@ -147,16 +147,16 @@ namespace Rendering
 		}
 
 		// Copy a portion of the current rendering
-		inline void RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest)
+		inline int RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest)
 		{
-			SDL_RenderCopy(renderer, texture, src, dest);
+			return SDL_RenderCopy(renderer, texture, src, dest);
 		}
 
 		// Copy a portion of the current rendering, with optional rotation and flipping 
-		inline void RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, const double angle, 
+		inline int RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, const double angle, 
 			const SDL_Point* center, const SDL_RendererFlip flip)
 		{
-			SDL_RenderCopyEx(renderer, texture, src, dest, angle, center, flip);
+			return SDL_RenderCopyEx(renderer, texture, src, dest, angle, center, flip);
 		}
 
 		// Load a image texture from file
@@ -166,15 +166,15 @@ namespace Rendering
 		}
 
 		// Create a texture from a surface
-		inline void CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface)
+		inline Texture* CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface)
 		{
-			SDL_CreateTextureFromSurface(renderer, surface);
+			return SDL_CreateTextureFromSurface(renderer, surface);
 		}
 
 		// Query the attributes of a texture
-		inline void QueryTexture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h)
+		inline int QueryTexture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h)
 		{
-			SDL_QueryTexture(texture, format, access, w, h);
+			return SDL_QueryTexture(texture, format, access, w, h);
 		}
 
 		// Destroy a texture
@@ -190,21 +190,21 @@ namespace Rendering
 		}
 
 		// Poll events
-		inline bool PollEvent(Event& event)
+		inline int PollEvent(Event& event)
 		{
-			return SDL_PollEvent(&event) != SUCCESS;
+			return SDL_PollEvent(&event);
 		}
 
 		// Get current mouse state
-		inline void GetMouseState(int* x, int* y)
+		inline UnsignInt32 GetMouseState(int* x, int* y)
 		{
-			SDL_GetMouseState(x, y);
+			return SDL_GetMouseState(x, y);
 		}
 
 		// Get current keyboard state
-		inline void GetKeyboardState(int* numkeys)
+		inline const UnsignInt8* GetKeyboardState(int* numkeys)
 		{
-			SDL_GetKeyboardState(numkeys);
+			return SDL_GetKeyboardState(numkeys);
 		}
 
 		// Get SDL ticks 
@@ -214,7 +214,7 @@ namespace Rendering
 		}
 
 		// Get the last SDL error message
-		inline std::string GetError()
+		inline const char* GetError()
 		{
 			return SDL_GetError();
 		}
