@@ -72,7 +72,7 @@ void Application::Run()
 		_debugSystem->Update();
 
 		// Update
-		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
+		//b2World_Step(Singleton::get_instance()._worldId, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
 		//_updateSystem->Update();
 		//_physicsSystem->Update();
 
