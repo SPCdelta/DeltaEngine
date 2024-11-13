@@ -25,5 +25,5 @@ public:
 	Rendering::Window* _window;
 	Rendering::Renderer* _renderer;
 
-	bool _shouldWindowClose{ false };
+	bool _shouldWindowClose{false};
 };
