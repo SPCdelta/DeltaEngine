@@ -12,22 +12,25 @@ namespace Rendering
 	constexpr int SUCCESS = 0;
 	constexpr int COLOR_ALPHA_VAL = 255;
 
-	// Constants for SDL flags and event types
+	// Window constants
 	constexpr auto WINDOW_FULLSCREEN = SDL_WINDOW_FULLSCREEN;
 	constexpr auto WINDOWPOS_CENTERED = SDL_WINDOWPOS_CENTERED;
 	constexpr auto WINDOWPOS_UNDEFINED = SDL_WINDOWPOS_UNDEFINED;
 	constexpr auto WINDOW_RESIZABLE = SDL_WINDOW_RESIZABLE;
 	constexpr auto WINDOW_MAXIMIZED = SDL_WINDOW_MAXIMIZED;
 
+	// Init/Quit constants
 	constexpr auto INIT_EVERYTHING = SDL_INIT_EVERYTHING;
 	constexpr auto INIT_VIDEO = SDL_INIT_VIDEO;
 	constexpr auto INIT_AUDIO = SDL_INIT_AUDIO;
 	constexpr auto INIT_PNG = IMG_INIT_PNG;
 	constexpr auto QUIT = SDL_QUIT;
 
+	// Render constants
 	constexpr auto RENDERER_ACCELERATED = SDL_RENDERER_ACCELERATED;
 	constexpr auto RENDERER_PRESENTVSYNC = SDL_RENDERER_PRESENTVSYNC;
 
+	// Mouse/Key event constants
 	constexpr auto KEYDOWN = SDL_KEYDOWN;
 	constexpr auto KEYUP = SDL_KEYUP;
 	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN; 
@@ -47,6 +50,7 @@ namespace Rendering
 	constexpr auto SCANCODE_DOWN = SDL_SCANCODE_DOWN;
 	constexpr auto SCANCODE_SPACE = SDL_SCANCODE_SPACE;
 
+	// Flip/Rotation constants
 	constexpr auto FLIP_HORIZONTAL = SDL_FLIP_HORIZONTAL;
 	constexpr auto FLIP_VERTICAL = SDL_FLIP_VERTICAL;
 	constexpr auto FLIP_NONE = SDL_FLIP_NONE;
@@ -57,7 +61,7 @@ namespace Rendering
 	using Rect = SDL_Rect;
 	using Event = SDL_Event;
 	using Color = SDL_Color;
-	using UnsignInt = Uint32;
+	using UnsignInt32 = Uint32;
 	using Surface = SDL_Surface;
 	using RendererFlip = SDL_RendererFlip;
 	using Point = SDL_Point;
@@ -71,7 +75,7 @@ namespace Rendering
 		}
 
 		// Initialize SDL image
-		inline bool Initialize_image(int flags)
+		inline bool InitializeImage(int flags)
 		{
 			return IMG_Init(flags) == SUCCESS; 
 		}
@@ -204,7 +208,7 @@ namespace Rendering
 		}
 
 		// Get SDL ticks 
-		inline UnsignInt GetTicks()
+		inline UnsignInt32 GetTicks()
 		{
 			return SDL_GetTicks();
 		}
@@ -228,7 +232,7 @@ namespace Rendering
 		}
 
 		// Quit SDL image 
-		inline void Quit_Image()
+		inline void QuitImage()
 		{
 			IMG_Quit();
 		}

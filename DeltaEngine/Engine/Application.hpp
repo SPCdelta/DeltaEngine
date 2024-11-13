@@ -33,7 +33,7 @@ public:
 
 		Rendering::Facade::Quit();
 		TTF_Quit();
-		Rendering::Facade::Quit_Image();
+		Rendering::Facade::QuitImage();
 		Mix_Quit();
 	}
 
