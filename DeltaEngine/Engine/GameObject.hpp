@@ -4,6 +4,8 @@
 #include <type_traits>
 
 #include "Transform.hpp"
+#include "BehaviourScript.hpp"
+
 #include "Ecs/Registry.hpp"
 
 class GameObject
@@ -41,7 +43,16 @@ public:
 		//	return static_cast<T*>(AddComponent<T>({}));
 		//}
 
-		return static_cast<T*>(AddComponent<T>({}));
+		if constexpr (std::is_base_of_v<BehaviourScript, T>)
+		{
+			T* t{ static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T())) };
+			static_cast<BehaviourScript*>(t)->SetGameObject(this);
+			return t;
+		}
+		else
+		{
+			return static_cast<T*>(AddComponent<T>({}));
+		}
 	}
 
 	template<typename T>
@@ -63,14 +74,8 @@ public:
 		transform = &_reg.AddComponent<Transform>(_id, Transform({ 0.0f, 0.0f }, 0.0f, { 1.0f, 1.0f }));
 	}
 
-	bool IsActive() const
-	{
-		return _active;
-	}
-	bool SetActive(bool active)
-	{
-		_active = active;
-	}
+	bool IsActive() const { return _active; }
+	bool SetActive(bool active) { _active = active; }
 
 	// Due to how EnTT works, this cannot be a smart pointer
 	// if this objects Transform is accessed without it existing,
