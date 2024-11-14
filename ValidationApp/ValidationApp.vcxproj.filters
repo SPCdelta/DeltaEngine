@@ -28,9 +28,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DLLs\SDL2.dll" />
-    <None Include="DLLs\SDL2_image.dll" />
-    <None Include="DLLs\SDL2_mixer.dll" />
-    <None Include="DLLs\SDL2_ttf.dll" />
+    <CopyFileToFolders Include="DLLs\SDL2.dll" />
+    <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
+    <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
+    <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
   </ItemGroup>
 </Project>
