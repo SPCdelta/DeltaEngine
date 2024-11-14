@@ -1,8 +1,7 @@
 #include "Scene.hpp"
 
-Scene::Scene(std::string name)
-{
-}
+Scene::Scene(std::string name) : name{name} 
+{}
 
 void Scene::Instantiate()
 {
