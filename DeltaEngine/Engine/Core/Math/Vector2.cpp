@@ -3,18 +3,16 @@
 
 using namespace Math;
 
-Vector2::Vector2() : _x{0.0f}, _y{0.0f} {}
-
 Vector2::Vector2(float x, float y) : _x{x}, _y{y} {}
 
 float Vector2::GetX() const
 {
-	return 0.0f;
+	return _x;
 }
 
 float Vector2::GetY() const
 {
-	return 0.0f;
+	return _y;
 }
 
 void Vector2::SetX(float x)

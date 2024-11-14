@@ -3,8 +3,6 @@
 
 using namespace Math;
 
-Point::Point() : _x{0}, _y{0} {}
-
 Point::Point(int x, int y) : _x{x}, _y{y} {}
 
 int Point::GetX() const
