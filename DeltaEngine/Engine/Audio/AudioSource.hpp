@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AudioFacade.hpp"
+#include "../MemLeakDetection/MemLeakDetection.hpp"
 
 namespace Audio
 {

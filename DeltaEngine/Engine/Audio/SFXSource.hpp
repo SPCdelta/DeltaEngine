@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL_mixer.h>
 #include "AudioFacade.hpp"
+#include "../MemLeakDetection/MemLeakDetection.hpp"
 
 namespace Audio
 {

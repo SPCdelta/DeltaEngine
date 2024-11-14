@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../MemLeakDetection/MemLeakDetection.hpp"
 #include <SDL_mixer.h>
 
 namespace Audio

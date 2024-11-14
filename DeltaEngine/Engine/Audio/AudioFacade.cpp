@@ -1,11 +1,15 @@
 #include "AudioFacade.hpp"
 #include <iostream>
+#include "../MemLeakDetection/MemLeakDetection.hpp"
 
 using namespace Audio;
 
 AudioFacade::AudioFacade()
 {
-	Mix_OpenAudio(AUDIO_FREQ, AUDIO_S16SYS, CHANNEL_COUNT, CHUNK_SIZE);
+	if (Mix_OpenAudio(AUDIO_FREQ, AUDIO_S16SYS, CHANNEL_COUNT, CHUNK_SIZE) == AUDIO_ERROR)
+	{
+		std::cerr << "An error has occured: Audio device could not be opened.\n";
+	}
 }
 
 AudioFacade::~AudioFacade()
@@ -70,7 +74,7 @@ void AudioFacade::SetMusicVolume(int volume)
 
 void AudioFacade::SetSFXVolume(Mix_Chunk* sfx, int volume)
 {
-	if (Mix_VolumeChunk(sfx, volume))
+	if (Mix_VolumeChunk(sfx, volume) == AUDIO_ERROR)
 	{
 		std::cerr << "Volume could not be set: Chunk was NULL.\n";
 	}

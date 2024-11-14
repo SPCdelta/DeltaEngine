@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include "Temp/TempAudio.hpp"
 
 bool Application::_isRunning = true;
 
@@ -39,6 +40,7 @@ Application::~Application()
 
 void Application::Run()
 {
+	TempAudio temp{};
 	_updateSystem->OnStart();
 
 	while (!_window.ShouldWindowClose())

@@ -5,6 +5,7 @@
 #include <string>
 #include "AudioFacade.hpp"
 #include "AudioSource.hpp"
+#include "../MemLeakDetection/MemLeakDetection.hpp"
 
 namespace Audio
 {

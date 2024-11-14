@@ -206,8 +206,8 @@
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
-    <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
@@ -231,10 +231,12 @@
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />
-    <ClInclude Include="Engine\Window.hpp" />
+    <ClInclude Include="Engine\Temp\Window.hpp" />
     <ClInclude Include="Engine\Ecs\Registry.hpp" />
     <ClInclude Include="Engine\GameObject.hpp" />
     <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp" />
+    <ClInclude Include="Engine\Temp\TempAudio.hpp" />
+    <ClInclude Include="Engine\Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
