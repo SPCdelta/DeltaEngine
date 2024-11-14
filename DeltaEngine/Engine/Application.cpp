@@ -28,7 +28,7 @@ Application::Application()
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
 
-	/*gameObject->sprite->Render(_window.GetRenderer(), gameObject->transform->position, gameObject->transform->scale);*/
+	/*gameObject->sprite->Render(_window.GetRenderer(), gameObject->transform->position, gameObject->transform->scale);*/ // TODO 
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();

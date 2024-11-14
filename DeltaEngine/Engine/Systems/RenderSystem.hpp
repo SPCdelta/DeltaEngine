@@ -25,10 +25,6 @@ class RenderSystem : public ecs::System<Transform, Sprite*>
 
 	void Update()
 	{
-		// TODO render each active sprite
-		/*for (ecs::EntityId entityId : _view)
-		{
-			_view.get<BehaviourScript*>(entityId)->Update();
-		}*/
+		// TODO render each active sprite ?
 	}
 };
