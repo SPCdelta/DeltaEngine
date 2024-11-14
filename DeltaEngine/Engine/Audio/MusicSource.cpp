@@ -8,7 +8,10 @@ MusicSource::MusicSource(const std::string& path, bool playOnAwake,
 						 AudioFacade& audioFacade)
 	: AudioSource(playOnAwake, audioFacade), _source(std::move(AudioLoader::LoadMusic(path)))
 {
-
+	if (playOnAwake)
+	{
+		Play();
+	}
 }
 
 void MusicSource::Play()

@@ -6,7 +6,7 @@ using namespace Audio;
 AudioSource::AudioSource(bool playOnAwake, AudioFacade& audioFacade)
 	: _loops(0), _volume(MIX_MAX_VOLUME), _audioFacade(audioFacade)
 {
-	Play();
+
 }
 
 int AudioSource::GetVolume() const

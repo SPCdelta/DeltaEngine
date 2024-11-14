@@ -7,7 +7,10 @@ SFXSource::SFXSource(const std::string& path, bool playOnAwake,
 					 AudioFacade& audioFacade)
 	: AudioSource(playOnAwake, audioFacade), _source(std::move(AudioLoader::LoadChunk(path)))
 {
-
+	if (playOnAwake)
+	{
+		Play();
+	}
 }
 
 void SFXSource::Play()
