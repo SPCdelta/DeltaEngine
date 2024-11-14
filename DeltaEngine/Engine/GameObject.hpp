@@ -8,6 +8,8 @@
 
 #include "Ecs/Registry.hpp"
 
+#include "Rendering/Sprite.hpp"
+
 class GameObject
 {
 public:
@@ -82,6 +84,8 @@ private:
 
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
+
+	Sprite sprite; // TODO, its a composition/has-a relationship right? also, (unique) ptr?
 
 	template<typename T>
 	T* AddComponent(T component)

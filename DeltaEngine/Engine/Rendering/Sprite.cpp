@@ -24,6 +24,7 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2 position)
 
 	_texture = texture;
 
+
 	Rendering::Rect* srcRect = {position._x, position._y, frameW, frameH};
 	Rendering::Rect* destRect = {x, y, frameW, frameH};
 
