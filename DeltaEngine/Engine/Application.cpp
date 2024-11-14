@@ -23,10 +23,12 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject( _reg );
+	GameObject* gameObject = new GameObject(_reg, "C:\\Users\\charl\\Documents\\GitHub\\DeltaEngine\\ValidationApp\\Assets\\Textures\\spritesheet.png"); // TODO path
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
+
+	gameObject->sprite->Render(_window.GetRenderer(), gameObject->transform->position, gameObject->transform->scale); // TODO need to move this
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
@@ -67,7 +69,7 @@ void Application::Run()
 
 		_window.Update();
 		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
-		Rendering::RenderClear(_window.GetRenderer());
+		/*Rendering::RenderClear(_window.GetRenderer());*/ // TODO temp commented, else sprite immediately disappears
 
 		// Input
 		Input(_dt);

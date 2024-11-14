@@ -10,18 +10,19 @@
 class Sprite
 {
 public:
-	Sprite(std::string spritePath);
+	Sprite(const char* spritePath);
 	~Sprite();
 
 	// TODO rule of 5
 
-	void Render(Rendering::Renderer* renderer, Math::Vector2 position);
+	void Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale);
+	void StopRendering();
 
 	void FlipHorizontally();
 	void FlipVertically();
 
 private:
-	std::string sprite;
+	const char* sprite;
 
 	Rendering::Texture* _texture;
 
@@ -31,5 +32,5 @@ private:
 	bool flipY{false};
 
 	/*sortingLayer;
-	orderInLayer;*/
+	orderInLayer;*/ // TODO 
 };

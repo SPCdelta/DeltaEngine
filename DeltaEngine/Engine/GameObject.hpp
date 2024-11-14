@@ -69,7 +69,7 @@ public:
 		return _reg.GetComponent<T>(_id);
 	}
 
-	GameObject(ecs::Registry& reg);
+	GameObject(ecs::Registry& reg, const char* spritePath);
 
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
@@ -79,13 +79,13 @@ public:
 	// it will would give the same error as it being a smart pointer
 	Transform* transform = nullptr;
 
+	Sprite* sprite;	 // TODO, its a composition/has-a relationship right? also, (unique) ptr?
+
 private:
 	bool _active{ true };
 
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
-
-	Sprite sprite; // TODO, its a composition/has-a relationship right? also, (unique) ptr?
 
 	template<typename T>
 	T* AddComponent(T component)
