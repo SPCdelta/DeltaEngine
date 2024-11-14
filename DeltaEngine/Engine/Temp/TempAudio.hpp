@@ -17,8 +17,8 @@ class TempAudio
 		void StartAudio()
 		{ 
 			AudioFacade audioFacade{};
-			std::string musicPath = "../../../../ValidationApp/assets/audio/music/minecraft_theme1.mp3";
-			std::string sfxPath = "creeper_explosion.mp3";
-			SFXSource music{"E:/Jaar 4/Minor/SPCPRJ13/DeltaEngine/ValidationApp/assets/audio/sfx/creeper_explosion.mp3",true, audioFacade};
+			std::string musicPath = "assets/audio/music/minecraft_theme1.mp3";
+			SFXSource music{musicPath,true, audioFacade};
+			auto o = music.GetSource();
 		}
 };

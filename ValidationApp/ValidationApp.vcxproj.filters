@@ -32,10 +32,12 @@
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
-    <CopyFileToFolders Include="assets\audio\music\minecraft_theme1.mp3" />
-    <CopyFileToFolders Include="assets\audio\sfx\creeper_explosion.mp3" />
-    <CopyFileToFolders Include="assets\audio\sfx\minecraft_eating.mp3" />
-    <CopyFileToFolders Include="assets\audio\sfx\minecarft_villager1.mp3" />
-    <CopyFileToFolders Include="assets\audio\sfx\minecraft_oof.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\audio\sfx\creeper_explosion.mp3" />
+    <Media Include="assets\audio\sfx\minecarft_villager1.mp3" />
+    <Media Include="assets\audio\sfx\minecraft_eating.mp3" />
+    <Media Include="assets\audio\sfx\minecraft_oof.mp3" />
+    <Media Include="assets\audio\music\minecraft_theme1.mp3" />
   </ItemGroup>
 </Project>
