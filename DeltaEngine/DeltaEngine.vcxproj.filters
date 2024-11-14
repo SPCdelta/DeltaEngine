@@ -119,5 +119,8 @@
     <ClInclude Include="Engine\Audio\SFXSource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -233,6 +233,7 @@
     <ClInclude Include="Engine\Window.hpp" />
     <ClInclude Include="Engine\Ecs\Registry.hpp" />
     <ClInclude Include="Engine\GameObject.hpp" />
+    <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
