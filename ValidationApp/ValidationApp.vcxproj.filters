@@ -27,4 +27,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="DLLs\SDL2.dll" />
+    <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
+    <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
+    <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
+  </ItemGroup>
 </Project>
