@@ -79,7 +79,7 @@ public:
 	// it will would give the same error as it being a smart pointer
 	Transform* transform = nullptr;
 
-	Sprite* sprite;	 // TODO, its a composition/has-a relationship right? also, (unique) ptr?
+	std::shared_ptr<Sprite> sprite;	
 
 private:
 	bool _active{ true };
