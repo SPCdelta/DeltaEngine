@@ -79,7 +79,8 @@ public:
 	// it will would give the same error as it being a smart pointer
 	Transform* transform = nullptr;
 
-	std::shared_ptr<Sprite> sprite;	
+	// Due to how EnTT works, this cannot be a smart pointer
+	Sprite* sprite;	
 
 private:
 	bool _active{ true };

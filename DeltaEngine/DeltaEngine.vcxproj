@@ -221,6 +221,7 @@
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
+    <ClInclude Include="Engine\Systems\RenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />

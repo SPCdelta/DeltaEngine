@@ -28,10 +28,11 @@ Application::Application()
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
 
-	gameObject->sprite->Render(_window.GetRenderer(), gameObject->transform->position, gameObject->transform->scale);
+	/*gameObject->sprite->Render(_window.GetRenderer(), gameObject->transform->position, gameObject->transform->scale);*/
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite*>();
 }
 
 Application::~Application()
@@ -42,6 +43,7 @@ Application::~Application()
 void Application::Run()
 {
 	_updateSystem->OnStart();
+	_renderSystem->OnStart(_window, _viewportData);
 
 	while (!_window.ShouldWindowClose())
 	{
@@ -52,8 +54,6 @@ void Application::Run()
 			Stop();
 			break;
 		}
-
-		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
 
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)
@@ -67,8 +67,7 @@ void Application::Run()
 
 		GetDeltaTime();
 
-		_window.Update();
-		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
+		_window.Update();		
 
 		// Input
 		Input(_dt);
@@ -80,9 +79,8 @@ void Application::Run()
 		//_physicsSystem->Update();
 
 		// Render
-		//_renderSystem->Update();
+		_renderSystem->Update();
 		//_fontRenderSystem->Update();
-		Rendering::RenderPresent(_window.GetRenderer());
 
 		ShowFpsInWindowTitleBar();
 

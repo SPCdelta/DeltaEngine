@@ -101,6 +101,9 @@
     <ClInclude Include="Engine\Core\Math\Random.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Systems\RenderSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png">
