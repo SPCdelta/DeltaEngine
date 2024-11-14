@@ -83,6 +83,5 @@ void AudioFacade::IncreaseMusicVolume(int volume)
 
 void AudioFacade::IncreaseSFXVolume(Mix_Chunk* sfx, int volume)
 {
-	SetSFXVolume(sfx,
-				 Mix_VolumeChunk(sfx, CURRENT_VOLUME) + volume);
+	SetSFXVolume(sfx, Mix_VolumeChunk(sfx, CURRENT_VOLUME) + volume);
 }

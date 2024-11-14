@@ -1,5 +1,7 @@
 #include "AudioLoader.hpp"
 
+using namespace Audio;
+
 std::unique_ptr<Mix_Music, void (*)(Mix_Music*)> AudioLoader::LoadMusic(std::string path)
 {
 	return std::unique_ptr<Mix_Music, void (*)(Mix_Music*)>{Mix_LoadMUS(path.c_str()), Mix_FreeMusic};

@@ -4,10 +4,14 @@
 #include <string>
 #include <memory>
 
-// Supported formats: FLAC, MP3, Ogg, VOC and WAV.
-class AudioLoader
+namespace Audio
 {
-public:
-	static std::unique_ptr<Mix_Music, void (*)(Mix_Music*)> LoadMusic(std::string path);
-	static std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)> LoadChunk(std::string path);
-};
+	// Supported formats: FLAC, MP3, Ogg, VOC and WAV.
+	class AudioLoader
+	{
+	public:
+		static std::unique_ptr<Mix_Music, void (*)(Mix_Music*)> LoadMusic(std::string path);
+		static std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)> LoadChunk(std::string path);
+	};
+}
+

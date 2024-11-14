@@ -11,8 +11,7 @@ namespace Audio
 	class MusicSource : public AudioSource
 	{
 		public:
-			MusicSource(const std::string& path, bool playOnAwake,
-						AudioFacade& audioFacade);
+			MusicSource(const std::string& path, bool playOnAwake, AudioFacade& audioFacade);
 			void Play() override;
 			void Pause() override;
 			void Resume() override;
