@@ -3,6 +3,7 @@
 #include "../Audio/MusicSource.hpp"
 #include "../Audio/SFXSource.hpp"
 #include <filesystem>
+#include "../Audio/AudioSystem.hpp"
 
 using namespace Audio;
 
@@ -17,8 +18,10 @@ class TempAudio
 		void StartAudio()
 		{ 
 			AudioFacade audioFacade{};
+			AudioSystem audioSystem{};
 			std::string musicPath = "assets/audio/music/minecraft_theme1.mp3";
-			SFXSource music{musicPath,true, audioFacade};
+			MusicSource music{musicPath, false, audioFacade};
 			auto o = music.GetSource();
+			audioSystem.Play(music);
 		}
 };
