@@ -13,10 +13,11 @@
 
 #include "Scene/SceneManager.hpp"
 #include "Core/Events/EventDispatcher.hpp"
+#include "Input/InputManager.hpp"
 
-//Temp
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
+
 
 
 class Application
@@ -60,7 +61,8 @@ protected:
 	//ecs::EntityId camera;
 	//Camera* _cameraComponent = nullptr;
 
-private:
+
+   private:
 	static bool _isRunning;
 
 	float _dt{ 0.0f };
@@ -77,5 +79,7 @@ private:
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();
+
+
 };
 

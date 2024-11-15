@@ -48,16 +48,17 @@ void Application::Run()
 			break;
 		}
 
-		// Internal Input
-		if (_windowEvent.type == Rendering::KEYDOWN)
-		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 1.0f);
+		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
 
-		}
-		else if (_windowEvent.type == Rendering::KEYUP)
-		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 0.0f);
-		}
+		//TODO waar is de inputmanager update ???
+		
+		// if (_windowEvent.type == SDL_KEYDOWN)
+		// {
+		// 	auto keyPresSim =
+		// 		new IKeyListener(SDL_GetKeyName(_windowEvent.key.keysym.sym));
+		// 	InputManager::GetInstance().setKeyDown(*keyPresSim);
+		// }
+
 
 		GetDeltaTime();
 
@@ -65,13 +66,26 @@ void Application::Run()
 		_window.Update();		
 
 		// Input
-		Input(_dt);
+		Input(_dt); //TODO wat is dit?
 
 		// Scene UpdateLoop
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->Update();
 
-		ShowFpsInWindowTitleBar();
+		//Input(_dt);
+		//_debugSystem->Update();
+
+		//// Update
+		////b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
+		//_updateSystem->Update();
+		////_physicsSystem->Update();
+
+		//// Render
+		////_renderSystem->Update();
+		////_fontRenderSystem->Update();
+		//Rendering::RenderPresent(_window.GetRenderer());
+
+		////ShowFpsInWindowTitleBar();
 
 		// Framerate
 		Rendering::Delay(1000 / 60);

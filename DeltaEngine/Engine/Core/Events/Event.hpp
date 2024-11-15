@@ -5,7 +5,7 @@
 namespace Events
 {
 	template<typename T>
-	using EventCallback = std::function<void(T&)>;
+	using EventCallback = std::function<void(T&)>; //Only Lambda
 
 	class Event
 	{

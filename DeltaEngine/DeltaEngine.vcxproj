@@ -197,6 +197,8 @@
     <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\SpriteSheet.cpp" />
+    <ClCompile Include="Engine\Input\InputFacade.cpp" />
+    <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
@@ -214,8 +216,11 @@
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
+
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
+    <ClInclude Include="Engine\Input\InputFacade.hpp" />
+    <ClInclude Include="Engine\Input\InputManager.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />
