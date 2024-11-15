@@ -13,12 +13,12 @@
 class GameObject
 {
 public:
-	template<typename T>
-	T* AddComponent()
+	template <typename T, typename... Args>
+	T* AddComponent(Args&&... args)
 	{
 		// Useful code but not yet fully able to be used
 		// https://github.com/SPCdelta/POC-Physics/blob/main/SDL2Box2DTest/src/Engine/GameObject.hpp
-		
+		//
 		//if constexpr (std::is_same_v<T, BoxCollider2D>)
 		//{
 		//	return static_cast<T*>(AddComponent<BoxCollider2D>(BoxCollider2D(*transform)));
@@ -30,7 +30,7 @@ public:
 		//	{
 		//		return nullptr;
 		//	}
-
+		//
 		//	return static_cast<T*>(AddComponent<Rigidbody>(Rigidbody(RigidbodyType::DYNAMIC_BODY, GetComponent<BoxCollider2D>())));
 		//}
 		//else if constexpr (std::is_base_of_v<BehaviourScript, T>)
@@ -47,9 +47,19 @@ public:
 
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* t{ static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T())) };
-			static_cast<BehaviourScript*>(t)->SetGameObject(this);
-			return t;
+			T* component = static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T()));
+			component->SetGameObject(this);
+			return component;
+		}
+		else if constexpr (std::is_base_of_v<Sprite, T>)
+		{
+			T* component = static_cast<T*>(_reg.AddComponent<Sprite*>(_id, new T(std::forward<Args>(args)...)));	
+			return component;
+		}
+		else if constexpr (std::is_base_of_v<Transform, T>)
+		{
+			T* component = static_cast<T*>(_reg.AddComponent<Transform*>(_id, new T(std::forward<Args>(args)...)));	
+			return component;
 		}
 		else
 		{
@@ -79,14 +89,6 @@ public:
 
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
-
-	// Due to how EnTT works, this cannot be a smart pointer
-	// if this objects Transform is accessed without it existing,
-	// it will would give the same error as it being a smart pointer
-	Transform* transform = nullptr;
-
-	// Due to how EnTT works, this cannot be a smart pointer
-	Sprite* sprite;	
 
 private:
 	bool _active{ true };

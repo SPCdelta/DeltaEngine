@@ -27,16 +27,13 @@ Application::Application()
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
-	gameObject->sprite = &_reg.AddComponent<Sprite>(gameObject->GetId(), Sprite("Assets\\Textures\\spritesheet.png"));
+	gameObject->AddComponent<Transform>(Math::Vector2{10.0f, 10.0f}, 0.0f, Math::Vector2{64.0f, 64.0f});
+	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
-	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite*>();
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform*, Sprite*>();
 
-	// _reg.RemoveComponent<Sprite>(gameObject->GetId());
-	/*delete gameObject;*/
-
-	// TODO ?
 	_renderSystem->SetWindow(& _window);
 	_renderSystem->SetViewportData(&_viewportData);
 }
