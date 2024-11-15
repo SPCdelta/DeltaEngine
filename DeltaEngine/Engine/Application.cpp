@@ -34,8 +34,12 @@ Application::Application()
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform*, Sprite*>();
 
-	_renderSystem->SetWindow(& _window);
-	_renderSystem->SetViewportData(&_viewportData);
+	_window.SetViewportSize(400, 400);
+	_window.SetViewportPos(100, 50);
+	_window.RenderViewport(255, 255, 255, 255);
+
+	_renderSystem->SetWindow(&_window);
+	_renderSystem->SetViewportData(_window.GetViewport());
 }
 
 Application::~Application()
@@ -71,6 +75,9 @@ void Application::Run()
 		GetDeltaTime();
 
 		_window.Update();		
+
+		// Setting up viewport of window
+		
 
 		// Input
 		Input(_dt);
