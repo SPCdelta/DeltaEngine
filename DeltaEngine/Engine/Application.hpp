@@ -13,7 +13,7 @@
 
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
-#include "Input/InputManager.hpp"
+#include "Input/InputFacade.hpp"
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
@@ -72,6 +72,8 @@ public:
 	Window _window;
 	Rendering::Event _windowEvent{};
 	ViewportData _viewportData{50.0f, 1280, 720};
+
+	InputFacade _inputFacade{};
 
 	// Engine?
 	std::shared_ptr<DebugSystem> _debugSystem;

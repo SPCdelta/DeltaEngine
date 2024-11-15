@@ -12,19 +12,17 @@ class TempInput : public BehaviourScript
 	void OnStart() override { 
 		std::cout << "OnStart" << std::endl; 
 
-		const std::string downKey = "K";
-		auto keyPresSim = new IKeyListener("M");
 		InputManager::GetInstance().onKeyDown(
-			downKey,
-			[](IKeyListener& key)
+			"K",
+			[](KeyListener& key)
 			{
 				std::cout << "Key event: " << key.key
 						  << std::endl;
 			} );  //Simularen dat er een sdl event komt
 
-		InputManager::GetInstance().onKeyDown(
+		InputManager::GetInstance().onKeyUp(
 			"M",
-			[](IKeyListener& key)
+			[](KeyListener& key)
 			{
 				std::cout << "key event: " << key.key
 						  << std::endl;

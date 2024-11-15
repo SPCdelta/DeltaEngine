@@ -214,7 +214,7 @@
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
-    <ClInclude Include="Engine\Input\IKeyListener.hpp" />
+    <ClInclude Include="Engine\Input\KeyListener.hpp" />
     <ClInclude Include="Engine\Input\IMouseListener.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />

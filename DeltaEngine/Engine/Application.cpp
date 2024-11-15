@@ -72,12 +72,14 @@ void Application::Run()
 			std::cout << "Key pressed: " << SDL_GetKeyName(key) << std::endl;
 		}*/
 		
-		if (_windowEvent.type == SDL_KEYDOWN)
+		_inputFacade.onInputEvent(_windowEvent);
+
+		/*if (_windowEvent.type == SDL_KEYDOWN)
 		{
 			auto keyPresSim =
 				new IKeyListener(SDL_GetKeyName(_windowEvent.key.keysym.sym));
 			InputManager::GetInstance().setKeyDown(*keyPresSim);
-		}
+		}*/
 
 
 		GetDeltaTime();
