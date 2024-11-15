@@ -52,12 +52,8 @@ void Application::Run()
 
 		//TODO waar is de inputmanager update ???
 		
-		// if (_windowEvent.type == SDL_KEYDOWN)
-		// {
-		// 	auto keyPresSim =
-		// 		new IKeyListener(SDL_GetKeyName(_windowEvent.key.keysym.sym));
-		// 	InputManager::GetInstance().setKeyDown(*keyPresSim);
-		// }
+		
+		_inputFacade.onInputEvent(_windowEvent);
 
 
 		GetDeltaTime();

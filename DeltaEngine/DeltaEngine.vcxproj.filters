@@ -127,7 +127,7 @@
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Input\IKeyListener.hpp">
+    <ClInclude Include="Engine\Input\KeyListener.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Input\IMouseListener.hpp">

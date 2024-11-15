@@ -216,7 +216,6 @@
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
-
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />

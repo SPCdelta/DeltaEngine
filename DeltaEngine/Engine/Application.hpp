@@ -14,6 +14,7 @@
 #include "Scene/SceneManager.hpp"
 #include "Core/Events/EventDispatcher.hpp"
 #include "Input/InputManager.hpp"
+#include "Input/InputFacade.hpp"
 
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
