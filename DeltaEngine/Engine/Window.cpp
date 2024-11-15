@@ -1,6 +1,6 @@
 #include "Window.hpp"
 
-Window::Window(const char* title, int width, int height) : _viewportData(nullptr)
+Window::Window(const char* title, int width, int height) : _viewportData(new ViewportData())
 {
 	// Create Window
 	_window = Rendering::CreateWindow(title, Rendering::WINDOWPOS_CENTERED, Rendering::WINDOWPOS_CENTERED, width, height, 0);
@@ -17,11 +17,6 @@ Window::Window(const char* title, int width, int height) : _viewportData(nullptr
 	}
 
 	// Set the initial viewport to match the window size
-	if (!_viewportData)
-	{
-		_viewportData = new ViewportData();
-	}
-
 	_viewportData->width = width;
 	_viewportData->height = height;
 }
