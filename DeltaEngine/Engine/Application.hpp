@@ -9,8 +9,6 @@
 
 #include "Window.hpp"
 
-#include "Rendering/Viewport.hpp"
-
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
 
@@ -67,7 +65,6 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-	ViewportData _viewportData{50.0f, 1280, 720};
 
 	// Engine?
 	std::shared_ptr<DebugSystem> _debugSystem;

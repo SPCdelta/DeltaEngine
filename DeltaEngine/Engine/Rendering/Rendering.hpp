@@ -105,7 +105,13 @@ namespace Rendering
 	// Get window size
 	inline void GetWindowSize(SDL_Window* window, int* w, int* h)
 	{
-		return SDL_GetWindowSize(window, w, h);
+		SDL_GetWindowSize(window, w, h);
+	}
+
+	// Get window surface
+	inline Surface* GetWindowSurface(SDL_Window* window)
+	{
+		return SDL_GetWindowSurface(window);
 	}
 
 	// Destroy window
