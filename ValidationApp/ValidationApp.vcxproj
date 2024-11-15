@@ -187,6 +187,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Textures\spritesheet.png" />
+    <Image Include="Assets\Textures\spritesheet2.png" />
+    <Image Include="Assets\Textures\spritesheet3.png" />
+  </ItemGroup>
+  <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll">
       <DeploymentContent>true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>

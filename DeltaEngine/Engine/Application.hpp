@@ -11,6 +11,7 @@
 
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
+#include "Systems/RenderSystem.hpp"
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
@@ -71,6 +72,7 @@ private:
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<RenderSystem> _renderSystem;
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();

@@ -164,9 +164,9 @@ namespace Rendering
 	}
 
 	// Load a image texture from file
-	inline Texture* LoadTexture(SDL_Renderer* renderer, const std::string& filePath)
+	inline Texture* LoadTexture(SDL_Renderer* renderer, const char* filePath)
 	{
-		return IMG_LoadTexture(renderer, filePath.c_str());
+		return IMG_LoadTexture(renderer, filePath);
 	}
 
 	// Create a texture from a surface
