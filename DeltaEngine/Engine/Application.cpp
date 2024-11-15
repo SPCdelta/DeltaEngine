@@ -23,9 +23,7 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject(_reg);
-	gameObject->transform->position = {10.0f, 10.0f};
-	gameObject->transform->scale = {64.0f, 64.0f};
+	GameObject* gameObject = new GameObject(_reg, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
