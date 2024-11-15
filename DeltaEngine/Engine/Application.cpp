@@ -26,7 +26,8 @@ Application::Application()
 	GameObject* gameObject = new GameObject( _reg );
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
-	gameObject->AddComponent<TempBehaviour>();
+	gameObject->AddComponent<TempInput>();
+	//gameObject->AddComponent<TempBehaviour>();
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
@@ -53,15 +54,31 @@ void Application::Run()
 
 		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
 
-		// Internal Input
-		if (_windowEvent.type == Rendering::KEYDOWN)
+		
+		//InputManager::GetInstance().onKeyDown(
+		//	[](IKeyListener& key)
+		//	{
+		//		std::cout << "Lambda handling key event." << key.key
+		//				  << std::endl;
+		//	} );  //Simularen dat er een sdl event komt
+
+		//auto keyPresSim = new IKeyListener("K");
+		//InputManager::GetInstance().setKeyDown(*keyPresSim);
+		
+		/*if (_windowEvent.type == SDL_EventType::SDL_KEYDOWN ||
+			_windowEvent.type == SDL_EventType::SDL_KEYUP)
 		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 1.0f);
-		}
-		else if (_windowEvent.type == Rendering::KEYUP)
+			SDL_Keycode key = _windowEvent.key.keysym.sym;
+			std::cout << "Key pressed: " << SDL_GetKeyName(key) << std::endl;
+		}*/
+		
+		if (_windowEvent.type == SDL_KEYDOWN)
 		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 0.0f);
+			auto keyPresSim =
+				new IKeyListener(SDL_GetKeyName(_windowEvent.key.keysym.sym));
+			InputManager::GetInstance().setKeyDown(*keyPresSim);
 		}
+
 
 		GetDeltaTime();
 
@@ -70,20 +87,20 @@ void Application::Run()
 		Rendering::RenderClear(_window.GetRenderer());
 
 		// Input
-		Input(_dt);
-		_debugSystem->Update();
+		//Input(_dt);
+		//_debugSystem->Update();
 
-		// Update
-		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
-		_updateSystem->Update();
-		//_physicsSystem->Update();
+		//// Update
+		////b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
+		//_updateSystem->Update();
+		////_physicsSystem->Update();
 
-		// Render
-		//_renderSystem->Update();
-		//_fontRenderSystem->Update();
-		Rendering::RenderPresent(_window.GetRenderer());
+		//// Render
+		////_renderSystem->Update();
+		////_fontRenderSystem->Update();
+		//Rendering::RenderPresent(_window.GetRenderer());
 
-		ShowFpsInWindowTitleBar();
+		////ShowFpsInWindowTitleBar();
 
 		// Framerate
 		Rendering::Delay(1000 / 60);

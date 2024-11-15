@@ -13,10 +13,13 @@
 
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
+#include "Input/InputManager.hpp"
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
+#include "Temp/TempInput.hpp"
 #include "GameObject.hpp"
+
 
 class Application
 {
@@ -49,12 +52,13 @@ public:
 	//	return { _reg };
 	//}
 
-protected:
+   protected:
 	ecs::Registry _reg;
 	//ecs::EntityId camera;
 	//Camera* _cameraComponent = nullptr;
 
-private:
+
+   private:
 	static bool _isRunning;
 
 	float _dt{ 0.0f };
@@ -77,5 +81,7 @@ private:
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();
+
+
 };
 
