@@ -84,7 +84,7 @@ void Sprite::StopRendering()
 		Rendering::DestroyTexture(_texture);
 }
 
-Rendering::Color Sprite::GetColor() 
+Rendering::Color Sprite::GetColor() const
 {
 	return color;
 }

@@ -24,15 +24,16 @@ Application::Application()
 	}
 
 	GameObject* gameObject = new GameObject(_reg);
+	gameObject->transform->position = {10.0f, 10.0f};
+	gameObject->transform->scale = {64.0f, 64.0f};
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
-	gameObject->AddComponent<Transform>(Math::Vector2{10.0f, 10.0f}, 0.0f, Math::Vector2{64.0f, 64.0f});
 	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
-	_renderSystem = _reg.CreateSystem<RenderSystem, Transform*, Sprite*>();
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite*>();
 
 	_window.SetViewportSize(400, 400);
 	_window.SetViewportPos(100, 50);

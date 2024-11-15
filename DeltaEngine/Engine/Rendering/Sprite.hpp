@@ -22,7 +22,7 @@ public:
 	void Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale);
 	void StopRendering();
 
-	Rendering::Color const GetColor();
+	Rendering::Color GetColor() const;
 	void SetColor(Rendering::Color newColor);
 
 	void FlipHorizontally();

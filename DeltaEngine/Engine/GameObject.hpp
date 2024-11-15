@@ -87,6 +87,8 @@ public:
 	GameObject(ecs::Registry& reg);
 	~GameObject();
 
+	Transform* transform = nullptr;
+
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
 

@@ -6,10 +6,10 @@
 #include "../Transform.hpp"
 #include "../Rendering/Sprite.hpp"
 
-class RenderSystem : public ecs::System<Transform*, Sprite*>
+class RenderSystem : public ecs::System<Transform, Sprite*>
 {
 public:
-	RenderSystem(ecs::View<Transform*, Sprite*> view) : ecs::System<Transform*, Sprite*>(view), _window(nullptr), _viewportData(nullptr)
+	RenderSystem(ecs::View<Transform, Sprite*> view) : ecs::System<Transform, Sprite*>(view), _window(nullptr), _viewportData(nullptr)
 	{
 		
 	}
@@ -32,15 +32,9 @@ public:
 
 		for (ecs::EntityId entityId : _view)
 		{
-			Transform* transform = _view.get<Transform*>(entityId);
-			if (!transform)
-			{
-				std::cerr << "Error: Missing Transform component on entity" << std::endl;
-				continue;
-			}
-
-			Math::Vector2 pos = transform->position;
-			Math::Vector2 sca = transform->scale;
+			Transform transform = _view.get<Transform>(entityId);
+			Math::Vector2 pos = transform.position;
+			Math::Vector2 sca = transform.scale;
 
 			// Render the sprite associated with this entity
 			Sprite* sprite = _view.get<Sprite*>(entityId);
