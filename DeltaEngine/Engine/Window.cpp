@@ -1,6 +1,6 @@
 #include "Window.hpp"
 
-Window::Window(const char* title, int width, int height)
+Window::Window(const char* title, int width, int height) : _viewportData(nullptr)
 {
 	// Create Window
 	_window = Rendering::CreateWindow(title, Rendering::WINDOWPOS_CENTERED, Rendering::WINDOWPOS_CENTERED, width, height, 0);
@@ -28,6 +28,9 @@ Window::Window(const char* title, int width, int height)
 
 Window::~Window()
 {
+	delete _viewportData;
+	_viewportData = nullptr;
+
 	Close();
 }
 
