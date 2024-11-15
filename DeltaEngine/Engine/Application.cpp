@@ -65,6 +65,7 @@ void Application::Run()
 
 		GetDeltaTime();
 
+
 		_window.Update();
 		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
 		Rendering::RenderClear(_window.GetRenderer());
@@ -77,7 +78,7 @@ void Application::Run()
 		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
 		_updateSystem->Update();
 		//_physicsSystem->Update();
-
+		
 		// Render
 		//_renderSystem->Update();
 		//_fontRenderSystem->Update();

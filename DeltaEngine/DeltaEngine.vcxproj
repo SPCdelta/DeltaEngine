@@ -201,6 +201,8 @@
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\UI\Text.cpp" />
+    <ClCompile Include="Engine\UI\UIObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BehaviourScript.hpp" />
@@ -221,6 +223,9 @@
     <ClInclude Include="Engine\Window.hpp" />
     <ClInclude Include="Engine\Ecs\Registry.hpp" />
     <ClInclude Include="Engine\GameObject.hpp" />
+    <ClInclude Include="Engine\UI\Text.hpp" />
+    <ClInclude Include="Engine\UI\UIObject.hpp" />
+    <ClInclude Include="Engine\UI\Font.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

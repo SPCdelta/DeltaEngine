@@ -15,6 +15,11 @@ namespace Font
 		return TTF_OpenFont(path, size);
 	}
 
+	inline Rendering::Surface* RenderText_Solid(TTF_Font* font, const char* text, Rendering::Color color)
+	{
+		return TTF_RenderText_Solid(font, text, color);
+	}
+
 	inline void CloseFont(TTF_Font* font) {
 		TTF_CloseFont(font);
 	}

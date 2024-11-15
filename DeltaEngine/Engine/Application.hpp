@@ -14,9 +14,13 @@
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
 
+
+
 //Temp
 #include "Temp/TempBehaviour.hpp"
 #include "GameObject.hpp"
+#include "UI/Text.hpp"
+
 
 class Application
 {
