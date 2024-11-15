@@ -23,16 +23,22 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject(_reg, "Assets\\Textures\\spritesheet.png");
+	GameObject* gameObject = new GameObject(_reg);
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
-
-	/*gameObject->sprite->Render(_window.GetRenderer(), gameObject->transform->position, gameObject->transform->scale);*/ // TODO 
+	gameObject->sprite = &_reg.AddComponent<Sprite>(gameObject->GetId(), Sprite("Assets\\Textures\\spritesheet.png"));
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite*>();
+
+	// _reg.RemoveComponent<Sprite>(gameObject->GetId());
+	/*delete gameObject;*/
+
+	// TODO ?
+	_renderSystem->SetWindow(& _window);
+	_renderSystem->SetViewportData(&_viewportData);
 }
 
 Application::~Application()
@@ -43,7 +49,7 @@ Application::~Application()
 void Application::Run()
 {
 	_updateSystem->OnStart();
-	_renderSystem->OnStart(_window, _viewportData);
+	_renderSystem->OnStart();
 
 	while (!_window.ShouldWindowClose())
 	{

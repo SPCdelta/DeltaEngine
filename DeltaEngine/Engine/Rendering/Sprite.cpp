@@ -8,6 +8,7 @@ Sprite::Sprite(const char* spritePath) : sprite(spritePath), _texture(nullptr)
 Sprite::~Sprite()
 {
 	StopRendering();
+	_texture = nullptr;
 }
 
 Sprite::Sprite(const Sprite& other) : sprite(other.sprite), color(other.color), flipX(other.flipX), flipY(other.flipY)
@@ -79,7 +80,8 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2 position, Math:
 
 void Sprite::StopRendering()
 {
-	Rendering::DestroyTexture(_texture);
+	if (_texture)
+		Rendering::DestroyTexture(_texture);
 }
 
 Rendering::Color Sprite::GetColor() 

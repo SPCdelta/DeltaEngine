@@ -69,7 +69,13 @@ public:
 		return _reg.GetComponent<T>(_id);
 	}
 
-	GameObject(ecs::Registry& reg, const char* spritePath);
+	ecs::EntityId GetId() const
+	{ 
+		return _id;
+	}
+
+	GameObject(ecs::Registry& reg);
+	~GameObject();
 
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
