@@ -51,19 +51,9 @@ public:
 			component->SetGameObject(this);
 			return component;
 		}
-		else if constexpr (std::is_base_of_v<Sprite, T>)
-		{
-			T* component = static_cast<T*>(_reg.AddComponent<Sprite*>(_id, new T(std::forward<Args>(args)...)));	
-			return component;
-		}
-		else if constexpr (std::is_base_of_v<Transform, T>)
-		{
-			T* component = static_cast<T*>(_reg.AddComponent<Transform*>(_id, new T(std::forward<Args>(args)...)));	
-			return component;
-		}
 		else
 		{
-			return static_cast<T*>(AddComponent<T>({}));
+			return static_cast<T*>(_AddComponent<T>(T(std::forward<Args>(args)...)));
 		}
 	}
 
@@ -99,7 +89,7 @@ private:
 	ecs::Registry& _reg;
 
 	template<typename T>
-	T* AddComponent(T component)
+	T* _AddComponent(T component)
 	{
 		return &_reg.AddComponent<T>(_id, component);
 	}

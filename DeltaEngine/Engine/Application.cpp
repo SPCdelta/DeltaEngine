@@ -33,7 +33,7 @@ Application::Application()
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
-	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite*>();
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
 
 	_window.SetViewportSize(400, 400);
 	_window.SetViewportPos(100, 50);
