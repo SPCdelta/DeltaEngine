@@ -130,7 +130,7 @@
     <ClInclude Include="Engine\Input\KeyListener.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Input\IMouseListener.hpp">
+    <ClInclude Include="Engine\Input\MouseListener.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Input\InputFacade.hpp">
@@ -140,6 +140,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Temp\TempInput.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Input\WheelListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

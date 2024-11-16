@@ -220,6 +220,7 @@
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />
+    <ClInclude Include="Engine\Input\WheelListener.h" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />
