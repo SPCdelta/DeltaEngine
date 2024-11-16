@@ -2,7 +2,8 @@
 #include "../Core/Events/EventDispatcher.hpp"
 #include <map>
 #include "KeyListener.hpp"
-#include "IMouseListener.hpp"
+#include "MouseListener.hpp"
+#include "WheelListener.h"
 
 class InputManager
 {
@@ -26,8 +27,7 @@ public:
 
 		keyDownInputMapping[keyDown].Register(keyEvent);
 	}
-	void onKeyUp(const std::string keyUp,
-				   Events::EventCallback<KeyListener&> keyEvent)
+	void onKeyUp(const std::string keyUp, Events::EventCallback<KeyListener&> keyEvent)
 	{
 		if (keyUpInputMapping.find(keyUp) == keyUpInputMapping.end())
 			keyUpInputMapping[keyUp] =
@@ -36,8 +36,33 @@ public:
 		keyUpInputMapping[keyUp].Register(keyEvent);
 	}
 
+	void onMouseButtonDown(int button, Events::EventCallback<MouseListener&> buttonEvent)
+	{
+		if (buttonDownInputMapping.find(button) == buttonDownInputMapping.end())
+			buttonDownInputMapping[button] =
+				Events::EventDispatcher<MouseListener&>();
+
+		buttonDownInputMapping[button].Register(buttonEvent);
+	}
+	void onMouseButtonUp(int button, Events::EventCallback<MouseListener&> buttonEvent)
+	{
+		if (buttonUpInputMapping.find(button) == buttonUpInputMapping.end())
+			buttonUpInputMapping[button] =
+				Events::EventDispatcher<MouseListener&>();
+
+		buttonUpInputMapping[button].Register(buttonEvent);
+	}
+	void onMouseMove(Events::EventCallback<MouseListener&> mouseEvent)
+	{
+		mouseMovement.Register(mouseEvent);
+	}
+	void onMouseWheel(Events::EventCallback<WheelListener&> wheelEvent) {
+		mouseWheelMovement.Register(wheelEvent);
+	}
+
+
 	void updateKeyDown(KeyListener& key)
-	{ 
+	{
 		keyDownInputMapping[key.key].Dispatch(key);
 	}
 
@@ -45,7 +70,25 @@ public:
 	{
 		keyUpInputMapping[key.key].Dispatch(key);
 	}
+
+	void updateMouseButtonDown(MouseListener& button)
+	{
+		buttonDownInputMapping[button.button].Dispatch(button);
+	}
+
+	void updateMouseButtonUp(MouseListener& button) {
+		buttonUpInputMapping[button.button].Dispatch(button);	
+	}
+
+	void updateMouseMovement(MouseListener& mouse)
+	{
+		mouseMovement.Dispatch(mouse);
+	}
 	
+	void updateMouseWheel(WheelListener& mouse)
+	{
+		mouseWheelMovement.Dispatch(mouse);
+	}
 
 private:
 	static InputManager instance;
@@ -54,4 +97,10 @@ private:
 		keyDownInputMapping;
 	std::map<std::string, Events::EventDispatcher<KeyListener&>>
 		keyUpInputMapping;
+
+	std::map<int, Events::EventDispatcher<MouseListener&>> buttonDownInputMapping;
+
+	std::map<int, Events::EventDispatcher<MouseListener&>> buttonUpInputMapping;
+	Events::EventDispatcher<MouseListener&> mouseMovement{};
+	Events::EventDispatcher<WheelListener&> mouseWheelMovement{};
 };

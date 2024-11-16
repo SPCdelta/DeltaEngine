@@ -1,13 +1,15 @@
 #pragma once
 #include <iostream>
-class KeyListener
-{
-public:
-	KeyListener(std::string key, bool isPressed)
-		: key(key), isPressed(isPressed)
-	{
-	}
 
+struct KeyListener
+{
 	const std::string key;
 	bool isPressed;
+	int mouseX;
+	int mouseY;
+
+	KeyListener(std::string key, bool isPressed, int posX, int posY)
+	 : key(key), isPressed(isPressed), mouseX(posX), mouseY(posY)
+	{
+	}
 };

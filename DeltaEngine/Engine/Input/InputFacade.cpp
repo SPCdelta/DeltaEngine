@@ -39,27 +39,62 @@ void InputFacade::onInputEvent(SDL_Event event) {
 	}
 }
 
+KeyListener InputFacade::makeKeyStruct(SDL_Event event) {
+	int posX = event.button.x;
+	int posY = event.button.y;
+	int pressed = event.key.state == SDL_PRESSED;
+	return KeyListener(SDL_GetKeyName(event.key.keysym.sym), pressed, posX, posY);
+}
+
+MouseListener InputFacade::makeMouseStruct(SDL_Event event)
+{
+	auto eButton = event.button;
+	uint32_t which = eButton.which;
+	int8_t button = eButton.button;
+	int8_t clicks = eButton.clicks;
+	int posY = eButton.y;
+	int posX = eButton.x;
+	return MouseListener(which, button, clicks, posY, posX);
+}
+
 void InputFacade::onKeyDown(SDL_Event event) {
-	auto key = new KeyListener(SDL_GetKeyName(event.key.keysym.sym), true);
-	inputManager.updateKeyDown(*key);
+	auto key = makeKeyStruct(event);
+	inputManager.updateKeyDown(key);
 }
 
 void InputFacade::onKeyUp(SDL_Event event) {
-	auto key = new KeyListener(SDL_GetKeyName(event.key.keysym.sym), false);
-	inputManager.updateKeyUp(*key);
+	auto key = makeKeyStruct(event);
+	inputManager.updateKeyUp(key);
 }
 
-void InputFacade::onMouseMove(SDL_Event event) {}
+void InputFacade::onMouseButtonDown(SDL_Event event) {
+	auto click = makeMouseStruct(event);
+	inputManager.updateMouseButtonDown(click);
+}
 
-void InputFacade::onMouseButtonDown(SDL_Event event) {}
+void InputFacade::onMouseButtonUp(SDL_Event event) 
+{
+	auto click = makeMouseStruct(event);
+	inputManager.updateMouseButtonUp(click);
+}
 
-void InputFacade::onMouseButtonUp(SDL_Event event) {}
+void InputFacade::onMouseMove(SDL_Event event) {
+	auto mouse = makeMouseStruct(event);
+	inputManager.updateMouseMovement(mouse);
+}
 
 void InputFacade::onMouseScroll(SDL_Event event) {
-	//std::cout << "Mouse wheel: X " << event.wheel.x << ", Y "
-	//		  << event.wheel.y
-	//		  << (event.wheel.direction == SDL_MOUSEWHEEL_FLIPPED
-	//				  ? " (flipped)"
-	//				  : "")
-	//		  << std::endl;
+	auto eWheel = event.wheel;
+	int h = eWheel.x;
+	int v = eWheel.y;
+	uint32_t direction = eWheel.direction;
+	
+	float preciseX = eWheel.preciseX; 	
+	float preciseY = eWheel.preciseY;	
+	
+	int mouseX = eWheel.mouseX;	
+	int mouseY = eWheel.mouseY;
+
+	auto wheel = WheelListener(h,v,direction,preciseX,preciseY,mouseX, mouseY);
+	inputManager.updateMouseWheel(wheel);
 }

@@ -13,6 +13,9 @@ public:
 
 	void onInputEvent(SDL_Event event);
 
+	KeyListener makeKeyStruct(SDL_Event event);
+	MouseListener makeMouseStruct(SDL_Event event);
+
 	void onKeyDown(SDL_Event event);
 	void onKeyUp(SDL_Event event);
 	void onMouseMove(SDL_Event event);
