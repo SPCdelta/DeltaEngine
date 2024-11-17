@@ -13,6 +13,16 @@ class TempInput : public BehaviourScript
 		std::cout << "OnStart" << std::endl; 
 
 		InputManager::GetInstance().onKeyDown(
+			"BH",
+			[](KeyListener& key)
+			{
+				std::cout << "SD test" << std::endl;
+			});
+		InputManager::GetInstance().onKeyDown(
+			"Z",
+			[](KeyListener& key) { std::cout << "Z test" << std::endl; });
+
+		InputManager::GetInstance().keyPressed(
 			"IW",
 			[](KeyListener& key)
 			{
@@ -21,17 +31,17 @@ class TempInput : public BehaviourScript
 						  << std::endl;
 			});
 
-		InputManager::GetInstance().onKeyDown(
+		InputManager::GetInstance().keyPressed(
 			"A",
 			[](KeyListener& key)
 			{ std::cout << "Gaat naar rechts: " << key.keys[0]
 						  << std::endl;
 			});
-		InputManager::GetInstance().onKeyDown(
+		InputManager::GetInstance().keyPressed(
 			"D", 
 			[](KeyListener& key)
 			{ std::cout << "Gaat naar onder: " << key.keys[0] << std::endl; });
-		InputManager::GetInstance().onKeyDown(
+		InputManager::GetInstance().keyPressed(
 			"S", [](KeyListener& key)
 			{ std::cout << "Gaat naar links: " << key.keys[0] << std::endl; });
 
