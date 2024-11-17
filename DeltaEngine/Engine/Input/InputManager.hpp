@@ -1,10 +1,14 @@
 #pragma once
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Core/Utils/StableIndexList.hpp"
-#include <map>
 #include "KeyListener.hpp"
 #include "MouseListener.hpp"
 #include "WheelListener.h"
+#include <iostream>
+#include <map>
+#include <string>
+#include <vector>
+#include <unordered_set>
 
 class InputManager
 {
@@ -23,10 +27,16 @@ public:
 	//TODO string mabye to enum??
 	void onKeyDown(const std::string keyDown, Events::EventCallback<KeyListener&> keyEvent)
 	{
-		if (keyDownInputMapping.find(keyDown) == keyDownInputMapping.end())
+		/*if (keyDownInputMapping.find(keyDown) == keyDownInputMapping.end())
 			keyDownInputMapping[keyDown] = Events::EventDispatcher<KeyListener&>();
 
-		keyDownInputMapping[keyDown].Register(keyEvent);
+		keyDownInputMapping[keyDown].Register(keyEvent);*/
+
+		if (pressedInputBindings.find(keyDown) == pressedInputBindings.end())
+			pressedInputBindings[keyDown] =
+				Events::EventDispatcher<KeyListener&>();
+
+		pressedInputBindings[keyDown].Register(keyEvent);
 	}
 	void onKeyUp(const std::string keyUp, Events::EventCallback<KeyListener&> keyEvent)
 	{
@@ -62,14 +72,21 @@ public:
 	}
 
 
-	void updateKeyDown(KeyListener& key)
+	void updateKeyDown(KeyListener& input)
 	{
-		keyDownInputMapping[key.key].Dispatch(key);
+		for (auto& keypressed : input.keys)
+		{
+			pressedInputs[keypressed] = input;
+		}
 	}
 
-	void updateKeyUp(KeyListener& key)
+	void updateKeyUp(KeyListener& input)
 	{
-		keyUpInputMapping[key.key].Dispatch(key);
+		for (auto& keypressed : input.keys)
+		{
+			pressedInputs.erase(keypressed);
+			releasedInputBindings[keypressed].Dispatch(input);
+		}
 	}
 
 	void updateMouseButtonDown(MouseListener& button)
@@ -91,12 +108,67 @@ public:
 		mouseWheelMovement.Dispatch(mouse);
 	}
 
+	void executeInputEvents() { 
+		std::vector<std::string> keyResults;
+
+		std::unordered_set<std::string> processedKeys;
+
+		std::vector<std::string> inputKeys;
+		for (const auto& kv : pressedInputs)
+		{
+			inputKeys.emplace_back(kv.first.c_str());
+		}
+
+		int n = inputKeys.size();
+		for (int i = 1; i < (1 << n); ++i)
+		{	
+			std::string combinedKey;
+			for (int j = 0; j < n; ++j)
+			{
+				if (i & (1 << j))
+				{  
+					combinedKey += inputKeys[j];
+				}
+			}
+
+			// Check if the combined key exists in the map and if it has not been processed
+			if (pressedInputBindings.find(combinedKey) !=
+					pressedInputBindings.end() &&
+				processedKeys.find(combinedKey) == processedKeys.end())
+			{
+				keyResults.push_back(combinedKey);
+				processedKeys.insert(
+					combinedKey);  // Mark this combined key as processed
+			}
+		}
+
+		auto keyinputs = KeyListener(inputKeys, true, -1,-1);
+
+		for (const auto& keyInput : keyResults)
+		{
+			pressedInputBindings[keyInput].Dispatch(keyinputs);
+		}
+		
+	}
+
 private:
 	static InputManager instance;
 
-	StableIndexList<KeyListener> updatingKeyEvents{};
+	std::map<std::string, KeyListener> pressedInputs;
+
+	std::map<std::string, Events::EventDispatcher<KeyListener&>>
+		pressedInputBindings;
+
+	std::map<std::string, Events::EventDispatcher<KeyListener&>>
+		releasedInputBindings;
 
 
+
+	std::vector<Events::EventDispatcher<KeyListener&>> updateEvents; //miss moet dit weg
+
+
+
+	//old
 	std::map<std::string, Events::EventDispatcher<KeyListener&>>
 		keyDownInputMapping;
 	std::map<std::string, Events::EventDispatcher<KeyListener&>>

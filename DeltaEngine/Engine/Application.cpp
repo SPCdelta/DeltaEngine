@@ -53,33 +53,9 @@ void Application::Run()
 		}
 
 		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
-
-		
-		//InputManager::GetInstance().onKeyDown(
-		//	[](IKeyListener& key)
-		//	{
-		//		std::cout << "Lambda handling key event." << key.key
-		//				  << std::endl;
-		//	} );  //Simularen dat er een sdl event komt
-
-		//auto keyPresSim = new IKeyListener("K");
-		//InputManager::GetInstance().setKeyDown(*keyPresSim);
-		
-		/*if (_windowEvent.type == SDL_EventType::SDL_KEYDOWN ||
-			_windowEvent.type == SDL_EventType::SDL_KEYUP)
-		{
-			SDL_Keycode key = _windowEvent.key.keysym.sym;
-			std::cout << "Key pressed: " << SDL_GetKeyName(key) << std::endl;
-		}*/
 		
 		_inputFacade.onInputEvent(_windowEvent);
-
-		/*if (_windowEvent.type == SDL_KEYDOWN)
-		{
-			auto keyPresSim =
-				new IKeyListener(SDL_GetKeyName(_windowEvent.key.keysym.sym));
-			InputManager::GetInstance().setKeyDown(*keyPresSim);
-		}*/
+		InputManager::GetInstance().executeInputEvents();
 
 
 		GetDeltaTime();
