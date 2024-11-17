@@ -43,7 +43,8 @@ KeyListener InputFacade::makeKeyStruct(SDL_Event event) {
 	int posX = event.button.x;
 	int posY = event.button.y;
 	int pressed = event.key.state == SDL_PRESSED;
-	return KeyListener(SDL_GetKeyName(event.key.keysym.sym), pressed, posX, posY);
+	return KeyListener({SDL_GetKeyName(event.key.keysym.sym)}, pressed, posX,
+					   posY);
 }
 
 MouseListener InputFacade::makeMouseStruct(SDL_Event event)

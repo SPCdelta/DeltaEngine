@@ -49,11 +49,9 @@ void Application::Run()
 		}
 
 		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
-
-		//TODO waar is de inputmanager update ???
-		
 		
 		_inputFacade.onInputEvent(_windowEvent);
+		InputManager::GetInstance().executeInputEvents();
 
 
 		GetDeltaTime();
