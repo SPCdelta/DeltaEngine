@@ -218,6 +218,7 @@
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
+    <ClInclude Include="Engine\Input\InputMapEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />
     <ClInclude Include="Engine\Input\WheelListener.h" />

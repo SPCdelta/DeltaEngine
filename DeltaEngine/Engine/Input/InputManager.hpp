@@ -1,6 +1,7 @@
 #pragma once
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Core/Utils/StableIndexList.hpp"
+#include "InputMapEventDispatchers.hpp"
 #include "KeyListener.hpp"
 #include "MouseListener.hpp"
 #include "WheelListener.h"
@@ -25,29 +26,28 @@ public:
 	//end Singleton
 
 	//TODO string mabye to enum??
+	void insertInputState(InputState state, const std::string keyDown,
+						  Events::EventCallback<KeyListener&> keyEvent)
+	{
+		if (keyInputState[state].find(keyDown))
+			keyInputState[state][keyDown] =
+				Events::EventDispatcher<KeyListener&>();
+
+		keyInputState[state][keyDown].Register(keyEvent);
+	}
+
 	void onKeyDown(const std::string keyDown, Events::EventCallback<KeyListener&> keyEvent)
 	{
-		if (onPressedInputBindings.find(keyDown) == onPressedInputBindings.end())
-			onPressedInputBindings[keyDown] = Events::EventDispatcher<KeyListener&>();
-
-		onPressedInputBindings[keyDown].Register(keyEvent);
+		insertInputState(PressedDown, keyDown, keyEvent);
 	}
 
 	void keyPressed(const std::string keyDown, Events::EventCallback<KeyListener&> keyEvent)
 	{
-		if (pressedInputBindings.find(keyDown) == pressedInputBindings.end())
-			pressedInputBindings[keyDown] =
-				Events::EventDispatcher<KeyListener&>();
-
-		pressedInputBindings[keyDown].Register(keyEvent);
+		insertInputState(Pressed, keyDown, keyEvent);
 	}
 	void onKeyUp(const std::string keyUp, Events::EventCallback<KeyListener&> keyEvent)
 	{
-		if (releasedInputBindings.find(keyUp) == releasedInputBindings.end())
-			releasedInputBindings[keyUp] =
-				Events::EventDispatcher<KeyListener&>();
-
-		releasedInputBindings[keyUp].Register(keyEvent);
+		insertInputState(Release, keyUp, keyEvent);
 	}
 
 	void onMouseButtonDown(int button, Events::EventCallback<MouseListener&> buttonEvent)
@@ -77,21 +77,20 @@ public:
 
 	void updateKeyDown(KeyListener& input) //Will only get one Key!!
 	{
-		if (pressedInputs.find(input.keys[0]) != pressedInputs.end())
+		if (pressedInputs.find(input.keys[0]) == pressedInputs.end())
 		{
 			for (auto& keypressed : input.keys)
-			{
 				pressedInputs[keypressed] = input;
-			}
-
-			return;
+			executeBindingInputsForState(PressedDown);
 		}
 
 		for (auto& keypressed : input.keys)
-		{
 			pressedInputs[keypressed] = input;
-		}
+		
+	}
 
+	void executeBindingInputsForState(InputState state)
+	{
 		std::vector<std::string> keyResults;
 
 		std::unordered_set<std::string> processedKeys;
@@ -115,8 +114,7 @@ public:
 			}
 
 			// Check if the combined key exists in the map and if it has not been processed
-			if (onPressedInputBindings.find(combinedKey) !=
-					onPressedInputBindings.end() &&
+			if (keyInputState[state].find(combinedKey) &&
 				processedKeys.find(combinedKey) == processedKeys.end())
 			{
 				keyResults.push_back(combinedKey);
@@ -125,24 +123,21 @@ public:
 			}
 		}
 
-		auto keyinputs =
-			KeyListener(inputKeys, true, -1,
-						-1);  //TODO ook de rest van de inputs er by zetten
+		auto keyinputs = KeyListener(inputKeys, true, -1, -1);  
+		//TODO ook de rest van de inputs er by zetten
 
 		for (const auto& keyInput : keyResults)
 		{
-			onPressedInputBindings[keyInput].Dispatch(keyinputs);
+			keyInputState[state][keyInput].Dispatch(keyinputs);
 		}
-
-
 	}
 
-	void updateKeyUp(KeyListener& input)//Will only get one Key!!
+	void updateKeyUp(KeyListener& input) //Will only get one Key!!
 	{
 		for (auto& keypressed : input.keys)
 		{
 			pressedInputs.erase(keypressed);
-			releasedInputBindings[keypressed].Dispatch(input);
+			keyInputState[Release][keypressed].Dispatch(input);
 		}
 	}
 
@@ -166,46 +161,7 @@ public:
 	}
 
 	void executeInputEvents() { 
-		std::vector<std::string> keyResults;
-
-		std::unordered_set<std::string> processedKeys;
-
-		std::vector<std::string> inputKeys;
-		for (const auto& kv : pressedInputs)
-		{
-			inputKeys.emplace_back(kv.first.c_str());
-		}
-
-		int n = inputKeys.size();
-		for (int i = 1; i < (1 << n); ++i)
-		{	
-			std::string combinedKey;
-			for (int j = 0; j < n; ++j)
-			{
-				if (i & (1 << j))
-				{  
-					combinedKey += inputKeys[j];
-				}
-			}
-
-			// Check if the combined key exists in the map and if it has not been processed
-			if (pressedInputBindings.find(combinedKey) !=
-					pressedInputBindings.end() &&
-				processedKeys.find(combinedKey) == processedKeys.end())
-			{
-				keyResults.push_back(combinedKey);
-				processedKeys.insert(
-					combinedKey);  // Mark this combined key as processed
-			}
-		}
-
-		auto keyinputs = KeyListener(inputKeys, true, -1,-1); //TODO ook de rest van de inputs er by zetten
-
-		for (const auto& keyInput : keyResults)
-		{
-			pressedInputBindings[keyInput].Dispatch(keyinputs);
-		}
-		
+		executeBindingInputsForState(Pressed);
 	}
 
 private:
@@ -213,18 +169,8 @@ private:
 
 	std::map<std::string, KeyListener> pressedInputs; //Miss kan dit een vector zijn van alle inputs keys dus de strings
 
-	std::map<std::string, Events::EventDispatcher<KeyListener&>>
-		onPressedInputBindings;
 
-	std::map<std::string, Events::EventDispatcher<KeyListener&>>
-		pressedInputBindings;
-
-	std::map<std::string, Events::EventDispatcher<KeyListener&>>
-		releasedInputBindings;
-
-
-
-	std::vector<Events::EventDispatcher<KeyListener&>> updateEvents; //miss moet dit weg
+	std::map<InputState, InputMapEventDispatchers> keyInputState;
 
 
 

@@ -9,49 +9,64 @@ class TempInput : public BehaviourScript
 	// Components
 
 	// Methods
-	void OnStart() override { 
-		std::cout << "OnStart" << std::endl; 
+	void OnStart() override
+	{
+		std::cout << "OnStart" << std::endl;
 
 		InputManager::GetInstance().onKeyDown(
 			"BH",
-			[](KeyListener& key)
-			{
-				std::cout << "SD test" << std::endl;
-			});
+			[](KeyListener& key) { std::cout << "SD test" << std::endl; });
 		InputManager::GetInstance().onKeyDown(
-			"Z",
-			[](KeyListener& key) { std::cout << "Z test" << std::endl; });
+			"Z", [](KeyListener& key) { std::cout << "Z test" << std::endl; });
 
 		InputManager::GetInstance().keyPressed(
 			"IW",
 			[](KeyListener& key)
 			{
-				std::cout << "Gaat naar boven: " << key.keys[0] << " "
-						  << key.keys[1]
-						  << std::endl;
+				std::cout << "Gaat naar boven: ";
+				std::for_each(key.keys.begin(), key.keys.end(),
+							  [](const std::string& k)
+							  { std::cout  << k; });
+				std::cout << '\n';
 			});
 
 		InputManager::GetInstance().keyPressed(
 			"A",
 			[](KeyListener& key)
-			{ std::cout << "Gaat naar rechts: " << key.keys[0]
-						  << std::endl;
+			{
+				std::cout << "Gaat naar rechts: ";
+				std::for_each(key.keys.begin(), key.keys.end(),
+							  [](const std::string& k)
+							  { std::cout  << k; });
+				std::cout << '\n';
 			});
 		InputManager::GetInstance().keyPressed(
-			"D", 
+			"D",
 			[](KeyListener& key)
-			{ std::cout << "Gaat naar onder: " << key.keys[0] << std::endl; });
+			{
+				std::cout << "Gaat naar onder: ";
+				std::for_each(key.keys.begin(), key.keys.end(),
+							  [](const std::string& k)
+							  { std::cout << k; });
+				std::cout << '\n';
+			});
 		InputManager::GetInstance().keyPressed(
-			"S", [](KeyListener& key)
-			{ std::cout << "Gaat naar links: " << key.keys[0] << std::endl; });
-
+			"S",
+			[](KeyListener& key)
+			{
+				std::cout << "Gaat naar links: ";
+				std::for_each(key.keys.begin(), key.keys.end(),
+							  [](const std::string& k)
+							  { std::cout << k; });
+				std::cout << '\n';
+				;
+			});
 
 		//InputManager::GetInstance().onKeyUp(
 		//	"Space", [](KeyListener& key)
-		//	{ 
-		//		std::cout << "Spatie is los gelaten: " << key.key << std::endl; 
+		//	{
+		//		std::cout << "Spatie is los gelaten: " << key.key << std::endl;
 		//	});
-
 
 		/*InputManager::GetInstance().onKeyDown(
 			"Space",
@@ -64,7 +79,6 @@ class TempInput : public BehaviourScript
 					});
 
 			});*/
-
 
 		//InputManager::GetInstance().onMouseButtonDown(
 		//	1,
@@ -91,7 +105,5 @@ class TempInput : public BehaviourScript
 		//	});
 	}
 
-	void OnUpdate() override {
-
-	}
+	void OnUpdate() override {}
 };
