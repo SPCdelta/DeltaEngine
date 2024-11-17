@@ -3,7 +3,7 @@
 bool Application::_isRunning = true;
 
 Application::Application()
-	: _window("Meow!", 1280, 720)
+	: _window("Delta Engine!", 1280, 720)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)

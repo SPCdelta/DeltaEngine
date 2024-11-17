@@ -1,5 +1,6 @@
 #pragma once
 #include "../Core/Events/EventDispatcher.hpp"
+#include "../Core/Utils/StableIndexList.hpp"
 #include <map>
 #include "KeyListener.hpp"
 #include "MouseListener.hpp"
@@ -93,14 +94,17 @@ public:
 private:
 	static InputManager instance;
 
+	StableIndexList<KeyListener> updatingKeyEvents{};
+
+
 	std::map<std::string, Events::EventDispatcher<KeyListener&>>
 		keyDownInputMapping;
 	std::map<std::string, Events::EventDispatcher<KeyListener&>>
 		keyUpInputMapping;
 
 	std::map<int, Events::EventDispatcher<MouseListener&>> buttonDownInputMapping;
-
 	std::map<int, Events::EventDispatcher<MouseListener&>> buttonUpInputMapping;
+
 	Events::EventDispatcher<MouseListener&> mouseMovement{};
 	Events::EventDispatcher<WheelListener&> mouseWheelMovement{};
 };
