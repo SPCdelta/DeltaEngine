@@ -12,7 +12,7 @@ class TempInput : public BehaviourScript
 	void OnStart() override { 
 		std::cout << "OnStart" << std::endl; 
 
-		/*InputManager::GetInstance().onKeyDown(
+		InputManager::GetInstance().onKeyDown(
 			"W",
 			[](KeyListener& key)
 			{
@@ -35,10 +35,26 @@ class TempInput : public BehaviourScript
 			"S", [](KeyListener& key)
 			{ std::cout << "Gaat naar links: " << key.key << std::endl; });
 
-		
+
 		InputManager::GetInstance().onKeyUp(
 			"Space", [](KeyListener& key)
-			{ std::cout << "Spatie is los gelaten: " << key.key << std::endl; });
+			{ 
+				std::cout << "Spatie is los gelaten: " << key.key << std::endl; 
+			});
+
+
+		/*InputManager::GetInstance().onKeyDown(
+			"Space",
+			[](KeyListener& key) {
+				InputManager::GetInstance().onMouseButtonDown(
+					1,
+					[](MouseListener& button) {
+						std::cout << "linkermuis click attack: " << button.button
+								  << std::endl;
+					});
+
+			});*/
+
 
 		InputManager::GetInstance().onMouseButtonDown(
 			1,
@@ -55,7 +71,7 @@ class TempInput : public BehaviourScript
 		InputManager::GetInstance().onMouseMove(
 			[](MouseListener& mouse) {
 				std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
-			});*/
+			});
 
 		InputManager::GetInstance().onMouseWheel(
 			[](WheelListener& mouse) {

@@ -145,5 +145,8 @@
     <ClInclude Include="Engine\Input\WheelListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Core\Utils\StableIndexList.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
