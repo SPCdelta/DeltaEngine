@@ -7,6 +7,7 @@
 #include "WheelListener.h"
 #include <iostream>
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 #include <unordered_set>
@@ -48,6 +49,32 @@ public:
 	void onKeyUp(const std::string keyUp, Events::EventCallback<KeyListener&> keyEvent)
 	{
 		insertInputState(Release, keyUp, keyEvent);
+	}
+
+	void onKeyDown(std::set<std::string>& keysDown,
+				   Events::EventCallback<KeyListener&> keyEvent)
+	{
+		std::string allkeysDown;
+		for (const auto& key : keysDown)
+			allkeysDown += key;
+		insertInputState(PressedDown, allkeysDown, keyEvent);
+	}
+
+	void keyPressed(std::set<std::string>& keysDown,
+					Events::EventCallback<KeyListener&> keyEvent)
+	{
+		std::string allkeysDown;
+		for (const auto& key : keysDown)
+			allkeysDown += key;
+		insertInputState(Pressed, allkeysDown, keyEvent);
+	}
+	void onKeyUp(std::set<std::string>& keysUp,
+				 Events::EventCallback<KeyListener&> keyEvent)
+	{
+		std::string allkeysUp;
+		for (const auto& key : keysUp)
+			allkeysUp += key;
+		insertInputState(Release, allkeysUp, keyEvent);
 	}
 
 	void onMouseButtonDown(int button, Events::EventCallback<MouseListener&> buttonEvent)
