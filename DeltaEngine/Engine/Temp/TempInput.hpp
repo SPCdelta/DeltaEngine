@@ -6,6 +6,17 @@
 class TempInput : public BehaviourScript
 {
    public:
+
+	// DONE Combinatie van toetsen indrukken om een actie uit te voeren.
+	// DONE remove inputs if window is not focesed
+	//
+	// TODO Make All Inputs ENUMS or class.
+	// TODO maak het zo dat je niet de hele tijd InputManager::GetInstance() hoeft neer te zetten.
+	// TODO Categoriseren welk type invoer het is, zodat het gemakkelijk gepauzeerd kan worden.
+	// TODO Combinatie van toets en knop om een actie uit te voeren.
+	// TODO Miss zorgen dat een input kan toegevoegd worden onder update time?
+	// TODO Invoer verwijderen ?
+
 	// Components
 
 	void test(std::set<std::string> test) {
@@ -16,17 +27,6 @@ class TempInput : public BehaviourScript
 	// Methods
 	void OnStart() override
 	{
-
-		// DONE Combinatie van toetsen indrukken om een actie uit te voeren.
-		// DONE remove inputs if window is not focesed
-		// 
-		// TODO Make All Inputs ENUMS or class.
-		// TODO maak het zo dat je niet de hele tijd InputManager::GetInstance() hoeft neer te zetten.
-		// TODO Categoriseren welk type invoer het is, zodat het gemakkelijk gepauzeerd kan worden.
-		// TODO Combinatie van toets en knop om een actie uit te voeren.
-		// TODO Miss zorgen dat een input kan toegevoegd worden onder update time?
-		// TODO Invoer verwijderen ?
-
 
 
 
