@@ -18,13 +18,14 @@ namespace Physics
 		IMPULSE = 1,
 	};
 
+	// TODO: to much b2... here
 	class Rigidbody
 	{
 	public:
 		Rigidbody(Collider& collider)
 			: _collider{ collider }
 		{
-			
+			b2Body_SetType(_collider._bodyId, static_cast<b2BodyType>(RigidbodyType::DYNAMIC_BODY));
 		}
 
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
@@ -49,7 +50,7 @@ namespace Physics
 
 		void AddForce(Math::Vector2 force, ForceMode forceMode)
 		{
-			b2Vec2 b2Force(force.x, force.y);
+			b2Vec2 b2Force(force.GetX(), force.GetY());
 
 			switch (forceMode)
 			{
@@ -64,7 +65,7 @@ namespace Physics
 
 		void SetVelocity(Math::Vector2 velocity)
 		{
-			b2Vec2 b2Velocity(velocity.x, velocity.y);
+			b2Vec2 b2Velocity(velocity.GetX(), velocity.GetY());
 			b2Body_SetLinearVelocity(_collider._bodyId, b2Velocity);
 		}
 

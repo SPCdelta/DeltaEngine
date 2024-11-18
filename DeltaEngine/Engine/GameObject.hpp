@@ -10,6 +10,9 @@
 
 #include "Rendering/Sprite.hpp"
 
+#include "Physics/Collider.hpp"
+#include "Physics/Rigidbody.hpp"
+
 class GameObject
 {
 public:
@@ -51,6 +54,20 @@ public:
 			component->SetGameObject(this);
 			return component;
 		}
+		//else if constexpr (std::is_base_of_v<Physics::Collider, T>)
+		//{
+		//	T* component = static_cast<T*>(_reg.AddComponent<Physics::Collider*>(_id, new T()));
+		//	return component;
+		//}
+		//else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
+		//{
+		//	if (_reg.HasComponent<Physics::Collider*>(_id))
+		//	{
+		//		throw std::exception("Rigidbody must have a Collider!");
+		//	}
+
+		//	return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
+		//}
 		else
 		{
 			return static_cast<T*>(_AddComponent<T>(T(std::forward<Args>(args)...)));

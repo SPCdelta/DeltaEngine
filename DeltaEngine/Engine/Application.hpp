@@ -13,6 +13,10 @@
 #include "Systems/DebugSystem.hpp"
 #include "Systems/RenderSystem.hpp"
 
+#include "Systems/PhysicsSystem.hpp"
+#include "Physics/BoxCollider.hpp"
+#include "Physics/CircleCollider.hpp"
+
 //Temp
 #include "Temp/TempBehaviour.hpp"
 #include "GameObject.hpp"
@@ -69,10 +73,12 @@ private:
 
 	// Engine?
 	std::shared_ptr<DebugSystem> _debugSystem;
-	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
+
+	Physics::PhysicsWorld _physicsWorld;
+	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();

@@ -3,7 +3,7 @@
 bool Application::_isRunning = true;
 
 Application::Application()
-	: _window("Meow!", 1280, 720)
+	: _window("Meow!", 1280, 720), _physicsWorld{ _reg }
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
@@ -29,9 +29,18 @@ Application::Application()
 	gameObject->AddComponent<TempBehaviour>();
 	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
+	//GameObject* fo1 = new GameObject(_reg, Transform({ 100.0f, 100.0f }, 0.0f, { 64.0f, 64.0f }));
+	//fo1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+
+	//GameObject* fo2 = new GameObject(_reg, Transform({ 100.0f, 100.0f }, 0.0f, { 64.0f, 64.0f }));
+	//fo1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+	//fo1->AddComponent<Physics::BoxCollider>();
+	//fo1->AddComponent<Physics::Rigidbody>();
+
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
+	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>();
 
 	_window.SetViewportSize(400, 400);
 	_window.SetViewportPos(100, 50);
