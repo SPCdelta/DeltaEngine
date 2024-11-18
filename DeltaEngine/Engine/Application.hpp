@@ -19,6 +19,7 @@
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
+#include "Temp/PhysicsBehaviour.hpp"
 #include "GameObject.hpp"
 
 class Application
@@ -77,7 +78,7 @@ private:
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 
-	Physics::PhysicsWorld _physicsWorld;
+	Physics::PhysicsWorld _physicsWorld{};
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
 	void GetDeltaTime();

@@ -3,7 +3,7 @@
 bool Application::_isRunning = true;
 
 Application::Application()
-	: _window("Meow!", 1280, 720), _physicsWorld{ _reg }
+	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
@@ -23,24 +23,26 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject(_reg, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
+	GameObject* gameObject = new GameObject(_reg, _physicsWorld, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
 	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
-	//GameObject* fo1 = new GameObject(_reg, Transform({ 100.0f, 100.0f }, 0.0f, { 64.0f, 64.0f }));
-	//fo1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+	GameObject* fo1 = new GameObject(_reg, _physicsWorld, Transform({ 600.0f, 100.0f }, 0.0f, { 64.0f, 64.0f }));
+	fo1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+	fo1->AddComponent<Physics::BoxCollider>();
+	fo1->AddComponent<Physics::Rigidbody>();
+	fo1->AddComponent<PhysicsBehaviour>();
 
-	//GameObject* fo2 = new GameObject(_reg, Transform({ 100.0f, 100.0f }, 0.0f, { 64.0f, 64.0f }));
-	//fo1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
-	//fo1->AddComponent<Physics::BoxCollider>();
-	//fo1->AddComponent<Physics::Rigidbody>();
+	GameObject* fo2 = new GameObject(_reg, _physicsWorld, Transform({ 600.0f, 500.0f }, 0.0f, { 64.0f, 64.0f }));
+	fo2->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+	fo2->AddComponent<Physics::BoxCollider>();
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
-	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>();
+	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
 
 	_window.SetViewportSize(400, 400);
 	_window.SetViewportPos(100, 50);
@@ -94,7 +96,7 @@ void Application::Run()
 		// Update
 		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
 		_updateSystem->Update();
-		//_physicsSystem->Update();
+		_physicsSystem->Update();
 
 		// Render
 		_renderSystem->Update();

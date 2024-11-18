@@ -25,7 +25,10 @@ public:
 			std::cerr << "Error: Window or ViewportData not set in RenderSystem" << std::endl;
 			return;
 		}
+	}
 
+	void Update()
+	{
 		Rendering::GetWindowSize(static_cast<SDL_Window*>(*_window), &_viewportData->width, &_viewportData->height);
 		Rendering::SetRenderDrawColor(_window->GetRenderer(), 10, 10, 10, 255);
 		Rendering::RenderPresent(_window->GetRenderer());
@@ -40,11 +43,6 @@ public:
 			Sprite& sprite = _view.get<Sprite>(entityId);
 			sprite.Render(_window->GetRenderer(), pos, sca);
 		}
-	}
-
-	void Update()
-	{
-		
 	}
 
 private:

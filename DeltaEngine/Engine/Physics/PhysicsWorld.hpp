@@ -25,8 +25,7 @@ namespace Physics
 	class PhysicsWorld
 	{
 	public:
-		PhysicsWorld(ecs::Registry& reg)
-			: _reg{ reg }
+		PhysicsWorld()
 		{
 			_data.world = b2DefaultWorldDef();
 			_data.id = Physics::Facade::ToWorldId(b2CreateWorld(&_data.world));
@@ -49,6 +48,8 @@ namespace Physics
 			//_sensorEvents.clear();
 			//_collisionEvents.clear();
 			_currentTriggers.clear();
+
+			b2World_Step(_data.id, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
 
 			b2SensorEvents sensorEvents = b2World_GetSensorEvents(_data.id);
 			//b2ContactEvents contactEvents = b2World_GetContactEvents(_data.id);
@@ -100,7 +101,6 @@ namespace Physics
 
 	private:
 		WorldData _data;
-		ecs::Registry& _reg;
 
 		std::vector<TestData> _currentTriggers;
 	};

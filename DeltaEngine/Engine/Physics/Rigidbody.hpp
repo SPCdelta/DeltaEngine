@@ -18,6 +18,8 @@ namespace Physics
 		IMPULSE = 1,
 	};
 
+	class PhysicsSystem;
+
 	// TODO: to much b2... here
 	class Rigidbody
 	{

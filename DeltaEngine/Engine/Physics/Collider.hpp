@@ -12,11 +12,13 @@ namespace Physics
 
 	class Rigidbody;
 	class CollisionSystem;
+	class PhysicsSystem;
 
 	class Collider
 	{
 	public:
-		Collider(const PhysicsWorld& world, const Transform& transform, ShapeType type)
+		Collider(const PhysicsWorld& world, Transform& transform, ShapeType type)
+			: _transform{ transform }
 		{
 			_physicsBody = b2DefaultBodyDef();
 			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
@@ -38,6 +40,7 @@ namespace Physics
 		}
 
 		friend class CollisionSystem;
+		friend class PhysicsSystem;
 		friend class Rigidbody;
 
 		void SetTrigger(bool trigger)
@@ -65,6 +68,7 @@ namespace Physics
 		PhysicsShape _shape;
 		Events::EventDispatcher<const PhysicsShape&> _onShapeChanged{};
 		bool _isTrigger{ false };
+		Transform& _transform;
 
 		void CallOnShapeChanged()
 		{
