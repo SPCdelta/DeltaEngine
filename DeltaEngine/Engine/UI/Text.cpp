@@ -39,14 +39,14 @@ void ui::Text::renderText() {
 	if (texture == nullptr) {
 		std::cerr << "Error creating texture: " << Rendering::GetError() << std::endl;
 		Rendering::FreeSurface(surface);
+		Rendering::DestroyTexture(texture);
 		return;
 	}
 
-	Rendering::Rect dstRect = {100, 100, 100, 100};
+	Rendering::Rect dstRect = {_x, _y , surface->w, surface->h};
 
 	Rendering::RenderCopy(_renderer, texture, nullptr, &dstRect);
 
-	std::cout << dstRect.x << std::endl;
 
 	//Rendering::FreeSurface(surface);
 	//Rendering::DestroyTexture(texture);

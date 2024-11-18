@@ -65,15 +65,10 @@ void Application::Run()
 
 		GetDeltaTime();
 
-		Rendering::Color color = {49, 245, 206, 255};
-
-		ui::Text text("Hallo", "C:\\Windows\\Fonts\\impact.ttf", 24, 600, 600,
-					  color, _window.GetRenderer());
-		text.renderText();
-
 		_window.Update();
 		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
 		Rendering::RenderClear(_window.GetRenderer());
+
 
 		// Input
 		Input(_dt);
