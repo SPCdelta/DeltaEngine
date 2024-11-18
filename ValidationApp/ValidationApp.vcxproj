@@ -75,24 +75,28 @@
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)Dependencies\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\libs;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,7 +112,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>DeltaEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;..\bin\x64\$(Configuration)\DLLs;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,7 +133,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>DeltaEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;..\bin\x64\$(Configuration)\DLLs;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -146,7 +150,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>DeltaEngine.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;..\Libraries\SDL2-2.30.7\lib\x64;..\Libraries\SDL2_image-2.8.2\lib\x64;..\Libraries\SDL2_mixer-2.8.0\lib\x64;..\Libraries\SDL2_ttf-2.22.0\lib\x64;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;..\bin\x64\$(Configuration)\DLLs;..\Libraries\SDL2-2.30.7\lib\x64;..\Libraries\SDL2_image-2.8.2\lib\x64;..\Libraries\SDL2_mixer-2.8.0\lib\x64;..\Libraries\SDL2_ttf-2.22.0\lib\x64;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -167,7 +171,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>DeltaEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;..\bin\x64\$(Configuration)\DLLs;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -181,6 +185,51 @@
     <ProjectReference Include="..\DeltaEngine\DeltaEngine.vcxproj">
       <Project>{13bae93f-def2-464a-8a86-c0e0ea441827}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Textures\spritesheet.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\spritesheet2.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\spritesheet3.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="DLLs\SDL2.dll">
+      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="DLLs\SDL2_image.dll">
+      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="DLLs\SDL2_mixer.dll">
+      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="DLLs\SDL2_ttf.dll">
+      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

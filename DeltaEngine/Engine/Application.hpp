@@ -1,18 +1,17 @@
 #pragma once
-#define SDL_MAIN_HANDLED
+
+#include "Rendering/Rendering.hpp"
 
 #include <iostream>
 
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
-#include <SDL_image.h>
 #include "Window.hpp"
-
-#include "Rendering/Viewport.hpp"
 
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
+#include "Systems/RenderSystem.hpp"
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
@@ -36,9 +35,9 @@ public:
 		_window.Close();
 		_isRunning = false;
 
-		SDL_Quit();
+		Rendering::Quit();
 		TTF_Quit();
-		IMG_Quit();
+		Rendering::QuitImage();
 		Mix_Quit();
 	}
 
@@ -66,14 +65,14 @@ private:
 	float _nbFrames{ 0.0f };
 
 	Window _window;
-	SDL_Event _windowEvent{};
-	ViewportData _viewportData{ 50.0f, 1280, 720 };
+	Rendering::Event _windowEvent{};
 
 	// Engine?
 	std::shared_ptr<DebugSystem> _debugSystem;
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<RenderSystem> _renderSystem;
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();
