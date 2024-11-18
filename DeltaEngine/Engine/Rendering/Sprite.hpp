@@ -2,6 +2,7 @@
 
 #include "Rendering.hpp"
 #include "../Core/Math/Vector2.hpp"
+#include "Animator.hpp"
 
 #include <iostream>
 
@@ -10,7 +11,7 @@
 class Sprite
 {
 public:
-	Sprite(const char* spritePath);
+	Sprite(const char* spritePath, bool hasAnimation);
 	~Sprite();
 
 	Sprite(const Sprite& other);			 
@@ -30,6 +31,7 @@ public:
 
 private:
 	const char* sprite;
+	Animator* _animator; // TODO either has one or does not have one
 
 	Rendering::Texture* _texture;
 	Rendering::Color color{Rendering::Color(0, 0, 0, 255)};

@@ -4,14 +4,14 @@
 
 class SpriteSheet
 {
-   public:
-	SpriteSheet();
-	~SpriteSheet();
+public:
+	SpriteSheet() {}
+	~SpriteSheet() {}
 
 	// TODO
 	/*std::vector<Point> sprites;
 	Point spriteSize;*/
 
-   private:
+private:
 
 };

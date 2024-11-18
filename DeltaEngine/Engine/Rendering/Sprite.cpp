@@ -1,20 +1,29 @@
 #include "Sprite.hpp"
 
-Sprite::Sprite(const char* spritePath) : sprite(spritePath), _texture(nullptr)
+Sprite::Sprite(const char* spritePath, bool hasAnimation) : sprite(spritePath), _texture(nullptr), _animator(nullptr)
 {
-
+	if (hasAnimation)
+	{
+		_animator = new Animator(spritePath);
+	}
 }
 
 Sprite::~Sprite()
 {
 	StopRendering();
 	_texture = nullptr;
+
+	delete _animator;
+	_animator = nullptr;
 }
 
-Sprite::Sprite(const Sprite& other) : sprite(other.sprite), color(other.color), flipX(other.flipX), flipY(other.flipY)
+Sprite::Sprite(const Sprite& other) : sprite(other.sprite), color(other.color), flipX(other.flipX), flipY(other.flipY), _texture(nullptr), _animator(nullptr)
 {
 	if (other._texture)
 		_texture = other._texture;
+
+	if (other._animator)
+		_animator = other._animator;
 }
 
 Sprite& Sprite::operator=(const Sprite& other)
@@ -30,14 +39,19 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 		if (other._texture)
 			_texture = other._texture;
+
+		if (other._animator)
+			_animator = other._animator;
 	}
 
 	return *this;
 }
 
-Sprite::Sprite(Sprite&& other) noexcept : sprite(other.sprite), _texture(other._texture), color(other.color), flipX(other.flipX), flipY(other.flipY)
+Sprite::Sprite(Sprite&& other) noexcept : sprite(other.sprite), _texture(other._texture), color(other.color), flipX(other.flipX), flipY(other.flipY),
+	  _animator(other._animator)
 {
 	other._texture = nullptr;
+	other._animator = nullptr;
 }
 
 Sprite& Sprite::operator=(Sprite&& other) noexcept
@@ -53,6 +67,7 @@ Sprite& Sprite::operator=(Sprite&& other) noexcept
 		flipY = other.flipY;
 
 		other._texture = nullptr;
+		other._animator = nullptr;
 	}
 
 	return *this;
