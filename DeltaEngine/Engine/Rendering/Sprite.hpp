@@ -19,7 +19,7 @@ public:
 	Sprite(Sprite&& other) noexcept;		
 	Sprite& operator=(Sprite&& other) noexcept;
 
-	void Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale);
+	void Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale, int height);
 	void StopRendering();
 
 	Rendering::Color GetColor() const;

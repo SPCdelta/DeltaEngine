@@ -58,7 +58,7 @@ Sprite& Sprite::operator=(Sprite&& other) noexcept
 	return *this;
 }
 
-void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale)
+void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale, int height)
 {
 	Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
 	if (!texture)
@@ -69,8 +69,10 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2 position, Math:
 
 	_texture = texture;
 
+	int flippedY = height - position.GetY() - scale.GetY(); 
+
 	Rendering::Rect srcRect = {0, 0, scale.GetX(), scale.GetY()};
-	Rendering::Rect destRect = {position.GetX(), position.GetY(), scale.GetX(), scale.GetY()}; 
+	Rendering::Rect destRect = {position.GetX(), flippedY, scale.GetX(), scale.GetY()}; 
 
 	Rendering::RendererFlip flip = flipX ? Rendering::FLIP_HORIZONTAL : Rendering::FLIP_NONE;
 

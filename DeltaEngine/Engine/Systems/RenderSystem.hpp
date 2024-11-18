@@ -29,7 +29,10 @@ public:
 		Rendering::GetWindowSize(static_cast<SDL_Window*>(*_window), &_viewportData->width, &_viewportData->height);
 		Rendering::SetRenderDrawColor(_window->GetRenderer(), 10, 10, 10, 255);
 		Rendering::RenderPresent(_window->GetRenderer());
+	}
 
+	void Update()
+	{
 		for (ecs::EntityId entityId : _view)
 		{
 			Transform transform = _view.get<Transform>(entityId);
@@ -38,13 +41,8 @@ public:
 
 			// Render the sprite associated with this entity
 			Sprite& sprite = _view.get<Sprite>(entityId);
-			sprite.Render(_window->GetRenderer(), pos, sca);
+			sprite.Render(_window->GetRenderer(), pos, sca, _viewportData->height);
 		}
-	}
-
-	void Update()
-	{
-		
 	}
 
 private:
