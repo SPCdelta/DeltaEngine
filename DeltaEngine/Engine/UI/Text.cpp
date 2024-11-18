@@ -1,7 +1,7 @@
 #include "Text.hpp"
 
 ui::Text::Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer)
-	: _text{text}, _size{size}, _x{x}, _y{y}, _color{color}
+	: _text{text}, _size{size}, _x{x}, _y{y}, _color{color}, _renderer{renderer}
 {
 	_font = Font::OpenFont(path.c_str(), size);
 
@@ -42,12 +42,14 @@ void ui::Text::renderText() {
 		return;
 	}
 
-	Rendering::Rect dstRect = {_x, _y, surface->w, surface->h};
+	Rendering::Rect dstRect = {100, 100, 100, 100};
 
 	Rendering::RenderCopy(_renderer, texture, nullptr, &dstRect);
 
-	Rendering::FreeSurface(surface);
-	Rendering::DestroyTexture(texture);
+	std::cout << dstRect.x << std::endl;
+
+	//Rendering::FreeSurface(surface);
+	//Rendering::DestroyTexture(texture);
 
 }
 
