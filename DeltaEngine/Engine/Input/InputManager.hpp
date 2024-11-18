@@ -4,7 +4,7 @@
 #include "InputMapEventDispatchers.hpp"
 #include "KeyListener.hpp"
 #include "MouseListener.hpp"
-#include "WheelListener.h"
+#include "WheelListener.hpp"
 #include <iostream>
 #include <map>
 #include <set>

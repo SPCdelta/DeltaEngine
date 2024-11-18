@@ -199,6 +199,7 @@
     <ClCompile Include="Engine\Rendering\SpriteSheet.cpp" />
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
     <ClCompile Include="Engine\Input\InputManager.cpp" />
+    <ClCompile Include="Engine\Input\InputsEnum.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
@@ -219,9 +220,10 @@
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Input\InputMapEventDispatchers.hpp" />
+    <ClInclude Include="Engine\Input\InputsEnum.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />
-    <ClInclude Include="Engine\Input\WheelListener.h" />
+    <ClInclude Include="Engine\Input\WheelListener.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />

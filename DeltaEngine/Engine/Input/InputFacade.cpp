@@ -2,7 +2,9 @@
 #include <algorithm>
 #include "KeyListener.hpp"
 
-InputFacade::InputFacade() : inputManager(InputManager::GetInstance()){};
+InputFacade::InputFacade() : inputManager(InputManager::GetInstance()){
+
+};
 
 bool InputFacade::isInputEvent(SDL_Event event)
 {
