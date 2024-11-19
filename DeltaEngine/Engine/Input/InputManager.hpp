@@ -146,7 +146,7 @@ public:
 			}
 		}
 
-		auto allInputs = KeyListener(inputKeys, true, -1, -1);  
+		auto allInputs = KeyListener(pressedInputs, true, -1, -1);  
 		//TODO ook de rest van de inputs er by zetten
 
 		for (const auto& keyInput : keyResults)
@@ -155,13 +155,12 @@ public:
 		}
 	}
 
-	void updateKeyUp(KeyListener& input) //Will only get one Key!!
+	void updateKeyUp(Key input) //Will only get one Key!!
 	{
-		for (auto& keypressed : input.keys)
-		{
-			pressedInputs.erase(keypressed);
-			keyInputState[Release][InputsEnum::toStr(keypressed)].Dispatch(input);
-		}
+		pressedInputs.erase(input);
+		auto allInputs = KeyListener(pressedInputs, true, -1, -1);
+		//TODO ook de rest van de inputs er by zetten
+		keyInputState[Release][InputsEnum::toStr(input)].Dispatch(allInputs);
 	}
 
 	void updateMouseButtonDown(MouseListener& button)
