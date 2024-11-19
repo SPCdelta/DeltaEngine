@@ -77,8 +77,12 @@ void InputFacade::onKeyDown(SDL_Event event) {
 }
 
 void InputFacade::onKeyUp(SDL_Event event) {
-	auto key = makeKeyStruct(event);
-	inputManager.updateKeyUp(key);
+	auto it = SDLToDeltaKeys.find(event.key.keysym.sym);
+
+	Key input = KEY_UNKNOWN;
+	if (it != SDLToDeltaKeys.end())
+		input = it->second;
+	inputManager.updateKeyUp(input);
 }
 
 void InputFacade::onMouseButtonDown(SDL_Event event) {

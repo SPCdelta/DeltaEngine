@@ -38,7 +38,7 @@ class TempInput : public BehaviourScript
 			{
 				std::cout << "Gaat naar boven: ";
 				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](Key& k)
+							  [](Key k)
 							  { std::cout  << InputsEnum::toStr(k); });
 				std::cout << '\n';
 			});
@@ -50,7 +50,7 @@ class TempInput : public BehaviourScript
 			{
 				std::cout << "Gaat naar boven: ";
 				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](Key& k)
+							  [](Key k)
 							  { std::cout << InputsEnum::toStr(k); });
 				std::cout << '\n';
 			});
@@ -59,7 +59,7 @@ class TempInput : public BehaviourScript
 			KEY_SPACE, [](KeyListener& key)
 			{
 				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](Key& k)
+							  [](Key k)
 							  { std::cout << InputsEnum::toStr(k); });
 				std::cout << '\n';
 			});
