@@ -19,22 +19,16 @@ class TempInput : public BehaviourScript
 
 	// Components
 
-	void test(std::set<std::string> test) {
-		std::for_each(test.begin(), test.end(),
-					  [](const std::string& k) { std::cout << k; });
-		std::cout << '\n';
-	}
 	// Methods
 	void OnStart() override
 	{
-
-
 
 		std::cout << "OnStart" << std::endl;
 		
 		std::set<std::string> bh{"B", "H"};
 		std::set<std::string> wi{"W", "I"};
 		std::set<std::string> qa{"Q", "A", "A"};
+		std::set<std::string> jh{"C", "D"};
 
 		InputManager::GetInstance().onKeyDown(
 			bh,
@@ -52,6 +46,8 @@ class TempInput : public BehaviourScript
 							  { std::cout  << k; });
 				std::cout << '\n';
 			});
+
+		
 
 		InputManager::GetInstance().keyPressed(
 			qa,
