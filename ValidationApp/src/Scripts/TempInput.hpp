@@ -25,19 +25,15 @@ class TempInput : public BehaviourScript
 
 		std::cout << "OnStart" << std::endl;
 		
-		std::set<std::string> bh{"B", "H"};
-		std::set<std::string> wi{"W", "I"};
-		std::set<std::string> qa{"Q", "A", "A"};
-		std::set<std::string> jh{"C", "D"};
 
 		InputManager::GetInstance().onKeyDown(
-			bh,
+			{KEY_B, KEY_H},
 			[](KeyListener& key) { std::cout << "SD test" << std::endl; });
 		InputManager::GetInstance().onKeyDown(
 			KEY_Z, [](KeyListener& key) { std::cout << "Z test" << std::endl; });
 
 		InputManager::GetInstance().keyPressed(
-			wi,
+			{KEY_I, KEY_W},
 			[](KeyListener& key)
 			{
 				std::cout << "Gaat naar boven: ";
@@ -47,10 +43,9 @@ class TempInput : public BehaviourScript
 				std::cout << '\n';
 			});
 
-		
 
 		InputManager::GetInstance().keyPressed(
-			qa,
+			KEY_A,
 			[](KeyListener& key)
 			{
 				std::cout << "Gaat naar boven: ";

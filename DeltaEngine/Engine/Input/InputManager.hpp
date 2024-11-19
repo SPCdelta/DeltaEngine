@@ -43,30 +43,30 @@ public:
 		insertInputState(PressedDown, InputsEnum::toStr(keyDown), keyEvent);
 	}
 
-	void keyPressed(const std::string keyDown, Events::EventCallback<KeyListener&> keyEvent)
+	void keyPressed(Key keyDown, Events::EventCallback<KeyListener&> keyEvent)
 	{
-		insertInputState(Pressed, keyDown, keyEvent);
+		insertInputState(Pressed, InputsEnum::toStr(keyDown), keyEvent);
 	}
 	void onKeyUp(const std::string keyUp, Events::EventCallback<KeyListener&> keyEvent)
 	{
 		insertInputState(Release, keyUp, keyEvent);
 	}
 
-	void onKeyDown(std::set<std::string>& keysDown,
+	void onKeyDown(std::set<Key> keysDown,
 				   Events::EventCallback<KeyListener&> keyEvent)
 	{
 		std::string allkeysDown;
 		for (const auto& key : keysDown)
-			allkeysDown += key;
+			allkeysDown += InputsEnum::toStr(key);
 		insertInputState(PressedDown, allkeysDown, keyEvent);
 	}
 
-	void keyPressed(std::set<std::string>& keysDown,
+	void keyPressed(std::set<Key> keysDown,
 					Events::EventCallback<KeyListener&> keyEvent)
 	{
 		std::string allkeysDown;
 		for (const auto& key : keysDown)
-			allkeysDown += key;
+			allkeysDown += InputsEnum::toStr(key);
 		insertInputState(Pressed, allkeysDown, keyEvent);
 	}
 	void onKeyUp(std::set<std::string>& keysUp,
