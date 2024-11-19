@@ -126,15 +126,13 @@ enum Key
 };
 
 
-class inputsEnum
+class InputsEnum
 {
    public:
 	static const std::unordered_map<Key, std::string>& getKeyMap();
 
-	// Overload operator[] to return the string value for a Key
-	static const std::string& get(Key key);
+	static const std::string& toStr(Key key);
 
    private:
-	// Static declaration only; definition will be in the .cpp file
 	static const std::unordered_map<Key, std::string> keyMap;
 };

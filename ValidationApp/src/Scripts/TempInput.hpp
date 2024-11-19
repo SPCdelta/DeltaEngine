@@ -34,7 +34,7 @@ class TempInput : public BehaviourScript
 			bh,
 			[](KeyListener& key) { std::cout << "SD test" << std::endl; });
 		InputManager::GetInstance().onKeyDown(
-			"Z", [](KeyListener& key) { std::cout << "Z test" << std::endl; });
+			KEY_Z, [](KeyListener& key) { std::cout << "Z test" << std::endl; });
 
 		InputManager::GetInstance().keyPressed(
 			wi,

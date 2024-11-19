@@ -1,7 +1,7 @@
 #include "InputsEnum.hpp"
 
 
-const std::unordered_map<Key, std::string> inputsEnum::keyMap = {
+const std::unordered_map<Key, std::string> InputsEnum::keyMap = {
 	{KEY_A, "A"},
 	{KEY_B, "B"},
 	{KEY_C, "C"},
@@ -121,12 +121,12 @@ const std::unordered_map<Key, std::string> inputsEnum::keyMap = {
 	{KEY_UNKNOWN, "UNKNOWN"}};
 
 
-const std::unordered_map<Key, std::string>& inputsEnum::getKeyMap()
+const std::unordered_map<Key, std::string>& InputsEnum::getKeyMap()
 {
 	return keyMap;
 }
 
-const std::string& inputsEnum::get(Key key)
+const std::string& InputsEnum::toStr(Key key)
 {
 	const auto& map = getKeyMap();
 	auto it = map.find(key);
