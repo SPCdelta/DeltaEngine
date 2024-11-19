@@ -85,6 +85,7 @@ void Application::Run()
 		// Setting up viewport of window
 		
 
+
 		// Input
 		Input(_dt);
 		_debugSystem->Update();
@@ -93,7 +94,7 @@ void Application::Run()
 		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
 		_updateSystem->Update();
 		//_physicsSystem->Update();
-
+		
 		// Render
 		_renderSystem->Update();
 		//_fontRenderSystem->Update();
