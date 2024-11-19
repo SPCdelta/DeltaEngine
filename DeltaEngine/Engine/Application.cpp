@@ -1,9 +1,10 @@
 #include "Application.hpp"
+#include "Temp/TempAudio.hpp"
 
 bool Application::_isRunning = true;
 
 Application::Application()
-	: _window("Meow!", 1280, 720)
+	: _window("Meow!", 1280, 720), _audioFacade(Audio::AudioFacade{})
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
@@ -23,7 +24,7 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject(_reg, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
+	GameObject* gameObject = new GameObject(_reg, _audioFacade, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();

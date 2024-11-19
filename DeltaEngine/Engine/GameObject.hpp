@@ -10,6 +10,8 @@
 
 #include "Rendering/Sprite.hpp"
 
+#include "Audio/AudioFacade.hpp"
+
 class GameObject
 {
 public:
@@ -69,12 +71,14 @@ public:
 		return _reg.GetComponent<T>(_id);
 	}
 
+	Audio::AudioFacade& GetAudioFacade() const { return _audioFacade; }
+
 	ecs::EntityId GetId() const
 	{ 
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg, Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+	GameObject(ecs::Registry& reg, Audio::AudioFacade& audioFacade, Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
 	~GameObject();
 
 	Transform* transform = nullptr;
@@ -82,11 +86,13 @@ public:
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
 
-private:
+   private:
 	bool _active{ true };
 
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
+
+	Audio::AudioFacade& _audioFacade;
 
 	template<typename T>
 	T* _AddComponent(T component)

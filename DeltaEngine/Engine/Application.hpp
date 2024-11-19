@@ -14,8 +14,7 @@
 #include "Scene/SceneManager.hpp"
 #include "Systems/RenderSystem.hpp"
 
-
-
+#include "Audio/AudioFacade.hpp"
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
@@ -74,6 +73,7 @@ private:
 	Rendering::Event _windowEvent{};
 
 	// Engine?
+	Audio::AudioFacade _audioFacade;
 	std::shared_ptr<DebugSystem> _debugSystem;
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;

@@ -51,6 +51,8 @@
     <ClInclude Include="Engine\Audio\AudioSource.hpp" />
     <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
     <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
+    <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp" />
+    <ClInclude Include="Engine\Temp\TempAudio.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
