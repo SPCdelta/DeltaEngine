@@ -9,11 +9,11 @@
 
 #include "Window.hpp"
 
-#include "Rendering/Viewport.hpp"
-
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
 #include "Scene/SceneManager.hpp"
+#include "Systems/RenderSystem.hpp"
+
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
@@ -68,13 +68,13 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-	ViewportData _viewportData{50.0f, 1280, 720};
 
 	// Engine?
 	std::shared_ptr<DebugSystem> _debugSystem;
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<RenderSystem> _renderSystem;
 
 	SceneManager _sceneManager;
 

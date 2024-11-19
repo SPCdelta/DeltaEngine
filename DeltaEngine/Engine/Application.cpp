@@ -23,10 +23,11 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject( _reg );
+	GameObject* gameObject = new GameObject(_reg, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
+	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
 	auto testScene = _sceneManager.Load("TestScene");
 	if (testScene)
@@ -36,6 +37,14 @@ Application::Application()
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
+
+	_window.SetViewportSize(400, 400);
+	_window.SetViewportPos(100, 50);
+	_window.RenderViewport(255, 255, 255, 255);
+
+	_renderSystem->SetWindow(&_window);
+	_renderSystem->SetViewportData(_window.GetViewport());
 }
 
 Application::~Application()
@@ -46,6 +55,7 @@ Application::~Application()
 void Application::Run()
 {
 	_updateSystem->OnStart();
+	_renderSystem->OnStart();
 
 	while (!_window.ShouldWindowClose())
 	{
@@ -56,8 +66,6 @@ void Application::Run()
 			Stop();
 			break;
 		}
-
-		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
 
 		// Internal Input
 		if (_windowEvent.type == Rendering::KEYDOWN)
@@ -72,9 +80,10 @@ void Application::Run()
 
 		GetDeltaTime();
 
-		_window.Update();
-		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
-		Rendering::RenderClear(_window.GetRenderer());
+		_window.Update();		
+
+		// Setting up viewport of window
+		
 
 		// Input
 		Input(_dt);
@@ -86,9 +95,8 @@ void Application::Run()
 		//_physicsSystem->Update();
 
 		// Render
-		//_renderSystem->Update();
+		_renderSystem->Update();
 		//_fontRenderSystem->Update();
-		Rendering::RenderPresent(_window.GetRenderer());
 
 		ShowFpsInWindowTitleBar();
 
