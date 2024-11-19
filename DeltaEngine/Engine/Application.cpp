@@ -29,6 +29,12 @@ Application::Application()
 	gameObject->AddComponent<TempBehaviour>();
 	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
+	auto testScene = _sceneManager.Load("TestScene");
+	if (testScene)
+	{
+		std::cout << "TestScene Loaded succesfully" << std::endl;
+	}
+
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
@@ -65,6 +71,7 @@ void Application::Run()
 		if (_windowEvent.type == Rendering::KEYDOWN)
 		{
 			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 1.0f);
+
 		}
 		else if (_windowEvent.type == Rendering::KEYUP)
 		{

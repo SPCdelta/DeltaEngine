@@ -189,6 +189,8 @@
   <ItemGroup>
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Scene\Scene.cpp" />
+    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Core\Math\Point.cpp" />
     <ClCompile Include="Engine\Core\Math\Random.cpp" />
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
@@ -210,6 +212,8 @@
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
+    <ClInclude Include="Engine\Scene\Scene.hpp" />
+    <ClInclude Include="Engine\Scene\SceneManager.hpp" />
     <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
