@@ -216,7 +216,7 @@
     <ClInclude Include="Engine\Core\Utils\StableIndexList.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
-    <ClInclude Include="Engine\Input\InputMapEventDispatchers.hpp" />
+    <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\InputsEnum.hpp" />
     <ClInclude Include="Engine\Input\KeyListener.hpp" />
     <ClInclude Include="Engine\Input\MouseListener.hpp" />

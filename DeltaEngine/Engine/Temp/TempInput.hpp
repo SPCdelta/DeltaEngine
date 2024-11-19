@@ -7,15 +7,18 @@ class TempInput : public BehaviourScript
 {
    public:
 
-	// DONE Combinatie van toetsen indrukken om een actie uit te voeren.
-	// DONE remove inputs if window is not focesed
+	// DONE Combinaties van toetsen gebruiken om een actie uit te voeren.
+	// DONE Inputs verwijderen als het venster niet gefocust is.
+	// DONE Alle inputs omzetten naar ENUMS of een klasse.
 	//
-	// TODO Make All Inputs ENUMS or class.
-	// TODO maak het zo dat je niet de hele tijd InputManager::GetInstance() hoeft neer te zetten.
-	// TODO Categoriseren welk type invoer het is, zodat het gemakkelijk gepauzeerd kan worden.
-	// TODO Combinatie van toets en knop om een actie uit te voeren.
-	// TODO Miss zorgen dat een input kan toegevoegd worden onder update time?
-	// TODO Invoer verwijderen ?
+	// TODO Categoriseer het type invoer, zodat deze eenvoudig gepauzeerd kan worden.
+	// TODO Voeg alle inputwaarden toe aan het event bij de dispatch()-aanroep.
+	// TODO Ondersteuning voor combinaties van toetsen en knoppen om acties uit te voeren.
+	// TODO Zorg ervoor dat InputManager::GetInstance() niet overal expliciet hoeft te worden aangeroepen.
+	// 
+	// TODOMISS Mogelijkheid toevoegen om input aftewijzen tijdens update-tijd.
+	// TODOMISS Functionaliteit toevoegen om invoer te kunnen verwijderen?
+
 
 	// Components
 
@@ -76,29 +79,29 @@ class TempInput : public BehaviourScript
 
 			});*/
 
-		//InputManager::GetInstance().onMouseButtonDown(
-		//	1,
-		//	[](MouseListener& button) {
-		//		std::cout << "linkermuis click: " << button.button << std::endl;
-		//	});
+		/*InputManager::GetInstance().onMouseButtonDown(
+			1,
+			[](MouseListener& button) {
+				std::cout << "linkermuis click: " << button.button << std::endl;
+			});
 
-		//InputManager::GetInstance().onMouseButtonUp(
-		//	2,
-		//	[](MouseListener& button) {
-		//		std::cout << "weel los gelaten: " << button.button << std::endl;
-		//	});
+		InputManager::GetInstance().onMouseButtonUp(
+			2,
+			[](MouseListener& button) {
+				std::cout << "weel los gelaten: " << button.button << std::endl;
+			});
 
-		//InputManager::GetInstance().onMouseMove(
-		//	[](MouseListener& mouse) {
-		//		std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
-		//	});
+		InputManager::GetInstance().onMouseMove(
+			[](MouseListener& mouse) {
+				std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
+			});
 
-		//InputManager::GetInstance().onMouseWheel(
-		//	[](WheelListener& mouse) {
-		//		std::cout << mouse.h << " - " << mouse.v << " : "
-		//				  << mouse.preciseX << " - " << mouse.preciseY << ":"
-		//				  << mouse.direction << std::endl;
-		//	});
+		InputManager::GetInstance().onMouseWheel(
+			[](WheelListener& mouse) {
+				std::cout << mouse.h << " - " << mouse.v << " : "
+						  << mouse.preciseX << " - " << mouse.preciseY << ":"
+						  << mouse.direction << std::endl;
+			});*/
 	}
 
 	void OnUpdate() override {}
