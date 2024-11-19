@@ -38,8 +38,8 @@ class TempInput : public BehaviourScript
 			{
 				std::cout << "Gaat naar boven: ";
 				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](const std::string& k)
-							  { std::cout  << k; });
+							  [](Key& k)
+							  { std::cout  << InputsEnum::toStr(k); });
 				std::cout << '\n';
 			});
 
@@ -50,49 +50,21 @@ class TempInput : public BehaviourScript
 			{
 				std::cout << "Gaat naar boven: ";
 				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](const std::string& k) { std::cout << k; });
+							  [](Key& k)
+							  { std::cout << InputsEnum::toStr(k); });
 				std::cout << '\n';
 			});
 
-		/*InputManager::GetInstance().keyPressed(
-			"A",
-			[](KeyListener& key)
+		InputManager::GetInstance().onKeyUp(
+			KEY_SPACE, [](KeyListener& key)
 			{
-				std::cout << "Gaat naar rechts: ";
 				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](const std::string& k)
-							  { std::cout  << k; });
+							  [](Key& k)
+							  { std::cout << InputsEnum::toStr(k); });
 				std::cout << '\n';
 			});
-		InputManager::GetInstance().keyPressed(
-			"D",
-			[](KeyListener& key)
-			{
-				std::cout << "Gaat naar onder: ";
-				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](const std::string& k)
-							  { std::cout << k; });
-				std::cout << '\n';
-			});
-		InputManager::GetInstance().keyPressed(
-			"S",
-			[](KeyListener& key)
-			{
-				std::cout << "Gaat naar links: ";
-				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](const std::string& k)
-							  { std::cout << k; });
-				std::cout << '\n';
-				;
-			});*/
 
-		//InputManager::GetInstance().onKeyUp(
-		//	"Space", [](KeyListener& key)
-		//	{
-		//		std::cout << "Spatie is los gelaten: " << key.key << std::endl;
-		//	});
-
-		/*InputManager::GetInstance().onKeyDown(
+		/*InputManager::GetInstance().onKeyDown( //TODO checken of dit niet fout gaat!!
 			"Space",
 			[](KeyListener& key) {
 				InputManager::GetInstance().onMouseButtonDown(

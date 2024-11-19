@@ -45,8 +45,14 @@ KeyListener InputFacade::makeKeyStruct(SDL_Event event) {
 	int posX = event.button.x;
 	int posY = event.button.y;
 	int pressed = event.key.state == SDL_PRESSED;
-	return KeyListener({SDL_GetKeyName(event.key.keysym.sym)}, pressed, posX,
-					   posY);
+
+	auto it = SDLToDeltaKeys.find(event.key.keysym.sym);
+
+	Key input = KEY_UNKNOWN;
+	if (it != SDLToDeltaKeys.end())
+		input = it->second;
+
+	return KeyListener({input}, pressed, posX, posY);
 }
 
 MouseListener InputFacade::makeMouseStruct(SDL_Event event)
@@ -61,8 +67,13 @@ MouseListener InputFacade::makeMouseStruct(SDL_Event event)
 }
 
 void InputFacade::onKeyDown(SDL_Event event) {
-	auto key = makeKeyStruct(event);
-	inputManager.updateKeyDown(key);
+	auto it = SDLToDeltaKeys.find(event.key.keysym.sym);
+
+	Key input = KEY_UNKNOWN;
+	if (it != SDLToDeltaKeys.end())
+		input = it->second;
+
+	inputManager.updateKeyDown(input);
 }
 
 void InputFacade::onKeyUp(SDL_Event event) {

@@ -47,9 +47,9 @@ public:
 	{
 		insertInputState(Pressed, InputsEnum::toStr(keyDown), keyEvent);
 	}
-	void onKeyUp(const std::string keyUp, Events::EventCallback<KeyListener&> keyEvent)
+	void onKeyUp(Key keyUp, Events::EventCallback<KeyListener&> keyEvent)
 	{
-		insertInputState(Release, keyUp, keyEvent);
+		insertInputState(Release, InputsEnum::toStr(keyUp), keyEvent);
 	}
 
 	void onKeyDown(std::set<Key> keysDown,
@@ -103,18 +103,13 @@ public:
 	}
 
 
-	void updateKeyDown(KeyListener& input) //Will only get one Key!!
+	void updateKeyDown(Key input)
 	{
-		if (pressedInputs.find(input.keys[0]) == pressedInputs.end())
+		if (std::find(pressedInputs.begin(), pressedInputs.end(), input) == pressedInputs.end())
 		{
-			for (auto& keypressed : input.keys)
-				pressedInputs[keypressed] = input;
+			pressedInputs.insert(input);
 			executeBindingInputsForState(PressedDown);
 		}
-
-		for (auto& keypressed : input.keys)
-			pressedInputs[keypressed] = input;
-		
 	}
 
 	void executeBindingInputsForState(InputState state)
@@ -123,10 +118,10 @@ public:
 
 		std::unordered_set<std::string> processedKeys;
 
-		std::vector<std::string> inputKeys;
+		std::vector<Key> inputKeys;
 		for (const auto& kv : pressedInputs)
 		{
-			inputKeys.emplace_back(kv.first.c_str());
+			inputKeys.emplace_back(kv);
 		}
 
 		int n = inputKeys.size();
@@ -137,7 +132,7 @@ public:
 			{
 				if (i & (1 << j))
 				{
-					combinedKey += inputKeys[j];
+					combinedKey += InputsEnum::toStr(inputKeys[j]);
 				}
 			}
 
@@ -151,12 +146,12 @@ public:
 			}
 		}
 
-		auto keyinputs = KeyListener(inputKeys, true, -1, -1);  
+		auto allInputs = KeyListener(inputKeys, true, -1, -1);  
 		//TODO ook de rest van de inputs er by zetten
 
 		for (const auto& keyInput : keyResults)
 		{
-			keyInputState[state][keyInput].Dispatch(keyinputs);
+			keyInputState[state][keyInput].Dispatch(allInputs);
 		}
 	}
 
@@ -165,7 +160,7 @@ public:
 		for (auto& keypressed : input.keys)
 		{
 			pressedInputs.erase(keypressed);
-			keyInputState[Release][keypressed].Dispatch(input);
+			keyInputState[Release][InputsEnum::toStr(keypressed)].Dispatch(input);
 		}
 	}
 
@@ -195,7 +190,7 @@ public:
 private:
 	static InputManager instance;
 
-	std::map<std::string, KeyListener> pressedInputs; //Miss kan dit een vector zijn van alle inputs keys dus de strings
+	std::set<Key> pressedInputs;
 
 
 	std::map<InputState, InputMapEventDispatchers> keyInputState;
