@@ -151,7 +151,7 @@
     <ClInclude Include="Engine\Core\Utils\StableIndexList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Input\InputMapEventDispatchers.hpp">
+    <ClInclude Include="Engine\Input\InputEventDispatchers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Input\InputsEnum.hpp">

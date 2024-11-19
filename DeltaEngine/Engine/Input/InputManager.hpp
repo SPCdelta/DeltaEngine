@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Core/Utils/StableIndexList.hpp"
-#include "InputMapEventDispatchers.hpp"
+#include "InputEventDispatchers.hpp"
 #include "KeyListener.hpp"
 #include "MouseListener.hpp"
 #include "WheelListener.hpp"
@@ -27,15 +27,15 @@ public:
 	InputManager& operator=(InputManager&&) = delete;
 	//end Singleton
 
-	//TODO string mabye to enum??
-	void insertInputState(InputState state, const std::string keyDown,
-						  Events::EventCallback<KeyListener&> keyEvent)
+	void insertInputState(InputState state, const std::string input,
+						  Events::EventCallback<KeyListener&> inputEvent)
 	{
-		if (keyInputState[state].find(keyDown))
-			keyInputState[state][keyDown] =
-				Events::EventDispatcher<KeyListener&>();
+		keyInputState[state].add(input, "game-input", inputEvent);
+		//if (keyInputState[state].find(keyDown))
+		//	keyInputState[state][keyDown] =
+		//		Events::EventDispatcher<KeyListener&>();
 
-		keyInputState[state][keyDown].Register(keyEvent);
+		//keyInputState[state][keyDown].Register(keyEvent);
 	}
 
 	void onKeyDown(Key keyDown, Events::EventCallback<KeyListener&> keyEvent)
@@ -69,14 +69,6 @@ public:
 			allkeysDown += InputsEnum::toStr(key);
 		insertInputState(Pressed, allkeysDown, keyEvent);
 	}
-	void onKeyUp(std::set<std::string>& keysUp,
-				 Events::EventCallback<KeyListener&> keyEvent)
-	{
-		std::string allkeysUp;
-		for (const auto& key : keysUp)
-			allkeysUp += key;
-		insertInputState(Release, allkeysUp, keyEvent);
-	}
 
 	void onMouseButtonDown(int button, Events::EventCallback<MouseListener&> buttonEvent)
 	{
@@ -100,16 +92,6 @@ public:
 	}
 	void onMouseWheel(Events::EventCallback<WheelListener&> wheelEvent) {
 		mouseWheelMovement.Register(wheelEvent);
-	}
-
-
-	void updateKeyDown(Key input)
-	{
-		if (std::find(pressedInputs.begin(), pressedInputs.end(), input) == pressedInputs.end())
-		{
-			pressedInputs.insert(input);
-			executeBindingInputsForState(PressedDown);
-		}
 	}
 
 	void executeBindingInputsForState(InputState state)
@@ -149,18 +131,30 @@ public:
 		auto allInputs = KeyListener(pressedInputs, true, -1, -1);  
 		//TODO ook de rest van de inputs er by zetten
 
+
 		for (const auto& keyInput : keyResults)
 		{
-			keyInputState[state][keyInput].Dispatch(allInputs);
+			keyInputState[state].dispatchActive(keyInput, allInputs);
 		}
 	}
 
-	void updateKeyUp(Key input) //Will only get one Key!!
+
+	void updateKeyDown(Key input)
+	{
+		if (std::find(pressedInputs.begin(), pressedInputs.end(), input) == pressedInputs.end())
+		{
+			pressedInputs.insert(input);
+			executeBindingInputsForState(PressedDown);
+		}
+	}
+
+	void updateKeyUp(Key input)
 	{
 		pressedInputs.erase(input);
 		auto allInputs = KeyListener(pressedInputs, true, -1, -1);
 		//TODO ook de rest van de inputs er by zetten
-		keyInputState[Release][InputsEnum::toStr(input)].Dispatch(allInputs);
+
+		keyInputState[Release].dispatchActive(InputsEnum::toStr(input), allInputs);
 	}
 
 	void updateMouseButtonDown(MouseListener& button)
@@ -192,7 +186,7 @@ private:
 	std::set<Key> pressedInputs;
 
 
-	std::map<InputState, InputMapEventDispatchers> keyInputState;
+	std::map<InputState, InputEventDispatchers> keyInputState;
 
 
 
