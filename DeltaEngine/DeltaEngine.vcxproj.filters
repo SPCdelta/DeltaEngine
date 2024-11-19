@@ -1,142 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Engine\BehaviourScript.cpp" />
+    <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Scene\Scene.cpp" />
+    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="Engine\Core\Math\Point.cpp" />
+    <ClCompile Include="Engine\Core\Math\Random.cpp" />
+    <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
+    <ClCompile Include="Engine\Rendering\Sprite.cpp" />
+    <ClCompile Include="Engine\Window.cpp" />
+    <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\UI\Text.cpp" />
+    <ClCompile Include="Engine\UI\UIObject.cpp" />
+    <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
+    <ClCompile Include="Engine\Audio\SFXSource.cpp" />
+    <ClCompile Include="Engine\Audio\MusicSource.cpp" />
+    <ClCompile Include="Engine\Audio\AudioSource.cpp" />
+    <ClCompile Include="Engine\Audio\AudioLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\BehaviourScript.cpp">
-    <ClCompile Include="Engine\Scene\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Scene\SceneManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Core\Math\Vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Rendering\Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Core\Math\Point.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Core\Math\Random.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\UI\Text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\UI\UIObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Engine\BehaviourScript.hpp" />
+    <ClInclude Include="Engine\Application.hpp" />
+    <ClInclude Include="Engine\Core\Events\Event.hpp" />
+    <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
+    <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
+    <ClInclude Include="Engine\Core\Math\Point.hpp" />
+    <ClInclude Include="Engine\Core\Math\Random.hpp" />
+    <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
+    <ClInclude Include="Engine\Ecs\View.hpp" />
+    <ClInclude Include="Engine\Engine.hpp" />
+    <ClInclude Include="Engine\Rendering\Rendering.hpp" />
+    <ClInclude Include="Engine\Rendering\Sprite.hpp" />
+    <ClInclude Include="Engine\Rendering\Viewport.hpp" />
+    <ClInclude Include="Engine\Scene\Scene.hpp" />
+    <ClInclude Include="Engine\Scene\SceneManager.hpp" />
+    <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
+    <ClInclude Include="Engine\Systems\RenderSystem.hpp" />
+    <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
+    <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
+    <ClInclude Include="Engine\Transform.hpp" />
+    <ClInclude Include="Engine\Window.hpp" />
+    <ClInclude Include="Engine\Ecs\Registry.hpp" />
+    <ClInclude Include="Engine\GameObject.hpp" />
+    <ClInclude Include="Engine\UI\Text.hpp" />
+    <ClInclude Include="Engine\UI\UIObject.hpp" />
+    <ClInclude Include="Engine\UI\Font.hpp" />
+    <ClInclude Include="Engine\Audio\SFXSource.hpp" />
+    <ClInclude Include="Engine\Audio\MusicSource.hpp" />
+    <ClInclude Include="Engine\Audio\AudioSource.hpp" />
+    <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
+    <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Application.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Rendering\Viewport.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Ecs\Registry.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Systems\DebugSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Engine.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Ecs\View.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Core\Math\Point.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Core\Math\Vector2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Core\Events\Event.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Transform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Rendering\Rendering.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameObject.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\BehaviourScript.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Temp\TempBehaviour.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Systems\UpdateSystem.hpp">
-    <ClInclude Include="Engine\Scene\Scene.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Scene\SceneManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Rendering\Sprite.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Core\Math\Random.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Systems\RenderSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\UI\Text.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\UI\UIObject.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\UI\Font.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Textures\spritesheet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\spritesheet2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\spritesheet3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <Image Include="Assets\Textures\spritesheet.png" />
+    <Image Include="Assets\Textures\spritesheet2.png" />
+    <Image Include="Assets\Textures\spritesheet3.png" />
   </ItemGroup>
 </Project>

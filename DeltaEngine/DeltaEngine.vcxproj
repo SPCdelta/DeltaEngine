@@ -187,6 +187,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
+    <ClCompile Include="Engine\Audio\AudioLoader.cpp" />
+    <ClCompile Include="Engine\Audio\AudioSource.cpp" />
+    <ClCompile Include="Engine\Audio\MusicSource.cpp" />
+    <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
@@ -201,6 +206,11 @@
     <ClCompile Include="Engine\UI\UIObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
+    <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
+    <ClInclude Include="Engine\Audio\AudioSource.hpp" />
+    <ClInclude Include="Engine\Audio\MusicSource.hpp" />
+    <ClInclude Include="Engine\Audio\SFXSource.hpp" />
     <ClInclude Include="Engine\BehaviourScript.hpp" />
     <ClInclude Include="Engine\Application.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
