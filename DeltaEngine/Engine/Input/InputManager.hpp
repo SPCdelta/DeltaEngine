@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
+#include "InputsEnum.hpp"
 
 class InputManager
 {
@@ -37,9 +38,9 @@ public:
 		keyInputState[state][keyDown].Register(keyEvent);
 	}
 
-	void onKeyDown(const std::string keyDown, Events::EventCallback<KeyListener&> keyEvent)
+	void onKeyDown(Key keyDown, Events::EventCallback<KeyListener&> keyEvent)
 	{
-		insertInputState(PressedDown, keyDown, keyEvent);
+		insertInputState(PressedDown, InputsEnum::toStr(keyDown), keyEvent);
 	}
 
 	void keyPressed(const std::string keyDown, Events::EventCallback<KeyListener&> keyEvent)
