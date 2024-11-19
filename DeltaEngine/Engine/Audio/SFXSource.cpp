@@ -81,6 +81,12 @@ void SFXSource::IncreaseVolume(int volume)
 	_audioFacade.IncreaseSFXVolume(_clip.get(), volume);
 }
 
+void SFXSource::SetClip(std::string pathToClip)
+{
+	_clip.reset();
+	_clip = std::move(AudioLoader::LoadChunk(pathToClip));
+}
+
 Mix_Chunk* SFXSource::GetSource() const
 {
 	return _clip.get();

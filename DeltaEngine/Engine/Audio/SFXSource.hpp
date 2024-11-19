@@ -24,6 +24,7 @@ class SFXSource : public AudioSource
 	void Stop() override;
 	void SetVolume(int volume) override;
 	void IncreaseVolume(int volume) override;
+	void SetClip(std::string pathToClip);
 	Mix_Chunk* GetSource() const;
 
    private:

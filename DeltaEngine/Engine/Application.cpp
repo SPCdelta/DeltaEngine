@@ -1,5 +1,6 @@
 #include "Application.hpp"
 #include "Temp/TempAudio.hpp"
+#include "Audio/SFXSource.hpp"
 
 bool Application::_isRunning = true;
 
@@ -29,6 +30,7 @@ Application::Application()
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
 	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+	gameObject->AddComponent<Audio::SFXSource>("", false, _audioFacade, false);
 
 	auto testScene = _sceneManager.Load("TestScene");
 	if (testScene)
