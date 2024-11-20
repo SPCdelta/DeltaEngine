@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window.hpp"
+#include "../Window.hpp"
 
 #include "../Ecs/Registry.hpp"
 #include "../Transform.hpp"

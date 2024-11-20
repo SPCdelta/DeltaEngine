@@ -177,9 +177,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Scenes\GameScene.cpp" />
+    <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\GameScene.hpp" />
+    <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
+    <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
   </ItemGroup>
   <ItemGroup>

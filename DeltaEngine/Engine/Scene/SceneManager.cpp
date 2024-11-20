@@ -1,17 +1,16 @@
 #include "SceneManager.hpp"
 
-std::shared_ptr<Scene> SceneManager::Load(std::string sceneName)
+void SceneManager::Load(const std::string& sceneName)
 {
-	for (auto& scene : scenes) {
-		if (scene->getName() == sceneName) {
-			std::cout << "Loading existing scene " << sceneName << std::endl;
-			return scene;
-		}
+	auto it = _factories.find(sceneName);
+	if (it != _factories.end())
+	{
+		_currentScene = it->second(sceneName);
+		return;
 	}
-	std::cout << "Creating and loading new scene " << sceneName << std::endl;
-	auto newScene = std::make_shared<Scene>(sceneName);
-	// instantiate() ?
-	scenes.push_back(newScene);
-
-	return newScene;
+#ifdef _DEBUG
+	std::cerr << "Scene doesnt exist!" << std::endl;
+#else
+	throw new std::exception("Scene with name '" + sceneName + "' doesnt exist!");
+#endif
 }
