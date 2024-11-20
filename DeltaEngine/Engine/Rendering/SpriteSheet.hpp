@@ -9,7 +9,7 @@
 class SpriteSheet
 {
 public:
-	SpriteSheet(Transform* transform, int viewportHeight,  int framesInRow, int animateSpeed, int frameW, int frameH, int rowUp = NULL, 
+	SpriteSheet(Transform* transform, int viewportHeight,  int framesInRow, int frameW, int frameH, int rowUp = NULL, 
 		int rowDown = NULL, int rowLeft = NULL, int rowRight = NULL);
 	~SpriteSheet();
 
@@ -53,6 +53,7 @@ public:
 	int GetAttCurrentFrame() const { return attackCurrentFrame; }
 	void SetAttCurrentFrame(int newFrame) { attackCurrentFrame = newFrame; }
 
+	void Attack();
 	int GetIsAttacking() const { return isAttacking; }
 	void SetIsAttacking(bool attacking) { isAttacking = attacking; }
 
@@ -71,7 +72,7 @@ private:
 	int currentFrame{0};
 	int frameCount;
 	int movementSpeed{5};
-	int animationSpeed;
+	int animationSpeed{100};
 
 	int frameWidth;
 	int frameHeight;

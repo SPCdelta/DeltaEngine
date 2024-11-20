@@ -26,8 +26,9 @@ Application::Application() : _window("Meow!", 1280, 720)
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
-	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", true, new SpriteSheet(&gameObject->GetComponent<Transform>(), 
-		_window.GetViewport()->height, 4, 100, 64, 64, 4, 1, 2, 3));
+
+	SpriteSheet* sheet = new SpriteSheet(&gameObject->GetComponent<Transform>(), _window.GetViewport()->height, 4, 64, 64, 4, 1, 2, 3);
+	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", true, sheet);
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();

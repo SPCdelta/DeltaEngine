@@ -52,6 +52,13 @@ public:
 			const Rendering::UnsignInt8* keys = Rendering::GetKeyboardState(NULL);
 			Direction direction = Direction::NONE;
 
+			// TODO bind to sdl event when mouse is clicked, for texting you can add it in with the else if underneath,
+			//		however, when doing this holding space will have the sprite be mid attack animation
+			/*if (keys[Rendering::SCANCODE_SPACE])
+			{
+				sprite.GetSheet()->Attack();
+			}*/
+
 			// Determine direction based on keyboard input
 			if (keys[Rendering::SCANCODE_W])
 				direction = Direction::UP;

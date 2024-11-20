@@ -1,8 +1,8 @@
 #include "SpriteSheet.hpp"
 
-SpriteSheet::SpriteSheet(Transform* transform, int viewportHeight, int framesInRow, int animateSpeed, int frameW, int frameH, int rowUp, int rowDown, 
+SpriteSheet::SpriteSheet(Transform* transform, int viewportHeight, int framesInRow, int frameW, int frameH, int rowUp, int rowDown, 
 	int rowLeft, int rowRight) : frameCount(framesInRow), frameRowUp(rowUp), frameRowDown(rowDown), frameRowLeft(rowLeft), 
-	frameRowRight(rowRight), animationSpeed(animateSpeed), frameWidth(frameW), frameHeight(frameH)
+	frameRowRight(rowRight), frameWidth(frameW), frameHeight(frameH)
 {
 	int flippedY = viewportHeight - transform->position.GetY() - frameHeight; 
 	Rendering::Rect src = {0, 0, frameWidth, frameHeight};
@@ -29,4 +29,10 @@ void SpriteSheet::AddIdleAnimation(int frameCount, int row, Rendering::UnsignInt
 	idleFrameCount = frameCount;
 	idleRow = row;
 	idleAnimationSpeed = idleAnimSpeed;
+}
+
+void SpriteSheet::Attack()
+{
+	SetIsAttacking(true);
+	SetAttCurrentFrame(0);
 }

@@ -105,7 +105,10 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2* position, int 
 		srcRect = {0, 0, 64, 64};
 		destRect = {static_cast<int>(round(position->GetX())), flippedY, 64, 64}; 
 	}
-	
+
+	SetFlipX(((_sheet->GetFacingDirection() == Direction::RIGHT && _sheet->GetRowRight() == NULL) || (_sheet->GetFacingDirection() == Direction::LEFT &&
+		  _sheet->GetRowLeft() == NULL)));
+
 	Rendering::RendererFlip flip = flipX ? Rendering::FLIP_HORIZONTAL : Rendering::FLIP_NONE;
 	Rendering::RenderCopyEx(renderer, _texture, &srcRect, &destRect, 0, NULL, flip);
 }
@@ -124,16 +127,6 @@ Rendering::Color Sprite::GetColor() const
 void Sprite::SetColor(Rendering::Color newColor) 
 {
 	color = newColor;
-}
-
-void Sprite::FlipHorizontally() 
-{
-	flipX = !flipX;
-}
-
-void Sprite::FlipVertically() 
-{
-	flipY = !flipY;
 }
 
 Rendering::Texture* Sprite::GetTexture()

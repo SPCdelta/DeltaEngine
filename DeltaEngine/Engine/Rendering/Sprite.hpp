@@ -27,8 +27,8 @@ public:
 	Rendering::Color GetColor() const;
 	void SetColor(Rendering::Color newColor);
 
-	void FlipHorizontally();
-	void FlipVertically();
+	void SetFlipX(bool flip) { flipX = flip; };
+	void SetFlipY(bool flip) { flipY = flip; };
 
 	Animator* GetAnimator() const { return _animator; }
 	SpriteSheet* GetSheet() const { return _sheet; }
