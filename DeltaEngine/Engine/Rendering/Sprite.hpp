@@ -12,7 +12,7 @@
 class Sprite
 {
 public:
-	Sprite(const char* spritePath, bool hasAnimation, SpriteSheet* sheet);
+	Sprite(const char* spritePath, SpriteSheet* sheet);
 	~Sprite();
 
 	Sprite(const Sprite& other);			 

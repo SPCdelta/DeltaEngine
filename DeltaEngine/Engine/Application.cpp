@@ -28,7 +28,7 @@ Application::Application() : _window("Meow!", 1280, 720)
 	gameObject->AddComponent<TempBehaviour>();
 
 	SpriteSheet* sheet = new SpriteSheet(&gameObject->GetComponent<Transform>(), _window.GetViewport()->height, 4, 64, 64, 4, 1, 2, 3);
-	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", true, sheet);
+	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", sheet);
 
 	auto testScene = _sceneManager.Load("TestScene");
 	if (testScene)

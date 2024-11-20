@@ -1,20 +1,11 @@
 #include "Sprite.hpp"
 
-Sprite::Sprite(const char* spritePath, bool hasAnimation, SpriteSheet* sheet) : sprite(spritePath), _texture(nullptr), _animator(nullptr), _sheet(nullptr)
+Sprite::Sprite(const char* spritePath, SpriteSheet* sheet) : sprite(spritePath), _texture(nullptr), _animator(nullptr), _sheet(nullptr)
 {
-	if (hasAnimation && sheet)
+	if (sheet)
 	{
 		_animator = new Animator(spritePath);
-
-		if (sheet)
-		{
-			_sheet = sheet;
-		}
-		else
-		{
-			std::cerr << "Cannot give an empty spritesheet to a sprite if you want animation" << std::endl;
-			return;
-		}
+		_sheet = sheet;
 	}
 }
 
