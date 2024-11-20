@@ -28,12 +28,13 @@ class TempInput : public BehaviourScript
 
 		std::cout << "OnStart" << std::endl;
 		
-
+		InputManager::GetInstance().deactivateCategory("test");
 		InputManager::GetInstance().onKeyDown(
 			{KEY_B, KEY_H},
 			[](KeyListener& key) { std::cout << "SD test" << std::endl; });
 		InputManager::GetInstance().onKeyDown(
-			KEY_Z, [](KeyListener& key) { std::cout << "Z test" << std::endl; });
+			KEY_Z, [](KeyListener& key) { std::cout << "Z test" << std::endl; },
+			"test");
 
 		InputManager::GetInstance().keyPressed(
 			{KEY_I, KEY_W},
