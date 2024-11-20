@@ -41,6 +41,9 @@
     <ClInclude Include="src\Scenes\MainMenuScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\TempBehaviour.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png">

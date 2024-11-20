@@ -8,6 +8,8 @@ GameScene::GameScene(const std::string& name)
 	playerObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 	player = playerObject->AddComponent<PlayerBehaviour>();
 
+	Instantiate({ { 200.0f, 200.0f}, 0.0f, { 64.0f, 64.0f } })->AddComponent<TempBehaviour>();
+
 	// ...
 	for (size_t y = 0; y < 2; y++)
 	{

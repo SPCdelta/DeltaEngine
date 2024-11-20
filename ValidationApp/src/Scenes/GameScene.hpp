@@ -3,6 +3,7 @@
 #include "Engine/Delta.hpp"
 
 #include "../Scripts/PlayerBehaviour.hpp"
+#include "../Scripts/TempBehaviour.hpp"
 
 class GameScene : public Scene
 {

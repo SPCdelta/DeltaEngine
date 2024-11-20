@@ -7,7 +7,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<GameScene>("GameScene");
 
 	// Load Desired Scene
-	LoadScene("GameScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();
