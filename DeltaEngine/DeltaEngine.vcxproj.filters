@@ -33,7 +33,7 @@
     <ClCompile Include="Engine\Input\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Input\InputsEnum.cpp">
+    <ClCompile Include="Engine\Input\DeltaInputs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp">
@@ -119,7 +119,7 @@
     <ClInclude Include="Engine\Input\InputEventDispatchers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Input\InputsEnum.hpp">
+    <ClInclude Include="Engine\Input\DeltaInputs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
