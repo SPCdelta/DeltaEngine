@@ -30,6 +30,12 @@ Application::Application() : _window("Meow!", 1280, 720)
 	SpriteSheet* sheet = new SpriteSheet(&gameObject->GetComponent<Transform>(), _window.GetViewport()->height, 4, 64, 64, 4, 1, 2, 3);
 	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", true, sheet);
 
+	auto testScene = _sceneManager.Load("TestScene");
+	if (testScene)
+	{
+		std::cout << "TestScene Loaded succesfully" << std::endl;
+	}
+
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
@@ -62,6 +68,7 @@ void Application::Run()
 		if (_windowEvent.type == Rendering::KEYDOWN)
 		{
 			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 1.0f);
+
 		}
 		else if (_windowEvent.type == Rendering::KEYUP)
 		{
@@ -75,6 +82,7 @@ void Application::Run()
 		// Setting up viewport of window
 		
 
+
 		// Input
 		Input(_dt);
 		_debugSystem->Update();
@@ -83,7 +91,7 @@ void Application::Run()
 		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
 		_updateSystem->Update();
 		//_physicsSystem->Update();
-
+		
 		// Render
 		_renderSystem->Update();
 		//_fontRenderSystem->Update();
