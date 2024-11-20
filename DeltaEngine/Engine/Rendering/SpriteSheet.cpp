@@ -30,23 +30,3 @@ void SpriteSheet::AddIdleAnimation(int frameCount, int row, Rendering::UnsignInt
 	idleRow = row;
 	idleAnimationSpeed = idleAnimSpeed;
 }
-
-//void SpriteSheet::InitSpriteSet(Transform transform)
-//{
-//	Math::Vector2 pos = transform.position;
-//	Math::Vector2 sca = transform.scale;
-//
-//	/*int spriteSetWidth, spriteSetHeight;
-//	Rendering::QueryTexture(_texture, nullptr, nullptr, &spriteSetWidth, &spriteSetHeight);
-//
-//	int spritesPerRow = spriteSetWidth / sca.GetX();
-//	int spritesPerCol = spriteSetHeight / sca.GetY();*/
-//
-//	/*for (int y = 0; y < spritesPerCol; ++y)
-//	{
-//		for (int x = 0; x < spritesPerRow; ++x)
-//		{
-//			sprites.emplace_back(x * tileSize, y * tileSize);
-//		}
-//	}*/
-//}

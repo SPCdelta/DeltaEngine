@@ -48,6 +48,7 @@ public:
 			Transform& transform = _view.get<Transform>(entityId);
 			Sprite& sprite = _view.get<Sprite>(entityId);
 
+			// TODO this movement/keys code is for testing, this needs to be integrated with input once input is done and on main)
 			const Rendering::UnsignInt8* keys = Rendering::GetKeyboardState(NULL);
 			Direction direction = Direction::NONE;
 
@@ -64,6 +65,7 @@ public:
 			// Check if the sprite has an animator, and call Play
 			if (sprite.GetAnimator())			
 				sprite.GetAnimator()->Play(&transform.position, sprite.GetSheet(), _viewportData->height, direction);
+			// TODO (see prev TODO text, this is just the end of the mentioned code) ^^
 
 			// Render the sprite associated with this entity		
 			sprite.Render(_window->GetRenderer(), &transform.position, _viewportData->height);

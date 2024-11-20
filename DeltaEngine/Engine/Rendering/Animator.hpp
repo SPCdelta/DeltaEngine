@@ -21,11 +21,6 @@ public:
 
 	void StandIdle(Rendering::UnsignInt32 currentTime, SpriteSheet* sheet);
 
-	// TODO
-	/*int fps;*/
-
 private:
-	// TODO
-	/*std::vector<Sprite*> sprites;*/
 
 };

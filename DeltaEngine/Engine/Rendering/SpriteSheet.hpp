@@ -13,10 +13,6 @@ public:
 		int rowDown = NULL, int rowLeft = NULL, int rowRight = NULL);
 	~SpriteSheet();
 
-	// TODO
-	/*std::vector<Point> sprites;
-	Point spriteSize;*/
-
 	int GetCurrentFrame() const { return currentFrame; }
 	void SetCurrentFrame(int newFrame) { currentFrame = newFrame; }
 

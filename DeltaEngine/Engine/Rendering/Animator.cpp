@@ -2,12 +2,12 @@
 
 Animator::Animator(const char* spritePath)
 {
-	// TODO
+	
 }
 
 Animator::~Animator()
 {
-	// TODO
+	
 }
 
 void Animator::Play(Math::Vector2* pos, SpriteSheet* sheet, int viewportHeight, Direction direc)
