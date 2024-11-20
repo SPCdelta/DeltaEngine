@@ -10,8 +10,8 @@ class TempInput : public BehaviourScript
 	// DONE Combinaties van toetsen gebruiken om een actie uit te voeren.
 	// DONE Inputs verwijderen als het venster niet gefocust is.
 	// DONE Alle inputs omzetten naar ENUMS of een klasse.
+	// DONE Categoriseer het type invoer, zodat deze eenvoudig gepauzeerd kan worden.
 	//
-	// TODO Categoriseer het type invoer, zodat deze eenvoudig gepauzeerd kan worden.
 	// TODO Voeg alle inputwaarden toe aan het event bij de dispatch()-aanroep.
 	// TODO Ondersteuning voor combinaties van toetsen en knoppen om acties uit te voeren.
 	// TODO Zorg ervoor dat InputManager::GetInstance() niet overal expliciet hoeft te worden aangeroepen.
@@ -81,29 +81,29 @@ class TempInput : public BehaviourScript
 
 			});*/
 
-		/*InputManager::GetInstance().onMouseButtonDown(
-			1,
-			[](MouseListener& button) {
-				std::cout << "linkermuis click: " << button.button << std::endl;
-			});
+		//InputManager::GetInstance().onMouseButtonDown(
+		//	1,
+		//	[](MouseListener& button) {
+		//		std::cout << "linkermuis click: " << button.button << std::endl;
+		//	});
 
-		InputManager::GetInstance().onMouseButtonUp(
-			2,
-			[](MouseListener& button) {
-				std::cout << "weel los gelaten: " << button.button << std::endl;
-			});
+		//InputManager::GetInstance().onMouseButtonUp(
+		//	2,
+		//	[](MouseListener& button) {
+		//		std::cout << "weel los gelaten: " << button.button << std::endl;
+		//	});
 
-		InputManager::GetInstance().onMouseMove(
-			[](MouseListener& mouse) {
-				std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
-			});
+		//InputManager::GetInstance().onMouseMove(
+		//	[](MouseListener& mouse) {
+		//		std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
+		//	});
 
-		InputManager::GetInstance().onMouseWheel(
-			[](WheelListener& mouse) {
-				std::cout << mouse.h << " - " << mouse.v << " : "
-						  << mouse.preciseX << " - " << mouse.preciseY << ":"
-						  << mouse.direction << std::endl;
-			});*/
+		//InputManager::GetInstance().onMouseWheel(
+		//	[](WheelListener& mouse) {
+		//		std::cout << mouse.h << " - " << mouse.v << " : "
+		//				  << mouse.preciseX << " - " << mouse.preciseY << ":"
+		//				  << mouse.direction << std::endl;
+		//	});
 	}
 
 	void OnUpdate() override {}
