@@ -26,30 +26,37 @@ public:
 	InputManager& operator=(const InputManager&) = delete;
 	InputManager& operator=(InputManager&&) = delete;
 	//end Singleton
-
-	void insertInputState(InputState state, const std::string input,
-						  Events::EventCallback<KeyListener&> inputEvent)
-	{
-		keyInputState[state].add(input, "game-input", inputEvent);
-		//if (keyInputState[state].find(keyDown))
-		//	keyInputState[state][keyDown] =
-		//		Events::EventDispatcher<KeyListener&>();
-
-		//keyInputState[state][keyDown].Register(keyEvent);
+	
+	void deactivateCategory(std::string category) {
+		for (auto& input : keyInputState)
+		{
+			input.second.deactivateCategory(category);
+		}
 	}
 
-	void onKeyDown(Key keyDown, Events::EventCallback<KeyListener&> keyEvent)
+	void activateCategory(std::string category)
 	{
-		insertInputState(PressedDown, InputsEnum::toStr(keyDown), keyEvent);
+		for (auto& input : keyInputState)
+		{
+			input.second.activateCategory(category);
+		}
 	}
 
-	void keyPressed(Key keyDown, Events::EventCallback<KeyListener&> keyEvent)
+	void onKeyDown(Key keyDown, Events::EventCallback<KeyListener&> keyEvent,
+				   std::string category = defaultCategory)
 	{
-		insertInputState(Pressed, InputsEnum::toStr(keyDown), keyEvent);
+		keyInputState[PressedDown].add(InputsEnum::toStr(keyDown), category, keyEvent);
 	}
-	void onKeyUp(Key keyUp, Events::EventCallback<KeyListener&> keyEvent)
+
+	void keyPressed(Key keyDown, Events::EventCallback<KeyListener&> keyEvent,
+					std::string category = defaultCategory)
 	{
-		insertInputState(Release, InputsEnum::toStr(keyUp), keyEvent);
+		keyInputState[Pressed].add(InputsEnum::toStr(keyDown), category, keyEvent);
+	}
+	void onKeyUp(Key keyUp, Events::EventCallback<KeyListener&> keyEvent,
+				 std::string category = defaultCategory)
+	{
+		keyInputState[Release].add(InputsEnum::toStr(keyUp), category, keyEvent);
 	}
 
 	void onKeyDown(std::set<Key> keysDown,
@@ -58,7 +65,7 @@ public:
 		std::string allkeysDown;
 		for (const auto& key : keysDown)
 			allkeysDown += InputsEnum::toStr(key);
-		insertInputState(PressedDown, allkeysDown, keyEvent);
+		keyInputState[PressedDown].add(allkeysDown, "game-input", keyEvent);
 	}
 
 	void keyPressed(std::set<Key> keysDown,
@@ -67,7 +74,7 @@ public:
 		std::string allkeysDown;
 		for (const auto& key : keysDown)
 			allkeysDown += InputsEnum::toStr(key);
-		insertInputState(Pressed, allkeysDown, keyEvent);
+		keyInputState[Pressed].add(allkeysDown, "game-input", keyEvent);
 	}
 
 	void onMouseButtonDown(int button, Events::EventCallback<MouseListener&> buttonEvent)
@@ -182,6 +189,8 @@ public:
 
 private:
 	static InputManager instance;
+	static constexpr const char* defaultCategory = "Default";
+
 
 	std::set<Key> pressedInputs;
 
