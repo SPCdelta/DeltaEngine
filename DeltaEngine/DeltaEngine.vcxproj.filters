@@ -36,6 +36,9 @@
     <ClCompile Include="Engine\Input\InputsEnum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Input\InputEventDispatchers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Window.hpp">

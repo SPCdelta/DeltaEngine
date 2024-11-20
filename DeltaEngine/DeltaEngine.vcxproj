@@ -199,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
     <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Input\InputsEnum.cpp" />
