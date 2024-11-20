@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "InputManager.hpp"
-#include "InputsEnum.hpp"
+#include "DeltaInputs.hpp"
 
 class InputFacade
 {

@@ -9,7 +9,7 @@
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Core/Utils/StableIndexList.hpp"
 #include "InputEventDispatchers.hpp"
-#include "InputsEnum.hpp"
+#include "DeltaInputs.hpp"
 #include "KeyListener.hpp"
 #include "MouseListener.hpp"
 #include "WheelListener.hpp"

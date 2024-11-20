@@ -200,7 +200,7 @@
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
     <ClCompile Include="Engine\Input\InputManager.cpp" />
-    <ClCompile Include="Engine\Input\InputsEnum.cpp" />
+    <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
@@ -223,6 +223,7 @@
     <ClInclude Include="Engine\Input\InputMapEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\InputsEnum.hpp" />
+    <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />
     <ClInclude Include="Engine\Input\WheelListener.hpp" />
