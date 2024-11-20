@@ -2,8 +2,7 @@
 
 bool Application::_isRunning = true;
 
-Application::Application()
-	: _window("Meow!", 1280, 720)
+Application::Application() : _window("Meow!", 1280, 720)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
@@ -23,19 +22,16 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject(_reg, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
+	GameObject* gameObject = new GameObject(_reg, Transform({10.0f, 10.0f}, 0.0f, {1.0, 1.0f}));
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempBehaviour>();
-	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+	gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", true, new SpriteSheet(&gameObject->GetComponent<Transform>(), 
+		_window.GetViewport()->height, 4, 100, 64, 64, 4, 1, 2, 3));
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
-
-	_window.SetViewportSize(400, 400);
-	_window.SetViewportPos(100, 50);
-	_window.RenderViewport(255, 255, 255, 255);
 
 	_renderSystem->SetWindow(&_window);
 	_renderSystem->SetViewportData(_window.GetViewport());

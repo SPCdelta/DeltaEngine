@@ -3,6 +3,7 @@
 #include "Rendering.hpp"
 #include "../Core/Math/Vector2.hpp"
 #include "Animator.hpp"
+#include "SpriteSheet.hpp"
 
 #include <iostream>
 
@@ -11,7 +12,7 @@
 class Sprite
 {
 public:
-	Sprite(const char* spritePath, bool hasAnimation);
+	Sprite(const char* spritePath, bool hasAnimation, SpriteSheet* sheet);
 	~Sprite();
 
 	Sprite(const Sprite& other);			 
@@ -20,7 +21,7 @@ public:
 	Sprite(Sprite&& other) noexcept;		
 	Sprite& operator=(Sprite&& other) noexcept;
 
-	void Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale, int height);
+	void Render(Rendering::Renderer* renderer, Math::Vector2* position, int height);
 	void StopRendering();
 
 	Rendering::Color GetColor() const;
@@ -29,9 +30,14 @@ public:
 	void FlipHorizontally();
 	void FlipVertically();
 
+	Animator* GetAnimator() const { return _animator; }
+	SpriteSheet* GetSheet() const { return _sheet; }
+	Rendering::Texture* GetTexture();
+
 private:
 	const char* sprite;
-	Animator* _animator; // TODO either has one or does not have one
+	Animator* _animator;
+	SpriteSheet* _sheet;
 
 	Rendering::Texture* _texture;
 	Rendering::Color color{Rendering::Color(0, 0, 0, 255)};

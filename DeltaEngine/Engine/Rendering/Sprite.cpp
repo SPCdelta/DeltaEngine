@@ -1,10 +1,20 @@
 #include "Sprite.hpp"
 
-Sprite::Sprite(const char* spritePath, bool hasAnimation) : sprite(spritePath), _texture(nullptr), _animator(nullptr)
+Sprite::Sprite(const char* spritePath, bool hasAnimation, SpriteSheet* sheet) : sprite(spritePath), _texture(nullptr), _animator(nullptr), _sheet(nullptr)
 {
-	if (hasAnimation)
+	if (hasAnimation && sheet)
 	{
 		_animator = new Animator(spritePath);
+
+		if (sheet)
+		{
+			_sheet = sheet;
+		}
+		else
+		{
+			std::cerr << "Cannot give an empty spritesheet to a sprite if you want animation" << std::endl;
+			return;
+		}
 	}
 }
 
@@ -12,18 +22,12 @@ Sprite::~Sprite()
 {
 	StopRendering();
 	_texture = nullptr;
-
-	delete _animator;
-	_animator = nullptr;
 }
 
-Sprite::Sprite(const Sprite& other) : sprite(other.sprite), color(other.color), flipX(other.flipX), flipY(other.flipY), _texture(nullptr), _animator(nullptr)
+Sprite::Sprite(const Sprite& other) : sprite(other.sprite), color(other.color), flipX(other.flipX), flipY(other.flipY), _texture(other._texture), 
+	_animator(other._animator), _sheet(other._sheet)
 {
-	if (other._texture)
-		_texture = other._texture;
 
-	if (other._animator)
-		_animator = other._animator;
 }
 
 Sprite& Sprite::operator=(const Sprite& other)
@@ -31,27 +35,27 @@ Sprite& Sprite::operator=(const Sprite& other)
 	if (this == &other)
 	{
 		StopRendering();
+		_texture = nullptr;
 
 		sprite = other.sprite;
 		color = other.color;
 		flipX = other.flipX;
 		flipY = other.flipY;
 
-		if (other._texture)
-			_texture = other._texture;
-
-		if (other._animator)
-			_animator = other._animator;
+		_texture = other._texture;
+		_animator = other._animator;
+		_sheet = other._sheet;
 	}
 
 	return *this;
 }
 
 Sprite::Sprite(Sprite&& other) noexcept : sprite(other.sprite), _texture(other._texture), color(other.color), flipX(other.flipX), flipY(other.flipY),
-	  _animator(other._animator)
+	  _animator(other._animator), _sheet(other._sheet)
 {
 	other._texture = nullptr;
 	other._animator = nullptr;
+	other._sheet = nullptr;
 }
 
 Sprite& Sprite::operator=(Sprite&& other) noexcept
@@ -59,40 +63,51 @@ Sprite& Sprite::operator=(Sprite&& other) noexcept
 	if (this != &other)
 	{
 		StopRendering();
+		_texture = nullptr;
 
 		sprite = other.sprite;
-		_texture = other._texture;
 		color = other.color;
 		flipX = other.flipX;
 		flipY = other.flipY;
 
+		_texture = other._texture;
+		_animator = other._animator;
+		_sheet = other._sheet;
+
 		other._texture = nullptr;
 		other._animator = nullptr;
+		other._sheet = nullptr;
 	}
 
 	return *this;
 }
 
-void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2 position, Math::Vector2 scale, int height)
+void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2* position, int height)
 {
 	Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
 	if (!texture)
 	{
 		std::cerr << "Failed to load texture: " << Rendering::GetError() << std::endl;
-		return; 
+		return;
 	}
 
 	_texture = texture;
 
-	int flippedY = height - position.GetY() - scale.GetY(); 
-
-	Rendering::Rect srcRect = {0, 0, scale.GetX(), scale.GetY()};
-	Rendering::Rect destRect = {position.GetX(), flippedY, scale.GetX(), scale.GetY()}; 
-
+	Rendering::Rect srcRect, destRect; 
+	if (_sheet)
+	{
+		srcRect = _sheet->GetSrcRect();
+		destRect = _sheet->GetDestRect(); 
+	}
+	else // TODO magic nums \/
+	{
+		int flippedY = height - position->GetY() - 64;
+		srcRect = {0, 0, 64, 64};
+		destRect = {static_cast<int>(round(position->GetX())), flippedY, 64, 64}; 
+	}
+	
 	Rendering::RendererFlip flip = flipX ? Rendering::FLIP_HORIZONTAL : Rendering::FLIP_NONE;
-
 	Rendering::RenderCopyEx(renderer, _texture, &srcRect, &destRect, 0, NULL, flip);
-	Rendering::RenderPresent(renderer);
 }
 
 void Sprite::StopRendering()
@@ -119,4 +134,9 @@ void Sprite::FlipHorizontally()
 void Sprite::FlipVertically() 
 {
 	flipY = !flipY;
+}
+
+Rendering::Texture* Sprite::GetTexture()
+{
+	return _texture;
 }

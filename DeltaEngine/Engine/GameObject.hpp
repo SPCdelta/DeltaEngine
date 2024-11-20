@@ -91,7 +91,7 @@ private:
 	template<typename T>
 	T* _AddComponent(T component)
 	{
-		return &_reg.AddComponent<T>(_id, component);
+		return &_reg.AddComponent<T>(_id, std::move(component)); 
 	}
 };
 

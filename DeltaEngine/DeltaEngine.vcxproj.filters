@@ -42,6 +42,9 @@
     <ClCompile Include="Engine\Rendering\Animator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Rendering\SpriteSheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Window.hpp">
@@ -113,7 +116,7 @@
     <ClInclude Include="Engine\Rendering\SpriteSheet.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Rendering\SpriteComponent.hpp">
+    <ClInclude Include="Engine\Rendering\Direction.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
