@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <unordered_set>
 #include <string>
 #include "../Core/Events/EventDispatcher.hpp"
 #include "KeyListener.hpp"
@@ -18,16 +19,19 @@ enum InputState
 class InputEventDispatchers
 {
    public:
-	void add(std::string inputBinding, std::string category,
-			 Events::EventCallback<Input&> Inputevent);
+	void add(std::string inputBinding, std::string category, Events::EventCallback<Input&> Inputevent);
+
+	bool find(std::string input);
+	void dispatchActive(std::string input, Input inputEvent);
+
 	bool deactivateCategory(std::string category);
 	bool deactivateCategories(std::set<std::string> categories);
 	bool activateCategory(std::string category);
 	bool activateCategories(std::set<std::string> categories);
-	bool find(std::string input);
-	void dispatchActive(std::string input, Input inputEvent);
 
-   private:
+	void executeBindingInputsForState(Input allInputs, std::vector<std::string> strInputs);
+   
+private:
 	std::set<std::string> allCategories;
 	std::set<std::string> activeCategories;
 

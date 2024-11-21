@@ -28,47 +28,50 @@ class TempInput : public BehaviourScript
 
 		std::cout << "OnStart" << std::endl;
 		
-		//InputManager::GetInstance().onKeyDown(
-		//	{KEY_B, KEY_H},
-		//	[](Input& key) { std::cout << "SD test" << std::endl; });
-		//InputManager::GetInstance().onKeyDown(
-		//	KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
-		//	"test");
+		InputManager::GetInstance().onKeyDown(
+			{KEY_B, KEY_H},
+			[](Input& key) { std::cout << "SD test" << std::endl; });
+		InputManager::GetInstance().onKeyDown(
+			KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
+			"test");
 
-		//InputManager::GetInstance().deactivateCategory("test");
-		//InputManager::GetInstance().activateCategory("test");
-		//InputManager::GetInstance().keyPressed(
-		//	{KEY_I, KEY_W},
-		//	[](Input& key)
-		//	{
-		//		std::cout << "Gaat naar boven: ";
-		//		std::for_each(key.keys.begin(), key.keys.end(),
-		//					  [](Key k)
-		//					  { std::cout  << InputsEnum::toStr(k); });
-		//		std::cout << '\n';
-		//	});
+		InputManager::GetInstance().onKeyDown(
+			KEY_P, [](Input& key) { std::cout << "P test" << std::endl; },
+			"test");
+
+		InputManager::GetInstance().deactivateCategory("test");
+		InputManager::GetInstance().activateCategory("test");
+		InputManager::GetInstance().keyPressed(
+			{KEY_I, KEY_W},
+			[](Input& key)
+			{
+				std::cout << "Gaat naar boven: ";
+				std::for_each(key.keys.begin(), key.keys.end(),
+							  [](Key k)
+							  { std::cout  << InputsEnum::toStr(k); });
+				std::cout << '\n';
+			});
 
 
-		//InputManager::GetInstance().keyPressed(
-		//	KEY_A,
-		//	[](Input& key)
-		//	{
-		//		std::cout << "Gaat naar boven: ";
-		//		std::for_each(key.keys.begin(), key.keys.end(),
-		//					  [](Key k)
-		//					  { std::cout << InputsEnum::toStr(k); });
-		//		std::cout << key.wheelVertically << '\n';
-		//	});
+		InputManager::GetInstance().keyPressed(
+			KEY_A,
+			[](Input& key)
+			{
+				std::cout << "Gaat naar boven: ";
+				std::for_each(key.keys.begin(), key.keys.end(),
+							  [](Key k)
+							  { std::cout << InputsEnum::toStr(k); });
+			});
 
-		//InputManager::GetInstance().onKeyUp(
-		//	KEY_SPACE,
-		//	[](Input& key)
-		//	{
-		//		std::for_each(key.keys.begin(), key.keys.end(),
-		//					  [](Key k)
-		//					  { std::cout << InputsEnum::toStr(k); });
-		//		std::cout << '\n';
-		//	});
+		InputManager::GetInstance().onKeyUp(
+			KEY_SPACE,
+			[](Input& key)
+			{
+				std::for_each(key.keys.begin(), key.keys.end(),
+							  [](Key k)
+							  { std::cout << InputsEnum::toStr(k); });
+				std::cout << '\n';
+			});
 
 		/*InputManager::GetInstance().onKeyDown( //TODO checken of dit niet fout gaat!!
 			"Space",
@@ -84,8 +87,8 @@ class TempInput : public BehaviourScript
 
 		InputManager::GetInstance().onMouseButtonDown(
 			Button::Left,
-			[](Input& button) { std::cout << "linkermuis click: ";
-				std::for_each(button.button.begin(), button.button.end(),
+			[](Input& button) { std::cout << "left: ";
+				std::for_each(button.buttons.begin(), button.buttons.end(),
 							  [](Button k)
 							  {
 								  int d = static_cast<int>(k);
@@ -98,8 +101,8 @@ class TempInput : public BehaviourScript
 		InputManager::GetInstance().onMouseButtonUp(
 			Button::Right,
 			[](Input& button) {
-				std::cout << "weel los gelaten: ";
-				std::for_each(button.button.begin(), button.button.end(),
+				std::cout << "right: ";
+				std::for_each(button.buttons.begin(), button.buttons.end(),
 							  [](Button k)
 							  { 
 						int d = static_cast<int>(k);

@@ -140,7 +140,7 @@ enum class Button
 struct Input
 {
 	std::set<Key> keys;
-	std::set<Button> button;
+	std::set<Button> buttons;
 	int mouseY;
 	int mouseX;
 	int wheelVertically;
@@ -157,6 +157,7 @@ class InputsEnum
 	static const std::vector<Button>& getButtonVector();
 
 	static const Button toButton(int button);
+	static const int toInt(Button button);
 
    private:
 	static const std::unordered_map<Key, std::string> keyMap;
