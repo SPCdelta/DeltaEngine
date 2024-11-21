@@ -29,7 +29,6 @@ Application::Application() : _window("Meow!", 1280, 720)
 
 	_window.SetViewportSize(400, 400);
 	_window.SetViewportPos(100, 50);
-	_window.RenderViewport(255, 255, 255, 255);
 }
 
 Application::~Application()

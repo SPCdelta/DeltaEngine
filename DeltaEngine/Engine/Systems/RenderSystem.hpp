@@ -25,8 +25,6 @@ public:
 			std::cerr << "Error: Window or ViewportData not set in RenderSystem" << std::endl;
 			return;
 		}
-
-		Rendering::GetWindowSize(static_cast<Rendering::Window*>(*_window), &_viewportData->width, &_viewportData->height);
 	}
 
 	void Update()
@@ -39,8 +37,8 @@ public:
 		}
 		else
 		{*/
-			Rendering::SetRenderDrawColor(_window->GetRenderer(), 10, 10, 10, 255);
 			Rendering::RenderClear(_window->GetRenderer());
+			_window->RenderViewport(255, 255, 255, 255);
 		/*}*/
 
 		for (ecs::EntityId entityId : _view)
@@ -69,9 +67,12 @@ public:
 			else if (keys[Rendering::SCANCODE_D])
 				direction = Direction::RIGHT;
 
+			int windowWidth, windowHeight;
+			Rendering::GetWindowSize(static_cast<Rendering::Window*>(*_window), &windowWidth, &windowHeight);
+
 			// Check if the sprite has an animator, and call Play
 			if (sprite.GetAnimator())			
-				sprite.GetAnimator()->Play(&transform.position, sprite.GetSheet(), _viewportData->height, direction);
+				sprite.GetAnimator()->Play(&transform.position, sprite.GetSheet(), windowHeight, direction);
 			// TODO (see prev TODO text, this is just the end of the mentioned code) ^^
 
 			// Render the sprite associated with this entity		
