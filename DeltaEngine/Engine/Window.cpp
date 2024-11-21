@@ -88,12 +88,11 @@ void Window::SetViewportPos(int x, int y)
 	}
 }
 
-void Window::RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g,
-							Rendering::UnsignInt8 b, Rendering::UnsignInt8 a)
+void Window::RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g, Rendering::UnsignInt8 b, Rendering::UnsignInt8 a)
 {
 	// Define viewport rectangle
-	Rendering::Rect viewportRect = {_viewportData->x, _viewportData->y,
-									_viewportData->width, _viewportData->height};
+	Rendering::Rect viewportRect = {_viewportData->x, (_viewportData->height - _viewportData->y - _viewportData->unitPixelSize), 
+		_viewportData->width, _viewportData->height};
 
 	// Set color and render the viewport
 	Rendering::SetRenderDrawColor(_renderer, r, g, b, a); 

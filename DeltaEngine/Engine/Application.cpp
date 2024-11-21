@@ -2,8 +2,7 @@
 
 bool Application::_isRunning = true;
 
-Application::Application()
-	: _window("Meow!", 1280, 720)
+Application::Application() : _window("Meow!", 1280, 720)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
@@ -22,10 +21,6 @@ Application::Application()
 	{
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
-
-	_window.SetViewportSize(400, 400);
-	_window.SetViewportPos(100, 50);
-	_window.RenderViewport(255, 255, 255, 255);
 }
 
 Application::~Application()
