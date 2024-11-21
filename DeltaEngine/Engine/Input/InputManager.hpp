@@ -23,20 +23,26 @@ class InputManager
 	InputManager& operator=(const InputManager&) = delete;
 	InputManager& operator=(InputManager&&) = delete;
 
-	void deactivateCategory(std::string category);
-	void activateCategory(std::string category);
+	static void deactivateCategory(std::string category);
+	static void activateCategory(std::string category);
 
-	void onKeyDown(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
-	void keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
-	void onKeyUp(Key keyUp, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
+	static void onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
+	static void keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
+	static void onKeyRealesed(Key keyUp, Events::EventCallback<Input&> keyEvent,
+							  std::string category = defaultCategory);
 
-	void onKeyDown(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent);
-	void keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent);
+	static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent);
+	static void keyPressed(std::set<Key> keysDown,
+						   Events::EventCallback<Input&> keyEvent);
 
-	void onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
-	void onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
-	void onMouseMove(Events::EventCallback<Input&> mouseEvent);
-	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
+	static void onMouseButtonDown(Button button,
+								  Events::EventCallback<Input&> buttonEvent,
+								  std::string category = defaultCategory);
+	static void onMouseButtonUp(Button button,
+								Events::EventCallback<Input&> buttonEvent,
+								std::string category = defaultCategory);
+	static void onMouseMove(Events::EventCallback<Input&> mouseEvent);
+	static void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
 
 	void updateKeyDown(Key input);
@@ -50,14 +56,14 @@ class InputManager
 	void executeInputEvents();
 
    private:
-	static InputManager instance;
+	static InputManager instance_;
+
 	static constexpr const char* defaultCategory = "Default";
 
-	static Input allInputs;
+	Input allInputs;
 
 	std::map<InputState, InputEventDispatchers> inputState;
 
-
-	Events::EventDispatcher<Input&> mouseMovement{};
-	Events::EventDispatcher<Input&> mouseWheelMovement{};
+	Events::EventDispatcher<Input&> mouseMovement;
+	Events::EventDispatcher<Input&> mouseWheelMovement;
 };
