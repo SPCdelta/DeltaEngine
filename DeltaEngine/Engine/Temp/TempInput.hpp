@@ -3,6 +3,7 @@
 #include <iostream>
 #include "../BehaviourScript.hpp"
 
+
 class TempInput : public BehaviourScript
 {
    public:
@@ -11,12 +12,12 @@ class TempInput : public BehaviourScript
 	// DONE Inputs verwijderen als het venster niet gefocust is.
 	// DONE Alle inputs omzetten naar ENUMS of een klasse.
 	// DONE Categoriseer het type invoer, zodat deze eenvoudig gepauzeerd kan worden.
+	// DONE Voeg alle inputwaarden toe aan het event bij de dispatch()-aanroep.
 	//
-	// TODO Voeg alle inputwaarden toe aan het event bij de dispatch()-aanroep.
 	// TODO Zorg ervoor dat InputManager::GetInstance() niet overal expliciet hoeft te worden aangeroepen.
-	// TODO Ondersteuning voor combinaties van toetsen en knoppen om acties uit te voeren.
 	// 
 	// TODOMISS Mogelijkheid toevoegen om input aftewijzen tijdens update-tijd.
+	// TODOMISS Ondersteuning voor combinaties van toetsen en knoppen om acties uit te voeren.
 	// TODOMISS Functionaliteit toevoegen om invoer te kunnen verwijderen?
 
 
@@ -28,20 +29,21 @@ class TempInput : public BehaviourScript
 
 		std::cout << "OnStart" << std::endl;
 		
-		InputManager::GetInstance().onKeyDown(
+		InputManager::onKeyPressed(
 			{KEY_B, KEY_H},
 			[](Input& key) { std::cout << "SD test" << std::endl; });
-		InputManager::GetInstance().onKeyDown(
+
+		InputManager::onKeyPressed(
 			KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
 			"test");
 
-		InputManager::GetInstance().onKeyDown(
+		InputManager::onKeyPressed(
 			KEY_P, [](Input& key) { std::cout << "P test" << std::endl; },
 			"test");
 
-		InputManager::GetInstance().deactivateCategory("test");
-		InputManager::GetInstance().activateCategory("test");
-		InputManager::GetInstance().keyPressed(
+		InputManager::deactivateCategory("test");
+		InputManager::activateCategory("test");
+		InputManager::keyPressed(
 			{KEY_I, KEY_W},
 			[](Input& key)
 			{
@@ -53,7 +55,7 @@ class TempInput : public BehaviourScript
 			});
 
 
-		InputManager::GetInstance().keyPressed(
+		InputManager::keyPressed(
 			KEY_A,
 			[](Input& key)
 			{
@@ -63,7 +65,7 @@ class TempInput : public BehaviourScript
 							  { std::cout << InputsEnum::toStr(k); });
 			});
 
-		InputManager::GetInstance().onKeyUp(
+		InputManager::onKeyRealesed(
 			KEY_SPACE,
 			[](Input& key)
 			{
@@ -85,7 +87,7 @@ class TempInput : public BehaviourScript
 
 			});*/
 
-		InputManager::GetInstance().onMouseButtonDown(
+		InputManager::onMouseButtonDown(
 			Button::Left,
 			[](Input& button) { std::cout << "left: ";
 				std::for_each(button.buttons.begin(), button.buttons.end(),
@@ -98,7 +100,7 @@ class TempInput : public BehaviourScript
 
 			});
 
-		InputManager::GetInstance().onMouseButtonUp(
+		InputManager::onMouseButtonUp(
 			Button::Right,
 			[](Input& button) {
 				std::cout << "right: ";
@@ -115,7 +117,7 @@ class TempInput : public BehaviourScript
 				std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
 			});*/
 
-		InputManager::GetInstance().onMouseWheel(
+		InputManager::onMouseWheel(
 			[](Input& mouse) {
 				std::cout << mouse.mouseX << " - " << mouse.wheelVertically
 						  << " : \n";
