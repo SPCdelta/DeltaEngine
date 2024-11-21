@@ -89,8 +89,8 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2* position, int 
 	{
 		srcRect = _sheet->GetSrcRect();
 		destRect = _sheet->GetDestRect(); 
-		SetFlipX(((_sheet->GetFacingDirection() == Direction::RIGHT && _sheet->GetRowRight() == NULL) || (_sheet->GetFacingDirection() == Direction::LEFT &&
-		  _sheet->GetRowLeft() == NULL)));
+		SetFlipX(((_sheet->GetFacingDirection() == Direction::RIGHT && _sheet->GetRowRight() == 0) || (_sheet->GetFacingDirection() == Direction::LEFT &&
+		  _sheet->GetRowLeft() == 0)));
 	}
 	else // TODO magic nums \/
 	{
@@ -100,7 +100,7 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2* position, int 
 	}
 
 	Rendering::RendererFlip flip = flipX ? Rendering::FLIP_HORIZONTAL : Rendering::FLIP_NONE;
-	Rendering::RenderCopyEx(renderer, _texture, &srcRect, &destRect, 0, NULL, flip);
+	Rendering::RenderCopyEx(renderer, _texture, &srcRect, &destRect, 0, 0, flip);
 }
 
 void Sprite::StopRendering()

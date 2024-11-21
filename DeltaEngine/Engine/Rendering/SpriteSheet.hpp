@@ -9,8 +9,8 @@
 class SpriteSheet
 {
 public:
-	SpriteSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = NULL, 
-		int rowDown = NULL, int rowLeft = NULL, int rowRight = NULL);
+	SpriteSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = 0, int rowDown = 0, 
+		int rowLeft = 0, int rowRight = 0);
 	~SpriteSheet();
 
 	int GetCurrentFrame() const { return currentFrame; }
@@ -81,10 +81,10 @@ private:
 	Rendering::Rect destRect;
 	Rendering::Rect prevDestRect;
 	
-	int frameRowUp{NULL};
-	int frameRowDown{NULL};
-	int frameRowLeft{NULL};
-	int frameRowRight{NULL};
+	int frameRowUp{0};
+	int frameRowDown{0};
+	int frameRowLeft{0};
+	int frameRowRight{0};
 
 	Rendering::UnsignInt32 lastMoveTime{0};
 	Rendering::UnsignInt32 lastFrameTime{0};
@@ -93,13 +93,13 @@ private:
 	int attackFrameCount;
 	int attackCurrentFrame{0};
 	Rendering::UnsignInt32 attackAnimationSpeed;
-	int attackRow{NULL};
+	int attackRow{0};
 	bool isAttacking{false};
 
 	int idleFrameCount;
 	int idleCurrentFrame{0};
 	Rendering::UnsignInt32 idleAnimationSpeed;
-	int idleRow{NULL};
+	int idleRow{0};
 
 	Direction facingDirection = RIGHT;
 };

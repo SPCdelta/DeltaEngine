@@ -35,7 +35,7 @@ public:
 		//		wait for layer and/or background before finishing this
 		/*if (_backgroundTexture)
 		{
-			Rendering::RenderCopy(_window->GetRenderer(), _backgroundTexture, NULL, NULL);
+			Rendering::RenderCopy(_window->GetRenderer(), _backgroundTexture, 0, 0);
 		}
 		else
 		{*/
@@ -49,7 +49,7 @@ public:
 			Sprite& sprite = _view.get<Sprite>(entityId);
 
 			// TODO this movement/keys code is for testing, this needs to be integrated with input once input is done and on main)
-			const Rendering::UnsignInt8* keys = Rendering::GetKeyboardState(NULL);
+			const Rendering::UnsignInt8* keys = Rendering::GetKeyboardState(0);
 			Direction direction = Direction::NONE;
 
 			// TODO bind to sdl event when mouse is clicked, for testing you can add it in with the else if underneath,

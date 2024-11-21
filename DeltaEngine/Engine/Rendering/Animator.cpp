@@ -15,7 +15,7 @@ void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int 
 	bool isMoving = true;
 	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();	
 
-	if (sheet->GetIsAttacking() && sheet->GetAttRow() != NULL && currentTime - sheet->GetLastFrameTime() > sheet->GetAttAnimSpeed())
+	if (sheet->GetIsAttacking() && sheet->GetAttRow() != 0 && currentTime - sheet->GetLastFrameTime() > sheet->GetAttAnimSpeed())
 	{
 		sheet->SetAttCurrentFrame(sheet->GetAttCurrentFrame() + 1);
 		if (sheet->GetAttCurrentFrame() >= sheet->GetAttFrameCount())
@@ -31,7 +31,7 @@ void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int 
 
 		sheet->SetLastFrameTime(currentTime);
 	}
-	else if (sheet->GetAttRow() == NULL)
+	else if (sheet->GetAttRow() == 0)
 	{
 		sheet->SetIsAttacking(false);
 	}
@@ -140,7 +140,7 @@ void Animator::MoveRight(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
 
 void Animator::StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<SpriteSheet> sheet)
 {
-	if (sheet->GetIdleRow() != NULL)
+	if (sheet->GetIdleRow() != 0)
 	{
 		if (currentTime - sheet->GetLastFrameTime() > sheet->GetIdleAnimSpeed())
 		{
