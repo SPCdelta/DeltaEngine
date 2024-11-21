@@ -28,47 +28,47 @@ class TempInput : public BehaviourScript
 
 		std::cout << "OnStart" << std::endl;
 		
-		InputManager::GetInstance().onKeyDown(
-			{KEY_B, KEY_H},
-			[](Input& key) { std::cout << "SD test" << std::endl; });
-		InputManager::GetInstance().onKeyDown(
-			KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
-			"test");
+		//InputManager::GetInstance().onKeyDown(
+		//	{KEY_B, KEY_H},
+		//	[](Input& key) { std::cout << "SD test" << std::endl; });
+		//InputManager::GetInstance().onKeyDown(
+		//	KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
+		//	"test");
 
-		InputManager::GetInstance().deactivateCategory("test");
-		InputManager::GetInstance().activateCategory("test");
-		InputManager::GetInstance().keyPressed(
-			{KEY_I, KEY_W},
-			[](Input& key)
-			{
-				std::cout << "Gaat naar boven: ";
-				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](Key k)
-							  { std::cout  << InputsEnum::toStr(k); });
-				std::cout << '\n';
-			});
+		//InputManager::GetInstance().deactivateCategory("test");
+		//InputManager::GetInstance().activateCategory("test");
+		//InputManager::GetInstance().keyPressed(
+		//	{KEY_I, KEY_W},
+		//	[](Input& key)
+		//	{
+		//		std::cout << "Gaat naar boven: ";
+		//		std::for_each(key.keys.begin(), key.keys.end(),
+		//					  [](Key k)
+		//					  { std::cout  << InputsEnum::toStr(k); });
+		//		std::cout << '\n';
+		//	});
 
 
-		InputManager::GetInstance().keyPressed(
-			KEY_A,
-			[](Input& key)
-			{
-				std::cout << "Gaat naar boven: ";
-				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](Key k)
-							  { std::cout << InputsEnum::toStr(k); });
-				std::cout << key.wheelVertically << '\n';
-			});
+		//InputManager::GetInstance().keyPressed(
+		//	KEY_A,
+		//	[](Input& key)
+		//	{
+		//		std::cout << "Gaat naar boven: ";
+		//		std::for_each(key.keys.begin(), key.keys.end(),
+		//					  [](Key k)
+		//					  { std::cout << InputsEnum::toStr(k); });
+		//		std::cout << key.wheelVertically << '\n';
+		//	});
 
-		InputManager::GetInstance().onKeyUp(
-			KEY_SPACE,
-			[](Input& key)
-			{
-				std::for_each(key.keys.begin(), key.keys.end(),
-							  [](Key k)
-							  { std::cout << InputsEnum::toStr(k); });
-				std::cout << '\n';
-			});
+		//InputManager::GetInstance().onKeyUp(
+		//	KEY_SPACE,
+		//	[](Input& key)
+		//	{
+		//		std::for_each(key.keys.begin(), key.keys.end(),
+		//					  [](Key k)
+		//					  { std::cout << InputsEnum::toStr(k); });
+		//		std::cout << '\n';
+		//	});
 
 		/*InputManager::GetInstance().onKeyDown( //TODO checken of dit niet fout gaat!!
 			"Space",
@@ -82,22 +82,35 @@ class TempInput : public BehaviourScript
 
 			});*/
 
-		//InputManager::GetInstance().onMouseButtonDown(
-		//	1,
-		//	[](MouseListener& button) {
-		//		std::cout << "linkermuis click: " << button.button << std::endl;
-		//	});
+		InputManager::GetInstance().onMouseButtonDown(
+			Button::Left,
+			[](Input& button) { std::cout << "linkermuis click: ";
+				std::for_each(button.button.begin(), button.button.end(),
+							  [](Button k)
+							  {
+								  int d = static_cast<int>(k);
+								  std::cout << d;
+							  });
+				std::cout << std::endl;
 
-		//InputManager::GetInstance().onMouseButtonUp(
-		//	2,
-		//	[](MouseListener& button) {
-		//		std::cout << "weel los gelaten: " << button.button << std::endl;
-		//	});
+			});
 
-		//InputManager::GetInstance().onMouseMove(
-		//	[](MouseListener& mouse) {
-		//		std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
-		//	});
+		InputManager::GetInstance().onMouseButtonUp(
+			Button::Right,
+			[](Input& button) {
+				std::cout << "weel los gelaten: ";
+				std::for_each(button.button.begin(), button.button.end(),
+							  [](Button k)
+							  { 
+						int d = static_cast<int>(k);
+						std::cout << d; });
+				std::cout << std::endl;
+			});
+
+		/*InputManager::GetInstance().onMouseMove(
+			[](Input& mouse) {
+				std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
+			});*/
 
 		InputManager::GetInstance().onMouseWheel(
 			[](Input& mouse) {

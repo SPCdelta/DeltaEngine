@@ -129,8 +129,8 @@ enum Key
 enum class Button
 {
 	Left,		  // Left mouse button
-	Right,		  // Right mouse button
 	Middle,		  // Middle mouse button (usually the scroll wheel button)
+	Right,		  // Right mouse button
 	Button4,	  // Additional button 4 (commonly found on gaming mice)
 	Button5,	  // Additional button 5 (commonly found on gaming mice)
 	Unknown		  // Any unrecognized button
@@ -154,6 +154,11 @@ class InputsEnum
 
 	static const std::string& toStr(Key key);
 
+	static const std::vector<Button>& getButtonVector();
+
+	static const Button toButton(int button);
+
    private:
 	static const std::unordered_map<Key, std::string> keyMap;
+	static const std::vector<Button> buttonVector;
 };
