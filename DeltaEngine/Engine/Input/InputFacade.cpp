@@ -1,6 +1,5 @@
 #include "InputFacade.hpp"
 #include <algorithm>
-#include "KeyListener.hpp"
 
 InputFacade::InputFacade() : inputManager(InputManager::GetInstance()){
 
@@ -39,31 +38,6 @@ void InputFacade::onInputEvent(SDL_Event event) {
 			onMouseScroll(event);
 			break;
 	}
-}
-
-KeyListener InputFacade::makeKeyStruct(SDL_Event event) {
-	int posX = event.button.x;
-	int posY = event.button.y;
-	int pressed = event.key.state == SDL_PRESSED;
-
-	auto it = SDLToDeltaKeys.find(event.key.keysym.sym);
-
-	Key input = KEY_UNKNOWN;
-	if (it != SDLToDeltaKeys.end())
-		input = it->second;
-
-	return KeyListener({input}, pressed, posX, posY);
-}
-
-MouseListener InputFacade::makeMouseStruct(SDL_Event event)
-{
-	auto eButton = event.button;
-	uint32_t which = eButton.which;
-	int8_t button = eButton.button;
-	int8_t clicks = eButton.clicks;
-	int posY = eButton.y;
-	int posX = eButton.x;
-	return MouseListener(which, button, clicks, posY, posX);
 }
 
 void InputFacade::onKeyDown(SDL_Event event) {

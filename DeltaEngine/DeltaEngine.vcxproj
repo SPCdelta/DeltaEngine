@@ -219,11 +219,8 @@
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
-    <ClInclude Include="Engine\Input\KeyListener.hpp" />
-    <ClInclude Include="Engine\Input\MouseListener.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />
-    <ClInclude Include="Engine\Input\WheelListener.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Systems\DebugSystem.hpp" />

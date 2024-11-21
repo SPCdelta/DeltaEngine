@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include <string>
 #include "../Core/Events/EventDispatcher.hpp"
-#include "KeyListener.hpp"
+#include "DeltaInputs.hpp"
 
 // Enum voor input states
 enum InputState

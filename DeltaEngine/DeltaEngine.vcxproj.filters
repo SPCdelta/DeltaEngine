@@ -95,12 +95,6 @@
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Input\KeyListener.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Input\MouseListener.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Input\InputFacade.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -108,9 +102,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Temp\TempInput.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Input\WheelListener.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Core\Utils\StableIndexList.hpp">
