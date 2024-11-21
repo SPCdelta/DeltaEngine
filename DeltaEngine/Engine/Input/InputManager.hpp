@@ -31,7 +31,7 @@ class InputManager
 	static void onKeyRealesed(Key keyUp, Events::EventCallback<Input&> keyEvent,
 							  std::string category = defaultCategory);
 
-	static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent);
+	//static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent); TODO dit werkt op dit moment niet vanwege executeInputsPressedDown
 	static void keyPressed(std::set<Key> keysDown,
 						   Events::EventCallback<Input&> keyEvent);
 

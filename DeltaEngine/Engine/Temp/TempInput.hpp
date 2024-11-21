@@ -13,8 +13,8 @@ class TempInput : public BehaviourScript
 	// DONE Alle inputs omzetten naar ENUMS of een klasse.
 	// DONE Categoriseer het type invoer, zodat deze eenvoudig gepauzeerd kan worden.
 	// DONE Voeg alle inputwaarden toe aan het event bij de dispatch()-aanroep.
+	// DONE Zorg ervoor dat InputManager::GetInstance() niet overal expliciet hoeft te worden aangeroepen.
 	//
-	// TODO Zorg ervoor dat InputManager::GetInstance() niet overal expliciet hoeft te worden aangeroepen.
 	// 
 	// TODOMISS Mogelijkheid toevoegen om input aftewijzen tijdens update-tijd.
 	// TODOMISS Ondersteuning voor combinaties van toetsen en knoppen om acties uit te voeren.
@@ -28,10 +28,6 @@ class TempInput : public BehaviourScript
 	{
 
 		std::cout << "OnStart" << std::endl;
-		
-		InputManager::onKeyPressed(
-			{KEY_B, KEY_H},
-			[](Input& key) { std::cout << "SD test" << std::endl; });
 
 		InputManager::onKeyPressed(
 			KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },

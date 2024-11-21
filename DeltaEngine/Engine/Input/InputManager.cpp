@@ -53,14 +53,14 @@ void InputManager::onKeyRealesed(Key keyUp, Events::EventCallback<Input&> keyEve
 									  keyEvent);
 }
 
-void InputManager::onKeyPressed(std::set<Key> keysDown,
-							 Events::EventCallback<Input&> keyEvent)
-{
-	std::string allKeysDown;
-	for (const auto& key : keysDown)
-		allKeysDown += InputsEnum::toStr(key);
-	instance_.inputState[PressedDown].add(allKeysDown, "game-input", keyEvent);
-}
+//void InputManager::onKeyPressed(std::set<Key> keysDown,
+//							 Events::EventCallback<Input&> keyEvent)
+//{
+//	std::string allKeysDown;
+//	for (const auto& key : keysDown)
+//		allKeysDown += InputsEnum::toStr(key);
+//	instance_.inputState[PressedDown].add(allKeysDown, "game-input", keyEvent);
+//}
 
 void InputManager::keyPressed(std::set<Key> keysDown,
 							  Events::EventCallback<Input&> keyEvent)
@@ -95,41 +95,6 @@ void InputManager::onMouseWheel(
 	instance_.mouseWheelMovement.Register(wheelEvent);
 }
 
-//// Execute binding inputs
-//void InputManager::executeBindingInputsForState(InputState state)
-//{
-//	std::vector<std::string> keyResults;
-//	std::unordered_set<std::string> processedKeys;
-//
-//	std::vector<Key> inputKeys(allInputs.keys.begin(), allInputs.keys.end());
-//
-//	int n = inputKeys.size();
-//	for (int i = 1; i < (1 << n); ++i)
-//	{
-//		std::string combinedKey;
-//		for (int j = 0; j < n; ++j)
-//		{
-//			if (i & (1 << j))
-//			{
-//				combinedKey += InputsEnum::toStr(inputKeys[j]);
-//			}
-//		}
-//
-//		if (keyInputState[state].find(combinedKey) &&
-//			processedKeys.find(combinedKey) == processedKeys.end())
-//		{
-//			keyResults.push_back(combinedKey);
-//			processedKeys.insert(combinedKey);
-//		}
-//	}
-//
-//	for (const auto& keyInput : keyResults)
-//	{
-//		keyInputState[state].dispatchActive(keyInput, allInputs);
-//	}
-//}
-
-// Key updates
 void InputManager::updateKeyDown(Key input)
 {
 	if (allInputs.keys.find(input) == allInputs.keys.end())
