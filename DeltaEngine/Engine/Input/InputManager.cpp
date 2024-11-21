@@ -134,7 +134,9 @@ void InputManager::updateKeyDown(Key input)
 		std::vector<std::string> strKeys;
 		for (auto& key : allInputs.keys)
 			strKeys.push_back(InputsEnum::toStr(key));
-		inputState[PressedDown].executeBindingInputsForState(allInputs, strKeys);
+		inputState[PressedDown].executeInputsPressedDown(
+			allInputs, strKeys, InputsEnum::toStr(input));
+
 	}
 }
 
@@ -155,7 +157,7 @@ void InputManager::updateMouseButtonDown(Button button)
 		std::vector<std::string> strButtons;
 		for (auto& button : allInputs.buttons)
 			strButtons.push_back(std::to_string(InputsEnum::toInt(button)));
-		inputState[PressedDown].executeBindingInputsForState(allInputs, strButtons);
+		inputState[PressedDown].executeInputsPressedDown(allInputs, strButtons, std::to_string(InputsEnum::toInt(button)));
 	}
 }
 
@@ -190,5 +192,5 @@ void InputManager::executeInputEvents()
 	for (auto& key : allInputs.keys)
 		strKeys.push_back(InputsEnum::toStr(key));
 
-	inputState[Pressed].executeBindingInputsForState(allInputs, strKeys);
+	inputState[Pressed].executeInputsPressed(allInputs, strKeys);
 }

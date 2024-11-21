@@ -24,12 +24,16 @@ class InputEventDispatchers
 	bool find(std::string input);
 	void dispatchActive(std::string input, Input inputEvent);
 
+
 	bool deactivateCategory(std::string category);
 	bool deactivateCategories(std::set<std::string> categories);
 	bool activateCategory(std::string category);
 	bool activateCategories(std::set<std::string> categories);
 
-	void executeBindingInputsForState(Input allInputs, std::vector<std::string> strInputs);
+	void executeInputsPressedDown(Input allInputs,
+								  std::vector<std::string> strInputs,
+								  std::string strPressedDown);
+	void executeInputsPressed(Input allInputs, std::vector<std::string> strInputs);
    
 private:
 	std::set<std::string> allCategories;

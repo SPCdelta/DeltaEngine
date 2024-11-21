@@ -1,4 +1,5 @@
 #include "InputEventDispatchers.hpp"
+#include <algorithm>
 
 void InputEventDispatchers::add(std::string inputBinding, std::string category,
 								Events::EventCallback<Input&> Inputevent)
@@ -74,9 +75,26 @@ void InputEventDispatchers::dispatchActive(std::string input, Input inputEvent)
 		eventIt->second.Dispatch(inputEvent);
 }
 
-void InputEventDispatchers::executeBindingInputsForState(
-	Input allInputs,
-								  std::vector<std::string> strInputs)
+void InputEventDispatchers::executeInputsPressedDown(
+	Input allInputs, std::vector<std::string> strInputs,  std::string strPressedDown)
+{
+	for (const auto& pair : inputBindings)
+	{
+		if (pair.first.find(strPressedDown) == std::string::npos)
+			continue;
+
+		for (auto& letter : pair.first)
+		{
+			if (std::find(strInputs.begin(), strInputs.end(), letter + "") ==
+				strInputs.end())
+				break; 
+		}
+		dispatchActive(strPressedDown, allInputs);
+	}
+}
+
+void InputEventDispatchers::executeInputsPressed(
+	Input allInputs, std::vector<std::string> strInputs)
 {
 	std::vector<std::string> results;
 	std::unordered_set<std::string> processedInputs;
