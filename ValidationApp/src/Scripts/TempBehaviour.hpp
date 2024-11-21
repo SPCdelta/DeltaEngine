@@ -1,8 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "../GameObject.hpp"
-#include "../BehaviourScript.hpp"
+#include "Engine/Delta.hpp"
 
 class TempBehaviour : public BehaviourScript
 {

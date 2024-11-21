@@ -24,8 +24,7 @@ public:
 	void SetViewportSize(int width, int height);
 	void SetViewportPos(int x, int y);
 	ViewportData* GetViewport() const { return _viewportData; }
-	void RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g,
-						Rendering::UnsignInt8 b, Rendering::UnsignInt8 a);
+	void RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g, Rendering::UnsignInt8 b, Rendering::UnsignInt8 a);
 
    private:
 	Rendering::Window* _window;
