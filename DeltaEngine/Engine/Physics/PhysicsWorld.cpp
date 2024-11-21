@@ -5,16 +5,16 @@ void Physics::PhysicsWorld::Update()
 	_currentCollisions.clear();
 	_currentTriggers.clear();
 
-	b2World_Step(_data.id, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
+	Physics::AdvancePhysics(_data.id, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
 
-	b2SensorEvents sensorEvents = b2World_GetSensorEvents(_data.id);
-	b2ContactEvents contactEvents = b2World_GetContactEvents(_data.id);
+	CollisionEvents contactEvents = Physics::GetCollisionEvents(_data.id);
+	TriggerEvents triggerEvents = Physics::GetTriggerEvents(_data.id);
 
 	// # Collision Event
 	// Enters
 	for (int i = 0; i < contactEvents.beginCount; ++i)
 	{
-		b2ContactBeginTouchEvent* touch = contactEvents.beginEvents + i;
+		CollisionTouchStartEvent* touch = contactEvents.beginEvents + i;
 		_currentCollisions.push_back(
 			{
 				Physics::Facade::ToPhysicsId(touch->shapeIdA),
@@ -27,7 +27,7 @@ void Physics::PhysicsWorld::Update()
 	// Exits
 	for (int i = 0; i < contactEvents.endCount; ++i)
 	{
-		b2ContactEndTouchEvent* touch = contactEvents.endEvents + i;
+		CollisionTouchEndEvent* touch = contactEvents.endEvents + i;
 		_currentTriggers.push_back(
 			{ 
 				Physics::Facade::ToPhysicsId(touch->shapeIdA),
@@ -39,9 +39,9 @@ void Physics::PhysicsWorld::Update()
 
 	// # Trigger Events
 	// Enters
-	for (int i = 0; i < sensorEvents.beginCount; ++i)
+	for (int i = 0; i < triggerEvents.beginCount; ++i)
 	{
-		b2SensorBeginTouchEvent* touch = sensorEvents.beginEvents + i;
+		TriggerTouchStartEvent* touch = triggerEvents.beginEvents + i;
 		_currentTriggers.push_back(
 			{
 				Physics::Facade::ToPhysicsId(touch->visitorShapeId),
@@ -52,9 +52,9 @@ void Physics::PhysicsWorld::Update()
 	}
 
 	// Exits
-	for (int i = 0; i < sensorEvents.endCount; ++i)
+	for (int i = 0; i < triggerEvents.endCount; ++i)
 	{
-		b2SensorEndTouchEvent* touch = sensorEvents.endEvents + i;
+		TriggerTouchEndEvent* touch = triggerEvents.endEvents + i;
 		_currentTriggers.push_back(
 			{ 
 				Physics::Facade::ToPhysicsId(touch->visitorShapeId), 

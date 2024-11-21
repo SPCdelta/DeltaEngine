@@ -27,8 +27,7 @@ namespace Physics
 	public:
 		PhysicsWorld()
 		{
-			_data.world = b2DefaultWorldDef();
-			_data.id = Physics::Facade::ToWorldId(b2CreateWorld(&_data.world));
+			_data = Physics::CreateWorld();
 		}
 
 		~PhysicsWorld() { Physics::DestroyWorld(_data.id); }

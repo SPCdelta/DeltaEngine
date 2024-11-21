@@ -30,9 +30,9 @@ namespace Physics
 
 				// Sync
 				{
-					b2Vec2 position = b2Body_GetPosition(rb.GetCollider()._bodyId);
-					rb.GetCollider()._transform.position.SetX(position.x);
-					rb.GetCollider()._transform.position.SetY(position.y);
+					Math::Vector2 position = Physics::GetPosition(rb.GetCollider()._bodyId);
+					rb.GetCollider()._transform.position.SetX(position.GetX());
+					rb.GetCollider()._transform.position.SetY(position.GetY());
 				}
 				
 				// Check for Trigger Collision

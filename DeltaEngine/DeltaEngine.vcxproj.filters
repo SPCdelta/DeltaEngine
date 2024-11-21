@@ -16,7 +16,6 @@
     <ClCompile Include="Engine\UI\Text.cpp" />
     <ClCompile Include="Engine\UI\UIObject.cpp" />
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
-    <ClCompile Include="Engine\Physics\Rigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />

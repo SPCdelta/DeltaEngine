@@ -20,9 +20,9 @@ namespace Physics
 		Collider(const PhysicsWorld& world, Transform& transform, ShapeType type)
 			: _transform{ transform }
 		{
-			_physicsBody = b2DefaultBodyDef();
+			_physicsBody = Physics::DefaultBody();
 			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
-			_bodyId = Physics::Facade::ToPhysicsId(b2CreateBody(world.GetWorldId(), &_physicsBody));
+			_bodyId = Physics::CreateBody(world, &_physicsBody);
 
 			_shape.shape = Physics::DefaultShape();
 			switch (type)

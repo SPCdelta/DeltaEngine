@@ -61,6 +61,14 @@ namespace Physics
 	using PhysicsPolygon = b2Polygon;
 	using Shape = b2ShapeDef;
 
+	using CollisionEvents = b2ContactEvents;
+	using CollisionTouchStartEvent = b2ContactBeginTouchEvent;
+	using CollisionTouchEndEvent = b2ContactEndTouchEvent;
+
+	using TriggerEvents = b2SensorEvents;
+	using TriggerTouchStartEvent = b2SensorBeginTouchEvent;
+	using TriggerTouchEndEvent = b2SensorEndTouchEvent;
+
 	struct PhysicsShape
 	{
 		Shape shape; // _b2shapeDef
@@ -98,18 +106,35 @@ namespace Physics
 	{
 		return b2DefaultShapeDef();
 	}
+	inline PhysicsBody DefaultBody()
+	{
+		return b2DefaultBodyDef();
+	}
 
-	inline PhysicsPolygon CreateBox(Math::Vector2 scale)
+	inline WorldData CreateWorld()
+	{
+		WorldData data{};
+		data.world = b2DefaultWorldDef();
+		data.id = Physics::Facade::ToWorldId(b2CreateWorld(&data.world));
+		return data;
+	}
+
+	inline PhysicsId CreateBody(const PhysicsWorld& world, PhysicsBody* physicsBody)
+	{
+		return Physics::Facade::ToPhysicsId(b2CreateBody(world.GetWorldId(), physicsBody));
+	}
+
+	inline PhysicsPolygon CreateBox(const Math::Vector2& scale)
 	{
 		return b2MakeBox(scale.GetX() / 2.0f, scale.GetY() / 2.0f);
 	}
 
-	inline PhysicsPolygon CreateCircle(Math::Vector2 scale)
+	inline PhysicsPolygon CreateCircle(const Math::Vector2& scale)
 	{
 		return b2MakeBox(scale.GetX() / 2.0f, scale.GetY() / 2.0f);
 	}
 
-	inline PhysicsId CreatePolygonShape(PhysicsId bodyId, PhysicsShape* shape, PhysicsPolygon* polygon)
+	inline PhysicsId CreatePolygonShape(PhysicsId bodyId, const PhysicsShape* shape, const PhysicsPolygon* polygon)
 	{
 		return Physics::Facade::ToPhysicsId(b2CreatePolygonShape(bodyId, &shape->shape, polygon));
 	}
@@ -123,7 +148,7 @@ namespace Physics
 		return static_cast<RigidbodyType>(b2Body_GetType(bodyId));
 	}
 
-	inline void SetVelocity(PhysicsId bodyId, Math::Vector2 velocity)
+	inline void SetVelocity(PhysicsId bodyId, const Math::Vector2& velocity)
 	{
 		b2Vec2 b2Velocity(velocity.GetX(), velocity.GetY());
 		b2Body_SetLinearVelocity(bodyId, b2Velocity);
@@ -138,12 +163,12 @@ namespace Physics
 	{
 		b2Body_SetGravityScale(bodyId, gravityScale);
 	}
-	inline float GetGravityScale(PhysicsId bodyId)
+	inline float GetGravityScale(const PhysicsId bodyId)
 	{
 		return b2Body_GetGravityScale(bodyId);
 	}
 
-	inline void AddForce(PhysicsId bodyId, Math::Vector2 force, ForceMode forceMode)
+	inline void AddForce(PhysicsId bodyId, const Math::Vector2& force, ForceMode forceMode)
 	{
 		b2Vec2 b2Force(force.GetX(), force.GetY());
 
@@ -158,6 +183,12 @@ namespace Physics
 		}
 	}
 
+	inline Math::Vector2 GetPosition(PhysicsId bodyId)
+	{
+		b2Vec2 b2Pos = b2Body_GetPosition(bodyId);
+		return Math::Vector2(b2Pos.x, b2Pos.y);
+	}
+
 	inline void DestroyShape(PhysicsId shapeId)
 	{
 		b2DestroyShape(shapeId);
@@ -166,6 +197,21 @@ namespace Physics
 	inline void DestroyWorld(WorldId id)
 	{
 		b2DestroyWorld(static_cast<b2WorldId>(id));
+	}
+
+	inline void AdvancePhysics(WorldId id, float time, int subSteps)
+	{
+		b2World_Step(id, time, subSteps);
+	}
+
+	inline CollisionEvents GetCollisionEvents(WorldId id)
+	{
+		return b2World_GetContactEvents(id);
+	}
+
+	inline TriggerEvents GetTriggerEvents(WorldId id)
+	{
+		return b2World_GetSensorEvents(id);
 	}
 
 	namespace Event

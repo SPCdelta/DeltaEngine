@@ -190,7 +190,6 @@
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
-    <ClCompile Include="Engine\Physics\Rigidbody.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Core\Math\Point.cpp" />
