@@ -1,9 +1,12 @@
 #pragma once
-#include "Scene.hpp"
+
 #include <iostream>
 #include <vector>
 #include <memory>
 #include <string>
+
+#include "Scene.hpp"
+#include "../Core/Events/EventDispatcher.hpp"
 
 class SceneManager 
 {
@@ -11,7 +14,8 @@ public:
 	template<typename T>
 	void RegisterScene(const std::string& sceneName)
 	{
-		_factories[sceneName] = [](const std::string& sceneName)
+		_factories[sceneName] = 
+			[](const std::string& sceneName)
 		{
 			return std::make_shared<T>(sceneName);
 		};

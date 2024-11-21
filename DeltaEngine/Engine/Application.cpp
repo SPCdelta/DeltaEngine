@@ -21,6 +21,14 @@ Application::Application() : _window("Meow!", 1280, 720)
 	{
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
+
+	ChangeScene.Register([this](const std::string& sceneName) 
+		{ 
+			LoadScene(sceneName); 
+		});
+
+	_window.SetViewportSize(400, 400);
+	_window.SetViewportPos(100, 50);
 }
 
 Application::~Application()
@@ -30,9 +38,6 @@ Application::~Application()
 
 void Application::Run()
 {
-	std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-	currentScene->Start();
-
 	while (!_window.ShouldWindowClose())
 	{
 		Rendering::PollEvent(_windowEvent);
@@ -63,6 +68,7 @@ void Application::Run()
 		Input(_dt);
 
 		// Scene UpdateLoop
+		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->Update();
 
 		ShowFpsInWindowTitleBar();
@@ -70,6 +76,15 @@ void Application::Run()
 		// Framerate
 		Rendering::Delay(1000 / 60);
 	}
+}
+
+void Application::LoadScene(const std::string& sceneName)
+{
+	_sceneManager.Load(sceneName);
+	std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
+	currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
+	currentScene->SetWindow(_window);
+	currentScene->Start();
 }
 
 //Texture* Application::LoadTexture(const char* path)

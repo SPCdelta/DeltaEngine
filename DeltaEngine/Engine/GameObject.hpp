@@ -3,12 +3,13 @@
 #include <vector>
 #include <type_traits>
 
-#include "Transform.hpp"
-#include "BehaviourScript.hpp"
-
 #include "Ecs/Registry.hpp"
+#include "Transform.hpp"
 
-#include "Rendering/Sprite.hpp"
+#include "Core/Events/EventDispatcher.hpp"
+
+//#include "BehaviourScript.hpp"
+class BehaviourScript;
 
 class GameObject
 {
@@ -74,7 +75,7 @@ public:
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg, Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+	GameObject(ecs::Registry& reg, Events::EventDispatcher<const std::string&>& changeScene, Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
 	~GameObject();
 
 	Transform* transform = nullptr;
@@ -82,11 +83,15 @@ public:
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
 
+	// Scene
+	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
+
 private:
 	bool _active{ true };
 
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
+	Events::EventDispatcher<const std::string&>& _changeScene;
 
 	template<typename T>
 	T* _AddComponent(T component)
