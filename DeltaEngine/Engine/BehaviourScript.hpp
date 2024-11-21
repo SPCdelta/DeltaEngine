@@ -1,6 +1,9 @@
 #pragma once
 
-class GameObject;
+#include <string>
+
+#include "GameObject.hpp"
+//class GameObject;
 
 class BehaviourScript
 {
@@ -12,6 +15,8 @@ public:
 
 	virtual void OnStart() = 0;
 	virtual void OnUpdate() = 0;
+
+	void LoadScene(const std::string& name) { gameObject->LoadScene(name); }
 
 	virtual ~BehaviourScript() = default;
 

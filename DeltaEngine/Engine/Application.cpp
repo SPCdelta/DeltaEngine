@@ -23,6 +23,11 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
+	ChangeScene.Register([this](const std::string& sceneName) 
+		{ 
+			LoadScene(sceneName); 
+		});
+
 	_window.SetViewportSize(400, 400);
 	_window.SetViewportPos(100, 50);
 	_window.RenderViewport(255, 255, 255, 255);

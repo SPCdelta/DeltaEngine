@@ -12,6 +12,7 @@
 #include "Window.hpp"
 
 #include "Scene/SceneManager.hpp"
+#include "Core/Events/EventDispatcher.hpp"
 
 //Temp
 #include "GameObject.hpp"
@@ -32,10 +33,13 @@ public:
 		_sceneManager.RegisterScene<T>(sceneName);
 	}
 
+	Events::EventDispatcher<const std::string&> ChangeScene{};
+
 	void LoadScene(const std::string& sceneName)
 	{
 		_sceneManager.Load(sceneName);
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
+		currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
 		currentScene->SetWindow(_window);
 	}
 
@@ -75,7 +79,7 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-	SceneManager _sceneManager{};
+	SceneManager _sceneManager{}; // Never ever pass this variable!
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();

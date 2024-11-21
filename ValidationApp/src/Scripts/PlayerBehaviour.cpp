@@ -7,6 +7,11 @@ void PlayerBehaviour::OnStart()
 
 void PlayerBehaviour::OnUpdate() 
 {
-	std::cout << "Counter: " << test << std::endl;
+	if (test >= 200)
+	{
+		LoadScene("MainMenuScene");
+	}
+
+	std::cout << "GameScene: " << test << std::endl;
 	test++;
 }

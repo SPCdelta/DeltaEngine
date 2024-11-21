@@ -1,7 +1,7 @@
 #include "Scene.hpp"
 
 Scene::Scene(const std::string& name)
-	: _name{ name } 
+	: _name{ name }
 {
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
@@ -28,10 +28,9 @@ void Scene::Update()
 	//_fontRenderSystem->Update();
 }
 
-std::shared_ptr<GameObject> Scene::Instantiate(
-	Transform transform = Transform({1.0f, 1.0f}, 0.0f, {1.0f, 1.0f}))
+std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
-	std::shared_ptr<GameObject> obj{ std::make_shared<GameObject>(_reg, transform) };
+	std::shared_ptr<GameObject> obj{ std::make_shared<GameObject>(_reg, _changeSceneEvent, transform) };
 	_objects.push_back(obj);
 	return obj;
 }
