@@ -22,25 +22,6 @@ Application::Application() : _window("Meow!", 1280, 720)
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	// TODO #2 move into scene
-	// GameObject* gameObject = new GameObject(_reg, _physicsWorld, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
-	// gameObject->AddComponent<A>();
-	// gameObject->AddComponent<B>();
-	// gameObject->AddComponent<TempBehaviour>();
-	// gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
-
-	// GameObject* fo1 = new GameObject(_reg, _physicsWorld, Transform({ 600.0f, 100.0f }, 0.0f, { 64.0f, 64.0f }));
-	// fo1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
-	// fo1->AddComponent<Physics::BoxCollider>();
-	// fo1->AddComponent<Physics::Rigidbody>();
-	// fo1->AddComponent<PhysicsBehaviour>();
-
-	// GameObject* fo2 = new GameObject(_reg, _physicsWorld, Transform({ 600.0f, 500.0f }, 0.0f, { 64.0f, 64.0f }));
-	// fo2->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
-	// fo2->AddComponent<Physics::BoxCollider>();
-
-	// TODO #2 _renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
-
 	ChangeScene.Register([this](const std::string& sceneName) 
 		{ 
 			LoadScene(sceneName); 
@@ -81,7 +62,7 @@ void Application::Run()
 		GetDeltaTime();
 
 		// Update Window
-		_window.Update();		
+		_window.Update();
 
 		// Input
 		Input(_dt);
@@ -89,7 +70,6 @@ void Application::Run()
 		// Scene UpdateLoop
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->Update();
-		// TODO #2 _physicsSystem->Update();
 
 		ShowFpsInWindowTitleBar();
 

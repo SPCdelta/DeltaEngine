@@ -32,6 +32,8 @@ namespace Physics
 
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
 		Events::EventDispatcher<Collider&> onTriggerExit{};
+		Events::EventDispatcher<Collider&> onCollisionEnter{};
+		Events::EventDispatcher<Collider&> onCollisionExit{};
 
 		const PhysicsShape& GetShape() const { return _collider._shape; }
 

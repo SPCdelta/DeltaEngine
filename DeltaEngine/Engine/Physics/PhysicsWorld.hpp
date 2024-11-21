@@ -45,21 +45,40 @@ namespace Physics
 
 		void Update()
 		{
-			//_sensorEvents.clear();
-			//_collisionEvents.clear();
+			_currentCollisions.clear();
 			_currentTriggers.clear();
 
 			b2World_Step(_data.id, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
 
 			b2SensorEvents sensorEvents = b2World_GetSensorEvents(_data.id);
-			//b2ContactEvents contactEvents = b2World_GetContactEvents(_data.id);
+			b2ContactEvents contactEvents = b2World_GetContactEvents(_data.id);
 
 			// # Collision Event
-			// Exits
-
-
 			// Enters
-			
+			for (int i = 0; i < contactEvents.beginCount; ++i)
+			{
+				b2ContactBeginTouchEvent* touch = contactEvents.beginEvents + i;
+				_currentCollisions.push_back(
+					{
+						Physics::Facade::ToPhysicsId(touch->shapeIdA),
+						Physics::Facade::ToPhysicsId(touch->shapeIdB),
+						CollisionState::ENTER
+					}
+				);
+			}
+
+			// Exits
+			for (int i = 0; i < contactEvents.endCount; ++i)
+			{
+				b2ContactEndTouchEvent* touch = contactEvents.endEvents + i;
+				_currentTriggers.push_back(
+					{ 
+						Physics::Facade::ToPhysicsId(touch->shapeIdA),
+						Physics::Facade::ToPhysicsId(touch->shapeIdB),
+						CollisionState::EXIT
+					}
+				);
+			}
 
 			// # Trigger Events
 			// Enters
@@ -99,9 +118,20 @@ namespace Physics
 			return _currentTriggers;
 		}
 
+		std::vector<TestData>& GetCurrentCollisions()
+		{
+			return _currentCollisions;
+		}
+
+		const std::vector<TestData>& GetCurrentCollisions() const
+		{
+			return _currentCollisions;
+		}
+
 	private:
 		WorldData _data;
 
 		std::vector<TestData> _currentTriggers;
+		std::vector<TestData> _currentCollisions;
 	};
 }

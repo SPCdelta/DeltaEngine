@@ -13,7 +13,7 @@
 namespace Physics
 {
 	constexpr float TIME_STEP = (1.0f / 60.0f);
-	constexpr float SUB_STEP_COUNT = 4;
+	constexpr int SUB_STEP_COUNT = 4;
 
 	struct PhysicsId
 	{

@@ -77,10 +77,8 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-	// TODO #2std::shared_ptr<UpdateSystem> _updateSystem;
 	SceneManager _sceneManager{}; // Never ever pass this variable!
 
-	Physics::PhysicsWorld _physicsWorld{};
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
 	void GetDeltaTime();
