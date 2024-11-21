@@ -120,6 +120,14 @@ const std::unordered_map<Key, std::string> InputsEnum::keyMap = {
 	{KEY_PAUSE, "PAUSE"},
 	{KEY_UNKNOWN, "UNKNOWN"}};
 
+const std::vector<Button> InputsEnum::buttonVector = {
+	Button::Left,	  
+	Button::Middle,
+	Button::Right, 
+	Button::Button4, 
+	Button::Button5, 
+	Button::Unknown};
+
 
 const std::unordered_map<Key, std::string>& InputsEnum::getKeyMap()
 {
@@ -128,12 +136,23 @@ const std::unordered_map<Key, std::string>& InputsEnum::getKeyMap()
 
 const std::string& InputsEnum::toStr(Key key)
 {
-	const auto& map = getKeyMap();
-	auto it = map.find(key);
-	if (it != map.end())
+	auto it = keyMap.find(key);
+	if (it != keyMap.end())
 	{
 		return it->second;
 	}
-	static const std::string unknown = "UNKNOWN";
-	return unknown;
+	return "UNKNOWN";
+}
+
+const std::vector<Button>& InputsEnum::getButtonVector()
+{
+	return buttonVector;
+}
+
+const Button InputsEnum::toButton(int button)
+{
+	if (button < 1 || button > buttonVector.size())
+		return Button::Unknown;
+
+	return buttonVector[button - 1];
 }

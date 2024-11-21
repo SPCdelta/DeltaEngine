@@ -41,11 +41,11 @@ class InputManager
 	void keyPressed(std::set<Key> keysDown,
 					Events::EventCallback<Input&> keyEvent);
 
-	void onMouseButtonDown(int button,
-						   Events::EventCallback<MouseListener&> buttonEvent);
-	void onMouseButtonUp(int button,
-						 Events::EventCallback<MouseListener&> buttonEvent);
-	void onMouseMove(Events::EventCallback<MouseListener&> mouseEvent);
+	void onMouseButtonDown(Button button,
+						   Events::EventCallback<Input&> buttonEvent);
+	void onMouseButtonUp(Button button,
+						 Events::EventCallback<Input&> buttonEvent);
+	void onMouseMove(Events::EventCallback<Input&> mouseEvent);
 	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
 	void executeBindingInputsForState(InputState state);
@@ -53,9 +53,9 @@ class InputManager
 	void updateKeyDown(Key input);
 	void updateKeyUp(Key input);
 
-	void updateMouseButtonDown(MouseListener& button);
-	void updateMouseButtonUp(MouseListener& button);
-	void updateMouseMovement(MouseListener& mouse);
+	void updateMouseButtonDown(Button button);
+	void updateMouseButtonUp(Button button);
+	void updateMouseMovement(int x, int y);
 	void updateMouseWheel(int wheelVertically);
 
 	void executeInputEvents();
@@ -65,15 +65,14 @@ class InputManager
 	static constexpr const char* defaultCategory = "Default";
 
 	static Input allInputs;
-	//std::set<Key> pressedInputs;
 	
 
 	std::map<InputState, InputEventDispatchers> keyInputState;
 
-	std::map<int, Events::EventDispatcher<MouseListener&>>
+	std::map<Button, Events::EventDispatcher<Input&>>
 		buttonDownInputMapping;
-	std::map<int, Events::EventDispatcher<MouseListener&>> buttonUpInputMapping;
+	std::map<Button, Events::EventDispatcher<Input&>> buttonUpInputMapping;
 
-	Events::EventDispatcher<MouseListener&> mouseMovement{};
+	Events::EventDispatcher<Input&> mouseMovement{};
 	Events::EventDispatcher<Input&> mouseWheelMovement{};
 };

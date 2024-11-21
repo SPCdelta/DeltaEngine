@@ -69,27 +69,23 @@ void InputManager::keyPressed(std::set<Key> keysDown,
 }
 
 // Mouse events
-void InputManager::onMouseButtonDown(
-	int button, Events::EventCallback<MouseListener&> buttonEvent)
+void InputManager::onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent)
 {
 	if (buttonDownInputMapping.find(button) == buttonDownInputMapping.end())
-		buttonDownInputMapping[button] =
-			Events::EventDispatcher<MouseListener&>();
+		buttonDownInputMapping[button] = Events::EventDispatcher<Input&>();
 
 	buttonDownInputMapping[button].Register(buttonEvent);
 }
 
-void InputManager::onMouseButtonUp(
-	int button, Events::EventCallback<MouseListener&> buttonEvent)
+void InputManager::onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent)
 {
 	if (buttonUpInputMapping.find(button) == buttonUpInputMapping.end())
-		buttonUpInputMapping[button] =
-			Events::EventDispatcher<MouseListener&>();
+		buttonUpInputMapping[button] = Events::EventDispatcher<Input&>();
 
 	buttonUpInputMapping[button].Register(buttonEvent);
 }
 
-void InputManager::onMouseMove(Events::EventCallback<MouseListener&> mouseEvent)
+void InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent)
 {
 	mouseMovement.Register(mouseEvent);
 }
@@ -152,19 +148,26 @@ void InputManager::updateKeyUp(Key input)
 }
 
 // Mouse updates
-void InputManager::updateMouseButtonDown(MouseListener& button)
+void InputManager::updateMouseButtonDown(Button button)
 {
-	buttonDownInputMapping[button.button].Dispatch(button);
+	allInputs.button.insert(button);
+		
+	buttonDownInputMapping[button].Dispatch(allInputs);
 }
 
-void InputManager::updateMouseButtonUp(MouseListener& button)
+void InputManager::updateMouseButtonUp(Button button)
 {
-	buttonUpInputMapping[button.button].Dispatch(button);
+	allInputs.button.erase(button);
+
+	buttonUpInputMapping[button].Dispatch(allInputs);
 }
 
-void InputManager::updateMouseMovement(MouseListener& mouse)
+void InputManager::updateMouseMovement(int x, int y)
 {
-	mouseMovement.Dispatch(mouse);
+	allInputs.mouseX = x;
+	allInputs.mouseY = y;
+
+	mouseMovement.Dispatch(allInputs);
 }
 
 void InputManager::updateMouseWheel(int wheelVertically)

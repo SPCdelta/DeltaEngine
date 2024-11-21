@@ -86,19 +86,16 @@ void InputFacade::onKeyUp(SDL_Event event) {
 }
 
 void InputFacade::onMouseButtonDown(SDL_Event event) {
-	auto click = makeMouseStruct(event);
-	inputManager.updateMouseButtonDown(click);
+	inputManager.updateMouseButtonDown(InputsEnum::toButton(event.button.button));
 }
 
 void InputFacade::onMouseButtonUp(SDL_Event event) 
 {
-	auto click = makeMouseStruct(event);
-	inputManager.updateMouseButtonUp(click);
+	inputManager.updateMouseButtonUp(InputsEnum::toButton(event.button.button));
 }
 
 void InputFacade::onMouseMove(SDL_Event event) {
-	auto mouse = makeMouseStruct(event);
-	inputManager.updateMouseMovement(mouse);
+	inputManager.updateMouseMovement(event.button.x, event.button.y);
 }
 
 void InputFacade::onMouseScroll(SDL_Event event) {
