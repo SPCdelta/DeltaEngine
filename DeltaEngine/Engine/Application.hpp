@@ -27,21 +27,15 @@ public:
 
 	void Run();
 
+	Events::EventDispatcher<const std::string&> ChangeScene{};
+
 	template<typename T>
 	void RegisterScene(const std::string& sceneName)
 	{
 		_sceneManager.RegisterScene<T>(sceneName);
 	}
 
-	Events::EventDispatcher<const std::string&> ChangeScene{};
-
-	void LoadScene(const std::string& sceneName)
-	{
-		_sceneManager.Load(sceneName);
-		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-		currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
-		currentScene->SetWindow(_window);
-	}
+	void LoadScene(const std::string& sceneName);
 
 	static void Quit()
 	{

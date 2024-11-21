@@ -80,8 +80,10 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2 position, Math:
 
 void Sprite::StopRendering()
 {
-	if (_texture)
-		Rendering::DestroyTexture(_texture);
+	// TODO:
+	// DIT MAG NIET MEE GEMERGED WORDEN!!!!!!!!!!!!!!!! (21-nov | jeroen)
+	//if (_texture)
+	//	Rendering::DestroyTexture(_texture);
 }
 
 Rendering::Color Sprite::GetColor() const

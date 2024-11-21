@@ -12,11 +12,11 @@ public:
 	// Methods
 	void OnStart() override
 	{
-		std::cout << "OnStart" << std::endl;
+		//std::cout << "OnStart" << std::endl;
 	}
 
 	void OnUpdate() override
 	{
-		std::cout << "OnUpdate" << std::endl;
+		//std::cout << "OnUpdate" << std::endl;
 	}
 };
