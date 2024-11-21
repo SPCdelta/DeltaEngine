@@ -3,5 +3,4 @@
 int main()
 {
 	ValidationApp app{};
-	app.Run();
 }
