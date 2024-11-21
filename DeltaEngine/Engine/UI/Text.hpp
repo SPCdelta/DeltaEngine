@@ -12,6 +12,7 @@ namespace ui
 			~Text();
 			void renderText();
 			void unloadText();
+			void SetText(std::string text);
 	   private:
 			std::string _text;
 			Font::Font* _font;

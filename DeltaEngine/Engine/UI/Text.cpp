@@ -16,6 +16,11 @@ ui::Text::~Text()
 	unloadText();
 }
 
+
+void ui::Text::SetText(std::string text) {
+	_text = text;
+}
+
 void ui::Text::renderText() {
 	
 	if (_font == nullptr)
@@ -61,3 +66,5 @@ void ui::Text::unloadText() {
 		//Font::QuitTTF();
 	}
 }
+
+

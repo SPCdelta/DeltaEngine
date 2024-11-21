@@ -65,17 +65,9 @@ private:
 
 	float _dt{ 0.0f };
 
-	float _currentFrame{ 0.0f };
-	float _lastFrame{ 0.0f };
-
-	float _lastTime{ 0.0f };
-	float _nbFrames{ 0.0f };
-
 	Window _window;
 	Rendering::Event _windowEvent{};
 	SceneManager _sceneManager{}; // Never ever pass this variable!
 
-	void GetDeltaTime();
-	void ShowFpsInWindowTitleBar();
 };
 

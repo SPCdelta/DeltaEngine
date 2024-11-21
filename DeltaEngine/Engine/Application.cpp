@@ -62,7 +62,7 @@ void Application::Run()
 		// Clear Screen
 		Rendering::RenderClear(_window.GetRenderer());
 
-		GetDeltaTime();
+
 
 		// Update Window
 		_window.Update();	
@@ -103,12 +103,3 @@ void Application::LoadScene(const std::string& sceneName)
 //	return font;
 //}
 
-void Application::GetDeltaTime()
-{
-
-}
-
-void Application::ShowFpsInWindowTitleBar()
-{
-
-}

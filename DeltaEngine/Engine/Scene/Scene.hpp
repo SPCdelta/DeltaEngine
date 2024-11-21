@@ -46,6 +46,13 @@ public:
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
 private:
+
+	float _currentFrame{0.0f};
+	float _lastFrame{0.0f};
+
+	float _lastTime{0.0f};
+	float _nbFrames{0.0f};
+
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
@@ -61,4 +68,7 @@ private:
 	//
 	Window* _window = nullptr;
 	ui::Text* debugFps = nullptr;
+
+	void GetDeltaTime();
+	void RenderFPS();
 };
