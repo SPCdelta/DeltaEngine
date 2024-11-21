@@ -1,20 +1,44 @@
 #include "Scene.hpp"
 
-Scene::Scene(std::string name) : name{name} 
-{}
-
-void Scene::Instantiate()
+Scene::Scene(const std::string& name)
+	: _name{ name } 
 {
-	// gameobjecten aanmaken
+	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
+	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
 }
 
-void Scene::print()
+void Scene::Start()
 {
-	std::cout << name << std::endl;
+	_updateSystem->OnStart();
+	_renderSystem->OnStart();
 }
 
-std::string Scene::getName() const {
-	return name;
+void Scene::Update()
+{
+	_debugSystem->Update();
+
+	// Update
+	//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
+	_updateSystem->Update();
+	//_physicsSystem->Update();
+
+	// Render
+	_renderSystem->Update();
+	//_fontRenderSystem->Update();
+}
+
+std::shared_ptr<GameObject> Scene::Instantiate(
+	Transform transform = Transform({1.0f, 1.0f}, 0.0f, {1.0f, 1.0f}))
+{
+	std::shared_ptr<GameObject> obj{ std::make_shared<GameObject>(_reg, transform) };
+	_objects.push_back(obj);
+	return obj;
+}
+
+const std::string& const Scene::GetName() const 
+{
+	return _name;
 }
 
 

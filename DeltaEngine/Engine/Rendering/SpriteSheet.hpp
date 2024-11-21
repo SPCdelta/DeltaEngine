@@ -9,7 +9,7 @@
 class SpriteSheet
 {
 public:
-	SpriteSheet(Transform* transform, int viewportHeight,  int framesInRow, int frameW, int frameH, int rowUp = NULL, 
+	SpriteSheet(Transform* transform, int framesInRow, int frameW, int frameH, int rowUp = NULL, 
 		int rowDown = NULL, int rowLeft = NULL, int rowRight = NULL);
 	~SpriteSheet();
 
