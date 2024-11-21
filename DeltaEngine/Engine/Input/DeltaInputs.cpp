@@ -156,3 +156,8 @@ const Button InputsEnum::toButton(int button)
 
 	return buttonVector[button - 1];
 }
+
+const int InputsEnum::toInt(Button button)
+{
+	return static_cast<int>(button);
+}
