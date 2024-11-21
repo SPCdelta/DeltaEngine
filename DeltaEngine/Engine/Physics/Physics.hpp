@@ -119,9 +119,9 @@ namespace Physics
 		return data;
 	}
 
-	inline PhysicsId CreateBody(const PhysicsWorld& world, PhysicsBody* physicsBody)
+	inline PhysicsId CreateBody(WorldId worldId, PhysicsBody* physicsBody)
 	{
-		return Physics::Facade::ToPhysicsId(b2CreateBody(world.GetWorldId(), physicsBody));
+		return Physics::Facade::ToPhysicsId(b2CreateBody(worldId, physicsBody));
 	}
 
 	inline PhysicsPolygon CreateBox(const Math::Vector2& scale)

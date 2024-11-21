@@ -20,8 +20,9 @@ void Scene::Update()
 	_debugSystem->Update();
 
 	// Update
+	_physicsSystem->BeforeBehaviourUpdate();
 	_updateSystem->Update();
-	_physicsSystem->Update();
+	_physicsSystem->AfterBehaviourUpdate();
 
 	// Render
 	_renderSystem->Update();

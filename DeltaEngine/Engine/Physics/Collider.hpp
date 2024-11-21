@@ -22,7 +22,7 @@ namespace Physics
 		{
 			_physicsBody = Physics::DefaultBody();
 			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
-			_bodyId = Physics::CreateBody(world, &_physicsBody);
+			_bodyId = Physics::CreateBody(world.GetWorldId(), &_physicsBody);
 
 			_shape.shape = Physics::DefaultShape();
 			switch (type)

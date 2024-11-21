@@ -16,19 +16,21 @@ namespace Physics
 			_collisionSystem = reg.CreateSystem<CollisionSystem, Collider*>();
 		}
 
-		void Update()
-		{
-			// Order is very important here
+		// Order is very important here
+
+		void BeforeBehaviourUpdate()
+		{ 
 			_physicsWorld.Update();
-			std::vector<CollisionData>& triggers{_physicsWorld.GetCurrentTriggers()};
-			std::vector<CollisionData>& collisions{_physicsWorld.GetCurrentCollisions()};
+
+			std::vector<CollisionData>& triggers{ _physicsWorld.GetCurrentTriggers() };
+			std::vector<CollisionData>& collisions{ _physicsWorld.GetCurrentCollisions() };
 
 			for (ecs::EntityId entityId : _view)
 			{
 				// Check for Trigger collision
 				Rigidbody& rb{ _view.get<Rigidbody>(entityId) };
 
-				// Sync
+				// Sync Visually*
 				{
 					Math::Vector2 position = Physics::GetPosition(rb.GetCollider()._bodyId);
 					rb.GetCollider()._transform.position.SetX(position.GetX());
@@ -77,6 +79,14 @@ namespace Physics
 					}
 				}
 			}
+
+			//
+
+		}
+
+		void AfterBehaviourUpdate()
+		{
+			
 		}
 
 	private:
