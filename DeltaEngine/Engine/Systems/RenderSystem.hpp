@@ -37,7 +37,6 @@ public:
 		}
 		else
 		{*/
-			Rendering::RenderClear(_window->GetRenderer());
 			_window->RenderViewport(255, 255, 255, 255);
 		/*}*/
 
@@ -78,8 +77,6 @@ public:
 			// Render the sprite associated with this entity		
 			sprite.Render(_window->GetRenderer(), &transform.position, _viewportData->height);
 		}
-
-		Rendering::RenderPresent(_window->GetRenderer());
 	}
 
 private:

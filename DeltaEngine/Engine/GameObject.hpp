@@ -46,16 +46,16 @@ public:
 		//	return static_cast<T*>(AddComponent<T>({}));
 		//}
 
-		if constexpr (std::is_base_of_v<BehaviourScript, T>)
-		{
-			T* component = static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T()));
+       if constexpr (std::is_base_of_v<BehaviourScript, T>)
+       {
+			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
 			component->SetGameObject(this);
 			return component;
-		}
-		else
-		{
-			return static_cast<T*>(_AddComponent<T>(T(std::forward<Args>(args)...)));
-		}
+       }
+       else
+       {
+			return static_cast<T*>(&_reg.AddComponent<T>(_id, std::forward<Args>(args)...));
+       }
 	}
 
 	template<typename T>
@@ -93,10 +93,10 @@ private:
 	ecs::Registry& _reg;
 	Events::EventDispatcher<const std::string&>& _changeScene;
 
-	template<typename T>
-	T* _AddComponent(T component)
-	{
-		return &_reg.AddComponent<T>(_id, std::move(component)); 
-	}
+	//template<typename T>
+	//T* _AddComponent(T component)
+	//{
+	//	return &_reg.AddComponent<T>(_id, std::move(component)); 
+	//}
 };
 

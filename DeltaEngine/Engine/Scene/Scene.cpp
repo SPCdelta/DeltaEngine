@@ -10,6 +10,12 @@ Scene::Scene(const std::string& name)
 
 void Scene::Start()
 {
+	Transform transform{{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}};
+	Rendering::Color color{255, 0, 0, 255};
+
+	std::shared_ptr<GameObject> text = Instantiate(transform);
+	debugFps = text->AddComponent<ui::Text>("Hello World!", "Assets\\Fonts\\consolas.ttf", 36, 100, 100, color, _window->GetRenderer());
+
 	_updateSystem->OnStart();
 	_renderSystem->OnStart();
 }
@@ -25,6 +31,7 @@ void Scene::Update()
 
 	// Render
 	_renderSystem->Update();
+	debugFps->renderText();
 	//_fontRenderSystem->Update();
 }
 

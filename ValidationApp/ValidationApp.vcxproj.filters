@@ -71,4 +71,7 @@
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\consolas.ttf" />
+  </ItemGroup>
 </Project>

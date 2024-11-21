@@ -68,11 +68,18 @@ namespace ecs
 			//return system;
 		}
 
-		template<typename Component>
-		Component& AddComponent(ecs::EntityId entityId, Component component)
-		{
-			return _registry.emplace<Component>(entityId, component);
-		}
+		// POINTER ONLY
+        template<typename Component>
+        Component& AddPointerComponent(ecs::EntityId entityId, Component component)
+        {
+            return _registry.emplace<Component>(entityId, component);
+        }
+
+        template<typename Component, typename... Args>
+        Component& AddComponent(ecs::EntityId entityId, Args&&... args)
+        {
+            return _registry.emplace<Component>(entityId, Component(std::forward<Args>(args)...));
+        }
 
 		template<typename Component>
 		void RemoveComponent(ecs::EntityId entityId)

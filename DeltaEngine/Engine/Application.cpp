@@ -24,7 +24,7 @@ Application::Application() : _window("Meow!", 1280, 720)
 
 	ChangeScene.Register([this](const std::string& sceneName) 
 		{ 
-			LoadScene(sceneName); 
+			LoadScene(sceneName);
 		});
 
 	_window.SetViewportSize(400, 400);
@@ -59,10 +59,13 @@ void Application::Run()
 			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 0.0f);
 		}
 
+		// Clear Screen
+		Rendering::RenderClear(_window.GetRenderer());
+
 		GetDeltaTime();
 
 		// Update Window
-		_window.Update();		
+		_window.Update();	
 
 		// Input
 		Input(_dt);
@@ -71,7 +74,8 @@ void Application::Run()
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->Update();
 
-		ShowFpsInWindowTitleBar();
+		// Draw
+		Rendering::RenderPresent(_window.GetRenderer());
 
 		// Framerate
 		Rendering::Delay(1000 / 60);

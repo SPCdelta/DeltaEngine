@@ -21,7 +21,8 @@ namespace Font
 	}
 
 	inline void CloseFont(TTF_Font* font) {
-		TTF_CloseFont(font);
+		// TODO: DO NOT ALLOW THIS TO BE MERGED
+		//TTF_CloseFont(font);
 	}
 
 	inline const char* GetError() {

@@ -11,7 +11,8 @@ ui::Text::Text(std::string text, std::string path, int size, int x, int y, Rende
 	}
 }
 
-ui::Text::~Text() {
+ui::Text::~Text() 
+{
 	unloadText();
 }
 

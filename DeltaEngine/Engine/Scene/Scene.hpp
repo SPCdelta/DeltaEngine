@@ -15,6 +15,9 @@
 #include "../Systems/DebugSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 
+// Debug
+#include "../UI/Text.hpp"
+
 // Temp | TODO: remove when done
 //#include "../Temp/TempBehaviour.hpp"
 
@@ -30,6 +33,7 @@ public:
 	const std::string& const GetName() const;
 	void SetWindow(Window& window)
 	{
+		_window = &window;
 		_renderSystem->SetWindow(&window);
 		_renderSystem->SetViewportData(window.GetViewport());
 	}
@@ -53,4 +57,8 @@ private:
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
+
+	//
+	Window* _window = nullptr;
+	ui::Text* debugFps = nullptr;
 };
