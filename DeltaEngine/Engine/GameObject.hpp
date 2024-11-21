@@ -84,7 +84,6 @@ public:
 	bool SetActive(bool active) { _active = active; }
 
 	// Scene
-	// if this ever throws an error, ask Jeroen instead of fixing it
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
 
 private:
