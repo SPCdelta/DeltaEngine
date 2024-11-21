@@ -1,10 +1,10 @@
 #include "Sprite.hpp"
 
-Sprite::Sprite(const char* spritePath, SpriteSheet* sheet) : sprite(spritePath), _texture(nullptr), _animator(nullptr), _sheet(nullptr)
+Sprite::Sprite(const char* spritePath, std::shared_ptr<SpriteSheet> sheet) : sprite(spritePath), _texture(nullptr), _animator(nullptr), _sheet(nullptr)
 {
 	if (sheet)
 	{
-		_animator = new Animator(spritePath);
+		_animator = std::make_shared<Animator>();
 		_sheet = sheet;
 	}
 }

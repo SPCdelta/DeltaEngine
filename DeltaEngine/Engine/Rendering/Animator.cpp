@@ -1,6 +1,6 @@
 #include "Animator.hpp"
 
-Animator::Animator(const char* spritePath)
+Animator::Animator()
 {
 	
 }
@@ -10,7 +10,7 @@ Animator::~Animator()
 	
 }
 
-void Animator::Play(Math::Vector2* pos, SpriteSheet* sheet, int viewportHeight, Direction direc)
+void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int viewportHeight, Direction direc)
 {
 	bool isMoving = true;
 	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();	
@@ -72,7 +72,7 @@ void Animator::Play(Math::Vector2* pos, SpriteSheet* sheet, int viewportHeight, 
 	sheet->SetDestRect(tempDestRect);
 }
 
-void Animator::MoveUp(Math::Vector2* pos, SpriteSheet* sheet)
+void Animator::MoveUp(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
 {
 	pos->SetY(pos->GetY() + sheet->GetMovementSpeed());
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
@@ -96,7 +96,7 @@ void Animator::MoveUp(Math::Vector2* pos, SpriteSheet* sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveDown(Math::Vector2* pos, SpriteSheet* sheet)
+void Animator::MoveDown(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
 {
 	pos->SetY(pos->GetY() - sheet->GetMovementSpeed()); 
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
@@ -120,7 +120,7 @@ void Animator::MoveDown(Math::Vector2* pos, SpriteSheet* sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveLeft(Math::Vector2* pos, SpriteSheet* sheet)
+void Animator::MoveLeft(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
 {
 	pos->SetX(pos->GetX() - sheet->GetMovementSpeed());
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
@@ -129,7 +129,7 @@ void Animator::MoveLeft(Math::Vector2* pos, SpriteSheet* sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveRight(Math::Vector2* pos, SpriteSheet* sheet)
+void Animator::MoveRight(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
 {
 	pos->SetX(pos->GetX() + sheet->GetMovementSpeed());
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
@@ -138,7 +138,7 @@ void Animator::MoveRight(Math::Vector2* pos, SpriteSheet* sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::StandIdle(Rendering::UnsignInt32 currentTime, SpriteSheet* sheet)
+void Animator::StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<SpriteSheet> sheet)
 {
 	if (sheet->GetIdleRow() != NULL)
 	{

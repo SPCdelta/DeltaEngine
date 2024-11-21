@@ -12,7 +12,7 @@
 class Sprite
 {
 public:
-	Sprite(const char* spritePath, SpriteSheet* sheet);
+	Sprite(const char* spritePath, std::shared_ptr<SpriteSheet> sheet);
 	~Sprite();
 
 	Sprite(const Sprite& other);			 
@@ -30,14 +30,14 @@ public:
 	void SetFlipX(bool flip) { flipX = flip; };
 	void SetFlipY(bool flip) { flipY = flip; };
 
-	Animator* GetAnimator() const { return _animator; }
-	SpriteSheet* GetSheet() const { return _sheet; }
+	std::shared_ptr<Animator> GetAnimator() const { return _animator; }
+	std::shared_ptr<SpriteSheet> GetSheet() const { return _sheet; }
 	Rendering::Texture* GetTexture();
 
 private:
 	const char* sprite;
-	Animator* _animator;
-	SpriteSheet* _sheet;
+	std::shared_ptr<Animator> _animator;
+	std::shared_ptr<SpriteSheet> _sheet;
 
 	Rendering::Texture* _texture;
 	Rendering::Color color{Rendering::Color(0, 0, 0, 255)};

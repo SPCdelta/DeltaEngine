@@ -9,7 +9,7 @@ public:
 		: Scene(sceneName)
 	{
 		std::shared_ptr<GameObject> menuImage{Instantiate({{0.0f, 0.0f}, 0.0f, {200.0f, 200.0f}})};
-		SpriteSheet* sheet = new SpriteSheet(&menuImage->GetComponent<Transform>(), 4, 64, 64, 4, 1, 2, 3);
+		std::shared_ptr<SpriteSheet> sheet = std::make_shared<SpriteSheet>(menuImage->GetComponent<Transform>(), 4, 64, 64, 4, 1, 2, 3);
 		menuImage->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", sheet);
 	}
 };
