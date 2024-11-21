@@ -1,7 +1,7 @@
 #include "InputEventDispatchers.hpp"
 
 void InputEventDispatchers::add(std::string inputBinding, std::string category,
-								Events::EventCallback<KeyListener&> Inputevent)
+								Events::EventCallback<Input&> Inputevent)
 {
 	if (allCategories.find(category) == allCategories.end())
 		activeCategories.insert(category);
@@ -10,7 +10,7 @@ void InputEventDispatchers::add(std::string inputBinding, std::string category,
 	inputBindingCategory[inputBinding] = category;
 
 	if (!find(inputBinding))
-		inputBindings[inputBinding] = Events::EventDispatcher<KeyListener&>();
+		inputBindings[inputBinding] = Events::EventDispatcher<Input&>();
 
 	inputBindings[inputBinding].Register(Inputevent);
 }
@@ -59,8 +59,7 @@ bool InputEventDispatchers::find(std::string input)
 	return inputBindings.find(input) != inputBindings.end();
 }
 
-void InputEventDispatchers::dispatchActive(std::string input,
-										   KeyListener inputEvent)
+void InputEventDispatchers::dispatchActive(std::string input, Input inputEvent)
 {
 	auto it = inputBindingCategory.find(input);
 

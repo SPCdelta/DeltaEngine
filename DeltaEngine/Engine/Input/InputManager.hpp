@@ -29,33 +29,34 @@ class InputManager
 	void deactivateCategory(std::string category);
 	void activateCategory(std::string category);
 
-	void onKeyDown(Key keyDown, Events::EventCallback<KeyListener&> keyEvent,
+	void onKeyDown(Key keyDown, Events::EventCallback<Input&> keyEvent,
 				   std::string category = defaultCategory);
-	void keyPressed(Key keyDown, Events::EventCallback<KeyListener&> keyEvent,
+	void keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent,
 					std::string category = defaultCategory);
-	void onKeyUp(Key keyUp, Events::EventCallback<KeyListener&> keyEvent,
+	void onKeyUp(Key keyUp, Events::EventCallback<Input&> keyEvent,
 				 std::string category = defaultCategory);
 
 	void onKeyDown(std::set<Key> keysDown,
-				   Events::EventCallback<KeyListener&> keyEvent);
+				   Events::EventCallback<Input&> keyEvent);
 	void keyPressed(std::set<Key> keysDown,
-					Events::EventCallback<KeyListener&> keyEvent);
+					Events::EventCallback<Input&> keyEvent);
 
 	void onMouseButtonDown(int button,
 						   Events::EventCallback<MouseListener&> buttonEvent);
 	void onMouseButtonUp(int button,
 						 Events::EventCallback<MouseListener&> buttonEvent);
 	void onMouseMove(Events::EventCallback<MouseListener&> mouseEvent);
-	void onMouseWheel(Events::EventCallback<WheelListener&> wheelEvent);
+	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
 	void executeBindingInputsForState(InputState state);
 
 	void updateKeyDown(Key input);
 	void updateKeyUp(Key input);
+
 	void updateMouseButtonDown(MouseListener& button);
 	void updateMouseButtonUp(MouseListener& button);
 	void updateMouseMovement(MouseListener& mouse);
-	void updateMouseWheel(WheelListener& mouse);
+	void updateMouseWheel(int wheelVertically);
 
 	void executeInputEvents();
 
@@ -63,7 +64,10 @@ class InputManager
 	static InputManager instance;
 	static constexpr const char* defaultCategory = "Default";
 
-	std::set<Key> pressedInputs;
+	static Input allInputs;
+	//std::set<Key> pressedInputs;
+	
+
 	std::map<InputState, InputEventDispatchers> keyInputState;
 
 	std::map<int, Events::EventDispatcher<MouseListener&>>
@@ -71,5 +75,5 @@ class InputManager
 	std::map<int, Events::EventDispatcher<MouseListener&>> buttonUpInputMapping;
 
 	Events::EventDispatcher<MouseListener&> mouseMovement{};
-	Events::EventDispatcher<WheelListener&> mouseWheelMovement{};
+	Events::EventDispatcher<Input&> mouseWheelMovement{};
 };
