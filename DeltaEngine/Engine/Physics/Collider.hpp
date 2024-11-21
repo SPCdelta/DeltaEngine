@@ -24,19 +24,19 @@ namespace Physics
 			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
 			_bodyId = Physics::Facade::ToPhysicsId(b2CreateBody(world.GetWorldId(), &_physicsBody));
 
-			_shape.shape = b2DefaultShapeDef();
+			_shape.shape = Physics::DefaultShape();
 			switch (type)
 			{
-			case Physics::ShapeType::CIRCLE:
-				_polygon = b2MakeBox(transform.scale.GetX() / 2.0f, transform.scale.GetY() / 2.0f);
-				break;
+				case Physics::ShapeType::CIRCLE:
+					_polygon = Physics::CreateCircle(transform.scale);
+					break;
 
-			case Physics::ShapeType::BOX:
-			default:
-				_polygon = b2MakeBox(transform.scale.GetX() / 2.0f, transform.scale.GetY() / 2.0f);
-				break;
+				case Physics::ShapeType::BOX:
+				default:
+					_polygon = Physics::CreateBox(transform.scale);
+					break;
 			}
-			_shape.id = Physics::Facade::ToPhysicsId(b2CreatePolygonShape(_bodyId, &_shape.shape, &_polygon));
+			_shape.id = Physics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
 		}
 
 		friend class CollisionSystem;
@@ -47,10 +47,10 @@ namespace Physics
 		{
 			if (_isTrigger == trigger) return;
 
-			b2DestroyShape(_shape.id);
+			Physics::DestroyShape(_shape.id);
 			_shape.shape.isSensor = trigger;
 			_shape.shape.enableSensorEvents = trigger;
-			_shape.id = Physics::Facade::ToPhysicsId(b2CreatePolygonShape(_bodyId, &_shape.shape, &_polygon));
+			_shape.id = Physics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
 			_isTrigger = trigger;
 
 			CallOnShapeChanged();

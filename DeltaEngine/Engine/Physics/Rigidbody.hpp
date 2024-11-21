@@ -5,29 +5,15 @@
 
 namespace Physics
 {
-	enum class RigidbodyType
-	{
-		STATIC_BODY = 0,
-		KINEMATIC_BODY = 1,
-		DYNAMIC_BODY = 2
-	};
-
-	enum class ForceMode
-	{
-		ACCELERATE = 0,
-		IMPULSE = 1,
-	};
-
 	class PhysicsSystem;
 
-	// TODO: to much b2... here
 	class Rigidbody
 	{
 	public:
 		Rigidbody(Collider& collider)
 			: _collider{ collider }
 		{
-			b2Body_SetType(_collider._bodyId, static_cast<b2BodyType>(RigidbodyType::DYNAMIC_BODY));
+			Physics::SetBodyType(_collider._bodyId, RigidbodyType::DYNAMIC_BODY);
 		}
 
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
@@ -37,57 +23,18 @@ namespace Physics
 
 		const PhysicsShape& GetShape() const { return _collider._shape; }
 
-		void SetType(RigidbodyType type)
-		{
-			b2Body_SetType(_collider._bodyId, static_cast<b2BodyType>(type));
-		}
+		void SetType(RigidbodyType type) { Physics::SetBodyType(_collider._bodyId, type); }
+		RigidbodyType GetType() const { return Physics::GetBodyType(_collider._bodyId); }
 
-		RigidbodyType GetType() const
-		{
-			return static_cast<RigidbodyType>(b2Body_GetType(_collider._bodyId));
-		}
+		Collider& GetCollider() const { return _collider; }
 
-		Collider& GetCollider() const
-		{
-			return _collider;
-		}
+		void AddForce(Math::Vector2 force, ForceMode forceMode) { Physics::AddForce(_collider._bodyId, force, forceMode); }
 
-		void AddForce(Math::Vector2 force, ForceMode forceMode)
-		{
-			b2Vec2 b2Force(force.GetX(), force.GetY());
+		void SetVelocity(Math::Vector2 velocity) { Physics::SetVelocity(_collider._bodyId, velocity); }
+		const Math::Vector2 GetVelocity() const { Physics::GetVelocity(_collider._bodyId); }
 
-			switch (forceMode)
-			{
-				case ForceMode::ACCELERATE:
-					b2Body_ApplyForceToCenter(_collider._bodyId, b2Force, true);
-					break;
-				case ForceMode::IMPULSE:
-					b2Body_ApplyLinearImpulseToCenter(_collider._bodyId, b2Force, true);
-					break;
-			}
-		}
-
-		void SetVelocity(Math::Vector2 velocity)
-		{
-			b2Vec2 b2Velocity(velocity.GetX(), velocity.GetY());
-			b2Body_SetLinearVelocity(_collider._bodyId, b2Velocity);
-		}
-
-		const Math::Vector2 GetVelocity() const
-		{
-			b2Vec2 b2Velocity = b2Body_GetLinearVelocity(_collider._bodyId);
-			return Math::Vector2(b2Velocity.x, b2Velocity.y);
-		}
-
-		void SetGravityScale(float gravityScale)
-		{
-			b2Body_SetGravityScale(_collider._bodyId, gravityScale);
-		}
-
-		float GetGravityScale() const
-		{
-			return b2Body_GetGravityScale(_collider._bodyId);
-		}
+		void SetGravityScale(float gravityScale) { Physics::SetGravityScale(_collider._bodyId, gravityScale); }
+		float GetGravityScale() const { return Physics::GetGravityScale(_collider._bodyId); }
 
 	private:
 		Collider& _collider;

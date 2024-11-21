@@ -20,8 +20,8 @@ namespace Physics
 		{
 			// Order is very important here
 			_physicsWorld.Update();
-			std::vector<TestData>& triggers{_physicsWorld.GetCurrentTriggers()};
-			std::vector<TestData>& collisions{_physicsWorld.GetCurrentCollisions()};
+			std::vector<CollisionData>& triggers{_physicsWorld.GetCurrentTriggers()};
+			std::vector<CollisionData>& collisions{_physicsWorld.GetCurrentCollisions()};
 
 			for (ecs::EntityId entityId : _view)
 			{
@@ -36,7 +36,7 @@ namespace Physics
 				}
 				
 				// Check for Trigger Collision
-				for (TestData& trigger : triggers)
+				for (CollisionData& trigger : triggers)
 				{
 					if (Physics::AreEqual(rb.GetShape().id, trigger.rbShapeId))
 					{
@@ -57,7 +57,7 @@ namespace Physics
 				}
 
 				// Check for Contact Collision
-				for (TestData& collision : collisions)
+				for (CollisionData& collision : collisions)
 				{
 					if (Physics::AreEqual(rb.GetShape().id, collision.rbShapeId))
 					{
