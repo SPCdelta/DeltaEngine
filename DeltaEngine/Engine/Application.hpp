@@ -3,21 +3,19 @@
 #include "Rendering/Rendering.hpp"
 
 #include <iostream>
+#include <unordered_map>
+#include <functional>
 
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
 #include "Window.hpp"
 
-#include "Systems/UpdateSystem.hpp"
-#include "Systems/DebugSystem.hpp"
 #include "Scene/SceneManager.hpp"
-#include "Systems/RenderSystem.hpp"
-
 #include "Audio/AudioFacade.hpp"
+#include "Core/Events/EventDispatcher.hpp"
 
 //Temp
-#include "Temp/TempBehaviour.hpp"
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
 
@@ -29,6 +27,16 @@ public:
 	~Application();
 
 	void Run();
+
+	Events::EventDispatcher<const std::string&> ChangeScene{};
+
+	template<typename T>
+	void RegisterScene(const std::string& sceneName)
+	{
+		_sceneManager.RegisterScene<T>(sceneName);
+	}
+
+	void LoadScene(const std::string& sceneName);
 
 	static void Quit()
 	{
@@ -48,11 +56,6 @@ public:
 
 	virtual void Input(float dt) { }
 
-	//GameObject Instantiate()
-	//{
-	//	return { _reg };
-	//}
-
 protected:
 	ecs::Registry _reg;
 	//ecs::EntityId camera;
@@ -71,16 +74,9 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-
-	// Engine?
 	Audio::AudioFacade _audioFacade;
-	std::shared_ptr<DebugSystem> _debugSystem;
-	//std::shared_ptr<PhysicsSystem> _physicsSystem;
-	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
-	std::shared_ptr<UpdateSystem> _updateSystem;
-	std::shared_ptr<RenderSystem> _renderSystem;
 
-	SceneManager _sceneManager;
+	SceneManager _sceneManager{}; // Never ever pass this variable!
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();

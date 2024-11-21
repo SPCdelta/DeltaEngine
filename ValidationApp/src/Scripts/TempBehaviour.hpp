@@ -6,6 +6,7 @@
 #include "../BehaviourScript.hpp"
 #include "../GameObject.hpp"
 #include "../MemLeakDetection/MemLeakDetection.hpp"
+#include "Engine/Delta.hpp"
 
 class TempBehaviour : public BehaviourScript
 {
@@ -22,6 +23,7 @@ class TempBehaviour : public BehaviourScript
 		//							gameObject->GetAudioFacade(), false};
 		//music.Play();
 		//while (Mix_PlayingMusic() == 1) {}
+		//std::cout << "OnStart" << std::endl;
 	}
 
 	void OnUpdate() override
@@ -33,5 +35,6 @@ class TempBehaviour : public BehaviourScript
 		//						gameObject->GetAudioFacade(), false};
 		//sfx.Play();
 		//while (Mix_Playing(0) == 1) {}
+		//std::cout << "OnUpdate" << std::endl;
 	}
 };
