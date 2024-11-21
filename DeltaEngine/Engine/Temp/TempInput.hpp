@@ -30,16 +30,16 @@ class TempInput : public BehaviourScript
 		
 		InputManager::GetInstance().onKeyDown(
 			{KEY_B, KEY_H},
-			[](KeyListener& key) { std::cout << "SD test" << std::endl; });
+			[](Input& key) { std::cout << "SD test" << std::endl; });
 		InputManager::GetInstance().onKeyDown(
-			KEY_Z, [](KeyListener& key) { std::cout << "Z test" << std::endl; },
+			KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
 			"test");
 
 		InputManager::GetInstance().deactivateCategory("test");
 		InputManager::GetInstance().activateCategory("test");
 		InputManager::GetInstance().keyPressed(
 			{KEY_I, KEY_W},
-			[](KeyListener& key)
+			[](Input& key)
 			{
 				std::cout << "Gaat naar boven: ";
 				std::for_each(key.keys.begin(), key.keys.end(),
@@ -51,17 +51,18 @@ class TempInput : public BehaviourScript
 
 		InputManager::GetInstance().keyPressed(
 			KEY_A,
-			[](KeyListener& key)
+			[](Input& key)
 			{
 				std::cout << "Gaat naar boven: ";
 				std::for_each(key.keys.begin(), key.keys.end(),
 							  [](Key k)
 							  { std::cout << InputsEnum::toStr(k); });
-				std::cout << '\n';
+				std::cout << key.wheelVertically << '\n';
 			});
 
 		InputManager::GetInstance().onKeyUp(
-			KEY_SPACE, [](KeyListener& key)
+			KEY_SPACE,
+			[](Input& key)
 			{
 				std::for_each(key.keys.begin(), key.keys.end(),
 							  [](Key k)
@@ -98,12 +99,11 @@ class TempInput : public BehaviourScript
 		//		std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
 		//	});
 
-		//InputManager::GetInstance().onMouseWheel(
-		//	[](WheelListener& mouse) {
-		//		std::cout << mouse.h << " - " << mouse.v << " : "
-		//				  << mouse.preciseX << " - " << mouse.preciseY << ":"
-		//				  << mouse.direction << std::endl;
-		//	});
+		InputManager::GetInstance().onMouseWheel(
+			[](Input& mouse) {
+				std::cout << mouse.mouseX << " - " << mouse.wheelVertically
+						  << " : \n";
+			});
 	}
 
 	void OnUpdate() override {}

@@ -19,18 +19,18 @@ class InputEventDispatchers
 {
    public:
 	void add(std::string inputBinding, std::string category,
-			 Events::EventCallback<KeyListener&> Inputevent);
+			 Events::EventCallback<Input&> Inputevent);
 	bool deactivateCategory(std::string category);
 	bool deactivateCategories(std::set<std::string> categories);
 	bool activateCategory(std::string category);
 	bool activateCategories(std::set<std::string> categories);
 	bool find(std::string input);
-	void dispatchActive(std::string input, KeyListener inputEvent);
+	void dispatchActive(std::string input, Input inputEvent);
 
    private:
 	std::set<std::string> allCategories;
 	std::set<std::string> activeCategories;
 
 	std::map<std::string, std::string> inputBindingCategory;
-	std::map<std::string, Events::EventDispatcher<KeyListener&>> inputBindings;
+	std::map<std::string, Events::EventDispatcher<Input&>> inputBindings;
 };

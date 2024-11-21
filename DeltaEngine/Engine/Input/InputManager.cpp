@@ -1,21 +1,17 @@
 #include "InputManager.hpp"
 
-// Singleton instance
 InputManager InputManager::instance;
+Input InputManager::allInputs;
 
-// Constructor
 InputManager::InputManager() {}
 
-// Get instance
 InputManager& InputManager::GetInstance()
 {
 	return instance;
 }
 
-// Destructor
 InputManager::~InputManager() {}
 
-// Activate/deactivate input categories
 void InputManager::deactivateCategory(std::string category)
 {
 	for (auto& input : keyInputState)
@@ -34,7 +30,7 @@ void InputManager::activateCategory(std::string category)
 
 // Register key events
 void InputManager::onKeyDown(Key keyDown,
-							 Events::EventCallback<KeyListener&> keyEvent,
+							 Events::EventCallback<Input&> keyEvent,
 							 std::string category)
 {
 	keyInputState[PressedDown].add(InputsEnum::toStr(keyDown), category,
@@ -42,21 +38,20 @@ void InputManager::onKeyDown(Key keyDown,
 }
 
 void InputManager::keyPressed(Key keyDown,
-							  Events::EventCallback<KeyListener&> keyEvent,
+							  Events::EventCallback<Input&> keyEvent,
 							  std::string category)
 {
 	keyInputState[Pressed].add(InputsEnum::toStr(keyDown), category, keyEvent);
 }
 
-void InputManager::onKeyUp(Key keyUp,
-						   Events::EventCallback<KeyListener&> keyEvent,
+void InputManager::onKeyUp(Key keyUp, Events::EventCallback<Input&> keyEvent,
 						   std::string category)
 {
 	keyInputState[Release].add(InputsEnum::toStr(keyUp), category, keyEvent);
 }
 
 void InputManager::onKeyDown(std::set<Key> keysDown,
-							 Events::EventCallback<KeyListener&> keyEvent)
+							 Events::EventCallback<Input&> keyEvent)
 {
 	std::string allKeysDown;
 	for (const auto& key : keysDown)
@@ -65,7 +60,7 @@ void InputManager::onKeyDown(std::set<Key> keysDown,
 }
 
 void InputManager::keyPressed(std::set<Key> keysDown,
-							  Events::EventCallback<KeyListener&> keyEvent)
+							  Events::EventCallback<Input&> keyEvent)
 {
 	std::string allKeysDown;
 	for (const auto& key : keysDown)
@@ -100,7 +95,7 @@ void InputManager::onMouseMove(Events::EventCallback<MouseListener&> mouseEvent)
 }
 
 void InputManager::onMouseWheel(
-	Events::EventCallback<WheelListener&> wheelEvent)
+	Events::EventCallback<Input&> wheelEvent)
 {
 	mouseWheelMovement.Register(wheelEvent);
 }
@@ -111,7 +106,7 @@ void InputManager::executeBindingInputsForState(InputState state)
 	std::vector<std::string> keyResults;
 	std::unordered_set<std::string> processedKeys;
 
-	std::vector<Key> inputKeys(pressedInputs.begin(), pressedInputs.end());
+	std::vector<Key> inputKeys(allInputs.keys.begin(), allInputs.keys.end());
 
 	int n = inputKeys.size();
 	for (int i = 1; i < (1 << n); ++i)
@@ -133,9 +128,6 @@ void InputManager::executeBindingInputsForState(InputState state)
 		}
 	}
 
-	auto allInputs = KeyListener(pressedInputs, true, -1, -1);
-	// TODO: Include other inputs
-
 	for (const auto& keyInput : keyResults)
 	{
 		keyInputState[state].dispatchActive(keyInput, allInputs);
@@ -145,18 +137,16 @@ void InputManager::executeBindingInputsForState(InputState state)
 // Key updates
 void InputManager::updateKeyDown(Key input)
 {
-	if (pressedInputs.find(input) == pressedInputs.end())
+	if (allInputs.keys.find(input) == allInputs.keys.end())
 	{
-		pressedInputs.insert(input);
+		allInputs.keys.insert(input);
 		executeBindingInputsForState(PressedDown);
 	}
 }
 
 void InputManager::updateKeyUp(Key input)
 {
-	pressedInputs.erase(input);
-	auto allInputs = KeyListener(pressedInputs, true, -1, -1);
-	// TODO: Include other inputs
+	allInputs.keys.erase(input);
 
 	keyInputState[Release].dispatchActive(InputsEnum::toStr(input), allInputs);
 }
@@ -177,9 +167,10 @@ void InputManager::updateMouseMovement(MouseListener& mouse)
 	mouseMovement.Dispatch(mouse);
 }
 
-void InputManager::updateMouseWheel(WheelListener& mouse)
+void InputManager::updateMouseWheel(int wheelVertically)
 {
-	mouseWheelMovement.Dispatch(mouse);
+	allInputs.wheelVertically = wheelVertically;
+	mouseWheelMovement.Dispatch(allInputs);
 }
 
 // Execute input events

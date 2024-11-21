@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <unordered_map>
+#include <set>
 #include <string>
 
 enum Key
@@ -125,7 +126,25 @@ enum Key
 	KEY_UNKNOWN
 };
 
+enum class Button
+{
+	Left,		  // Left mouse button
+	Right,		  // Right mouse button
+	Middle,		  // Middle mouse button (usually the scroll wheel button)
+	Button4,	  // Additional button 4 (commonly found on gaming mice)
+	Button5,	  // Additional button 5 (commonly found on gaming mice)
+	Unknown		  // Any unrecognized button
+};
 
+
+struct Input
+{
+	std::set<Key> keys;
+	std::set<Button> button;
+	int mouseY;
+	int mouseX;
+	int wheelVertically;
+};
 
 
 class InputsEnum
