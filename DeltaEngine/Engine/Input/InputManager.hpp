@@ -26,23 +26,29 @@ class InputManager
 	static void deactivateCategory(std::string category);
 	static void activateCategory(std::string category);
 
-	static void onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
-	static void keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
-	static void onKeyRealesed(Key keyUp, Events::EventCallback<Input&> keyEvent,
+	static InputLocation onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
+	static InputLocation keyPressed(Key keyDown,
+									Events::EventCallback<Input&> keyEvent,
+									std::string category = defaultCategory);
+	static InputLocation onKeyRealesed(Key keyUp,
+									   Events::EventCallback<Input&> keyEvent,
 							  std::string category = defaultCategory);
 
 	//static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent); TODO dit werkt op dit moment niet vanwege executeInputsPressedDown
-	static void keyPressed(std::set<Key> keysDown,
-						   Events::EventCallback<Input&> keyEvent);
+	static InputLocation keyPressed(std::set<Key> keysDown,
+									Events::EventCallback<Input&> keyEvent,
+									std::string category = defaultCategory);
 
-	static void onMouseButtonDown(Button button,
+	static InputLocation onMouseButtonDown(
+		Button button,
 								  Events::EventCallback<Input&> buttonEvent,
 								  std::string category = defaultCategory);
-	static void onMouseButtonUp(Button button,
+	static InputLocation onMouseButtonUp(
+		Button button,
 								Events::EventCallback<Input&> buttonEvent,
 								std::string category = defaultCategory);
-	static void onMouseMove(Events::EventCallback<Input&> mouseEvent);
-	static void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
+	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent);
+	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
 
 	void updateKeyDown(Key input);
@@ -55,10 +61,13 @@ class InputManager
 
 	void executeInputEvents();
 
+	void remove(InputLocation inputLoc);
+
+	static constexpr const char* defaultCategory = "Default";
+
    private:
 	static InputManager instance_;
 
-	static constexpr const char* defaultCategory = "Default";
 
 	Input allInputs;
 

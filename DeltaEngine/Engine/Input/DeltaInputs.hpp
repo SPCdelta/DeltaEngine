@@ -136,6 +136,13 @@ enum class Button
 	Unknown		  // Any unrecognized button
 };
 
+enum InputState
+{
+	PressedDown,
+	Pressed,
+	Release,
+	Unknown
+};
 
 struct Input
 {
