@@ -14,11 +14,10 @@ class TempInput : public BehaviourScript
 	// DONE Categoriseer het type invoer, zodat deze eenvoudig gepauzeerd kan worden.
 	// DONE Voeg alle inputwaarden toe aan het event bij de dispatch()-aanroep.
 	// DONE Zorg ervoor dat InputManager::GetInstance() niet overal expliciet hoeft te worden aangeroepen.
-	//
+	// DONE Functionaliteit toevoegen om invoer te kunnen verwijderen?
 	// 
 	// TODOMISS Mogelijkheid toevoegen om input aftewijzen tijdens update-tijd.
 	// TODOMISS Ondersteuning voor combinaties van toetsen en knoppen om acties uit te voeren.
-	// TODOMISS Functionaliteit toevoegen om invoer te kunnen verwijderen?
 
 
 	// Components
