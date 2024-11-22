@@ -53,4 +53,4 @@ private:
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
-};
+}

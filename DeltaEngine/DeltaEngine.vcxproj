@@ -201,6 +201,12 @@
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
     <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
+    <ClCompile Include="Engine\Scene\Scene.cpp" />
+    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="Engine\Core\Math\Point.cpp" />
+    <ClCompile Include="Engine\Core\Math\Random.cpp" />
+    <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
+    <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />

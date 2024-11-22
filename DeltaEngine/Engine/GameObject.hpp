@@ -11,6 +11,8 @@
 //#include "BehaviourScript.hpp"
 class BehaviourScript;
 
+#include "Rendering/Sprite.hpp"
+
 class GameObject
 {
 public:
@@ -76,6 +78,7 @@ public:
 	}
 
 	GameObject(ecs::Registry& reg, Events::EventDispatcher<const std::string&>& changeScene, Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+
 	~GameObject();
 
 	Transform* transform = nullptr;

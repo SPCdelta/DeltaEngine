@@ -48,16 +48,15 @@ void Application::Run()
 			break;
 		}
 
-		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
-		
 		_inputFacade.onInputEvent(_windowEvent);
 		InputManager::GetInstance().executeInputEvents();
 
 
+
 		GetDeltaTime();
 
-		// Update Window
 		_window.Update();		
+
 
 		// Input
 		Input(_dt); //TODO wat is dit?
@@ -69,15 +68,15 @@ void Application::Run()
 		//Input(_dt);
 		//_debugSystem->Update();
 
-		//// Update
-		////b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
-		//_updateSystem->Update();
-		////_physicsSystem->Update();
 
-		//// Render
-		////_renderSystem->Update();
-		////_fontRenderSystem->Update();
-		//Rendering::RenderPresent(_window.GetRenderer());
+		// Update
+		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
+		_updateSystem->Update();
+		//_physicsSystem->Update();
+		
+		// Render
+		_renderSystem->Update();
+		//_fontRenderSystem->Update();
 
 		////ShowFpsInWindowTitleBar();
 

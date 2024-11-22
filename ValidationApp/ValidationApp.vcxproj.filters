@@ -66,6 +66,17 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Textures\spritesheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\spritesheet2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\spritesheet3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />

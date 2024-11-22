@@ -29,7 +29,8 @@ class TempInput : public BehaviourScript
 		std::cout << "OnStart" << std::endl;
 
 		onKeyPressed(
-			KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
+			KEY_Z, [](Input& key) { 
+				std::cout << "Z test" << std::endl; },
 			"test");
 
 		onKeyPressed(
@@ -94,7 +95,7 @@ class TempInput : public BehaviourScript
 				std::cout << std::endl;
 
 			});
-		unregesterInputs();
+		//unregesterInputs();
 
 
 		onMouseButtonUp(

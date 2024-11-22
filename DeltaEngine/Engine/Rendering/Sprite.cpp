@@ -79,7 +79,7 @@ void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2* position, int 
 	if (!texture)
 	{
 		std::cerr << "Failed to load texture: " << Rendering::GetError() << std::endl;
-		return;
+		return; 
 	}
 
 	_texture = texture;

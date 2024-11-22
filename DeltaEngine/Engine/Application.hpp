@@ -76,6 +76,7 @@ protected:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
+
 	SceneManager _sceneManager{}; // Never ever pass this variable!
 
 	void GetDeltaTime();
