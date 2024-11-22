@@ -1,11 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include "../Audio/MusicSource.hpp"
-#include "../Audio/SFXSource.hpp"
-#include "../BehaviourScript.hpp"
-#include "../GameObject.hpp"
-#include "../MemLeakDetection/MemLeakDetection.hpp"
 #include "Engine/Delta.hpp"
 
 class TempBehaviour : public BehaviourScript

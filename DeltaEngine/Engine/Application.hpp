@@ -12,7 +12,6 @@
 #include "Window.hpp"
 
 #include "Scene/SceneManager.hpp"
-#include "Audio/AudioFacade.hpp"
 #include "Core/Events/EventDispatcher.hpp"
 
 //Temp
@@ -74,7 +73,6 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-	Audio::AudioFacade _audioFacade;
 
 	SceneManager _sceneManager{}; // Never ever pass this variable!
 

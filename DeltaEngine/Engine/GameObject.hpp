@@ -6,12 +6,11 @@
 #include "Ecs/Registry.hpp"
 #include "Transform.hpp"
 
+#include "Audio/AudioFacade.hpp"
 #include "Core/Events/EventDispatcher.hpp"
 
 //#include "BehaviourScript.hpp"
 class BehaviourScript;
-
-#include "Audio/AudioFacade.hpp"
 
 class GameObject
 {
@@ -79,7 +78,7 @@ public:
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg, Events::EventDispatcher<const std::string&>& changeScene, Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+	GameObject(ecs::Registry& reg, Audio::AudioFacade& audioFacade, Events::EventDispatcher<const std::string&>& changeScene, Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
 
 	~GameObject();
 

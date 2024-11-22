@@ -1,22 +1,28 @@
 #pragma once
-#include "../BehaviourScript.hpp"
-#include "../Audio/MusicSource.hpp"
-#include "../Audio/SFXSource.hpp"
 
-using namespace Audio;
+#include "Engine/Delta.hpp"
+#include "Engine/BehaviourScript.hpp"
+#include <Engine/Audio/MusicSource.hpp>
+#include <Engine/Audio/SFXSource.hpp>
+#include <Engine/Audio/AudioLoader.hpp>
 
 class TempAudio : public BehaviourScript
 {
    public:
 	void OnStart() override
 	{
-		//music = {"Assets\\Audio\\Music\\theme1.mp3", false,
-		//		 gameObject->GetAudioFacade(), false};
-		//sfx = {"Assets\\Audio\\SFX\\eating.mp3", false,
-		//	   gameObject->GetAudioFacade(), false};
-		//music.Play();
+		//_sfx = {"Assets\\Audio\\SFX\\eating.mp3", false,
+		auto& music = gameObject->GetComponent<Audio::MusicSource>();
+		auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
+		music.SetClip("Assets\\Audio\\Music\\theme1.mp3");
+		music.Play();
+		sfx.SetClip("Assets\\Audio\\SFX\\eating.mp3");
 	}
-	void OnUpdate() override {  }
-	//MusicSource music;
-	//SFXSource sfx;
+	void OnUpdate() override
+	{
+		auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
+		sfx.Play();
+	}
+
+   private:
 };
