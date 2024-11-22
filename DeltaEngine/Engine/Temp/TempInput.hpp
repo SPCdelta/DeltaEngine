@@ -29,17 +29,17 @@ class TempInput : public BehaviourScript
 
 		std::cout << "OnStart" << std::endl;
 
-		InputManager::onKeyPressed(
+		onKeyPressed(
 			KEY_Z, [](Input& key) { std::cout << "Z test" << std::endl; },
 			"test");
 
-		InputManager::onKeyPressed(
+		onKeyPressed(
 			KEY_P, [](Input& key) { std::cout << "P test" << std::endl; },
 			"test");
 
 		InputManager::deactivateCategory("test");
 		InputManager::activateCategory("test");
-		InputManager::keyPressed(
+		keyPressed(
 			{KEY_I, KEY_W},
 			[](Input& key)
 			{
@@ -51,7 +51,7 @@ class TempInput : public BehaviourScript
 			});
 
 
-		InputManager::keyPressed(
+		keyPressed(
 			KEY_A,
 			[](Input& key)
 			{
@@ -61,7 +61,7 @@ class TempInput : public BehaviourScript
 							  { std::cout << InputsEnum::toStr(k); });
 			});
 
-		InputManager::onKeyRealesed(
+		onKeyRealesed(
 			KEY_SPACE,
 			[](Input& key)
 			{
@@ -83,7 +83,7 @@ class TempInput : public BehaviourScript
 
 			});*/
 
-		InputManager::onMouseButtonDown(
+		onMouseButtonDown(
 			Button::Left,
 			[](Input& button) { std::cout << "left: ";
 				std::for_each(button.buttons.begin(), button.buttons.end(),
@@ -95,8 +95,10 @@ class TempInput : public BehaviourScript
 				std::cout << std::endl;
 
 			});
+		unregesterInputs();
 
-		InputManager::onMouseButtonUp(
+
+		onMouseButtonUp(
 			Button::Right,
 			[](Input& button) {
 				std::cout << "right: ";
@@ -108,12 +110,13 @@ class TempInput : public BehaviourScript
 				std::cout << std::endl;
 			});
 
+
 		/*InputManager::GetInstance().onMouseMove(
 			[](Input& mouse) {
 				std::cout << mouse.mouseX << " - " << mouse.mouseY << std::endl;
 			});*/
 
-		InputManager::onMouseWheel(
+		onMouseWheel(
 			[](Input& mouse) {
 				std::cout << mouse.mouseX << " - " << mouse.wheelVertically
 						  << " : \n";

@@ -8,18 +8,20 @@
 #include "../Core/Events/EventDispatcher.hpp"
 #include "DeltaInputs.hpp"
 
-// Enum voor input states
-enum InputState
+struct InputLocation
 {
-	PressedDown,
-	Pressed,
-	Release
+	std::string input;
+	InputState state;
+	std::string category;
+	Events::EventCallback<Input&> regesterd;
 };
+
 
 class InputEventDispatchers
 {
    public:
-	void add(std::string inputBinding, std::string category, Events::EventCallback<Input&> Inputevent);
+	void add(std::string inputBinding, std::string category,
+					  Events::EventCallback<Input&> Inputevent);
 
 	bool find(std::string input);
 	void dispatchActive(std::string input, Input inputEvent);
@@ -35,6 +37,8 @@ class InputEventDispatchers
 								  std::string strPressedDown);
 	void executeInputsPressed(Input allInputs, std::vector<std::string> strInputs);
    
+	void remove(InputLocation inputLoc);
+
 private:
 	std::set<std::string> allCategories;
 	std::set<std::string> activeCategories;

@@ -1,4 +1,6 @@
 #pragma once
+#include "Input/InputManager.hpp"
+
 
 class GameObject;
 
@@ -13,9 +15,26 @@ public:
 	virtual void OnStart() = 0;
 	virtual void OnUpdate() = 0;
 
-	virtual ~BehaviourScript() = default;
+	virtual ~BehaviourScript();
 
-protected:
+	//Inputs
+
+	void keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
+	void keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
+	
+	void onKeyPressed(Key keyDown,Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
+	void onKeyRealesed(Key keyUp, Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
+
+
+	void onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = InputManager::defaultCategory);
+	void onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = InputManager::defaultCategory);
+	void onMouseMove(Events::EventCallback<Input&> mouseEvent);
+	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
+
+	void unregesterInputs();
+
+   protected:
 	GameObject* gameObject = nullptr;
+	std::vector<InputLocation> regesterdInputs;
 };
 

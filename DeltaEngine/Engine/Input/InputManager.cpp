@@ -28,29 +28,36 @@ void InputManager::activateCategory(std::string category)
 	}
 }
 
-// Register key events
-void InputManager::onKeyPressed(Key keyDown,
-							 Events::EventCallback<Input&> keyEvent,
-							 std::string category)
+InputLocation InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category)
 {
-
-	instance_.inputState[PressedDown].add(InputsEnum::toStr(keyDown), category,
+	instance_.inputState[PressedDown].add(
+		InputsEnum::toStr(keyDown), category,
 								   keyEvent);
+	InputLocation inputLoc(InputsEnum::toStr(keyDown), PressedDown, category,
+						   keyEvent);
+	return inputLoc;
 }
 
-void InputManager::keyPressed(Key keyDown,
+InputLocation InputManager::keyPressed(Key keyDown,
 							  Events::EventCallback<Input&> keyEvent,
 							  std::string category)
 {
-	instance_.inputState[Pressed].add(InputsEnum::toStr(keyDown), category,
-									  keyEvent);
+	instance_.inputState[Pressed].add(InputsEnum::toStr(keyDown), category, keyEvent);
+
+	InputLocation inputLoc(InputsEnum::toStr(keyDown), Pressed, category,
+						   keyEvent);
+	return inputLoc;
 }
 
-void InputManager::onKeyRealesed(Key keyUp, Events::EventCallback<Input&> keyEvent,
+InputLocation InputManager::onKeyRealesed(
+	Key keyUp, Events::EventCallback<Input&> keyEvent,
 						   std::string category)
 {
 	instance_.inputState[Release].add(InputsEnum::toStr(keyUp), category,
 									  keyEvent);
+	InputLocation inputLoc(InputsEnum::toStr(keyUp), Release, category,
+						   keyEvent);
+	return inputLoc;
 }
 
 //void InputManager::onKeyPressed(std::set<Key> keysDown,
@@ -59,40 +66,59 @@ void InputManager::onKeyRealesed(Key keyUp, Events::EventCallback<Input&> keyEve
 //	std::string allKeysDown;
 //	for (const auto& key : keysDown)
 //		allKeysDown += InputsEnum::toStr(key);
-//	instance_.inputState[PressedDown].add(allKeysDown, "game-input", keyEvent);
+//	InputLocation inputLoc = instance_.inputState[PressedDown].add(allKeysDown, "game-input", keyEvent);
 //}
 
-void InputManager::keyPressed(std::set<Key> keysDown,
-							  Events::EventCallback<Input&> keyEvent)
+InputLocation InputManager::keyPressed(std::set<Key> keysDown,
+									   Events::EventCallback<Input&> keyEvent,
+									   std::string category)
 {
 	std::string allKeysDown;
 	for (const auto& key : keysDown)
 		allKeysDown += InputsEnum::toStr(key);
-	instance_.inputState[Pressed].add(allKeysDown, "game-input", keyEvent);
+	instance_.inputState[Pressed].add(allKeysDown, category, keyEvent);
+	
+	InputLocation inputLoc(allKeysDown, Pressed, category, keyEvent);
+	return inputLoc;
 }
 
 // Mouse events
-void InputManager::onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent, std::string category)
+InputLocation InputManager::onMouseButtonDown(
+	Button button, Events::EventCallback<Input&> buttonEvent,
+	std::string category)
 {
-	instance_.inputState[PressedDown].add(
-		std::to_string(InputsEnum::toInt(button)), category, buttonEvent);
+	std::string strButton = std::to_string(InputsEnum::toInt(button));
+
+	instance_.inputState[PressedDown].add(strButton, category, buttonEvent);
+
+	InputLocation inputLoc(strButton, PressedDown, category, buttonEvent);
+	return inputLoc;
 }
 
-void InputManager::onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent, std::string category)
-{
-	instance_.inputState[Release].add(std::to_string(InputsEnum::toInt(button)),
+InputLocation InputManager::onMouseButtonUp(
+	Button button, Events::EventCallback<Input&> buttonEvent,
+	std::string category)
+{	
+	std::string strButton = std::to_string(InputsEnum::toInt(button));
+	instance_.inputState[Release].add(strButton,
 									  category, buttonEvent);
+	InputLocation inputLoc(strButton, Release, category, buttonEvent);
+	return inputLoc;
 }
 
-void InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent)
+InputLocation InputManager::onMouseMove(
+	Events::EventCallback<Input&> mouseEvent)
 {
 	instance_.mouseMovement.Register(mouseEvent);
+	return {"mouse-move", Unknown, "", mouseEvent};
+
 }
 
-void InputManager::onMouseWheel(
+InputLocation InputManager::onMouseWheel(
 	Events::EventCallback<Input&> wheelEvent)
 {
 	instance_.mouseWheelMovement.Register(wheelEvent);
+	return {"mouse-wheel", Unknown, "", wheelEvent};
 }
 
 void InputManager::updateKeyDown(Key input)
@@ -163,4 +189,19 @@ void InputManager::executeInputEvents()
 		strKeys.push_back(InputsEnum::toStr(key));
 
 	inputState[Pressed].executeInputsPressed(allInputs, strKeys);
+}
+
+void InputManager::remove(InputLocation inputLoc) {
+	if (inputLoc.input == "mouse-wheel")
+	{
+		mouseWheelMovement.Unregister(inputLoc.regesterd);
+	}
+	else if (inputLoc.input == "mouse-move")
+	{
+		mouseMovement.Unregister(inputLoc.regesterd);
+	}
+	else
+	{
+		inputState[inputLoc.state].remove(inputLoc);
+	}
 }

@@ -1,7 +1,8 @@
 #include "InputEventDispatchers.hpp"
 #include <algorithm>
 
-void InputEventDispatchers::add(std::string inputBinding, std::string category,
+void InputEventDispatchers::add(
+	std::string inputBinding, std::string category,
 								Events::EventCallback<Input&> Inputevent)
 {
 	if (allCategories.find(category) == allCategories.end())
@@ -123,4 +124,8 @@ void InputEventDispatchers::executeInputsPressed(
 	{
 		dispatchActive(input, allInputs);
 	}
+}
+
+void InputEventDispatchers::remove(InputLocation inputLoc) {
+	inputBindings[inputLoc.input].Unregister(inputLoc.regesterd);
 }
