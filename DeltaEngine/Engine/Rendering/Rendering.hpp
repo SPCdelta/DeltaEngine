@@ -105,7 +105,13 @@ namespace Rendering
 	// Get window size
 	inline void GetWindowSize(SDL_Window* window, int* w, int* h)
 	{
-		return SDL_GetWindowSize(window, w, h);
+		SDL_GetWindowSize(window, w, h);
+	}
+
+	// Get window surface
+	inline Surface* GetWindowSurface(SDL_Window* window)
+	{
+		return SDL_GetWindowSurface(window);
 	}
 
 	// Destroy window
@@ -158,9 +164,9 @@ namespace Rendering
 	}
 
 	// Load a image texture from file
-	inline Texture* LoadTexture(SDL_Renderer* renderer, const std::string& filePath)
+	inline Texture* LoadTexture(SDL_Renderer* renderer, const char* filePath)
 	{
-		return IMG_LoadTexture(renderer, filePath.c_str());
+		return IMG_LoadTexture(renderer, filePath);
 	}
 
 	// Create a texture from a surface

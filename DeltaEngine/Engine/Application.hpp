@@ -9,16 +9,20 @@
 
 #include "Window.hpp"
 
-#include "Rendering/Viewport.hpp"
-
 #include "Systems/UpdateSystem.hpp"
 #include "Systems/DebugSystem.hpp"
 #include "Input/InputFacade.hpp"
+
+#include "Scene/SceneManager.hpp"
+#include "Systems/RenderSystem.hpp"
+
 
 //Temp
 #include "Temp/TempBehaviour.hpp"
 #include "Temp/TempInput.hpp"
 #include "GameObject.hpp"
+#include "UI/Text.hpp"
+
 
 
 class Application
@@ -71,7 +75,6 @@ public:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
-	ViewportData _viewportData{50.0f, 1280, 720};
 
 	InputFacade _inputFacade{};
 
@@ -80,6 +83,9 @@ public:
 	//std::shared_ptr<PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<RenderSystem> _renderSystem;
+
+	SceneManager _sceneManager;
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();

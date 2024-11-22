@@ -23,14 +23,29 @@ Application::Application()
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	GameObject* gameObject = new GameObject( _reg );
+	GameObject* gameObject = new GameObject(_reg, Transform({10.0f, 10.0f}, 0.0f, {64.0f, 64.0f}));
 	gameObject->AddComponent<A>();
 	gameObject->AddComponent<B>();
 	gameObject->AddComponent<TempInput>();
-	//gameObject->AddComponent<TempBehaviour>();
+	//gameObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+
+	auto testScene = _sceneManager.Load("TestScene");
+	if (testScene)
+	{
+		std::cout << "TestScene Loaded succesfully" << std::endl;
+	}
+
 
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem = _reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>();
+
+	_window.SetViewportSize(400, 400);
+	_window.SetViewportPos(100, 50);
+	_window.RenderViewport(255, 255, 255, 255);
+
+	_renderSystem->SetWindow(&_window);
+	_renderSystem->SetViewportData(_window.GetViewport());
 }
 
 Application::~Application()
@@ -41,6 +56,7 @@ Application::~Application()
 void Application::Run()
 {
 	_updateSystem->OnStart();
+	_renderSystem->OnStart();
 
 	while (!_window.ShouldWindowClose())
 	{
@@ -52,31 +68,32 @@ void Application::Run()
 			break;
 		}
 
-		Rendering::GetWindowSize(_window, &_viewportData.width, &_viewportData.height);
-		
 		_inputFacade.onInputEvent(_windowEvent);
 		InputManager::GetInstance().executeInputEvents();
 
 
+
 		GetDeltaTime();
 
-		_window.Update();
-		Rendering::SetRenderDrawColor(_window.GetRenderer(), 10, 10, 10, 255);
-		Rendering::RenderClear(_window.GetRenderer());
+		_window.Update();		
+
+		// Setting up viewport of window
+		
+
 
 		// Input
 		//Input(_dt);
 		//_debugSystem->Update();
 
-		//// Update
-		////b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
-		//_updateSystem->Update();
-		////_physicsSystem->Update();
 
-		//// Render
-		////_renderSystem->Update();
-		////_fontRenderSystem->Update();
-		//Rendering::RenderPresent(_window.GetRenderer());
+		// Update
+		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
+		_updateSystem->Update();
+		//_physicsSystem->Update();
+		
+		// Render
+		_renderSystem->Update();
+		//_fontRenderSystem->Update();
 
 		////ShowFpsInWindowTitleBar();
 
