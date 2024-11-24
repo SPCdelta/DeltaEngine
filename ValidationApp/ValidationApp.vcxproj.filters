@@ -33,6 +33,9 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scripts\InputTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ValidationApp.hpp">
@@ -53,7 +56,10 @@
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scripts\TempInput.hpp">
+    <ClInclude Include="src\Scripts\InputTest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\InputTestScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

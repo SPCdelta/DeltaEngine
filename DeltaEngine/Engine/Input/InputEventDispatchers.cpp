@@ -1,8 +1,8 @@
 #include "InputEventDispatchers.hpp"
 #include <algorithm>
 
-void InputEventDispatchers::add(
-	std::string inputBinding, std::string category,
+void InputEventDispatchers::add(const std::string& inputBinding,
+								const std::string& category,
 								Events::EventCallback<Input&> Inputevent)
 {
 	if (allCategories.find(category) == allCategories.end())
@@ -17,7 +17,7 @@ void InputEventDispatchers::add(
 	inputBindings[inputBinding].Register(Inputevent);
 }
 
-bool InputEventDispatchers::deactivateCategory(std::string category)
+bool InputEventDispatchers::deactivateCategory(const std::string& category)
 {
 	return activeCategories.erase(category) == 1;
 }
@@ -33,7 +33,7 @@ bool InputEventDispatchers::deactivateCategories(
 	return countDeactivated == categories.size();
 }
 
-bool InputEventDispatchers::activateCategory(std::string category)
+bool InputEventDispatchers::activateCategory(const std::string& category)
 {
 	if (allCategories.find(category) == allCategories.end())
 		return false;
@@ -56,12 +56,12 @@ bool InputEventDispatchers::activateCategories(std::set<std::string> categories)
 	return countActivated == categories.size();
 }
 
-bool InputEventDispatchers::find(std::string input)
+bool InputEventDispatchers::find(const std::string& input)
 {
 	return inputBindings.find(input) != inputBindings.end();
 }
 
-void InputEventDispatchers::dispatchActive(std::string input, Input inputEvent)
+void InputEventDispatchers::dispatchActive(const std::string& input, Input inputEvent)
 {
 	auto it = inputBindingCategory.find(input);
 
@@ -76,22 +76,11 @@ void InputEventDispatchers::dispatchActive(std::string input, Input inputEvent)
 		eventIt->second.Dispatch(inputEvent);
 }
 
-void InputEventDispatchers::executeInputsPressedDown(
-	Input allInputs, std::vector<std::string> strInputs,  std::string strPressedDown)
+void InputEventDispatchers::executeInputsPressedDown(Input allInputs, std::vector<std::string> strInputs, const std::string&  strPressedDown)
 {
-	for (const auto& pair : inputBindings)
-	{
-		if (pair.first.find(strPressedDown) == std::string::npos)
-			continue;
-
-		for (auto& letter : pair.first)
-		{
-			if (std::find(strInputs.begin(), strInputs.end(), letter + "") ==
-				strInputs.end())
-				break; 
-		}
-		dispatchActive(strPressedDown, allInputs);
-	}
+	auto it = inputBindings.find(strPressedDown);
+	if (it != inputBindings.end())
+			dispatchActive(strPressedDown, allInputs);
 }
 
 void InputEventDispatchers::executeInputsPressed(

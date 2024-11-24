@@ -26,26 +26,14 @@ class InputManager
 	static void activateCategory(std::string category);
 
 	static InputLocation onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
-	static InputLocation keyPressed(Key keyDown,
-									Events::EventCallback<Input&> keyEvent,
-									std::string category = defaultCategory);
-	static InputLocation onKeyRealesed(Key keyUp,
-									   Events::EventCallback<Input&> keyEvent,
-							  std::string category = defaultCategory);
+	static InputLocation keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
+	static InputLocation onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
 
 	//static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent); TODO dit werkt op dit moment niet vanwege executeInputsPressedDown
-	static InputLocation keyPressed(std::set<Key> keysDown,
-									Events::EventCallback<Input&> keyEvent,
-									std::string category = defaultCategory);
+	static InputLocation keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
 
-	static InputLocation onMouseButtonDown(
-		Button button,
-								  Events::EventCallback<Input&> buttonEvent,
-								  std::string category = defaultCategory);
-	static InputLocation onMouseButtonUp(
-		Button button,
-								Events::EventCallback<Input&> buttonEvent,
-								std::string category = defaultCategory);
+	static InputLocation onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
+	static InputLocation onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
 	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent);
 	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 

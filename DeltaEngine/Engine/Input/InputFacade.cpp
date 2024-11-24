@@ -74,16 +74,7 @@ void InputFacade::onMouseMove(SDL_Event event) {
 
 void InputFacade::onMouseScroll(SDL_Event event) {
 	auto eWheel = event.wheel;
-	int h = eWheel.x;
 	int v = eWheel.y;
-	uint32_t direction = eWheel.direction;
-	
-	float preciseX = eWheel.preciseX; 	
-	float preciseY = eWheel.preciseY;	
-	
-	int mouseX = eWheel.mouseX;	
-	int mouseY = eWheel.mouseY;
 
-	//auto wheel = WheelListener(h,v,direction,preciseX,preciseY,mouseX, mouseY);
 	inputManager.updateMouseWheel(v);
 }
