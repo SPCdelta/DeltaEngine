@@ -17,8 +17,8 @@ void Physics::PhysicsWorld::Update()
 		CollisionTouchStartEvent* touch = contactEvents.beginEvents + i;
 		_currentCollisions.push_back(
 			{
-				Physics::Facade::ToPhysicsId(touch->shapeIdA),
-				Physics::Facade::ToPhysicsId(touch->shapeIdB),
+				Physics::ToPhysicsId(touch->shapeIdA),
+				Physics::ToPhysicsId(touch->shapeIdB),
 				CollisionState::ENTER
 			}
 		);
@@ -30,8 +30,8 @@ void Physics::PhysicsWorld::Update()
 		CollisionTouchEndEvent* touch = contactEvents.endEvents + i;
 		_currentTriggers.push_back(
 			{ 
-				Physics::Facade::ToPhysicsId(touch->shapeIdA),
-				Physics::Facade::ToPhysicsId(touch->shapeIdB),
+				Physics::ToPhysicsId(touch->shapeIdA),
+				Physics::ToPhysicsId(touch->shapeIdB),
 				CollisionState::EXIT
 			}
 		);
@@ -44,8 +44,8 @@ void Physics::PhysicsWorld::Update()
 		TriggerTouchStartEvent* touch = triggerEvents.beginEvents + i;
 		_currentTriggers.push_back(
 			{
-				Physics::Facade::ToPhysicsId(touch->visitorShapeId),
-				Physics::Facade::ToPhysicsId(touch->sensorShapeId),
+				Physics::ToPhysicsId(touch->visitorShapeId),
+				Physics::ToPhysicsId(touch->sensorShapeId),
 				CollisionState::ENTER
 			}
 		);
@@ -57,8 +57,8 @@ void Physics::PhysicsWorld::Update()
 		TriggerTouchEndEvent* touch = triggerEvents.endEvents + i;
 		_currentTriggers.push_back(
 			{ 
-				Physics::Facade::ToPhysicsId(touch->visitorShapeId), 
-				Physics::Facade::ToPhysicsId(touch->sensorShapeId),
+				Physics::ToPhysicsId(touch->visitorShapeId), 
+				Physics::ToPhysicsId(touch->sensorShapeId),
 				CollisionState::EXIT
 			}
 		);

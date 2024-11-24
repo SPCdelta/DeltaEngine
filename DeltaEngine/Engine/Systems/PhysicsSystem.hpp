@@ -79,9 +79,6 @@ namespace Physics
 					}
 				}
 			}
-
-			//
-
 		}
 
 		void AfterBehaviourUpdate()

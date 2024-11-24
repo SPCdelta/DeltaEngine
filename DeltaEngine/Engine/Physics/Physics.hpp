@@ -83,22 +83,19 @@ namespace Physics
 			id1.world0 == id2.world0;
 	}
 
-	namespace Facade
+	static WorldId ToWorldId(b2WorldId worldId)
 	{
-		static WorldId ToWorldId(b2WorldId worldId)
-		{
-			return { worldId.index1, worldId.revision };
-		}
+		return {worldId.index1, worldId.revision};
+	}
 
-		static PhysicsId ToPhysicsId(b2BodyId bodyId)
-		{
-			return { bodyId.index1, bodyId.world0, bodyId.revision };
-		}
+	static PhysicsId ToPhysicsId(b2BodyId bodyId)
+	{
+		return {bodyId.index1, bodyId.world0, bodyId.revision};
+	}
 
-		static PhysicsId ToPhysicsId(b2ShapeId shapeId)
-		{
-			return { shapeId.index1, shapeId.world0, shapeId.revision };
-		}
+	static PhysicsId ToPhysicsId(b2ShapeId shapeId)
+	{
+		return {shapeId.index1, shapeId.world0, shapeId.revision};
 	}
 
 	//
@@ -115,13 +112,13 @@ namespace Physics
 	{
 		WorldData data{};
 		data.world = b2DefaultWorldDef();
-		data.id = Physics::Facade::ToWorldId(b2CreateWorld(&data.world));
+		data.id = Physics::ToWorldId(b2CreateWorld(&data.world));
 		return data;
 	}
 
 	inline PhysicsId CreateBody(WorldId worldId, PhysicsBody* physicsBody)
 	{
-		return Physics::Facade::ToPhysicsId(b2CreateBody(worldId, physicsBody));
+		return Physics::ToPhysicsId(b2CreateBody(worldId, physicsBody));
 	}
 
 	inline PhysicsPolygon CreateBox(const Math::Vector2& scale)
@@ -136,7 +133,7 @@ namespace Physics
 
 	inline PhysicsId CreatePolygonShape(PhysicsId bodyId, const PhysicsShape* shape, const PhysicsPolygon* polygon)
 	{
-		return Physics::Facade::ToPhysicsId(b2CreatePolygonShape(bodyId, &shape->shape, polygon));
+		return Physics::ToPhysicsId(b2CreatePolygonShape(bodyId, &shape->shape, polygon));
 	}
 
 	inline void SetBodyType(PhysicsId bodyId, RigidbodyType type)
