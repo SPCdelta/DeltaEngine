@@ -13,3 +13,4 @@ void SceneManager::Load(const std::string& sceneName)
 #else
 	throw new std::exception("Scene with name '" + sceneName + "' doesnt exist!");
 #endif
+}

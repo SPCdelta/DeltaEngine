@@ -2,7 +2,7 @@
 
 bool Application::_isRunning = true;
 
-Application::Application() : _window("Delta Engine!", 1280, 720)
+Application::Application() : _window("Meow!", 1280, 720)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
@@ -51,34 +51,19 @@ void Application::Run()
 		_inputFacade.onInputEvent(_windowEvent);
 		InputManager::GetInstance().executeInputEvents();
 
-
-
 		GetDeltaTime();
 
+		// Update Window
 		_window.Update();		
 
-
 		// Input
-		Input(_dt); //TODO wat is dit?
+		Input(_dt);
 
 		// Scene UpdateLoop
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->Update();
 
-		//Input(_dt);
-		//_debugSystem->Update();
-
-
-		// Update
-		//b2World_Step(Singleton::get_instance()._worldId, Temp::TIME_STEP, Temp::SUB_STEP_COUNT);
-		_updateSystem->Update();
-		//_physicsSystem->Update();
-		
-		// Render
-		_renderSystem->Update();
-		//_fontRenderSystem->Update();
-
-		////ShowFpsInWindowTitleBar();
+		ShowFpsInWindowTitleBar();
 
 		// Framerate
 		Rendering::Delay(1000 / 60);

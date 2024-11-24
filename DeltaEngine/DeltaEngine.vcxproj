@@ -189,6 +189,10 @@
   <ItemGroup>
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
+    <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
+    <ClCompile Include="Engine\Input\InputFacade.cpp" />
+    <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Core\Math\Point.cpp" />
@@ -197,16 +201,6 @@
     <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\SpriteSheet.cpp" />
-    <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
-    <ClCompile Include="Engine\Input\InputFacade.cpp" />
-    <ClCompile Include="Engine\Input\InputManager.cpp" />
-    <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
-    <ClCompile Include="Engine\Scene\Scene.cpp" />
-    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
-    <ClCompile Include="Engine\Core\Math\Point.cpp" />
-    <ClCompile Include="Engine\Core\Math\Random.cpp" />
-    <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
-    <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
@@ -224,14 +218,12 @@
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
-    <ClInclude Include="Engine\Rendering\Animator.hpp" />
-    <ClInclude Include="Engine\Rendering\Direction.hpp" />
-    <ClInclude Include="Engine\Input\InputMapEventDispatchers.hpp" />
-    <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
-    <ClInclude Include="Engine\Input\InputsEnum.hpp" />
     <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
+    <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />
+    <ClInclude Include="Engine\Rendering\Animator.hpp" />
+    <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />

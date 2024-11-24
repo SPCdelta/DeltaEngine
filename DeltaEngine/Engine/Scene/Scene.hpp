@@ -22,7 +22,7 @@ class Application;
 
 class Scene
 {
-public:
+   public:
 	Scene(const std::string& name);
 
 	friend class Application;
@@ -34,14 +34,17 @@ public:
 		_renderSystem->SetViewportData(window.GetViewport());
 	}
 
-	void LoadScene(const std::string& name) { _changeSceneEvent.Dispatch(name); }
+	void LoadScene(const std::string& name)
+	{
+		_changeSceneEvent.Dispatch(name);
+	}
 
 	void Start();
 	void Update();
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
-private:
+   private:
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
@@ -53,4 +56,4 @@ private:
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
-}
+};

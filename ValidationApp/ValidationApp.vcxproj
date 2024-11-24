@@ -189,6 +189,7 @@
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\TempInput.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
   </ItemGroup>
   <ItemGroup>

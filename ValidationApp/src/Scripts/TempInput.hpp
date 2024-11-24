@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "../BehaviourScript.hpp"
+#include "Engine/Delta.hpp"
 
 
 class TempInput : public BehaviourScript
