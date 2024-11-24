@@ -15,9 +15,7 @@
 #include "../Systems/UpdateSystem.hpp"
 #include "../Systems/DebugSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
-
-// Temp | TODO: remove when done
-//#include "../Temp/TempBehaviour.hpp"
+#include "../Systems/PhysicsSystem.hpp"
 
 class Application;
 
@@ -51,9 +49,11 @@ private:
 	std::vector<std::shared_ptr<GameObject>> _objects{};
 	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
 
+	Physics::PhysicsWorld _physicsWorld{};
+
 	// Systems
 	std::shared_ptr<DebugSystem> _debugSystem;
-	//std::shared_ptr<PhysicsSystem> _physicsSystem;
+	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;

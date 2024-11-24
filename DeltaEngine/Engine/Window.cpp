@@ -51,7 +51,7 @@ void Window::SetTitle(const char* title)
 	Rendering::SetWindowTitle(_window, title);
 }
 
-const char* Window::GetTitle()
+const char* Window::GetTitle() const
 {
 	return Rendering::GetWindowTitle(_window);
 }
