@@ -62,7 +62,7 @@ void Application::Run()
 		GetDeltaTime();
 
 		// Update Window
-		_window.Update();		
+		_window.Update();
 
 		// Input
 		Input(_dt);

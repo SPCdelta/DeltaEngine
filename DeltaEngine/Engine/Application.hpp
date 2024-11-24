@@ -14,6 +14,10 @@
 #include "Scene/SceneManager.hpp"
 #include "Core/Events/EventDispatcher.hpp"
 
+#include "Systems/PhysicsSystem.hpp"
+#include "Physics/BoxCollider.hpp"
+#include "Physics/CircleCollider.hpp"
+
 //Temp
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
@@ -74,6 +78,8 @@ private:
 	Window _window;
 	Rendering::Event _windowEvent{};
 	SceneManager _sceneManager{}; // Never ever pass this variable!
+
+	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();

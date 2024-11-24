@@ -8,15 +8,24 @@
     <ClCompile Include="Engine\Core\Math\Point.cpp" />
     <ClCompile Include="Engine\Core\Math\Random.cpp" />
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
-    <ClCompile Include="Engine\Rendering\Animator.cpp">
+    <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
-    <ClCompile Include="Engine\Rendering\SpriteSheet.cpp">
+    <ClCompile Include="Engine\Rendering\SpriteSheet.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
     <ClCompile Include="Engine\UI\UIObject.cpp" />
+    <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
+    <ClInclude Include="Engine\Systems\CollisionSystem.hpp" />
+    <ClInclude Include="Engine\Physics\Rigidbody.hpp" />
+    <ClInclude Include="Engine\Physics\Collider.hpp" />
+    <ClInclude Include="Engine\Physics\BoxCollider.hpp" />
+    <ClInclude Include="Engine\Physics\CircleCollider.hpp" />
+    <ClInclude Include="Engine\Physics\PhysicsWorld.hpp" />
+    <ClInclude Include="Engine\Physics\Physics.hpp" />
     <ClInclude Include="Engine\BehaviourScript.hpp" />
     <ClInclude Include="Engine\Application.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
@@ -27,11 +36,11 @@
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
-    <ClInclude Include="Engine\Rendering\Animator.hpp">
-    <ClInclude Include="Engine\Rendering\Direction.hpp">
+    <ClInclude Include="Engine\Rendering\Animator.hpp" />
+    <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
-    <ClInclude Include="Engine\Rendering\SpriteSheet.hpp">
+    <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
@@ -46,6 +55,7 @@
     <ClInclude Include="Engine\UI\UIObject.hpp" />
     <ClInclude Include="Engine\UI\Font.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
+    <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
