@@ -56,6 +56,7 @@
     <ClInclude Include="Engine\UI\Font.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
+    <ClInclude Include="Engine\Rendering\Camera.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

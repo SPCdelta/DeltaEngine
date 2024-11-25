@@ -222,6 +222,7 @@
     <ClInclude Include="Engine\Physics\PhysicsWorld.hpp" />
     <ClInclude Include="Engine\Physics\Rigidbody.hpp" />
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
+    <ClInclude Include="Engine\Rendering\Camera.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />

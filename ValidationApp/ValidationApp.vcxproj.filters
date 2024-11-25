@@ -70,6 +70,12 @@
     <Image Include="Assets\Textures\spritesheet3.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\Textures\player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\spritesheet - Copy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
