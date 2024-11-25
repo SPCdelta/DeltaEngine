@@ -1,5 +1,4 @@
 #include "AudioLoader.hpp"
-#include "../MemLeakDetection/MemLeakDetection.hpp"
 #include <iostream>
 
 using namespace Audio;

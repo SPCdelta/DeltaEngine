@@ -3,7 +3,6 @@
 #include <SDL_mixer.h>
 #include <string>
 #include <memory>
-#include "../MemLeakDetection/MemLeakDetection.hpp"
 
 namespace Audio
 {

@@ -3,7 +3,6 @@
 #include <SDL_mixer.h>
 #include <memory>
 #include <string>
-#include "../MemLeakDetection/MemLeakDetection.hpp"
 #include "AudioFacade.hpp"
 #include "AudioSource.hpp"
 

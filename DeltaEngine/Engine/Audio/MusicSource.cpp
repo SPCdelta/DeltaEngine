@@ -1,6 +1,5 @@
 #include "MusicSource.hpp"
 #include <iostream>
-#include "../MemLeakDetection/MemLeakDetection.hpp"
 #include "AudioLoader.hpp"
 
 using namespace Audio;
