@@ -12,7 +12,6 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	menuImage->AddComponent<MainMenuBehaviour>();
 
 	std::shared_ptr<GameObject> musicObject{Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}})};
-	musicObject->AddComponent<Audio::MusicSource>("", false, _audioFacade, false);
-	musicObject->AddComponent<Audio::SFXSource>("", false, _audioFacade, false);
+	musicObject->AddComponent<Audio::MusicSource>();
 	musicObject->AddComponent<TempAudio>();
 }
