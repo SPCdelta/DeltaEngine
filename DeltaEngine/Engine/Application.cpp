@@ -2,7 +2,7 @@
 
 bool Application::_isRunning = true;
 
-Application::Application(int unitPixelSize) 
+Application::Application(int unitPixelSize)
 	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2

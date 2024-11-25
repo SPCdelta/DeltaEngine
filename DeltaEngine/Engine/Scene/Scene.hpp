@@ -8,6 +8,7 @@
 #include "../Window.hpp"
 
 #include "../Core/Events/EventDispatcher.hpp"
+#include "../Audio/AudioFacade.hpp"
 
 // Systems
 #include "../Ecs/Registry.hpp"
@@ -39,8 +40,8 @@ public:
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
-
 private:
+	Audio::AudioFacade _audioFacade{};
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};

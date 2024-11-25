@@ -53,6 +53,8 @@
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripts\TempAudio.hpp">
+      <Filter>Header Files</Filter>
     <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -82,5 +84,12 @@
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Audio\SFX\villager1.mp3" />
+    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3" />
+    <Media Include="Assets\Audio\SFX\eating.mp3" />
+    <Media Include="Assets\Audio\SFX\take_damage1.mp3" />
+    <Media Include="Assets\Audio\Music\theme1.mp3" />
   </ItemGroup>
 </Project>

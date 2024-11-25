@@ -1,4 +1,7 @@
 #include "MainMenuScene.hpp"
+#include "../Scripts/TempAudio.hpp"
+#include "Engine/Audio/MusicSource.hpp"
+#include "Engine/Audio/SFXSource.hpp"
 
 MainMenuScene::MainMenuScene(const std::string& sceneName) 
 	: Scene(sceneName)
@@ -14,4 +17,8 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	sheet->AddIdleAnimation(4, 1, 200);
 	sheetedSprite->AddComponent<Sprite>("Assets\\Textures\\spritesheet3.png", sheet);
 	sheetedSprite->AddComponent<MainMenuBehaviour>();
+
+	std::shared_ptr<GameObject> musicObject{Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}})};
+	musicObject->AddComponent<Audio::MusicSource>();
+	musicObject->AddComponent<TempAudio>();
 }

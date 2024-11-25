@@ -1,7 +1,7 @@
 #include "Scene.hpp"
 
 Scene::Scene(const std::string& name)
-	: _name{ name }
+	: _name{name}
 {
 	_cameraObj = Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}});
 	_camera = _cameraObj->AddComponent<Camera>(_cameraObj->GetComponent<Transform>());
@@ -34,7 +34,7 @@ void Scene::Update()
 
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
-	std::shared_ptr<GameObject> obj{ std::make_shared<GameObject>(_reg, _physicsWorld, _changeSceneEvent, _camera, transform) };
+	std::shared_ptr<GameObject> obj{ std::make_shared<GameObject>(_reg, _physicsWorld, _audioFacade, _changeSceneEvent, _camera, transform) };
 	_objects.push_back(obj);
 	return obj;
 }
