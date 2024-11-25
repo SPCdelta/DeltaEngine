@@ -10,13 +10,10 @@
 class BehaviourScript
 {
 public:
-	//Willen we dat de gebruiker deze functie kan aanroepen of dat we 
-	//een friend gebruiken zodat de protected gameObject direct gezet kan worden
-	//friend class GameObject;
-	void SetGameObject(GameObject* gameObject);
+	friend class GameObject;
 
-	virtual void OnStart() = 0;
-	virtual void OnUpdate() = 0;
+	virtual void OnStart() { };
+	virtual void OnUpdate() { };
 
 	void LoadScene(const std::string& name) { gameObject->LoadScene(name); }
 
@@ -41,5 +38,8 @@ public:
    protected:
 	GameObject* gameObject = nullptr;
 	std::vector<InputLocation> registerdInputs;
+
+	Camera* camera = nullptr;
+
 };
 

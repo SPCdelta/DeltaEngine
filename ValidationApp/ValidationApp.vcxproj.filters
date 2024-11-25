@@ -73,6 +73,14 @@
     <Image Include="Assets\Textures\spritesheet3.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <ClInclude Include="src\Scripts\TempAudio.hpp">
+      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\PhysicsScene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png">
@@ -84,11 +92,24 @@
     <Image Include="Assets\Textures\spritesheet3.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\Textures\player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\spritesheet - Copy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Audio\SFX\villager1.mp3" />
+    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3" />
+    <Media Include="Assets\Audio\SFX\eating.mp3" />
+    <Media Include="Assets\Audio\SFX\take_damage1.mp3" />
+    <Media Include="Assets\Audio\Music\theme1.mp3" />
   </ItemGroup>
 </Project>

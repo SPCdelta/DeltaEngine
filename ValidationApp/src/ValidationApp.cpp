@@ -5,12 +5,14 @@
 #include "Scenes/InputTestScene.hpp"
 
 
-ValidationApp::ValidationApp() 
+ValidationApp::ValidationApp()
+	: Application(100)
 {
 	// Register Scenes
 	RegisterScene<MainMenuScene>("MainMenuScene");
 	RegisterScene<GameScene>("GameScene");
 	RegisterScene<InputTestScene>("InputTest");
+	RegisterScene<PhysicsScene>("PhysicsScene");
 
 	// Load Desired Scene
 	LoadScene("InputTest");

@@ -64,12 +64,6 @@ void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int 
 
 		sheet->SetLastMoveTime(currentTime);
 	}
-
-	int flippedY = viewportHeight - pos->GetY() - sheet->GetFrameHeight(); 
-	Rendering::Rect tempDestRect = sheet->GetDestRect();
-	tempDestRect.x = pos->GetX();
-	tempDestRect.y = flippedY;
-	sheet->SetDestRect(tempDestRect);
 }
 
 void Animator::MoveUp(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)

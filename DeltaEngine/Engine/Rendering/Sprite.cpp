@@ -1,12 +1,15 @@
 #include "Sprite.hpp"
 
+Sprite::Sprite(const char* spritePath) 
+	: sprite{spritePath}, _texture{nullptr}, _animator{nullptr}, _sheet{ nullptr }
+{
+
+}
+
 Sprite::Sprite(const char* spritePath, std::shared_ptr<SpriteSheet> sheet) : sprite(spritePath), _texture(nullptr), _animator(nullptr), _sheet(nullptr)
 {
-	if (sheet)
-	{
-		_animator = std::make_shared<Animator>();
-		_sheet = sheet;
-	}
+	_animator = std::make_shared<Animator>();
+	_sheet = sheet;
 }
 
 Sprite::~Sprite()
@@ -73,34 +76,38 @@ Sprite& Sprite::operator=(Sprite&& other) noexcept
 	return *this;
 }
 
-void Sprite::Render(Rendering::Renderer* renderer, Math::Vector2* position, int height)
+void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform)
 {
+	// Get Texture
 	Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
 	if (!texture)
 	{
 		std::cerr << "Failed to load texture: " << Rendering::GetError() << std::endl;
 		return; 
 	}
-
 	_texture = texture;
 
-	Rendering::Rect srcRect, destRect; 
+	Rendering::Rect destRect;
+	destRect.x = static_cast<int>((transform.position.GetX() - camera->transform.position.GetX()) * viewportData.unitPixelSize);
+	destRect.y = static_cast<int>(viewportData.height - ((transform.position.GetY() - camera->transform.position.GetY()) * viewportData.unitPixelSize) - (transform.scale.GetY() * viewportData.unitPixelSize));
+
+	destRect.w = (static_cast<int>(transform.scale.GetX()) * viewportData.unitPixelSize);
+	destRect.h = (static_cast<int>(transform.scale.GetY()) * viewportData.unitPixelSize);
+
 	if (_sheet)
 	{
-		srcRect = _sheet->GetSrcRect();
-		destRect = _sheet->GetDestRect(); 
-		SetFlipX(((_sheet->GetFacingDirection() == Direction::RIGHT && _sheet->GetRowRight() == 0) || (_sheet->GetFacingDirection() == Direction::LEFT &&
-		  _sheet->GetRowLeft() == 0)));
+		Rendering::Rect srcRect = _sheet->GetSrcRect();
+		Rendering::RenderCopyEx(renderer, _texture, &srcRect, &destRect, transform.rotation, 0, 
+			Rendering::GetFlip((
+				(_sheet->GetFacingDirection() == Direction::RIGHT && _sheet->GetRowRight() == 0)
+				|| (_sheet->GetFacingDirection() == Direction::LEFT && _sheet->GetRowLeft() == 0)
+				|| (flipX)), flipY)
+		);
 	}
-	else // TODO magic nums \/
+	else
 	{
-		int flippedY = height - position->GetY() - 64;
-		srcRect = {0, 0, 64, 64};
-		destRect = {static_cast<int>(round(position->GetX())), flippedY, 64, 64}; 
+		Rendering::RenderCopyEx(renderer, _texture, NULL, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
 	}
-
-	Rendering::RendererFlip flip = flipX ? Rendering::FLIP_HORIZONTAL : Rendering::FLIP_NONE;
-	Rendering::RenderCopyEx(renderer, _texture, &srcRect, &destRect, 0, 0, flip);
 }
 
 void Sprite::StopRendering()

@@ -59,13 +59,11 @@ namespace ecs
 			_registry.destroy(entityId);
 		}
 
-		template<typename T, typename... Components>
-		std::shared_ptr<T> CreateSystem()
+		template<typename T, typename... Components, typename... Args>
+		std::shared_ptr<T> CreateSystem(Args&&... args)
 		{
-			std::shared_ptr<T> system{ std::make_shared<T>(_registry.view<Components...>()) };
+			std::shared_ptr<T> system{ std::make_shared<T>(_registry.view<Components...>(), std::forward<Args>(args)...) };
 			return system;
-			//std::shared_ptr<T> system{ std::make_shared<T>(this) };
-			//return system;
 		}
 
 		template<typename Component>

@@ -1,4 +1,3 @@
-#include "BehaviourScript.hpp"
 
 void BehaviourScript::SetGameObject(GameObject* gameObject)
 {

@@ -17,7 +17,7 @@ public:
 	void SetCurrentFrame(int newFrame) { currentFrame = newFrame; }
 
 	int GetFrameCount() const { return frameCount; }
-	int GetMovementSpeed() const { return movementSpeed; }
+	float GetMovementSpeed() const { return movementSpeed; }
 	int GetAnimationSpeed() const { return animationSpeed; }
 
 	int GetFrameWidth() const { return frameWidth; }
@@ -71,7 +71,7 @@ public:
 private:
 	int currentFrame{0};
 	int frameCount;
-	int movementSpeed{5};
+	float movementSpeed{0.25f};
 	int animationSpeed{100};
 
 	int frameWidth;

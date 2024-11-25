@@ -1,9 +1,12 @@
 #pragma once
 
-#include "Rendering.hpp"
 #include "../Core/Math/Vector2.hpp"
+
+#include "Rendering.hpp"
 #include "Animator.hpp"
 #include "SpriteSheet.hpp"
+#include "Viewport.hpp"
+#include "Camera.hpp"
 
 #include <iostream>
 
@@ -12,6 +15,7 @@
 class Sprite
 {
 public:
+	Sprite(const char* spritePath);
 	Sprite(const char* spritePath, std::shared_ptr<SpriteSheet> sheet);
 	~Sprite();
 
@@ -21,7 +25,7 @@ public:
 	Sprite(Sprite&& other) noexcept;		
 	Sprite& operator=(Sprite&& other) noexcept;
 
-	void Render(Rendering::Renderer* renderer, Math::Vector2* position, int height);
+	void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform);
 	void StopRendering();
 
 	Rendering::Color GetColor() const;
