@@ -29,7 +29,6 @@ public:
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
 			T* component = static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T()));
-			//component->SetGameObject(this);
 			component->gameObject = this;
 			component->camera = _camera;
 			return component;

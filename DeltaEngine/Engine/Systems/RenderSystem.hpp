@@ -75,8 +75,7 @@ public:
 				sprite.GetAnimator()->Play(&transform.position, sprite.GetSheet(), windowHeight, direction);
 			// TODO (see prev TODO text, this is just the end of the mentioned code) ^^
 
-			// Render the sprite associated with this entity		
-			//sprite.Render(_window->GetRenderer(), &transform.position, _viewportData->height);
+			// Render the sprite associated with this entity
 			sprite.Render(_window->GetRenderer(), *_viewportData, _camera, transform);
 		}
 
