@@ -45,9 +45,9 @@ public:
 
 			return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
 		}
-		else if constexpr (std::is_base_of_v<Audio::AudioSource, T>)
+		else if constexpr (std::is_same_v<T, Audio::MusicSource>)
 		{
-			T* component = static_cast<T*>(_reg.AddComponent<Audio::AudioSource*>(_id, new T("", false, _audioFacade, false)));
+			T* component = static_cast<T*>(_AddComponent<Audio::MusicSource>(Audio::MusicSource("", false, _audioFacade, false)));
 			return component;
 		}
 		else

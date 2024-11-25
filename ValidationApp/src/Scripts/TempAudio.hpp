@@ -13,8 +13,8 @@ class TempAudio : public BehaviourScript
 	{
 		auto& music = gameObject->GetComponent<Audio::MusicSource>();
 		//auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
-		//music.SetClip("Assets\\Audio\\Music\\theme1.mp3");
-		//music.Play();
+		music.SetClip("Assets\\Audio\\Music\\theme1.mp3");
+		music.Play();
 		//sfx.SetClip("Assets\\Audio\\SFX\\eating.mp3");
 	}
 	void OnUpdate() override
