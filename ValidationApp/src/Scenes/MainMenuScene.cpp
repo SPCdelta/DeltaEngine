@@ -6,7 +6,6 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	std::shared_ptr<GameObject> menuImage{Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}})};
 	//std::shared_ptr<SpriteSheet> sheet = std::make_shared<SpriteSheet>(menuImage->GetComponent<Transform>(), 4, 64, 64, 4, 1, 2, 3);
 	menuImage->AddComponent<Sprite>("Assets\\Textures\\player.png");
-	menuImage->AddComponent<MainMenuBehaviour>();
 
 	std::shared_ptr<GameObject> sheetedSprite{Instantiate({{1.0f, 1.0f}, 0.0f, {1.0f, 1.0f}})};
 	//std::shared_ptr<SpriteSheet> sheet = std::make_shared<SpriteSheet>(sheetedSprite->GetComponent<Transform>(), 4, 64, 64, 4, 1, 2, 3);

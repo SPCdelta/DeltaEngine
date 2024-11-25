@@ -7,6 +7,8 @@ void MainMenuBehaviour::OnStart()
 
 void MainMenuBehaviour::OnUpdate()
 {
+	//camera->SetPosition(gameObject->transform->position);
+
 	//if (test >= 150)
 	//{
 	//	LoadScene("GameScene");
