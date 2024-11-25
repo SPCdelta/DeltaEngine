@@ -9,6 +9,7 @@
 #include "../Window.hpp"
 
 #include "../Core/Events/EventDispatcher.hpp"
+#include "../Audio/AudioFacade.hpp"
 
 // Systems
 #include "../Systems/UpdateSystem.hpp"
@@ -38,6 +39,9 @@ public:
 	void Update();
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
+
+protected:
+	Audio::AudioFacade _audioFacade{};
 
 private:
 	ecs::Registry _reg;

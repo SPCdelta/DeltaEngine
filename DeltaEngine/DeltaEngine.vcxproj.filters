@@ -15,6 +15,11 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
     <ClCompile Include="Engine\UI\UIObject.cpp" />
+    <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
+    <ClCompile Include="Engine\Audio\SFXSource.cpp" />
+    <ClCompile Include="Engine\Audio\MusicSource.cpp" />
+    <ClCompile Include="Engine\Audio\AudioSource.cpp" />
+    <ClCompile Include="Engine\Audio\AudioLoader.cpp" />
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +52,7 @@
     <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
+    <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />
     <ClInclude Include="Engine\Window.hpp" />
     <ClInclude Include="Engine\Ecs\Registry.hpp" />
@@ -54,6 +60,13 @@
     <ClInclude Include="Engine\UI\Text.hpp" />
     <ClInclude Include="Engine\UI\UIObject.hpp" />
     <ClInclude Include="Engine\UI\Font.hpp" />
+    <ClInclude Include="Engine\Audio\SFXSource.hpp" />
+    <ClInclude Include="Engine\Audio\MusicSource.hpp" />
+    <ClInclude Include="Engine\Audio\AudioSource.hpp" />
+    <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
+    <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
+    <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp" />
+    <ClInclude Include="Engine\Temp\TempAudio.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
   </ItemGroup>
