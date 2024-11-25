@@ -88,8 +88,8 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	_texture = texture;
 
 	Rendering::Rect destRect;
-	destRect.x = (transform.position.GetX() - camera->transform.position.GetX()) * viewportData.unitPixelSize;
-	destRect.y = viewportData.height - ((transform.position.GetY() - camera->transform.position.GetY()) * viewportData.unitPixelSize) - (transform.scale.GetY() * viewportData.unitPixelSize);
+	destRect.x = static_cast<int>((transform.position.GetX() - camera->transform.position.GetX()) * viewportData.unitPixelSize);
+	destRect.y = static_cast<int>(viewportData.height - ((transform.position.GetY() - camera->transform.position.GetY()) * viewportData.unitPixelSize) - (transform.scale.GetY() * viewportData.unitPixelSize));
 
 	destRect.w = (static_cast<int>(transform.scale.GetX()) * viewportData.unitPixelSize);
 	destRect.h = (static_cast<int>(transform.scale.GetY()) * viewportData.unitPixelSize);
