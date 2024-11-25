@@ -98,7 +98,10 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	{
 		Rendering::Rect srcRect = _sheet->GetSrcRect();
 		Rendering::RenderCopyEx(renderer, _texture, &srcRect, &destRect, transform.rotation, 0, 
-			Rendering::GetFlip(((_sheet->GetFacingDirection() == Direction::RIGHT) || (flipX)), flipY)
+			Rendering::GetFlip((
+				(_sheet->GetFacingDirection() == Direction::RIGHT && _sheet->GetRowRight() == 0)
+				|| (_sheet->GetFacingDirection() == Direction::LEFT && _sheet->GetRowLeft() == 0)
+				|| (flipX)), flipY)
 		);
 	}
 	else
