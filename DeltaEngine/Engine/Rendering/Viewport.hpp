@@ -2,7 +2,7 @@
 
 struct ViewportData
 {
-	float unitPixelSize = 50.0f; // Default value
+	int unitPixelSize; // Default value
 	int width;
 	int height;
 	int x = 0; // Default x position

@@ -25,7 +25,7 @@
 class Application
 {
 public:
-	Application();
+	Application(int unitPixelSize);
 	~Application();
 
 	void Run();

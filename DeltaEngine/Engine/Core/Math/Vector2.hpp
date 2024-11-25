@@ -12,6 +12,7 @@ namespace Math
 		void SetX(float x);
 		void SetY(float y);
 		void Set(float x, float y);
+		void Set(const Vector2& position);
 		// AKA length
 		float Magnitude() const;
 		float DistanceTo(const Vector2& other) const;

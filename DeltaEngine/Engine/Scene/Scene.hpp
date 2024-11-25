@@ -5,13 +5,13 @@
 
 #include "../GameObject.hpp"
 
-#include "../Ecs/Registry.hpp"
 #include "../Window.hpp"
 
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Audio/AudioFacade.hpp"
 
 // Systems
+#include "../Ecs/Registry.hpp"
 #include "../Systems/UpdateSystem.hpp"
 #include "../Systems/DebugSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
@@ -30,7 +30,7 @@ public:
 	void SetWindow(Window& window)
 	{
 		_renderSystem->SetWindow(&window);
-		_renderSystem->SetViewportData(window.GetViewport());
+		_renderSystem->SetViewportData(&window.GetViewport());
 	}
 
 	void LoadScene(const std::string& name) { _changeSceneEvent.Dispatch(name); }
@@ -40,14 +40,15 @@ public:
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
-protected:
-	Audio::AudioFacade _audioFacade{};
-
 private:
+	Audio::AudioFacade _audioFacade{};
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
 	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
+
+	std::shared_ptr<GameObject> _cameraObj;
+	Camera* _camera;
 
 	Physics::PhysicsWorld _physicsWorld{};
 

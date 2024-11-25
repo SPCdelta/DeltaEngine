@@ -1,6 +1,6 @@
 #include "Window.hpp"
 
-Window::Window(const char* title, int width, int height) : _viewportData(new ViewportData())
+Window::Window(const char* title, int width, int height)
 {
 	// Create Window
 	_window = Rendering::CreateWindow(title, Rendering::WINDOWPOS_CENTERED, Rendering::WINDOWPOS_CENTERED, width, height, 0);
@@ -17,15 +17,12 @@ Window::Window(const char* title, int width, int height) : _viewportData(new Vie
 	}
 
 	// Set the initial viewport to match the window size
-	_viewportData->width = width;
-	_viewportData->height = height;
+	_viewportData.width = width;
+	_viewportData.height = height;
 }
 
 Window::~Window()
 {
-	delete _viewportData;
-	_viewportData = nullptr;
-
 	Close();
 }
 
@@ -63,8 +60,8 @@ void Window::SetViewportSize(int width, int height)
 
 	if (width <= windowWidth && height <= windowHeight && width > 0 && height > 0)
 	{
-		_viewportData->width = width;
-		_viewportData->height = height;
+		_viewportData.width = width;
+		_viewportData.height = height;
 	}
 	else
 	{
@@ -77,10 +74,10 @@ void Window::SetViewportPos(int x, int y)
 	int windowWidth, windowHeight;
 	Rendering::GetWindowSize(_window, &windowWidth, &windowHeight);
 
-	if (x + _viewportData->width <= windowWidth && y + _viewportData->height <= windowHeight && x >= 0 && y >= 0)
+	if (x + _viewportData.width <= windowWidth && y + _viewportData.height <= windowHeight && x >= 0 && y >= 0)
 	{
-		_viewportData->x = x;
-		_viewportData->y = y;
+		_viewportData.x = x;
+		_viewportData.y = y;
 	}
 	else
 	{
@@ -94,8 +91,8 @@ void Window::RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g, Re
 	Rendering::GetWindowSize(_window, &windowWidth, &windowHeight);
 
 	// Define viewport rectangle
-	Rendering::Rect viewportRect = {_viewportData->x, (windowHeight - (_viewportData->y + _viewportData->height)), 
-		_viewportData->width, _viewportData->height};
+	Rendering::Rect viewportRect = {_viewportData.x, (windowHeight - (_viewportData.y + _viewportData.height)), 
+		_viewportData.width, _viewportData.height};
 
 	// Set color and render the viewport
 	Rendering::SetRenderDrawColor(_renderer, r, g, b, a); 

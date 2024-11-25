@@ -1,6 +1,7 @@
 #include "ValidationApp.hpp"
 
-ValidationApp::ValidationApp() 
+ValidationApp::ValidationApp()
+	: Application(100)
 {
 	// Register Scenes
 	RegisterScene<MainMenuScene>("MainMenuScene");

@@ -2,7 +2,7 @@
 
 bool Application::_isRunning = true;
 
-Application::Application()
+Application::Application(int unitPixelSize)
 	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2
@@ -28,8 +28,9 @@ Application::Application()
 			LoadScene(sceneName); 
 		});
 
-	_window.SetViewportSize(400, 400);
-	_window.SetViewportPos(100, 50);
+	//_window.SetViewportSize(400, 400);
+	//_window.SetViewportPos(100, 50);
+	_window.SetUnitPixelSize(unitPixelSize);
 }
 
 Application::~Application()

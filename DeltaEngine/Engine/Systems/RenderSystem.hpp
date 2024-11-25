@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../Window.hpp"
-
 #include "../Ecs/Registry.hpp"
-#include "../Transform.hpp"
+
+#include "../Window.hpp"
 #include "../Rendering/Sprite.hpp"
 
 class RenderSystem : public ecs::System<Transform, Sprite>
 {
 public:
-	RenderSystem(ecs::View<Transform, Sprite> view) : ecs::System<Transform, Sprite>(view), _window(nullptr), _viewportData(nullptr)
+	RenderSystem(ecs::View<Transform, Sprite> view, Camera* camera) 
+		: ecs::System<Transform, Sprite>(view), _window(nullptr), _viewportData(nullptr), _camera{ camera }
 	{
 		
 	}
@@ -71,12 +71,12 @@ public:
 			Rendering::GetWindowSize(static_cast<Rendering::Window*>(*_window), &windowWidth, &windowHeight);
 
 			// Check if the sprite has an animator, and call Play
-			if (sprite.GetAnimator())			
+			if (sprite.GetAnimator())
 				sprite.GetAnimator()->Play(&transform.position, sprite.GetSheet(), windowHeight, direction);
 			// TODO (see prev TODO text, this is just the end of the mentioned code) ^^
 
-			// Render the sprite associated with this entity		
-			sprite.Render(_window->GetRenderer(), &transform.position, _viewportData->height);
+			// Render the sprite associated with this entity
+			sprite.Render(_window->GetRenderer(), *_viewportData, _camera, transform);
 		}
 
 		Rendering::RenderPresent(_window->GetRenderer());
@@ -85,4 +85,5 @@ public:
 private:
 	Window* _window;
 	ViewportData* _viewportData;
+	Camera* _camera;
 };
