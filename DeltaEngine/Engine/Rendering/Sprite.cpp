@@ -15,8 +15,6 @@ Sprite::Sprite(const char* spritePath, std::shared_ptr<SpriteSheet> sheet) : spr
 Sprite::~Sprite()
 {
 	StopRendering();
-
-	delete _texture;
 	_texture = nullptr;
 }
 
@@ -31,7 +29,6 @@ Sprite& Sprite::operator=(const Sprite& other)
 	if (this == &other)
 	{
 		StopRendering();
-		delete _texture;
 		_texture = nullptr;
 
 		sprite = other.sprite;
@@ -60,7 +57,6 @@ Sprite& Sprite::operator=(Sprite&& other) noexcept
 	if (this != &other)
 	{
 		StopRendering();
-		delete _texture;
 		_texture = nullptr;
 
 		sprite = other.sprite;

@@ -16,7 +16,7 @@ ValidationApp::ValidationApp()
 	//RegisterScene<PhysicsScene>("PhysicsScene");
 
 	// Load Desired Scene
-	LoadScene("FileManagement");
+	LoadScene("GameScene");
 
 	// Start Application
 	Run();
