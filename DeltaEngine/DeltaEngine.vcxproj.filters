@@ -14,7 +14,6 @@
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
-    <ClCompile Include="Engine\UI\UIObject.cpp" />
     <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
@@ -65,7 +64,6 @@
     <ClInclude Include="Engine\Ecs\Registry.hpp" />
     <ClInclude Include="Engine\GameObject.hpp" />
     <ClInclude Include="Engine\UI\Text.hpp" />
-    <ClInclude Include="Engine\UI\UIObject.hpp" />
     <ClInclude Include="Engine\UI\Font.hpp" />
     <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
     <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />

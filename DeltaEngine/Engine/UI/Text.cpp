@@ -1,6 +1,8 @@
 #include "Text.hpp"
 
-ui::Text::Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer)
+using namespace Ui;
+
+Text::Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer)
 	: _text{text}, _size{size}, _x{x}, _y{y}, _color{color}, _renderer{renderer}
 {
 	_font = Font::OpenFont(path.c_str(), size);
@@ -11,11 +13,13 @@ ui::Text::Text(std::string text, std::string path, int size, int x, int y, Rende
 	}
 }
 
-ui::Text::~Text() {
+Text::~Text()
+{
 	unloadText();
 }
 
-void ui::Text::renderText() {
+void Text::renderText()
+{
 	
 	if (_font == nullptr)
 	{
@@ -53,7 +57,8 @@ void ui::Text::renderText() {
 
 }
 
-void ui::Text::unloadText() {
+void Text::unloadText()
+{
 	if (_font != nullptr) {
 		Font::CloseFont(_font);
 		_font == nullptr;

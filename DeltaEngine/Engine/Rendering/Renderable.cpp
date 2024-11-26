@@ -6,8 +6,8 @@ Renderable::Renderable(const char* spritePath)
 }
 
 Renderable::Renderable(const char* spritePath,
-					   std::shared_ptr<SpriteSheet> sheet)
-	: sprite(spritePath), _texture(nullptr), _animator(nullptr), _sheet(nullptr)
+					   std::shared_ptr<SpriteSheet> sheet = nullptr)
+	: sprite(spritePath), _texture(nullptr), _animator(nullptr)
 {
 	_animator = std::make_shared<Animator>();
 	_sheet = sheet;

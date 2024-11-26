@@ -1,11 +1,10 @@
 #pragma once
-#include "UIObject.hpp"
 #include "Font.hpp"
 #include <iostream>
 #include <string>
-namespace ui
+namespace Ui
 {
-	class Text : UIObject
+	class Text
 	{
 	   public:
 			Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer);

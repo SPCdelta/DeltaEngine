@@ -2,14 +2,17 @@
 
 #include "../Rendering/Renderable.hpp"
 
-class Image : public Renderable
+namespace Ui
 {
-public:
-	Image(const char* spritePath) : Renderable(spritePath) {}
+	class Image : public Renderable
+	{
+	public:
+		Image(const char* spritePath) : Renderable(spritePath) {}
 
-	Image(const char* spritePath, std::shared_ptr<SpriteSheet> sheet)
-		: Renderable(spritePath, sheet)
-	{ }
+		Image(const char* spritePath, std::shared_ptr<SpriteSheet> sheet)
+			: Renderable(spritePath, sheet)
+		{ }
 
-	void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Transform& transform);
-};
+		void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Transform& transform);
+	};
+}
