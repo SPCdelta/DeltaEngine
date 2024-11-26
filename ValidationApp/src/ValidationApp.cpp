@@ -3,19 +3,20 @@
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/InputTestScene.hpp"
+#include "Scenes/PhysicsScene.hpp"
 
 
 ValidationApp::ValidationApp()
-	: Application(100)
+	: Application(64)
 {
 	// Register Scenes
 	RegisterScene<MainMenuScene>("MainMenuScene");
 	RegisterScene<GameScene>("GameScene");
 	RegisterScene<InputTestScene>("InputTest");
-	//RegisterScene<PhysicsScene>("PhysicsScene");
+	RegisterScene<PhysicsScene>("PhysicsScene");
 
 	// Load Desired Scene
-	LoadScene("InputTest");
+	LoadScene("PhysicsScene");
 
 	// Start Application
 	Run();
