@@ -3,6 +3,7 @@
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/InputTestScene.hpp"
+#include "Scenes/PhysicsScene.hpp"
 
 
 ValidationApp::ValidationApp()
