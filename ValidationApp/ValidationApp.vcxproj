@@ -107,13 +107,13 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>..\DeltaEngine;..\Libraries\SDL2-2.30.7\include;..\Libraries\SDL2_image-2.8.2\include;..\Libraries\SDL2_mixer-2.8.0\include;..\Libraries\SDL2_ttf-2.22.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DeltaEngine;..\Libraries\SDL2-2.30.7\include;..\Libraries\SDL2_image-2.8.2\include;..\Libraries\SDL2_mixer-2.8.0\include;..\Libraries\SDL2_ttf-2.22.0\include;..\Libraries\box2d-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>DeltaEngine.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;..\bin\x64\$(Configuration)\DLLs;..\Libraries\SDL2-2.30.7\lib\x64;..\Libraries\SDL2_image-2.8.2\lib\x64;..\Libraries\SDL2_mixer-2.8.0\lib\x64;..\Libraries\SDL2_ttf-2.22.0\lib\x64;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DeltaEngine.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\;..\bin\x64\$(Configuration)\DLLs;..\Libraries\SDL2-2.30.7\lib\x64;..\Libraries\SDL2_image-2.8.2\lib\x64;..\Libraries\SDL2_mixer-2.8.0\lib\x64;..\Libraries\SDL2_ttf-2.22.0\lib\x64;..\Libraries\box2d-3.0.0\build\src\Debug;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -176,10 +176,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Scenes\GameScene.cpp" />
+    <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
+    <ClInclude Include="src\Scripts\InputTest.hpp" />
+    <ClInclude Include="src\Scenes\GameScene.hpp" />
+    <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
+    <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
+    <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\TempAudio.hpp" />
+    <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +203,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Textures\player.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\spritesheet - Copy.png" />
     <Image Include="Assets\Textures\spritesheet.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
@@ -231,6 +250,23 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Audio\Music\theme1.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\eating.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\take_damage1.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\villager1.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

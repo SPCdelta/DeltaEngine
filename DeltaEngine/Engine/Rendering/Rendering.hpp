@@ -240,4 +240,18 @@ namespace Rendering
 	{
 		IMG_Quit();
 	}
+
+	// Extra
+	inline Rendering::RendererFlip GetFlip(bool flipX, bool flipY)
+	{
+		Rendering::RendererFlip flip = Rendering::FLIP_NONE;
+		if (flipX && flipY)
+			flip = (SDL_RendererFlip)(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+		else if (flipX)
+			flip = SDL_FLIP_HORIZONTAL;
+		else if (flipY)
+			flip = SDL_FLIP_VERTICAL;
+
+		return flip;
+	}
 }  // namespace Rendering
