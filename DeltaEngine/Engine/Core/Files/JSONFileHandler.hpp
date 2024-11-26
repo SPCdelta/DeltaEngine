@@ -8,6 +8,8 @@
 class JSONFileHandler : public IFileHandler
 {
 	public:
+		static const int TAB_SPACE = 4;
+
 		// 'Assets\\Files\\' needs to be in the path with the file name at the end
 		Json::json LoadFile(const std::string& path) override
 		{
@@ -28,7 +30,7 @@ class JSONFileHandler : public IFileHandler
 			std::ofstream file(path, std::ios::out | std::ios::trunc);
 			if (file.is_open())
 			{
-				file << data.dump(4);
+				file << data.dump(TAB_SPACE);
 				file.close();
 			}
 		}
