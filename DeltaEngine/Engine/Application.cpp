@@ -50,16 +50,8 @@ void Application::Run()
 			break;
 		}
 
-		// Internal Input
-		if (_windowEvent.type == Rendering::KEYDOWN)
-		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 1.0f);
-
-		}
-		else if (_windowEvent.type == Rendering::KEYUP)
-		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 0.0f);
-		}
+		_inputFacade.onInputEvent(_windowEvent);
+		InputManager::GetInstance().executeInputEvents();
 
 		GetDeltaTime();
 

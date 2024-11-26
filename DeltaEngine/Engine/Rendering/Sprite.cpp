@@ -83,7 +83,7 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	if (!texture)
 	{
 		std::cerr << "Failed to load texture: " << Rendering::GetError() << std::endl;
-		return;
+		return; 
 	}
 	_texture = texture;
 

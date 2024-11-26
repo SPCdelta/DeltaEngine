@@ -15,6 +15,10 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
     <ClCompile Include="Engine\UI\UIObject.cpp" />
+    <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
+    <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
+    <ClCompile Include="Engine\Input\InputFacade.cpp" />
+    <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
     <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\Audio\MusicSource.cpp" />
@@ -39,6 +43,7 @@
     <ClInclude Include="Engine\Core\Math\Point.hpp" />
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
+    <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
@@ -60,6 +65,10 @@
     <ClInclude Include="Engine\UI\Text.hpp" />
     <ClInclude Include="Engine\UI\UIObject.hpp" />
     <ClInclude Include="Engine\UI\Font.hpp" />
+    <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
+    <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
+    <ClInclude Include="Engine\Input\InputFacade.hpp" />
+    <ClInclude Include="Engine\Input\InputManager.hpp" />
     <ClInclude Include="Engine\Audio\SFXSource.hpp" />
     <ClInclude Include="Engine\Audio\MusicSource.hpp" />
     <ClInclude Include="Engine\Audio\AudioSource.hpp" />

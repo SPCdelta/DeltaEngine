@@ -21,7 +21,7 @@ class Application;
 
 class Scene
 {
-public:
+   public:
 	Scene(const std::string& name);
 
 	friend class Application;
@@ -33,12 +33,16 @@ public:
 		_renderSystem->SetViewportData(&window.GetViewport());
 	}
 
-	void LoadScene(const std::string& name) { _changeSceneEvent.Dispatch(name); }
+	void LoadScene(const std::string& name)
+	{
+		_changeSceneEvent.Dispatch(name);
+	}
 
 	void Start();
 	void Update();
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
+
 
 private:
 	Audio::AudioFacade _audioFacade{};
