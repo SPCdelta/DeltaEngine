@@ -3,4 +3,5 @@
 int main()
 {
 	ValidationApp app{};
+	return 0;
 }

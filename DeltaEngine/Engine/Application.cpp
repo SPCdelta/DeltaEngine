@@ -2,7 +2,8 @@
 
 bool Application::_isRunning = true;
 
-Application::Application() : _window("Meow!", 1280, 720)
+Application::Application(int unitPixelSize)
+	: _window("Meow!", 1280, 720)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
@@ -27,8 +28,9 @@ Application::Application() : _window("Meow!", 1280, 720)
 			LoadScene(sceneName);
 		});
 
-	_window.SetViewportSize(400, 400);
-	_window.SetViewportPos(100, 50);
+	//_window.SetViewportSize(400, 400);
+	//_window.SetViewportPos(100, 50);
+	_window.SetUnitPixelSize(unitPixelSize);
 }
 
 Application::~Application()
@@ -48,16 +50,8 @@ void Application::Run()
 			break;
 		}
 
-		// Internal Input
-		if (_windowEvent.type == Rendering::KEYDOWN)
-		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 1.0f);
-
-		}
-		else if (_windowEvent.type == Rendering::KEYUP)
-		{
-			//InputManager::GetInstance().SetKeyState(_windowEvent.key.keysym.scancode, 0.0f);
-		}
+		_inputFacade.onInputEvent(_windowEvent);
+		InputManager::GetInstance().executeInputEvents();
 
 		// Clear Screen
 		Rendering::RenderClear(_window.GetRenderer());

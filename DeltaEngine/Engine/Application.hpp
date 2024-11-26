@@ -2,27 +2,31 @@
 
 #include "Rendering/Rendering.hpp"
 
+#include <functional>
 #include <iostream>
 #include <unordered_map>
-#include <functional>
 
-#include <SDL_ttf.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 
 #include "Window.hpp"
 
-#include "Scene/SceneManager.hpp"
 #include "Core/Events/EventDispatcher.hpp"
+#include "Input/InputManager.hpp"
+#include "Input/InputFacade.hpp"
+#include "Scene/SceneManager.hpp"
 
-//Temp
+#include "Physics/BoxCollider.hpp"
+#include "Physics/CircleCollider.hpp"
+#include "Systems/PhysicsSystem.hpp"
+
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
-
 
 class Application
 {
 public:
-	Application();
+	Application(int unitPixelSize);
 	~Application();
 
 	void Run();
@@ -60,14 +64,20 @@ protected:
 	//ecs::EntityId camera;
 	//Camera* _cameraComponent = nullptr;
 
-private:
+
+   private:
 	static bool _isRunning;
 
 	float _dt{ 0.0f };
 
 	Window _window;
 	Rendering::Event _windowEvent{};
+	InputFacade _inputFacade;
+
+
 	SceneManager _sceneManager{}; // Never ever pass this variable!
+
+	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
 };
 
