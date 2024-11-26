@@ -7,7 +7,7 @@
 
 
 ValidationApp::ValidationApp()
-	: Application(100)
+	: Application(64)
 {
 	// Register Scenes
 	RegisterScene<MainMenuScene>("MainMenuScene");
