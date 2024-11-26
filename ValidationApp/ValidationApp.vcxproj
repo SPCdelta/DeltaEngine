@@ -185,6 +185,7 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\FileManagementScene.hpp" />
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
@@ -267,6 +268,9 @@
     <Media Include="Assets\Audio\SFX\villager1.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Files\example.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
