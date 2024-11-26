@@ -12,11 +12,6 @@ SpriteSheet::SpriteSheet(Transform& transform, int framesInRow, int frameW, int 
 	destRect = dest;
 }
 
-SpriteSheet::~SpriteSheet()
-{
-	
-}
-
 void SpriteSheet::AddAttackAnimation(int frameCount, int row, Rendering::UnsignInt32 attackAnimSpeed)
 {
 	attackFrameCount = frameCount;

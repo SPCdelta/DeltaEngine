@@ -45,5 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Files\example.json" />
+    <None Include="Assets\Files\new_file.json" />
   </ItemGroup>
 </Project>

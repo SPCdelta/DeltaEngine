@@ -16,7 +16,7 @@ class FileManagementScene : public Scene
 			std::ifstream inputFile("Assets\\Files\\example.json");
 			if (inputFile.is_open())
 			{
-				json load = json::parse(inputFile);	 // Access with load["hello"]
+				json load = json::parse(inputFile); // Access with load["hello"]
 				inputFile.close();
 			}
 

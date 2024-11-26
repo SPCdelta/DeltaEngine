@@ -10,8 +10,8 @@
 class Animator
 {
 public:
-	Animator();
-	~Animator();
+	Animator(){};
+	~Animator(){};
 
 	void Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int viewportHeight, Direction direc);
 
