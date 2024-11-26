@@ -5,6 +5,8 @@
 #include "GameObject.hpp"
 #include "BehaviourScript.hpp"
 
+#include "Core/Files/FileManager.hpp"
+
 #include "Scene/Scene.hpp"
 #include "Input/DeltaInputs.hpp"
 

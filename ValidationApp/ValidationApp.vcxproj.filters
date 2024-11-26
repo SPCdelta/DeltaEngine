@@ -21,6 +21,7 @@
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
+    <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,5 +43,8 @@
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Files\example.json" />
   </ItemGroup>
 </Project>

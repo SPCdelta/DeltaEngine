@@ -79,6 +79,11 @@
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Rendering\Camera.hpp" />
+    <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileHandlerFactory.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileManager.hpp" />
+    <ClInclude Include="Engine\Core\Files\IFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\Json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

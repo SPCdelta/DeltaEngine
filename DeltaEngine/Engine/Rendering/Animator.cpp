@@ -1,15 +1,5 @@
 #include "Animator.hpp"
 
-Animator::Animator()
-{
-	
-}
-
-Animator::~Animator()
-{
-	
-}
-
 void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int viewportHeight, Direction direc)
 {
 	bool isMoving = true;
