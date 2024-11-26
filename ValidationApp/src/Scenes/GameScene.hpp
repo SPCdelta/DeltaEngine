@@ -11,5 +11,5 @@ public:
 	GameScene(const std::string& name);
 
 private:
-	PlayerBehaviour* player = nullptr;
+	//PlayerBehaviour* player = nullptr;
 };
