@@ -18,6 +18,14 @@ namespace Physics
 
 		}
 
+		~CollisionSystem()
+		{
+			for (ecs::EntityId entityId : _view)
+			{
+				delete _view.get<Collider*>(entityId);
+			}
+		}
+
 		Collider* GetCollider(Physics::PhysicsId id)
 		{
 			for (ecs::EntityId entityId : _view)

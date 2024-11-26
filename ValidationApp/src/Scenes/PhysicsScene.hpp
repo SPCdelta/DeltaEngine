@@ -16,12 +16,12 @@ public:
 		player->AddComponent<Rigidbody>();
 		player->AddComponent<PhysicsBehaviour>();
 
-		std::shared_ptr<GameObject> floor1{ Instantiate({{10.0f, 196.0f}, 0.0f, {64.0f, 64.0f}}) };
-		floor1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
-		floor1->AddComponent<BoxCollider>()->SetTrigger(true);
+		//std::shared_ptr<GameObject> floor1{ Instantiate({{10.0f, 196.0f}, 0.0f, {64.0f, 64.0f}}) };
+		//floor1->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+		//floor1->AddComponent<BoxCollider>()->SetTrigger(true);
 
-		std::shared_ptr<GameObject> floor2{ Instantiate({{10.0f, 0.0f}, 0.0f, {64.0f, 64.0f}}) };
-		floor2->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
-		floor2->AddComponent<BoxCollider>();
+		//std::shared_ptr<GameObject> floor2{ Instantiate({{10.0f, 0.0f}, 0.0f, {64.0f, 64.0f}}) };
+		//floor2->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+		//floor2->AddComponent<BoxCollider>();
 	}
 };
