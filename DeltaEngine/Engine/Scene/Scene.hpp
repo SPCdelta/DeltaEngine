@@ -16,6 +16,7 @@
 #include "../Systems/DebugSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
+#include "../Systems/ImageRenderSystem.hpp"
 
 class Application;
 
@@ -31,6 +32,8 @@ class Scene
 	{
 		_renderSystem->SetWindow(&window);
 		_renderSystem->SetViewportData(&window.GetViewport());
+		_imageRenderSystem->SetWindow(&window);
+		_imageRenderSystem->SetViewportData(&window.GetViewport());
 	}
 
 	void LoadScene(const std::string& name)
@@ -62,4 +65,5 @@ private:
 	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
+	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
 };

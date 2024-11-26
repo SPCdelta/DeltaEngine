@@ -1,6 +1,7 @@
-#include "Sprite.hpp"
+#include "Image.hpp"
 
-void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform)
+void Image::Render(Rendering::Renderer* renderer,
+				   const ViewportData& viewportData, const Transform& transform)
 {
 	// Get Texture
 	if (!_texture)
@@ -16,19 +17,11 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	}
 
 	Rendering::Rect destRect;
-	destRect.x = static_cast<int>(
-		(transform.position.GetX() - camera->transform.position.GetX()) *
-		viewportData.unitPixelSize);
-	destRect.y = static_cast<int>(
-		viewportData.height -
-		((transform.position.GetY() - camera->transform.position.GetY()) *
-		 viewportData.unitPixelSize) -
-		(transform.scale.GetY() * viewportData.unitPixelSize));
+	destRect.x = static_cast<int>(transform.position.GetX());
+	destRect.y = static_cast<int>(transform.position.GetY());
 
-	destRect.w =
-		(static_cast<int>(transform.scale.GetX()) * viewportData.unitPixelSize);
-	destRect.h =
-		(static_cast<int>(transform.scale.GetY()) * viewportData.unitPixelSize);
+	destRect.w = static_cast<int>(transform.scale.GetX());
+	destRect.h = static_cast<int>(transform.scale.GetY());
 
 	if (_sheet)
 	{

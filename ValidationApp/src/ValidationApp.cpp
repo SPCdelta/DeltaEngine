@@ -19,7 +19,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<Scene2>("Scene2");
 
 	// Load Desired Scene
-	LoadScene("Scene1");
+	LoadScene("PhysicsScene");
 
 	// Start Application
 	Run();

@@ -37,8 +37,7 @@ public:
 		}
 		else
 		{*/
-			Rendering::RenderClear(_window->GetRenderer());
-			_window->RenderViewport(255, 255, 255, 255);
+		// moved to Application cpp run loop
 		/*}*/
 
 		for (ecs::EntityId entityId : _view)
@@ -78,8 +77,6 @@ public:
 			// Render the sprite associated with this entity
 			sprite.Render(_window->GetRenderer(), *_viewportData, _camera, transform);
 		}
-
-		Rendering::RenderPresent(_window->GetRenderer());
 	}
 
 private:

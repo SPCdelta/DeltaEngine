@@ -13,3 +13,6 @@ using namespace Physics;
 #include "Physics/BoxCollider.hpp"
 #include "Physics/CircleCollider.hpp"
 #include "Physics/Rigidbody.hpp"
+
+// UI
+#include "UI/Image.hpp"
