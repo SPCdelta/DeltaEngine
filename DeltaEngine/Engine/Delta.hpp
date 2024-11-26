@@ -6,6 +6,7 @@
 #include "BehaviourScript.hpp"
 
 #include "Scene/Scene.hpp"
+#include "Input/DeltaInputs.hpp"
 
 // Physics
 using namespace Physics;

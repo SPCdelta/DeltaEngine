@@ -12,13 +12,14 @@
 #include "Window.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
+#include "Input/InputManager.hpp"
+#include "Input/InputFacade.hpp"
 #include "Scene/SceneManager.hpp"
 
 #include "Physics/BoxCollider.hpp"
 #include "Physics/CircleCollider.hpp"
 #include "Systems/PhysicsSystem.hpp"
 
-//Temp
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
 
@@ -63,7 +64,8 @@ protected:
 	//ecs::EntityId camera;
 	//Camera* _cameraComponent = nullptr;
 
-private:
+
+   private:
 	static bool _isRunning;
 
 	float _dt{ 0.0f };
@@ -76,6 +78,8 @@ private:
 
 	Window _window;
 	Rendering::Event _windowEvent{};
+	InputFacade _inputFacade;
+
 
 	SceneManager _sceneManager{}; // Never ever pass this variable!
 
@@ -83,5 +87,7 @@ private:
 
 	void GetDeltaTime();
 	void ShowFpsInWindowTitleBar();
+
+
 };
 

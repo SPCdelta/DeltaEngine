@@ -194,6 +194,10 @@
     <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
+    <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
+    <ClCompile Include="Engine\Input\InputFacade.cpp" />
+    <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Scene\SceneManager.cpp" />
@@ -225,6 +229,10 @@
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
+    <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
+    <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
+    <ClInclude Include="Engine\Input\InputFacade.hpp" />
+    <ClInclude Include="Engine\Input\InputManager.hpp" />
     <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp" />
     <ClInclude Include="Engine\Physics\BoxCollider.hpp" />
     <ClInclude Include="Engine\Physics\CircleCollider.hpp" />
