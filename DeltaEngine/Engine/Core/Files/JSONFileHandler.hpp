@@ -10,39 +10,28 @@ using json = nlohmann::json;
 class JSONFileHandler : public IFileHandler
 {
 	public:
-		json LoadFile(const std::string& path) override // TODO "Assets\\Files\\example.json" to test
+	// 'Assets\\Files\\' needs to be in the path with the file name at the end
+		json LoadFile(const std::string& path) override
 		{
 			json data;
 			std::ifstream file(path);
 			if (file.is_open())
 			{
-				file >> data;  // Access with data["hello"]
+				file >> data;  // Access with data["something"];
 				file.close();
 			}
 
 			return data;
 		}
 
-		void SaveFile(const std::string& path, const json& data) override // TODO "Assets\\Files\\new_file.json" to test
+		// 'Assets\\Files\\' needs to be in the path with the file name at the end
+		void SaveFile(const std::string& path, const json& data) override
 		{
-			/*json save;
-			save["testing"] = "meow";*/ // TODO save things
-
-			// Save to a new file
-			std::ofstream file(path);
+			std::ofstream file(path, std::ios::out | std::ios::trunc);
 			if (file.is_open())
 			{
 				file << data.dump(4);
 				file.close();
 			}
-
-			// TODO commented code
-			// Save to an existing file (append or overwrite)
-			/*std::ofstream existingFile("Assets\\Files\\example.json", std::ios::out | std::ios::trunc);
-			if (existingFile.is_open())
-			{
-				existingFile << save.dump(4);
-				existingFile.close();
-			}*/
 		}
 };

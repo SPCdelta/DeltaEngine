@@ -223,6 +223,10 @@
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
     <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
+    <ClInclude Include="Engine\Core\Files\IFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileHandlerFactory.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileManager.hpp" />
     <ClInclude Include="Engine\Core\Math\Point.hpp" />
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />

@@ -6,8 +6,6 @@
 #include "IFileHandler.hpp"
 #include "JSONFileHandler.hpp"
 
-using json = nlohmann::json;
-
 class FileHandlerFactory
 {
 	public:
