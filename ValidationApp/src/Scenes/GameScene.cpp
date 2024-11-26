@@ -16,6 +16,7 @@ GameScene::GameScene(const std::string& name)
 		for (size_t x = 0; x < 18; x++)
 		{
 			std::shared_ptr<GameObject> obj{ Instantiate({{ x * 1.0f, y * 1.0f }, 0.0f, { 1.0f, 1.0f }}) };
+
 			if ((y > 8 && y < 15) && (x > 7 && x < 14))
 			{
 				obj->AddComponent<Sprite>("Assets\\Textures\\ice_floor.png");

@@ -36,6 +36,12 @@ namespace Physics
 		void SetGravityScale(float gravityScale) { Physics::SetGravityScale(_collider._bodyId, gravityScale); }
 		float GetGravityScale() const { return Physics::GetGravityScale(_collider._bodyId); }
 
+		float GetSpeed() const 
+		{
+			Math::Vector2 velocity = GetVelocity();
+			return std::abs(velocity.GetX()) + std::abs(velocity.GetY());
+		}
+
 	private:
 		Collider& _collider;
 

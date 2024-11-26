@@ -2,6 +2,13 @@
 
 #include "Engine/Delta.hpp"
 
+enum class FloorType
+{
+	NORMAL = 0,
+	ICE = 1,
+	MUD = 2,
+};
+
 class PlayerBehaviour : public BehaviourScript
 {
 public:
@@ -10,6 +17,12 @@ public:
 
 	// Components
 	Sprite* sprite = nullptr;
-	Rigidbody* rigidody = nullptr;
-	int test{ 0 };
+	Rigidbody* rigidbody = nullptr;
+
+private:
+	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
+	float _moveSpeed = 6.0f;
+	float _iceAcceleration = 2.0f;
+	int _sensorCount = 0;
+	FloorType _onFloor{ FloorType::NORMAL };
 };
