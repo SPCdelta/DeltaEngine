@@ -36,6 +36,7 @@
     <Image Include="Assets\Textures\spritesheet.png" />
     <Image Include="Assets\Textures\spritesheet2.png" />
     <Image Include="Assets\Textures\spritesheet3.png" />
+    <Image Include="Assets\Textures\square.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

@@ -85,6 +85,7 @@
     <ClInclude Include="Engine\UI\Image.hpp" />
     <ClInclude Include="Engine\Rendering\Renderable.hpp" />
     <ClInclude Include="Engine\Systems\ImageRenderSystem.hpp" />
+    <ClInclude Include="Engine\UI\Button.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

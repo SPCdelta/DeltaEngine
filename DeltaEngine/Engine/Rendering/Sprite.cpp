@@ -15,6 +15,9 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 		_texture = texture;
 	}
 
+	// TODO: Facade
+	SDL_SetTextureColorMod(_texture, color.r, color.g, color.b);
+
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(
 		(transform.position.GetX() - camera->transform.position.GetX()) *

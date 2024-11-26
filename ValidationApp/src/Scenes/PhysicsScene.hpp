@@ -24,6 +24,6 @@ public:
 		floor2->AddComponent<Sprite>("Assets\\Textures\\player.png");
 		floor2->AddComponent<BoxCollider>();
 
-		Instantiate({{200.0f, 400.0f}, 0.0f, {100.0f, 150.0f}})->AddComponent<Image>("Assets\\Textures\\player.png");
+		Instantiate({{200.0f, 400.0f}, 0.0f, {100.0f, 150.0f}})->AddComponent<Image>("Assets\\Textures\\square.png")->SetColor({ 0, 0, 0, 255 });
 	}
 };

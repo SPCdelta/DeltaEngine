@@ -16,6 +16,9 @@ void Image::Render(Rendering::Renderer* renderer,
 		_texture = texture;
 	}
 
+	// TODO: Facade
+	SDL_SetTextureColorMod(_texture, color.r, color.g, color.b);
+
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(transform.position.GetX());
 	destRect.y = static_cast<int>(transform.position.GetY());
@@ -38,8 +41,6 @@ void Image::Render(Rendering::Renderer* renderer,
 	}
 	else
 	{
-		Rendering::RenderCopyEx(renderer, _texture, NULL, &destRect,
-								transform.rotation, 0,
-								Rendering::GetFlip(flipX, flipY));
+		Rendering::RenderCopyEx(renderer, _texture, NULL, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
 	}
 }
