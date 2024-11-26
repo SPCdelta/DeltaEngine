@@ -4,6 +4,7 @@
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/InputTestScene.hpp"
 #include "Scenes/PhysicsScene.hpp"
+#include "Scenes/SwitchTestScene.hpp"
 
 
 ValidationApp::ValidationApp()
@@ -14,9 +15,11 @@ ValidationApp::ValidationApp()
 	RegisterScene<GameScene>("GameScene");
 	RegisterScene<InputTestScene>("InputTest");
 	RegisterScene<PhysicsScene>("PhysicsScene");
+	RegisterScene<Scene1>("Scene1");
+	RegisterScene<Scene2>("Scene2");
 
 	// Load Desired Scene
-	LoadScene("PhysicsScene");
+	LoadScene("Scene1");
 
 	// Start Application
 	Run();
