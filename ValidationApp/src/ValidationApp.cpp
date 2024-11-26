@@ -1,7 +1,7 @@
 #include "ValidationApp.hpp"
 
 ValidationApp::ValidationApp()
-	: Application(100)
+	: Application(64)
 {
 	// Register Scenes
 	RegisterScene<MainMenuScene>("MainMenuScene");
@@ -9,7 +9,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<PhysicsScene>("PhysicsScene");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("PhysicsScene");
 
 	// Start Application
 	Run();
