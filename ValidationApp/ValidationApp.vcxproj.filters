@@ -22,6 +22,7 @@
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
+    <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />

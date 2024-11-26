@@ -5,6 +5,9 @@ namespace Math
 	class Vector2
 	{
 	public:
+		static const Math::Vector2 up;
+		static const Math::Vector2 right;
+
 		Vector2() = default;
 		Vector2(float x, float y);
 		float GetX() const;
