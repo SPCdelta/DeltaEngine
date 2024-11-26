@@ -29,14 +29,14 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T()));
+			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
 			component->gameObject = this;
 			component->camera = _camera;
 			return component;
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
+			T* component = static_cast<T*>(_reg.AddPointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
@@ -46,17 +46,17 @@ public:
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
+			return static_cast<T*>(&_reg.AddPointerComponent<T>(_id, new T(*_reg.GetComponent<Physics::Collider*>(_id))));
 		}
 		else if constexpr (std::is_same_v<T, Audio::MusicSource>)
 		{
-			T* component = static_cast<T*>(_AddComponent<Audio::MusicSource>(Audio::MusicSource("", false, _audioFacade, false)));
+			T* component = static_cast<T*>(&_reg.AddComponent<Audio::MusicSource>(_id, "", false, _audioFacade, false));
 			return component;
-       }
-       else
-       {
+        }
+        else
+        {
 			return static_cast<T*>(&_reg.AddComponent<T>(_id, std::forward<Args>(args)...));
-       }
+        }
 	}
 
 	template<typename T>
