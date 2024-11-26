@@ -42,7 +42,7 @@ private:
 	const char* sprite;
 	std::shared_ptr<Animator> _animator;
 	std::shared_ptr<SpriteSheet> _sheet;
-
+	
 	Rendering::Texture* _texture;
 	Rendering::Color color{Rendering::Color(0, 0, 0, 255)};
 
