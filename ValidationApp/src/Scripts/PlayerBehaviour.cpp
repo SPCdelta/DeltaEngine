@@ -3,15 +3,10 @@
 void PlayerBehaviour::OnStart() 
 {
 	sprite = &gameObject->GetComponent<Sprite>();
+	rigidody = &gameObject->GetComponent<Rigidbody>();
 }
 
 void PlayerBehaviour::OnUpdate() 
 {
-	if (test >= 200)
-	{
-		LoadScene("MainMenuScene");
-	}
-
-	std::cout << "GameScene: " << test << std::endl;
-	test++;
+	
 }

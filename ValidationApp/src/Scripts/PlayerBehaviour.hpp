@@ -10,5 +10,6 @@ public:
 
 	// Components
 	Sprite* sprite = nullptr;
+	Rigidbody* rigidody = nullptr;
 	int test{ 0 };
 };
