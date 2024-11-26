@@ -7,6 +7,7 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
+    <ClCompile Include="src\Scripts\InputTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\GameScene.hpp" />
@@ -18,6 +19,8 @@
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
+    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
+    <ClInclude Include="src\Scripts\InputTest.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />

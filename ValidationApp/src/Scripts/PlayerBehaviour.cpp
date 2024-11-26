@@ -21,19 +21,17 @@ void PlayerBehaviour::OnStart()
 		}
 	);
 
-	rigidbody->onCollisionEnter.Register(
-		[this](Collider& collider)
-		{
+	// Input
+	InputManager::activateCategory("Gameplay");
+	InputManager::onKeyPressed(KEY_W, [this](Input& e) { _moveDirection.SetY(1.0f); }, "Gameplay");
+	InputManager::onKeyPressed(KEY_S, [this](Input& e) { _moveDirection.SetY(-1.0f); }, "Gameplay");
+	InputManager::onKeyPressed(KEY_A, [this](Input& e) { _moveDirection.SetX(-1.0f); }, "Gameplay");
+	InputManager::onKeyPressed(KEY_D, [this](Input& e) { _moveDirection.SetX(1.0f); }, "Gameplay");
 
-		}
-	);
-
-	rigidbody->onCollisionExit.Register(
-		[this](Collider& collider)
-		{ 
-
-		}
-	);
+	InputManager::onKeyReleased(KEY_W, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
+	InputManager::onKeyReleased(KEY_S, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
+	InputManager::onKeyReleased(KEY_A, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
+	InputManager::onKeyReleased(KEY_D, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
 }
 
 void PlayerBehaviour::OnUpdate() 

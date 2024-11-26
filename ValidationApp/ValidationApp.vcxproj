@@ -179,14 +179,17 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\GameScene.hpp" />
+    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
     <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
+    <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
