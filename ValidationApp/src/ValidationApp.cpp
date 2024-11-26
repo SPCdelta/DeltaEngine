@@ -25,9 +25,4 @@ ValidationApp::ValidationApp()
 
 	// Start Application
 	Run();
-
-	// TODO when you close a scene, save to file
-	// TODO when you open a scene, load from file
-	// TODO save to file when specific method is called
-	// TODO sprite memory leak
 }
