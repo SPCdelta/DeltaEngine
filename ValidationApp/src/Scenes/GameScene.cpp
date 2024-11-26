@@ -19,7 +19,7 @@ GameScene::GameScene(const std::string& name)
 		for (size_t x = 0; x < 10; x++)
 		{
 			std::shared_ptr<GameObject> obj{ Instantiate({{ x * 64.0f, y * 64.0f }, 0.0f, { 64.0f, 64.0f }}) };
-			obj->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", nullptr);
+			obj->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 		}
 	}
 }
