@@ -2,18 +2,16 @@
 
 #include <fstream>
 
-#include "json/json.hpp"
+#include "Json.hpp"
 #include "IFileHandler.hpp"
-
-using json = nlohmann::json;
 
 class JSONFileHandler : public IFileHandler
 {
 	public:
-	// 'Assets\\Files\\' needs to be in the path with the file name at the end
-		json LoadFile(const std::string& path) override
+		// 'Assets\\Files\\' needs to be in the path with the file name at the end
+		Json::json LoadFile(const std::string& path) override
 		{
-			json data;
+			Json::json data;
 			std::ifstream file(path);
 			if (file.is_open())
 			{
@@ -25,7 +23,7 @@ class JSONFileHandler : public IFileHandler
 		}
 
 		// 'Assets\\Files\\' needs to be in the path with the file name at the end
-		void SaveFile(const std::string& path, const json& data) override
+		void SaveFile(const std::string& path, const Json::json& data) override
 		{
 			std::ofstream file(path, std::ios::out | std::ios::trunc);
 			if (file.is_open())

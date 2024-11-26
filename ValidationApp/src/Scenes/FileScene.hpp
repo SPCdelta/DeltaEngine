@@ -14,16 +14,16 @@ class FileScene : public Scene
 			playerObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", sheet);
 
 			// Loading
-			nlohmann::json loadedData1 = fileManager.Load("Assets\\Files\\example.json", "json");
+			Json::json loadedData1 = fileManager.Load("Assets\\Files\\example.json", "json");
 			std::cout << "Loaded data: " << loadedData1.dump(4) << std::endl;
 
 			// Saving/Overwriting
-			nlohmann::json dataToSave;
+			Json::json dataToSave;
 			dataToSave["spritePath"] = playerObject->GetComponent<Sprite>().GetPath();
 			fileManager.Save("Assets\\Files\\example.json", "json", dataToSave);
 
 			// Loading
-			nlohmann::json loadedData2 = fileManager.Load("Assets\\Files\\example.json", "json");
+			Json::json loadedData2 = fileManager.Load("Assets\\Files\\example.json", "json");
 			std::cout << "Loaded data: " << loadedData2.dump(4) << std::endl;
 		}
 };

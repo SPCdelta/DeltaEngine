@@ -2,9 +2,7 @@
 
 #include <string>
 
-#include "json/json.hpp"
-
-using json = nlohmann::json;
+#include "Json.hpp"
 
 class IFileHandler
 {
@@ -12,6 +10,6 @@ class IFileHandler
 	virtual ~IFileHandler() = default;
 
 	// Json file management
-	virtual json LoadFile(const std::string& path) = 0;
-	virtual void SaveFile(const std::string& path, const json& data) = 0;
+	virtual Json::json LoadFile(const std::string& path) = 0;
+	virtual void SaveFile(const std::string& path, const Json::json& data) = 0;
 };
