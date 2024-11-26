@@ -176,6 +176,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
+    <ClCompile Include="src\Items\Potions\HealingPotion.cpp" />
+    <ClCompile Include="src\Inventory\InventoryItem.cpp" />
+    <ClCompile Include="src\Inventory\Inventory.cpp" />
+    <ClCompile Include="src\Items\Item.cpp" />
     <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
@@ -183,8 +190,17 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
+    <ClCompile Include="src\Items\WorldItem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\DefensePotion.hpp" />
+    <ClInclude Include="src\Items\Potions\HealingPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\Potion.hpp" />
+    <ClInclude Include="src\Inventory\InventoryItem.hpp" />
+    <ClInclude Include="src\Inventory\Inventory.hpp" />
+    <ClInclude Include="src\Items\Item.hpp" />
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
@@ -196,6 +212,7 @@
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
+    <ClInclude Include="src\Items\WorldItem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeltaEngine\DeltaEngine.vcxproj">
