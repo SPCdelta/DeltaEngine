@@ -11,7 +11,7 @@ class SpriteSheet
 public:
 	SpriteSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = 0, int rowDown = 0, 
 		int rowLeft = 0, int rowRight = 0);
-	~SpriteSheet();
+	~SpriteSheet() = default;
 
 	int GetCurrentFrame() const { return currentFrame; }
 	void SetCurrentFrame(int newFrame) { currentFrame = newFrame; }

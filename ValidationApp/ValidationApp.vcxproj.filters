@@ -38,6 +38,8 @@
     <ClInclude Include="src\Items\Potions\DefensePotion.hpp" />
     <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
     <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
+    <ClInclude Include="src\Scenes\FileScene.hpp" />
+    <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />
@@ -58,5 +60,8 @@
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Files\example.json" />
   </ItemGroup>
 </Project>

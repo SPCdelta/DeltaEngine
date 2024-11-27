@@ -31,10 +31,16 @@ namespace Physics
 		void AddForce(Math::Vector2 force, ForceMode forceMode) { Physics::AddForce(_collider._bodyId, force, forceMode); }
 
 		void SetVelocity(Math::Vector2 velocity) { Physics::SetVelocity(_collider._bodyId, velocity); }
-		const Math::Vector2 GetVelocity() const { Physics::GetVelocity(_collider._bodyId); }
+		const Math::Vector2 GetVelocity() const { return Physics::GetVelocity(_collider._bodyId); }
 
 		void SetGravityScale(float gravityScale) { Physics::SetGravityScale(_collider._bodyId, gravityScale); }
 		float GetGravityScale() const { return Physics::GetGravityScale(_collider._bodyId); }
+
+		float GetSpeed() const 
+		{
+			Math::Vector2 velocity = GetVelocity();
+			return std::abs(velocity.GetX()) + std::abs(velocity.GetY());
+		}
 
 	private:
 		Collider& _collider;

@@ -13,6 +13,14 @@ public:
 
 	}
 
+	~UpdateSystem()
+	{
+		for (ecs::EntityId entityId : _view)
+		{
+			delete _view.get<BehaviourScript*>(entityId);
+		}
+	}
+
 	void OnStart()
 	{
 		for (ecs::EntityId entityId : _view)

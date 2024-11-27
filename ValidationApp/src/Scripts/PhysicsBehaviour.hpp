@@ -19,7 +19,7 @@ public:
 			});
 
 		rigidbody->onTriggerExit.Register(
-			[this](Collider& collider) 
+			[this](Collider& collider)
 			{
 				std::cout << "OnTriggerExit" << std::endl;
 			});
@@ -28,6 +28,7 @@ public:
 			[this](Collider& collider) 
 			{
 				std::cout << "OnCollisionEnter" << std::endl;
+				rigidbody->AddForce(Math::Vector2::up * 10.0f, ForceMode::IMPULSE);
 			});
 
 		rigidbody->onCollisionExit.Register(

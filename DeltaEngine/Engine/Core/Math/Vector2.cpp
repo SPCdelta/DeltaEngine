@@ -3,6 +3,9 @@
 
 using namespace Math;
 
+const Math::Vector2 Math::Vector2::up(0.0f, 1.0f);
+const Math::Vector2 Math::Vector2::right(1.0f, 0.0f);
+
 Vector2::Vector2(float x, float y) : _x{x}, _y{y} {}
 
 float Vector2::GetX() const
@@ -93,6 +96,11 @@ Vector2 Vector2::operator+(const Vector2& other) const
 Vector2 Vector2::operator-(const Vector2& other) const
 {
 	return Vector2(_x - other._x, _y - other._y);
+}
+
+Vector2 Math::Vector2::operator-() const
+{
+	return Vector2(-_x, -_y);
 }
 
 Vector2 Vector2::operator*(float scalar) const

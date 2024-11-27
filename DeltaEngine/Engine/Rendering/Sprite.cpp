@@ -79,13 +79,17 @@ Sprite& Sprite::operator=(Sprite&& other) noexcept
 void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform)
 {
 	// Get Texture
-	Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
-	if (!texture)
+	if (!_texture)
 	{
-		std::cerr << "Failed to load texture: " << Rendering::GetError() << std::endl;
-		return; 
+		Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
+		if (!texture)
+		{
+			std::cerr << "Failed to load texture: " << Rendering::GetError()
+					  << std::endl;
+			return;
+		}
+		_texture = texture;
 	}
-	_texture = texture;
 
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>((transform.position.GetX() - camera->transform.position.GetX()) * viewportData.unitPixelSize);

@@ -46,9 +46,8 @@ namespace ecs
 	class Registry
 	{
 	public:
-		template<typename... Components>
 		//friend class ecs::View;
-
+		template<typename... Components>
 		ecs::EntityId CreateEntity()
 		{
 			return _registry.create();
@@ -64,6 +63,12 @@ namespace ecs
 		{
 			std::shared_ptr<T> system{ std::make_shared<T>(_registry.view<Components...>(), std::forward<Args>(args)...) };
 			return system;
+		}
+
+		template <typename Component>
+		Component& AddPointerComponent(ecs::EntityId entityId, Component component)
+		{
+			return _registry.emplace<Component>(entityId, component);
 		}
 
 		template<typename Component>

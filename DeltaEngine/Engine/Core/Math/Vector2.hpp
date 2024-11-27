@@ -5,6 +5,9 @@ namespace Math
 	class Vector2
 	{
 	public:
+		static const Math::Vector2 up;
+		static const Math::Vector2 right;
+
 		Vector2() = default;
 		Vector2(float x, float y);
 		float GetX() const;
@@ -19,6 +22,7 @@ namespace Math
 		Vector2 GetNormalized() const;
 		Vector2 operator+(const Vector2& other) const;
 		Vector2 operator-(const Vector2& other) const;
+		Vector2 operator-() const;
 		Vector2 operator*(float scalar) const;
 		bool operator==(const Vector2& other) const;
 		bool operator!=(const Vector2& other) const;

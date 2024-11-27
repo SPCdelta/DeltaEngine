@@ -28,6 +28,8 @@ public:
 	void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform);
 	void StopRendering();
 
+	const char* GetPath() const { return sprite; }
+
 	Rendering::Color GetColor() const;
 	void SetColor(Rendering::Color newColor);
 

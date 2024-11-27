@@ -17,7 +17,6 @@ namespace Physics
 		}
 
 		// Order is very important here
-
 		void BeforeBehaviourUpdate()
 		{ 
 			_physicsWorld.Update();
@@ -83,7 +82,9 @@ namespace Physics
 
 		void AfterBehaviourUpdate()
 		{
-			
+			// Because physics is updated before the update loop
+			// physics will generally be applied every every next frame
+			// this is done to allow the even catching of the events
 		}
 
 	private:
