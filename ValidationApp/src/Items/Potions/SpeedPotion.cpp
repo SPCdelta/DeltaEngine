@@ -7,7 +7,8 @@ void SpeedPotion::Use() {
 	for (int i = 1; i < static_cast<int>(time); ++i)
 	{
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-		// nieuwe snelheidswaarde toepassen
+		std::cout << "Je hebt nu nog " << i << " Seconden een snelheidsboost"
+				  << std::endl;
 	}
 
 	// oude snelheidswaarde weer herstellen
