@@ -185,6 +185,8 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PlayerInput.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
