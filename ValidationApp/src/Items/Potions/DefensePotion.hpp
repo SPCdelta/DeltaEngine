@@ -3,6 +3,6 @@
 class DefensePotion : public Potion
 {
    public:
-	DefensePotion(float time, float value);
+	DefensePotion(float time, float value) : Potion(time, value) {}
 	void Use();
 };

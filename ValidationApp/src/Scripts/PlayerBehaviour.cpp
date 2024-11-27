@@ -32,6 +32,15 @@ void PlayerBehaviour::OnStart()
 	InputManager::onKeyReleased(KEY_S, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
 	InputManager::onKeyReleased(KEY_A, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
 	InputManager::onKeyReleased(KEY_D, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
+
+	// Bij het testen van inventory, Dit aanzetten! 
+	
+	//InputManager::onKeyPressed(
+	//	KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");
+	//InputManager::onKeyPressed(
+	//	KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
+	//InputManager::onKeyPressed(
+	//	KEY_Q, [this](Input& e) { inventory.RemoveItem(_item1, 5);}, "Gameplay");
 }
 
 void PlayerBehaviour::OnUpdate() 

@@ -9,10 +9,11 @@ class Inventory
 	Inventory();
 	//~Inventory();
 
-	void AddItem(std::shared_ptr<InventoryItem> item, int amount);
-	void RemoveItem(std::shared_ptr<InventoryItem> item, int amount);
+	void AddItem(Item item, int amount);
+	void RemoveItem(Item item, int amount);
+	void PrintInventory();
 
 
    private:
-	std::vector<std::shared_ptr<InventoryItem>> items;
+	std::vector<std::shared_ptr<InventoryItem>> _items;
 };

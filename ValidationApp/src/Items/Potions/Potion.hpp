@@ -5,9 +5,9 @@
 class Potion
 {
    public:
-	Potion(float time, float value) : time(time), value(value) {}
-	virtual void Use();
+	Potion(float time, float value) : _time{time}, _value{value} {}
+	virtual void Use() = 0;
    protected:
-	float time;
-	float value;
+	float _time;
+	float _value;
 };

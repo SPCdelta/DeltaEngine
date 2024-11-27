@@ -16,6 +16,7 @@
     <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
     <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
+    <ClInclude Include="Player.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />
@@ -54,6 +56,9 @@
     <Image Include="Assets\Textures\spritesheet.png" />
     <Image Include="Assets\Textures\spritesheet2.png" />
     <Image Include="Assets\Textures\spritesheet3.png" />
+    <Image Include="Assets\Textures\ice_floor.png" />
+    <Image Include="Assets\Textures\stone_floor.png" />
+    <Image Include="Assets\Textures\wall.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

@@ -1,6 +1,8 @@
 #include "Item.hpp"
 
-std::string Item::GetName()
+Item::Item(std::string name) : _name{name} {} // hier komt sprite nog bij
+
+const std::string& Item::GetName() const
 {
-	return name;
+	return _name;
 }

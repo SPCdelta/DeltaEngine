@@ -5,10 +5,10 @@ void AttackUpPotion::Use() {
 	// oude aanvalsschade (of snelheid?) opslaan
 
 	// nieuwe berekenen
-	for (int i = 1; i < static_cast<int>(time); ++i)
+	for (int i = static_cast<int>(_time); i > 0; --i)
 	{
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-		// nieuwe aanvalswaard op de speler toevoegen
+		std::cout << "Er is nog voor " << i << " Seconden aan een aanvalsboost" << std::endl;
 	}
 
 

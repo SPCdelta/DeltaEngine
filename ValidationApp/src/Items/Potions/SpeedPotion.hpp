@@ -3,5 +3,6 @@
 class SpeedPotion : public Potion
 {
    public:
+	SpeedPotion(float time, float value) : Potion(time, value) {}
 	void Use();
 };

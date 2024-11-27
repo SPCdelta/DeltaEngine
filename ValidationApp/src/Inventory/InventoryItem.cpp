@@ -1,14 +1,22 @@
 #include "InventoryItem.hpp"
 
-void InventoryItem::AddAmount(int amount) {
-	this->amount += amount;
+InventoryItem::InventoryItem(Item item, int amount) : _item{item}, _amount{amount} {}
+
+void InventoryItem::AddAmount(int amount)
+{
+	this->_amount += amount;
 }
 
 void InventoryItem::LowerAmount(int amount) {
-	this->amount -= amount;
+	this->_amount -= amount;
 }
 
 int InventoryItem::GetAmount()
 {
-	return amount;
+	return _amount;
+}
+
+Item& InventoryItem::GetItem()
+{
+	return _item;
 }

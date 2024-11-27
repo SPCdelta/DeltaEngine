@@ -1,12 +1,15 @@
 #pragma once
 #include "../Items/Item.hpp"
-class InventoryItem : public Item
+class InventoryItem
 {
    public:
+	InventoryItem(Item item, int amount);
 	void AddAmount(int amount);
 	void LowerAmount(int amount);
 	int GetAmount();
+	Item& GetItem();
    private:
-	int amount;
-	Item item;
+	int _amount;
+	Item _item;
+
 };

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
+#include "../Inventory/Inventory.hpp"
+#include "../Items/Item.hpp"
 
 enum class FloorType
 {
@@ -25,4 +27,11 @@ private:
 	float _iceAcceleration = 2.0f;
 	int _sensorCount = 0;
 	FloorType _onFloor{ FloorType::NORMAL };
+
+	// bij het testen van inventory, dit aanzetten!
+
+	//Inventory inventory;
+	//Item _item1{"item 1"};
+	//Item _item2{"item 2"};
+
 };
