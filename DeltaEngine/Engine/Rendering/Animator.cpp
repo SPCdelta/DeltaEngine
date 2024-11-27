@@ -1,6 +1,6 @@
 #include "Animator.hpp"
 
-void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int viewportHeight, Direction direc)
+void Animator::Play(std::shared_ptr<SpriteSheet> sheet, Direction direc)
 {
 	bool isMoving = true;
 	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();	
@@ -18,7 +18,6 @@ void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int 
 		tempSrcRect.y = (sheet->GetAttRow() - 1) * sheet->GetFrameHeight();
 		tempSrcRect.x = sheet->GetAttCurrentFrame() * sheet->GetFrameWidth();
 		sheet->SetSrcRect(tempSrcRect);
-
 		sheet->SetLastFrameTime(currentTime);
 	}
 	else if (sheet->GetAttRow() == 0)
@@ -28,14 +27,14 @@ void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int 
 
 	if (!sheet->GetIsAttacking() && currentTime - sheet->GetLastMoveTime() >= sheet->GetMoveInterval())
 	{
-		if (direc == Direction::UP && pos->GetY() < 1280 - sheet->GetDestRect().h) // up 
-			MoveUp(pos, sheet);
-		else if (direc == Direction::LEFT && pos->GetX() > 0)  // left
-			MoveLeft(pos, sheet);
-		else if (direc == Direction::DOWN && pos->GetY() > 0)  // down
-			MoveDown(pos, sheet);
-		else if (direc == Direction::RIGHT && pos->GetX() < 1280 - sheet->GetDestRect().w) // right
-			MoveRight(pos, sheet);
+		if (direc == Direction::UP) // up 
+			MoveUp(sheet);
+		else if (direc == Direction::LEFT)  // left
+			MoveLeft(sheet);
+		else if (direc == Direction::DOWN)  // down
+			MoveDown(sheet);
+		else if (direc == Direction::RIGHT) // right
+			MoveRight(sheet);
 		else
 			isMoving = false;
 
@@ -56,9 +55,8 @@ void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int 
 	}
 }
 
-void Animator::MoveUp(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveUp(std::shared_ptr<SpriteSheet> sheet)
 {
-	pos->SetY(pos->GetY() + sheet->GetMovementSpeed());
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 
 	if (sheet->GetFacingDirection() == Direction::LEFT)
@@ -80,9 +78,8 @@ void Animator::MoveUp(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveDown(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveDown(std::shared_ptr<SpriteSheet> sheet)
 {
-	pos->SetY(pos->GetY() - sheet->GetMovementSpeed()); 
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 
 	if (sheet->GetFacingDirection() == Direction::LEFT)
@@ -104,18 +101,16 @@ void Animator::MoveDown(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveLeft(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveLeft(std::shared_ptr<SpriteSheet> sheet)
 {
-	pos->SetX(pos->GetX() - sheet->GetMovementSpeed());
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 	tempSrcRect.y = (sheet->GetRowLeft() ? (sheet->GetRowLeft() - 1) : (sheet->GetRowRight() - 1)) * sheet->GetFrameHeight();
 	sheet->SetFacingDirection(Direction::LEFT);
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveRight(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveRight(std::shared_ptr<SpriteSheet> sheet)
 {
-	pos->SetX(pos->GetX() + sheet->GetMovementSpeed());
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 	tempSrcRect.y = (sheet->GetRowRight() ? (sheet->GetRowRight() - 1) : (sheet->GetRowLeft() - 1)) * sheet->GetFrameHeight();
 	sheet->SetFacingDirection(Direction::RIGHT);
