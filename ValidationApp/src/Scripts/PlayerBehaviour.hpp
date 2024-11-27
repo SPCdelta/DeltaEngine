@@ -23,6 +23,9 @@ private:
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
 	float _moveSpeed = 6.0f;
 	float _iceAcceleration = 2.0f;
-	int _sensorCount = 0;
+
+	int _iceCount{0};
+	int _mudCount{0};
+
 	FloorType _onFloor{ FloorType::NORMAL };
 };

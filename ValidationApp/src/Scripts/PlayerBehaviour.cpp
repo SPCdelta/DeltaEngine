@@ -7,17 +7,33 @@ void PlayerBehaviour::OnStart()
 	rigidbody->SetGravityScale(0.0f);
 
 	// Events
-	rigidbody->onTriggerExit.Register(
-		[this](Collider& collider)
-		{ 
-			_sensorCount--;
-		}
-	);
-
 	rigidbody->onTriggerEnter.Register(
 		[this](Collider& collider)
 		{ 
-			_sensorCount++;
+			const std::string& tag{collider.transform.gameObject->GetTag()};
+			if (tag == "ice")
+			{
+				_iceCount++;
+			}
+			else if (tag == "mud")
+			{
+				_mudCount++;
+			}
+		}
+	);
+
+	rigidbody->onTriggerExit.Register(
+		[this](Collider& collider)
+		{ 
+			const std::string& tag{collider.transform.gameObject->GetTag()};
+			if (tag == "ice")
+			{
+				_iceCount--;
+			}
+			else if (tag == "mud")
+			{
+				_mudCount--;
+			}
 		}
 	);
 
@@ -36,8 +52,19 @@ void PlayerBehaviour::OnStart()
 
 void PlayerBehaviour::OnUpdate() 
 {
-	if (_sensorCount == 0) _onFloor = FloorType::NORMAL;
-	else _onFloor = FloorType::ICE;
+	// Order is important here
+	if (_mudCount > 0)
+	{
+		_onFloor = FloorType::MUD;
+	}
+	else if (_iceCount > 0)
+	{
+		_onFloor = FloorType::ICE;
+	}
+	else
+	{
+		_onFloor = FloorType::NORMAL;
+	}
 
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f})
@@ -45,7 +72,9 @@ void PlayerBehaviour::OnUpdate()
 		switch (_onFloor)
 		{
 			case FloorType::NORMAL:
-				rigidbody->SetVelocity(_moveDirection * _moveSpeed);
+				{
+					rigidbody->SetVelocity(_moveDirection * _moveSpeed);
+				}
 				break;
 
 			case FloorType::ICE:
@@ -63,7 +92,9 @@ void PlayerBehaviour::OnUpdate()
 				break;
 
 			case FloorType::MUD:
-				rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.75f));
+				{
+					rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
+				}
 				break;
 		}
 	}
