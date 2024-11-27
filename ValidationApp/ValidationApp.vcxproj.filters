@@ -23,6 +23,8 @@
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
+    <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PlayerInput.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />
@@ -37,6 +39,10 @@
     <Image Include="Assets\Textures\spritesheet.png" />
     <Image Include="Assets\Textures\spritesheet2.png" />
     <Image Include="Assets\Textures\spritesheet3.png" />
+    <Image Include="Assets\Textures\ice_floor.png" />
+    <Image Include="Assets\Textures\stone_floor.png" />
+    <Image Include="Assets\Textures\wall.png" />
+    <Image Include="Assets\Textures\mud_floor.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
