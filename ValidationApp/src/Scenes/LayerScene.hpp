@@ -24,9 +24,8 @@ class LayerScene : public Scene
 		std::shared_ptr<GameObject> pokemonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
 		pokemonObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
-		// TODO
-		pokemonObject->SetLayer(Layer::Background);
+		pokemonObject->SetLayer(Layer::Foreground);
 		skeletonObject->SetLayer(Layer::Default);
-		playerObject->SetLayer(Layer::Foreground);	
+		playerObject->SetLayer(Layer::Background);	
 	}
 };

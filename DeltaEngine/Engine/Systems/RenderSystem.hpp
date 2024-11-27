@@ -30,17 +30,8 @@ public:
 
 	void Update()
 	{
-		// TODO render background every update (and clear it) to prevent sprite after-image
-		//		wait for layer and/or background before finishing this
-		/*if (_backgroundTexture)
-		{
-			Rendering::RenderCopy(_window->GetRenderer(), _backgroundTexture, 0, 0);
-		}
-		else
-		{*/
-			Rendering::RenderClear(_window->GetRenderer());
-			/*_window->RenderViewport(255, 255, 255, 255);*/
-		/*}*/
+		Rendering::RenderClear(_window->GetRenderer());
+		/*_window->RenderViewport(255, 255, 255, 255);*/
 
 		// Collect entities and sort by layer
 		std::vector<ecs::EntityId> entities(_view.begin(), _view.end());
