@@ -56,13 +56,6 @@ public:
 			Transform& transform = _view.get<Transform>(entityId);
 			Sprite& sprite = _view.get<Sprite>(entityId);
 
-			/*int windowWidth, windowHeight;
-			Rendering::GetWindowSize(static_cast<Rendering::Window*>(*_window), &windowWidth, &windowHeight);
-
-			// Check if the sprite has an animator, and call Play
-			if (sprite.GetAnimator())
-				sprite.GetAnimator()->Play(&transform.position, sprite.GetSheet(), windowHeight, Direction::NONE);*/
-
 			// Render the sprite associated with this entity
 			sprite.Render(_window->GetRenderer(), *_viewportData, _camera, transform);
 		}

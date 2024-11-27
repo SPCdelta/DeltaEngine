@@ -44,6 +44,20 @@ void PlayerBehaviour::OnUpdate()
 				}
 				break;
 		}
+
+		if (sprite->GetAnimator())
+		{
+			if (_moveDirection.GetX() < 0.0f)
+				sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT);
+			else if (_moveDirection.GetX() > 0.0f)
+				sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT);
+			else if (_moveDirection.GetY() < 0.0f)
+				sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN);
+			else if (_moveDirection.GetY() > 0.0f)
+				sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP);
+			else
+				sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE);
+		}
 	}
 	else
 	{
@@ -61,5 +75,8 @@ void PlayerBehaviour::OnUpdate()
 				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
 		}
+
+		if (sprite->GetAnimator())
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE);
 	}
 }

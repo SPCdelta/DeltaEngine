@@ -200,7 +200,6 @@
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
-    <ClInclude Include="src\Scripts\WalkBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
   </ItemGroup>
   <ItemGroup>
