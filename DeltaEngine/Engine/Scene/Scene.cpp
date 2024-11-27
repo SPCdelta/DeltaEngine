@@ -35,6 +35,7 @@ void Scene::Update()
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
 	std::shared_ptr<GameObject> obj{ std::make_shared<GameObject>(_reg, _audioFacade, _physicsWorld, _changeSceneEvent, _camera, transform) };
+	obj->transform->gameObject = obj;
 	_objects.push_back(obj);
 	return obj;
 }

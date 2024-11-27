@@ -9,7 +9,7 @@
 #include "Scenes/LayerScene.hpp"
 
 ValidationApp::ValidationApp()
-	: Application(64)
+	: Application(32)
 {
 	// Register Scenes
 	RegisterScene<MainMenuScene>("MainMenuScene");

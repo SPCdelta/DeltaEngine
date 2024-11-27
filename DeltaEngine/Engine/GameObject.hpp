@@ -97,6 +97,9 @@ public:
 		_layer = layer; 
 		_reg.GetComponent<Sprite>(_id).SetLayer(layer);
 	}
+	
+	void SetTag(const std::string& tag) { _tag = tag; }
+	const std::string& GetTag() const { return _tag; }
 
 	// Scene
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
@@ -110,6 +113,7 @@ private:
 	Physics::PhysicsWorld& _physicsWorld;
 	Events::EventDispatcher<const std::string&>& _changeScene;
 	Camera* _camera = nullptr;
+	std::string _tag;
 
 	Audio::AudioFacade& _audioFacade;
 
