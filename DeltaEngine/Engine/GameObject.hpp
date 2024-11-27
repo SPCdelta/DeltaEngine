@@ -29,14 +29,14 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T()));
+			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
 			component->gameObject = this;
 			component->camera = _camera;
 			return component;
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
+			T* component = static_cast<T*>(_reg.AddPointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)

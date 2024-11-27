@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
-    <ClCompile Include="src\Scripts\InputTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
+    <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
     <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
@@ -19,8 +21,8 @@
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
-    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
-    <ClInclude Include="src\Scripts\InputTest.hpp" />
+    <ClInclude Include="src\Scenes\FileScene.hpp" />
+    <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />
@@ -35,14 +37,14 @@
     <Image Include="Assets\Textures\spritesheet.png" />
     <Image Include="Assets\Textures\spritesheet2.png" />
     <Image Include="Assets\Textures\spritesheet3.png" />
-    <Image Include="Assets\Textures\stone_floor.png" />
-    <Image Include="Assets\Textures\wall.png" />
-    <Image Include="Assets\Textures\ice_floor.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Files\example.json" />
   </ItemGroup>
 </Project>
