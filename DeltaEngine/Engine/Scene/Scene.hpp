@@ -31,6 +31,7 @@ class Scene
 	{
 		_renderSystem->SetWindow(&window);
 		_renderSystem->SetViewportData(&window.GetViewport());
+		_camera->SetViewportData(&window.GetViewport());
 	}
 
 	void LoadScene(const std::string& name)
@@ -50,6 +51,7 @@ private:
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
 	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
+	Events::EventDispatcher<std::shared_ptr<GameObject>> _instantiateEvent{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 	Camera* _camera;

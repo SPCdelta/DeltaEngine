@@ -4,12 +4,15 @@
 
 #include "../Classes/FloorBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
+#include "Boomerang.hpp"
 
 class PlayerBehaviour : public BehaviourScript
 {
 public:
 	void OnStart() override;
 	void OnUpdate() override;
+
+	void ThrowBoomerang();
 
 	// Components
 	Sprite* sprite = nullptr;
@@ -20,6 +23,7 @@ private:
 	PlayerInput _playerInput{};
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
+	Math::Vector2 _mousePos{0.0f, 0.0f};
 
 	float _moveSpeed = 6.0f;
 	float _iceAcceleration = 2.0f;
