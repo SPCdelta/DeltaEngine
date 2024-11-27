@@ -91,11 +91,17 @@ public:
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
 
-	Layer GetLayer() const { return _layer; }
+	Layer GetLayer() const 
+	{  
+		if (_reg.HasComponent<Sprite>(_id))
+			return _reg.GetComponent<Sprite>(_id).GetLayer();
+		return Layer::Default;
+	}
+
 	void SetLayer(Layer layer) 
 	{ 
-		_layer = layer; 
-		_reg.GetComponent<Sprite>(_id).SetLayer(layer);
+		if (_reg.HasComponent<Sprite>(_id))
+			_reg.GetComponent<Sprite>(_id).SetLayer(layer);
 	}
 	
 	void SetTag(const std::string& tag) { _tag = tag; }
@@ -106,7 +112,6 @@ public:
 
 private:
 	bool _active{ true };
-	Layer _layer{Layer::Default};
 
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
