@@ -2,8 +2,8 @@
 
 using namespace Ui;
 
-Text::Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer)
-	: _text{text}, _size{size}, _x{x}, _y{y}, _color{color}, _renderer{renderer}
+Text::Text(const std::string& text, const std::string& path, const int size, const int x, const int y, const Rendering::Color& color)
+	: _text{text}, _size{size}, _x{x}, _y{y}, _color{color}
 {
 	_font = Font::OpenFont(path.c_str(), size);
 
@@ -18,7 +18,7 @@ Text::~Text()
 	unloadText();
 }
 
-void Text::renderText()
+void Text::Render()
 {
 	
 	if (_font == nullptr)

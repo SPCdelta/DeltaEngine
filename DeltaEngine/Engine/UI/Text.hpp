@@ -7,9 +7,9 @@ namespace Ui
 	class Text
 	{
 	   public:
-			Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer);
+			Text(const std::string& text, const std::string& path, const int size, const int x, const int y, const Rendering::Color& color);
 			~Text();
-			void renderText();
+			void Render();
 			void unloadText();
 	   private:
 			std::string _text;
@@ -17,7 +17,6 @@ namespace Ui
 			int _size;
 			int _x, _y;
 			Rendering::Color _color;
-			Rendering::Renderer* _renderer;
 	};
 }
 

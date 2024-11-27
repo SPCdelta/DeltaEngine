@@ -2,18 +2,18 @@
 
 #include "../Ecs/Registry.hpp"
 
+#include "../UI/Text.hpp"
 #include "../Window.hpp"
-#include "../UI/Image.hpp"
+#include "../Transform.hpp"
 
-class ImageRenderSystem : public ecs::System<Transform, Ui::Image>
+class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 {
-public:
-	ImageRenderSystem(ecs::View<Transform, Ui::Image> view)
-	 : ecs::System<Transform, Ui::Image>(view),
+   public:
+	TextRenderSystem(ecs::View<Transform, Ui::Text> view)
+		: ecs::System<Transform, Ui::Text>(view),
 		  _window(nullptr),
 		  _viewportData(nullptr)
 	{
-
 	}
 
 	void SetWindow(Window* window) { _window = window; }
@@ -27,14 +27,14 @@ public:
 	{
 		for (ecs::EntityId entityId : _view)
 		{
-			Ui::Image& image = _view.get<Ui::Image>(entityId);
+			Ui::Text& text = _view.get<Ui::Text>(entityId);
 			Transform& transform = _view.get<Transform>(entityId);
-			image.SetColor(image.GetColor());
-			image.Render(_window->GetRenderer(), *_viewportData, transform);
+			text.SetColor(text.GetColor());
+			text.Render(_window->GetRenderer(), *_viewportData, transform);
 		}
 	}
 
-private:
+   private:
 	Window* _window;
 	ViewportData* _viewportData;
 };

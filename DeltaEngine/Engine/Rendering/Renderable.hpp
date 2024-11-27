@@ -16,7 +16,7 @@ class Renderable
 {
 public:
 	Renderable(const char* spritePath);
-	Renderable(const char*, std::shared_ptr<SpriteSheet> sheet);
+	Renderable(const char* spritePath, std::shared_ptr<SpriteSheet> sheet);
 	
 	~Renderable();
 
