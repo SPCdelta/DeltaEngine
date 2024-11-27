@@ -33,6 +33,7 @@ public:
 			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
 			component->gameObject = this;
 			component->camera = _camera;
+			component->OnStart();
 			return component;
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)

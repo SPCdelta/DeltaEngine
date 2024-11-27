@@ -23,7 +23,8 @@ private:
 	PlayerInput _playerInput{};
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
-	Math::Vector2 _mousePos{0.0f, 0.0f};
+	int _mouseX = 0;
+	int _mouseY = 0;
 
 	float _moveSpeed = 6.0f;
 	float _iceAcceleration = 2.0f;

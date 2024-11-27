@@ -11,7 +11,8 @@ void PlayerBehaviour::OnStart()
 	InputManager::onMouseMove(
 		[this](Input& e) 
 		{ 
-			_mousePos.Set(e.mouseX, e.mouseY);
+			_mouseX = e.mouseX;
+			_mouseY = e.mouseY;
 		}
 	);
 }
@@ -77,6 +78,7 @@ void PlayerBehaviour::ThrowBoomerang()
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();
 
-	Math::Vector2 direction{0.0f, 0.0f};
-	boomerang->Throw(gameObject, 5.0f, direction);
+	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};
+	Math::Vector2 throwDirection = (mouseWorldPos - gameObject->transform->position).GetNormalized();
+	boomerang->Throw(gameObject, 5.0f, gameObject->transform->position, throwDirection);
 }
