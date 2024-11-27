@@ -51,7 +51,7 @@ public:
 			return layerA < layerB; // Lower layers render first
 		});
 
-		for (ecs::EntityId entityId : _view)
+		for (ecs::EntityId entityId : entities)
 		{
 			Transform& transform = _view.get<Transform>(entityId);
 			Sprite& sprite = _view.get<Sprite>(entityId);
