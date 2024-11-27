@@ -9,7 +9,7 @@
 
 
 ValidationApp::ValidationApp()
-	: Application(64)
+	: Application(32)
 {
 	// Register Scenes
 	RegisterScene<MainMenuScene>("MainMenuScene");
@@ -21,7 +21,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<Scene2>("Scene2");
 
 	// Load Desired Scene
-	LoadScene("FileScene");
+	LoadScene("GameScene");
 
 	// Start Application
 	Run();
