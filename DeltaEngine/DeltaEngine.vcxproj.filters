@@ -26,6 +26,7 @@
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="Engine\Rendering\Renderable.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
+    <ClCompile Include="Engine\UI\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="Engine\Rendering\Renderable.hpp" />
     <ClInclude Include="Engine\Systems\ImageRenderSystem.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
+    <ClInclude Include="Engine\Systems\TextRenderSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

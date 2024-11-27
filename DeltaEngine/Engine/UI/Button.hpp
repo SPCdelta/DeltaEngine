@@ -1,28 +1,22 @@
 #pragma once
 
-#include "../Core/Events/EventDispatcher.hpp"
+#include "../Core/Math/Vector2.hpp"
+#include "../Core/Math/Point.hpp"
+#include "../Input/DeltaInputs.hpp"
+#include "../Input/InputManager.hpp"
 
-struct MyEvent
+using namespace Math;
+
+namespace Ui
 {
-
-};
-
 class Button
 {
-public:
-	Events::EventDispatcher<MyEvent> onClick{};
+   public:
+	Button(const Vector2& position, const Vector2& scale) : _position{position}, _scale{scale} {}
+	void SetOnLeftMouseClick(void (*func)());
 
-	void Test()
-	{ 
-		MyEvent e{};
-		onClick.Dispatch(e);
-
-		// Dit moet dan in BehaviourScript implementatie om de klik af te vangen
-		onClick.Register(
-			[this](MyEvent& e) 
-			{ 
-				
-			}
-		);
-	}
+   private:
+	Vector2 _position;
+	Vector2 _scale;
 };
+}  // namespace Ui

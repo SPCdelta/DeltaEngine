@@ -23,6 +23,7 @@
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
     <ClInclude Include="src\Scenes\UIScene.hpp" />
+    <ClInclude Include="src\Scripts\UIScript.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />
@@ -45,5 +46,8 @@
     <CopyFileToFolders Include="DLLs\SDL2_image.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_mixer.dll" />
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\knight_warrior.otf" />
   </ItemGroup>
 </Project>

@@ -12,11 +12,12 @@
 #include "Audio/MusicSource.hpp"
 #include "Audio/SFXSource.hpp"
 
+#include "UI/Button.hpp"
+
 #include "Core/Events/EventDispatcher.hpp"
 
 //#include "BehaviourScript.hpp"
 class BehaviourScript;
-
 
 #include "Physics/Collider.hpp"
 #include "Physics/Rigidbody.hpp"
@@ -53,6 +54,11 @@ public:
 			T* component = static_cast<T*>(_AddComponent<Audio::MusicSource>(Audio::MusicSource("", false, _audioFacade, false)));
 			return component;
 		}
+		else if constexpr (std::is_same_v<T, Ui::Button>)
+		{
+			T* component = static_cast<T*>(_AddComponent<Ui::Button>(Ui::Button(transform->position, transform->scale)));
+			return component;
+		}
 		else
 		{
 			return static_cast<T*>(_AddComponent<T>(T(std::forward<Args>(args)...)));
@@ -70,8 +76,6 @@ public:
 	{
 		return _reg.GetComponent<T>(_id);
 	}
-
-	Audio::AudioFacade& GetAudioFacade() const { return _audioFacade; }
 
 	ecs::EntityId GetId() const
 	{ 

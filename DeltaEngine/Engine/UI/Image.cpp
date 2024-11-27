@@ -11,8 +11,7 @@ void Image::Render(Rendering::Renderer* renderer,
 		Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
 		if (!texture)
 		{
-			std::cerr << "Failed to load texture: " << Rendering::GetError()
-					  << std::endl;
+			std::cerr << "Failed to load texture: " << Rendering::GetError() << '\n';
 			return;
 		}
 		_texture = texture;

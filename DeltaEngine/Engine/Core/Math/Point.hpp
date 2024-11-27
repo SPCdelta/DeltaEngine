@@ -6,17 +6,18 @@ namespace Math
 	{
 	public:
 		Point() = default;
+		Point(float x, float y);
 		Point(int x, int y);
-		int GetX() const;
-		int GetY() const;
-		void SetX(int x);
-		void SetY(int y);
-		void Set(int x, int y);
+		float GetX() const;
+		float GetY() const;
+		void SetX(float x);
+		void SetY(float y);
+		void Set(float x, float y);
 		float DistanceTo(const Point& other) const;
 		bool operator==(const Point& other) const;
 		bool operator!=(const Point& other) const;
 	private:
-		int _x;
-		int _y;
+		float _x;
+		float _y;
 	};
 }

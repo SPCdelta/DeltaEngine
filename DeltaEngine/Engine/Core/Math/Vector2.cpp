@@ -3,10 +3,11 @@
 
 using namespace Math;
 
-const Math::Vector2 Math::Vector2::up(0.0f, 1.0f);
-const Math::Vector2 Math::Vector2::right(1.0f, 0.0f);
+const Vector2 Vector2::up(0.0f, 1.0f);
+const Vector2 Vector2::right(1.0f, 0.0f);
 
 Vector2::Vector2(float x, float y) : _x{x}, _y{y} {}
+Vector2::Vector2(int x, int y) : _x{ static_cast<float>(x) }, _y{ static_cast<float>(y) } {}
 
 float Vector2::GetX() const
 {
@@ -76,6 +77,12 @@ Vector2 Vector2::Min(const Vector2& v1, const Vector2& v2)
 	float minX = (v1._x < v2._x) ? v1._x : v2._x;
 	float minY = (v1._y < v2._y) ? v1._y : v2._y;
 	return Vector2(minX, minY);
+}
+
+bool Vector2::IsPointWithinRect(const Point& point, const Vector2& position, const Vector2& scale)
+{
+	return (point.GetX() >= position.GetX() && point.GetX() <= position.GetX() + scale.GetX()) &&
+		(point.GetY() >= position.GetY() && point.GetY() <= position.GetY() + scale.GetY());
 }
 
 Vector2 Vector2::GetNormalized() const

@@ -4,6 +4,7 @@
 
 #include "../Window.hpp"
 #include "../UI/Image.hpp"
+#include "../UI/Text.hpp"
 
 class ImageRenderSystem : public ecs::System<Transform, Ui::Image>
 {

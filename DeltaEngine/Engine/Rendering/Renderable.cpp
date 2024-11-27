@@ -1,12 +1,10 @@
 #include "Renderable.hpp"
 
-Renderable::Renderable(const char* spritePath)
-	: sprite{spritePath}, _texture{nullptr}, _animator{nullptr}, _sheet{nullptr}
+Renderable::Renderable(const char* spritePath) : sprite{spritePath}, _texture{nullptr}, _animator{nullptr}, _sheet{nullptr}
 {
 }
 
-Renderable::Renderable(const char* spritePath,
-					   std::shared_ptr<SpriteSheet> sheet = nullptr)
+Renderable::Renderable(const char* spritePath, std::shared_ptr<SpriteSheet> sheet = nullptr)
 	: sprite(spritePath), _texture(nullptr), _animator(nullptr)
 {
 	_animator = std::make_shared<Animator>();

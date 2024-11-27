@@ -9,18 +9,22 @@
 class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 {
    public:
-	TextRenderSystem(ecs::View<Transform, Ui::Text> view)
-		: ecs::System<Transform, Ui::Text>(view),
-		  _window(nullptr),
-		  _viewportData(nullptr)
-	{
-	}
+	TextRenderSystem(ecs::View<Transform, Ui::Text> view) : ecs::System<Transform, Ui::Text>(view), _window(nullptr),
+		  _viewportData(nullptr) {}
 
 	void SetWindow(Window* window) { _window = window; }
 
-	void SetViewportData(ViewportData* viewportData)
+	void SetViewportData(ViewportData* viewportData) { _viewportData = viewportData; }
+
+	void OnStart()
 	{
-		_viewportData = viewportData;
+		for (ecs::EntityId entityId : _view)
+		{
+			Ui::Text& text = _view.get<Ui::Text>(entityId);
+			Transform& transform = _view.get<Transform>(entityId);
+			text.SetFontSize(transform.scale.Magnitude()); // Set font size here so we don't continuously keep changing the size.
+			text.Render(_window->GetRenderer(), transform);
+		}
 	}
 
 	void Update()
@@ -29,8 +33,7 @@ class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 		{
 			Ui::Text& text = _view.get<Ui::Text>(entityId);
 			Transform& transform = _view.get<Transform>(entityId);
-			text.SetColor(text.GetColor());
-			text.Render(_window->GetRenderer(), *_viewportData, transform);
+			text.Render(_window->GetRenderer(), transform);
 		}
 	}
 

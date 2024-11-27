@@ -196,6 +196,7 @@
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\UIScript.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Scenes\UIScene.hpp" />
   </ItemGroup>
@@ -276,6 +277,11 @@
     <Media Include="Assets\Audio\SFX\villager1.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\knight_warrior.otf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Font>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

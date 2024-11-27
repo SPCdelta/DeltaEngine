@@ -153,9 +153,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\Libraries\box2d-3.0.0\include;..\Libraries\SDL2_ttf-2.22.0\include;..\Libraries\SDL2_mixer-2.8.0\include;..\Libraries\SDL2_image-2.8.2\include;..\Libraries\SDL2-2.30.7\include;..\Libraries\box2d-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Libraries\box2d-3.0.0\include;..\Libraries\SDL2_ttf-2.22.0\include;..\Libraries\SDL2_mixer-2.8.0\include;..\Libraries\SDL2_image-2.8.2\include;..\Libraries\SDL2-2.30.7\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -208,6 +212,7 @@
     <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\SpriteSheet.cpp" />
+    <ClCompile Include="Engine\UI\Button.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
@@ -256,6 +261,7 @@
     <ClInclude Include="Engine\Systems\ImageRenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />
+    <ClInclude Include="Engine\Systems\TextRenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
     <ClInclude Include="Engine\Temp\TempAudio.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
