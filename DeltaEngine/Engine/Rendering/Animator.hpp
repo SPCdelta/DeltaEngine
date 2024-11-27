@@ -10,12 +10,12 @@
 class Animator
 {
 public:
-	void Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int viewportHeight, Direction direc);
+	void Play(std::shared_ptr<SpriteSheet> sheet, Direction direc);
 
-	void MoveUp(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet);
-	void MoveDown(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet);
-	void MoveLeft(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet);
-	void MoveRight(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet);
+	void MoveUp(std::shared_ptr<SpriteSheet> sheet);
+	void MoveDown(std::shared_ptr<SpriteSheet> sheet);
+	void MoveLeft(std::shared_ptr<SpriteSheet> sheet);
+	void MoveRight(std::shared_ptr<SpriteSheet> sheet);
 
 	void StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<SpriteSheet> sheet);
 

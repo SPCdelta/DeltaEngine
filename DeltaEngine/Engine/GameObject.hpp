@@ -6,6 +6,8 @@
 #include "Ecs/Registry.hpp"
 #include "Transform.hpp"
 #include "Rendering/Camera.hpp"
+#include "Rendering/Sprite.hpp"
+#include "Rendering/Layer.hpp"
 
 #include "Audio/AudioFacade.hpp"
 #include "Audio/AudioSource.hpp"
@@ -16,7 +18,6 @@
 
 //#include "BehaviourScript.hpp"
 class BehaviourScript;
-
 
 #include "Physics/Collider.hpp"
 #include "Physics/Rigidbody.hpp"
@@ -71,6 +72,12 @@ public:
 		return _reg.GetComponent<T>(_id);
 	}
 
+	template<typename T>
+	bool HasComponent()
+	{
+		return _reg.HasComponent<T>(_id);
+	}
+
 	Audio::AudioFacade& GetAudioFacade() const { return _audioFacade; }
 
 	ecs::EntityId GetId() const
@@ -90,6 +97,19 @@ public:
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
 
+	Layer GetLayer() const 
+	{  
+		if (_reg.HasComponent<Sprite>(_id))
+			return _reg.GetComponent<Sprite>(_id).GetLayer();
+		return Layer::Default;
+	}
+
+	void SetLayer(Layer layer) 
+	{ 
+		if (_reg.HasComponent<Sprite>(_id))
+			_reg.GetComponent<Sprite>(_id).SetLayer(layer);
+	}
+	
 	void SetTag(const std::string& tag) { _tag = tag; }
 	const std::string& GetTag() const { return _tag; }
 
@@ -114,4 +134,3 @@ private:
 		return &_reg.AddComponent<T>(_id, std::move(component)); 
 	}
 };
-

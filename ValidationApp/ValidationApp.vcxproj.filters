@@ -23,6 +23,7 @@
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
+    <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
   </ItemGroup>
