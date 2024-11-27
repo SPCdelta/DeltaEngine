@@ -72,6 +72,12 @@ public:
 		return _reg.GetComponent<T>(_id);
 	}
 
+	template<typename T>
+	bool HasComponent()
+	{
+		return _reg.HasComponent<T>(_id);
+	}
+
 	Audio::AudioFacade& GetAudioFacade() const { return _audioFacade; }
 
 	ecs::EntityId GetId() const
