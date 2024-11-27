@@ -17,7 +17,7 @@ public:
 
 private:
 	FloorBehaviour* _floorBehaviour = nullptr;
-	PlayerInput _playerInput{};
+	PlayerInput _playerInput{ this };
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
 
