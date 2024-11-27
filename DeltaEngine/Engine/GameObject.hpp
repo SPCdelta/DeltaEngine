@@ -6,6 +6,8 @@
 #include "Ecs/Registry.hpp"
 #include "Transform.hpp"
 #include "Rendering/Camera.hpp"
+#include "Rendering/Sprite.hpp"
+#include "Rendering/Layer.hpp"
 
 #include "Audio/AudioFacade.hpp"
 #include "Audio/AudioSource.hpp"
@@ -16,7 +18,6 @@
 
 //#include "BehaviourScript.hpp"
 class BehaviourScript;
-
 
 #include "Physics/Collider.hpp"
 #include "Physics/Rigidbody.hpp"
@@ -90,11 +91,19 @@ public:
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
 
+	Layer GetLayer() const { return _layer; }
+	void SetLayer(Layer layer) 
+	{ 
+		_layer = layer; 
+		_reg.GetComponent<Sprite>(_id).SetLayer(layer);
+	}
+
 	// Scene
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
 
 private:
 	bool _active{ true };
+	Layer _layer{Layer::Default};
 
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
@@ -110,4 +119,3 @@ private:
 		return &_reg.AddComponent<T>(_id, std::move(component)); 
 	}
 };
-

@@ -27,6 +27,8 @@ class Scene
 	friend class Application;
 
 	const std::string& const GetName() const;
+
+	Window* GetWindow() { return _renderSystem->GetWindow(); }
 	void SetWindow(Window& window)
 	{
 		_renderSystem->SetWindow(&window);
@@ -42,7 +44,6 @@ class Scene
 	void Update();
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
-
 
 private:
 	Audio::AudioFacade _audioFacade{};

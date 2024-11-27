@@ -13,7 +13,7 @@ Scene::Scene(const std::string& name)
 }
 
 void Scene::Start()
-{
+{ // TODO
 	_updateSystem->OnStart();
 	_renderSystem->OnStart();
 }

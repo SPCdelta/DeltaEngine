@@ -187,6 +187,7 @@
   <ItemGroup>
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
+    <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\WalkBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
   </ItemGroup>
   <ItemGroup>

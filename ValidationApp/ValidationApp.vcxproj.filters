@@ -23,6 +23,8 @@
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
+    <ClInclude Include="src\Scenes\LayerScene.hpp" />
+    <ClInclude Include="src\Scripts\WalkBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />

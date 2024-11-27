@@ -28,13 +28,13 @@ void Animator::Play(Math::Vector2* pos, std::shared_ptr<SpriteSheet> sheet, int 
 
 	if (!sheet->GetIsAttacking() && currentTime - sheet->GetLastMoveTime() >= sheet->GetMoveInterval())
 	{
-		if (direc == Direction::UP && pos->GetY() < viewportHeight - sheet->GetDestRect().h) // up 
+		if (direc == Direction::UP && pos->GetY() < 1280 - sheet->GetDestRect().h) // up 
 			MoveUp(pos, sheet);
 		else if (direc == Direction::LEFT && pos->GetX() > 0)  // left
 			MoveLeft(pos, sheet);
 		else if (direc == Direction::DOWN && pos->GetY() > 0)  // down
 			MoveDown(pos, sheet);
-		else if (direc == Direction::RIGHT && pos->GetX() < viewportHeight - sheet->GetDestRect().w) // right
+		else if (direc == Direction::RIGHT && pos->GetX() < 1280 - sheet->GetDestRect().w) // right
 			MoveRight(pos, sheet);
 		else
 			isMoving = false;
