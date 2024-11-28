@@ -17,6 +17,7 @@
     <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Scripts\Boomerang.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -42,6 +43,11 @@
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
     <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\Scenes\LayerScene.hpp" />
+    <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Scripts\Boomerang.hpp" />
+    <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />
@@ -59,6 +65,7 @@
     <Image Include="Assets\Textures\ice_floor.png" />
     <Image Include="Assets\Textures\stone_floor.png" />
     <Image Include="Assets\Textures\wall.png" />
+    <Image Include="Assets\Textures\mud_floor.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

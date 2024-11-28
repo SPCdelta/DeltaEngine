@@ -18,7 +18,7 @@ namespace Physics
 	{
 	public:
 		Collider(const PhysicsWorld& world, Transform& transform, ShapeType type)
-			: _transform{ transform }
+			: transform{ transform }
 		{
 			_physicsBody = Physics::DefaultBody();
 			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
@@ -61,6 +61,7 @@ namespace Physics
 			return _isTrigger;
 		}
 
+		Transform& transform;
 	private:
 		PhysicsBody _physicsBody; // _b2bodyDef
 		PhysicsId _bodyId; // _b2bodyId
@@ -68,7 +69,6 @@ namespace Physics
 		PhysicsShape _shape;
 		Events::EventDispatcher<const PhysicsShape&> _onShapeChanged{};
 		bool _isTrigger{ false };
-		Transform& _transform;
 
 		void CallOnShapeChanged()
 		{

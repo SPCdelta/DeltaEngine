@@ -10,10 +10,12 @@ Scene::Scene(const std::string& name)
 	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(_camera);
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
+
+	
 }
 
 void Scene::Start()
-{
+{ 
 	_updateSystem->OnStart();
 	_renderSystem->OnStart();
 }
@@ -35,7 +37,17 @@ void Scene::Update()
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
 	std::shared_ptr<GameObject> obj{ std::make_shared<GameObject>(_reg, _audioFacade, _physicsWorld, _changeSceneEvent, _camera, transform) };
+	obj->transform->gameObject = obj;
 	_objects.push_back(obj);
+
+	// Allow Instantiation
+	obj->_instantiatePromise.Register(
+		[this](std::shared_ptr<GameObject>& e)
+		{ 
+			e = Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+		}
+	);
+
 	return obj;
 }
 

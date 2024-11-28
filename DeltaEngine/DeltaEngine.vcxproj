@@ -248,6 +248,7 @@
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Camera.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
+    <ClInclude Include="Engine\Rendering\Layer.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />

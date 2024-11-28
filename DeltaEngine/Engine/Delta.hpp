@@ -6,6 +6,7 @@
 #include "BehaviourScript.hpp"
 
 #include "Core/Files/FileManager.hpp"
+#include "Rendering/Layer.hpp"
 
 #include "Scene/Scene.hpp"
 #include "Input/DeltaInputs.hpp"
