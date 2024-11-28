@@ -23,10 +23,10 @@ public:
 
 	void OnStart()
 	{
-		for (ecs::EntityId entityId : _view)
-		{
-			_view.get<BehaviourScript*>(entityId)->OnStart();
-		}
+		//for (ecs::EntityId entityId : _view)
+		//{
+		//	_view.get<BehaviourScript*>(entityId)->OnStart();
+		//}
 	}
 
 	void Update()

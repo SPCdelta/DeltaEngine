@@ -98,6 +98,11 @@ Vector2 Vector2::operator-(const Vector2& other) const
 	return Vector2(_x - other._x, _y - other._y);
 }
 
+Vector2 Vector2::operator-(float other) const
+{
+	return Vector2(_x - other, _y - other);
+}
+
 Vector2 Math::Vector2::operator-() const
 {
 	return Vector2(-_x, -_y);

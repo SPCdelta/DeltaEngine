@@ -44,8 +44,10 @@ GameScene::GameScene(const std::string& name)
 			}
 			else
 			{
-				obj->AddComponent<Sprite>("Assets\\Textures\\stone_floor.png");
+				//obj->AddComponent<Sprite>("Assets\\Textures\\stone_floor.png");
 			}
 		}
 	}
+
+	Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}})->AddComponent<MouseFollowBehaviour>();
 }
