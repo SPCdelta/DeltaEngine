@@ -6,10 +6,15 @@ void PlayerBehaviour::OnStart()
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
+	_damageBehaviour = new DamageBehaviour(*rigidbody);
 }
 
 void PlayerBehaviour::OnUpdate() 
 {
+	// TODO iframes
+	/*float deltaTime = GetDeltaTime();
+	_damageBehaviour->Update(deltaTime);*/
+
 	_moveDirection = _playerInput.GetDirection();
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
@@ -50,8 +55,7 @@ void PlayerBehaviour::OnUpdate()
 		switch (_onFloor)
 		{
 			case FloorType::NORMAL:
-				rigidbody->AddForce(-currentVelocity * 10.0f,
-									ForceMode::ACCELERATE);
+				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
 			case FloorType::ICE:
 				rigidbody->AddForce(-currentVelocity * 1.0f,
@@ -61,6 +65,12 @@ void PlayerBehaviour::OnUpdate()
 				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
 		}
+	}
+
+	if (_damageBehaviour->GetDamage() != 0)
+	{
+		// TODO take damage
+		std::cout << "ouch * " << _damageBehaviour->GetDamage() << std::endl;
 	}
 
 	if (sprite && sprite->GetAnimator())

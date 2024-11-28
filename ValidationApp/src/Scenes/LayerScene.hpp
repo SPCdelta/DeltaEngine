@@ -18,14 +18,16 @@ class LayerScene : public Scene
 
 		playerObject->AddComponent<PlayerBehaviour>();
 		
-		std::shared_ptr<GameObject> skeletonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
-		skeletonObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet2.png");
+		std::shared_ptr<GameObject> hurtfulObject{Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}})};
+		hurtfulObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet2.png");
+		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
+		hurtfulObject->SetTag("ouch");
 
 		std::shared_ptr<GameObject> pokemonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
 		pokemonObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
 
 		pokemonObject->SetLayer(Layer::Foreground);
-		skeletonObject->SetLayer(Layer::Default);
+		hurtfulObject->SetLayer(Layer::Default);
 		playerObject->SetLayer(Layer::Background);	
 	}
 };
