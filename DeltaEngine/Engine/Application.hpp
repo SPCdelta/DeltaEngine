@@ -23,6 +23,8 @@
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
 
+#include "Core/Time.hpp"
+
 class Application
 {
 public:
