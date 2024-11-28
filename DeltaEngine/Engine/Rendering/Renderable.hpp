@@ -7,7 +7,7 @@
 #include "SpriteSheet.hpp"
 #include "Viewport.hpp"
 #include "Camera.hpp"
-
+#include "Layer.hpp"
 #include <iostream>
 
 #include <string>
@@ -28,11 +28,16 @@ public:
 
 	void StopRendering();
 
+	const char* GetPath() const { return sprite; }
+
 	Rendering::Color GetColor() const;
 	void SetColor(Rendering::Color newColor);
 
 	void SetFlipX(bool flip) { flipX = flip; };
 	void SetFlipY(bool flip) { flipY = flip; };
+
+	Layer GetLayer() const { return _layer; };
+	void SetLayer(Layer layer) { _layer = layer; };
 
 	std::shared_ptr<Animator> GetAnimator() const { return _animator; }
 	std::shared_ptr<SpriteSheet> GetSheet() const { return _sheet; }
@@ -49,6 +54,5 @@ protected:
 	bool flipX{false};
 	bool flipY{false};
 
- /*sortingLayer;
-	orderInLayer;*/ // TODO wait for layer
+	Layer _layer{ Layer::Default };
 };

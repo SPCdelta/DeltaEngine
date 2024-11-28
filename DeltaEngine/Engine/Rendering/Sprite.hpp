@@ -12,7 +12,4 @@ public:
 	{ }
 
 	void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform);
-
-private:
-	Layer _layer{Layer::Default};
 };
