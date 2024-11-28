@@ -40,8 +40,15 @@ Application::~Application()
 
 void Application::Run()
 {
+	Uint32 previousTime = Rendering::GetTicks();
+	
+
 	while (!_window.ShouldWindowClose())
 	{
+		Uint32 currentTime = Rendering::GetTicks();
+		Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.0f));
+		previousTime = currentTime;
+
 		Rendering::RenderClear(_window.GetRenderer());
 		_window.RenderViewport(255, 255, 255, 255);
 
