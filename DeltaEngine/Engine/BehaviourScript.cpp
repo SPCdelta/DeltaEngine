@@ -36,14 +36,14 @@ void BehaviourScript::onKeyReleased(Key keyUp,
 }
 
 void BehaviourScript::onMouseButtonDown(
-	Button button, Events::EventCallback<Input&> buttonEvent,
+	MouseButton button, Events::EventCallback<Input&> buttonEvent,
 	std::string category)
 {
 	registerdInputs.push_back(
 		InputManager::onMouseButtonDown(button, buttonEvent, category));
 }
 
-void BehaviourScript::onMouseButtonUp(Button button,
+void BehaviourScript::onMouseButtonUp(MouseButton button,
 									  Events::EventCallback<Input&> buttonEvent,
 									  std::string category)
 {

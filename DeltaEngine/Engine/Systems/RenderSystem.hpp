@@ -30,9 +30,6 @@ public:
 
 	void Update()
 	{
-		Rendering::RenderClear(_window->GetRenderer());
-		/*_window->RenderViewport(255, 255, 255, 255);*/
-
 		// Collect entities and sort by layer
 		std::vector<ecs::EntityId> entities(_view.begin(), _view.end());
 		std::sort(entities.begin(), entities.end(), [this](ecs::EntityId a, ecs::EntityId b) 
@@ -50,8 +47,6 @@ public:
 			// Render the sprite associated with this entity
 			sprite.Render(_window->GetRenderer(), *_viewportData, _camera, transform);
 		}
-
-		Rendering::RenderPresent(_window->GetRenderer());
 	}
 
 private:
