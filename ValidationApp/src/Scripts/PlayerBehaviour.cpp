@@ -7,8 +7,8 @@ void PlayerBehaviour::OnStart()
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 
-	InputManager::onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
-	InputManager::onMouseMove(
+	onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
+	onMouseMove(
 		[this](Input& e) 
 		{ 
 			_mouseX = e.mouseX;
