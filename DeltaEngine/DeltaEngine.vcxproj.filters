@@ -86,6 +86,12 @@
     <ClInclude Include="Engine\Systems\ImageRenderSystem.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
     <ClInclude Include="Engine\Systems\TextRenderSystem.hpp" />
+    <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileHandlerFactory.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileManager.hpp" />
+    <ClInclude Include="Engine\Core\Files\IFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\Json.hpp" />
+    <ClInclude Include="Engine\Rendering\Layer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

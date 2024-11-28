@@ -6,6 +6,8 @@
 #include "Ecs/Registry.hpp"
 #include "Transform.hpp"
 #include "Rendering/Camera.hpp"
+#include "Rendering/Sprite.hpp"
+#include "Rendering/Layer.hpp"
 
 #include "Audio/AudioFacade.hpp"
 #include "Audio/AudioSource.hpp"
@@ -17,6 +19,7 @@
 #include "Core/Events/EventDispatcher.hpp"
 
 //#include "BehaviourScript.hpp"
+class Scene;
 class BehaviourScript;
 
 #include "Physics/Collider.hpp"
@@ -33,6 +36,7 @@ public:
 			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
 			component->gameObject = this;
 			component->camera = _camera;
+			component->OnStart();
 			return component;
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
@@ -77,25 +81,59 @@ public:
 		return _reg.GetComponent<T>(_id);
 	}
 
+	template<typename T>
+	bool HasComponent()
+	{
+		return _reg.HasComponent<T>(_id);
+	}
+
 	ecs::EntityId GetId() const
 	{ 
 		return _id;
 	}
 
 	GameObject(ecs::Registry& reg, Audio::AudioFacade& audioFacade,
-			   Physics::PhysicsWorld& physicsWorld,
-			   Events::EventDispatcher<const std::string&>& changeScene,
-			   Camera* camera, 
-			   Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+				Physics::PhysicsWorld& physicsWorld,
+				Events::EventDispatcher<const std::string&>& changeScene,
+				Camera* camera, 
+				Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
 	~GameObject();
+
+	friend class Scene;
 
 	Transform* transform = nullptr;
 
 	bool IsActive() const { return _active; }
 	bool SetActive(bool active) { _active = active; }
 
-	// Scene
+	Layer GetLayer() const 
+	{  
+		if (_reg.HasComponent<Sprite>(_id))
+			return _reg.GetComponent<Sprite>(_id).GetLayer();
+		return Layer::Default;
+	}
+
+	void SetLayer(Layer layer) 
+	{ 
+		if (_reg.HasComponent<Sprite>(_id))
+			_reg.GetComponent<Sprite>(_id).SetLayer(layer);
+	}
+	
+	void SetTag(const std::string& tag) { _tag = tag; }
+	const std::string& GetTag() const { return _tag; }
+
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
+	std::shared_ptr<GameObject> Instantiate()
+	{
+		std::shared_ptr<GameObject> result;
+		_instantiatePromise.Dispatch(result);
+		return result;
+	};
+
+	Camera* GetCamera()
+	{ 
+		return _camera;
+	}
 
 private:
 	bool _active{ true };
@@ -104,7 +142,9 @@ private:
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
 	Events::EventDispatcher<const std::string&>& _changeScene;
+	Events::EventDispatcher<std::shared_ptr<GameObject>&> _instantiatePromise{};
 	Camera* _camera = nullptr;
+	std::string _tag;
 
 	Audio::AudioFacade& _audioFacade;
 
@@ -114,4 +154,3 @@ private:
 		return &_reg.AddComponent<T>(_id, std::move(component)); 
 	}
 };
-

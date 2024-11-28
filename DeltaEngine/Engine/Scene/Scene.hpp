@@ -30,6 +30,8 @@ class Scene
 	friend class Application;
 
 	const std::string& const GetName() const;
+
+	Window* GetWindow() { return _renderSystem->GetWindow(); }
 	void SetWindow(Window& window)
 	{
 		_renderSystem->SetWindow(&window);
@@ -37,6 +39,7 @@ class Scene
 		_imageRenderSystem->SetWindow(&window);
 		_imageRenderSystem->SetViewportData(&window.GetViewport());
 		_textRenderSystem->SetWindow(&window);
+		_camera->SetViewportData(&window.GetViewport());
 	}
 
 	void LoadScene(const std::string& name)
@@ -49,13 +52,13 @@ class Scene
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
-
 private:
 	Audio::AudioFacade _audioFacade{};
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
 	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
+	Events::EventDispatcher<std::shared_ptr<GameObject>> _instantiateEvent{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 	Camera* _camera;

@@ -24,9 +24,9 @@ Application::Application(int unitPixelSize)
 	}
 
 	ChangeScene.Register([this](const std::string& sceneName) 
-		{ 
-			LoadScene(sceneName); 
-		});
+	{ 
+		LoadScene(sceneName); 
+	});
 
 	//_window.SetViewportSize(400, 400);
 	//_window.SetViewportPos(100, 50);

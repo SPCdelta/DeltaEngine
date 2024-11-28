@@ -229,6 +229,11 @@
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
     <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
+    <ClInclude Include="Engine\Core\Files\IFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\Json.hpp" />
+    <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileHandlerFactory.hpp" />
+    <ClInclude Include="Engine\Core\Files\FileManager.hpp" />
     <ClInclude Include="Engine\Core\Math\Point.hpp" />
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
@@ -250,6 +255,7 @@
     <ClInclude Include="Engine\Rendering\Camera.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Renderable.hpp" />
+    <ClInclude Include="Engine\Rendering\Layer.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />

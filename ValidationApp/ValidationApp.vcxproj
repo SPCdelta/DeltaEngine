@@ -176,22 +176,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="src\Scripts\Boomerang.cpp" />
+    <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
+    <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Scenes\FileScene.hpp" />
+    <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
-    <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
+    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
     <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
+    <ClInclude Include="src\Scripts\Boomerang.hpp" />
+    <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
@@ -207,6 +214,13 @@
   <ItemGroup>
     <Image Include="Assets\Textures\default_texture.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    <Image Include="Assets\Textures\ice_floor.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\mud_floor.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\player.png">
       <DeploymentContent>true</DeploymentContent>
@@ -222,6 +236,11 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\square.png">
+    <Image Include="Assets\Textures\stone_floor.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\wall.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
@@ -281,6 +300,7 @@
     <Font Include="Assets\Fonts\knight_warrior.otf">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Font>
+    <None Include="Assets\Files\example.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

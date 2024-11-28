@@ -32,8 +32,8 @@ namespace Physics
 				// Sync Visually*
 				{
 					Math::Vector2 position = Physics::GetPosition(rb.GetCollider()._bodyId);
-					rb.GetCollider()._transform.position.SetX(position.GetX());
-					rb.GetCollider()._transform.position.SetY(position.GetY());
+					rb.GetCollider().transform.position.SetX(position.GetX());
+					rb.GetCollider().transform.position.SetY(position.GetY());
 				}
 				
 				// Check for Trigger Collision

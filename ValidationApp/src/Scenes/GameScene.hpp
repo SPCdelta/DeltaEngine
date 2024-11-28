@@ -4,6 +4,7 @@
 
 #include "../Scripts/PlayerBehaviour.hpp"
 #include "../Scripts/TempBehaviour.hpp"
+#include "../Scripts/MouseFollowBehaviour.hpp"
 
 class GameScene : public Scene
 {
