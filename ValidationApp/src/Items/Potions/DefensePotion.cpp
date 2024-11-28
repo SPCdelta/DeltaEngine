@@ -1,14 +1,19 @@
 #include "DefensePotion.hpp"
 
 void DefensePotion::Use() {
-	// originele defense stat onthouden
 
-	// eventueel nieuwe defense stat berekenen, zoals plus 50%
+	int currShield = _player.GetShield();
+
+
+	int newShield = currShield + currShield * 0.40;
+
 	for (int i = static_cast<int>(_time); i > 0 ; --i)
 	{
+		_player.SetShied(newShield);  
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-		// nieuwe defense stat voor de speler tot de tijd op is
+
 	}
 
-	// originele stat weer herstellen
+	_player.SetShied(currShield);
+
 }

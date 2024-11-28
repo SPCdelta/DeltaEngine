@@ -3,6 +3,8 @@
 #include "Engine/Delta.hpp"
 #include "../Inventory/Inventory.hpp"
 #include "../Items/Item.hpp"
+#include "../Player.hpp"
+#include "../Items/Potions/AttackUpPotion.hpp"
 
 enum class FloorType
 {
@@ -27,6 +29,8 @@ private:
 	float _iceAcceleration = 2.0f;
 	int _sensorCount = 0;
 	FloorType _onFloor{ FloorType::NORMAL };
+	Player _player{25, 10, 10, 100};
+	AttackUpPotion _attackuppot{10, 5, "attackUppotion", _player};
 
 	// bij het testen van inventory, dit aanzetten!
 

@@ -176,7 +176,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
     <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
     <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
@@ -194,7 +194,7 @@
     <ClCompile Include="src\Items\WorldItem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="src\Player.hpp" />
     <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
     <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
     <ClInclude Include="src\Items\Potions\DefensePotion.hpp" />

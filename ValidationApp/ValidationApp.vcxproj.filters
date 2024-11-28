@@ -16,7 +16,7 @@
     <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
     <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -41,7 +41,7 @@
     <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
-    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="src\Player.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\theme1.mp3" />
