@@ -29,8 +29,7 @@ private:
 	float _iceAcceleration = 2.0f;
 	int _sensorCount = 0;
 	FloorType _onFloor{ FloorType::NORMAL };
-	Player _player{25, 10, 10, 100};
-	AttackUpPotion _attackuppot{10, 5, "attackUppotion", _player};
+
 
 	// bij het testen van inventory, dit aanzetten!
 
