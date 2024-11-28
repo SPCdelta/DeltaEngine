@@ -3,10 +3,11 @@
 
 using namespace Math;
 
-const Math::Vector2 Math::Vector2::up(0.0f, 1.0f);
-const Math::Vector2 Math::Vector2::right(1.0f, 0.0f);
+const Vector2 Vector2::up(0.0f, 1.0f);
+const Vector2 Vector2::right(1.0f, 0.0f);
 
 Vector2::Vector2(float x, float y) : _x{x}, _y{y} {}
+Vector2::Vector2(int x, int y) : _x{ static_cast<float>(x) }, _y{ static_cast<float>(y) } {}
 
 float Vector2::GetX() const
 {
@@ -121,4 +122,9 @@ bool Vector2::operator==(const Vector2& other) const
 bool Vector2::operator!=(const Vector2& other) const
 {
 	return !(*this == other);
+}
+
+bool Vector2::IsNonZero() const
+{
+	return _x != 0 && _y != 0;
 }

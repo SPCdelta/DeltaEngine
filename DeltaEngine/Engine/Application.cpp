@@ -42,6 +42,9 @@ void Application::Run()
 {
 	while (!_window.ShouldWindowClose())
 	{
+		Rendering::RenderClear(_window.GetRenderer());
+		_window.RenderViewport(255, 255, 255, 255);
+
 		Rendering::PollEvent(_windowEvent);
 
 		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
@@ -64,6 +67,9 @@ void Application::Run()
 		// Scene UpdateLoop
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->Update();
+
+		// Render all
+		Rendering::RenderPresent(_window.GetRenderer());
 
 		ShowFpsInWindowTitleBar();
 

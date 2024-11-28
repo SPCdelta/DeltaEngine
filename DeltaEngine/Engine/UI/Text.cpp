@@ -1,62 +1,133 @@
 #include "Text.hpp"
 
-ui::Text::Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer)
-	: _text{text}, _size{size}, _x{x}, _y{y}, _color{color}, _renderer{renderer}
-{
-	_font = Font::OpenFont(path.c_str(), size);
+using namespace Ui;
+using namespace Rendering;
 
+Text::Text(const std::string& text, const std::string& path, const Rendering::Color& color) : Renderable{path.c_str()},
+	  _text{text},
+	  _color{color},
+	  _path{path}
+{
+	_font = Font::OpenFont(path.c_str(), 0);
 	if (_font == nullptr)
 	{
 		std::cerr << "Error loading font: " << Font::GetError() << std::endl;
 	}
 }
 
-ui::Text::~Text() {
-	unloadText();
+Text::Text(const Text& other)
+	: Renderable{other._path.c_str()},
+	  _text{other._text},
+	  _font{Font::OpenFont(other._path.c_str(), 0)},
+	  _color{other._color},
+	  _path{other._path}
+{
 }
 
-void ui::Text::renderText() {
-	
+Text& Text::operator=(const Text& other)
+{
+	if (this != &other)
+	{
+		delete _font;
+
+		_text = other._text;
+		_font = Font::OpenFont(other._path.c_str(), 0);
+		_path = other._path;
+		_color = other._color;
+	}
+	return *this;
+}
+
+Text::Text(Text&& other) noexcept
+	: Renderable{other._path.c_str()},
+	  _text{other._text},
+	  _font{other._font},
+	  _color{other._color},
+	  _path{other._path}
+{
+	other._font = nullptr;
+}
+
+Text& Text::operator=(Text&& other) noexcept
+{
+	if (this != &other)
+	{
+		delete _font;
+
+		_text = other._text;
+		_font = other._font;
+		_path = other._path;
+		_color = other._color;
+
+		other._font = nullptr;
+	}
+	return *this;
+}
+
+Text::~Text() {}
+
+void Text::Render(Renderer* renderer, const Transform& transform)
+{
+
 	if (_font == nullptr)
 	{
-		std::cerr << "Font not loaded" << std::endl;
-		//Font::QuitTTF();
+		std::cerr << "Font not loaded" << '\n';
 		return;
 	}
 
-	Rendering::Surface* surface = Font::RenderText_Solid(_font, _text.c_str(), _color);
+	Surface* surface = Font::RenderText_Solid(_font, _text.c_str(), _color);
 
-	if (surface == nullptr) {
-		std::cerr << "Error creating surface: " << Rendering::GetError() << std::endl;
-
-		Font::CloseFont(_font);
-		//Font::QuitTTF();
+	if (surface == nullptr)
+	{
+		std::cerr << "Error creating surface: " << GetError() << '\n';
 		return;
 	}
 
-	Rendering::Texture* texture = Rendering::CreateTextureFromSurface(_renderer, surface);
+	Texture* texture = CreateTextureFromSurface(renderer, surface);
 
-	if (texture == nullptr) {
-		std::cerr << "Error creating texture: " << Rendering::GetError() << std::endl;
-		Rendering::FreeSurface(surface);
-		Rendering::DestroyTexture(texture);
+	if (texture == nullptr)
+	{
+		std::cerr << "Error creating texture: " << GetError() << '\n';
+		FreeSurface(surface);
+		DestroyTexture(texture);
 		return;
 	}
 
-	Rendering::Rect dstRect = {_x, _y , surface->w, surface->h};
+	Rect dstRect;
+	if (_position.IsNonZero()) 
+	{
+		dstRect = { static_cast<int>(_position.GetX()), static_cast<int>(_position.GetY()), surface->w, surface->h };
+	} else 
+	{
+		dstRect = { static_cast<int>(transform.position.GetX()), static_cast<int>(transform.position.GetY()), surface->w, surface->h};
+	}
 
-	Rendering::RenderCopy(_renderer, texture, nullptr, &dstRect);
+	RenderCopy(renderer, texture, nullptr, &dstRect);
 
-
-	//Rendering::FreeSurface(surface);
-	//Rendering::DestroyTexture(texture);
-
+	FreeSurface(surface);
+	DestroyTexture(texture);
 }
 
-void ui::Text::unloadText() {
-	if (_font != nullptr) {
+void Text::SetText(const std::string& text)
+{
+	_text = text;
+}
+
+void Text::SetFontSize(const size_t size)
+{
+	Font::SetFontSize(_font, size);
+}
+
+void Text::SetPosition(const Math::Vector2& position)
+{
+	_position = position;
+}
+
+void Text::unloadText()
+{
+	if (_font != nullptr)
+	{
 		Font::CloseFont(_font);
 		_font == nullptr;
-		//Font::QuitTTF();
 	}
 }
