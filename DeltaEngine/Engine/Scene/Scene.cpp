@@ -9,6 +9,8 @@ Scene::Scene(const std::string& name)
 	_debugSystem = _reg.CreateSystem<DebugSystem, A, B>();
 	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(_camera);
+	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
+	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
 
 	
@@ -18,6 +20,7 @@ void Scene::Start()
 { 
 	_updateSystem->OnStart();
 	_renderSystem->OnStart();
+	_textRenderSystem->OnStart();
 }
 
 void Scene::Update()
@@ -31,7 +34,8 @@ void Scene::Update()
 
 	// Render
 	_renderSystem->Update();
-	//_fontRenderSystem->Update();
+	_imageRenderSystem->Update();
+	_textRenderSystem->Update();
 }
 
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)

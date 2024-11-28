@@ -126,7 +126,7 @@ enum Key
 	KEY_UNKNOWN
 };
 
-enum class Button
+enum class MouseButton
 {
 	Left,		  // Left mouse button
 	Middle,		  // Middle mouse button (usually the scroll wheel button)
@@ -147,7 +147,7 @@ enum InputState
 struct Input
 {
 	std::set<Key> keys;
-	std::set<Button> buttons;
+	std::set<MouseButton> buttons;
 	int mouseY;
 	int mouseX;
 	int wheelVertically;
@@ -161,12 +161,12 @@ class InputsEnum
 
 	static const std::string& toStr(Key key);
 
-	static const std::vector<Button>& getButtonVector();
+	static const std::vector<MouseButton>& getButtonVector();
 
-	static const Button toButton(int button);
-	static const int toInt(Button button);
+	static const MouseButton toButton(int button);
+	static const int toInt(MouseButton button);
 
    private:
 	static const std::unordered_map<Key, std::string> keyMap;
-	static const std::vector<Button> buttonVector;
+	static const std::vector<MouseButton> buttonVector;
 };

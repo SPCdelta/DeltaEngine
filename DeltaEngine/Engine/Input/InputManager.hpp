@@ -32,8 +32,8 @@ class InputManager
 	//static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent); TODO dit werkt op dit moment niet vanwege executeInputsPressedDown
 	static InputLocation keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
 
-	static InputLocation onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
-	static InputLocation onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
+	static InputLocation onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
+	static InputLocation onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
 	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent);
 	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
@@ -41,8 +41,8 @@ class InputManager
 	void updateKeyDown(Key input);
 	void updateKeyUp(Key input);
 
-	void updateMouseButtonDown(Button button);
-	void updateMouseButtonUp(Button button);
+	void updateMouseButtonDown(MouseButton button);
+	void updateMouseButtonUp(MouseButton button);
 	void updateMouseMovement(int x, int y);
 	void updateMouseWheel(int wheelVertically);
 
