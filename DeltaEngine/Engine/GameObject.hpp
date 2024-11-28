@@ -108,15 +108,15 @@ public:
 
 	Layer GetLayer() const 
 	{  
-		if (_reg.HasComponent<Renderable>(_id))
-			return _reg.GetComponent<Renderable>(_id).GetLayer();
+		if (_reg.HasComponent<Sprite>(_id))
+			return _reg.GetComponent<Sprite>(_id).GetLayer();
 		return Layer::Default;
 	}
 
 	void SetLayer(Layer layer) 
 	{ 
-		if (_reg.HasComponent<Renderable>(_id))
-			_reg.GetComponent<Renderable>(_id).SetLayer(layer);
+		if (_reg.HasComponent<Sprite>(_id))
+			_reg.GetComponent<Sprite>(_id).SetLayer(layer);
 	}
 	
 	void SetTag(const std::string& tag) { _tag = tag; }

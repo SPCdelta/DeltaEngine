@@ -49,7 +49,7 @@ protected:
 	std::shared_ptr<SpriteSheet> _sheet;
 
 	Rendering::Texture* _texture;
-	Rendering::Color color{Rendering::Color(0, 0, 0, 255)};
+	Rendering::Color color{Rendering::Color(255, 255, 255, 255)};
 
 	bool flipX{false};
 	bool flipY{false};
