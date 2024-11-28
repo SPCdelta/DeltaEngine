@@ -35,7 +35,6 @@ namespace Math
 		static Vector2 MoveTowards(const Vector2& current, const Vector2& target, float maxDistanceDelta);
 		static Vector2 Max(const Vector2& v1, const Vector2& v2);
 		static Vector2 Min(const Vector2& v1, const Vector2& v2);
-		static bool IsPointWithinRect(const Point& point, const Vector2& position, const Vector2& scale);
 	private:
 		float _x = 0.0f;
 		float _y = 0.0f;

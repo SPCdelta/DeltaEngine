@@ -217,6 +217,7 @@
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
+    <ClCompile Include="Engine\Core\Math\MathUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="Engine\GameObject.hpp" />
     <ClInclude Include="Engine\UI\Text.hpp" />
     <ClInclude Include="Engine\UI\Font.hpp" />
+    <ClInclude Include="Engine\Core\Math\MathUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

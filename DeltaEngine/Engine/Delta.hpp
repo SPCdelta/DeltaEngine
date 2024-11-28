@@ -6,6 +6,10 @@
 #include "BehaviourScript.hpp"
 
 #include "Core/Files/FileManager.hpp"
+
+// Math
+#include "Core/Math/MathUtils.hpp"
+
 #include "Rendering/Layer.hpp"
 
 #include "Scene/Scene.hpp"

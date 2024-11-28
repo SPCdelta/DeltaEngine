@@ -79,12 +79,6 @@ Vector2 Vector2::Min(const Vector2& v1, const Vector2& v2)
 	return Vector2(minX, minY);
 }
 
-bool Vector2::IsPointWithinRect(const Point& point, const Vector2& position, const Vector2& scale)
-{
-	return (point.GetX() >= position.GetX() && point.GetX() <= position.GetX() + scale.GetX()) &&
-		(point.GetY() >= position.GetY() && point.GetY() <= position.GetY() + scale.GetY());
-}
-
 Vector2 Vector2::GetNormalized() const
 {
 	float len = Magnitude();

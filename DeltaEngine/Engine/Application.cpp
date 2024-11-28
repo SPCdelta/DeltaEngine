@@ -42,9 +42,6 @@ void Application::Run()
 {
 	while (!_window.ShouldWindowClose())
 	{
-		Rendering::RenderClear(_window.GetRenderer());
-		_window.RenderViewport(255, 255, 255, 255);
-
 		Rendering::PollEvent(_windowEvent);
 
 		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)

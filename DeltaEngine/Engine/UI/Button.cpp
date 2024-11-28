@@ -1,4 +1,5 @@
 #include "Button.hpp"
+#include "../Core/Math/MathUtils.hpp"
 
 using namespace Ui;
 
@@ -9,7 +10,7 @@ void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& 
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
-			if (func && Vector2::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
 			{
 				func();
 			}

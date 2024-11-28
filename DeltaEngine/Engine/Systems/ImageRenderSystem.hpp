@@ -30,7 +30,6 @@ public:
 		{
 			Ui::Image& image = _view.get<Ui::Image>(entityId);
 			Transform& transform = _view.get<Transform>(entityId);
-			image.SetColor(image.GetColor());
 			image.Render(_window->GetRenderer(), *_viewportData, transform);
 		}
 	}

@@ -3,31 +3,29 @@
 
 using namespace Math;
 
-Point::Point(float x, float y) : _x{x}, _y{y} {}
+Point::Point(int x, int y) : _x{ x }, _y{ y } {}
 
-Point::Point(int x, int y) : _x{static_cast<float>(x)}, _y{static_cast<float>(y)} {}
-
-float Point::GetX() const
+int Point::GetX() const
 {
 	return _x;
 }
 
-float Point::GetY() const
+int Point::GetY() const
 {
 	return _y;
 }
 
-void Point::SetX(float x)
+void Point::SetX(int x)
 {
 	_x = x;
 }
 
-void Point::SetY(float y)
+void Point::SetY(int y)
 {
 	_y = y;
 }
 
-void Point::Set(float x, float y)
+void Point::Set(int x, int y)
 {
 	_x = x;
 	_y = y;
@@ -35,8 +33,8 @@ void Point::Set(float x, float y)
 
 float Point::DistanceTo(const Point& other) const
 {
-	float dx = _x - other._x;
-	float dy = _y - other._y;
+	int dx = _x - other._x;
+	int dy = _y - other._y;
 	return std::sqrt(dx * dx + dy * dy);
 }
 

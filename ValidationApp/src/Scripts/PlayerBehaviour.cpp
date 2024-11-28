@@ -39,6 +39,7 @@ void PlayerBehaviour::OnUpdate()
 					rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
 				}
 
+				currentVelocity = rigidbody->GetVelocity();
 				rigidbody->AddForce(-currentVelocity * 1.0f, ForceMode::ACCELERATE);
 				if (rigidbody->GetSpeed() <= 0.0f)
 				{

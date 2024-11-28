@@ -27,6 +27,7 @@
     <ClCompile Include="Engine\Rendering\Renderable.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />
+    <ClCompile Include="Engine\Core\Math\MathUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="Engine\Core\Files\IFileHandler.hpp" />
     <ClInclude Include="Engine\Core\Files\Json.hpp" />
     <ClInclude Include="Engine\Rendering\Layer.hpp" />
+    <ClInclude Include="Engine\Core\Math\MathUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
