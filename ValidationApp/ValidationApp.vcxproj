@@ -223,6 +223,7 @@
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Items\WorldItem.hpp" />
+    <ClInclude Include="src\Scenes\UIScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeltaEngine\DeltaEngine.vcxproj">
@@ -230,6 +231,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+	<Image Include="Assets\Textures\default_texture.png">
+		<DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+	</Image>
     <Image Include="Assets\Textures\ice_floor.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
@@ -251,6 +255,7 @@
     <Image Include="Assets\Textures\spritesheet3.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
+    <Image Include="Assets\Textures\square.png"/>
     <Image Include="Assets\Textures\stone_floor.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
@@ -312,6 +317,9 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <Font Include="Assets\Fonts\knight_warrior.otf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Font>
     <None Include="Assets\Files\example.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

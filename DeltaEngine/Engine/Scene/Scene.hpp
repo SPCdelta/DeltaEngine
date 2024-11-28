@@ -9,6 +9,7 @@
 
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Audio/AudioFacade.hpp"
+#include "../Rendering/Renderable.hpp"
 
 // Systems
 #include "../Ecs/Registry.hpp"
@@ -16,6 +17,8 @@
 #include "../Systems/DebugSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
+#include "../Systems/ImageRenderSystem.hpp"
+#include "../Systems/TextRenderSystem.hpp"
 
 class Application;
 
@@ -33,6 +36,9 @@ class Scene
 	{
 		_renderSystem->SetWindow(&window);
 		_renderSystem->SetViewportData(&window.GetViewport());
+		_imageRenderSystem->SetWindow(&window);
+		_imageRenderSystem->SetViewportData(&window.GetViewport());
+		_textRenderSystem->SetWindow(&window);
 		_camera->SetViewportData(&window.GetViewport());
 	}
 
@@ -62,7 +68,8 @@ private:
 	// Systems
 	std::shared_ptr<DebugSystem> _debugSystem;
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
-	//std::shared_ptr<FontRenderSystem> _fontRenderSystem;
+	std::shared_ptr<TextRenderSystem> _textRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
+	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
 };
