@@ -281,19 +281,19 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Audio\Music\theme1.mp3">
+    <Media Include="Assets\Audio\Music\Menu_music.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3">
+    <Media Include="Assets\Audio\SFX\Explosion.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\eating.mp3">
+    <Media Include="Assets\Audio\SFX\Eating.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\take_damage1.mp3">
+    <Media Include="Assets\Audio\SFX\Death.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\villager1.mp3">
+    <Media Include="Assets\Audio\SFX\NPC.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
   </ItemGroup>
