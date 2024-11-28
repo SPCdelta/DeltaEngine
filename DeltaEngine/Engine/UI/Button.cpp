@@ -2,8 +2,9 @@
 
 using namespace Ui;
 
-void Button::SetOnLeftMouseClick(void (*func)())
+void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& category)
 {
+	// Hier moet nog gecontrolleerd worden of de functie al is gezet, anders overschrijf de vorige functie.
 	InputManager::onMouseButtonDown(
 		MouseButton::Left,
 		[this, func](Input& e)
@@ -13,5 +14,15 @@ void Button::SetOnLeftMouseClick(void (*func)())
 				func();
 			}
 		},
-		"Default_Button_Callback");
+		category);
+}
+
+void Button::SetPosition(const Vector2& position)
+{
+	_position = position;
+}
+
+void Button::SetScale(const Vector2& scale)
+{
+	_scale = scale;
 }

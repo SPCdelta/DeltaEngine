@@ -119,3 +119,8 @@ bool Vector2::operator!=(const Vector2& other) const
 {
 	return !(*this == other);
 }
+
+bool Vector2::IsNonZero() const
+{
+	return _x != 0 && _y != 0;
+}

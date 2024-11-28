@@ -1,6 +1,7 @@
 #include "Text.hpp"
 
 using namespace Ui;
+using namespace Rendering;
 
 Text::Text(const std::string& text, const std::string& path, const Rendering::Color& color) : Renderable{path.c_str()},
 	  _text{text},
@@ -65,7 +66,7 @@ Text& Text::operator=(Text&& other) noexcept
 
 Text::~Text() {}
 
-void Text::Render(Rendering::Renderer* renderer, const Transform& transform)
+void Text::Render(Renderer* renderer, const Transform& transform)
 {
 
 	if (_font == nullptr)
@@ -74,30 +75,37 @@ void Text::Render(Rendering::Renderer* renderer, const Transform& transform)
 		return;
 	}
 
-	Rendering::Surface* surface = Font::RenderText_Solid(_font, _text.c_str(), _color);
+	Surface* surface = Font::RenderText_Solid(_font, _text.c_str(), _color);
 
 	if (surface == nullptr)
 	{
-		std::cerr << "Error creating surface: " << Rendering::GetError() << '\n';
+		std::cerr << "Error creating surface: " << GetError() << '\n';
 		return;
 	}
 
-	Rendering::Texture* texture = Rendering::CreateTextureFromSurface(renderer, surface);
+	Texture* texture = CreateTextureFromSurface(renderer, surface);
 
 	if (texture == nullptr)
 	{
-		std::cerr << "Error creating texture: " << Rendering::GetError() << '\n';
-		Rendering::FreeSurface(surface);
-		Rendering::DestroyTexture(texture);
+		std::cerr << "Error creating texture: " << GetError() << '\n';
+		FreeSurface(surface);
+		DestroyTexture(texture);
 		return;
 	}
 
-	Rendering::Rect dstRect = { transform.position.GetX(), transform.position.GetY(), surface->w, surface->h};
+	Rect dstRect;
+	if (_position.IsNonZero()) 
+	{
+		dstRect = { static_cast<int>(_position.GetX()), static_cast<int>(_position.GetY()), surface->w, surface->h };
+	} else 
+	{
+		dstRect = { static_cast<int>(transform.position.GetX()), static_cast<int>(transform.position.GetY()), surface->w, surface->h};
+	}
 
-	Rendering::RenderCopy(renderer, texture, nullptr, &dstRect);
+	RenderCopy(renderer, texture, nullptr, &dstRect);
 
-	Rendering::FreeSurface(surface);
-	Rendering::DestroyTexture(texture);
+	FreeSurface(surface);
+	DestroyTexture(texture);
 }
 
 void Text::SetText(const std::string& text)
@@ -108,6 +116,11 @@ void Text::SetText(const std::string& text)
 void Text::SetFontSize(const size_t size)
 {
 	Font::SetFontSize(_font, size);
+}
+
+void Text::SetPosition(const Math::Vector2& position)
+{
+	_position = position;
 }
 
 void Text::unloadText()

@@ -19,6 +19,7 @@ class Text : Renderable
 	void Render(Rendering::Renderer* renderer, const Transform& transform);
 	void SetText(const std::string& text);
 	void SetFontSize(const size_t size);
+	void SetPosition(const Math::Vector2& position);
 	void unloadText();
 
    private:
@@ -26,5 +27,6 @@ class Text : Renderable
 	std::string _text;
 	Font::Font* _font;
 	Rendering::Color _color;
+	Math::Vector2 _position;
 };
 }  // namespace Ui

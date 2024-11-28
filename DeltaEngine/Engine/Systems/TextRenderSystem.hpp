@@ -22,7 +22,6 @@ class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 		{
 			Ui::Text& text = _view.get<Ui::Text>(entityId);
 			Transform& transform = _view.get<Transform>(entityId);
-			text.SetFontSize(transform.scale.Magnitude()); // Set font size here so we don't continuously keep changing the size.
 			text.Render(_window->GetRenderer(), transform);
 		}
 	}
