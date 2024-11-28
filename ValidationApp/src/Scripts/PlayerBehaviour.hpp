@@ -38,8 +38,8 @@ private:
 
 	// bij het testen van inventory, dit aanzetten!
 
-	//Inventory inventory;
-	//Item _item1{"item 1"};
-	//Item _item2{"item 2"};
+	Inventory inventory;
+	Item _item1{"item 1"};
+	Item _item2{"item 2"};
 
 };

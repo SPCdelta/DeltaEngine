@@ -1,10 +1,13 @@
 #include "HealingPotion.hpp"
 
-void HealingPotion::Use() 
+void HealingPotion::Use(Player player) 
 {
-	for (int i = static_cast<int>(_time); i > 0; --i)
+	if (player.GetHealth() == player._maxHealth)
 	{
-		_player.SetHealth(5);
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		// doe hier iets	
+	}
+	else
+	{
+		player.SetHealth(player._maxHealth);
 	}
 }

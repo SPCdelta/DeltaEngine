@@ -3,6 +3,6 @@
 class DefensePotion : public Potion
 {
    public:
-	DefensePotion(float time, float value, std::string name, Player player) : Potion(time, value, name, player) {}
-	void Use();
+	DefensePotion(float time, float value, std::string name) : Potion(time, value, name) {}
+	void Use(Player player);
 };

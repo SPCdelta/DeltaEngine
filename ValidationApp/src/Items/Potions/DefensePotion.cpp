@@ -1,19 +1,19 @@
 #include "DefensePotion.hpp"
 
-void DefensePotion::Use() {
+void DefensePotion::Use(Player player) {
 
-	int currShield = _player.GetShield();
+	int currShield = player.GetShield();
 
 
 	int newShield = currShield + currShield * 0.40;
 
 	for (int i = static_cast<int>(_time); i > 0 ; --i)
 	{
-		_player.SetShied(newShield);  
+		player.SetShield(newShield);  
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	}
 
-	_player.SetShied(currShield);
+	player.SetShield(currShield);
 
 }

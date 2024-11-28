@@ -6,7 +6,7 @@ class InventoryItem
 	InventoryItem(Item item, int amount);
 	void AddAmount(int amount);
 	void LowerAmount(int amount);
-	int GetAmount();
+	int GetAmount() const;
 	Item& GetItem();
    private:
 	int _amount;

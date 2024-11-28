@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 
-void Player::SetShied(int shield) {
+void Player::SetShield(int shield) {
 	_shield = shield;
 }
 
@@ -14,8 +14,13 @@ void Player::SetSpeed(int speed) {
 }
 
 void Player::SetHealth(int health) {
+	_health = health;
+}
+
+void Player::AddHealth(int health) {
 	_health += health;
 }
+
 
 int Player::GetShield() const
 {

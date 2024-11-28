@@ -11,7 +11,7 @@ void InventoryItem::LowerAmount(int amount) {
 	this->_amount -= amount;
 }
 
-int InventoryItem::GetAmount()
+int InventoryItem::GetAmount() const
 {
 	return _amount;
 }

@@ -19,30 +19,28 @@ void PlayerBehaviour::OnStart()
 	rigidbody->onTriggerEnter.Register(
 		[this](Collider& collider)
 		{ 
-			_sensorCount++;
+			/*_sensorCount++;*/
 		}
 	);
 
 	// Input
 	InputManager::activateCategory("Gameplay");
-	InputManager::onKeyPressed(KEY_W, [this](Input& e) { _moveDirection.SetY(1.0f); }, "Gameplay");
-	InputManager::onKeyPressed(KEY_S, [this](Input& e) { _moveDirection.SetY(-1.0f); }, "Gameplay");
-	InputManager::onKeyPressed(KEY_A, [this](Input& e) { _moveDirection.SetX(-1.0f); }, "Gameplay");
-	InputManager::onKeyPressed(KEY_D, [this](Input& e) { _moveDirection.SetX(1.0f); }, "Gameplay");
+	onKeyPressed(KEY_W, [this](Input& e) { _moveDirection.SetY(1.0f); }, "Gameplay");
+	onKeyPressed(KEY_S, [this](Input& e) { _moveDirection.SetY(-1.0f); }, "Gameplay");
+	onKeyPressed(KEY_A, [this](Input& e) { _moveDirection.SetX(-1.0f); }, "Gameplay");
+	onKeyPressed(KEY_D, [this](Input& e) { _moveDirection.SetX(1.0f); }, "Gameplay");
 
-	InputManager::onKeyReleased(KEY_W, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
-	InputManager::onKeyReleased(KEY_S, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
-	InputManager::onKeyReleased(KEY_A, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
-	InputManager::onKeyReleased(KEY_D, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
+	onKeyReleased(KEY_W, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
+	onKeyReleased(KEY_S, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
+	onKeyReleased(KEY_A, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
+	onKeyReleased(KEY_D, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
 
 	// Bij het testen van inventory, Dit aanzetten! 
 	
-	//InputManager::onKeyPressed(
-	//	KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");
-	//InputManager::onKeyPressed(
-	//	KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
-	//InputManager::onKeyPressed(
-	//	KEY_Q, [this](Input& e) { inventory.RemoveItem(_item1, 5);}, "Gameplay");
+	onKeyPressed(KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");
+	onKeyPressed(KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
+	onKeyPressed(KEY_L, [this](Input& e) { inventory.AddItem(_item2, 4); }, "Gameplay");
+	onKeyPressed(KEY_Q, [this](Input& e) { inventory.RemoveItem(_item1, 5);}, "Gameplay");
 }
 
 void PlayerBehaviour::OnUpdate() 
