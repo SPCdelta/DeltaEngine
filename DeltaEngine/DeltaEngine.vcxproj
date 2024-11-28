@@ -198,6 +198,7 @@
     <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Core\Time.cpp" />
     <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
     <ClInclude Include="Engine\Temp\TempAudio.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
+    <ClInclude Include="Engine\Core\Time.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
     <ClInclude Include="Engine\UI\Image.hpp" />

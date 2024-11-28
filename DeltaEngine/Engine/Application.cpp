@@ -40,8 +40,17 @@ Application::~Application()
 
 void Application::Run()
 {
+	Uint32 previousTime = SDL_GetTicks();
+	float timer = 0.0f;
+
 	while (!_window.ShouldWindowClose())
 	{
+		Uint32 currentTime = SDL_GetTicks();
+		Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.0f));
+		previousTime = currentTime;
+		timer += Time::GetDeltaTime();
+		std::cout << "Timer: " << timer << std::endl;
+
 		Rendering::RenderClear(_window.GetRenderer());
 		_window.RenderViewport(255, 255, 255, 255);
 
