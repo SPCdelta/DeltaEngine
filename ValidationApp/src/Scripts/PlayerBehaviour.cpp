@@ -21,8 +21,8 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 	_onFloor = _floorBehaviour->GetOnFloor();
-
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
+
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f})
 	{
 		switch (_onFloor)
@@ -52,7 +52,7 @@ void PlayerBehaviour::OnUpdate()
 					rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
 				}
 				break;
-		}
+		}			
 	}
 	else
 	{
@@ -70,6 +70,20 @@ void PlayerBehaviour::OnUpdate()
 				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
 		}
+	}
+
+	if (sprite && sprite->GetAnimator())
+	{
+		if (_moveDirection.GetX() < 0.0f)
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT);
+		else if (_moveDirection.GetX() > 0.0f)
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT);
+		else if (_moveDirection.GetY() < 0.0f)
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN);
+		else if (_moveDirection.GetY() > 0.0f)
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP);
+		else
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE);
 	}
 }
 

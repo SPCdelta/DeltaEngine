@@ -5,19 +5,18 @@
 class PlayerInput
 {
 public:
-	PlayerInput()
+	PlayerInput(BehaviourScript* behaviour)
 	{
 		// Input
-		InputManager::activateCategory("Gameplay");
-		InputManager::onKeyPressed(KEY_W, [this](Input& e) { _wDown = true; }, "Gameplay");
-		InputManager::onKeyPressed(KEY_S, [this](Input& e) { _sDown = true; }, "Gameplay");
-		InputManager::onKeyPressed(KEY_A, [this](Input& e) { _aDown = true; }, "Gameplay");
-		InputManager::onKeyPressed(KEY_D, [this](Input& e) { _dDown = true; }, "Gameplay");
+		behaviour->onKeyPressed(KEY_W, [this](Input& e) { _wDown = true; }, "Gameplay");
+		behaviour->onKeyPressed(KEY_S, [this](Input& e) { _sDown = true; }, "Gameplay");
+		behaviour->onKeyPressed(KEY_A, [this](Input& e) { _aDown = true; }, "Gameplay");
+		behaviour->onKeyPressed(KEY_D, [this](Input& e) { _dDown = true; }, "Gameplay");
 
-		InputManager::onKeyReleased(KEY_W, [this](Input& e) { _wDown = false; }, "Gameplay");
-		InputManager::onKeyReleased(KEY_S, [this](Input& e) { _sDown = false; }, "Gameplay");
-		InputManager::onKeyReleased(KEY_A, [this](Input& e) { _aDown = false; }, "Gameplay");
-		InputManager::onKeyReleased(KEY_D, [this](Input& e) { _dDown = false; }, "Gameplay");
+		behaviour->onKeyReleased(KEY_W, [this](Input& e) { _wDown = false; }, "Gameplay");
+		behaviour->onKeyReleased(KEY_S, [this](Input& e) { _sDown = false; }, "Gameplay");
+		behaviour->onKeyReleased(KEY_A, [this](Input& e) { _aDown = false; }, "Gameplay");
+		behaviour->onKeyReleased(KEY_D, [this](Input& e) { _dDown = false; }, "Gameplay");
 	}
 
 	const Math::Vector2 GetDirection() const 
