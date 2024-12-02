@@ -10,8 +10,8 @@ class FileScene : public Scene
 			FileManager fileManager;
 
 			std::shared_ptr<GameObject> playerObject{Instantiate({{200.0f, 200.0f}, 0.0f, {64.0f, 64.0f}})};
-			std::shared_ptr<SpriteSheet> sheet = std::make_shared<SpriteSheet>(playerObject->GetComponent<Transform>(), 4, 64, 64, 4, 1, 2, 3);
-			playerObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png", sheet);
+			std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 4, 64, 64, 4, 1, 2, 3);
+			playerObject->AddComponent<Sprite>("spritesheet.png", sheet);
 
 			// Loading
 			Json::json loadedData1 = fileManager.Load("Assets\\Files\\example.json", "json");

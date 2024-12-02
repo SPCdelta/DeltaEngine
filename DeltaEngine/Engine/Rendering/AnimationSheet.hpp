@@ -6,12 +6,12 @@
 #include "..\Transform.hpp"
 #include "Direction.hpp"
 
-class SpriteSheet
+class AnimationSheet
 {
 public:
-	SpriteSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = 0, int rowDown = 0, 
+	AnimationSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = 0, int rowDown = 0, 
 		int rowLeft = 0, int rowRight = 0);
-	~SpriteSheet() = default;
+	~AnimationSheet() = default;
 
 	int GetCurrentFrame() const { return currentFrame; }
 	void SetCurrentFrame(int newFrame) { currentFrame = newFrame; }

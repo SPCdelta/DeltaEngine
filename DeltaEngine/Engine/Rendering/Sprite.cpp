@@ -50,7 +50,13 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	}
 	else
 	{
-		Rendering::RenderCopyEx(renderer, _spriteData->texture, NULL, &destRect,
+		Rendering::Rect srcRect;
+		srcRect.x = _spriteData->spriteStart.GetX();
+		srcRect.y = _spriteData->spriteStart.GetY();
+		srcRect.w = _spriteData->spriteEnd.GetX() - _spriteData->spriteStart.GetX();
+		srcRect.h = _spriteData->spriteEnd.GetY() - _spriteData->spriteStart.GetY();
+
+		Rendering::RenderCopyEx(renderer, _spriteData->texture, &srcRect, &destRect,
 								transform.rotation, 0,
 								Rendering::GetFlip(flipX, flipY));
 	}

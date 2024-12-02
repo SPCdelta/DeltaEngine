@@ -5,6 +5,8 @@
 
 #include "SpriteData.hpp"
 
+class SpriteMap;
+
 class TextureManager
 {
 public:
@@ -19,18 +21,31 @@ public:
 		instance._renderer = renderer;
 	}
 
-	static void Add(const std::string& spritePath) 
+	static Rendering::Texture* Add(const std::string& spritePath) 
 	{ 
 		if (instance._textures.find(spritePath) == instance._textures.end())
 		{
 			Rendering::Texture* texture = Rendering::LoadTexture(instance._renderer, spritePath.c_str());
 			instance._textures.emplace(spritePath, texture);
+			return texture;
 		}
+
+		return nullptr;
 	}
 
 	static Rendering::Texture* Get(const std::string& spritePath)
 	{ 
 		return instance._textures[spritePath];
+	}
+
+	static void Cleanup()
+	{
+		// Delete all entries in map
+		for (const auto& pair : instance._textures)
+		{
+			// no leaks? okidokie!
+			Rendering::DestroyTexture(pair.second);
+		}
 	}
 
 private:
@@ -39,14 +54,6 @@ private:
 	std::map<std::string, Rendering::Texture*> _textures;
 
 	TextureManager() { };
-	~TextureManager() 
-	{
-		// Delete all entries in map
-		for (const auto& pair : _textures)
-		{
-			delete pair.second;
-		}
-	}
 };
 
 class ResourceManager
@@ -58,9 +65,22 @@ public:
 	ResourceManager& operator=(const ResourceManager&) = delete;
 	ResourceManager& operator=(ResourceManager&&) = delete;
 
-	static void Add(const std::string& name, SpriteData* spriteData)
+	friend class SpriteMap;
+
+	static void Add(const std::string& name, const std::string& spritePath)
 	{
-		instance._sprites.emplace(name, spriteData);
+		Rendering::Texture* texture = TextureManager::Add(spritePath);
+		int width = 0;
+		int height = 0;
+		Rendering::QueryTexture(texture, nullptr, nullptr, &width, &height);
+
+		SpriteData* spriteData = new SpriteData
+		(
+			texture,
+			{ 0.0f, 0.0f },
+			{ static_cast<float>(width), static_cast<float>(height) }
+		);
+		Add(name, spriteData);
 	}
 
 	static SpriteData* Get(const std::string& name)
@@ -80,5 +100,10 @@ private:
 		{
 			delete pair.second;
 		}
+	}
+
+	static void Add(const std::string& name, SpriteData* spriteData)
+	{
+		instance._sprites.emplace(name, spriteData);
 	}
 };

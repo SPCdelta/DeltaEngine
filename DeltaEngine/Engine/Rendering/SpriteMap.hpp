@@ -10,7 +10,6 @@
 struct TilemapEntry	 // DTO
 {
 	std::string spriteName;
-	std::string spritePath;
 	Math::Vector2 spriteStart;
 	Math::Vector2 spriteEnd;
 };
@@ -18,17 +17,17 @@ struct TilemapEntry	 // DTO
 class SpriteMap
 	{
 	public:
-		SpriteMap(const std::string& name, std::vector<TilemapEntry> sprites)
+		SpriteMap(const std::string& name, const std::string& spritePath, std::vector<TilemapEntry> sprites)
 			: _name{ name }
 		{
 			// Convert TilemapEntry DTO into SpriteData
 			for (TilemapEntry& entry : sprites)
 			{
-				TextureManager::Add(entry.spritePath);
+				TextureManager::Add(spritePath);
 
 				SpriteData* spriteData = new SpriteData
 				(
-					TextureManager::Get(entry.spritePath),
+					TextureManager::Get(spritePath),
 					entry.spriteStart,
 					entry.spriteEnd
 				);

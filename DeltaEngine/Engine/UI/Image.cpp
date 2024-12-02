@@ -20,6 +20,12 @@ void Image::Render(Rendering::Renderer* renderer,
 		}
 	}
 
+	Rendering::Rect srcRect;
+	srcRect.x = _spriteData->spriteStart.GetX();
+	srcRect.y = _spriteData->spriteStart.GetY();
+	srcRect.w = _spriteData->spriteEnd.GetX() - _spriteData->spriteStart.GetX();
+	srcRect.h = _spriteData->spriteEnd.GetY() - _spriteData->spriteStart.GetY();
+
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(transform.position.GetX());
 	destRect.y = static_cast<int>(transform.position.GetY());
@@ -27,5 +33,5 @@ void Image::Render(Rendering::Renderer* renderer,
 	destRect.w = static_cast<int>(transform.scale.GetX());
 	destRect.h = static_cast<int>(transform.scale.GetY());
 
-	Rendering::RenderCopyEx(renderer, _spriteData->texture, NULL, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
+	Rendering::RenderCopyEx(renderer, _spriteData->texture, &srcRect, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
 }

@@ -8,7 +8,7 @@ public:
 	Sprite(const char* spriteName) : Renderable(spriteName)
 	{ }
 
-	Sprite(const char* spriteName, std::shared_ptr<SpriteSheet> sheet) : Renderable(spriteName, sheet)
+	Sprite(const char* spriteName, std::shared_ptr<AnimationSheet> sheet) : Renderable(spriteName, sheet)
 	{ }
 
 	void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform);

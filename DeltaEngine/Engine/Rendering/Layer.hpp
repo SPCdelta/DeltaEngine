@@ -3,6 +3,10 @@
 enum class Layer : int
 {
 	Background = 0,
-	Default = 1,
-	Foreground = 2
+	Floor,
+	Walls,
+	Default,
+	Player,
+	Projectiles,
+	Foreground,
 };

@@ -10,7 +10,7 @@
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
     <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
-    <ClCompile Include="Engine\Rendering\SpriteSheet.cpp" />
+    <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
@@ -55,7 +55,7 @@
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
-    <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />
+    <ClInclude Include="Engine\Rendering\AnimationSheet.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />

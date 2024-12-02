@@ -6,7 +6,7 @@ Renderable::Renderable(const char* spriteName)
 	_spriteData = ResourceManager::Get(spriteName);
 }
 
-Renderable::Renderable(const char* spriteName, std::shared_ptr<SpriteSheet> sheet = nullptr)
+Renderable::Renderable(const char* spriteName, std::shared_ptr<AnimationSheet> sheet = nullptr)
 	: _spriteName(spriteName), _animator(nullptr)
 {
 	_animator = std::make_shared<Animator>();

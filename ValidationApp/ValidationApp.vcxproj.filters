@@ -46,11 +46,8 @@
     <Image Include="Assets\Textures\spritesheet3.png" />
     <Image Include="Assets\Textures\square.png" />
     <Image Include="Assets\Textures\default_texture.png" />
-    <Image Include="Assets\Textures\ice_floor.png" />
-    <Image Include="Assets\Textures\stone_floor.png" />
-    <Image Include="Assets\Textures\wall.png" />
-    <Image Include="Assets\Textures\mud_floor.png" />
     <Image Include="Assets\Textures\floor_map.png" />
+    <Image Include="Assets\Textures\wall_map.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
