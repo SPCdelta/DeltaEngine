@@ -18,7 +18,7 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	}
 
 	// TODO: Facade
-	SDL_SetTextureColorMod(_spriteData->texture, color.r, color.g, color.b);
+	Rendering::ModifyColor(_spriteData->texture, color);
 
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(

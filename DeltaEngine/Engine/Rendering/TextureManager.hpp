@@ -14,7 +14,7 @@ class TextureManager
 	TextureManager& operator=(const TextureManager&) = delete;
 	TextureManager& operator=(TextureManager&&) = delete;
 
-	static void SetRenderer(SDL_Renderer* renderer)
+	static void SetRenderer(Rendering::Renderer* renderer)
 	{
 		instance._renderer = renderer;
 	}
@@ -42,14 +42,13 @@ class TextureManager
 		// Delete all entries in map
 		for (const auto& pair : instance._textures)
 		{
-			// no leaks? okidokie!
 			Rendering::DestroyTexture(pair.second);
 		}
 	}
 
    private:
 	static TextureManager instance;
-	SDL_Renderer* _renderer = nullptr;
+	Rendering::Renderer* _renderer = nullptr;
 	std::map<std::string, Rendering::Texture*> _textures;
 
 	TextureManager(){};

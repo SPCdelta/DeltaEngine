@@ -243,8 +243,13 @@ namespace Rendering
 		IMG_Quit();
 	}
 
+	inline void ModifyColor(Rendering::Texture* texture, Rendering::Color& color)
+	{
+		SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+	}
+
 	// Extra
-	inline Rendering::RendererFlip GetFlip(bool flipX, bool flipY)
+	inline RendererFlip GetFlip(bool flipX, bool flipY)
 	{
 		Rendering::RendererFlip flip = Rendering::FLIP_NONE;
 		if (flipX && flipY)

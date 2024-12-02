@@ -25,9 +25,6 @@ public:
 	Renderable(Renderable&& other) noexcept;
 	Renderable& operator=(Renderable&& other) noexcept;
 
-	// will break oopsie poopsie
-	const char* GetPath() const { return _spriteName; }
-
 	const char* GetSprite() const { return _spriteName; }
 	SpriteData* GetSpriteData() const { return _spriteData; }
 

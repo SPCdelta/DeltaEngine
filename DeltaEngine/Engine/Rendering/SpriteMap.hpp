@@ -7,7 +7,7 @@
 #include "SpriteData.hpp"
 #include "ResourceManager.hpp"
 
-struct TilemapEntry	 // DTO
+struct SpriteMapEntry // DTO
 {
 	std::string spriteName;
 	Math::Vector2 spriteStart;
@@ -17,11 +17,11 @@ struct TilemapEntry	 // DTO
 class SpriteMap
 	{
 	public:
-		SpriteMap(const std::string& name, const std::string& spritePath, std::vector<TilemapEntry> sprites)
+		SpriteMap(const std::string& name, const std::string& spritePath, std::vector<SpriteMapEntry> sprites)
 			: _name{ name }
 		{
 			// Convert TilemapEntry DTO into SpriteData
-			for (TilemapEntry& entry : sprites)
+			for (SpriteMapEntry& entry : sprites)
 			{
 				TextureManager::Add(spritePath);
 
