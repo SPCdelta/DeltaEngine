@@ -6,16 +6,25 @@ void Image::Render(Rendering::Renderer* renderer,
 				   const ViewportData& viewportData, const Transform& transform)
 {
 	// Get Texture
-	if (!_texture)
+	if (!_spriteData)
 	{
-		Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
-		if (!texture)
+		if (_spriteName)
 		{
-			std::cerr << "Failed to load texture: " << Rendering::GetError() << '\n';
-			return;
+			throw std::exception("Sprite not set on Sprite Component");
 		}
-		_texture = texture;
+
+		_spriteData = ResourceManager::Get(_spriteName);
+		if (!_spriteData)
+		{
+			throw std::exception("Sprite not found");
+		}
 	}
+
+	Rendering::Rect srcRect;
+	srcRect.x = _spriteData->spriteStart.GetX();
+	srcRect.y = _spriteData->spriteStart.GetY();
+	srcRect.w = _spriteData->spriteEnd.GetX() - _spriteData->spriteStart.GetX();
+	srcRect.h = _spriteData->spriteEnd.GetY() - _spriteData->spriteStart.GetY();
 
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(transform.position.GetX());
@@ -24,5 +33,5 @@ void Image::Render(Rendering::Renderer* renderer,
 	destRect.w = static_cast<int>(transform.scale.GetX());
 	destRect.h = static_cast<int>(transform.scale.GetY());
 
-	Rendering::RenderCopyEx(renderer, _texture, NULL, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
+	Rendering::RenderCopyEx(renderer, _spriteData->texture, &srcRect, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
 }

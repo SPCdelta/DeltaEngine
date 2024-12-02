@@ -30,6 +30,7 @@ namespace Rendering
 	constexpr auto RENDERER_PRESENTVSYNC = SDL_RENDERER_PRESENTVSYNC;
 
 	// Mouse/Key event constants
+	// TODO: alles hiervan eruit (staat in de InputManager)
 	constexpr auto KEYDOWN = SDL_KEYDOWN;
 	constexpr auto KEYUP = SDL_KEYUP;
 	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN;
@@ -48,6 +49,7 @@ namespace Rendering
 	constexpr auto SCANCODE_UP = SDL_SCANCODE_UP;
 	constexpr auto SCANCODE_DOWN = SDL_SCANCODE_DOWN;
 	constexpr auto SCANCODE_SPACE = SDL_SCANCODE_SPACE;
+	// TODO: TOT HIER EN NIET VERDER
 
 	// Flip/Rotation constants
 	constexpr auto FLIP_HORIZONTAL = SDL_FLIP_HORIZONTAL;
@@ -241,8 +243,13 @@ namespace Rendering
 		IMG_Quit();
 	}
 
+	inline void ModifyColor(Rendering::Texture* texture, Rendering::Color& color)
+	{
+		SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+	}
+
 	// Extra
-	inline Rendering::RendererFlip GetFlip(bool flipX, bool flipY)
+	inline RendererFlip GetFlip(bool flipX, bool flipY)
 	{
 		Rendering::RendererFlip flip = Rendering::FLIP_NONE;
 		if (flipX && flipY)

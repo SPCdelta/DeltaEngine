@@ -2,9 +2,10 @@
 
 #include "../Core/Math/Vector2.hpp"
 
+#include "ResourceManager.hpp"
 #include "Rendering.hpp"
 #include "Animator.hpp"
-#include "SpriteSheet.hpp"
+#include "AnimationSheet.hpp"
 #include "Viewport.hpp"
 #include "Camera.hpp"
 #include "Layer.hpp"
@@ -15,10 +16,8 @@
 class Renderable
 {
 public:
-	Renderable(const char* spritePath);
-	Renderable(const char* spritePath, std::shared_ptr<SpriteSheet> sheet);
-	
-	~Renderable();
+	Renderable(const char* spriteName);
+	Renderable(const char* spriteName, std::shared_ptr<AnimationSheet> sheet);
 
 	Renderable(const Renderable& other);
 	Renderable& operator=(const Renderable& other);
@@ -26,9 +25,8 @@ public:
 	Renderable(Renderable&& other) noexcept;
 	Renderable& operator=(Renderable&& other) noexcept;
 
-	void StopRendering();
-
-	const char* GetPath() const { return sprite; }
+	const char* GetSprite() const { return _spriteName; }
+	SpriteData* GetSpriteData() const { return _spriteData; }
 
 	Rendering::Color GetColor() const;
 	void SetColor(Rendering::Color newColor);
@@ -40,15 +38,15 @@ public:
 	void SetLayer(Layer layer) { _layer = layer; };
 
 	std::shared_ptr<Animator> GetAnimator() const { return _animator; }
-	std::shared_ptr<SpriteSheet> GetSheet() const { return _sheet; }
-	Rendering::Texture* GetTexture();
+	std::shared_ptr<AnimationSheet> GetSheet() const { return _sheet; }
 
 protected:
-	const char* sprite;
-	std::shared_ptr<Animator> _animator;
-	std::shared_ptr<SpriteSheet> _sheet;
+	const char* _spriteName;
+	SpriteData* _spriteData;
 
-	Rendering::Texture* _texture;
+	std::shared_ptr<Animator> _animator;
+	std::shared_ptr<AnimationSheet> _sheet;
+
 	Rendering::Color color{Rendering::Color(255, 255, 255, 255)};
 
 	bool flipX{false};

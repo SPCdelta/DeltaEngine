@@ -10,7 +10,7 @@
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
     <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
-    <ClCompile Include="Engine\Rendering\SpriteSheet.cpp" />
+    <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
@@ -29,6 +29,8 @@
     <ClCompile Include="Engine\UI\Button.cpp" />
     <ClCompile Include="Engine\Core\Math\MathUtils.cpp" />
     <ClCompile Include="Engine\Core\Time.cpp" />
+    <ClCompile Include="Engine\Rendering\ResourceManager.cpp" />
+    <ClCompile Include="Engine\Rendering\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -54,7 +56,7 @@
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
-    <ClInclude Include="Engine\Rendering\SpriteSheet.hpp" />
+    <ClInclude Include="Engine\Rendering\AnimationSheet.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
@@ -96,6 +98,10 @@
     <ClInclude Include="Engine\Rendering\Layer.hpp" />
     <ClInclude Include="Engine\Core\Math\MathUtils.hpp" />
     <ClInclude Include="Engine\Core\Time.hpp" />
+    <ClInclude Include="Engine\Rendering\SpriteMap.hpp" />
+    <ClInclude Include="Engine\Rendering\SpriteData.hpp" />
+    <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
+    <ClInclude Include="Engine\Rendering\TextureManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

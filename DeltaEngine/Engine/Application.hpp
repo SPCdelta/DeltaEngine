@@ -50,6 +50,7 @@ public:
 
 	void Stop()
 	{
+		TextureManager::Cleanup();
 		_window.Close();
 		_isRunning = false;
 

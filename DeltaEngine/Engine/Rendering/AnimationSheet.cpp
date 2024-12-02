@@ -1,6 +1,6 @@
-#include "SpriteSheet.hpp"
+#include "AnimationSheet.hpp"
 
-SpriteSheet::SpriteSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp, int rowDown, 
+AnimationSheet::AnimationSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp, int rowDown, 
 	int rowLeft, int rowRight) : frameCount(framesInRow), frameRowUp(rowUp), frameRowDown(rowDown), frameRowLeft(rowLeft), 
 	frameRowRight(rowRight), frameWidth(frameW), frameHeight(frameH)
 {
@@ -12,21 +12,21 @@ SpriteSheet::SpriteSheet(Transform& transform, int framesInRow, int frameW, int 
 	destRect = dest;
 }
 
-void SpriteSheet::AddAttackAnimation(int frameCount, int row, Rendering::UnsignInt32 attackAnimSpeed)
+void AnimationSheet::AddAttackAnimation(int frameCount, int row, Rendering::UnsignInt32 attackAnimSpeed)
 {
 	attackFrameCount = frameCount;
 	attackRow = row;
 	attackAnimationSpeed = attackAnimSpeed;
 }
 
-void SpriteSheet::AddIdleAnimation(int frameCount, int row, Rendering::UnsignInt32 idleAnimSpeed)
+void AnimationSheet::AddIdleAnimation(int frameCount, int row, Rendering::UnsignInt32 idleAnimSpeed)
 {
 	idleFrameCount = frameCount;
 	idleRow = row;
 	idleAnimationSpeed = idleAnimSpeed;
 }
 
-void SpriteSheet::Attack()
+void AnimationSheet::Attack()
 {
 	SetIsAttacking(true);
 	SetAttCurrentFrame(0);

@@ -32,11 +32,11 @@
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Audio\Music\theme1.mp3" />
-    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3" />
     <Media Include="Assets\Audio\SFX\eating.mp3" />
-    <Media Include="Assets\Audio\SFX\take_damage1.mp3" />
-    <Media Include="Assets\Audio\SFX\villager1.mp3" />
+    <Media Include="Assets\Audio\Music\Menu_music.mp3" />
+    <Media Include="Assets\Audio\SFX\Explosion.mp3" />
+    <Media Include="Assets\Audio\SFX\Death.mp3" />
+    <Media Include="Assets\Audio\SFX\NPC.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\player.png" />
@@ -46,10 +46,8 @@
     <Image Include="Assets\Textures\spritesheet3.png" />
     <Image Include="Assets\Textures\square.png" />
     <Image Include="Assets\Textures\default_texture.png" />
-    <Image Include="Assets\Textures\ice_floor.png" />
-    <Image Include="Assets\Textures\stone_floor.png" />
-    <Image Include="Assets\Textures\wall.png" />
-    <Image Include="Assets\Textures\mud_floor.png" />
+    <Image Include="Assets\Textures\floor_map.png" />
+    <Image Include="Assets\Textures\wall_map.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
