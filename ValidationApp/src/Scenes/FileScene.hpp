@@ -19,7 +19,7 @@ class FileScene : public Scene
 
 			// Saving/Overwriting
 			Json::json dataToSave;
-			dataToSave["spritePath"] = playerObject->GetComponent<Sprite>().GetPath();
+			dataToSave["spritePath"] = playerObject->GetComponent<Sprite>().GetSprite();
 			fileManager.Save("Assets\\Files\\example.json", "json", dataToSave);
 
 			// Loading
