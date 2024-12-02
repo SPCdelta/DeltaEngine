@@ -36,11 +36,11 @@ void PlayerBehaviour::OnStart()
 	onKeyReleased(KEY_D, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
 
 	// Bij het testen van inventory, Dit aanzetten! 
-	
-	onKeyPressed(KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");
-	onKeyPressed(KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
-	onKeyPressed(KEY_L, [this](Input& e) { inventory.AddItem(_item2, 4); }, "Gameplay");
-	onKeyPressed(KEY_Q, [this](Input& e) { inventory.RemoveItem(_item1, 5);}, "Gameplay");
+	onKeyPressed(KEY_V, [this](Input& e) { _pot.Use(_player); }, "Gameplay");
+	//onKeyPressed(KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");
+	//onKeyPressed(KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
+	//onKeyPressed(KEY_L, [this](Input& e) { inventory.AddItem(_item2, 4); }, "Gameplay");
+	//onKeyPressed(KEY_Q, [this](Input& e) { inventory.RemoveItem(_item1, 5);}, "Gameplay");
 }
 
 void PlayerBehaviour::OnUpdate() 

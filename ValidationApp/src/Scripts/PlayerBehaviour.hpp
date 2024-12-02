@@ -9,6 +9,9 @@
 #include "../Classes/FloorBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
 #include "Boomerang.hpp"
+#include "../Items/Potions/SpeedPotion.hpp"
+#include "../Items/Potions/DefensePotion.hpp"
+#include "../Items/Potions/HealingPotion.hpp"
 
 class PlayerBehaviour : public BehaviourScript
 {
@@ -35,11 +38,15 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
+	//dit aanzetten om potions te testen!
+
+	//Player _player{25, 10, 10, 25};
+	//HealingPotion _pot{0, 10, "healingpotion"};
 
 	// bij het testen van inventory, dit aanzetten!
 
-	Inventory inventory;
-	Item _item1{"item 1"};
-	Item _item2{"item 2"};
+	//Inventory inventory;
+	//Item _item1{"item 1"};
+	//Item _item2{"item 2"};
 
 };
