@@ -1,46 +1,41 @@
 #include "Renderable.hpp"
 
-Renderable::Renderable(const char* spritePath) : sprite{spritePath}, _texture{nullptr}, _animator{nullptr}, _sheet{nullptr}
+Renderable::Renderable(const char* spriteName) 
+	: _spriteName{spriteName}, _animator{nullptr}, _sheet{nullptr}
 {
+	_spriteData = ResourceManager::Get(spriteName);
 }
 
-Renderable::Renderable(const char* spritePath, std::shared_ptr<SpriteSheet> sheet = nullptr)
-	: sprite(spritePath), _texture(nullptr), _animator(nullptr)
+Renderable::Renderable(const char* spriteName, std::shared_ptr<SpriteSheet> sheet = nullptr)
+	: _spriteName(spriteName), _animator(nullptr)
 {
 	_animator = std::make_shared<Animator>();
 	_sheet = sheet;
-}
-
-Renderable::~Renderable()
-{
-	StopRendering();
-	_texture = nullptr;
+	_spriteData = ResourceManager::Get(spriteName);
 }
 
 Renderable::Renderable(const Renderable& other)
-	: sprite(other.sprite),
+	: _spriteName(other._spriteName),
 	  color(other.color),
 	  flipX(other.flipX),
 	  flipY(other.flipY),
-	  _texture(other._texture),
+	  _spriteData(other._spriteData),
 	  _animator(other._animator),
 	  _sheet(other._sheet)
 {
+
 }
 
 Renderable& Renderable::operator=(const Renderable& other)
 {
 	if (this == &other)
 	{
-		StopRendering();
-		_texture = nullptr;
-
-		sprite = other.sprite;
+		_spriteName = other._spriteName;
 		color = other.color;
 		flipX = other.flipX;
 		flipY = other.flipY;
 
-		_texture = other._texture;
+		_spriteData = other._spriteData;
 		_animator = other._animator;
 		_sheet = other._sheet;
 	}
@@ -49,15 +44,14 @@ Renderable& Renderable::operator=(const Renderable& other)
 }
 
 Renderable::Renderable(Renderable&& other) noexcept
-	: sprite(other.sprite),
-	  _texture(other._texture),
+	: _spriteName(other._spriteName),
+	  _spriteData(other._spriteData),
 	  color(other.color),
 	  flipX(other.flipX),
 	  flipY(other.flipY),
 	  _animator(other._animator),
 	  _sheet(other._sheet)
 {
-	other._texture = nullptr;
 	other._animator = nullptr;
 	other._sheet = nullptr;
 }
@@ -66,30 +60,21 @@ Renderable& Renderable::operator=(Renderable&& other) noexcept
 {
 	if (this != &other)
 	{
-		StopRendering();
-		_texture = nullptr;
-
-		sprite = other.sprite;
+		_spriteName = other._spriteName;
 		color = other.color;
 		flipX = other.flipX;
 		flipY = other.flipY;
 
-		_texture = other._texture;
+		_spriteData = other._spriteData;
 		_animator = other._animator;
 		_sheet = other._sheet;
 
-		other._texture = nullptr;
+		other._spriteData = nullptr;
 		other._animator = nullptr;
 		other._sheet = nullptr;
 	}
 
 	return *this;
-}
-
-void Renderable::StopRendering()
-{
-	if (_texture)
-		Rendering::DestroyTexture(_texture);
 }
 
 Rendering::Color Renderable::GetColor() const
@@ -100,9 +85,4 @@ Rendering::Color Renderable::GetColor() const
 void Renderable::SetColor(Rendering::Color newColor)
 {
 	color = newColor;
-}
-
-Rendering::Texture* Renderable::GetTexture()
-{
-	return _texture;
 }

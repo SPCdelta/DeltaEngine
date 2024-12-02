@@ -15,6 +15,7 @@ Window::Window(const char* title, int width, int height)
 	{
 		std::cerr << "Failed to create renderer: " << Rendering::GetError() << std::endl;
 	}
+	TextureManager::SetRenderer(_renderer);
 
 	// Set the initial viewport to match the window size
 	_viewportData.width = width;

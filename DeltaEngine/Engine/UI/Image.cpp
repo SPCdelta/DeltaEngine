@@ -6,15 +6,18 @@ void Image::Render(Rendering::Renderer* renderer,
 				   const ViewportData& viewportData, const Transform& transform)
 {
 	// Get Texture
-	if (!_texture)
+	if (!_spriteData)
 	{
-		Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
-		if (!texture)
+		if (_spriteName)
 		{
-			std::cerr << "Failed to load texture: " << Rendering::GetError() << '\n';
-			return;
+			throw std::exception("No sprite on sprite");
 		}
-		_texture = texture;
+
+		_spriteData = ResourceManager::Get(_spriteName);
+		if (!_spriteData)
+		{
+			throw std::exception("Sprite not found");
+		}
 	}
 
 	Rendering::Rect destRect;
@@ -24,5 +27,5 @@ void Image::Render(Rendering::Renderer* renderer,
 	destRect.w = static_cast<int>(transform.scale.GetX());
 	destRect.h = static_cast<int>(transform.scale.GetY());
 
-	Rendering::RenderCopyEx(renderer, _texture, NULL, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
+	Rendering::RenderCopyEx(renderer, _spriteData->texture, NULL, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
 }

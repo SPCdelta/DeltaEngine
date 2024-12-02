@@ -7,7 +7,7 @@ class MouseFollowBehaviour : public BehaviourScript
 public:
 	void OnStart() override 
 	{ 
-		gameObject->AddComponent<Sprite>("Assets\\Textures\\player.png");
+		//gameObject->AddComponent<Sprite>("Assets\\Textures\\player.png");
 		_camera = gameObject->GetCamera();
 
 		InputManager::onMouseMove(

@@ -29,6 +29,7 @@
     <ClCompile Include="Engine\UI\Button.cpp" />
     <ClCompile Include="Engine\Core\Math\MathUtils.cpp" />
     <ClCompile Include="Engine\Core\Time.cpp" />
+    <ClCompile Include="Engine\Rendering\Managers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -96,6 +97,10 @@
     <ClInclude Include="Engine\Rendering\Layer.hpp" />
     <ClInclude Include="Engine\Core\Math\MathUtils.hpp" />
     <ClInclude Include="Engine\Core\Time.hpp" />
+    <ClInclude Include="Engine\Rendering\Voorbeeld.hpp" />
+    <ClInclude Include="Engine\Rendering\SpriteMap.hpp" />
+    <ClInclude Include="Engine\Rendering\SpriteData.hpp" />
+    <ClInclude Include="Engine\Rendering\Managers.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

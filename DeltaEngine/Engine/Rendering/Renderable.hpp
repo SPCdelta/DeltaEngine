@@ -2,6 +2,7 @@
 
 #include "../Core/Math/Vector2.hpp"
 
+#include "Managers.hpp"
 #include "Rendering.hpp"
 #include "Animator.hpp"
 #include "SpriteSheet.hpp"
@@ -15,10 +16,8 @@
 class Renderable
 {
 public:
-	Renderable(const char* spritePath);
-	Renderable(const char* spritePath, std::shared_ptr<SpriteSheet> sheet);
-	
-	~Renderable();
+	Renderable(const char* spriteName);
+	Renderable(const char* spriteName, std::shared_ptr<SpriteSheet> sheet);
 
 	Renderable(const Renderable& other);
 	Renderable& operator=(const Renderable& other);
@@ -26,9 +25,11 @@ public:
 	Renderable(Renderable&& other) noexcept;
 	Renderable& operator=(Renderable&& other) noexcept;
 
-	void StopRendering();
+	// will break oopsie poopsie
+	const char* GetPath() const { return _spriteName; }
 
-	const char* GetPath() const { return sprite; }
+	const char* GetSprite() const { return _spriteName; }
+	SpriteData* GetSpriteData() const { return _spriteData; }
 
 	Rendering::Color GetColor() const;
 	void SetColor(Rendering::Color newColor);
@@ -41,14 +42,14 @@ public:
 
 	std::shared_ptr<Animator> GetAnimator() const { return _animator; }
 	std::shared_ptr<SpriteSheet> GetSheet() const { return _sheet; }
-	Rendering::Texture* GetTexture();
 
 protected:
-	const char* sprite;
+	const char* _spriteName;
+	SpriteData* _spriteData;
+
 	std::shared_ptr<Animator> _animator;
 	std::shared_ptr<SpriteSheet> _sheet;
 
-	Rendering::Texture* _texture;
 	Rendering::Color color{Rendering::Color(255, 255, 255, 255)};
 
 	bool flipX{false};

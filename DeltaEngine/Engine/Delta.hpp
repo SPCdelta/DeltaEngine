@@ -4,15 +4,18 @@
 
 #include "GameObject.hpp"
 #include "BehaviourScript.hpp"
+#include "Scene/Scene.hpp"
 
 #include "Core/Files/FileManager.hpp"
 
 // Math
 #include "Core/Math/MathUtils.hpp"
 
+// Rendering
 #include "Rendering/Layer.hpp"
+#include "Rendering/SpriteMap.hpp"
 
-#include "Scene/Scene.hpp"
+// Input
 #include "Input/DeltaInputs.hpp"
 
 // Physics

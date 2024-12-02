@@ -3,20 +3,22 @@
 void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform)
 {
 	// Get Texture
-	if (!_texture)
+	if (!_spriteData)
 	{
-		Rendering::Texture* texture = Rendering::LoadTexture(renderer, sprite);
-		if (!texture)
+		if (_spriteName)
 		{
-			std::cerr << "Failed to load texture: " << Rendering::GetError()
-					  << std::endl;
-			return;
+			throw std::exception("No sprite on sprite");
 		}
-		_texture = texture;
+
+		_spriteData = ResourceManager::Get(_spriteName);
+		if (!_spriteData)
+		{
+			throw std::exception("Sprite not found");
+		}
 	}
 
 	// TODO: Facade
-	SDL_SetTextureColorMod(_texture, color.r, color.g, color.b);
+	SDL_SetTextureColorMod(_spriteData->texture, color.r, color.g, color.b);
 
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(
@@ -37,7 +39,7 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	{
 		Rendering::Rect srcRect = _sheet->GetSrcRect();
 		Rendering::RenderCopyEx(
-			renderer, _texture, &srcRect, &destRect, transform.rotation, 0,
+			renderer, _spriteData->texture, &srcRect, &destRect, transform.rotation, 0,
 			Rendering::GetFlip(
 				((_sheet->GetFacingDirection() == Direction::RIGHT &&
 				  _sheet->GetRowRight() == 0) ||
@@ -48,7 +50,7 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	}
 	else
 	{
-		Rendering::RenderCopyEx(renderer, _texture, NULL, &destRect,
+		Rendering::RenderCopyEx(renderer, _spriteData->texture, NULL, &destRect,
 								transform.rotation, 0,
 								Rendering::GetFlip(flipX, flipY));
 	}
