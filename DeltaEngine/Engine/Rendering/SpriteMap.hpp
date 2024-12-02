@@ -5,7 +5,7 @@
 
 #include "../Core/Math/Vector2.hpp"
 #include "SpriteData.hpp"
-#include "Managers.hpp"
+#include "ResourceManager.hpp"
 
 struct TilemapEntry	 // DTO
 {

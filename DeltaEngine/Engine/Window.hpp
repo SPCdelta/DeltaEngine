@@ -4,7 +4,7 @@
 
 #include "Rendering/Rendering.hpp"
 #include "Rendering/Viewport.hpp"
-#include "Rendering/Managers.hpp"
+#include "Rendering/ResourceManager.hpp"
 
 class Window
 {
