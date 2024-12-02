@@ -10,7 +10,7 @@ void Image::Render(Rendering::Renderer* renderer,
 	{
 		if (_spriteName)
 		{
-			throw std::exception("No sprite on sprite");
+			throw std::exception("Sprite not set on Sprite Component");
 		}
 
 		_spriteData = ResourceManager::Get(_spriteName);

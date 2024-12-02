@@ -7,7 +7,7 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	{
 		if (_spriteName)
 		{
-			throw std::exception("No sprite on sprite");
+			throw std::exception("Sprite not set on Sprite Component");
 		}
 
 		_spriteData = ResourceManager::Get(_spriteName);

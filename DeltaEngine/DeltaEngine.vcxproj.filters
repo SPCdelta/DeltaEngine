@@ -98,7 +98,6 @@
     <ClInclude Include="Engine\Rendering\Layer.hpp" />
     <ClInclude Include="Engine\Core\Math\MathUtils.hpp" />
     <ClInclude Include="Engine\Core\Time.hpp" />
-    <ClInclude Include="Engine\Rendering\Voorbeeld.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteMap.hpp" />
     <ClInclude Include="Engine\Rendering\SpriteData.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />

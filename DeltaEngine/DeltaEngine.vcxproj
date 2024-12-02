@@ -268,7 +268,6 @@
     <ClInclude Include="Engine\Rendering\AnimationSheet.hpp" />
     <ClInclude Include="Engine\Rendering\TextureManager.hpp" />
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
-    <ClInclude Include="Engine\Rendering\Voorbeeld.hpp" />
     <ClInclude Include="Engine\Systems\CollisionSystem.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
