@@ -16,25 +16,6 @@ void PlayerBehaviour::OnStart()
 		}
 	);
 
-	rigidbody->onTriggerEnter.Register(
-		[this](Collider& collider)
-		{ 
-			/*_sensorCount++;*/
-		}
-	);
-
-	// Input
-	InputManager::activateCategory("Gameplay");
-	onKeyPressed(KEY_W, [this](Input& e) { _moveDirection.SetY(1.0f); }, "Gameplay");
-	onKeyPressed(KEY_S, [this](Input& e) { _moveDirection.SetY(-1.0f); }, "Gameplay");
-	onKeyPressed(KEY_A, [this](Input& e) { _moveDirection.SetX(-1.0f); }, "Gameplay");
-	onKeyPressed(KEY_D, [this](Input& e) { _moveDirection.SetX(1.0f); }, "Gameplay");
-
-	onKeyReleased(KEY_W, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
-	onKeyReleased(KEY_S, [this](Input& e) { _moveDirection.SetY(0.0f); }, "Gameplay");
-	onKeyReleased(KEY_A, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
-	onKeyReleased(KEY_D, [this](Input& e) { _moveDirection.SetX(0.0f); }, "Gameplay");
-
 	// Bij het testen van inventory, Dit aanzetten! 
 	onKeyPressed(KEY_V, [this](Input& e) { _pot.Use(_player); }, "Gameplay");
 	//onKeyPressed(KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");

@@ -38,12 +38,8 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
-	//dit aanzetten om potions te testen!
-
 	Player _player{25, 10, 10, 25};
 	DefensePotion _pot{10, 10, "speedpotion"};
-
-	// bij het testen van inventory, dit aanzetten!
 
 	//Inventory inventory;
 	//Item _item1{"item 1"};
