@@ -243,7 +243,6 @@
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
-    <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
     <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
@@ -271,7 +270,6 @@
     <ClInclude Include="Engine\Systems\CollisionSystem.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
-    <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Systems\ImageRenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />

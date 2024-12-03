@@ -87,7 +87,7 @@ void PlayerBehaviour::OnUpdate()
 	}
 }
 
-void PlayerBehaviour::ThrowBoomerang() 
+void PlayerBehaviour::ThrowBoomerang()
 {
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();

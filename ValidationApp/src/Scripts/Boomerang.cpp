@@ -2,7 +2,7 @@
 
 void Boomerang::OnStart() 
 {
-	gameObject->AddComponent<Sprite>("player");
+	gameObject->AddComponent<Sprite>("player")->SetLayer(Layer::Projectiles);
 	gameObject->AddComponent<BoxCollider>()->SetTrigger(true);
 	rigidbody = gameObject->AddComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);

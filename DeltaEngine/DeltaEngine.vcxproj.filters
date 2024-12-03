@@ -51,7 +51,6 @@
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
-    <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
@@ -60,7 +59,6 @@
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
-    <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
