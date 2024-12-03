@@ -29,7 +29,7 @@ void PlayerBehaviour::OnUpdate()
 	_moveDirection = _playerInput.GetDirection();
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
-	_pot.Update();
+	//_pot.Update();
 
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f})
 	{

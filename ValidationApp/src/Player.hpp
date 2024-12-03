@@ -3,7 +3,7 @@ class Player
 {
    public:
 	Player(int shield, int damage, int speed, int health)
-		: _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{_maxHealth}
+		: _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{health}
 	{
 	}
 	void SetShield(int shield);

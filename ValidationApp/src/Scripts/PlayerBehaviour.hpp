@@ -38,8 +38,8 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
-	Player _player{25, 10, 10, 25};
-	DefensePotion _pot{10, 10, "speedpotion"};
+	Player _player{25, 10, 10, 95};
+	HealingPotion _pot{10, 10, "healingpotion"};
 
 	//Inventory inventory;
 	//Item _item1{"item 1"};
