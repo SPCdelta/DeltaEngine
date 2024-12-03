@@ -123,6 +123,8 @@ void PlayerBehaviour::OnUpdate()
 		// Attacking
 		if (attack)
 		{
+			ThrowBoomerang();
+
 			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
 				sprite->GetSheet()->PlayCustomAnimation("attackLeft");
 			else if (sprite->GetSheet()->GetFacingDirection() == Direction::RIGHT)
@@ -152,6 +154,7 @@ void PlayerBehaviour::OnUpdate()
 void PlayerBehaviour::ThrowBoomerang() 
 {
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
+	boomerangObj->SetTag("ouch");
 	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();
 
 	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};

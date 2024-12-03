@@ -37,7 +37,9 @@ bool AnimationSheet::PlayCustomAnimation(const std::string& animationName)
 			srcRect.x = currentFrame * frameWidth;
 			lastFrameTime = currentTime;
 
-			if ((currentFrame + 1) == animData.frameCount)
+			// If true, animation still playing
+			// If false, animation is done playing
+			if ((currentFrame + 1) == animData.frameCount) 
 				return false;
 			else
 				return true;

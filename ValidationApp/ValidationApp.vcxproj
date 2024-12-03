@@ -180,6 +180,7 @@
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
+    <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
     <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
     <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
+    <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />

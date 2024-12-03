@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
+#include "../Scripts/EnemyBehaviour.hpp"
 
 class LayerScene : public Scene
 {
@@ -34,8 +35,13 @@ class LayerScene : public Scene
 		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
 		hurtfulObject->SetTag("ouch");
 
-		std::shared_ptr<GameObject> pokemonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
+		std::shared_ptr<GameObject> pokemonObject{Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
 		pokemonObject->AddComponent<Sprite>("spritesheet");
+
+		pokemonObject->AddComponent<BoxCollider>();
+		pokemonObject->AddComponent<Rigidbody>();
+
+		pokemonObject->AddComponent<EnemyBehaviour>();
 
 		pokemonObject->SetLayer(Layer::Foreground);
 		hurtfulObject->SetLayer(Layer::Default);

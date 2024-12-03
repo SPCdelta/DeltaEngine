@@ -13,7 +13,6 @@ public:
 		behaviour->onKeyPressed(KEY_A, [this](Input& e) { _aDown = true; }, "Gameplay");
 		behaviour->onKeyPressed(KEY_D, [this](Input& e) { _dDown = true; }, "Gameplay");
 
-		// TODO
 		behaviour->onMouseButtonDown(MouseButton::Left, [this](Input& e) { _leftClick = true; StartAttack(); }, "Gameplay");
 
 		behaviour->onKeyReleased(KEY_W, [this](Input& e) { _wDown = false; }, "Gameplay");
@@ -35,13 +34,9 @@ public:
 	void UpdateAttack(float deltaTime)
 	{
 		if (_attackTime > 0.0f)
-		{
 			_attackTime -= deltaTime;
-		}
 		else
-		{
 			_leftClick = false;
-		}
 	}
 
 private:

@@ -13,23 +13,41 @@ class DamageBehaviour
 			{ 
 				if (CanTakeDamage())
 				{
+					// Touching an object that hurts
 					const std::string& tag{collider.transform.gameObject->GetTag()};
 					if (tag == "ouch")
 					{
 						_inContactWithDamageSource = true;
 						_damageCount++;
 					}
+
+					// TODO
+					// Getting attacked by an enemy
+					/*if ( getting attcked )
+					{
+						_gettingAttacked = true;
+						_damageCount++;
+					}*/
 				}
 			});
 
 			_rigidbody.onTriggerExit.Register([this](Collider& collider)
 			{
+				// No longer touching an object that hurts
 				const std::string& tag{collider.transform.gameObject->GetTag()};
 				if (tag == "ouch")
 				{
 					_inContactWithDamageSource = false;
 					_damageCount--;
 				}
+
+				// TODO
+				// No longer getting attacked by an enemy
+				/*if ( not getting attcked anymore )
+				{
+					_gettingAttacked = false;
+					_damageCount--;
+				}*/
 			});
 		}
 
@@ -56,7 +74,7 @@ class DamageBehaviour
 
 		bool GetDamage() const
 		{
-			if (_damageCount > 0 && CanTakeDamage() && _inContactWithDamageSource)
+			if (_damageCount > 0 && CanTakeDamage() && (_inContactWithDamageSource || _gettingAttacked))
 				return true;
 			return false;
 		}
@@ -77,6 +95,8 @@ class DamageBehaviour
 		bool _damage{false};
 
 		bool _inContactWithDamageSource{false};
+		bool _gettingAttacked{false};
+
 		float _invincibleTime{0.0f};
 		const float _invincibilityDuration = 1.0f; // 1 second of invincibility
 
