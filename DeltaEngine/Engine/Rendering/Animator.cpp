@@ -1,6 +1,6 @@
 #include "Animator.hpp"
 
-void Animator::Play(std::shared_ptr<SpriteSheet> sheet, Direction direc)
+void Animator::Play(std::shared_ptr<AnimationSheet> sheet, Direction direc)
 {
 	bool isMoving = true;
 	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();	
@@ -55,7 +55,7 @@ void Animator::Play(std::shared_ptr<SpriteSheet> sheet, Direction direc)
 	}
 }
 
-void Animator::MoveUp(std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveUp(std::shared_ptr<AnimationSheet> sheet)
 {
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 
@@ -78,7 +78,7 @@ void Animator::MoveUp(std::shared_ptr<SpriteSheet> sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveDown(std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveDown(std::shared_ptr<AnimationSheet> sheet)
 {
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 
@@ -101,7 +101,7 @@ void Animator::MoveDown(std::shared_ptr<SpriteSheet> sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveLeft(std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveLeft(std::shared_ptr<AnimationSheet> sheet)
 {
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 	tempSrcRect.y = (sheet->GetRowLeft() ? (sheet->GetRowLeft() - 1) : (sheet->GetRowRight() - 1)) * sheet->GetFrameHeight();
@@ -109,7 +109,7 @@ void Animator::MoveLeft(std::shared_ptr<SpriteSheet> sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::MoveRight(std::shared_ptr<SpriteSheet> sheet)
+void Animator::MoveRight(std::shared_ptr<AnimationSheet> sheet)
 {
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 	tempSrcRect.y = (sheet->GetRowRight() ? (sheet->GetRowRight() - 1) : (sheet->GetRowLeft() - 1)) * sheet->GetFrameHeight();
@@ -117,7 +117,7 @@ void Animator::MoveRight(std::shared_ptr<SpriteSheet> sheet)
 	sheet->SetSrcRect(tempSrcRect);
 }
 
-void Animator::StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<SpriteSheet> sheet)
+void Animator::StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<AnimationSheet> sheet)
 {
 	if (sheet->GetIdleRow() != 0)
 	{
