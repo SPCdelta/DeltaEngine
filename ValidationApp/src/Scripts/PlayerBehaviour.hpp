@@ -32,17 +32,4 @@ private:
 	float _iceAcceleration = 2.0f;
 
 	FloorType _onFloor{ FloorType::NORMAL };
-
-	// TODO iframes
-	//float _currentFrame{0.0f};
-	//float _lastFrame{0.0f};
-
-	//float GetDeltaTime()
-	//{
-	//	_currentFrame = Rendering::GetTicks() / 1000.f;	 // TODO magic num
-	//	float deltaTime = _currentFrame - _lastFrame;
-	//	_lastFrame = _currentFrame;
-
-	//	return deltaTime;
-	//}
 };

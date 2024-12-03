@@ -6,7 +6,7 @@ void PlayerBehaviour::OnStart()
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
-	_damageBehaviour = new DamageBehaviour(*rigidbody);
+	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite);
 
 	InputManager::onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 	InputManager::onMouseMove(
@@ -20,9 +20,8 @@ void PlayerBehaviour::OnStart()
 
 void PlayerBehaviour::OnUpdate() 
 {
-	// TODO iframes
-	/*float deltaTime = GetDeltaTime();
-	_damageBehaviour->Update(deltaTime);*/
+	float deltaTime = Time::GetDeltaTime();
+	_damageBehaviour->Update(deltaTime);
 
 	_moveDirection = _playerInput.GetDirection();
 	_onFloor = _floorBehaviour->GetOnFloor();
@@ -75,11 +74,15 @@ void PlayerBehaviour::OnUpdate()
 				break;
 		}
 	}
-
-	if (_damageBehaviour->GetDamage() != 0)
+	
+	_damageBehaviour->Update(Time::GetDeltaTime());
+	if (_damageBehaviour->GetDamage())
 	{
-		// TODO take damage
-		std::cout << "ouch * " << _damageBehaviour->GetDamage() << std::endl;
+		_damageBehaviour->TakeDamage();
+		
+		auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
+		sfx.SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+		sfx.Play();
 	}
 
 	if (sprite && sprite->GetAnimator())

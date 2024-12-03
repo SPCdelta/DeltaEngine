@@ -17,6 +17,7 @@ class TempAudio : public BehaviourScript
 		music.Play();
 		//sfx.SetClip("Assets\\Audio\\SFX\\Eating.mp3");
 	}
+
 	void OnUpdate() override
 	{
 		//auto& sfx = gameObject->GetComponent<Audio::SFXSource>();

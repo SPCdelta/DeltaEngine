@@ -17,14 +17,12 @@ class LayerScene : public Scene
 		playerObject->AddComponent<Rigidbody>();
 
 		playerObject->AddComponent<PlayerBehaviour>();
-		
+		playerObject->AddComponent<Audio::SFXSource>();
+				
 		std::shared_ptr<GameObject> hurtfulObject{Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}})};
-		hurtfulObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet2.png");
+		hurtfulObject->AddComponent<Sprite>("spritesheet2");
 		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
 		hurtfulObject->SetTag("ouch");
-
-		//std::shared_ptr<GameObject> skeletonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
-		//skeletonObject->AddComponent<Sprite>("spritesheet2");
 
 		std::shared_ptr<GameObject> pokemonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
 		pokemonObject->AddComponent<Sprite>("spritesheet");

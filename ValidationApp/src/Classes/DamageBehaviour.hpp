@@ -5,73 +5,90 @@
 class DamageBehaviour
 {
    public:
-		DamageBehaviour(Rigidbody& rigidbody) : _rigidbody{ rigidbody }
+		DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite) : _rigidbody{ rigidbody }, _sprite{ sprite }
 		{
+			_ogColor = sprite.GetColor();
+
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
-				// TODO iframes
-				/*if (CanTakeDamage())
-				{*/
+				if (CanTakeDamage())
+				{
 					const std::string& tag{collider.transform.gameObject->GetTag()};
 					if (tag == "ouch")
 					{
+						_inContactWithDamageSource = true;
 						_damageCount++;
-						//StartInvincibility();
 					}
-				//}
-			});
-
-			rigidbody.onTriggerExit.Register([this](Collider& collider)
-			{
-				const std::string& tag{collider.transform.gameObject->GetTag()};
-				if (tag == "ouch")
-				{
-					_damageCount--;
 				}
 			});
+
+			 _rigidbody.onTriggerExit.Register(
+				[this](Collider& collider)
+				{
+					const std::string& tag{
+						collider.transform.gameObject->GetTag()};
+					if (tag == "ouch")
+					{
+						_inContactWithDamageSource = false;
+						_damageCount--;
+					}
+				});
 		}
 
 		~DamageBehaviour()
 		{
-			// TODO
-			/*_rigidbody.onTriggerEnter.Unregister(this);
-			_rigidbody.onTriggerExit.Unregister(this);*/
+			// TODO unregister events
 		}
 
-		// TODO iframes
-		/*void Update(float deltaTime)
+		void Update(float deltaTime)
 		{
 			if (_invincibleTime > 0.0f)
 			{
 				_invincibleTime -= deltaTime;
+				if (static_cast<int>(_invincibleTime * 10) % 2 == 0)
+					_sprite.SetColor(_ogColor);	 // Normal color
+				else
+					_sprite.SetColor(Rendering::Color(255.0f, 255.0f, 255.0f, 1.5f)); // Flash effect
 			}
-		}*/
-
-		int GetDamage() const
-		{
-			if (_damageCount > 0 /*&& CanTakeDamage()*/)
-				return -5;
 			else
-				return 0;
-		
+			{
+				_sprite.SetColor(_ogColor);	 // Reset color after taking damage
+			}
+		}
+
+		bool GetDamage() const
+		{
+			if (_damageCount > 0 && CanTakeDamage() && _inContactWithDamageSource)
+				return true;
+			return false;
+		}
+
+		void TakeDamage()
+		{
+			StartInvincibility();
+			_sprite.SetColor(Rendering::Color(255.0f, 0.0f, 0.0f, 1.0f)); 
+			std::cout << "ouch" << std::endl;
 		}
 
 	private:
 		Rigidbody& _rigidbody;
+		Sprite& _sprite;
+		Rendering::Color _ogColor;
 
 		int _damageCount{0};
+		bool _damage{false};
 
-		float _invincibleTime;
-		const float _invincibilityDuration = 1.0f; // 1 seconds of invincibility
+		bool _inContactWithDamageSource{false};
+		float _invincibleTime{0.0f};
+		const float _invincibilityDuration = 2.0f; // 2 seconds of invincibility
 
 		void StartInvincibility()
 		{
 			_invincibleTime = _invincibilityDuration;
 		}
 
-		// TODO iframes
-		/*bool CanTakeDamage() const
+		bool CanTakeDamage() const
 		{
 			return _invincibleTime <= 0.0f;
-		}*/
+		}
 };
