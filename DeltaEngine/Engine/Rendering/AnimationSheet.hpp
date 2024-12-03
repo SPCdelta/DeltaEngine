@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <vector>
 #include <unordered_map>
 #include <string>
@@ -99,6 +98,4 @@ private:
 	};
 
 	std::unordered_map<std::string, AnimationData> customAnimations;
-
-	void UpdateFrame(const AnimationData& animData); // TODO
 };

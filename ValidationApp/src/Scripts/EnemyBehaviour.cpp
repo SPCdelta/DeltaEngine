@@ -5,7 +5,7 @@ void EnemyBehaviour::OnStart()
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
-	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite);
+	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "weapon");
 }
 
 void EnemyBehaviour::OnUpdate()
@@ -16,7 +16,7 @@ void EnemyBehaviour::OnUpdate()
 		if (hp > 0)
 		{
 			_damageBehaviour->TakeDamage();
-			std::cout << hp << std::endl;
+			std::cout << "enemy dying: " << hp << std::endl; 
 			hp--;
 		}
 
@@ -24,7 +24,6 @@ void EnemyBehaviour::OnUpdate()
 		{
 			std::cout << "i died!" << std::endl;
 			sprite->SetColor(Rendering::Color(0.0f, 0.0f, 0.0f, 1.0f)); 
-			// TODO die
 		}
 	}
 }

@@ -73,7 +73,6 @@ void ValidationApp::LoadAssets()
 	};
 
 	// Single
-	//ResourceManager::Add("player", "Assets\\Textures\\player.png"); TODO
 	ResourceManager::Add("player", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::Add("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::Add("spritesheet2", "Assets\\Textures\\spritesheet2.png");

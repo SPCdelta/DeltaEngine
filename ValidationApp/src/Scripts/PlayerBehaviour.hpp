@@ -33,7 +33,8 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
-	int hp{5}; // TODO make more
+	int hp{20};
+
 	float deathElapsedTime = 0.0f;
 	bool deathSoundPlayed = false;
 };

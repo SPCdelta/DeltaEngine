@@ -6,7 +6,7 @@ void PlayerBehaviour::OnStart()
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
-	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite);
+	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 
 	InputManager::onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 	InputManager::onMouseMove(
@@ -88,6 +88,7 @@ void PlayerBehaviour::OnUpdate()
 		if (hp > 0)
 		{
 			_damageBehaviour->TakeDamage();
+			std::cout << "player dying: " << hp << std::endl; 
 			hp--;
 
 			auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
@@ -111,7 +112,7 @@ void PlayerBehaviour::OnUpdate()
 			{
 				deathElapsedTime += Time::GetDeltaTime();
 				if (deathElapsedTime >= 1.0f)
-					LoadScene("MainMenuScene"); // TODO death screen
+					LoadScene("MainMenuScene"); 
 			}
 		}
 		
@@ -122,6 +123,9 @@ void PlayerBehaviour::OnUpdate()
 		// Attacking
 		if (attack)
 		{
+			// TODO boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
+			//ThrowBoomerang();
+
 			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
 				sprite->GetSheet()->PlayCustomAnimation("attackLeft");
 			else if (sprite->GetSheet()->GetFacingDirection() == Direction::RIGHT)
@@ -151,8 +155,8 @@ void PlayerBehaviour::OnUpdate()
 void PlayerBehaviour::ThrowBoomerang() 
 {
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
-	boomerangObj->AddComponent<BoxCollider>()->SetTrigger(true);
-	boomerangObj->SetTag("ouch");
+	// TODO boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
+	//boomerangObj->SetTag("weapon");
 	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();
 
 	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};

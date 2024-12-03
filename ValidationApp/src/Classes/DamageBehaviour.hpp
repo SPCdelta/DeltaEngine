@@ -5,7 +5,7 @@
 class DamageBehaviour
 {
    public:
-		DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite) : _rigidbody{ rigidbody }, _sprite{ sprite }
+		DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const std::string& damageSourceTag) : _rigidbody{ rigidbody }, _sprite{ sprite }, _damageSourceTag{ damageSourceTag }
 		{
 			_ogColor = sprite.GetColor();
 
@@ -13,24 +13,20 @@ class DamageBehaviour
 			{ 
 				if (CanTakeDamage())
 				{
-					// Touching an object that hurts
-					const std::string& tag{collider.transform.gameObject->GetTag()};
-					if (tag == "ouch")
+					if (collider.transform.gameObject->GetTag() == _damageSourceTag)
 					{
 						_inContactWithDamageSource = true;
-						_damageCount++;
+						_damageCount = 1;
 					}
 				}
 			});
 
 			_rigidbody.onTriggerExit.Register([this](Collider& collider)
 			{
-				// No longer touching an object that hurts
-				const std::string& tag{collider.transform.gameObject->GetTag()};
-				if (tag == "ouch")
+				if (collider.transform.gameObject->GetTag() == _damageSourceTag)
 				{
 					_inContactWithDamageSource = false;
-					_damageCount--;
+					_damageCount = 0;
 				}
 			});
 		}
@@ -58,9 +54,7 @@ class DamageBehaviour
 
 		bool GetDamage() const
 		{
-			if (_damageCount > 0 && CanTakeDamage() && _inContactWithDamageSource)
-				return true;
-			return false;
+			return _damageCount > 0 && CanTakeDamage() && _inContactWithDamageSource;
 		}
 
 		void TakeDamage()
@@ -72,11 +66,11 @@ class DamageBehaviour
 	private:
 		Rigidbody& _rigidbody;
 		Sprite& _sprite;
+		std::string _damageSourceTag;
+
 		Rendering::Color _ogColor;
 
 		int _damageCount{0};
-		bool _damage{false};
-
 		bool _inContactWithDamageSource{false};
 
 		float _invincibleTime{0.0f};
