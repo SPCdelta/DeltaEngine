@@ -242,7 +242,6 @@
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
-    <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
     <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />

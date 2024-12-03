@@ -131,3 +131,8 @@ void Text::unloadText()
 		_font == nullptr;
 	}
 }
+
+const Math::Vector2& Ui::Text::GetPosition() const
+{
+	return _position;
+}

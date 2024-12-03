@@ -21,6 +21,7 @@ class Text : Renderable
 	void SetFontSize(const size_t size);
 	void SetPosition(const Math::Vector2& position);
 	void unloadText();
+	const Math::Vector2& GetPosition() const;
 
    private:
 	std::string _path;

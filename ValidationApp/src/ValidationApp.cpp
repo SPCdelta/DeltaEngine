@@ -6,8 +6,8 @@
 #include "Scenes/FileScene.hpp"
 #include "Scenes/PhysicsScene.hpp"
 #include "Scenes/SwitchTestScene.hpp"
-#include "Scenes/UIScene.hpp"
 #include "Scenes/LayerScene.hpp"
+#include "Scenes/DevScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -23,11 +23,11 @@ ValidationApp::ValidationApp()
 	RegisterScene<PhysicsScene>("PhysicsScene");
 	RegisterScene<Scene1>("Scene1");
 	RegisterScene<Scene2>("Scene2");
-	RegisterScene<UIScene>("UIScene");
+	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
 
 	// Load Desired Scene
-	LoadScene("GameScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();
@@ -79,4 +79,5 @@ void ValidationApp::LoadAssets()
 	ResourceManager::Add("spritesheet3", "Assets\\Textures\\spritesheet3.png");
 	ResourceManager::Add("square", "Assets\\Textures\\square.png");
 	ResourceManager::Add("default_texture", "Assets\\Textures\\default_texture.png");
+	ResourceManager::Add("menu_button", "Assets\\Textures\\UI\\Buttons\\menu_button.png");
 }

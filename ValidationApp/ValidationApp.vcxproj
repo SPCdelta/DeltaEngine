@@ -176,6 +176,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
@@ -184,8 +185,11 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
+    <ClCompile Include="src\Views\IView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\DevScene.hpp" />
+    <ClInclude Include="src\Views\MenuView.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
@@ -204,7 +208,7 @@
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
-    <ClInclude Include="src\Scenes\UIScene.hpp" />
+    <ClInclude Include="src\Views\IView.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeltaEngine\DeltaEngine.vcxproj">
@@ -233,6 +237,12 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\square.png" />
+    <Image Include="Assets\Textures\UI\Buttons\menu_button.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\UI\Buttons\menu_button_selected.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
     <Image Include="Assets\Textures\wall_map.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
@@ -274,6 +284,15 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\Music\Menu_music.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\Button_1.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\Button_2.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\Button_3.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
     <Media Include="Assets\Audio\SFX\Explosion.mp3">

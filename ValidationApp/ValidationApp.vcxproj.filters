@@ -9,6 +9,8 @@
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
+    <ClCompile Include="src\Views\IView.cpp" />
+    <ClCompile Include="src\Views\MenuView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -24,12 +26,14 @@
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
-    <ClInclude Include="src\Scenes\UIScene.hpp" />
     <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
+    <ClInclude Include="src\Views\IView.hpp" />
+    <ClInclude Include="src\Views\MenuView.hpp" />
+    <ClInclude Include="src\Scenes\DevScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -37,6 +41,9 @@
     <Media Include="Assets\Audio\SFX\Explosion.mp3" />
     <Media Include="Assets\Audio\SFX\Death.mp3" />
     <Media Include="Assets\Audio\SFX\NPC.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_1.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_2.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_3.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\player.png" />
@@ -48,6 +55,8 @@
     <Image Include="Assets\Textures\default_texture.png" />
     <Image Include="Assets\Textures\floor_map.png" />
     <Image Include="Assets\Textures\wall_map.png" />
+    <Image Include="Assets\Textures\UI\Buttons\menu_button.png" />
+    <Image Include="Assets\Textures\UI\Buttons\menu_button_selected.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

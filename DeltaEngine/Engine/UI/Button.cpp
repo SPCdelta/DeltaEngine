@@ -5,7 +5,6 @@ using namespace Ui;
 
 void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& category)
 {
-	// Hier moet nog gecontrolleerd worden of de functie al is gezet, anders overschrijf de vorige functie.
 	InputManager::onMouseButtonDown(
 		MouseButton::Left,
 		[this, func](Input& e)
@@ -16,6 +15,18 @@ void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& 
 			}
 		},
 		category);
+}
+
+void Ui::Button::SetOnMouseHover(std::function<void()> func)
+{
+	InputManager::onMouseMove(
+		[this, func](Input& e)
+		{
+			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			{
+				func();
+			}
+		});
 }
 
 void Button::SetPosition(const Vector2& position)

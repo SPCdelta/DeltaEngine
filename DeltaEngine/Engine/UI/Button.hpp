@@ -16,6 +16,7 @@ class Button
 	   // Het actieve gebied waarop je kunt klikken op button is gelijk aan de grootte van de gameObject waaraan die is toegevoegd.
 	Button(const Vector2& position, const Vector2& scale) : _position{position}, _scale{scale} {}
 	void SetOnLeftMouseClick(std::function<void()> func, const std::string& category);
+	void SetOnMouseHover(std::function<void()> func);
 	void SetPosition(const Vector2& scale);
 	void SetScale(const Vector2& scale);
 
