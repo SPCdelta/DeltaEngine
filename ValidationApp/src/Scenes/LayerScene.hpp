@@ -9,9 +9,9 @@ class LayerScene : public Scene
 	{
 		// Create Player
 		std::shared_ptr<GameObject> playerObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
-		std::shared_ptr<SpriteSheet> sheet = std::make_shared<SpriteSheet>(playerObject->GetComponent<Transform>(), 4, 64, 64, 0, 0, 0, 2);
+		std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 4, 64, 64, 0, 0, 0, 2);
 		sheet->AddIdleAnimation(4, 1, 200);
-		playerObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet3.png", sheet);
+		playerObject->AddComponent<Sprite>("spritesheet3", sheet);
 
 		playerObject->AddComponent<BoxCollider>();
 		playerObject->AddComponent<Rigidbody>();
@@ -23,8 +23,11 @@ class LayerScene : public Scene
 		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
 		hurtfulObject->SetTag("ouch");
 
+		//std::shared_ptr<GameObject> skeletonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
+		//skeletonObject->AddComponent<Sprite>("spritesheet2");
+
 		std::shared_ptr<GameObject> pokemonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
-		pokemonObject->AddComponent<Sprite>("Assets\\Textures\\spritesheet.png");
+		pokemonObject->AddComponent<Sprite>("spritesheet");
 
 		pokemonObject->SetLayer(Layer::Foreground);
 		hurtfulObject->SetLayer(Layer::Default);

@@ -7,11 +7,13 @@ namespace Font
 {
 	using Font = TTF_Font;
 
-	inline int InitializeTTF() {
+	inline int InitializeTTF() 
+	{
 		return TTF_Init();
 	}
 
-	inline TTF_Font* OpenFont(const char* path, int size) {
+	inline TTF_Font* OpenFont(const char* path, int size) 
+	{
 		return TTF_OpenFont(path, size);
 	}
 
@@ -24,11 +26,18 @@ namespace Font
 		TTF_CloseFont(font);
 	}
 
-	inline const char* GetError() {
+	inline void SetFontSize(TTF_Font* font, const size_t size) 
+	{
+		TTF_SetFontSize(font, size);
+	}
+
+	inline const char* GetError() 
+	{
 		return TTF_GetError(); 
 	}
 
-	inline void QuitTTF() {
+	inline void QuitTTF() 
+	{
 		TTF_Quit();
 	}
 }

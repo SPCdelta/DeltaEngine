@@ -1,24 +1,32 @@
 #pragma once
-#include "UIObject.hpp"
-#include "Font.hpp"
 #include <iostream>
 #include <string>
-namespace ui
-{
-	class Text : UIObject
-	{
-	   public:
-			Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer);
-			~Text();
-			void renderText();
-			void unloadText();
-	   private:
-			std::string _text;
-			Font::Font* _font;
-			int _size;
-			int _x, _y;
-			Rendering::Color _color;
-			Rendering::Renderer* _renderer;
-	};
-}
+#include "../Core/Math/Point.hpp"
+#include "Font.hpp"
+#include "../Rendering/Renderable.hpp"
 
+namespace Ui
+{
+class Text : Renderable
+{
+   public:
+	Text(const std::string& text, const std::string& path, const Rendering::Color& color);
+	Text(const Text& other);
+	Text& operator=(const Text& other);
+	Text(Text&& other) noexcept;
+	Text& operator=(Text&& other) noexcept;
+	~Text();
+	void Render(Rendering::Renderer* renderer, const Transform& transform);
+	void SetText(const std::string& text);
+	void SetFontSize(const size_t size);
+	void SetPosition(const Math::Vector2& position);
+	void unloadText();
+
+   private:
+	std::string _path;
+	std::string _text;
+	Font::Font* _font;
+	Rendering::Color _color;
+	Math::Vector2 _position;
+};
+}  // namespace Ui

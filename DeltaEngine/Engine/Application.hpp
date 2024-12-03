@@ -23,6 +23,8 @@
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
 
+#include "Core/Time.hpp"
+
 class Application
 {
 public:
@@ -48,6 +50,7 @@ public:
 
 	void Stop()
 	{
+		TextureManager::Cleanup();
 		_window.Close();
 		_isRunning = false;
 

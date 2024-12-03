@@ -5,19 +5,19 @@
 
 #include "../Core/Math/Vector2.hpp"
 #include "Rendering.hpp"
-#include "SpriteSheet.hpp"
+#include "AnimationSheet.hpp"
 
 class Animator
 {
 public:
-	void Play(std::shared_ptr<SpriteSheet> sheet, Direction direc);
+	void Play(std::shared_ptr<AnimationSheet> sheet, Direction direc);
 
-	void MoveUp(std::shared_ptr<SpriteSheet> sheet);
-	void MoveDown(std::shared_ptr<SpriteSheet> sheet);
-	void MoveLeft(std::shared_ptr<SpriteSheet> sheet);
-	void MoveRight(std::shared_ptr<SpriteSheet> sheet);
+	void MoveUp(std::shared_ptr<AnimationSheet> sheet);
+	void MoveDown(std::shared_ptr<AnimationSheet> sheet);
+	void MoveLeft(std::shared_ptr<AnimationSheet> sheet);
+	void MoveRight(std::shared_ptr<AnimationSheet> sheet);
 
-	void StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<SpriteSheet> sheet);
+	void StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<AnimationSheet> sheet);
 
 private:
 

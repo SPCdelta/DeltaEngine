@@ -75,7 +75,7 @@ InputLocation InputManager::keyPressed(std::set<Key> keysDown, Events::EventCall
 }
 
 // Mouse events
-InputLocation InputManager::onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent, std::string category)
+InputLocation InputManager::onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category)
 {
 	std::string strButton = std::to_string(InputsEnum::toInt(button));
 
@@ -85,7 +85,7 @@ InputLocation InputManager::onMouseButtonDown(Button button, Events::EventCallba
 	return inputLoc;
 }
 
-InputLocation InputManager::onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent, std::string category)
+InputLocation InputManager::onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category)
 {	
 	std::string strButton = std::to_string(InputsEnum::toInt(button));
 
@@ -131,7 +131,7 @@ void InputManager::updateKeyUp(Key input)
 }
 
 // Mouse updates
-void InputManager::updateMouseButtonDown(Button button)
+void InputManager::updateMouseButtonDown(MouseButton button)
 {
 	if (allInputs.buttons.find(button) == allInputs.buttons.end())
 	{
@@ -144,7 +144,7 @@ void InputManager::updateMouseButtonDown(Button button)
 	}
 }
 
-void InputManager::updateMouseButtonUp(Button input)
+void InputManager::updateMouseButtonUp(MouseButton input)
 {
 	allInputs.buttons.erase(input);
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Transform.hpp"
+#include "../Rendering/Viewport.hpp"
 
 class Camera
 {
@@ -15,6 +16,22 @@ public:
 	{ 
 		transform.position.Set(position);
 	}
+	void SetViewportData(ViewportData* viewportData)
+	{
+		_viewportData = viewportData;
+	}
+
+	Math::Vector2 ScreenToWorldPoint(int screenX, int screenY)
+	{
+		return 
+		{ 
+			static_cast<float>(screenX) / static_cast<float>(_viewportData->unitPixelSize),
+			static_cast<float>(-screenY + _viewportData->height) / static_cast<float>(_viewportData->unitPixelSize)
+		};
+	}
 
 	Transform& transform;
+
+private:
+	ViewportData* _viewportData = nullptr;
 };

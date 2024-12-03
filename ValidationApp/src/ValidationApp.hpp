@@ -6,5 +6,7 @@ class ValidationApp : public Application
 {
 public:
 	ValidationApp();
+
+	void LoadAssets();
 };
 

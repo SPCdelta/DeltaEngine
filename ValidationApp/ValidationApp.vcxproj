@@ -179,6 +179,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="src\Scripts\Boomerang.cpp" />
     <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
@@ -195,13 +196,16 @@
     <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
     <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
+    <ClInclude Include="src\Scenes\UIScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeltaEngine\DeltaEngine.vcxproj">
@@ -209,11 +213,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Textures\ice_floor.png">
+    <Image Include="Assets\Textures\default_texture.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
-    <Image Include="Assets\Textures\mud_floor.png">
+    <Image Include="Assets\Textures\floor_map.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
@@ -230,11 +233,8 @@
     <Image Include="Assets\Textures\spritesheet3.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
-    <Image Include="Assets\Textures\stone_floor.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </Image>
-    <Image Include="Assets\Textures\wall.png">
+    <Image Include="Assets\Textures\square.png" />
+    <Image Include="Assets\Textures\wall_map.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
@@ -274,23 +274,26 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Audio\Music\theme1.mp3">
+    <Media Include="Assets\Audio\Music\Menu_music.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3">
+    <Media Include="Assets\Audio\SFX\Explosion.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\eating.mp3">
+    <Media Include="Assets\Audio\SFX\Eating.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\take_damage1.mp3">
+    <Media Include="Assets\Audio\SFX\Death.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\villager1.mp3">
+    <Media Include="Assets\Audio\SFX\NPC.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <Font Include="Assets\Fonts\knight_warrior.otf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Font>
     <None Include="Assets\Files\example.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

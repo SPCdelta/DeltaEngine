@@ -51,13 +51,13 @@ void InputTest::OnStart()
 					  std::cout << '\n';
 				  });
 
-	onMouseButtonDown(Button::Left,
+	onMouseButtonDown(MouseButton::Left,
 					  [](Input& button)
 					  {
 						  std::cout << "left: ";
 						  std::for_each(button.buttons.begin(),
 										button.buttons.end(),
-										[](Button k)
+										[](MouseButton k)
 										{
 											int d = static_cast<int>(k);
 											std::cout << d;
@@ -66,13 +66,13 @@ void InputTest::OnStart()
 					  });
 	//unregesterInputs();
 
-	onMouseButtonUp(Button::Right,
+	onMouseButtonUp(MouseButton::Right,
 					[](Input& button)
 					{
 						std::cout << "right: ";
 						std::for_each(button.buttons.begin(),
 									  button.buttons.end(),
-									  [](Button k)
+									  [](MouseButton k)
 									  {
 										  int d = static_cast<int>(k);
 										  std::cout << d;
