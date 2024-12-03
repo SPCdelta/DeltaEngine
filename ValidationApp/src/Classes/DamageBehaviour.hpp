@@ -20,14 +20,6 @@ class DamageBehaviour
 						_inContactWithDamageSource = true;
 						_damageCount++;
 					}
-
-					// TODO
-					// Getting attacked by an enemy
-					/*if ( getting attcked )
-					{
-						_gettingAttacked = true;
-						_damageCount++;
-					}*/
 				}
 			});
 
@@ -40,14 +32,6 @@ class DamageBehaviour
 					_inContactWithDamageSource = false;
 					_damageCount--;
 				}
-
-				// TODO
-				// No longer getting attacked by an enemy
-				/*if ( not getting attcked anymore )
-				{
-					_gettingAttacked = false;
-					_damageCount--;
-				}*/
 			});
 		}
 
@@ -74,7 +58,7 @@ class DamageBehaviour
 
 		bool GetDamage() const
 		{
-			if (_damageCount > 0 && CanTakeDamage() && (_inContactWithDamageSource || _gettingAttacked))
+			if (_damageCount > 0 && CanTakeDamage() && _inContactWithDamageSource)
 				return true;
 			return false;
 		}
@@ -83,7 +67,6 @@ class DamageBehaviour
 		{
 			StartInvincibility();
 			_sprite.SetColor(Rendering::Color(255.0f, 0.0f, 0.0f, 1.0f)); 
-			std::cout << "ouch" << std::endl;
 		}
 
 	private:
@@ -95,7 +78,6 @@ class DamageBehaviour
 		bool _damage{false};
 
 		bool _inContactWithDamageSource{false};
-		bool _gettingAttacked{false};
 
 		float _invincibleTime{0.0f};
 		const float _invincibilityDuration = 1.0f; // 1 second of invincibility

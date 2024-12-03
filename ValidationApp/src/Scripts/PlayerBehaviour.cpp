@@ -88,7 +88,6 @@ void PlayerBehaviour::OnUpdate()
 		if (hp > 0)
 		{
 			_damageBehaviour->TakeDamage();
-			std::cout << hp << std::endl;
 			hp--;
 
 			auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
@@ -123,8 +122,6 @@ void PlayerBehaviour::OnUpdate()
 		// Attacking
 		if (attack)
 		{
-			ThrowBoomerang();
-
 			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
 				sprite->GetSheet()->PlayCustomAnimation("attackLeft");
 			else if (sprite->GetSheet()->GetFacingDirection() == Direction::RIGHT)
@@ -154,6 +151,7 @@ void PlayerBehaviour::OnUpdate()
 void PlayerBehaviour::ThrowBoomerang() 
 {
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
+	boomerangObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	boomerangObj->SetTag("ouch");
 	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();
 
