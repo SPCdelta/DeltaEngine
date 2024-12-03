@@ -20,24 +20,28 @@ void PlayerBehaviour::OnStart()
 
 void PlayerBehaviour::OnUpdate() 
 {
-	float deltaTime = Time::GetDeltaTime();
-	_damageBehaviour->Update(deltaTime);
-
 	_moveDirection = _playerInput.GetDirection();
+
+	_playerInput.UpdateAttack(Time::GetDeltaTime());
+	bool attack = _playerInput.GetLeftClick();
+
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
 
-	if (_moveDirection != Math::Vector2{0.0f, 0.0f})
+	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && hp > 0)
 	{
 		switch (_onFloor)
 		{
 			case FloorType::NORMAL:
 				{
-					rigidbody->SetVelocity(_moveDirection * _moveSpeed);
+					if (!attack)
+						rigidbody->SetVelocity(_moveDirection * _moveSpeed);
+					else
+						rigidbody->SetVelocity({0.0f, 0.0f});
 				}
 				break;
 
-			case FloorType::ICE:
+			case FloorType::ICE: // TODO attack ?
 				if (rigidbody->GetSpeed() < _moveSpeed)
 				{
 					rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
@@ -53,7 +57,10 @@ void PlayerBehaviour::OnUpdate()
 
 			case FloorType::MUD:
 				{
-					rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
+					if (!attack)
+						rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
+					else
+						rigidbody->SetVelocity({0.0f, 0.0f});
 				}
 				break;
 		}			
@@ -78,25 +85,67 @@ void PlayerBehaviour::OnUpdate()
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
-		_damageBehaviour->TakeDamage();
+		if (hp > 0)
+		{
+			_damageBehaviour->TakeDamage();
+			std::cout << hp << std::endl;
+			hp--;
+
+			auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
+			sfx.SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+			sfx.Play();
+		}
 		
-		auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
-		sfx.SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
-		sfx.Play();
+		if (hp <= 0) 
+		{
+			if (!deathSoundPlayed && !sprite->GetSheet()->PlayCustomAnimation("death"))
+			{
+				auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
+				sfx.SetClip("Assets\\Audio\\SFX\\Death.mp3");
+				sfx.Play();
+
+				deathSoundPlayed = true;
+				deathElapsedTime = 0.0f;
+			}
+
+			if (deathSoundPlayed)
+			{
+				deathElapsedTime += Time::GetDeltaTime();
+				if (deathElapsedTime >= 1.0f)
+					LoadScene("MainMenuScene"); // TODO death screen
+			}
+		}
+		
 	}
 
-	if (sprite && sprite->GetAnimator())
+	if (sprite && sprite->GetAnimator() && hp > 0)
 	{
+		// Attacking
+		if (attack)
+		{
+			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
+				sprite->GetSheet()->PlayCustomAnimation("attackLeft");
+			else if (sprite->GetSheet()->GetFacingDirection() == Direction::RIGHT)
+				sprite->GetSheet()->PlayCustomAnimation("attackRight");
+			else if (sprite->GetSheet()->GetFacingDirection() == Direction::DOWN)
+				sprite->GetSheet()->PlayCustomAnimation("attackDown");
+			else if (sprite->GetSheet()->GetFacingDirection() == Direction::UP)
+				sprite->GetSheet()->PlayCustomAnimation("attackUp");
+		}
+		
+		// Walking
 		if (_moveDirection.GetX() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, attack);
 		else if (_moveDirection.GetX() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT, attack);
 		else if (_moveDirection.GetY() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, attack);
 		else if (_moveDirection.GetY() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, attack);
+
+		// Idle
 		else
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, attack);
 	}
 }
 

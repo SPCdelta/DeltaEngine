@@ -12,13 +12,6 @@ AnimationSheet::AnimationSheet(Transform& transform, int framesInRow, int frameW
 	destRect = dest;
 }
 
-void AnimationSheet::AddAttackAnimation(int frameCount, int row, Rendering::UnsignInt32 attackAnimSpeed)
-{
-	attackFrameCount = frameCount;
-	attackRow = row;
-	attackAnimationSpeed = attackAnimSpeed;
-}
-
 void AnimationSheet::AddIdleAnimation(int frameCount, int row, Rendering::UnsignInt32 idleAnimSpeed)
 {
 	idleFrameCount = frameCount;
@@ -26,8 +19,28 @@ void AnimationSheet::AddIdleAnimation(int frameCount, int row, Rendering::Unsign
 	idleAnimationSpeed = idleAnimSpeed;
 }
 
-void AnimationSheet::Attack()
+void AnimationSheet::AddCustomAnimation(const std::string& animationName, int frameCount, int row, Rendering::UnsignInt32 animSpeed)
 {
-	SetIsAttacking(true);
-	SetAttCurrentFrame(0);
+	customAnimations[animationName] = {frameCount, row, animSpeed};
+}
+
+bool AnimationSheet::PlayCustomAnimation(const std::string& animationName)
+{
+	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();
+	if (customAnimations.find(animationName) != customAnimations.end())
+	{
+		const AnimationData& animData = customAnimations[animationName];
+		if (currentTime - lastFrameTime > animData.animSpeed)
+		{
+			currentFrame = (currentFrame + 1) % animData.frameCount;
+			srcRect.y = (animData.row - 1) * frameHeight;
+			srcRect.x = currentFrame * frameWidth;
+			lastFrameTime = currentTime;
+
+			if ((currentFrame + 1) == animData.frameCount)
+				return false;
+			else
+				return true;
+		}
+	}
 }

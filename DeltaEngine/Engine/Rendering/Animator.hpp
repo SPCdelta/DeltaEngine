@@ -10,7 +10,7 @@
 class Animator
 {
 public:
-	void Play(std::shared_ptr<AnimationSheet> sheet, Direction direc);
+	void Play(std::shared_ptr<AnimationSheet> sheet, Direction direc, bool pauseWalk);
 
 	void MoveUp(std::shared_ptr<AnimationSheet> sheet);
 	void MoveDown(std::shared_ptr<AnimationSheet> sheet);

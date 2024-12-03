@@ -1,6 +1,9 @@
 #pragma once
 
+
 #include <vector>
+#include <unordered_map>
+#include <string>
 
 #include "Rendering.hpp"
 #include "..\Transform.hpp"
@@ -12,6 +15,9 @@ public:
 	AnimationSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = 0, int rowDown = 0, 
 		int rowLeft = 0, int rowRight = 0);
 	~AnimationSheet() = default;
+
+    void AddCustomAnimation(const std::string& animationName, int frameCount, int row, Rendering::UnsignInt32 animSpeed);
+	bool PlayCustomAnimation(const std::string& animationName);
 
 	int GetCurrentFrame() const { return currentFrame; }
 	void SetCurrentFrame(int newFrame) { currentFrame = newFrame; }
@@ -44,18 +50,6 @@ public:
 	void SetLastFrameTime(Rendering::UnsignInt32 time) { lastFrameTime = time; }
 
 	Rendering::UnsignInt32 GetMoveInterval() const { return moveInterval; }
-
-	void AddAttackAnimation(int frameCount, int row, Rendering::UnsignInt32 attackAnimSpeed);
-	int GetAttFrameCount() const { return attackFrameCount; }
-	Rendering::UnsignInt32 GetAttAnimSpeed() const { return attackAnimationSpeed; }
-	int GetAttRow() const { return attackRow; }
-
-	int GetAttCurrentFrame() const { return attackCurrentFrame; }
-	void SetAttCurrentFrame(int newFrame) { attackCurrentFrame = newFrame; }
-
-	void Attack();
-	int GetIsAttacking() const { return isAttacking; }
-	void SetIsAttacking(bool attacking) { isAttacking = attacking; }
 
 	void AddIdleAnimation(int frameCount, int row, Rendering::UnsignInt32 idleAnimSpeed);
 	int GetIdleFrameCount() const { return idleFrameCount; }
@@ -90,16 +84,21 @@ private:
 	Rendering::UnsignInt32 lastFrameTime{0};
 	Rendering::UnsignInt32 moveInterval{40};
 
-	int attackFrameCount;
-	int attackCurrentFrame{0};
-	Rendering::UnsignInt32 attackAnimationSpeed;
-	int attackRow{0};
-	bool isAttacking{false};
-
 	int idleFrameCount;
 	int idleCurrentFrame{0};
 	Rendering::UnsignInt32 idleAnimationSpeed;
 	int idleRow{0};
 
 	Direction facingDirection = RIGHT;
+
+	struct AnimationData
+	{
+		int frameCount;
+		int row;
+		Rendering::UnsignInt32 animSpeed;
+	};
+
+	std::unordered_map<std::string, AnimationData> customAnimations;
+
+	void UpdateFrame(const AnimationData& animData); // TODO
 };

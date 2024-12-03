@@ -22,17 +22,15 @@ class DamageBehaviour
 				}
 			});
 
-			 _rigidbody.onTriggerExit.Register(
-				[this](Collider& collider)
+			_rigidbody.onTriggerExit.Register([this](Collider& collider)
+			{
+				const std::string& tag{collider.transform.gameObject->GetTag()};
+				if (tag == "ouch")
 				{
-					const std::string& tag{
-						collider.transform.gameObject->GetTag()};
-					if (tag == "ouch")
-					{
-						_inContactWithDamageSource = false;
-						_damageCount--;
-					}
-				});
+					_inContactWithDamageSource = false;
+					_damageCount--;
+				}
+			});
 		}
 
 		~DamageBehaviour()
@@ -80,7 +78,7 @@ class DamageBehaviour
 
 		bool _inContactWithDamageSource{false};
 		float _invincibleTime{0.0f};
-		const float _invincibilityDuration = 2.0f; // 2 seconds of invincibility
+		const float _invincibilityDuration = 1.0f; // 1 second of invincibility
 
 		void StartInvincibility()
 		{

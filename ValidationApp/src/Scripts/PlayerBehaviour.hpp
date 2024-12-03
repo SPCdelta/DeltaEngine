@@ -32,4 +32,8 @@ private:
 	float _iceAcceleration = 2.0f;
 
 	FloorType _onFloor{ FloorType::NORMAL };
+
+	int hp{5}; // TODO make more
+	float deathElapsedTime = 0.0f;
+	bool deathSoundPlayed = false;
 };
