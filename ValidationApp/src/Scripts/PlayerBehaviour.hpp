@@ -40,8 +40,8 @@ private:
 
 	//dit aanzetten om potions te testen!
 
-	//Player _player{25, 10, 10, 25};
-	//HealingPotion _pot{0, 10, "healingpotion"};
+	Player _player{25, 10, 10, 25};
+	DefensePotion _pot{10, 10, "speedpotion"};
 
 	// bij het testen van inventory, dit aanzetten!
 

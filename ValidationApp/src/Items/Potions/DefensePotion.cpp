@@ -1,26 +1,44 @@
 #include "DefensePotion.hpp"
 
-void DefensePotion::Use(Player player) {
+void DefensePotion::Use(Player& player) {
+	if (IsActive)
+	{
+		std::cout << "Potion already active!" << std::endl;
+		return;
+	}
 
-	int currShield = player.GetShield();
+	_affectedPlayer = &player;
+	_originalShield = player.GetShield();
 
 
-	int newShield = currShield + currShield * 0.40;
+	int newShield = _originalShield + _originalShield * _value;
 
 	player.SetShield(newShield);
 	
+	IsActive = true;
+	_elapsedTime = 0.0f;
+	_potionDuration = _time;
 
-	float elapsed_time = 0.0f;
-	const float potionDuration = _time;
+}
 
-	while (elapsed_time < potionDuration)
+void DefensePotion::Update() {
+	if (!IsActive)
+		return;
+
+	float deltaTime = Time::GetDeltaTime();
+	_elapsedTime += deltaTime;
+
+	if (_elapsedTime < _potionDuration)
 	{
-		float remainingTime = potionDuration - elapsed_time;
-		std::cout << "Potion effect active: " << remainingTime << std::endl;
-		elapsed_time += Time::GetDeltaTime();
+		float remainingTime = _potionDuration - _elapsedTime;
+		std::cout << "Potion effect active: " << remainingTime
+				  << " seconds remaining" << std::endl;
 	}
-
-	player.SetShield(currShield);
-	std::cout << "Potion effect worn off" << std::endl;
-
+	else
+	{
+		_affectedPlayer->SetShield(_originalShield);
+		IsActive = false;
+		_affectedPlayer = nullptr;
+		std::cout << "Potion effect worn off" << std::endl;
+	}
 }

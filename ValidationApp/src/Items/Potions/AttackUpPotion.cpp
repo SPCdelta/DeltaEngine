@@ -1,24 +1,43 @@
 #include "AttackUpPotion.hpp"
 
-void AttackUpPotion::Use(Player player) {
-	// oude aanvalsschade (of snelheid?) opslaan
-	int currDamage = player.GetAttackDamage();
+void AttackUpPotion::Use(Player& player) {
+	if (IsActive)
+	{
+		std::cout << "Potion already active!" << std::endl;
+		return;
+	}
 
-	int newDamage = currDamage + 0.75 * currDamage;
+	_affectedPlayer = &player;
+	_originalDamage = player.GetAttackDamage();
+
+	int newDamage = _originalDamage + _value * _originalDamage;
 
 	player.SetAttackDamage(newDamage);
 
-	float elapsed_time = 0.0f;
-	const float potionDuration = _time;
+	IsActive = true;
+	_elapsedTime = 0.0f;
+	_potionDuration = _time;
 
-	while (elapsed_time < potionDuration)
+}
+
+void AttackUpPotion::Update() {
+	if (!IsActive)
+		return;
+
+	float deltaTime = Time::GetDeltaTime();
+	_elapsedTime += deltaTime;
+
+	if (_elapsedTime < _potionDuration)
 	{
-		float remainingTime = potionDuration - elapsed_time;
-		std::cout << "Potion effect active: " << remainingTime << std::endl;
-		elapsed_time += Time::GetDeltaTime();
-		
+		float remainingTime = _potionDuration - _elapsedTime;
+		std::cout << "Potion effect active: " << remainingTime
+				  << " seconds remaining" << std::endl;
 	}
-	
-	player.SetAttackDamage(currDamage);
-	std::cout << "Potion effect worn off" << std::endl;
+	else
+	{
+		_affectedPlayer->SetAttackDamage(_originalDamage);
+		IsActive = false;
+		_affectedPlayer = nullptr;
+		std::cout << "Potion effect worn off" << std::endl;
+	}
 }

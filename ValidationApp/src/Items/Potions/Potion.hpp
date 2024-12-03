@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <thread>
-#include <chrono>
 #include <Engine/Core/Time.hpp>
 
 #include "../Item.hpp"
@@ -13,7 +12,7 @@ class Potion : public Item
 		: _time{time}, _value{value}, Item(name)
 	{
 	}
-	virtual void Use(Player player) = 0;
+	virtual void Use(Player& player) = 0;
    protected:
 	float _time;
 	float _value;

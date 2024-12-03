@@ -24,7 +24,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LayerScene>("LayerScene");
 
 	// Load Desired Scene
-	LoadScene("UIScene");
+	LoadScene("GameScene");
 
 	// Start Application
 	Run();
