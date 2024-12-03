@@ -13,6 +13,7 @@ class Potion : public Item
 	{
 	}
 	virtual void Use(Player& player) = 0;
+	virtual void Update() {}
    protected:
 	float _time;
 	float _value;

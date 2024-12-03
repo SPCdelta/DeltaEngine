@@ -17,3 +17,4 @@ void HealingPotion::Use(Player& player)
 	}
 	std::cout << "New health: " << player.GetHealth() << std::endl;
 }
+
