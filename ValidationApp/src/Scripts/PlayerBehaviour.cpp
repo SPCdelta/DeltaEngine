@@ -115,7 +115,6 @@ void PlayerBehaviour::OnUpdate()
 					LoadScene("MainMenuScene"); 
 			}
 		}
-		
 	}
 
 	if (sprite && sprite->GetAnimator() && hp > 0)
