@@ -100,6 +100,8 @@
     <ClInclude Include="Engine\Rendering\SpriteData.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\TextureManager.hpp" />
+    <ClInclude Include="Engine\Systems\DespawnSystem.hpp" />
+    <ClInclude Include="Engine\Core\Despawner.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

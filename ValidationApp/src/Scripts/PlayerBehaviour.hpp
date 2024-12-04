@@ -5,7 +5,9 @@
 #include "../Classes/DamageBehaviour.hpp"
 #include "../Classes/FloorBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
+
 #include "Boomerang.hpp"
+#include "../Classes/Weapons/Gun.hpp"
 
 class PlayerBehaviour : public BehaviourScript
 {
@@ -38,6 +40,7 @@ private:
 
 	// Weapons
 	Boomerang* _boomerang = nullptr;
+	Weapon* _weapon = nullptr;
 
 	// Audio
 	Audio::SFXSource* _sfx;

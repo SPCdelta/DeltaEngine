@@ -7,6 +7,9 @@
 #include "BehaviourScript.hpp"
 #include "Scene/Scene.hpp"
 
+// Components
+#include "Core/Despawner.hpp"
+
 // Files
 #include "Core/Files/FileManager.hpp"
 
