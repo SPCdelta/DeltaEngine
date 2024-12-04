@@ -58,16 +58,10 @@ void Application::Run()
 			break;
 		}
 
-		_inputFacade.onInputEvent(_windowEvent);
-		InputManager::GetInstance().executeInputEvents();
-
 		GetDeltaTime();
 
 		// Update Window
 		_window.Update();
-
-		// Input
-		Input(_dt);
 
 		// Scene UpdateLoop
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
@@ -88,6 +82,8 @@ void Application::LoadScene(const std::string& sceneName)
 	_sceneManager.Load(sceneName);
 	std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 	currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
+	currentScene->_inputfacade = &_inputFacade;
+	currentScene->_windowEvent = &_windowEvent;
 	currentScene->SetWindow(_window);
 	currentScene->Start();
 }

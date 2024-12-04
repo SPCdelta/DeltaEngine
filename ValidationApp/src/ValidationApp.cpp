@@ -27,7 +27,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LayerScene>("LayerScene");
 
 	// Load Desired Scene
-	LoadScene("LayerScene");
+	LoadScene("GameScene");
 
 	// Start Application
 	Run();
@@ -73,10 +73,11 @@ void ValidationApp::LoadAssets()
 	};
 
 	// Single
-	ResourceManager::Add("player", "Assets\\Textures\\Player\\player_no_weapon.png");
+	ResourceManager::Add("player", "Assets\\Textures\\player.png");
 	ResourceManager::Add("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::Add("spritesheet2", "Assets\\Textures\\spritesheet2.png");
 	ResourceManager::Add("spritesheet3", "Assets\\Textures\\spritesheet3.png");
 	ResourceManager::Add("square", "Assets\\Textures\\square.png");
 	ResourceManager::Add("default_texture", "Assets\\Textures\\default_texture.png");
+	ResourceManager::Add("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 }
