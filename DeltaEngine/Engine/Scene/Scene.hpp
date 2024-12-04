@@ -47,6 +47,8 @@ class Scene
 		_changeSceneEvent.Dispatch(name);
 	}
 
+	virtual void OnStart(){};
+
 	void Start();
 	void Update();
 

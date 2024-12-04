@@ -19,6 +19,7 @@ void Scene::Start()
 	_updateSystem->OnStart();
 	_renderSystem->OnStart();
 	_textRenderSystem->OnStart();
+	OnStart();
 }
 
 void Scene::Update()

@@ -31,7 +31,7 @@ class SpriteMap
 					entry.spriteStart,
 					entry.spriteEnd
 				);
-				ResourceManager::Add(entry.spriteName, spriteData);
+				ResourceManager::AddSprite(entry.spriteName, spriteData);
 			}
 		}
 

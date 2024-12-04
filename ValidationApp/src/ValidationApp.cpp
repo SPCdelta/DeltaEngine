@@ -101,10 +101,11 @@ void ValidationApp::LoadAssets()
 	//};
 
 	//// Single
-	ResourceManager::Add("player", "Assets\\Textures\\player.png");
-	ResourceManager::Add("spritesheet", "Assets\\Textures\\spritesheet.png");
-	ResourceManager::Add("spritesheet2", "Assets\\Textures\\spritesheet2.png");
-	ResourceManager::Add("spritesheet3", "Assets\\Textures\\spritesheet3.png");
-	ResourceManager::Add("square", "Assets\\Textures\\square.png");
-	ResourceManager::Add("default_texture", "Assets\\Textures\\default_texture.png");
+	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
+	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
+	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
+	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
+	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
+	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
+	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 }

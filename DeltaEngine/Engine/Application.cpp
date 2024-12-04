@@ -55,10 +55,9 @@ void Application::Run()
 		Rendering::PollEvent(_windowEvent);
 
 		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
-		{
-			Stop();
-			break;
-		}
+			return;
+
+
 
 		_inputFacade.onInputEvent(_windowEvent);
 		InputManager::GetInstance().executeInputEvents();
@@ -93,18 +92,6 @@ void Application::LoadScene(const std::string& sceneName)
 	currentScene->SetWindow(_window);
 	currentScene->Start();
 }
-
-//Texture* Application::LoadTexture(const char* path)
-//{
-//	SDL_Texture* texture{ IMG_LoadTexture(_window.GetRenderer(), path) };
-//	return texture;
-//}
-//
-//Font* Application::LoadFont(const char* path, int fontSize)
-//{
-//	TTF_Font* font = TTF_OpenFont(path, fontSize);
-//	return font;
-//}
 
 void Application::GetDeltaTime()
 {
