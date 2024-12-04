@@ -49,6 +49,22 @@ class Scene
 		_changeSceneEvent.Dispatch(name);
 	}
 
+	void DestroyObject(GameObject* gameObject)
+	{
+		auto it = std::remove_if(_objects.begin(), _objects.end(),
+			[gameObject](const std::shared_ptr<GameObject>& obj)
+			{ 
+				return obj.get() == gameObject; 
+			}
+		);
+
+		if (it != _objects.end())
+		{
+			_reg.DestroyEntity(gameObject->_id);
+			_objects.erase(it, _objects.end());
+		}
+	}
+
 	void Start();
 	void Update();
 

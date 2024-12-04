@@ -22,6 +22,9 @@ private:
 	FloorBehaviour* _floorBehaviour = nullptr;
 	PlayerInput _playerInput{ this };
 
+	// Weapons
+	Boomerang* _boomerang = nullptr;
+
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
 	int _mouseX = 0;
 	int _mouseY = 0;

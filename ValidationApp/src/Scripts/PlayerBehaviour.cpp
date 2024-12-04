@@ -95,4 +95,11 @@ void PlayerBehaviour::ThrowBoomerang()
 	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};
 	Math::Vector2 throwDirection = (mouseWorldPos - gameObject->transform->position).GetNormalized();
 	boomerang->Throw(gameObject, 5.0f, gameObject->transform->position, throwDirection);
+
+	boomerang->onFinish.Register(
+		[this, boomerangObj](Events::Event e) 
+		{ 
+			Destroy(boomerangObj);
+		}
+	);
 }
