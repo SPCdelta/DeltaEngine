@@ -28,6 +28,17 @@ Application::Application(int unitPixelSize)
 		LoadScene(sceneName); 
 	});
 
+	{
+		_fpsText = new Ui::Text("FPS: ", "Assets\\Fonts\\knight_warrior.otf", textColor);
+		_fpsText->SetFontSize(48);
+		InputManager::onKeyPressed(Key::KEY_L, 
+			[this](Input& e)
+			{
+				_renderFps = !_renderFps;
+			}
+		);
+	}
+
 	_window.SetUnitPixelSize(unitPixelSize);
 }
 
@@ -43,10 +54,12 @@ void Application::Run()
 
 	while (!_window.ShouldWindowClose())
 	{
+		// DeltaTIme
 		Uint32 currentTime = Rendering::GetTicks();
 		Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.0f));
 		previousTime = currentTime;
 
+		// 
 		Rendering::RenderClear(_window.GetRenderer());
 		_window.RenderViewport(255, 255, 255, 255);
 
@@ -58,8 +71,6 @@ void Application::Run()
 			break;
 		}
 
-		GetDeltaTime();
-
 		// Update Window
 		_window.Update();
 
@@ -67,10 +78,10 @@ void Application::Run()
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->Update();
 
+		Debug();
+
 		// Render all
 		Rendering::RenderPresent(_window.GetRenderer());
-
-		ShowFpsInWindowTitleBar();
 
 		// Framerate
 		Rendering::Delay(1000 / 60);
@@ -88,6 +99,25 @@ void Application::LoadScene(const std::string& sceneName)
 	currentScene->Start();
 }
 
+void Application::Debug()
+{
+	if (_fpsTimer >= 1.0f)
+	{
+		std::string fps = "FPS: " + std::to_string(static_cast<int>((1.0f / Time::GetDeltaTime())));
+		_fpsText->SetText(fps);
+		_fpsTimer = 0.0f;
+	}
+	else
+	{
+		_fpsTimer += Time::GetDeltaTime();
+	}
+
+	if (_renderFps)
+	{
+		_fpsText->Render(_window.GetRenderer(), _textTransform);
+	}
+}
+
 //Texture* Application::LoadTexture(const char* path)
 //{
 //	SDL_Texture* texture{ IMG_LoadTexture(_window.GetRenderer(), path) };
@@ -100,12 +130,3 @@ void Application::LoadScene(const std::string& sceneName)
 //	return font;
 //}
 
-void Application::GetDeltaTime()
-{
-
-}
-
-void Application::ShowFpsInWindowTitleBar()
-{
-
-}
