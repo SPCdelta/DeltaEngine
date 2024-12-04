@@ -28,8 +28,6 @@ Application::Application(int unitPixelSize)
 		LoadScene(sceneName); 
 	});
 
-	//_window.SetViewportSize(400, 400);
-	//_window.SetViewportPos(100, 50);
 	_window.SetUnitPixelSize(unitPixelSize);
 }
 
