@@ -1,0 +1,89 @@
+{
+    "tiles": [
+        {
+            "hasBoxcolider": false,
+            "layer": 1,
+            "sprite": "ice",
+            "tag": "ice",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "hasBoxcolider": false,
+            "layer": 1,
+            "sprite": "ice",
+            "tag": "ice",
+            "transform": {
+                "position": {
+                    "x": 1.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "hasBoxcolider": false,
+            "layer": 1,
+            "sprite": "ice",
+            "tag": "ice",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "hasBoxcolider": false,
+            "layer": 2,
+            "sprite": "stone_wall",
+            "tag": "",
+            "transform": {
+                "position": {
+                    "x": 20.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "hasBoxcolider": false,
+            "layer": 1,
+            "sprite": "stone_floor",
+            "tag": "",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": 20.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        }
+    ]
+}
