@@ -74,8 +74,7 @@ class FileScene : public Scene
 
 			// Comment this in to load tiles from a file (I'd reccomend leaving the saving commented out)
 			/*// Loading
-			 Json::json loadTiles =
-				fileManager.Load("Assets\\Files\\tiles.json", "json");
+			Json::json loadTiles = fileManager.Load("Assets\\Files\\tiles.json", "json");
 			for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
 			{
 				auto& tile = loadTiles["tiles"][i];
