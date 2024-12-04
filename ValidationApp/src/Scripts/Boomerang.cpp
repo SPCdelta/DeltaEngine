@@ -57,8 +57,8 @@ void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Ma
 	gameObject->transform->position.Set(origin);
 	_targetPosition = origin + direction.GetNormalized() * _distance;
 	rigidbody->AddForce(direction * speed, ForceMode::IMPULSE);
-	audioSource->Play();
 	audioSource->Loop(true);
+	audioSource->Play();
 }
 
 void Boomerang::Return() 
