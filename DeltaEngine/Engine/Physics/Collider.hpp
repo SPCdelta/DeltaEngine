@@ -47,12 +47,6 @@ namespace Physics
 		{
 			if (_isTrigger == trigger) return;
 
-			//Physics::DestroyShape(_shape.id);
-			//_shape.shape.isSensor = trigger;
-			//_shape.shape.enableSensorEvents = trigger;
-			//_shape.id = Physics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
-			//_isTrigger = trigger;
-
 			b2DestroyBody(_bodyId);
 			_physicsBody = Physics::DefaultBody();
 			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
