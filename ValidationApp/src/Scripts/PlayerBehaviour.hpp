@@ -26,7 +26,7 @@ private:
 	DamageBehaviour* _damageBehaviour{nullptr};
 	PlayerInput _playerInput{ this };
 
-	Audio::SFXSource sfx;
+	Audio::SFXSource* _sfx;
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
 	int _mouseX = 0;

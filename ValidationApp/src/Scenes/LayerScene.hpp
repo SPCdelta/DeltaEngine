@@ -25,8 +25,9 @@ class LayerScene : public Scene
 		playerObject->AddComponent<BoxCollider>();
 		playerObject->AddComponent<Rigidbody>();
 
-		playerObject->AddComponent<PlayerBehaviour>();
 		playerObject->AddComponent<Audio::SFXSource>();
+		playerObject->AddComponent<PlayerBehaviour>();
+		
 				
 		// Create object that hurts player when player touches it
 		std::shared_ptr<GameObject> hurtfulObject{Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}})};
