@@ -1,5 +1,4 @@
 #include "ValidationApp.hpp"
-
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/InputTestScene.hpp"
@@ -44,24 +43,6 @@ void ValidationApp::LoadAssets()
 	SpriteMap floormap
 	{
 		"floor_map",
-		//"Assets\\Textures\\floor_map.png",
-		//{
-		//	{
-		//		"ice",
-		//		{ 0.0f, 0.0f },
-		//		{ 32.0f, 32.0f }
-		//	},
-		//	{
-		//		"mud",
-		//		{ 32.0f, 0.0f },
-		//		{ 64.0f, 32.0f }
-		//	},
-		//	{
-		//		"stone_floor",
-		//		{ 0.0f, 32.0f }, 
-		//		{ 32.0f, 64.0f }
-		//	},
-		//}
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
 
@@ -89,20 +70,6 @@ void ValidationApp::LoadAssets()
 
 	};
 
-	//SpriteMap wallmap
-	//{
-	//	"wall_map",
-	//	"Assets\\Textures\\wall_map.png",
-	//	{
-	//		{
-	//			"stone_wall",
-	//			{ 0.0f, 0.0f },
-	//			{ 32.0f, 32.0f }
-	//		}
-	//	}
-	//};
-
-	//// Single
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
 	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
