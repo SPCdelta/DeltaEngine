@@ -9,6 +9,7 @@
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
+    <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -28,8 +29,10 @@
     <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

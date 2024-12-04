@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
+#include "../Scripts/EnemyBehaviour.hpp"
 
 class LayerScene : public Scene
 {
@@ -9,23 +10,43 @@ class LayerScene : public Scene
 	{
 		// Create Player
 		std::shared_ptr<GameObject> playerObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
-		std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 4, 64, 64, 0, 0, 0, 2);
-		sheet->AddIdleAnimation(4, 1, 200);
-		playerObject->AddComponent<Sprite>("spritesheet3", sheet);
+
+		std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
+
+		sheet->AddCustomAnimation("attackUp", 8, 5, 60);
+		sheet->AddCustomAnimation("attackDown", 8, 7, 60);
+		sheet->AddCustomAnimation("attackLeft", 8, 6, 60);
+		sheet->AddCustomAnimation("attackRight", 8, 8, 60);
+
+		sheet->AddCustomAnimation("death", 6, 21, 150);
+
+		playerObject->AddComponent<Sprite>("player", sheet);
 
 		playerObject->AddComponent<BoxCollider>();
 		playerObject->AddComponent<Rigidbody>();
 
+		playerObject->AddComponent<Audio::SFXSource>();
 		playerObject->AddComponent<PlayerBehaviour>();
 		
-		std::shared_ptr<GameObject> skeletonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
-		skeletonObject->AddComponent<Sprite>("spritesheet2");
+				
+		// Create object that hurts player when player touches it
+		std::shared_ptr<GameObject> hurtfulObject{Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}})};
+		hurtfulObject->AddComponent<Sprite>("spritesheet2");
+		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
+		hurtfulObject->SetTag("enemy");
 
-		std::shared_ptr<GameObject> pokemonObject{Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
+		// Create object that gets hurt when a weapon touches it
+		std::shared_ptr<GameObject> pokemonObject{Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}})};
 		pokemonObject->AddComponent<Sprite>("spritesheet");
 
+		pokemonObject->AddComponent<BoxCollider>();
+		pokemonObject->AddComponent<Rigidbody>();
+
+		pokemonObject->AddComponent<EnemyBehaviour>();
+
+		// Set layers
 		pokemonObject->SetLayer(Layer::Foreground);
-		skeletonObject->SetLayer(Layer::Default);
+		hurtfulObject->SetLayer(Layer::Default);
 		playerObject->SetLayer(Layer::Background);	
 	}
 };

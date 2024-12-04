@@ -58,6 +58,11 @@ public:
 			T* component = static_cast<T*>(_AddComponent<Audio::MusicSource>(Audio::MusicSource("", false, _audioFacade, false)));
 			return component;
 		}
+		else if constexpr (std::is_same_v<T, Audio::SFXSource>)
+		{
+			T* component = static_cast<T*>(_AddComponent<Audio::SFXSource>(Audio::SFXSource("", false, _audioFacade, false)));
+			return component;
+		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
 			T* component = static_cast<T*>(_AddComponent<Ui::Button>(Ui::Button(transform->position, transform->scale)));
