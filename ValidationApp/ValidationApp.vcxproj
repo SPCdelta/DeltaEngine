@@ -303,6 +303,7 @@
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Font>
     <None Include="Assets\Files\example.json" />
   </ItemGroup>
