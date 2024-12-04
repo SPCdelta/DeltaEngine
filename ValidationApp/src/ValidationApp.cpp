@@ -13,7 +13,7 @@
 ValidationApp::ValidationApp()
 	: Application(32)
 {
-	// Load Assets
+
 	LoadAssets();
 
 	// Register Scenes
@@ -29,12 +29,13 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
-	LoadScene("UIScene");
+	LoadScene("LevelEditor");
 
 
 	// Start Application
 	Run();
 }
+
 
 void ValidationApp::LoadAssets()
 {

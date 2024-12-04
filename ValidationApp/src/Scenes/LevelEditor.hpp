@@ -39,7 +39,7 @@ class LevelEditor : public Scene
 		//saveButton->AddComponent<Ui::Image>("default_texture")->SetColor({255, 255, 255, 255});
 		saveButton->AddComponent<Ui::Text>("Save Level!",
 										   "knight",
-										   Rendering::Color{0, 0, 0, 0})->SetFontSize(16);
+										   Rendering::Color{0, 0, 0, 0});
 
 		saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
 			[]() -> void { std::cout << "Level saved!!! test"; }, "UI");

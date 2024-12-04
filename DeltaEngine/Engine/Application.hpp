@@ -86,5 +86,6 @@ private:
 	float _fpsTimer = 1.0f;
 	bool _renderFps = true;
 	void Debug();
+	void InitDebug();
 };
 

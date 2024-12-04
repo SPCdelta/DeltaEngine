@@ -25,6 +25,6 @@ class UIScene : public Scene
 				std::cout << message;
 			}, "Default");
 		g->GetComponent<Ui::Text>().SetPosition(Math::Vector2{500, 500});
-		g->GetComponent<Ui::Text>().SetFontSize(100);
+		//g->GetComponent<Ui::Text>().SetFontSize(100);
 	}
 };
