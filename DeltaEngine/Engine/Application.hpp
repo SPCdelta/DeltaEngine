@@ -58,6 +58,12 @@ public:
 		Mix_Quit();
 	}
 
+	void SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos)
+	{
+		_window.SetViewportSize(sizeWidth, sizeHeight);
+		_window.SetViewportPos(xPos, yPos);
+	}
+
 protected:
 	ecs::Registry _reg;
 	//ecs::EntityId camera;

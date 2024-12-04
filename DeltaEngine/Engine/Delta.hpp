@@ -10,6 +10,12 @@
 // Files
 #include "Core/Files/FileManager.hpp"
 
+//Audio
+#include "Audio/AudioFacade.hpp"
+
+// Time
+#include "Core/Time.hpp"
+
 // Math
 #include "Core/Math/MathUtils.hpp"
 
