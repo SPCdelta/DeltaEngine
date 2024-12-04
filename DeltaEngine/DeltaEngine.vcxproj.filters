@@ -53,7 +53,6 @@
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
-    <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
@@ -62,7 +61,6 @@
     <ClInclude Include="Engine\Rendering\Viewport.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
-    <ClInclude Include="Engine\Systems\DebugSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\UpdateSystem.hpp" />
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
@@ -106,6 +104,7 @@
     <ClInclude Include="Engine\Rendering\TextureManager.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.h" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.h" />
+    <ClInclude Include="Engine\TransformDTO.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

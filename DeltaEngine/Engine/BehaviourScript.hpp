@@ -16,6 +16,8 @@ public:
 	virtual void OnUpdate() { };
 
 	void LoadScene(const std::string& name) { gameObject->LoadScene(name); }
+	void Destroy(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
+	void Destroy(GameObject* gameObject) { gameObject->Destroy(gameObject); }
 
 	virtual ~BehaviourScript();
 
@@ -37,6 +39,7 @@ public:
 
    protected:
 	GameObject* gameObject = nullptr;
+	Transform* transform = nullptr;
 	std::vector<InputLocation> registerdInputs;
 
 	Camera* camera = nullptr;

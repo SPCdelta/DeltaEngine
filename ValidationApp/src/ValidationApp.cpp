@@ -31,6 +31,7 @@ ValidationApp::ValidationApp()
 	// Load Desired Scene
 	LoadScene("UIScene");
 
+
 	// Start Application
 	Run();
 }
@@ -107,5 +108,6 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
+	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 }

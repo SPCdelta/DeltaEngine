@@ -17,8 +17,8 @@ namespace Physics
 
 	struct CollisionData
 	{
-		PhysicsId rbShapeId;
-		PhysicsId colliderShapeId;
+		PhysicsId shape1;
+		PhysicsId shape2;
 		CollisionState state;
 	};
 

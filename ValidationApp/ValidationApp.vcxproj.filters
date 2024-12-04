@@ -8,7 +8,17 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
+    <ClCompile Include="src\Items\Item.cpp" />
+    <ClCompile Include="src\Items\WorldItem.cpp" />
+    <ClCompile Include="src\Inventory\Inventory.cpp" />
+    <ClCompile Include="src\Inventory\InventoryItem.cpp" />
+    <ClCompile Include="src\Items\Potions\HealingPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
+    <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
+    <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -22,15 +32,27 @@
     <ClInclude Include="src\Scripts\TempAudio.hpp" />
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
+    <ClInclude Include="src\Items\Item.hpp" />
+    <ClInclude Include="src\Items\WorldItem.hpp" />
+    <ClInclude Include="src\Inventory\Inventory.hpp" />
+    <ClInclude Include="src\Inventory\InventoryItem.hpp" />
+    <ClInclude Include="src\Items\Potions\Potion.hpp" />
+    <ClInclude Include="src\Items\Potions\HealingPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\DefensePotion.hpp" />
+    <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
+    <ClInclude Include="src\Player.hpp" />
     <ClInclude Include="src\Scenes\UIScene.hpp" />
     <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
     <ClInclude Include="src\Scenes\LevelEditor.hpp" />
+    <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -38,6 +60,7 @@
     <Media Include="Assets\Audio\SFX\Explosion.mp3" />
     <Media Include="Assets\Audio\SFX\Death.mp3" />
     <Media Include="Assets\Audio\SFX\NPC.mp3" />
+    <Media Include="Assets\Audio\SFX\boomerang.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\player.png" />
@@ -49,6 +72,7 @@
     <Image Include="Assets\Textures\default_texture.png" />
     <Image Include="Assets\Textures\floor_map.png" />
     <Image Include="Assets\Textures\wall_map.png" />
+    <Image Include="Assets\Textures\Weapons\boomerang.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

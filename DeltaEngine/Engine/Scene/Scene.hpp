@@ -11,10 +11,12 @@
 #include "../Audio/AudioFacade.hpp"
 #include "../Rendering/Renderables/Renderable.hpp"
 
+#include "../Input/InputManager.hpp"
+#include "../Input/InputFacade.hpp"
+
 // Systems
 #include "../Ecs/Registry.hpp"
 #include "../Systems/UpdateSystem.hpp"
-#include "../Systems/DebugSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/ImageRenderSystem.hpp"
@@ -48,6 +50,21 @@ class Scene
 	}
 
 	virtual void OnStart(){};
+	void DestroyObject(GameObject* gameObject)
+	{
+		auto it = std::remove_if(_objects.begin(), _objects.end(),
+			[gameObject](const std::shared_ptr<GameObject>& obj)
+			{ 
+				return obj.get() == gameObject; 
+			}
+		);
+
+		if (it != _objects.end())
+		{
+			_reg.DestroyEntity(gameObject->_id);
+			_objects.erase(it, _objects.end());
+		}
+	}
 
 	void Start();
 	void Update();
@@ -56,6 +73,10 @@ class Scene
 
 private:
 	Audio::AudioFacade _audioFacade{};
+
+	InputFacade* _inputfacade = nullptr;
+	Rendering::Event* _windowEvent = nullptr;
+
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
@@ -68,7 +89,6 @@ private:
 	Physics::PhysicsWorld _physicsWorld{};
 
 	// Systems
-	std::shared_ptr<DebugSystem> _debugSystem;
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 	std::shared_ptr<TextRenderSystem> _textRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;

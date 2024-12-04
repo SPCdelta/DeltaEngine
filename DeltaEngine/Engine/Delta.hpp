@@ -1,12 +1,22 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
+#include "Application.hpp"
 #include "GameObject.hpp"
 #include "BehaviourScript.hpp"
 #include "Scene/Scene.hpp"
 
+// Files
 #include "Core/Files/FileManager.hpp"
+#include "TransformDTO.hpp"
+
+//Audio
+#include "Audio/AudioFacade.hpp"
+
+// Time
+#include "Core/Time.hpp"
 
 // Math
 #include "Core/Math/MathUtils.hpp"
