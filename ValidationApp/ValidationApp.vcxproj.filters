@@ -37,6 +37,7 @@
     <Media Include="Assets\Audio\SFX\Explosion.mp3" />
     <Media Include="Assets\Audio\SFX\Death.mp3" />
     <Media Include="Assets\Audio\SFX\NPC.mp3" />
+    <Media Include="Assets\Audio\SFX\boomerang.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\player.png" />
@@ -48,6 +49,7 @@
     <Image Include="Assets\Textures\default_texture.png" />
     <Image Include="Assets\Textures\floor_map.png" />
     <Image Include="Assets\Textures\wall_map.png" />
+    <Image Include="Assets\Textures\Weapons\boomerang.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

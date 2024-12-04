@@ -89,17 +89,21 @@ void PlayerBehaviour::OnUpdate()
 
 void PlayerBehaviour::ThrowBoomerang()
 {
+	if (_boomerang)
+		return;
+
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
-	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();
+	_boomerang = boomerangObj->AddComponent<Boomerang>();
 
 	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};
 	Math::Vector2 throwDirection = (mouseWorldPos - gameObject->transform->position).GetNormalized();
-	boomerang->Throw(gameObject, 5.0f, gameObject->transform->position, throwDirection);
+	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
 
-	boomerang->onFinish.Register(
-		[this, boomerangObj](Events::Event e) 
+	_boomerang->onFinish.Register(
+		[this, boomerangObj](Events::Event e)
 		{ 
 			Destroy(boomerangObj);
+			_boomerang = nullptr;
 		}
 	);
 }
