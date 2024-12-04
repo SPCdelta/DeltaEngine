@@ -291,8 +291,8 @@
     <ClInclude Include="Engine\UI\Text.hpp" />
     <ClInclude Include="Engine\UI\Font.hpp" />
     <ClInclude Include="Engine\Core\Math\MathUtils.hpp" />
-    <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.h" />
-    <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.h" />
+    <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
+    <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

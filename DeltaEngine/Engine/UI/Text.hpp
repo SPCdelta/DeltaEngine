@@ -3,7 +3,7 @@
 #include <string>
 #include "Font.hpp"
 #include "../Core/Math/Point.hpp"
-#include "../Rendering/Renderables/TextRenderable.h"
+#include "../Rendering/Renderables/TextRenderable.hpp"
 
 namespace Ui
 {

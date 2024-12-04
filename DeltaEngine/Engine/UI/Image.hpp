@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Rendering/Renderables/SpriteRenderable.h"
+#include "../Rendering/Renderables/SpriteRenderable.hpp"
 
 namespace Ui
 {

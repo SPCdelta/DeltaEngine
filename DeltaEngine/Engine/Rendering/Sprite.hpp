@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderables/SpriteRenderable.h"
+#include "Renderables/SpriteRenderable.hpp"
 
 class Sprite : public SpriteRenderable
 {

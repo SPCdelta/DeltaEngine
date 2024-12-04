@@ -17,17 +17,12 @@ class Renderable
 {
 public:
 	Renderable(){};
-	//Renderable(SpriteData* _spriteData);
-	//Renderable(const char* spriteName, std::shared_ptr<AnimationSheet> sheet);
 
 	Renderable(const Renderable& other);
 	Renderable& operator=(const Renderable& other);
 
 	Renderable(Renderable&& other) noexcept;
 	Renderable& operator=(Renderable&& other) noexcept;
-
-	//const char* GetSprite() const { return _spriteName; }
-	//SpriteData* GetSpriteData() const { return _spriteData; }
 
 	Rendering::Color GetColor() const;
 	void SetColor(Rendering::Color newColor);
@@ -38,15 +33,7 @@ public:
 	Layer GetLayer() const { return _layer; };
 	void SetLayer(Layer layer) { _layer = layer; };
 
-	//std::shared_ptr<Animator> GetAnimator() const { return _animator; }
-	//std::shared_ptr<AnimationSheet> GetSheet() const { return _sheet; }
-
 protected:
-	//const char* _spriteName;
-	//SpriteData* _spriteData;
-
-	//std::shared_ptr<Animator> _animator;
-	//std::shared_ptr<AnimationSheet> _sheet;
 
 	Rendering::Color color{Rendering::Color(255, 255, 255, 255)};
 

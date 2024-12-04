@@ -102,8 +102,8 @@
     <ClInclude Include="Engine\Rendering\SpriteData.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\TextureManager.hpp" />
-    <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.h" />
-    <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.h" />
+    <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
+    <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
     <ClInclude Include="Engine\TransformDTO.hpp" />
   </ItemGroup>
   <ItemGroup>

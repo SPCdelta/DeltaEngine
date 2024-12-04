@@ -1,4 +1,4 @@
-#include "SpriteRenderable.h"
+#include "SpriteRenderable.hpp"
 
 
 SpriteRenderable::SpriteRenderable(const std::string& spriteName)

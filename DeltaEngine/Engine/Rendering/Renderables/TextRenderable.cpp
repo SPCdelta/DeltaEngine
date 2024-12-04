@@ -1,3 +1,3 @@
-#include "TextRenderable.h"
+#include "TextRenderable.hpp"
 
 TextRenderable::TextRenderable() {}

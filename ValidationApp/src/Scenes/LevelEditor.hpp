@@ -16,12 +16,8 @@ class LevelEditor : public Scene
 
 	void OnStart() override {
 
-		//Window* window = GetWindow();
-		int windowWidth = GetWindow()->GetViewport().width;	 // todo dit van de window krijgen
-		//int windowWidth, windowHeight;
-		////auto window = GetWindow();
-		//Rendering::GetWindowSize(window->GetViewport(), &windowWidth,
-		//						 &windowHeight);
+		int windowWidth = GetWindow()->GetViewport().width;
+
 
 		float paddingTop = 10.0f;
 		float rightPadding = 5.0f;
