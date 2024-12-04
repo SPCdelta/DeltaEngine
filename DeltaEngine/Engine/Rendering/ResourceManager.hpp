@@ -36,6 +36,10 @@ public:
 		return instance._sprites[name];
 	}
 
+	static std::map<std::string, SpriteData*>& GetAllSprites() {
+		return instance._sprites;
+	}
+
 private:
 	static ResourceManager instance;
 	std::map<std::string, SpriteData*> _sprites;

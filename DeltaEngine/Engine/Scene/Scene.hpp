@@ -9,7 +9,7 @@
 
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Audio/AudioFacade.hpp"
-#include "../Rendering/Renderable.hpp"
+#include "../Rendering/Renderables/Renderable.hpp"
 
 // Systems
 #include "../Ecs/Registry.hpp"

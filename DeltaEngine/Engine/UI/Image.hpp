@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../Rendering/Renderable.hpp"
+#include "../Rendering/Renderables/SpriteRenderable.h"
 
 namespace Ui
 {
-	class Image : public Renderable
+class Image : public SpriteRenderable
 	{
 	public:
-		Image(const char* spriteName) : Renderable(spriteName) {}
+		Image(const std::string& spriteName) : SpriteRenderable(spriteName) {}
 		void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Transform& transform);
 	};
 }

@@ -5,7 +5,7 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	// Get Texture
 	if (!_spriteData)
 	{
-		if (_spriteName)
+		if (_spriteName.empty())
 		{
 			throw std::exception("Sprite not set on Sprite Component");
 		}

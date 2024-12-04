@@ -30,6 +30,7 @@
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditor.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

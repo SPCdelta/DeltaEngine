@@ -8,7 +8,7 @@ void Image::Render(Rendering::Renderer* renderer,
 	// Get Texture
 	if (!_spriteData)
 	{
-		if (_spriteName)
+		if (_spriteName.empty())
 		{
 			throw std::exception("Sprite not set on Sprite Component");
 		}

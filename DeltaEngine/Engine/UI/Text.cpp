@@ -3,12 +3,14 @@
 using namespace Ui;
 using namespace Rendering;
 
-Text::Text(const std::string& text, const std::string& path, const Rendering::Color& color) : Renderable{path.c_str()},
+Text::Text(const std::string& text, const std::string& path,
+		   const Rendering::Color& color)
+	: /*TextRenderable(),*/
 	  _text{text},
 	  _color{color},
 	  _path{path}
 {
-	_font = Font::OpenFont(path.c_str(), 0);
+	_font = Font::OpenFont(path.c_str(), defaultFontSize);
 	if (_font == nullptr)
 	{
 		std::cerr << "Error loading font: " << Font::GetError() << std::endl;
@@ -16,7 +18,7 @@ Text::Text(const std::string& text, const std::string& path, const Rendering::Co
 }
 
 Text::Text(const Text& other)
-	: Renderable{other._path.c_str()},
+	: 
 	  _text{other._text},
 	  _font{Font::OpenFont(other._path.c_str(), 0)},
 	  _color{other._color},
@@ -39,8 +41,7 @@ Text& Text::operator=(const Text& other)
 }
 
 Text::Text(Text&& other) noexcept
-	: Renderable{other._path.c_str()},
-	  _text{other._text},
+	: _text{other._text},
 	  _font{other._font},
 	  _color{other._color},
 	  _path{other._path}
