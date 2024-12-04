@@ -35,6 +35,7 @@ public:
 		{
 			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
 			component->gameObject = this;
+			component->transform = transform;
 			component->camera = _camera;
 			component->OnStart();
 			return component;
@@ -124,6 +125,10 @@ public:
 		_instantiatePromise.Dispatch(result);
 		return result;
 	};
+	void Destroy(GameObject* gameObject) 
+	{
+		_destroyObject.Dispatch(gameObject);
+	}
 
 	Camera* GetCamera()
 	{ 
@@ -138,6 +143,7 @@ private:
 	Physics::PhysicsWorld& _physicsWorld;
 	Events::EventDispatcher<const std::string&>& _changeScene;
 	Events::EventDispatcher<std::shared_ptr<GameObject>&> _instantiatePromise{};
+	Events::EventDispatcher<GameObject*> _destroyObject{};
 	Camera* _camera = nullptr;
 	std::string _tag;
 

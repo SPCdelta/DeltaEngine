@@ -16,11 +16,34 @@ namespace Physics
 			_collisionSystem = reg.CreateSystem<CollisionSystem, Collider*>();
 		}
 
-		// Order is very important here
-		void BeforeBehaviourUpdate()
+		void TransformToBox2D()
+		{
+			for (ecs::EntityId entityId : _view)
+			{
+				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
+
+				Physics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
+			}
+		}
+
+		void Box2DToTransform()
+		{
+			for (ecs::EntityId entityId : _view)
+			{
+				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
+
+				Math::Vector2 position = Physics::GetPosition(rb.GetCollider()._bodyId);
+				rb.GetCollider().transform.position.Set(position);
+			}
+		}
+
+		void ApplyPhysics()
 		{ 
 			_physicsWorld.Update();
+		}
 
+		void PhysicsEvents()
+		{
 			std::vector<CollisionData>& triggers{ _physicsWorld.GetCurrentTriggers() };
 			std::vector<CollisionData>& collisions{ _physicsWorld.GetCurrentCollisions() };
 
@@ -28,63 +51,75 @@ namespace Physics
 			{
 				// Check for Trigger collision
 				Rigidbody& rb{ _view.get<Rigidbody>(entityId) };
-
-				// Sync Visually*
-				{
-					Math::Vector2 position = Physics::GetPosition(rb.GetCollider()._bodyId);
-					rb.GetCollider().transform.position.SetX(position.GetX());
-					rb.GetCollider().transform.position.SetY(position.GetY());
-				}
 				
 				// Check for Trigger Collision
 				for (CollisionData& trigger : triggers)
 				{
-					if (Physics::AreEqual(rb.GetShape().id, trigger.rbShapeId))
+					// Check if Trigger has our Collider
+					Physics::PhysicsId otherId;
+					if (Physics::AreEqual(rb.GetShape().id, trigger.shape1))
 					{
-						// Find Collider with ShapeId of Trigger Collider
-						Collider* collider{ _collisionSystem->GetCollider(trigger.colliderShapeId) };
-						if (!collider) continue;
+						otherId = trigger.shape2;
+					}
+					else if (Physics::AreEqual(rb.GetShape().id, trigger.shape2))
+					{
+						otherId = trigger.shape1;
+					}
+					else
+					{
+						// If not this Rb doesnt have it
+						continue;
+					}
 
-						// Send Event based on type
-						if (trigger.state == Physics::CollisionState::ENTER)
-						{
-							rb.onTriggerEnter.Dispatch(*collider);
-						}
-						else
-						{
-							rb.onTriggerExit.Dispatch(*collider);
-						}
+					// Find Collider with ShapeId of other Collider
+					Collider* collider{ _collisionSystem->GetCollider(otherId) };
+					if (!collider) continue;
+
+					// Send Event based on type
+					if (trigger.state == Physics::CollisionState::ENTER)
+					{
+						rb.onTriggerEnter.Dispatch(*collider);
+					}
+					else
+					{
+						rb.onTriggerExit.Dispatch(*collider);
 					}
 				}
 
 				// Check for Contact Collision
 				for (CollisionData& collision : collisions)
 				{
-					if (Physics::AreEqual(rb.GetShape().id, collision.rbShapeId))
+					// Check if Collision has our Collider
+					Physics::PhysicsId otherId;
+					if (Physics::AreEqual(rb.GetShape().id, collision.shape1))
 					{
-						// Find Collider with ShapeId of Trigger Collider
-						Collider* collider{ _collisionSystem->GetCollider(collision.colliderShapeId) };
-						if (!collider) continue;
+						otherId = collision.shape2;
+					}
+					else if (Physics::AreEqual(rb.GetShape().id, collision.shape2))
+					{
+						otherId = collision.shape1;
+					}
+					else
+					{
+						// If not this Rb doesnt have it
+						continue;
+					}
 
-						// Send Event based on type
-						if (collision.state == Physics::CollisionState::ENTER)
-						{
-							rb.onCollisionEnter.Dispatch(*collider);
-						}
-						else
-						{
-							rb.onCollisionExit.Dispatch(*collider);
-						}
+					// Find Collider with ShapeId of other Collider
+					Collider* collider{ _collisionSystem->GetCollider(otherId) };
+					if (!collider) continue;
+
+					// Send Event based on type
+					if (collision.state == Physics::CollisionState::ENTER)
+					{
+						rb.onCollisionEnter.Dispatch(*collider);
+					}
+					else
+					{
+						rb.onCollisionExit.Dispatch(*collider);
 					}
 				}
 			}
-		}
-
-		void AfterBehaviourUpdate()
-		{
-			// Because physics is updated before the update loop
-			// physics will generally be applied every every next frame
-			// this is done to allow the even catching of the events
 		}
 
 	private:

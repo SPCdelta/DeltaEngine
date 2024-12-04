@@ -11,6 +11,7 @@
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
     <ClCompile Include="src\Views\IView.cpp" />
     <ClCompile Include="src\Views\MenuView.cpp" />
+    <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -29,11 +30,13 @@
     <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
     <ClInclude Include="src\Views\IView.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
+    <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -44,6 +47,7 @@
     <Media Include="Assets\Audio\SFX\Button_1.mp3" />
     <Media Include="Assets\Audio\SFX\Button_2.mp3" />
     <Media Include="Assets\Audio\SFX\Button_3.mp3" />
+    <Media Include="Assets\Audio\SFX\boomerang.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\player.png" />
@@ -57,6 +61,7 @@
     <Image Include="Assets\Textures\wall_map.png" />
     <Image Include="Assets\Textures\UI\Buttons\menu_button.png" />
     <Image Include="Assets\Textures\UI\Buttons\menu_button_selected.png" />
+    <Image Include="Assets\Textures\Weapons\boomerang.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
