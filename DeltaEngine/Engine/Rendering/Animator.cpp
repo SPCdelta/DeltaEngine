@@ -1,31 +1,10 @@
 #include "Animator.hpp"
 
-void Animator::Play(std::shared_ptr<AnimationSheet> sheet, Direction direc)
+void Animator::Play(std::shared_ptr<AnimationSheet> sheet, Direction direc, bool pauseWalk)
 {
 	bool isMoving = true;
 	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();	
-
-	if (sheet->GetIsAttacking() && sheet->GetAttRow() != 0 && currentTime - sheet->GetLastFrameTime() > sheet->GetAttAnimSpeed())
-	{
-		sheet->SetAttCurrentFrame(sheet->GetAttCurrentFrame() + 1);
-		if (sheet->GetAttCurrentFrame() >= sheet->GetAttFrameCount())
-		{
-			sheet->SetIsAttacking(false);
-			sheet->SetAttCurrentFrame(0);
-		}
-
-		Rendering::Rect tempSrcRect = sheet->GetSrcRect();
-		tempSrcRect.y = (sheet->GetAttRow() - 1) * sheet->GetFrameHeight();
-		tempSrcRect.x = sheet->GetAttCurrentFrame() * sheet->GetFrameWidth();
-		sheet->SetSrcRect(tempSrcRect);
-		sheet->SetLastFrameTime(currentTime);
-	}
-	else if (sheet->GetAttRow() == 0)
-	{
-		sheet->SetIsAttacking(false);
-	}
-
-	if (!sheet->GetIsAttacking() && currentTime - sheet->GetLastMoveTime() >= sheet->GetMoveInterval())
+	if (!pauseWalk && currentTime - sheet->GetLastMoveTime() >= sheet->GetMoveInterval())
 	{
 		if (direc == Direction::UP) // up 
 			MoveUp(sheet);
@@ -59,12 +38,12 @@ void Animator::MoveUp(std::shared_ptr<AnimationSheet> sheet)
 {
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 
-	if (sheet->GetFacingDirection() == Direction::LEFT)
+	if (sheet->GetRowUp() == 0 && sheet->GetFacingDirection() == Direction::LEFT)
 	{
 		tempSrcRect.y = (sheet->GetRowUp() ? (sheet->GetRowUp() - 1) : (sheet->GetRowLeft() ? (sheet->GetRowLeft() - 1) : 
 			(sheet->GetRowRight() - 1))) * sheet->GetFrameHeight();
 	}
-	else if (sheet->GetFacingDirection() == Direction::RIGHT)
+	else if (sheet->GetRowUp() == 0 && sheet->GetFacingDirection() == Direction::RIGHT)
 	{
 		tempSrcRect.y = (sheet->GetRowUp() ? (sheet->GetRowUp() - 1) : (sheet->GetRowRight() ? (sheet->GetRowRight() - 1) : 
 			(sheet->GetRowLeft() - 1))) * sheet->GetFrameHeight();
@@ -82,12 +61,12 @@ void Animator::MoveDown(std::shared_ptr<AnimationSheet> sheet)
 {
 	Rendering::Rect tempSrcRect = sheet->GetSrcRect();
 
-	if (sheet->GetFacingDirection() == Direction::LEFT)
+	if (sheet->GetRowDown() == 0 && sheet->GetFacingDirection() == Direction::LEFT)
 	{
 		tempSrcRect.y = (sheet->GetRowDown() ? (sheet->GetRowDown() - 1) : (sheet->GetRowLeft() ? (sheet->GetRowLeft() - 1) : 
 			(sheet->GetRowRight() - 1))) * sheet->GetFrameHeight();
 	}
-	else if (sheet->GetFacingDirection() == Direction::RIGHT)
+	else if (sheet->GetRowDown() == 0 && sheet->GetFacingDirection() == Direction::RIGHT)
 	{
 		tempSrcRect.y = (sheet->GetRowDown() ? (sheet->GetRowDown() - 1) : (sheet->GetRowRight() ? (sheet->GetRowRight() - 1) : 
 			(sheet->GetRowLeft() - 1))) * sheet->GetFrameHeight();

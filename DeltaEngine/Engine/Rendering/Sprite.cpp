@@ -17,7 +17,6 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 		}
 	}
 
-	// TODO: Facade
 	Rendering::ModifyColor(_spriteData->texture, color);
 
 	Rendering::Rect destRect;

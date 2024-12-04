@@ -12,8 +12,6 @@
 #include "Window.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
-#include "Input/InputManager.hpp"
-#include "Input/InputFacade.hpp"
 #include "Scene/SceneManager.hpp"
 
 #include "Physics/BoxCollider.hpp"
@@ -60,37 +58,32 @@ public:
 		Mix_Quit();
 	}
 
-	virtual void Input(float dt) { }
+	void SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos)
+	{
+		_window.SetViewportSize(sizeWidth, sizeHeight);
+		_window.SetViewportPos(xPos, yPos);
+	}
 
 protected:
 	ecs::Registry _reg;
-	//ecs::EntityId camera;
-	//Camera* _cameraComponent = nullptr;
 
-
-   private:
+private:
 	static bool _isRunning;
-
-	float _dt{ 0.0f };
-
-	float _currentFrame{ 0.0f };
-	float _lastFrame{ 0.0f };
-
-	float _lastTime{ 0.0f };
-	float _nbFrames{ 0.0f };
 
 	Window _window;
 	Rendering::Event _windowEvent{};
 	InputFacade _inputFacade;
 
-
 	SceneManager _sceneManager{}; // Never ever pass this variable!
 
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
-	void GetDeltaTime();
-	void ShowFpsInWindowTitleBar();
-
-
+	// Debug
+	Rendering::Color textColor{ 255, 0, 0, 255 };
+	Transform _textTransform { { 10.0f, 10.0f }, 0.0f, { 200.0f, 100.0f } };
+	Ui::Text* _fpsText = nullptr;
+	float _fpsTimer = 1.0f;
+	bool _renderFps = true;
+	void Debug();
 };
 
