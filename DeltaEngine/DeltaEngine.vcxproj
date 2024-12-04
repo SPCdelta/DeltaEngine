@@ -279,6 +279,7 @@
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Core\Time.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />
+    <ClInclude Include="Engine\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
     <ClInclude Include="Engine\UI\Image.hpp" />
     <ClInclude Include="Engine\UI\Panel.hpp" />
