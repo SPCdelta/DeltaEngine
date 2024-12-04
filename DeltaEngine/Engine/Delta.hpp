@@ -3,10 +3,12 @@
 #include <iostream>
 #include <vector>
 
+#include "Application.hpp"
 #include "GameObject.hpp"
 #include "BehaviourScript.hpp"
 #include "Scene/Scene.hpp"
 
+// Files
 #include "Core/Files/FileManager.hpp"
 
 //Audio

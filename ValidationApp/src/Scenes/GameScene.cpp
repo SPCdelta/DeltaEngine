@@ -6,9 +6,11 @@ GameScene::GameScene(const std::string& name)
 	// Create Player
 	std::shared_ptr<GameObject> player{ Instantiate({{3.0f, 6.0f}, 0.0f, {1.0f, 1.0f}}) };
 	player->AddComponent<Sprite>("player")->SetLayer(Layer::Player);
+	player->AddComponent<Audio::SFXSource>();
 	player->AddComponent<BoxCollider>();
 	player->AddComponent<Rigidbody>();
 	player->AddComponent<PlayerBehaviour>();
+	player->SetTag("player");
 
 	size_t mapWidth = 30;
 	size_t mapHeight = 18;

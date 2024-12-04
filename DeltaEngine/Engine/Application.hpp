@@ -12,8 +12,6 @@
 #include "Window.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
-#include "Input/InputManager.hpp"
-#include "Input/InputFacade.hpp"
 #include "Scene/SceneManager.hpp"
 
 #include "Physics/BoxCollider.hpp"
@@ -59,8 +57,6 @@ public:
 		Rendering::QuitImage();
 		Mix_Quit();
 	}
-
-	virtual void Input(float dt) { }
 
 	void SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos)
 	{

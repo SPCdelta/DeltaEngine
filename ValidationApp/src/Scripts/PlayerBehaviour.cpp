@@ -9,8 +9,8 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	InputManager::onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
-	InputManager::onMouseMove(
+	onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
+	onMouseMove(
 		[this](Input& e) 
 		{ 
 			_mouseX = e.mouseX;
@@ -163,14 +163,23 @@ void PlayerBehaviour::UpdateAttack(float deltaTime)
 		_attacking = false;
 }
 
-void PlayerBehaviour::ThrowBoomerang() 
+void PlayerBehaviour::ThrowBoomerang()
 {
+	if (_boomerang)
+		return;
+
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
-	// boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
-	//boomerangObj->SetTag("weapon");
-	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();
+	_boomerang = boomerangObj->AddComponent<Boomerang>();
 
 	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};
 	Math::Vector2 throwDirection = (mouseWorldPos - gameObject->transform->position).GetNormalized();
-	boomerang->Throw(gameObject, 5.0f, gameObject->transform->position, throwDirection);
+	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
+
+	_boomerang->onFinish.Register(
+		[this, boomerangObj](Events::Event e)
+		{ 
+			Destroy(boomerangObj);
+			_boomerang = nullptr;
+		}
+	);
 }

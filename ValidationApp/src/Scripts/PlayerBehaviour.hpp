@@ -36,6 +36,10 @@ private:
 	DamageBehaviour* _damageBehaviour{nullptr};
 	PlayerInput _playerInput{ this };
 
+	// Weapons
+	Boomerang* _boomerang = nullptr;
+
+	// Audio
 	Audio::SFXSource* _sfx;
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
