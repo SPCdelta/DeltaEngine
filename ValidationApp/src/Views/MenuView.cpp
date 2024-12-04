@@ -5,6 +5,7 @@ MenuView::MenuView(Scene& scene, const std::string& title, unsigned char numOfBu
 	const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize) :
 	IView{ scene, pathToFont }, _buttons{}
 {
+	InputManager::activateCategory(title);
 	InitTitle(title, fontSize);
 	InitButtons(numOfButtons, startPos, scale, margin, fontSize);
 }
@@ -28,15 +29,9 @@ void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& star
 
 		// SFX
 		auto& sfx = *_buttons[i]->AddComponent<Audio::SFXSource>();
-		sfx.SetClip(DEFAULT_BUTTON_SFX);
-		sfx.SetVolume(20);
 
 		// Button
 		auto& button = *_buttons[i]->AddComponent<Ui::Button>();
-		button.SetOnLeftMouseClick([&sfx]() -> void
-			{
-				sfx.Play();
-			}, "Default");
 
 		// Text
 		_buttons[i]->AddComponent<Ui::Text>(
@@ -79,7 +74,32 @@ void MenuView::SetButtonText(int id, const std::string& text)
 
 void MenuView::SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category)
 {
-	_buttons[id]->GetComponent<Ui::Button>().SetOnLeftMouseClick(func, category);
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->GetComponent<Ui::Button>().SetOnLeftMouseClick(func, category);
+		}
+	}
+	else
+	{
+		_buttons[id]->GetComponent<Ui::Button>().SetOnLeftMouseClick(func, category);
+	}
+}
+
+void MenuView::SetButtonSFX(int id, const std::string& sfxPath)
+{
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->GetComponent<Audio::SFXSource>().SetClip(sfxPath);
+		}
+	}
+	else
+	{
+		_buttons[id]->GetComponent<Audio::SFXSource>().SetClip(sfxPath);
+	}
 }
 
 std::shared_ptr<GameObject>& MenuView::GetButton(unsigned char id)

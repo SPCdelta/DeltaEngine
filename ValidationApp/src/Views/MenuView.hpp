@@ -16,6 +16,7 @@ public:
 	void SetButtonTextPosition(int id, const Math::Vector2& position);
 	void SetButtonText(int id, const std::string& text);
 	void SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category);
+	void SetButtonSFX(int id, const std::string& sfxPath);
 	std::shared_ptr<GameObject>& GetButton(unsigned char id);
 	Ui::Text& GetButtonText(unsigned char id);
 private:
@@ -25,5 +26,4 @@ private:
 	std::shared_ptr<GameObject> _title;
 	// unsigned char is used as id
 	std::unordered_map<unsigned char, std::shared_ptr<GameObject>> _buttons;
-	const std::string DEFAULT_BUTTON_SFX = "Assets\\Audio\\SFX\\Button_1.mp3";
 };
