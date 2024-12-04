@@ -19,10 +19,14 @@ public:
 	Sprite* sprite = nullptr;
 	Rigidbody* rigidbody = nullptr;
 
+	void UpdateAttack(float deltaTime);
+
 private:
 	FloorBehaviour* _floorBehaviour{nullptr};
 	DamageBehaviour* _damageBehaviour{nullptr};
 	PlayerInput _playerInput{ this };
+
+	Audio::SFXSource sfx;
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
 	int _mouseX = 0;
@@ -32,6 +36,11 @@ private:
 	float _iceAcceleration = 2.0f;
 
 	FloorType _onFloor{ FloorType::NORMAL };
+
+	bool _attacking{false};
+	float _attackTime{0.0f};
+	const float _attackDuration = 0.4f;	
+	void StartAttack() { _attackTime = _attackDuration; }
 
 	int hp{20};
 

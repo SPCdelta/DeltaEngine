@@ -15,7 +15,6 @@ class DamageBehaviour
 				{
 					if (collider.transform.gameObject->GetTag() == _damageSourceTag)
 					{
-						_inContactWithDamageSource = true;
 						_damageCount = 1;
 					}
 				}
@@ -25,7 +24,6 @@ class DamageBehaviour
 			{
 				if (collider.transform.gameObject->GetTag() == _damageSourceTag)
 				{
-					_inContactWithDamageSource = false;
 					_damageCount = 0;
 				}
 			});
@@ -54,7 +52,7 @@ class DamageBehaviour
 
 		bool GetDamage() const
 		{
-			return _damageCount > 0 && CanTakeDamage() && _inContactWithDamageSource;
+			return _damageCount > 0 && CanTakeDamage();
 		}
 
 		void TakeDamage()
@@ -71,7 +69,6 @@ class DamageBehaviour
 		Rendering::Color _ogColor;
 
 		int _damageCount{0};
-		bool _inContactWithDamageSource{false};
 
 		float _invincibleTime{0.0f};
 		const float _invincibilityDuration = 1.0f; // 1 second of invincibility

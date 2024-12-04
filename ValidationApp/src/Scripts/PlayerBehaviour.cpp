@@ -7,6 +7,7 @@ void PlayerBehaviour::OnStart()
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
+	sfx = gameObject->GetComponent<Audio::SFXSource>();
 
 	InputManager::onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 	InputManager::onMouseMove(
@@ -22,8 +23,13 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	_playerInput.UpdateAttack(Time::GetDeltaTime());
-	bool attack = _playerInput.GetLeftClick();
+	UpdateAttack(Time::GetDeltaTime());
+	if (_playerInput.GetLeftClick())
+	{
+		_attacking = true;
+		StartAttack();
+	}
+	bool attack = _attacking;
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
@@ -91,7 +97,6 @@ void PlayerBehaviour::OnUpdate()
 			std::cout << "player dying: " << hp << std::endl; 
 			hp--;
 
-			auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
 			sfx.SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			sfx.Play();
 		}
@@ -100,7 +105,6 @@ void PlayerBehaviour::OnUpdate()
 		{
 			if (!deathSoundPlayed && !sprite->GetSheet()->PlayCustomAnimation("death"))
 			{
-				auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
 				sfx.SetClip("Assets\\Audio\\SFX\\Death.mp3");
 				sfx.Play();
 
@@ -149,6 +153,14 @@ void PlayerBehaviour::OnUpdate()
 		else
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, attack);
 	}
+}
+
+void PlayerBehaviour::UpdateAttack(float deltaTime)
+{
+	if (_attackTime > 0.0f)
+		_attackTime -= deltaTime;
+	else
+		_attacking = false;
 }
 
 void PlayerBehaviour::ThrowBoomerang() 

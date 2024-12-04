@@ -8,6 +8,13 @@
 #include "..\Transform.hpp"
 #include "Direction.hpp"
 
+struct AnimationData
+{
+	int frameCount;
+	int row;
+	Rendering::UnsignInt32 animSpeed;
+};
+
 class AnimationSheet
 {
 public:
@@ -89,13 +96,6 @@ private:
 	int idleRow{0};
 
 	Direction facingDirection = RIGHT;
-
-	struct AnimationData
-	{
-		int frameCount;
-		int row;
-		Rendering::UnsignInt32 animSpeed;
-	};
 
 	std::unordered_map<std::string, AnimationData> customAnimations;
 };
