@@ -20,6 +20,7 @@ class Text : Renderable
 	void SetText(const std::string& text);
 	void SetFontSize(const size_t size);
 	void SetPosition(const Math::Vector2& position);
+	void SetColor(const Rendering::Color& color);
 	void unloadText();
 	const Math::Vector2& GetPosition() const;
 

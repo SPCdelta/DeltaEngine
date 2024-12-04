@@ -123,6 +123,11 @@ void Text::SetPosition(const Math::Vector2& position)
 	_position = position;
 }
 
+void Text::SetColor(const Rendering::Color& color)
+{
+	_color = color;
+}
+
 void Text::unloadText()
 {
 	if (_font != nullptr)

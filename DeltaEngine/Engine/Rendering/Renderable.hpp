@@ -37,6 +37,8 @@ public:
 	Layer GetLayer() const { return _layer; };
 	void SetLayer(Layer layer) { _layer = layer; };
 
+	void SetSprite(const std::string& spriteName);
+
 	std::shared_ptr<Animator> GetAnimator() const { return _animator; }
 	std::shared_ptr<AnimationSheet> GetSheet() const { return _sheet; }
 

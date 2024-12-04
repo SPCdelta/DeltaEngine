@@ -244,11 +244,13 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
-    <Image Include="Assets\Textures\UI\Buttons\menu_button.png">
+    <Image Include="Assets\Textures\UI\Buttons\banner.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
-    <Image Include="Assets\Textures\UI\Buttons\menu_button_selected.png">
+    <Image Include="Assets\Textures\UI\Buttons\parchment.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\wall_map.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
@@ -324,6 +326,10 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <Font Include="Assets\Fonts\alucrads.otf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Font>
     <Font Include="Assets\Fonts\knight_warrior.otf">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Font>

@@ -18,13 +18,19 @@ public:
 	void SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category);
 	void SetButtonSFX(int id, const std::string& sfxPath);
 	void SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const std::string& sceneName, const std::string& category);
+	void SetTitleTextPosition(const Math::Vector2& position);
+	void SetTitleTextSize(int size);
+	void SetButtonTextColor(int id, const Rendering::Color& color);
+	void SetTitleTextColor(const Rendering::Color& color);
+	void SetButtonTexture(int id, const std::string& textureName);
 	std::shared_ptr<GameObject>& GetButton(unsigned char id);
 	Ui::Text& GetButtonText(unsigned char id);
 private:
-	const Rendering::Color DEFAULT_COLOR {255, 255, 255, 255};
-	void InitTitle(const std::string& title, int fontSize);
+	const Rendering::Color DEFAULT_COLOR {0, 0, 0, 255};
+	void InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos);
 	void InitButtons(unsigned char numOfButtons, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);
 	std::shared_ptr<GameObject> _title;
 	// unsigned char is used as id
 	std::unordered_map<unsigned char, std::shared_ptr<GameObject>> _buttons;
+	const std::string DEFAULT_BUTTON_TEXTURE = "parchment";
 };

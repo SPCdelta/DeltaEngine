@@ -86,3 +86,9 @@ void Renderable::SetColor(Rendering::Color newColor)
 {
 	color = newColor;
 }
+
+void Renderable::SetSprite(const std::string& spriteName)
+{
+	_spriteName = spriteName.c_str();
+	_spriteData = ResourceManager::Get(spriteName);
+}

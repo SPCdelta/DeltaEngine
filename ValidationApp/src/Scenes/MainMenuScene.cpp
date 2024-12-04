@@ -8,17 +8,23 @@
 MainMenuScene::MainMenuScene(const std::string& sceneName) 
 	: Scene(sceneName)
 {
-	std::shared_ptr<GameObject> bgImage { Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };
+	MenuView menuView { *this, "Main Menu", 4, "Assets\\Fonts\\alucrads.otf", {500, 50}, {300, 100}, 25, 80 };
+
+	std::shared_ptr<GameObject> bgImage{ Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };
 	bgImage->AddComponent<Ui::Image>("main_menu_bg");
 
-	MenuView menuView { *this, "Main Menu", 4, "Assets\\Fonts\\knight_warrior.otf", {500, 100}, {300, 100}, 50, 80 };
+	menuView.SetTitleTextPosition({475, 50});
+	menuView.SetTitleTextColor({255, 255, 255, 255});
+
+	menuView.SetButtonTexture(0, "banner");
+
 	menuView.SetButtonText(0, "Start");
 	menuView.SetButtonText(1, "Options");
 	menuView.SetButtonText(2, "Dev");
 	menuView.SetButtonText(3, "Quit");
-	menuView.SetButtonTextPosition(0, {560, 100});
-	menuView.SetButtonTextPosition(1, {525, 250});
-	menuView.SetButtonTextPosition(2, {595, 400});
+	menuView.SetButtonTextPosition(0, {560, 175});
+	menuView.SetButtonTextPosition(1, {525, 300});
+	menuView.SetButtonTextPosition(2, {595, 425});
 	menuView.SetButtonTextPosition(3, {580, 550});
 	menuView.SetButtonOnLeftMouseClickLoadScene(2, *this, "DevScene", "Main Menu");
 	menuView.SetButtonSFX(-1, "Assets\\Audio\\SFX\\Button_1.mp3");

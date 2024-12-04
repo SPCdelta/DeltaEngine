@@ -6,26 +6,29 @@ MenuView::MenuView(Scene& scene, const std::string& title, unsigned char numOfBu
 	IView{ scene, pathToFont }, _buttons{}
 {
 	InputManager::activateCategory(title);
-	InitTitle(title, fontSize);
+	InitTitle(title, fontSize, startPos);
 	InitButtons(numOfButtons, startPos, scale, margin, fontSize);
 }
 
-void MenuView::InitTitle(const std::string& title, int fontSize)
+void MenuView::InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos)
 {
 	_title = std::shared_ptr<GameObject>{ _scene.Instantiate({ {100.0f, 100.0f}, 0.0f, {200.0f, 100.0f} }) };
-	_title->AddComponent<Ui::Text>(title, _fontPath, DEFAULT_COLOR)->SetFontSize(fontSize);
+	auto& text = *_title->AddComponent<Ui::Text>(title, _fontPath, DEFAULT_COLOR);
+	text.SetFontSize(fontSize);
+	text.SetPosition(startPos);
 }
 
 void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& startPos, const Math::Vector2& scale, 
 	int margin, int fontSize)
 {
 	auto pos = startPos;
+	pos.SetY(pos.GetY() + scale.GetY() + margin);
 	for (unsigned char i = 0; i < numOfButtons; ++i)
 	{
 		_buttons.emplace(i, std::shared_ptr<GameObject> { _scene.Instantiate({ pos, 0.0f, scale }) });
 
 		// Image
-		_buttons[i]->AddComponent<Ui::Image>("menu_button")->SetColor(DEFAULT_COLOR);
+		_buttons[i]->AddComponent<Ui::Image>(DEFAULT_BUTTON_TEXTURE.c_str())->SetColor(DEFAULT_COLOR);
 
 		// SFX
 		auto& sfx = *_buttons[i]->AddComponent<Audio::SFXSource>("", false, false);
@@ -112,6 +115,52 @@ void MenuView::SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const st
 			btn.ClearFunctions();
 		}, category);
 }
+
+void MenuView::SetTitleTextPosition(const Math::Vector2& position)
+{
+	_title->GetComponent<Ui::Text>().SetPosition(position);
+}
+
+void MenuView::SetTitleTextSize(int size)
+{
+	_title->GetComponent<Ui::Text>().SetFontSize(size);
+}
+
+void MenuView::SetButtonTextColor(int id, const Rendering::Color& color)
+{
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->GetComponent<Ui::Text>().SetColor(color);
+		}
+	}
+	else
+	{
+		_buttons[id]-> GetComponent<Ui::Text>().SetColor(color);
+	}
+}
+
+void MenuView::SetTitleTextColor(const Rendering::Color& color)
+{
+	_title->GetComponent<Ui::Text>().SetColor(color);
+}
+
+void MenuView::SetButtonTexture(int id, const std::string& textureName)
+{
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->GetComponent<Ui::Image>().SetSprite(textureName);
+		}
+	}
+	else
+	{
+		_buttons[id]->GetComponent<Ui::Image>().SetSprite(textureName);
+	}
+}
+
 
 std::shared_ptr<GameObject>& MenuView::GetButton(unsigned char id)
 {
