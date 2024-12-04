@@ -49,6 +49,7 @@ public:
 	void Stop()
 	{
 		TextureManager::Cleanup();
+		ResourceManager::Cleanup();
 		_window.Close();
 		_isRunning = false;
 
@@ -85,5 +86,6 @@ private:
 	float _fpsTimer = 1.0f;
 	bool _renderFps = true;
 	void Debug();
+	void InitDebug();
 };
 

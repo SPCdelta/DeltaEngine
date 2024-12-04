@@ -20,7 +20,7 @@ class SpriteMap
 		SpriteMap(const std::string& name, const std::string& spritePath, std::vector<SpriteMapEntry> sprites)
 			: _name{ name }
 		{
-			// Convert TilemapEntry DTO into SpriteData
+			// Convert SpritemapEntry DTO into SpriteData
 			for (SpriteMapEntry& entry : sprites)
 			{
 				TextureManager::Add(spritePath);
@@ -31,7 +31,7 @@ class SpriteMap
 					entry.spriteStart,
 					entry.spriteEnd
 				);
-				ResourceManager::Add(entry.spriteName, spriteData);
+				ResourceManager::AddSprite(entry.spriteName, spriteData);
 			}
 		}
 

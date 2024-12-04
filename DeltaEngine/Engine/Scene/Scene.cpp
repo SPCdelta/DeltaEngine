@@ -18,6 +18,7 @@ void Scene::Start()
 	_updateSystem->OnStart();
 	_renderSystem->OnStart();
 	_textRenderSystem->OnStart();
+	OnStart();
 }
 
 // The order in this update loop is VERY VERY important

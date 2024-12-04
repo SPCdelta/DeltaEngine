@@ -28,64 +28,69 @@ Application::Application(int unitPixelSize)
 		LoadScene(sceneName); 
 	});
 
-	{
-		_fpsText = new Ui::Text("FPS: ", "Assets\\Fonts\\knight_warrior.otf", textColor);
-		_fpsText->SetFontSize(48);
-		InputManager::onKeyPressed(Key::KEY_L, 
-			[this](Input& e)
-			{
-				_renderFps = !_renderFps;
-			}
-		);
-	}
-
 	_window.SetUnitPixelSize(unitPixelSize);
 }
 
+
 Application::~Application()
 {
+	delete _fpsText;
 	Stop();
 }
 
 void Application::Run()
 {
-	Uint32 previousTime = Rendering::GetTicks();
-	
 
-	while (!_window.ShouldWindowClose())
+#ifndef _DEBUG
+
+	try
 	{
-		// DeltaTIme
-		Uint32 currentTime = Rendering::GetTicks();
-		Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.0f));
-		previousTime = currentTime;
-
-		// 
-		Rendering::RenderClear(_window.GetRenderer());
-		_window.RenderViewport(255, 255, 255, 255);
-
-		Rendering::PollEvent(_windowEvent);
-
-		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
+#endif	// _DEBUG
+	
+		InitDebug();
+		Uint32 previousTime = Rendering::GetTicks();
+	
+		while (!_window.ShouldWindowClose())
 		{
-			Stop();
-			break;
+			// DeltaTIme
+			Uint32 currentTime = Rendering::GetTicks();
+			Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.0f));
+			previousTime = currentTime;
+
+			// 
+			Rendering::RenderClear(_window.GetRenderer());
+			_window.RenderViewport(255, 255, 255, 255);
+
+			Rendering::PollEvent(_windowEvent);
+
+			if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
+				return;
+
+
+
+			// Update Window
+			_window.Update();
+
+			// Scene UpdateLoop
+			std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
+			currentScene->Update();
+
+			Debug();
+
+			// Render all
+			Rendering::RenderPresent(_window.GetRenderer());
+
+			// Framerate
+			Rendering::Delay(1000 / 60);
 		}
-
-		// Update Window
-		_window.Update();
-
-		// Scene UpdateLoop
-		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-		currentScene->Update();
-
-		Debug();
-
-		// Render all
-		Rendering::RenderPresent(_window.GetRenderer());
-
-		// Framerate
-		Rendering::Delay(1000 / 60);
+#ifndef _DEBUG
 	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what();
+	}
+#endif	// _DEBUG
+
 }
 
 void Application::LoadScene(const std::string& sceneName)
@@ -99,6 +104,13 @@ void Application::LoadScene(const std::string& sceneName)
 	currentScene->Start();
 }
 
+void Application::InitDebug()
+{
+	_fpsText = new Ui::Text("FPS: ", "knight", textColor);
+
+	InputManager::onKeyPressed(Key::KEY_L,
+							   [this](Input& e) { _renderFps = !_renderFps; });
+}
 void Application::Debug()
 {
 	if (_fpsTimer >= 1.0f)
@@ -117,16 +129,3 @@ void Application::Debug()
 		_fpsText->Render(_window.GetRenderer(), _textTransform);
 	}
 }
-
-//Texture* Application::LoadTexture(const char* path)
-//{
-//	SDL_Texture* texture{ IMG_LoadTexture(_window.GetRenderer(), path) };
-//	return texture;
-//}
-//
-//Font* Application::LoadFont(const char* path, int fontSize)
-//{
-//	TTF_Font* font = TTF_OpenFont(path, fontSize);
-//	return font;
-//}
-

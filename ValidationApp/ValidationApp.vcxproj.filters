@@ -51,6 +51,7 @@
     <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditor.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>

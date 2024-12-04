@@ -105,7 +105,7 @@ namespace Rendering
 	}
 
 	// Get window size
-	inline void GetWindowSize(SDL_Window* window, int* w, int* h)
+	inline void GetWindowSize(SDL_Window* window, int* w, int* h) //TODO deze SDL wordt in de code gebruikt volgensmij moet hier de window gebruikt worden en dan window hier omgezet worden naar de sdl
 	{
 		SDL_GetWindowSize(window, w, h);
 	}

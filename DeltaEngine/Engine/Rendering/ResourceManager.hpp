@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TextureManager.hpp"
+#include "../UI/Font.hpp"
 
 class SpriteMap;
 
@@ -15,7 +16,17 @@ public:
 
 	friend class SpriteMap;
 
-	static void Add(const std::string& name, const std::string& spritePath)
+	static void AddFont(const std::string& name, const std::string& fontPath)
+	{
+		instance._fonts.emplace(name, Font::OpenFont(fontPath, 16));
+	}
+
+	static Font::Font* GetFont(const std::string& name)
+	{
+		return instance._fonts[name];
+	}
+
+	static void AddSprite(const std::string& name, const std::string& spritePath)
 	{
 		Rendering::Texture* texture = TextureManager::Add(spritePath);
 		int width = 0;
@@ -28,7 +39,7 @@ public:
 			{ 0.0f, 0.0f },
 			{ static_cast<float>(width), static_cast<float>(height) }
 		);
-		Add(name, spriteData);
+		AddSprite(name, spriteData);
 	}
 
 	static SpriteData* Get(const std::string& name)
@@ -36,21 +47,36 @@ public:
 		return instance._sprites[name];
 	}
 
+	static std::map<std::string, SpriteData*>& GetAllSprites() {
+		return instance._sprites;
+	}
+
+	static void Cleanup() {
+		for (auto& fontpair : instance._fonts)
+		{
+			
+			Font::CloseFont(fontpair.second);
+		}
+	}
+
 private:
 	static ResourceManager instance;
 	std::map<std::string, SpriteData*> _sprites;
+	std::map<std::string, Font::Font*> _fonts;
 
 	ResourceManager() { }
 	~ResourceManager()
 	{
 		// Delete all entries in map
-		for (const auto& pair : _sprites)
+		for (const auto& pairsprite : _sprites)
 		{
-			delete pair.second;
+			delete pairsprite.second;
 		}
+
+
 	}
 
-	static void Add(const std::string& name, SpriteData* spriteData)
+	static void AddSprite(const std::string& name, SpriteData* spriteData)
 	{
 		instance._sprites.emplace(name, spriteData);
 	}
