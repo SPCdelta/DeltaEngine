@@ -10,6 +10,7 @@
 
 // Files
 #include "Core/Files/FileManager.hpp"
+#include "TransformDTO.hpp"
 
 //Audio
 #include "Audio/AudioFacade.hpp"

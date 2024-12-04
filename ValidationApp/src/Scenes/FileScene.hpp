@@ -82,20 +82,16 @@ class FileScene : public Scene
 					auto& tile = loadTiles["tiles"][i];
 					if (tile.contains("transform"))
 					{
-						Transform transform = 
+						TransformDTO transformDTO
 						{
-							{
-								static_cast<float>(tile["transform"]["position"]["x"]),
-								static_cast<float>(tile["transform"]["position"]["y"])
-							},
+							static_cast<float>(tile["transform"]["position"]["x"]),
+							static_cast<float>(tile["transform"]["position"]["y"]),
 							static_cast<float>(tile["transform"]["rotation"]),
-							{
-								static_cast<float>(tile["transform"]["scale"]["x"]),
-								static_cast<float>(tile["transform"]["scale"]["y"])
-							}
+							static_cast<float>(tile["transform"]["scale"]["x"]),
+							static_cast<float>(tile["transform"]["scale"]["y"])
 						};
 
-						std::shared_ptr<GameObject> obj{ Instantiate(transform) };
+						std::shared_ptr<GameObject> obj{ Instantiate(transformDTO.ToTransform()) };
 
 						if (tile.contains("sprite"))
 						{
