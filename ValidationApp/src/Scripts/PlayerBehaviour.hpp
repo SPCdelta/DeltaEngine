@@ -13,6 +13,16 @@ public:
 	void OnStart() override;
 	void OnUpdate() override;
 
+	~PlayerBehaviour()
+	{
+		sprite = nullptr;
+		rigidbody = nullptr;
+		_sfx = nullptr;
+
+		delete _floorBehaviour;
+		delete _damageBehaviour;
+	}
+
 	void ThrowBoomerang();
 
 	// Components
