@@ -123,7 +123,7 @@ void PlayerBehaviour::OnUpdate()
 		// Attacking
 		if (attack)
 		{
-			// TODO boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
+			// boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
 			//ThrowBoomerang();
 
 			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
@@ -155,7 +155,7 @@ void PlayerBehaviour::OnUpdate()
 void PlayerBehaviour::ThrowBoomerang() 
 {
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
-	// TODO boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
+	// boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
 	//boomerangObj->SetTag("weapon");
 	Boomerang* boomerang = boomerangObj->AddComponent<Boomerang>();
 
