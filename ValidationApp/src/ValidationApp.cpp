@@ -81,4 +81,5 @@ void ValidationApp::LoadAssets()
 	ResourceManager::Add("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::Add("menu_button", "Assets\\Textures\\UI\\Buttons\\menu_button.png");
 	ResourceManager::Add("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
+	ResourceManager::Add("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
 }

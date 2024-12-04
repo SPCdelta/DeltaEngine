@@ -25,7 +25,7 @@ class LayerScene : public Scene
 		playerObject->AddComponent<BoxCollider>();
 		playerObject->AddComponent<Rigidbody>();
 
-		playerObject->AddComponent<Audio::SFXSource>();
+		playerObject->AddComponent<Audio::SFXSource>("", false, false);
 		playerObject->AddComponent<PlayerBehaviour>();
 		
 				

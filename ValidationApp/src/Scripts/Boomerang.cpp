@@ -7,8 +7,7 @@ void Boomerang::OnStart()
 	gameObject->AddComponent<BoxCollider>()->SetTrigger(true);
 	rigidbody = gameObject->AddComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
-	audioSource = gameObject->AddComponent<Audio::SFXSource>();
-	audioSource->SetClip("Assets\\Audio\\SFX\\boomerang.mp3");
+	audioSource = gameObject->AddComponent<Audio::SFXSource>("Assets\\Audio\\SFX\\boomerang.mp3", false, false);
 
 	rigidbody->onTriggerEnter.Register(
 		[this](Collider& collider)

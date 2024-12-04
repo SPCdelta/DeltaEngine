@@ -17,6 +17,7 @@ public:
 	void SetButtonText(int id, const std::string& text);
 	void SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category);
 	void SetButtonSFX(int id, const std::string& sfxPath);
+	void SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const std::string& sceneName, const std::string& category);
 	std::shared_ptr<GameObject>& GetButton(unsigned char id);
 	Ui::Text& GetButtonText(unsigned char id);
 private:

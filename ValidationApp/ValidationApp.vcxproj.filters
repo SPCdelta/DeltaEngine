@@ -62,6 +62,7 @@
     <Image Include="Assets\Textures\UI\Buttons\menu_button.png" />
     <Image Include="Assets\Textures\UI\Buttons\menu_button_selected.png" />
     <Image Include="Assets\Textures\Weapons\boomerang.png" />
+    <Image Include="Assets\Textures\UI\Background\main_menu_bg.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

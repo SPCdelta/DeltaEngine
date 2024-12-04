@@ -102,6 +102,17 @@ void MenuView::SetButtonSFX(int id, const std::string& sfxPath)
 	}
 }
 
+void MenuView::SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const std::string& sceneName, 
+	const std::string& category)
+{
+	auto& btn = _buttons[id]->GetComponent<Ui::Button>();
+	btn.SetOnLeftMouseClick([&scene, sceneName, &btn]() -> void
+		{
+			scene.LoadScene(sceneName);
+			btn.ClearFunctions();
+		}, category);
+}
+
 std::shared_ptr<GameObject>& MenuView::GetButton(unsigned char id)
 {
 	return _buttons[id];

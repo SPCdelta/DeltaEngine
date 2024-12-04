@@ -3,7 +3,7 @@
 #include <SDL_mixer.h>
 #include <memory>
 #include <string>
-#include "AudioFacade.hpp"
+#include "AudioManager.hpp"
 #include "AudioSource.hpp"
 
 namespace Audio

@@ -8,7 +8,7 @@
 #include "../Window.hpp"
 
 #include "../Core/Events/EventDispatcher.hpp"
-#include "../Audio/AudioFacade.hpp"
+#include "../Audio/AudioManager.hpp"
 #include "../Rendering/Renderable.hpp"
 
 #include "../Input/InputManager.hpp"
@@ -71,8 +71,6 @@ class Scene
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
 private:
-	Audio::AudioFacade _audioFacade{};
-
 	InputFacade* _inputfacade = nullptr;
 	Rendering::Event* _windowEvent = nullptr;
 

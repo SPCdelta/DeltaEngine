@@ -9,7 +9,7 @@
 #include "Rendering/Sprite.hpp"
 #include "Rendering/Layer.hpp"
 
-#include "Audio/AudioFacade.hpp"
+#include "Audio/AudioManager.hpp"
 #include "Audio/AudioSource.hpp"
 #include "Audio/MusicSource.hpp"
 #include "Audio/SFXSource.hpp"
@@ -88,7 +88,7 @@ public:
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg, Audio::AudioManager& audioFacade,
+	GameObject(ecs::Registry& reg,
 				Physics::PhysicsWorld& physicsWorld,
 				Events::EventDispatcher<const std::string&>& changeScene,
 				Camera* camera, 
@@ -146,8 +146,6 @@ private:
 	Events::EventDispatcher<GameObject*> _destroyObject{};
 	Camera* _camera = nullptr;
 	std::string _tag;
-
-	Audio::AudioManager& _audioFacade;
 
 	template<typename T>
 	T* _AddComponent(T component)
