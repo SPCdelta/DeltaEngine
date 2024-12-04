@@ -35,7 +35,7 @@ public:
 
 protected:
 
-	Rendering::Color color{Rendering::Color(255, 255, 255, 255)};
+	Rendering::Color color{Rendering::Color(10, 10, 10, 10)};
 
 	bool flipX{false};
 	bool flipY{false};

@@ -23,8 +23,8 @@ void Image::Render(Rendering::Renderer* renderer,
 	Rendering::Rect srcRect;
 	srcRect.x = _spriteData->spriteStart.GetX();
 	srcRect.y = _spriteData->spriteStart.GetY();
-	srcRect.w = _spriteData->spriteEnd.GetX() - _spriteData->spriteStart.GetX();
-	srcRect.h = _spriteData->spriteEnd.GetY() - _spriteData->spriteStart.GetY();
+	srcRect.w = _spriteData->spriteEnd.GetX() - srcRect.x;
+	srcRect.h = _spriteData->spriteEnd.GetY() - srcRect.y;
 
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(transform.position.GetX());

@@ -92,6 +92,9 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 		dstRect = { static_cast<int>(transform.position.GetX()), static_cast<int>(transform.position.GetY()), surface->w, surface->h};
 	}
 
+	if (_background)
+		RenderRect(renderer, dstRect, _backgroundColor);
+
 	RenderCopy(renderer, texture, nullptr, &dstRect);
 
 	FreeSurface(surface);
@@ -111,4 +114,9 @@ void Text::SetFontSize(const size_t size)
 void Text::SetPosition(const Math::Vector2& position)
 {
 	_position = position;
+}
+
+void Text::SetBackground(Rendering::Color color) {
+	_background = true;
+	_backgroundColor = color;
 }

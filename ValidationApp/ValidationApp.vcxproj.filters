@@ -73,6 +73,7 @@
     <Image Include="Assets\Textures\floor_map.png" />
     <Image Include="Assets\Textures\wall_map.png" />
     <Image Include="Assets\Textures\Weapons\boomerang.png" />
+    <Image Include="Assets\Textures\Rect.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
