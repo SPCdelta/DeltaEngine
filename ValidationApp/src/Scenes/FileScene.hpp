@@ -75,39 +75,47 @@ class FileScene : public Scene
 			// Comment this in to load tiles from a file (I'd reccomend leaving the saving commented out)
 			/*// Loading
 			Json::json loadTiles = fileManager.Load("Assets\\Files\\tiles.json", "json");
-			for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+			if (loadTiles.contains("tiles"))
 			{
-				auto& tile = loadTiles["tiles"][i];
-
-				Transform transform = 
+				for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
 				{
+					auto& tile = loadTiles["tiles"][i];
+					if (tile.contains("transform"))
 					{
-						static_cast<float>(tile["transform"]["position"]["x"]),
-						static_cast<float>(tile["transform"]["position"]["y"])
-					},
-					static_cast<float>(tile["transform"]["rotation"]),
-					{
-						static_cast<float>(tile["transform"]["scale"]["x"]),
-						static_cast<float>(tile["transform"]["scale"]["y"])
+						Transform transform = 
+						{
+							{
+								static_cast<float>(tile["transform"]["position"]["x"]),
+								static_cast<float>(tile["transform"]["position"]["y"])
+							},
+							static_cast<float>(tile["transform"]["rotation"]),
+							{
+								static_cast<float>(tile["transform"]["scale"]["x"]),
+								static_cast<float>(tile["transform"]["scale"]["y"])
+							}
+						};
+
+						std::shared_ptr<GameObject> obj{ Instantiate(transform) };
+
+						if (tile.contains("sprite"))
+						{
+							std::string spriteName = tile["sprite"]["name"];
+							Layer layer = static_cast<Layer>(tile["layer"]);
+							obj->AddComponent<Sprite>(spriteName.c_str())->SetLayer(layer);
+						}
+
+						if (tile.contains("boxCollider"))
+						{
+							bool isTrigger = tile["boxCollider"]["isTrigger"];
+							obj->AddComponent<BoxCollider>()->SetTrigger(isTrigger);
+						}
+
+						if (tile.contains("tag"))
+						{
+							obj->SetTag(tile["tag"]);
+						}
 					}
-				};
-
-				std::shared_ptr<GameObject> obj{ Instantiate(transform) };
-
-				if (tile.contains("sprite"))
-				{
-					std::string spriteName = tile["sprite"]["name"];
-					Layer layer = static_cast<Layer>(tile["layer"]);
-					obj->AddComponent<Sprite>(spriteName.c_str())->SetLayer(layer);
 				}
-
-				if (tile.contains("boxCollider"))
-				{
-					bool isTrigger = tile["boxCollider"]["isTrigger"];
-					obj->AddComponent<BoxCollider>()->SetTrigger(isTrigger);
-				}
-
-				 obj->SetTag(tile["tag"]);
 			}*/
 		}
 };
