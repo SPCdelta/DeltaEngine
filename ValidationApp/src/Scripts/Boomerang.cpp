@@ -26,7 +26,7 @@ void Boomerang::OnUpdate()
 	if (_finished) return;
 
 	// Rotations per second
-	transform->rotation += (360.0f * 3.0f) * Time::GetDeltaTime();
+	transform->rotation += (360.0f * _rotationsPerSecond) * Time::GetDeltaTime();
 	if (transform->rotation > 360.0f) transform->rotation -= 360.0f;
 
 	if (!_isReturning)

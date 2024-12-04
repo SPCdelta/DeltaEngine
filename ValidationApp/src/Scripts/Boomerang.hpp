@@ -20,6 +20,7 @@ private:
 	Audio::SFXSource* audioSource = nullptr;
 
 	float _distance = 10.0f;
+	float _rotationsPerSecond = 3.0f;
 
 	float _throwSpeed = 0.0f;
 	Vector2 _targetPosition{};
