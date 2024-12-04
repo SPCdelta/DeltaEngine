@@ -29,7 +29,7 @@ Application::Application(int unitPixelSize)
 	});
 
 	{
-		_fpsText = new Ui::Text("FPSAAAAAAAAAA: ", "Assets\\Fonts\\knight_warrior.otf", textColor);
+		_fpsText = new Ui::Text("FPS: ", "Assets\\Fonts\\knight_warrior.otf", textColor);
 		_fpsText->SetFontSize(48);
 		InputManager::onKeyPressed(Key::KEY_L, 
 			[this](Input& e)
@@ -103,7 +103,7 @@ void Application::Debug()
 {
 	if (_fpsTimer >= 1.0f)
 	{
-		std::string fps = "FPS: " + std::to_string(std::floor((1.0f / Time::GetDeltaTime())));
+		std::string fps = "FPS: " + std::to_string(static_cast<int>((1.0f / Time::GetDeltaTime())));
 		_fpsText->SetText(fps);
 		_fpsTimer = 0.0f;
 	}
