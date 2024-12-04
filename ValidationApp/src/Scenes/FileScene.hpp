@@ -10,7 +10,7 @@ class FileScene : public Scene
 			FileManager fileManager;
 
 			// Comment this in to save tiles to file (I'd reccomend leaving the loading commented out)
-			/*// Ice floor
+			// Ice floor
 			 std::vector<std::shared_ptr<GameObject>> tiles = std::vector<std::shared_ptr<GameObject>>();
 
 			std::shared_ptr<GameObject> iceFloorObj{ Instantiate({{ 10.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
@@ -70,10 +70,10 @@ class FileScene : public Scene
 				}
 			}
 
-			fileManager.Save("Assets\\Files\\tiles.json", "json", tilesJson);*/
+			fileManager.Save("Assets\\Files\\tiles.json", "json", tilesJson);
 
 			// Comment this in to load tiles from a file (I'd reccomend leaving the saving commented out)
-			/*// Loading
+			// Loading
 			Json::json loadTiles = fileManager.Load("Assets\\Files\\tiles.json", "json");
 			if (loadTiles.contains("tiles"))
 			{
@@ -116,6 +116,6 @@ class FileScene : public Scene
 						}
 					}
 				}
-			}*/
+			}
 		}
 };
