@@ -41,7 +41,7 @@ void PlayerBehaviour::OnUpdate()
 				}
 				break;
 
-			case FloorType::ICE: // TODO attack ?
+			case FloorType::ICE:
 				if (rigidbody->GetSpeed() < _moveSpeed)
 				{
 					rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
