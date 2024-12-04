@@ -51,7 +51,6 @@ public:
 		TextureManager::Cleanup();
 		_window.Close();
 		_isRunning = false;
-		delete _fpsText;
 
 		Rendering::Quit();
 		TTF_Quit();
