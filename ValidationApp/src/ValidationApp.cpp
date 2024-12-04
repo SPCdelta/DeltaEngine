@@ -29,7 +29,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
-	LoadScene("LevelEditor");
+	LoadScene("UIScene");
 
 	// Start Application
 	Run();
