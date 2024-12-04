@@ -9,8 +9,9 @@ class FileScene : public Scene
 		{
 			FileManager fileManager;
 
-			// Ice floor
-			/* std::vector<std::shared_ptr<GameObject>> tiles = std::vector<std::shared_ptr<GameObject>>();
+			// Comment this in to save tiles to file (I'd reccomend leaving the loading commented out)
+			/*// Ice floor
+			 std::vector<std::shared_ptr<GameObject>> tiles = std::vector<std::shared_ptr<GameObject>>();
 
 			std::shared_ptr<GameObject> iceFloorObj{ Instantiate({{ 10.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
 			iceFloorObj->AddComponent<Sprite>("ice")->SetLayer(Layer::Floor);
@@ -71,8 +72,10 @@ class FileScene : public Scene
 
 			fileManager.Save("Assets\\Files\\tiles.json", "json", tilesJson);*/
 
-			// Loading
-			Json::json loadTiles = fileManager.Load("Assets\\Files\\tiles.json", "json");
+			// Comment this in to load tiles from a file (I'd reccomend leaving the saving commented out)
+			/*// Loading
+			 Json::json loadTiles =
+				fileManager.Load("Assets\\Files\\tiles.json", "json");
 			for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
 			{
 				auto& tile = loadTiles["tiles"][i];
@@ -106,6 +109,6 @@ class FileScene : public Scene
 				}
 
 				 obj->SetTag(tile["tag"]);
-			}
+			}*/
 		}
 };
