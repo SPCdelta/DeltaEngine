@@ -11,7 +11,7 @@ namespace Audio
 class SFXSource : public AudioSource
 {
    public:
-	SFXSource(const std::string& path, bool playOnAwake, AudioFacade& audioFacade, bool loop);
+	SFXSource(const std::string& path, bool playOnAwake, bool loop);
 	SFXSource(const SFXSource& other);
 	SFXSource& operator=(const SFXSource& other);
 	SFXSource(SFXSource&& other) noexcept;

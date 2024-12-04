@@ -3,7 +3,14 @@
 
 using namespace Audio;
 
-AudioFacade::AudioFacade()
+AudioManager AudioManager::_instance;
+
+AudioManager& Audio::AudioManager::GetInstance()
+{
+	return _instance;
+}
+
+AudioManager::AudioManager()
 {
 	if (Mix_OpenAudio(AUDIO_FREQ, AUDIO_S16SYS, CHANNEL_COUNT, CHUNK_SIZE) ==
 		AUDIO_ERROR)
@@ -13,12 +20,12 @@ AudioFacade::AudioFacade()
 	}
 }
 
-AudioFacade::~AudioFacade()
+AudioManager::~AudioManager()
 {
 	Mix_CloseAudio();
 }
 
-void AudioFacade::PlayMusic(Mix_Music* music, int loops)
+void AudioManager::PlayMusic(Mix_Music* music, int loops)
 {
 	if (Mix_PlayMusic(music, loops) == AUDIO_ERROR)
 	{
@@ -26,7 +33,7 @@ void AudioFacade::PlayMusic(Mix_Music* music, int loops)
 	}
 }
 
-void AudioFacade::PlaySFX(Mix_Chunk* sfx, int loops)
+void AudioManager::PlaySFX(Mix_Chunk* sfx, int loops)
 {
 	if (Mix_PlayChannel(DEFAULT_CHANNEL, sfx, loops) == AUDIO_ERROR)
 	{
@@ -34,32 +41,32 @@ void AudioFacade::PlaySFX(Mix_Chunk* sfx, int loops)
 	}
 }
 
-void AudioFacade::PauseMusic()
+void AudioManager::PauseMusic()
 {
 	Mix_PauseMusic();
 }
 
-void AudioFacade::PauseSFX()
+void AudioManager::PauseSFX()
 {
 	Mix_Pause(DEFAULT_CHANNEL);
 }
 
-void AudioFacade::ResumeMusic()
+void AudioManager::ResumeMusic()
 {
 	Mix_ResumeMusic();
 }
 
-void AudioFacade::ResumeSFX()
+void AudioManager::ResumeSFX()
 {
 	Mix_Resume(DEFAULT_CHANNEL);
 }
 
-void AudioFacade::StopMusic()
+void AudioManager::StopMusic()
 {
 	Mix_HaltMusic();
 }
 
-void AudioFacade::StopSFX()
+void AudioManager::StopSFX()
 {
 	if (Mix_HaltChannel(DEFAULT_CHANNEL) == AUDIO_ERROR)
 	{
@@ -67,12 +74,12 @@ void AudioFacade::StopSFX()
 	}
 }
 
-void AudioFacade::SetMusicVolume(int volume)
+void AudioManager::SetMusicVolume(int volume)
 {
 	Mix_VolumeMusic(volume);
 }
 
-void AudioFacade::SetSFXVolume(Mix_Chunk* sfx, int volume)
+void AudioManager::SetSFXVolume(Mix_Chunk* sfx, int volume)
 {
 	if (Mix_VolumeChunk(sfx, volume) == AUDIO_ERROR)
 	{
@@ -80,12 +87,12 @@ void AudioFacade::SetSFXVolume(Mix_Chunk* sfx, int volume)
 	}
 }
 
-void AudioFacade::IncreaseMusicVolume(int volume)
+void AudioManager::IncreaseMusicVolume(int volume)
 {
 	SetMusicVolume(Mix_VolumeMusic(CURRENT_VOLUME) + volume);
 }
 
-void AudioFacade::IncreaseSFXVolume(Mix_Chunk* sfx, int volume)
+void AudioManager::IncreaseSFXVolume(Mix_Chunk* sfx, int volume)
 {
 	SetSFXVolume(sfx, Mix_VolumeChunk(sfx, CURRENT_VOLUME) + volume);
 }

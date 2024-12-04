@@ -53,7 +53,7 @@ class Scene
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
 private:
-	Audio::AudioFacade _audioFacade{};
+	Audio::AudioManager _audioFacade{};
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};

@@ -53,16 +53,6 @@ public:
 
 			return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
 		}
-		else if constexpr (std::is_same_v<T, Audio::MusicSource>)
-		{
-			T* component = static_cast<T*>(_AddComponent<Audio::MusicSource>(Audio::MusicSource("", false, _audioFacade, false)));
-			return component;
-		}
-		else if constexpr (std::is_same_v<T, Audio::SFXSource>)
-		{
-			T* component = static_cast<T*>(_AddComponent<Audio::SFXSource>(Audio::SFXSource("", false, _audioFacade, false)));
-			return component;
-		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
 			T* component = static_cast<T*>(_AddComponent<Ui::Button>(Ui::Button(transform->position, transform->scale)));
@@ -97,7 +87,7 @@ public:
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg, Audio::AudioFacade& audioFacade,
+	GameObject(ecs::Registry& reg, Audio::AudioManager& audioFacade,
 				Physics::PhysicsWorld& physicsWorld,
 				Events::EventDispatcher<const std::string&>& changeScene,
 				Camera* camera, 
@@ -151,7 +141,7 @@ private:
 	Camera* _camera = nullptr;
 	std::string _tag;
 
-	Audio::AudioFacade& _audioFacade;
+	Audio::AudioManager& _audioFacade;
 
 	template<typename T>
 	T* _AddComponent(T component)

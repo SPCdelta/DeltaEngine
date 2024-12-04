@@ -16,10 +16,11 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	menuView.SetButtonTextPosition(1, {525, 250});
 	menuView.SetButtonTextPosition(2, {595, 400});
 	menuView.SetButtonTextPosition(3, {580, 550});
-	menuView.SetButtonOnLeftMouseClick(2, [this]() -> void 
+	auto& devButton = menuView.GetButton(2);
+	menuView.SetButtonOnLeftMouseClick(2, [this, devButton]() -> void 
 		{
-			InputManager::deactivateCategory("Main Menu");
 			LoadScene("DevScene");
+			devButton->GetComponent<Ui::Button>().ClearFunctions();
 		}, "Main Menu");
 	menuView.SetButtonSFX(-1, "Assets\\Audio\\SFX\\Button_1.mp3");
 

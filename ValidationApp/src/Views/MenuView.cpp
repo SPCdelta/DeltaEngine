@@ -28,7 +28,7 @@ void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& star
 		_buttons[i]->AddComponent<Ui::Image>("menu_button")->SetColor(DEFAULT_COLOR);
 
 		// SFX
-		auto& sfx = *_buttons[i]->AddComponent<Audio::SFXSource>();
+		auto& sfx = *_buttons[i]->AddComponent<Audio::SFXSource>("", false, false);
 
 		// Button
 		auto& button = *_buttons[i]->AddComponent<Ui::Button>();

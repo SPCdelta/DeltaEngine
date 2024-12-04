@@ -3,10 +3,9 @@
 
 using namespace Audio;
 
-AudioSource::AudioSource(bool playOnAwake, AudioFacade& audioFacade, std::string path, bool loop)
+AudioSource::AudioSource(bool playOnAwake, std::string path, bool loop)
 	: _loop(loop),
 	  _volume(MIX_MAX_VOLUME),
-	  _audioFacade(audioFacade),
 	  _path(path),
 	  _playOnAwake(playOnAwake)
 {
@@ -16,7 +15,6 @@ AudioSource::AudioSource(bool playOnAwake, AudioFacade& audioFacade, std::string
 AudioSource::AudioSource(const AudioSource& other)
 	: _loop(other._loop),
 	  _volume(other._volume),
-	  _audioFacade(other._audioFacade),
 	  _path(other._path),
 	  _playOnAwake(other._playOnAwake)
 {
@@ -37,7 +35,6 @@ AudioSource& AudioSource::operator=(const AudioSource& other)
 AudioSource::AudioSource(AudioSource&& other) noexcept
 	: _loop(other._loop),
 	  _volume(other._volume),
-	  _audioFacade(other._audioFacade),
 	  _path(other._path),
 	  _playOnAwake(other._playOnAwake)
 {

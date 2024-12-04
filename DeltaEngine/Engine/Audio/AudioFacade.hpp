@@ -10,15 +10,16 @@ namespace Audio
 	constexpr auto DEFAULT_CHANNEL = -1;
 	constexpr auto AUDIO_ERROR = -1;
 	constexpr auto CURRENT_VOLUME = -1;
-	class AudioFacade
+	class AudioManager
 	{
 	public:
-		AudioFacade();
-		AudioFacade(const AudioFacade& other) = delete;
-		AudioFacade& operator=(const AudioFacade&& other) = delete;
-		AudioFacade(AudioFacade&& other) = delete;
-		AudioFacade operator=(AudioFacade&& other) = delete;
-		~AudioFacade();
+		static AudioManager& GetInstance();
+		AudioManager();
+		AudioManager(const AudioManager& other) = delete;
+		AudioManager& operator=(const AudioManager&& other) = delete;
+		AudioManager(AudioManager&& other) = delete;
+		AudioManager operator=(AudioManager&& other) = delete;
+		~AudioManager();
 		void PlayMusic(Mix_Music* music, int loops);
 		void PlaySFX(Mix_Chunk* sfx, int loops);
 		void PauseMusic();
@@ -32,5 +33,6 @@ namespace Audio
 		void IncreaseMusicVolume(int volume);
 		void IncreaseSFXVolume(Mix_Chunk* sfx, int volume);
 	private:
+		static AudioManager _instance;
 	};
 }

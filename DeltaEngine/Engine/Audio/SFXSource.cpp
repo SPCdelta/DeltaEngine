@@ -3,9 +3,8 @@
 
 using namespace Audio;
 
-SFXSource::SFXSource(const std::string& path, bool playOnAwake,
-					 AudioFacade& audioFacade, bool loop)
-	: AudioSource(playOnAwake, audioFacade, path, loop),
+SFXSource::SFXSource(const std::string& path, bool playOnAwake, bool loop)
+	: AudioSource(playOnAwake, path, loop),
 	  _clip(std::move(AudioLoader::LoadChunk(path)))
 {
 	if (playOnAwake)
@@ -17,7 +16,7 @@ SFXSource::SFXSource(const std::string& path, bool playOnAwake,
 SFXSource::SFXSource(const SFXSource& other)
 	: AudioSource(other), _clip(AudioLoader::LoadChunk(other._path))
 {
-	_audioFacade.SetMusicVolume(_volume);
+	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
 
 SFXSource& SFXSource::operator=(const SFXSource& other)
@@ -26,7 +25,7 @@ SFXSource& SFXSource::operator=(const SFXSource& other)
 	{
 		AudioSource::operator=(other);
 		_clip = std::move(AudioLoader::LoadChunk(other._path));
-		_audioFacade.SetMusicVolume(_volume);
+		AudioManager::GetInstance().SetMusicVolume(_volume);
 	}
 	return *this;
 }
@@ -34,7 +33,7 @@ SFXSource& SFXSource::operator=(const SFXSource& other)
 SFXSource::SFXSource(SFXSource&& other) noexcept
 	: AudioSource(other), _clip(std::move(other._clip))
 {
-	_audioFacade.SetMusicVolume(_volume);
+	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
 
 SFXSource& SFXSource::operator=(SFXSource&& other) noexcept
@@ -43,7 +42,7 @@ SFXSource& SFXSource::operator=(SFXSource&& other) noexcept
 	{
 		AudioSource::operator=(other);
 		_clip = std::move(other._clip);
-		_audioFacade.SetMusicVolume(_volume);
+		AudioManager::GetInstance().SetMusicVolume(_volume);
 	}
 	return *this;
 }
@@ -52,32 +51,32 @@ Audio::SFXSource::~SFXSource() {}
 
 void SFXSource::Play()
 {
-	_audioFacade.PlaySFX(_clip.get(), _loop);
+	AudioManager::GetInstance().PlaySFX(_clip.get(), _loop);
 }
 
 void SFXSource::Pause()
 {
-	_audioFacade.PauseSFX();
+	AudioManager::GetInstance().PauseSFX();
 }
 
 void SFXSource::Resume()
 {
-	_audioFacade.ResumeSFX();
+	AudioManager::GetInstance().ResumeSFX();
 }
 
 void SFXSource::Stop()
 {
-	_audioFacade.StopSFX();
+	AudioManager::GetInstance().StopSFX();
 }
 
 void SFXSource::SetVolume(int volume)
 {
-	_audioFacade.SetSFXVolume(_clip.get(), volume);
+	AudioManager::GetInstance().SetSFXVolume(_clip.get(), volume);
 }
 
 void SFXSource::IncreaseVolume(int volume)
 {
-	_audioFacade.IncreaseSFXVolume(_clip.get(), volume);
+	AudioManager::GetInstance().IncreaseSFXVolume(_clip.get(), volume);
 }
 
 void SFXSource::SetClip(std::string pathToClip)
