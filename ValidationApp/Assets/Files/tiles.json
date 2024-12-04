@@ -1,9 +1,10 @@
 {
     "tiles": [
         {
-            "hasBoxcolider": false,
             "layer": 1,
-            "sprite": "ice",
+            "sprite": {
+                "name": "ice"
+            },
             "tag": "ice",
             "transform": {
                 "position": {
@@ -18,9 +19,10 @@
             }
         },
         {
-            "hasBoxcolider": false,
             "layer": 1,
-            "sprite": "ice",
+            "sprite": {
+                "name": "ice"
+            },
             "tag": "ice",
             "transform": {
                 "position": {
@@ -35,9 +37,10 @@
             }
         },
         {
-            "hasBoxcolider": false,
             "layer": 1,
-            "sprite": "ice",
+            "sprite": {
+                "name": "ice"
+            },
             "tag": "ice",
             "transform": {
                 "position": {
@@ -52,9 +55,10 @@
             }
         },
         {
-            "hasBoxcolider": false,
             "layer": 2,
-            "sprite": "stone_wall",
+            "sprite": {
+                "name": "stone_wall"
+            },
             "tag": "",
             "transform": {
                 "position": {
@@ -69,9 +73,10 @@
             }
         },
         {
-            "hasBoxcolider": false,
             "layer": 1,
-            "sprite": "stone_floor",
+            "sprite": {
+                "name": "stone_floor"
+            },
             "tag": "",
             "transform": {
                 "position": {

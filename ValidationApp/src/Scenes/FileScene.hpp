@@ -9,12 +9,8 @@ class FileScene : public Scene
 		{
 			FileManager fileManager;
 
-			std::shared_ptr<GameObject> playerObject{Instantiate({{200.0f, 200.0f}, 0.0f, {64.0f, 64.0f}})};
-			std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 4, 64, 64, 4, 1, 2, 3);
-			playerObject->AddComponent<Sprite>("spritesheet", sheet);
-
 			// Ice floor
-			std::vector<std::shared_ptr<GameObject>> tiles = std::vector<std::shared_ptr<GameObject>>();
+			/* std::vector<std::shared_ptr<GameObject>> tiles = std::vector<std::shared_ptr<GameObject>>();
 
 			std::shared_ptr<GameObject> iceFloorObj{ Instantiate({{ 10.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
 			iceFloorObj->AddComponent<Sprite>("ice")->SetLayer(Layer::Floor);
@@ -47,45 +43,69 @@ class FileScene : public Scene
 
 			// Saving to file
 			Json::json tilesJson;
-
-			int counter = 0;
-			for (std::shared_ptr<GameObject> tile : tiles)
+			for (size_t i = 0; i < tiles.size(); ++i)
 			{
-				tilesJson["tiles"][counter]["transform"]["position"]["x"] = tile->GetComponent<Transform>().position.GetX();
-				tilesJson["tiles"][counter]["transform"]["position"]["y"] = tile->GetComponent<Transform>().position.GetY();
-				tilesJson["tiles"][counter]["transform"]["rotation"] = tile->GetComponent<Transform>().rotation;
-				tilesJson["tiles"][counter]["transform"]["scale"]["x"] = tile->GetComponent<Transform>().scale.GetX();
-				tilesJson["tiles"][counter]["transform"]["scale"]["y"] = tile->GetComponent<Transform>().scale.GetY();
+				auto& tileJson = tilesJson["tiles"][i];
 
-				tilesJson["tiles"][counter]["tag"] = tile->GetTag();
+				tileJson["transform"]["position"]["x"] = tiles[i]->GetComponent<Transform>().position.GetX();
+				tileJson["transform"]["position"]["y"] = tiles[i]->GetComponent<Transform>().position.GetY();
+				tileJson["transform"]["rotation"] = tiles[i]->GetComponent<Transform>().rotation;
+				tileJson["transform"]["scale"]["x"] = tiles[i]->GetComponent<Transform>().scale.GetX();
+				tileJson["transform"]["scale"]["y"] = tiles[i]->GetComponent<Transform>().scale.GetY();
 
-				if (tile->HasComponent<Sprite>())
+				tileJson["tag"] = tiles[i]->GetTag();
+
+				if (tiles[i]->HasComponent<Sprite>())
 				{
-					tilesJson["tiles"][counter]["sprite"] = tile->GetComponent<Sprite>().GetSprite();
-					tilesJson["tiles"][counter]["layer"] = tile->GetLayer();
+					const auto& sprite = tiles[i]->GetComponent<Sprite>();
+					tileJson["sprite"]["name"] = sprite.GetSprite();  
+					tileJson["layer"] = static_cast<int>(sprite.GetLayer());
 				}
 					
-				if (tile->HasComponent<BoxCollider>())
+				if (tiles[i]->HasComponent<BoxCollider>())
 				{
-					tilesJson["tiles"][counter]["hasBoxcolider"] = true;
-					tilesJson["tiles"][counter]["isTrigger"] = tile->GetComponent<BoxCollider>().IsTrigger();
+					const auto& collider = tiles[i]->GetComponent<BoxCollider>();
+					tileJson["boxCollider"]["isTrigger"] = collider.IsTrigger();
 				}
-				else
-				{
-					tilesJson["tiles"][counter]["hasBoxcolider"] = false;
-				}
-
-				counter++;
 			}
 
-			fileManager.Save("Assets\\Files\\tiles.json", "json", tilesJson);
+			fileManager.Save("Assets\\Files\\tiles.json", "json", tilesJson);*/
 
 			// Loading
 			Json::json loadTiles = fileManager.Load("Assets\\Files\\tiles.json", "json");
-			std::cout << "Loaded data: " << loadTiles.dump(4) << std::endl;
+			for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+			{
+				auto& tile = loadTiles["tiles"][i];
 
+				Transform transform = 
+				{
+					{
+						static_cast<float>(tile["transform"]["position"]["x"]),
+						static_cast<float>(tile["transform"]["position"]["y"])
+					},
+					static_cast<float>(tile["transform"]["rotation"]),
+					{
+						static_cast<float>(tile["transform"]["scale"]["x"]),
+						static_cast<float>(tile["transform"]["scale"]["y"])
+					}
+				};
 
+				std::shared_ptr<GameObject> obj{ Instantiate(transform) };
 
+				if (tile.contains("sprite"))
+				{
+					std::string spriteName = tile["sprite"]["name"];
+					Layer layer = static_cast<Layer>(tile["layer"]);
+					obj->AddComponent<Sprite>(spriteName.c_str())->SetLayer(layer);
+				}
 
+				if (tile.contains("boxCollider"))
+				{
+					bool isTrigger = tile["boxCollider"]["isTrigger"];
+					obj->AddComponent<BoxCollider>()->SetTrigger(isTrigger);
+				}
+
+				 obj->SetTag(tile["tag"]);
+			}
 		}
 };
