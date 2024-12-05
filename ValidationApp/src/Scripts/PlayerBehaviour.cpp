@@ -255,6 +255,18 @@ void PlayerBehaviour::SavePlayer()
 	{
 		auto& itemData = playerFile["player"]["inventory"][i];
 
+		itemData["name"] = _player.GetInventoryItem(i)->GetItem().GetName();
+		itemData["sprite"] = _player.GetInventoryItem(i)->GetItem().GetSprite();
+		itemData["amount"] = _player.GetInventoryItem(i)->GetAmount();
+
+		Potion* potion = dynamic_cast<Potion*>(&_player.GetInventoryItem(i)->GetItem());
+		if (potion)
+		{
+			itemData["type"] = potion->GetType(); // static_cast<int>(sprite.GetLayer());
+			itemData["value"] = potion->GetValue();
+			itemData["time"] = potion->GetTime();
+		}
+
 		/*tileJson["transform"]["position"]["x"] = tiles[i]->GetComponent<Transform>().position.GetX();
 		tileJson["transform"]["position"]["y"] = tiles[i]->GetComponent<Transform>().position.GetY();
 		tileJson["transform"]["rotation"] = tiles[i]->GetComponent<Transform>().rotation;

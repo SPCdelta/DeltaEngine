@@ -27,7 +27,9 @@ class Player
 
 	void AddItemToInventory(Item item, int amount);
 	void RemoveItemFromInventory(Item item, int amount);
+
 	int GetInventorySize();
+	InventoryItem* GetInventoryItem(int index);
 
    private:
 	int _shield;

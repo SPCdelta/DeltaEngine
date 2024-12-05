@@ -77,3 +77,8 @@ int Inventory::GetItemAmount()
 {
 	return _items.size();
 }
+
+std::shared_ptr<InventoryItem> Inventory::GetItem(int index)
+{
+	return _items[index];
+}

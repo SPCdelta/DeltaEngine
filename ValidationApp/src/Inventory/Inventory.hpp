@@ -15,7 +15,9 @@ class Inventory
 	void AddItem(Item item, int amount);
 	void RemoveItem(Item item, int amount);
 	void PrintInventory();
+
 	int GetItemAmount();
+	std::shared_ptr<InventoryItem> GetItem(int index);
 
    private:
 	std::vector<std::shared_ptr<InventoryItem>> _items;

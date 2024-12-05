@@ -56,3 +56,8 @@ int Player::GetInventorySize()
 {
 	return _inventory.GetItemAmount();
 }
+
+InventoryItem* Player::GetInventoryItem(int index)
+{
+	return _inventory.GetItem(index).get();
+}
