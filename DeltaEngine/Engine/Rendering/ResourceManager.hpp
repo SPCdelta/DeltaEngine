@@ -17,15 +17,6 @@ public:
 	friend class SpriteMap;
 
 	// Fonts
-	//static void AddFont(const std::string& name, const std::string& fontPath)
-	//{
-	//	instance._fonts.emplace(name, Font::OpenFont(fontPath, 16));
-	//}
-
-	//static Font::Font* GetFont(const std::string& name)
-	//{
-	//	return instance._fonts[name];
-	//}
 	static void AddFont(const std::string& fontName, const std::string& fontPath)
 	{
 		FontManager::AddFont(fontName, fontPath);
