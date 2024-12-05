@@ -52,5 +52,5 @@ class TextureManager
 	Rendering::Renderer* _renderer = nullptr;
 	std::map<std::string, Rendering::Texture*> _textures;
 
-	TextureManager(){};
+	TextureManager() {};
 };

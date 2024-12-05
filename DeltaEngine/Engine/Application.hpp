@@ -48,7 +48,6 @@ public:
 
 	void Stop()
 	{
-		TextureManager::Cleanup();
 		ResourceManager::Cleanup();
 		_window.Close();
 		_isRunning = false;

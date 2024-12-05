@@ -79,7 +79,6 @@ void ValidationApp::LoadAssets()
 			{"rect_gray_0_old",		{scale * 8, scale * 1}, {scale*(8 + 1), scale*(1 + 1)}},
 			{"rect_gray_0_new",		{scale * 9, scale * 1}, {scale*(9 + 1), scale*(1 + 1)}},
 		}
-
 	};
 
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
@@ -89,5 +88,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
-	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
+
+	// Fonts
+	ResourceManager::AddFont("knight", "Assets\\Fonts\\knight_warrior.otf");
 }

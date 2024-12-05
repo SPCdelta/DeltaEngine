@@ -27,11 +27,6 @@ namespace Font
 		TTF_CloseFont(font);
 	}
 
-	inline void SetFontSize(Font* font, const size_t size) 
-	{
-		//TTF_SetFontSize(font, size); TODO: fix Fontsize
-	}
-
 	inline const char* GetError() 
 	{
 		return TTF_GetError(); 
