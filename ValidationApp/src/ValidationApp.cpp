@@ -28,7 +28,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
-	LoadScene("LevelEditor");
+	LoadScene("GameScene");
 
 
 	// Start Application
@@ -40,6 +40,18 @@ void ValidationApp::LoadAssets()
 {
 	// Maps
 	float scale = 32.0f;
+
+	SpriteMap gamefloormap{
+		"gamefloor_map",
+		"Assets\\Textures\\floor_map.png",
+		{
+
+			{"ice", {scale * 0, scale * 0}, {scale, scale}},
+			{"mud", {scale * 1, scale * 0}, {scale, scale}},
+			{"stone_wall", {scale * 0, scale * 1}, {scale, scale}},
+			{"stone_floor", {scale * 1, scale * 1}, {scale, scale}},
+		}};
+
 	SpriteMap floormap
 	{
 		"floor_map",
@@ -67,7 +79,6 @@ void ValidationApp::LoadAssets()
 			{"rect_gray_0_old",		{scale * 8, scale * 1}, {scale*(8 + 1), scale*(1 + 1)}},
 			{"rect_gray_0_new",		{scale * 9, scale * 1}, {scale*(9 + 1), scale*(1 + 1)}},
 		}
-
 	};
 
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
@@ -78,5 +89,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
-	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
+
+	// Fonts
+	ResourceManager::AddFont("knight", "Assets\\Fonts\\knight_warrior.otf");
 }

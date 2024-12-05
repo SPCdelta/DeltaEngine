@@ -37,7 +37,6 @@ class LevelEditor : public Scene
 		float topBarLenght = imagespace * maxOptionPerRow;
 		float rightBarstart = windowWidth - rightBarWidth;
 
-
 		float textFontSize = 16.f;
 
 		std::shared_ptr<GameObject> saveButton{Instantiate({{rightBarstart - 20.0f, paddingTop * 3.5f}, 0.0f, {80.0f, textFontSize}})};

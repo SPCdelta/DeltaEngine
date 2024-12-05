@@ -3,13 +3,15 @@
 using namespace Ui;
 using namespace Rendering;
 
-Text::Text(const std::string& text, const std::string& fontName,
+Text::Text(const std::string& text, const std::string& fontName, int fontSize,
 		   const Rendering::Color& color)
 	: 
+	  _fontName{ fontName },
+	  _fontSize{ fontSize },
 	  _text{text},
 	  _color{color}
 {
-	_font = ResourceManager::GetFont(fontName);
+	_font = ResourceManager::GetFont(fontName, fontSize);
 	if (_font == nullptr)
 	{
 		std::cerr << "Error loading font: " << Font::GetError() << std::endl;
@@ -106,9 +108,16 @@ void Text::SetText(const std::string& text)
 	_text = text;
 }
 
-void Text::SetFontSize(const size_t size)
+void Text::SetFont(const std::string& fontName)
 {
-	Font::SetFontSize(_font, size);
+	_fontName = fontName;
+	_font = ResourceManager::GetFont(_fontName, _fontSize);
+}
+
+void Text::SetFontSize(int size)
+{
+	_fontSize = size;
+	_font = ResourceManager::GetFont(_fontName, _fontSize);
 }
 
 void Text::SetPosition(const Math::Vector2& position)
