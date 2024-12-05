@@ -1,5 +1,4 @@
 #include "ValidationApp.hpp"
-
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/InputTestScene.hpp"
@@ -8,11 +7,12 @@
 #include "Scenes/SwitchTestScene.hpp"
 #include "Scenes/LayerScene.hpp"
 #include "Scenes/DevScene.hpp"
+#include "Scenes/LevelEditor.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
 {
-	// Load Assets
+
 	LoadAssets();
 
 	// Register Scenes
@@ -25,6 +25,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<Scene2>("Scene2");
 	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
+	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
 	LoadScene("MainMenuScene");
@@ -33,54 +34,47 @@ ValidationApp::ValidationApp()
 	Run();
 }
 
+
 void ValidationApp::LoadAssets()
 {
 	// Maps
+	float scale = 32.0f;
 	SpriteMap floormap
 	{
 		"floor_map",
-		"Assets\\Textures\\floor_map.png",
+		"Assets\\Textures\\Tiles\\floor.png",
 		{
-			{
-				"ice",
-				{ 0.0f, 0.0f },
-				{ 32.0f, 32.0f }
-			},
-			{
-				"mud",
-				{ 32.0f, 0.0f },
-				{ 64.0f, 32.0f }
-			},
-			{
-				"stone_floor",
-				{ 0.0f, 32.0f }, 
-				{ 32.0f, 64.0f }
-			},
+
+			{"tomb_0_old",			{scale * 0, scale * 0}, {scale*(0 + 1), scale*(0 + 1)}},
+			{"tomb_0_new",			{scale * 1, scale * 0}, {scale*(1 + 1), scale*(0 + 1)}},
+			{"tomb_1_old",			{scale * 2, scale * 0}, {scale*(2 + 1), scale*(0 + 1)}},
+			{"tomb_1_new",			{scale * 3, scale * 0}, {scale*(3 + 1), scale*(0 + 1)}},
+			{"tomb_2_old",			{scale * 4, scale * 0}, {scale*(4 + 1), scale*(0 + 1)}},
+			{"tomb_2_new",			{scale * 5, scale * 0}, {scale*(5 + 1), scale*(0 + 1)}},
+			{"tomb_3_old",			{scale * 6, scale * 0}, {scale*(6 + 1), scale*(0 + 1)}},
+			{"tomb_3_new",			{scale * 7, scale * 0}, {scale*(7 + 1), scale*(0 + 1)}},
+			{"Sandstone_floor_0",	{scale * 8, scale * 0}, {scale*(8 + 1), scale*(0 + 1)}},
+			{"Sandstone_floor_1",	{scale * 9, scale * 0}, {scale*(9 + 1), scale*(0 + 1)}},
+			{"Sandstone_floor_2",	{scale * 0, scale * 1}, {scale*(0 + 1), scale*(1 + 1)}},
+			{"Sandstone_floor_3",	{scale * 1, scale * 1}, {scale*(1 + 1), scale*(1 + 1)}},
+			{"Sandstone_floor_4",	{scale * 2, scale * 1}, {scale*(2 + 1), scale*(1 + 1)}},
+			{"Sandstone_floor_5",	{scale * 3, scale * 1}, {scale*(3 + 1), scale*(1 + 1)}},
+			{"Sandstone_floor_6",	{scale * 4, scale * 1}, {scale*(4 + 1), scale*(1 + 1)}},
+			{"Sandstone_floor_7",	{scale * 5, scale * 1}, {scale*(5 + 1), scale*(1 + 1)}},
+			{"Sandstone_floor_8",	{scale * 6, scale * 1}, {scale*(6 + 1), scale*(1 + 1)}},
+			{"Sandstone_floor_9",	{scale * 7, scale * 1}, {scale*(7 + 1), scale*(1 + 1)}},
+			{"rect_gray_0_old",		{scale * 8, scale * 1}, {scale*(8 + 1), scale*(1 + 1)}},
+			{"rect_gray_0_new",		{scale * 9, scale * 1}, {scale*(9 + 1), scale*(1 + 1)}},
 		}
+
 	};
 
-	SpriteMap wallmap
-	{
-		"wall_map",
-		"Assets\\Textures\\wall_map.png",
-		{
-			{
-				"stone_wall",
-				{ 0.0f, 0.0f },
-				{ 32.0f, 32.0f }
-			}
-		}
-	};
-
-	// Single
-	ResourceManager::Add("player", "Assets\\Textures\\player.png");
-	ResourceManager::Add("spritesheet", "Assets\\Textures\\spritesheet.png");
-	ResourceManager::Add("spritesheet2", "Assets\\Textures\\spritesheet2.png");
-	ResourceManager::Add("spritesheet3", "Assets\\Textures\\spritesheet3.png");
-	ResourceManager::Add("square", "Assets\\Textures\\square.png");
-	ResourceManager::Add("default_texture", "Assets\\Textures\\default_texture.png");
-	ResourceManager::Add("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
-	ResourceManager::Add("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
-	ResourceManager::Add("parchment", "Assets\\Textures\\UI\\Buttons\\parchment.png");
-	ResourceManager::Add("banner", "Assets\\Textures\\UI\\Buttons\\banner.png");
+	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
+	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
+	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
+	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
+	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
+	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
+	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
+	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 }

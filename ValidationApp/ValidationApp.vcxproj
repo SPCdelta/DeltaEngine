@@ -177,6 +177,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Views\MenuView.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
+    <ClCompile Include="src\Items\Potions\HealingPotion.cpp" />
+    <ClCompile Include="src\Inventory\InventoryItem.cpp" />
+    <ClCompile Include="src\Inventory\Inventory.cpp" />
+    <ClCompile Include="src\Items\Item.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
@@ -191,10 +199,23 @@
   <ItemGroup>
     <ClInclude Include="src\Scenes\DevScene.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
+    <ClCompile Include="src\Items\WorldItem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\DefensePotion.hpp" />
+    <ClInclude Include="src\Items\Potions\HealingPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\Potion.hpp" />
+    <ClInclude Include="src\Inventory\InventoryItem.hpp" />
+    <ClInclude Include="src\Inventory\Inventory.hpp" />
+    <ClInclude Include="src\Items\Item.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\LayerScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditor.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -212,6 +233,7 @@
     <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Views\IView.hpp" />
+    <ClInclude Include="src\Items\WorldItem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeltaEngine\DeltaEngine.vcxproj">
@@ -332,6 +354,7 @@
     </Font>
     <Font Include="Assets\Fonts\knight_warrior.otf">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Font>
     <None Include="Assets\Files\example.json" />
   </ItemGroup>

@@ -9,7 +9,7 @@
 
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Audio/AudioManager.hpp"
-#include "../Rendering/Renderable.hpp"
+#include "../Rendering/Renderables/Renderable.hpp"
 
 #include "../Input/InputManager.hpp"
 #include "../Input/InputFacade.hpp"
@@ -49,6 +49,7 @@ class Scene
 		_changeSceneEvent.Dispatch(name);
 	}
 
+	virtual void OnStart(){};
 	void DestroyObject(GameObject* gameObject)
 	{
 		auto it = std::remove_if(_objects.begin(), _objects.end(),

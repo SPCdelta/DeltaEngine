@@ -17,11 +17,31 @@ class JSONFileHandler : public IFileHandler
 			std::ifstream file(path);
 			if (file.is_open())
 			{
-				file >> data;  // Access with data["something"];
-				file.close();
-			}
+				// Check if the file is empty
+                file.seekg(0, std::ios::end); 
+                std::streampos fileSize = file.tellg();
+                if (fileSize > 0)
+                {
+                    file.seekg(0, std::ios::beg); 
+                    try
+                    {
+                        file >> data; // Parse JSON
+                    }
+                    catch (const std::exception& e)
+                    {
+                        std::cerr << "Error parsing JSON file: " << e.what() << std::endl;
+                        data = Json::json::object(); // Return empty JSON object on error
+                    }
+                }
 
-			return data;
+                file.close();
+            }
+            else
+            {
+                std::cerr << "Error opening file: " << path << std::endl;
+            }
+
+            return data;
 		}
 
 		// 'Assets\\Files\\' needs to be in the path with the file name at the end

@@ -1,4 +1,5 @@
 #include "SceneManager.hpp"
+#include <exception>
 
 void SceneManager::Load(const std::string& sceneName)
 {
@@ -11,6 +12,6 @@ void SceneManager::Load(const std::string& sceneName)
 #ifdef _DEBUG
 	std::cerr << "Scene doesnt exist!" << std::endl;
 #else
-	throw new std::exception("Scene with name '" + sceneName + "' doesnt exist!");
+	throw new std::exception("Scene with name doesnt exist!");
 #endif
 }
