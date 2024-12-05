@@ -7,8 +7,12 @@ void InventoryItem::AddAmount(int amount)
 	this->_amount += amount;
 }
 
-void InventoryItem::LowerAmount(int amount) {
-	this->_amount -= amount;
+void InventoryItem::LowerAmount(int amount) 
+{
+	if (_amount - amount < 0)
+		this->_amount = 0;
+	else
+		this->_amount -= amount;
 }
 
 int InventoryItem::GetAmount() const

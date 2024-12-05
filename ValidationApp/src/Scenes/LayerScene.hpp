@@ -2,6 +2,7 @@
 
 #include "Engine/Delta.hpp"
 #include "../Scripts/EnemyBehaviour.hpp"
+#include "../Classes/WorldItemBehaviour.hpp"
 
 class LayerScene : public Scene
 {
@@ -43,13 +44,11 @@ class LayerScene : public Scene
 
 		pokemonObject->AddComponent<EnemyBehaviour>();
 
-		// Create potion object to pick up
-		std::shared_ptr<GameObject> cyanPotionObj{Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}})};
+		// TODO Create potion object to pick up
+		/*std::shared_ptr<GameObject> cyanPotionObj{Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}})};
 		cyanPotionObj->AddComponent<Sprite>("cyanPotion");
 		cyanPotionObj->AddComponent<BoxCollider>()->SetTrigger(true);
-		cyanPotionObj->SetTag("item");
-
-		// TODO
-		//Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}})->AddComponent<MouseFollowBehaviour>();
+		cyanPotionObj->AddComponent<WorldItemBehaviour>();
+		cyanPotionObj->SetTag("item");*/
 	}
 };

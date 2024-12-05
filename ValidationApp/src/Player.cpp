@@ -41,7 +41,6 @@ void Player::AddHealth(int health)
 		_health += health;
 }
 
-
 int Player::GetShield() const
 {
 	return _shield;
@@ -82,6 +81,16 @@ InventoryItem* Player::GetInventoryItem(int index)
 	return _inventory.GetItem(index).get();
 }
 
+void Player::ResetInventory() // Empties the inventory
+{
+	_inventory.Clear();
+}
+
+void Player::PrintInventory()
+{
+	_inventory.PrintInventory();
+}
+
 int Player::GetCoins() const
 {
 	return _coins;
@@ -98,4 +107,12 @@ void Player::RemoveCoins(int amount)
 		_coins = 0;
 	else
 		_coins -= amount;
+}
+
+void Player::SetCoins(int coins)
+{
+	if (coins < 0)
+		_coins = 0;
+	else
+		_coins = coins;
 }

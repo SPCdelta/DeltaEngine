@@ -9,11 +9,8 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	// TODO
-	//onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
-
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
-	onKeyPressed(KEY_P, [this](Input& e) { SavePlayer(); }, "Gameplay");
+	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 	
 	onMouseMove([this](Input& e) 
 	{ 
@@ -21,13 +18,14 @@ void PlayerBehaviour::OnStart()
 		_mouseY = e.mouseY;
 	});
 
-	// TODO
-	// Bij het testen van inventory, Dit aanzetten! 
-	//onKeyPressed(KEY_V, [this](Input& e) { _pot.Use(_player); }, "Gameplay");
-	//onKeyPressed(KEY_V, [this](Input& e) { _player.AddItemToInventory(_item1, 4); }, "Gameplay");
-	//onKeyPressed(KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
-	//onKeyPressed(KEY_L, [this](Input& e) { _player.AddItemToInventory(_item2, 4); }, "Gameplay");
-	//onKeyPressed(KEY_Q, [this](Input& e) { _player.RemoveItemFromInventory(_item1, 5);}, "Gameplay");
+	// Bij het testen van inventory, Dit aanzetten! 	 
+	onKeyPressed(KEY_X, [this](Input& e) { _player.AddItemToInventory(Item("item1"), 4); },"Gameplay");
+	onKeyPressed(KEY_C, [this](Input& e) { _player.AddItemToInventory(Item("item2"), 4); }, "Gameplay");
+	//onKeyPressed(KEY_V, [this](Input& e) { _player.RemoveItemFromInventory(_item1, 5);}, "Gameplay");
+	onKeyPressed(KEY_B, [this](Input& e) { _player.AddItemToInventory(HealingPotion(10, 10, "healingpotion"), 4); }, "Gameplay");
+	onKeyPressed(KEY_N, [this](Input& e) { _player.PrintInventory(); }, "Gameplay");
+	
+	
 }
 
 void PlayerBehaviour::OnUpdate() 
@@ -204,43 +202,55 @@ void PlayerBehaviour::LoadPlayer()
 	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
 	if (loadedPlayer.contains("player"))
 	{
-		/*for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+		_player.SetHealth(loadedPlayer["player"]["health"]);
+		_player.SetCoins(loadedPlayer["player"]["coins"]);
+		_player.ResetInventory();
+
+		if (loadedPlayer["player"].contains("inventory"))
 		{
-			auto& tile = loadTiles["tiles"][i];
-			if (tile.contains("transform"))
+			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
 			{
-				TransformDTO transformDTO
+				auto& itemData = loadedPlayer["player"]["inventory"][i];
+				if (itemData.contains("type"))
 				{
-					static_cast<float>(tile["transform"]["position"]["x"]),
-					static_cast<float>(tile["transform"]["position"]["y"]),
-					static_cast<float>(tile["transform"]["rotation"]),
-					static_cast<float>(tile["transform"]["scale"]["x"]),
-					static_cast<float>(tile["transform"]["scale"]["y"])
-				};
-
-				// TODO
-				std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();;
-				std::shared_ptr<GameObject> obj{ Instantiate(transformDTO.ToTransform()) }
-
-				if (tile.contains("sprite"))
+					PotionType type = static_cast<PotionType>(itemData["type"]);
+					switch (type)
+					{
+						case PotionType::AttackUp:
+						{
+							AttackUpPotion potion = AttackUpPotion(itemData["time"], itemData["value"], itemData["name"]);
+							_player.AddItemToInventory(potion, itemData["amount"]);
+						}
+						break;
+						case PotionType::Defense:
+						{
+							DefensePotion potion = DefensePotion(itemData["time"], itemData["value"], itemData["name"]);
+							_player.AddItemToInventory(potion, itemData["amount"]);
+						}
+						break;
+						case PotionType::Healing:
+						{
+							HealingPotion potion = HealingPotion(itemData["time"], itemData["value"], itemData["name"]);
+							_player.AddItemToInventory(potion, itemData["amount"]);
+						}
+						break;
+						case PotionType::Speed:
+						{
+							SpeedPotion potion = SpeedPotion(itemData["time"], itemData["value"], itemData["name"]);
+							_player.AddItemToInventory(potion, itemData["amount"]);
+						}
+						break;
+					}
+				}
+				else
 				{
-					std::string spriteName = tile["sprite"]["name"];
-					Layer layer = static_cast<Layer>(tile["layer"]);
-					obj->AddComponent<Sprite>(spriteName.c_str())->SetLayer(layer);
+					Item item = Item(itemData["name"]); // TODO set sprite, itemData["sprite"] 
+					_player.AddItemToInventory(item, itemData["amount"]);
 				}
 
-				if (tile.contains("boxCollider"))
-				{
-					bool isTrigger = tile["boxCollider"]["isTrigger"];
-					obj->AddComponent<BoxCollider>()->SetTrigger(isTrigger);
-				}
-
-				if (tile.contains("tag"))
-				{
-					obj->SetTag(tile["tag"]);
-				}
+				// TODO weapons?
 			}
-		}*/
+		}
 	}
 }
 
@@ -249,28 +259,30 @@ void PlayerBehaviour::SavePlayer()
 	// TODO
 	Json::json playerFile;
 
-	// TODO zijn potion effects iets wat blijft als je naar een nieuw level gaat?
 	playerFile["player"]["health"] = _player.GetHealth();
 	playerFile["player"]["coins"] = _player.GetCoins();
 
-	for (size_t i = 0; i < _player.GetInventorySize(); ++ i)
+	if (_player.GetInventorySize() > 0)
 	{
-		auto& itemData = playerFile["player"]["inventory"][i];
-
-		itemData["name"] = _player.GetInventoryItem(i)->GetItem().GetName();
-		itemData["sprite"] = _player.GetInventoryItem(i)->GetItem().GetSprite();
-		itemData["amount"] = _player.GetInventoryItem(i)->GetAmount();
-
-		Potion* potion = dynamic_cast<Potion*>(&_player.GetInventoryItem(i)->GetItem());
-		if (potion)
+		for (size_t i = 0; i < _player.GetInventorySize(); ++ i)
 		{
-			itemData["type"] = potion->GetType(); // static_cast<int>(sprite.GetLayer());
-			itemData["value"] = potion->GetValue();
-			itemData["time"] = potion->GetTime();
+			auto& itemData = playerFile["player"]["inventory"][i];
+
+			itemData["name"] = _player.GetInventoryItem(i)->GetItem().GetName();
+			itemData["sprite"] = _player.GetInventoryItem(i)->GetItem().GetSprite();
+			itemData["amount"] = _player.GetInventoryItem(i)->GetAmount();
+
+			Potion* potion = dynamic_cast<Potion*>(&_player.GetInventoryItem(i)->GetItem());
+			if (potion)
+			{
+				itemData["type"] = static_cast<int>(potion->GetType()); // static_cast<int>(sprite.GetLayer());
+				itemData["value"] = potion->GetValue();
+				itemData["time"] = potion->GetTime();
+			}
+
+			// TODO weapons?
 		}
-
-		// TODO weapons?
 	}
-
+	
 	_fileManager.Save("Assets\\Files\\player.json", "json", playerFile);
 }

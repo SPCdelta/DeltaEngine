@@ -63,14 +63,7 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
-	Player _player {25, 10, 10, 95};
-
-	// TODO
-	HealingPotion _pot{10, 10, "healingpotion"};
-
-	// TODO
-	//Item _item1{"item 1"};
-	//Item _item2{"item 2"};
+	Player _player;
 
 	bool _attacking{false};
 	float _attackTime{0.0f};

@@ -4,10 +4,10 @@
 
 #include "../Player.hpp"
 
-class PickUpBehaviour
+class WorldItemBehaviour
 {
    public:
-		PickUpBehaviour(Rigidbody& rigidbody, Sprite& sprite, Player& player) : _rigidbody{ rigidbody }, _sprite{ sprite }, _player{player}
+		WorldItemBehaviour(Rigidbody& rigidbody, Sprite& sprite, Player& player) : _rigidbody{ rigidbody }, _sprite{ sprite }, _player{player}
 		{
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
@@ -15,21 +15,14 @@ class PickUpBehaviour
 				{
 					// TODO player pick up item
 					// _player.AddItemToInventory(_item1, 4);
-
-					
 				}
 			});
 		}
 
-		~PickUpBehaviour()
+		~WorldItemBehaviour()
 		{
 			// TODO unregister events
 		}
-
-		/*void Update(float deltaTime)
-		{
-
-		}*/
 
 	private:
 		Rigidbody& _rigidbody;

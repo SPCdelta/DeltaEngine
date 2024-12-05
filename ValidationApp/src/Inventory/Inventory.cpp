@@ -2,7 +2,8 @@
 
 Inventory::Inventory() {}
 
-void Inventory::AddItem(Item item, int amount) {
+void Inventory::AddItem(Item item, int amount) 
+{
 	if (_items.size() == 0)
 	{
 		_items.push_back(std::make_shared<InventoryItem>(item, amount));
@@ -60,7 +61,8 @@ void Inventory::RemoveItem(Item item, int amount)
 	}
 }
 
-void Inventory::PrintInventory() {
+void Inventory::PrintInventory() 
+{
 	if (_items.size() == 0)
 	{
 		std::cout << "Inventory is empty" << std::endl;
@@ -81,4 +83,9 @@ int Inventory::GetItemAmount()
 std::shared_ptr<InventoryItem> Inventory::GetItem(int index)
 {
 	return _items[index];
+}
+
+void Inventory::Clear()
+{
+	_items.clear();
 }

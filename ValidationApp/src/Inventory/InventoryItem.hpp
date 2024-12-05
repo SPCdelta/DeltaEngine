@@ -16,5 +16,4 @@ class InventoryItem
    private:
 	int _amount;
 	Item _item;
-
 };
