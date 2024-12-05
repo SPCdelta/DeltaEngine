@@ -108,8 +108,7 @@ void Application::InitDebug()
 {
 	_fpsText = new Ui::Text("FPS: ", "knight", 48, textColor);
 
-	InputManager::onKeyPressed(Key::KEY_L,
-							   [this](Input& e) { _renderFps = !_renderFps; });
+	InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderFps = !_renderFps; });
 }
 void Application::Debug()
 {
