@@ -20,15 +20,14 @@ class LayerScene : public Scene
 
 		sheet->AddCustomAnimation("death", 6, 21, 150);
 
-		playerObject->AddComponent<Sprite>("player", sheet);
+		playerObject->AddComponent<Sprite>("layerPlayer", sheet)->SetLayer(Layer::Player);	
 
 		playerObject->AddComponent<BoxCollider>();
 		playerObject->AddComponent<Rigidbody>();
 
 		playerObject->AddComponent<Audio::SFXSource>();
 		playerObject->AddComponent<PlayerBehaviour>();
-		
-				
+					
 		// Create object that hurts player when player touches it
 		std::shared_ptr<GameObject> hurtfulObject{Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}})};
 		hurtfulObject->AddComponent<Sprite>("spritesheet2");
@@ -44,9 +43,13 @@ class LayerScene : public Scene
 
 		pokemonObject->AddComponent<EnemyBehaviour>();
 
-		// Set layers
-		pokemonObject->SetLayer(Layer::Foreground);
-		hurtfulObject->SetLayer(Layer::Default);
-		playerObject->SetLayer(Layer::Background);	
+		// Create potion object to pick up
+		std::shared_ptr<GameObject> cyanPotionObj{Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}})};
+		cyanPotionObj->AddComponent<Sprite>("cyanPotion");
+		cyanPotionObj->AddComponent<BoxCollider>()->SetTrigger(true);
+		cyanPotionObj->SetTag("item");
+
+		// TODO
+		//Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}})->AddComponent<MouseFollowBehaviour>();
 	}
 };

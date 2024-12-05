@@ -53,6 +53,7 @@
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
     <ClInclude Include="src\Scenes\LevelEditor.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

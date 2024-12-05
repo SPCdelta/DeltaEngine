@@ -1,4 +1,8 @@
 #pragma once
+
+#include "Inventory/Inventory.hpp"
+#include "Items/Item.hpp"
+
 class Player
 {
    public:
@@ -6,6 +10,7 @@ class Player
 		: _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{health}
 	{
 	}
+
 	void SetShield(int shield);
 	void SetAttackDamage(int damage);
 	void SetSpeed(int speed);
@@ -17,10 +22,18 @@ class Player
 	int GetAttackDamage() const;
 	int GetSpeed() const;
 	int GetHealth() const;
+
 	const int _maxHealth = 100;
+
+	void AddItemToInventory(Item item, int amount);
+	void RemoveItemFromInventory(Item item, int amount);
+	int GetInventorySize();
+
    private:
 	int _shield;
 	int _attackDamage;
 	int _speed;
 	int _health;
+
+	Inventory _inventory;
 };

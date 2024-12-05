@@ -10,15 +10,13 @@ void Boomerang::OnStart()
 	audioSource = gameObject->AddComponent<Audio::SFXSource>();
 	audioSource->SetClip("Assets\\Audio\\SFX\\boomerang.mp3");
 
-	rigidbody->onTriggerEnter.Register(
-		[this](Collider& collider)
-		{ 
-			if (collider.transform.gameObject->GetTag() != "player")
-			{
-				Return();
-			}
+	rigidbody->onTriggerEnter.Register([this](Collider& collider)
+	{ 
+		if (collider.transform.gameObject->GetTag() != "player")
+		{
+			Return();
 		}
-	);
+	});
 }
 
 void Boomerang::OnUpdate() 

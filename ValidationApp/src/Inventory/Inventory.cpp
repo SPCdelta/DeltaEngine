@@ -10,7 +10,6 @@ void Inventory::AddItem(Item item, int amount) {
 	}
 
 	bool itemFound = false;
-
 	for (size_t i = 0; i < _items.size(); i++)
 	{
 		if (_items[i]->GetItem().GetName() == item.GetName())
@@ -25,7 +24,6 @@ void Inventory::AddItem(Item item, int amount) {
 	{
 		_items.push_back(std::make_shared<InventoryItem>(item, amount));
 	}
-
 }
 
 void Inventory::RemoveItem(Item item, int amount)
@@ -71,7 +69,11 @@ void Inventory::PrintInventory() {
 
 	for (size_t i = 0; i < _items.size(); i++)
 	{
-		std::cout << _items[i]->GetItem().GetName() << " "
-				  << _items[i]->GetAmount() << std::endl;
+		std::cout << _items[i]->GetItem().GetName() << " " << _items[i]->GetAmount() << std::endl;
 	}
+}
+
+int Inventory::GetItemAmount()
+{
+	return _items.size();
 }

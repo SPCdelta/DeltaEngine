@@ -41,3 +41,18 @@ int Player::GetHealth() const
 {
 	return _health;
 }
+
+void Player::AddItemToInventory(Item item, int amount)
+{
+	_inventory.AddItem(item, amount);
+}
+
+void Player::RemoveItemFromInventory(Item item, int amount)
+{
+	_inventory.RemoveItem(item, amount);
+}
+
+int Player::GetInventorySize()
+{
+	return _inventory.GetItemAmount();
+}

@@ -9,21 +9,25 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
-	onMouseMove(
-		[this](Input& e) 
-		{ 
-			_mouseX = e.mouseX;
-			_mouseY = e.mouseY;
-		}
-	);
+	// TODO
+	//onKeyPressed(KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 
+	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
+	onKeyPressed(KEY_P, [this](Input& e) { SavePlayer(); }, "Gameplay");
+	
+	onMouseMove([this](Input& e) 
+	{ 
+		_mouseX = e.mouseX;
+		_mouseY = e.mouseY;
+	});
+
+	// TODO
 	// Bij het testen van inventory, Dit aanzetten! 
-	onKeyPressed(KEY_V, [this](Input& e) { _pot.Use(_player); }, "Gameplay");
-	//onKeyPressed(KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");
+	//onKeyPressed(KEY_V, [this](Input& e) { _pot.Use(_player); }, "Gameplay");
+	//onKeyPressed(KEY_V, [this](Input& e) { _player.AddItemToInventory(_item1, 4); }, "Gameplay");
 	//onKeyPressed(KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
-	//onKeyPressed(KEY_L, [this](Input& e) { inventory.AddItem(_item2, 4); }, "Gameplay");
-	//onKeyPressed(KEY_Q, [this](Input& e) { inventory.RemoveItem(_item1, 5);}, "Gameplay");
+	//onKeyPressed(KEY_L, [this](Input& e) { _player.AddItemToInventory(_item2, 4); }, "Gameplay");
+	//onKeyPressed(KEY_Q, [this](Input& e) { _player.RemoveItemFromInventory(_item1, 5);}, "Gameplay");
 }
 
 void PlayerBehaviour::OnUpdate() 
@@ -40,43 +44,45 @@ void PlayerBehaviour::OnUpdate()
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
+
+	// TODO
 	//_pot.Update();
 
-	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && hp > 0)
+	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player.GetHealth() > 0)
 	{
 		switch (_onFloor)
 		{
 			case FloorType::NORMAL:
-				{
-					if (!attack)
-						rigidbody->SetVelocity(_moveDirection * _moveSpeed);
-					else
-						rigidbody->SetVelocity({0.0f, 0.0f});
-				}
-				break;
+			{
+				if (!attack)
+					rigidbody->SetVelocity(_moveDirection * _moveSpeed);
+				else
+					rigidbody->SetVelocity({0.0f, 0.0f});
+			}
+			break;
 
 			case FloorType::ICE:
-				if (rigidbody->GetSpeed() < _moveSpeed)
-				{
-					rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
-				}
+			if (rigidbody->GetSpeed() < _moveSpeed)
+			{
+				rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
+			}
 
-				currentVelocity = rigidbody->GetVelocity();
-				rigidbody->AddForce(-currentVelocity * 1.0f, ForceMode::ACCELERATE);
-				if (rigidbody->GetSpeed() <= 0.0f)
-				{
-					rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
-				}
-				break;
+			currentVelocity = rigidbody->GetVelocity();
+			rigidbody->AddForce(-currentVelocity * 1.0f, ForceMode::ACCELERATE);
+			if (rigidbody->GetSpeed() <= 0.0f)
+			{
+				rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
+			}
+			break;
 
 			case FloorType::MUD:
-				{
-					if (!attack)
-						rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
-					else
-						rigidbody->SetVelocity({0.0f, 0.0f});
-				}
-				break;
+			{
+				if (!attack)
+					rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
+				else
+					rigidbody->SetVelocity({0.0f, 0.0f});
+			}
+			break;
 		}			
 	}
 	else
@@ -99,17 +105,17 @@ void PlayerBehaviour::OnUpdate()
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
-		if (hp > 0)
+		_player.GetHealth();
+		if (_player.GetHealth() > 0)
 		{
 			_damageBehaviour->TakeDamage();
-			std::cout << "player dying: " << hp << std::endl; 
-			hp--;
+			_player.SetHealth(_player.GetHealth() - 1);
 
 			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			_sfx->Play();
 		}
 		
-		if (hp <= 0) 
+		if (_player.GetHealth() <= 0) 
 		{
 			if (!deathSoundPlayed && !sprite->GetSheet()->PlayCustomAnimation("death"))
 			{
@@ -129,13 +135,14 @@ void PlayerBehaviour::OnUpdate()
 		}
 	}
 
-	if (sprite && sprite->GetAnimator() && hp > 0)
+	if (sprite && sprite->GetAnimator() && _player.GetHealth() > 0)
 	{
 		// Attacking
 		if (attack)
 		{
+			// TODO
 			// boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
-			//ThrowBoomerang();
+			ThrowBoomerang();
 
 			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
 				sprite->GetSheet()->PlayCustomAnimation("attackLeft");
@@ -178,16 +185,97 @@ void PlayerBehaviour::ThrowBoomerang()
 
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
+	boomerangObj->SetTag("weapon");
 
 	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};
 	Math::Vector2 throwDirection = (mouseWorldPos - gameObject->transform->position).GetNormalized();
 	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
 
-	_boomerang->onFinish.Register(
-		[this, boomerangObj](Events::Event e)
-		{ 
-			Destroy(boomerangObj);
-			_boomerang = nullptr;
+	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
+	{ 
+		Destroy(boomerangObj);
+		_boomerang = nullptr;
+	});
+}
+
+void PlayerBehaviour::LoadPlayer()
+{
+	// TODO
+	Json::json loadedInventory = _fileManager.Load("Assets\\Files\\player.json", "json");
+	/*if (loadTiles.contains("tiles"))
+	{
+		for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+		{
+			auto& tile = loadTiles["tiles"][i];
+			if (tile.contains("transform"))
+			{
+				TransformDTO transformDTO
+				{
+					static_cast<float>(tile["transform"]["position"]["x"]),
+					static_cast<float>(tile["transform"]["position"]["y"]),
+					static_cast<float>(tile["transform"]["rotation"]),
+					static_cast<float>(tile["transform"]["scale"]["x"]),
+					static_cast<float>(tile["transform"]["scale"]["y"])
+				};
+
+				// TODO
+				std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();;
+				std::shared_ptr<GameObject> obj{ Instantiate(transformDTO.ToTransform()) }
+
+				if (tile.contains("sprite"))
+				{
+					std::string spriteName = tile["sprite"]["name"];
+					Layer layer = static_cast<Layer>(tile["layer"]);
+					obj->AddComponent<Sprite>(spriteName.c_str())->SetLayer(layer);
+				}
+
+				if (tile.contains("boxCollider"))
+				{
+					bool isTrigger = tile["boxCollider"]["isTrigger"];
+					obj->AddComponent<BoxCollider>()->SetTrigger(isTrigger);
+				}
+
+				if (tile.contains("tag"))
+				{
+					obj->SetTag(tile["tag"]);
+				}
+			}
 		}
-	);
+	}*/
+}
+
+void PlayerBehaviour::SavePlayer()
+{
+	// TODO
+	Json::json playerFile;
+
+	playerFile["player"]["health"] = _player.GetHealth();
+
+	for (size_t i = 0; i < _player.GetInventorySize(); ++ i)
+	{
+		auto& itemData = playerFile["player"]["inventory"][i];
+
+		/*tileJson["transform"]["position"]["x"] = tiles[i]->GetComponent<Transform>().position.GetX();
+		tileJson["transform"]["position"]["y"] = tiles[i]->GetComponent<Transform>().position.GetY();
+		tileJson["transform"]["rotation"] = tiles[i]->GetComponent<Transform>().rotation;
+		tileJson["transform"]["scale"]["x"] = tiles[i]->GetComponent<Transform>().scale.GetX();
+		tileJson["transform"]["scale"]["y"] = tiles[i]->GetComponent<Transform>().scale.GetY();
+
+		tileJson["tag"] = tiles[i]->GetTag();
+
+		if (tiles[i]->HasComponent<Sprite>())
+		{
+			const auto& sprite = tiles[i]->GetComponent<Sprite>();
+			tileJson["sprite"]["name"] = sprite.GetSprite();  
+			tileJson["layer"] = static_cast<int>(sprite.GetLayer());
+		}
+					
+		if (tiles[i]->HasComponent<BoxCollider>())
+		{
+			const auto& collider = tiles[i]->GetComponent<BoxCollider>();
+			tileJson["boxCollider"]["isTrigger"] = collider.IsTrigger();
+		}*/
+	}
+
+	_fileManager.Save("Assets\\Files\\player.json", "json", playerFile);
 }

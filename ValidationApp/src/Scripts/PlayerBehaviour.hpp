@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
-#include "../Inventory/Inventory.hpp"
-#include "../Items/Item.hpp"
+
 #include "../Player.hpp"
 #include "../Items/Potions/AttackUpPotion.hpp"
 
@@ -32,6 +31,9 @@ public:
 
 	void ThrowBoomerang();
 
+	void LoadPlayer();
+	void SavePlayer();
+
 	// Components
 	Sprite* sprite = nullptr;
 	Rigidbody* rigidbody = nullptr;
@@ -42,6 +44,9 @@ private:
 	FloorBehaviour* _floorBehaviour{nullptr};
 	DamageBehaviour* _damageBehaviour{nullptr};
 	PlayerInput _playerInput{ this };
+
+	// Files
+	FileManager _fileManager;
 
 	// Weapons
 	Boomerang* _boomerang = nullptr;
@@ -58,11 +63,12 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
+	Player _player {25, 10, 10, 95};
 
-	Player _player{25, 10, 10, 95};
+	// TODO
 	HealingPotion _pot{10, 10, "healingpotion"};
 
-	//Inventory inventory;
+	// TODO
 	//Item _item1{"item 1"};
 	//Item _item2{"item 2"};
 
@@ -70,8 +76,6 @@ private:
 	float _attackTime{0.0f};
 	const float _attackDuration = 0.4f;	
 	void StartAttack() { _attackTime = _attackDuration; }
-
-	int hp{20};
 
 	float deathElapsedTime = 0.0f;
 	bool deathSoundPlayed = false;
