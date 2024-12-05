@@ -44,6 +44,8 @@ public:
 
 	static SpriteData* Get(const std::string& name)
 	{
+		if (!instance._sprites.contains(name))
+			throw new std::exception("Sprite das not exist!!");
 		return instance._sprites[name];
 	}
 
