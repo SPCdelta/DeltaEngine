@@ -50,28 +50,10 @@ class LevelEditor : public Scene
 		saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([]() -> void { std::cout << "Level saved!!! test"; }, "UI");
 
 		std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, titleTopPadding}, 0.0f, {titleWitdh, titleFontSize}}) };
-		titleTxt->AddComponent<Ui::Text>("floor_tiles", "knight", titleFontSize, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255,255,255,255 });
-
-
-		std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({"enemy"});
-		std::vector<std::shared_ptr<GameObject>> optionTiles;
-
-		int index = 0;
-
-		for (auto& pair : sprites)
-		{
-			if (maxOptionPerRow <= index)
-				break;
-
-			optionTiles.emplace_back(Instantiate({{scaleInUIBar * index + padding * index + paddingOutLeftUI, paddingTop}, 0.0f,{scaleInUIBar, scaleInUIBar}}));
-
-			optionTiles.back()->AddComponent<Ui::Image>(pair.first.c_str());
-			optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
-				[this]() -> void {
-					this->_tiles.emplace_back(Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}));},
-				"UI");
-			index++;
-		}
+		auto title = titleTxt->AddComponent<Ui::Text>("floor_tiles", "knight", titleFontSize, Rendering::Color{ 0, 0, 0, 255 });
+		title->SetBackground({ 255,255,255,255 });
+		
+		FillTopBar(title, maxOptionPerRow, scaleInUIBar, padding, paddingOutLeftUI, paddingTop);
 
 		/*std::vector<std::shared_ptr<GameObject>> optionEnemies;
 
@@ -98,6 +80,31 @@ class LevelEditor : public Scene
 
 		BackgroundOfUI(windowWidth,windowHeight, TopBarHeight, rightBarstart, rightBarWidth);
 	
+	}
+
+	void FillTopBar(Ui::Text* title, int maxOptionPerRow, float scaleInUIBar, float padding, float paddingOutLeftUI, float paddingTop)
+	{
+		title->SetText("test");
+
+		std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({ "enemy" });
+		std::vector<std::shared_ptr<GameObject>> optionTiles;
+
+		int index = 0;
+
+		for (auto& pair : sprites)
+		{
+			if (maxOptionPerRow <= index)
+				break;
+
+			optionTiles.emplace_back(Instantiate({ { scaleInUIBar * index + padding * index + paddingOutLeftUI, paddingTop }, 0.0f,{ scaleInUIBar, scaleInUIBar } }));
+
+			optionTiles.back()->AddComponent<Ui::Image>(pair.first.c_str());
+			optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
+				[this]() -> void {
+					this->_tiles.emplace_back(Instantiate({ { 1.0f, 1.0f }, 0.0f,{ 3.0f, 3.0f } })); },
+					"UI");
+			index++;
+		}
 	}
 
    private:
