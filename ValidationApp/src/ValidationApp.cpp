@@ -28,7 +28,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
-	LoadScene("LevelEditor");
+	LoadScene("GameScene");
 
 
 	// Start Application
@@ -40,6 +40,18 @@ void ValidationApp::LoadAssets()
 {
 	// Maps
 	float scale = 32.0f;
+
+	SpriteMap gamefloormap{
+		"gamefloor_map",
+		"Assets\\Textures\\floor_map.png",
+		{
+
+			{"ice", {scale * 0, scale * 0}, {scale, scale}},
+			{"mud", {scale * 1, scale * 0}, {scale, scale}},
+			{"stone_wall", {scale * 0, scale * 1}, {scale, scale}},
+			{"stone_floor", {scale * 1, scale * 1}, {scale, scale}},
+		}};
+
 	SpriteMap floormap
 	{
 		"floor_map",
