@@ -20,7 +20,7 @@ class LevelEditor : public Scene
 		int windowWidth = viewport.width;
 		int windowHeight = viewport.height;
 
-		float paddingTop = 10.0f;
+		float paddingTop = 50.0f;
 		float padding = 5.0f;
 		float paddingOutLeftUI = 30.0f;
 		float paddingRightBarTop = padding * 2;
@@ -29,6 +29,11 @@ class LevelEditor : public Scene
 		float rightBarWidth = 100.0f;
 		float imagespace = (scaleInUIBar + padding);
 		float TopBarHeight = paddingTop + scaleInUIBar + 10.0f;
+
+		float titleTopPadding = 12.0f;
+		float titleWitdh = 80.f;
+		float titleLeftPadding = windowWidth / 2 - titleWitdh / 2;
+		float titleFontSize = 24.f;
 		
 		int maxOptionPerRow = (windowWidth - paddingOutLeftUI * 2 - rightBarWidth) / imagespace;
 		int maxOptionPerCol =
@@ -37,17 +42,18 @@ class LevelEditor : public Scene
 		float topBarLenght = imagespace * maxOptionPerRow;
 		float rightBarstart = windowWidth - rightBarWidth;
 
-		float textFontSize = 16.f;
+		float saveFontSize = 20.f;
 
-		std::shared_ptr<GameObject> saveButton{Instantiate({{rightBarstart - 20.0f, paddingTop * 3.5f}, 0.0f, {80.0f, textFontSize}})};
-		saveButton->AddComponent<Ui::Text>("Save Level!", "knight", Rendering::Color{0, 0, 0, 255})->SetBackground({255,255,255,255});
+		std::shared_ptr<GameObject> saveButton{Instantiate({{rightBarstart - 20.0f, paddingTop * 1.2f}, 0.0f, {160.0f, saveFontSize}})};
+		saveButton->AddComponent<Ui::Text>("Save Level", "knight", saveFontSize, Rendering::Color{0, 0, 0, 255})->SetBackground({255,255,255,255});
 
 		saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([]() -> void { std::cout << "Level saved!!! test"; }, "UI");
 
+		std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, titleTopPadding}, 0.0f, {titleWitdh, titleFontSize}}) };
+		titleTxt->AddComponent<Ui::Text>("floor_tiles", "knight", titleFontSize, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255,255,255,255 });
 
 
-
-		std::map<std::string, SpriteData*>& sprites = ResourceManager::GetAllSprites();
+		std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({"enemy"});
 		std::vector<std::shared_ptr<GameObject>> optionTiles;
 
 		int index = 0;
@@ -57,23 +63,17 @@ class LevelEditor : public Scene
 			if (maxOptionPerRow <= index)
 				break;
 
-			optionTiles.emplace_back(
-				Instantiate({{scaleInUIBar * index + padding * index +
-								  paddingOutLeftUI,
-							  paddingTop},
-							 0.0f,
-							 {scaleInUIBar, scaleInUIBar}}));
+			optionTiles.emplace_back(Instantiate({{scaleInUIBar * index + padding * index + paddingOutLeftUI, paddingTop}, 0.0f,{scaleInUIBar, scaleInUIBar}}));
+
 			optionTiles.back()->AddComponent<Ui::Image>(pair.first.c_str());
 			optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
 				[this]() -> void {
-					this->_tiles.emplace_back(
-						Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}));
-				},
+					this->_tiles.emplace_back(Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}));},
 				"UI");
 			index++;
 		}
 
-		std::vector<std::shared_ptr<GameObject>> optionEnemies;
+		/*std::vector<std::shared_ptr<GameObject>> optionEnemies;
 
 		index = 0;
 
@@ -84,8 +84,8 @@ class LevelEditor : public Scene
 
 			optionEnemies.emplace_back(Instantiate({{rightBarstart + padding * 3,  
 				TopBarHeight + paddingRightBarTop + scaleInUIBar * index + padding * index},
-				 0.0f,
-				 {scaleInUIBar, scaleInUIBar}}));
+				 0.0f,{scaleInUIBar, scaleInUIBar}}));
+
 			optionEnemies.back()->AddComponent<Ui::Image>(pair.first.c_str());
 			optionEnemies.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
 				[this]() -> void {
@@ -94,7 +94,7 @@ class LevelEditor : public Scene
 				},
 				"UI");
 			index++;
-		}
+		}*/
 
 		BackgroundOfUI(windowWidth,windowHeight, TopBarHeight, rightBarstart, rightBarWidth);
 	

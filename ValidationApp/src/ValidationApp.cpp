@@ -28,7 +28,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
-	LoadScene("GameScene");
+	LoadScene("LevelEditor");
 
 
 	// Start Application
@@ -54,7 +54,7 @@ void ValidationApp::LoadAssets()
 
 	SpriteMap floormap
 	{
-		"floor_map",
+		"floor_tiles",
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
 
@@ -86,7 +86,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
-	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
+	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png", "enemy");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 

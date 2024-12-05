@@ -17,8 +17,7 @@ struct SpriteMapEntry // DTO
 class SpriteMap
 	{
 	public:
-		SpriteMap(const std::string& name, const std::string& spritePath, std::vector<SpriteMapEntry> sprites)
-			: _name{ name }
+		SpriteMap(const std::string& category, const std::string& spritePath, std::vector<SpriteMapEntry> sprites)
 		{
 			// Convert SpritemapEntry DTO into SpriteData
 			for (SpriteMapEntry& entry : sprites)
@@ -29,7 +28,8 @@ class SpriteMap
 				(
 					TextureManager::Get(spritePath),
 					entry.spriteStart,
-					entry.spriteEnd
+					entry.spriteEnd,
+					category
 				);
 				ResourceManager::AddSprite(entry.spriteName, spriteData);
 			}
@@ -40,6 +40,4 @@ class SpriteMap
 			return ResourceManager::Get(spriteName);
 		}
 
-	private:
-		std::string _name;
 	};
