@@ -13,6 +13,8 @@ public:
 	* scale is applied to every button element
 	*/
 	MenuView(Scene& scene, const std::string& title, unsigned char numOfButtons, const std::string& fontPath, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);
+	void SetButtonPosition(int id, const Math::Vector2& position);
+	void SetButtonScale(int id, const Math::Vector2& scale);
 	void SetButtonTextPosition(int id, const Math::Vector2& position);
 	void SetButtonText(int id, const std::string& text);
 	void SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category);
@@ -32,5 +34,5 @@ private:
 	std::shared_ptr<GameObject> _title;
 	// unsigned char is used as id
 	std::unordered_map<unsigned char, std::shared_ptr<GameObject>> _buttons;
-	const std::string DEFAULT_BUTTON_TEXTURE = "parchment";
+	const std::string DEFAULT_BUTTON_TEXTURE = "scroll3";
 };

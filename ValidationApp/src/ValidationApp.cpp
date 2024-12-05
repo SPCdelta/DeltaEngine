@@ -77,8 +77,9 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
-	ResourceManager::AddSprite("banner", "Assets\\Textures\\UI\\Buttons\\banner.png");
-	ResourceManager::AddSprite("parchment", "Assets\\Textures\\UI\\Buttons\\parchment.png");
-	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
+	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");
+	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
+	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
+	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 }

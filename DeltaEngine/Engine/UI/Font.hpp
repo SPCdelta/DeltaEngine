@@ -29,7 +29,7 @@ namespace Font
 
 	inline void SetFontSize(Font* font, const size_t size) 
 	{
-		TTF_SetFontSize(font, size);
+		//TTF_SetFontSize(font, size); TODO: fix Fontsize
 	}
 
 	inline const char* GetError() 

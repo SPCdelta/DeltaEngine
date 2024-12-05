@@ -81,8 +81,9 @@
     <Image Include="Assets\Textures\wall_map.png" />
     <Image Include="Assets\Textures\Weapons\boomerang.png" />
     <Image Include="Assets\Textures\UI\Background\main_menu_bg.png" />
-    <Image Include="Assets\Textures\UI\Buttons\parchment.png" />
-    <Image Include="Assets\Textures\UI\Buttons\banner.png" />
+    <Image Include="assets\Textures\UI\Buttons\scroll.png" />
+    <Image Include="assets\Textures\UI\Buttons\scroll2.png" />
+    <Image Include="assets\Textures\UI\Buttons\scroll3.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
@@ -91,8 +92,10 @@
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Assets\Fonts\knight_warrior.otf" />
     <None Include="Assets\Files\example.json" />
     <Font Include="Assets\Fonts\alucrads.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\Fonts\knight_warrior.otf" />
   </ItemGroup>
 </Project>

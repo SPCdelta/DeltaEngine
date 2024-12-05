@@ -16,7 +16,10 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	menuView.SetTitleTextPosition({475, 50});
 	menuView.SetTitleTextColor({255, 255, 255, 255});
 
-	menuView.SetButtonTexture(0, "banner");
+	menuView.SetButtonTexture(0, "scroll2");
+
+	menuView.SetButtonPosition(0, {450, 175});
+	menuView.SetButtonScale(0, {400, 100});
 
 	menuView.SetButtonText(0, "Start");
 	menuView.SetButtonText(1, "Options");

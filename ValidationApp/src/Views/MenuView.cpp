@@ -10,6 +10,36 @@ MenuView::MenuView(Scene& scene, const std::string& title, unsigned char numOfBu
 	InitButtons(numOfButtons, startPos, scale, margin, fontSize);
 }
 
+void MenuView::SetButtonPosition(int id, const Math::Vector2& position)
+{
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->transform->position = position;
+		}
+	}
+	else
+	{
+		_buttons[id]->transform->position = position;
+	}
+}
+
+void MenuView::SetButtonScale(int id, const Math::Vector2& scale)
+{
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->transform->scale = scale;
+		}
+	}
+	else
+	{
+		_buttons[id]->transform->scale = scale;
+	}
+}
+
 void MenuView::InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos)
 {
 	_title = std::shared_ptr<GameObject>{ _scene.Instantiate({ {100.0f, 100.0f}, 0.0f, {200.0f, 100.0f} }) };
@@ -28,7 +58,7 @@ void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& star
 		_buttons.emplace(i, std::shared_ptr<GameObject> { _scene.Instantiate({ pos, 0.0f, scale }) });
 
 		// Image
-		_buttons[i]->AddComponent<Ui::Image>(DEFAULT_BUTTON_TEXTURE.c_str())->SetColor(DEFAULT_COLOR);
+		_buttons[i]->AddComponent<Ui::Image>(DEFAULT_BUTTON_TEXTURE.c_str());
 
 		// SFX
 		auto& sfx = *_buttons[i]->AddComponent<Audio::SFXSource>("", false, false);
