@@ -8,7 +8,7 @@
 MainMenuScene::MainMenuScene(const std::string& sceneName) 
 	: Scene(sceneName)
 {
-	MenuView menuView { *this, "Main Menu", 4, "Assets\\Fonts\\alucrads.otf", {500, 50}, {300, 100}, 25, 80 };
+	MenuView menuView { *this, "Main Menu", 4, "alucrads", {500, 50}, {300, 100}, 25, 80 };
 
 	std::shared_ptr<GameObject> bgImage{ Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };
 	bgImage->AddComponent<Ui::Image>("main_menu_bg");
