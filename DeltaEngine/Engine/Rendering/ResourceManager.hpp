@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TextureManager.hpp"
-#include "../UI/Font.hpp"
+#include "../UI/FontManager.hpp"
 
 class SpriteMap;
 
@@ -16,16 +16,27 @@ public:
 
 	friend class SpriteMap;
 
-	static void AddFont(const std::string& name, const std::string& fontPath)
+	// Fonts
+	//static void AddFont(const std::string& name, const std::string& fontPath)
+	//{
+	//	instance._fonts.emplace(name, Font::OpenFont(fontPath, 16));
+	//}
+
+	//static Font::Font* GetFont(const std::string& name)
+	//{
+	//	return instance._fonts[name];
+	//}
+	static void AddFont(const std::string& fontName, const std::string& fontPath)
 	{
-		instance._fonts.emplace(name, Font::OpenFont(fontPath, 16));
+		FontManager::AddFont(fontName, fontPath);
 	}
 
-	static Font::Font* GetFont(const std::string& name)
+	static Font::Font* GetFont(const std::string& name, int fontSize)
 	{
-		return instance._fonts[name];
+		return FontManager::Get(name, fontSize);
 	}
 
+	// Sprites
 	static void AddSprite(const std::string& name, const std::string& spritePath)
 	{
 		Rendering::Texture* texture = TextureManager::Add(spritePath);
@@ -51,12 +62,10 @@ public:
 		return instance._sprites;
 	}
 
-	static void Cleanup() {
-		for (auto& fontpair : instance._fonts)
-		{
-			
-			Font::CloseFont(fontpair.second);
-		}
+	static void Cleanup() 
+	{
+		TextureManager::Cleanup();
+		FontManager::Cleanup();
 	}
 
 private:
