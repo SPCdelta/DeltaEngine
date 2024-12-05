@@ -109,7 +109,7 @@ void PlayerBehaviour::OnUpdate()
 		if (_player.GetHealth() > 0)
 		{
 			_damageBehaviour->TakeDamage();
-			_player.SetHealth(_player.GetHealth() - 1);
+			_player.SetHealth(_player.GetHealth() - 1); // TODO different amount??
 
 			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			_sfx->Play();
@@ -201,10 +201,10 @@ void PlayerBehaviour::ThrowBoomerang()
 void PlayerBehaviour::LoadPlayer()
 {
 	// TODO
-	Json::json loadedInventory = _fileManager.Load("Assets\\Files\\player.json", "json");
-	/*if (loadTiles.contains("tiles"))
+	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
+	if (loadedPlayer.contains("player"))
 	{
-		for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+		/*for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
 		{
 			auto& tile = loadTiles["tiles"][i];
 			if (tile.contains("transform"))
@@ -240,8 +240,8 @@ void PlayerBehaviour::LoadPlayer()
 					obj->SetTag(tile["tag"]);
 				}
 			}
-		}
-	}*/
+		}*/
+	}
 }
 
 void PlayerBehaviour::SavePlayer()
@@ -249,7 +249,9 @@ void PlayerBehaviour::SavePlayer()
 	// TODO
 	Json::json playerFile;
 
+	// TODO zijn potion effects iets wat blijft als je naar een nieuw level gaat?
 	playerFile["player"]["health"] = _player.GetHealth();
+	playerFile["player"]["coins"] = _player.GetCoins();
 
 	for (size_t i = 0; i < _player.GetInventorySize(); ++ i)
 	{
@@ -267,26 +269,7 @@ void PlayerBehaviour::SavePlayer()
 			itemData["time"] = potion->GetTime();
 		}
 
-		/*tileJson["transform"]["position"]["x"] = tiles[i]->GetComponent<Transform>().position.GetX();
-		tileJson["transform"]["position"]["y"] = tiles[i]->GetComponent<Transform>().position.GetY();
-		tileJson["transform"]["rotation"] = tiles[i]->GetComponent<Transform>().rotation;
-		tileJson["transform"]["scale"]["x"] = tiles[i]->GetComponent<Transform>().scale.GetX();
-		tileJson["transform"]["scale"]["y"] = tiles[i]->GetComponent<Transform>().scale.GetY();
-
-		tileJson["tag"] = tiles[i]->GetTag();
-
-		if (tiles[i]->HasComponent<Sprite>())
-		{
-			const auto& sprite = tiles[i]->GetComponent<Sprite>();
-			tileJson["sprite"]["name"] = sprite.GetSprite();  
-			tileJson["layer"] = static_cast<int>(sprite.GetLayer());
-		}
-					
-		if (tiles[i]->HasComponent<BoxCollider>())
-		{
-			const auto& collider = tiles[i]->GetComponent<BoxCollider>();
-			tileJson["boxCollider"]["isTrigger"] = collider.IsTrigger();
-		}*/
+		// TODO weapons?
 	}
 
 	_fileManager.Save("Assets\\Files\\player.json", "json", playerFile);

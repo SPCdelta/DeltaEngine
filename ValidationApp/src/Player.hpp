@@ -6,10 +6,7 @@
 class Player
 {
    public:
-	Player(int shield, int damage, int speed, int health)
-		: _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{health}
-	{
-	}
+	Player(int shield, int damage, int speed, int health) : _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{health}, _coins(0) {}
 
 	void SetShield(int shield);
 	void SetAttackDamage(int damage);
@@ -31,11 +28,16 @@ class Player
 	int GetInventorySize();
 	InventoryItem* GetInventoryItem(int index);
 
+	int GetCoins() const;
+	void AddCoins(int amount);
+	void RemoveCoins(int amount);
+
    private:
 	int _shield;
 	int _attackDamage;
 	int _speed;
 	int _health;
+	int _coins;
 
 	Inventory _inventory;
 };
