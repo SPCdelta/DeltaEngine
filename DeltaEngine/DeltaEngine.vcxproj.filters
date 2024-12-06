@@ -33,6 +33,7 @@
     <ClCompile Include="Engine\Rendering\TextureManager.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\TextRenderable.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
+    <ClCompile Include="Engine\UI\FontManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
     <ClInclude Include="Engine\TransformDTO.hpp" />
+    <ClInclude Include="Engine\UI\FontManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

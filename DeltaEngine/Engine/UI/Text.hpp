@@ -10,7 +10,7 @@ namespace Ui
 class Text : public TextRenderable
 {
    public:
-	Text(const std::string& text, const std::string& path, const Rendering::Color& color);
+	Text(const std::string& text, const std::string& fontName, int fontSize, const Rendering::Color& color);
 	Text(const Text& other);
 	Text& operator=(const Text& other);
 	Text(Text&& other) noexcept;
@@ -18,7 +18,8 @@ class Text : public TextRenderable
 	~Text();
 	void Render(Rendering::Renderer* renderer, const Transform& transform);
 	void SetText(const std::string& text);
-	void SetFontSize(const size_t size);
+	void SetFont(const std::string& fontName);
+	void SetFontSize(int size);
 	void SetPosition(const Math::Vector2& position);
 	void SetColor(const Rendering::Color& color);
 	void unloadText();
@@ -26,7 +27,9 @@ class Text : public TextRenderable
 
    private:
 	std::string _text;
+	std::string _fontName;
 	Font::Font* _font;
+	int _fontSize;
 	Rendering::Color _color;
 	Math::Vector2 _position;
 

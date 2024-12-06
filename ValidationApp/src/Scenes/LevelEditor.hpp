@@ -33,9 +33,7 @@ class LevelEditor : public Scene
 
 		std::shared_ptr<GameObject> saveButton{Instantiate({{100.0f, 100.0f}, 0.0f, {100.0f, 100.0f}})};
 		//saveButton->AddComponent<Ui::Image>("default_texture")->SetColor({255, 255, 255, 255});
-		saveButton->AddComponent<Ui::Text>("Save Level!",
-										   "knight",
-										   Rendering::Color{0, 0, 0, 0});
+		saveButton->AddComponent<Ui::Text>("Save Level!", "knight", 16, Rendering::Color{0, 0, 0, 0});
 
 		saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
 			[]() -> void { std::cout << "Level saved!!! test"; }, "UI");
