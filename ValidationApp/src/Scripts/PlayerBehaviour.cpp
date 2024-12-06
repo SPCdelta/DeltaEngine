@@ -30,7 +30,7 @@ void PlayerBehaviour::OnStart()
 		}
 	);
 
-	// TODO dit is voor testen van inventory en het opslaan/inladen van de inventory
+	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
 	onKeyPressed(KEY_X, [this](Input& e) { _player.AddItemToInventory(Item("item1", "none"), 4); },"Gameplay");
 	onKeyPressed(KEY_C, [this](Input& e) { _player.AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay");
 	onKeyPressed(KEY_V, [this](Input& e) { _player.RemoveItemFromInventory("item1", 5);}, "Gameplay");	

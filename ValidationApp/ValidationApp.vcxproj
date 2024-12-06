@@ -203,7 +203,6 @@
   <ItemGroup>
     <ClInclude Include="src\Scenes\DevScene.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
-    <ClCompile Include="src\Items\WorldItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />

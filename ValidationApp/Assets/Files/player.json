@@ -4,14 +4,9 @@
         "health": 95,
         "inventory": [
             {
-                "amount": 4,
-                "name": "item2",
-                "sprite": ""
-            },
-            {
-                "amount": 4,
+                "amount": 1,
                 "name": "healingpotion",
-                "sprite": ""
+                "sprite": "cyanPotion"
             }
         ]
     }

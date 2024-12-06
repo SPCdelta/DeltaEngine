@@ -20,7 +20,7 @@ class PickUpBehaviour
 						_player.AddItemToInventory(item._item, item._amount);
 
 						std::cout << "player picked up " << item._amount << " " << item._item.GetName() <<std::endl;
-						collider.transform.gameObject->Destroy(collider.transform.gameObject.get());
+						collider.transform.gameObject->Destroy(collider.transform.gameObject);
 					}
 				}
 			});
