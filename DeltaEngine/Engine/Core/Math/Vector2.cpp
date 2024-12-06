@@ -41,6 +41,16 @@ void Vector2::Set(const Vector2& position)
 	_y = position.GetY();
 }
 
+void Vector2::AddX(float x)
+{
+	_x += x;
+}
+
+void Vector2::AddY(float y)
+{
+	_y += y;
+}
+
 float Vector2::Magnitude() const
 {
 	return std::sqrt(_x * _x + _y * _y);
@@ -117,6 +127,13 @@ Vector2 Math::Vector2::operator-() const
 Vector2 Vector2::operator*(float scalar) const
 {
 	return Vector2(_x * scalar, _y * scalar);
+}
+
+Vector2& Vector2::operator+=(const Vector2& other)
+{
+	_x += other._x;
+	_y += other._y;
+	return *this;
 }
 
 bool Vector2::operator==(const Vector2& other) const

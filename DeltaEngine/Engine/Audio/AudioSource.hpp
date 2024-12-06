@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AudioFacade.hpp"
+#include "AudioManager.hpp"
 #include "../Transform.hpp"
 #include <string>
 
@@ -9,7 +9,7 @@ namespace Audio
 	class AudioSource : public Transform
 	{
 	public:
-		AudioSource(bool playOnAwake, AudioFacade& audioFacade, std::string path, bool loop);
+		AudioSource(bool playOnAwake, const std::string& path, int loops);
 		AudioSource(const AudioSource& other);
 		AudioSource& operator=(const AudioSource& other);
 		AudioSource(AudioSource&& other) noexcept;
@@ -29,7 +29,6 @@ namespace Audio
 		bool _playOnAwake;
 		std::string _path;
 		int _volume;
-		bool _loop;
-		AudioFacade& _audioFacade;
+		int _loops;
 	};
 }

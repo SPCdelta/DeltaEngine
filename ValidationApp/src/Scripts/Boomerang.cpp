@@ -37,8 +37,7 @@ void Boomerang::OnUpdate()
 
 void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
 {
-	audioSource = gameObject->AddComponent<Audio::SFXSource>();
-	audioSource->SetClip("Assets\\Audio\\SFX\\boomerang.mp3");
+	audioSource = gameObject->AddComponent<Audio::SFXSource>("Assets\\Audio\\SFX\\boomerang.mp3", false, -1);
 
 	_thrower = thrower;
 	_throwSpeed = speed;

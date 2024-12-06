@@ -18,6 +18,8 @@
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
+    <ClCompile Include="src\Views\IView.cpp" />
+    <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
   </ItemGroup>
@@ -45,13 +47,15 @@
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
     <ClInclude Include="src\Player.hpp" />
-    <ClInclude Include="src\Scenes\UIScene.hpp" />
     <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
     <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
+    <ClInclude Include="src\Views\IView.hpp" />
+    <ClInclude Include="src\Views\MenuView.hpp" />
+    <ClInclude Include="src\Scenes\DevScene.hpp" />
     <ClInclude Include="src\Scenes\LevelEditor.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
     <ClInclude Include="src\Classes\Weapons\Gun.hpp" />
@@ -62,11 +66,14 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
-    <Media Include="Assets\Audio\Music\Menu_music.mp3" />
     <Media Include="Assets\Audio\SFX\Explosion.mp3" />
     <Media Include="Assets\Audio\SFX\Death.mp3" />
     <Media Include="Assets\Audio\SFX\NPC.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_1.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_2.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_3.mp3" />
     <Media Include="Assets\Audio\SFX\boomerang.mp3" />
+    <Media Include="Assets\Audio\Music\Intro_Theme.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\player.png" />
@@ -79,6 +86,10 @@
     <Image Include="Assets\Textures\floor_map.png" />
     <Image Include="Assets\Textures\wall_map.png" />
     <Image Include="Assets\Textures\Weapons\boomerang.png" />
+    <Image Include="Assets\Textures\UI\Background\main_menu_bg.png" />
+    <Image Include="Assets\Textures\UI\Buttons\scroll.png" />
+    <Image Include="Assets\Textures\UI\Buttons\scroll2.png" />
+    <Image Include="Assets\Textures\UI\Buttons\scroll3.png" />
     <Image Include="Assets\Textures\Weapons\bullet.png" />
     <Image Include="Assets\Textures\Weapons\arrow.png" />
   </ItemGroup>
@@ -89,7 +100,10 @@
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Assets\Fonts\knight_warrior.otf" />
     <None Include="Assets\Files\example.json" />
+    <Font Include="Assets\Fonts\alucrads.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\knight_warrior.otf" />
   </ItemGroup>
 </Project>

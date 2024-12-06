@@ -100,6 +100,11 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 	DestroyTexture(texture);
 }
 
+void Text::AddPosition(const Math::Vector2& position)
+{
+	_position += position;
+}
+
 void Text::SetText(const std::string& text)
 {
 	_text = text;
@@ -120,4 +125,14 @@ void Text::SetFontSize(int size)
 void Text::SetPosition(const Math::Vector2& position)
 {
 	_position = position;
+}
+
+void Text::SetColor(const Rendering::Color& color)
+{
+	_color = color;
+}
+
+const Math::Vector2& Ui::Text::GetPosition() const
+{
+	return _position;
 }

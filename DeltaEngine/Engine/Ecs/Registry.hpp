@@ -3,8 +3,6 @@
 #include <memory>
 #include <entt/entt.hpp>
 
-#include "View.hpp"
-
 namespace ecs
 {
 	using EntityId = entt::entity;

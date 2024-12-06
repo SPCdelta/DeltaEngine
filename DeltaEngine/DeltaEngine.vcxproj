@@ -191,7 +191,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
+    <ClCompile Include="Engine\Audio\AudioManager.cpp" />
     <ClCompile Include="Engine\Audio\AudioLoader.cpp" />
     <ClCompile Include="Engine\Audio\AudioSource.cpp" />
     <ClCompile Include="Engine\Audio\MusicSource.cpp" />
@@ -226,7 +226,7 @@
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
+    <ClInclude Include="Engine\Audio\AudioManager.hpp" />
     <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
     <ClInclude Include="Engine\Audio\AudioSource.hpp" />
     <ClInclude Include="Engine\Audio\MusicSource.hpp" />

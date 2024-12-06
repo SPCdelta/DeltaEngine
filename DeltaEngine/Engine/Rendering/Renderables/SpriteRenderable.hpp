@@ -8,6 +8,7 @@ class SpriteRenderable : public Renderable
 	SpriteRenderable(const std::string& spriteName);
 	SpriteRenderable(const std::string& spriteName, std::shared_ptr<AnimationSheet> sheet);
 
+	void SetSprite(const std::string& spriteName);
 
 	const std::string& GetSprite() const { return _spriteName; }
 	SpriteData* GetSpriteData() const { return _spriteData; }
@@ -16,7 +17,7 @@ class SpriteRenderable : public Renderable
 	std::shared_ptr<AnimationSheet> GetSheet() const { return _sheet; }
 
 protected:
-	const std::string& _spriteName;
+	std::string _spriteName;
 	SpriteData* _spriteData;
 
 	std::shared_ptr<Animator> _animator;

@@ -5,8 +5,8 @@
 #include "Scenes/FileScene.hpp"
 #include "Scenes/PhysicsScene.hpp"
 #include "Scenes/SwitchTestScene.hpp"
-#include "Scenes/UIScene.hpp"
 #include "Scenes/LayerScene.hpp"
+#include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
 
 ValidationApp::ValidationApp()
@@ -23,13 +23,12 @@ ValidationApp::ValidationApp()
 	RegisterScene<PhysicsScene>("PhysicsScene");
 	RegisterScene<Scene1>("Scene1");
 	RegisterScene<Scene2>("Scene2");
-	RegisterScene<UIScene>("UIScene");
+	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
-	LoadScene("GameScene");
-
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();
@@ -88,9 +87,14 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
+	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
+	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");
+	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
+	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
 	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
 	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
 
 	// Fonts
-	ResourceManager::AddFont("knight", "Assets\\Fonts\\knight_warrior.otf");
+	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
+	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 }
