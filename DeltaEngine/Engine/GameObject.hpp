@@ -84,7 +84,14 @@ public:
 	template<typename T>
 	T& GetComponent()
 	{
-		return _reg.GetComponent<T>(_id);
+		if constexpr (std::is_base_of_v<BehaviourScript, T>)
+		{
+			return *static_cast<T*>(_reg.GetComponent<BehaviourScript*>(_id));
+		}
+		else
+		{
+			return _reg.GetComponent<T>(_id);
+		}
 	}
 
 	template<typename T>

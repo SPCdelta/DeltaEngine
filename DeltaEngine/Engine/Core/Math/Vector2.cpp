@@ -53,6 +53,11 @@ float Vector2::DistanceTo(const Vector2& other) const
 	return std::sqrt(dx * dx + dy * dy);
 }
 
+Math::Vector2 Math::Vector2::DirectionTo(const Vector2& other) const
+{
+	return (other - *this).GetNormalized();
+}
+
 Vector2 Vector2::MoveTowards(const Vector2& current, const Vector2& target, float maxDistanceDelta)
 {
 	Vector2 direction = target - current;

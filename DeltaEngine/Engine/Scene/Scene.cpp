@@ -54,7 +54,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 			_reg, _audioFacade, _physicsWorld, _changeSceneEvent, _camera, transform
 		) 
 	};
-	obj->transform->gameObject = obj;
+	obj->transform->gameObject = obj.get();
 	_objects.push_back(obj);
 
 	// Allow Instantiation

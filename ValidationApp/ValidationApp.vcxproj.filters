@@ -19,6 +19,7 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
+    <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -53,6 +54,11 @@
     <ClInclude Include="src\Scripts\MouseFollowBehaviour.hpp" />
     <ClInclude Include="src\Scenes\LevelEditor.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Gun.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Bow.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Weapon.hpp" />
+    <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
+    <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -73,6 +79,8 @@
     <Image Include="Assets\Textures\floor_map.png" />
     <Image Include="Assets\Textures\wall_map.png" />
     <Image Include="Assets\Textures\Weapons\boomerang.png" />
+    <Image Include="Assets\Textures\Weapons\bullet.png" />
+    <Image Include="Assets\Textures\Weapons\arrow.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
