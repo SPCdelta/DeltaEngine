@@ -177,6 +177,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Views\MenuView.cpp" />
+    <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
     <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
@@ -202,6 +203,8 @@
     <ClCompile Include="src\Items\WorldItem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Bow.hpp" />
     <ClInclude Include="src\Player.hpp" />
     <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
     <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
@@ -212,7 +215,9 @@
     <ClInclude Include="src\Inventory\Inventory.hpp" />
     <ClInclude Include="src\Items\Item.hpp" />
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Gun.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Weapon.hpp" />
     <ClInclude Include="src\Scenes\FileScene.hpp" />
     <ClInclude Include="src\Scenes\LayerScene.hpp" />
     <ClInclude Include="src\Scenes\LevelEditor.hpp" />
@@ -223,6 +228,7 @@
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
     <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
+    <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
@@ -279,7 +285,15 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
+    <Image Include="Assets\Textures\Weapons\arrow.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
     <Image Include="Assets\Textures\Weapons\boomerang.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Weapons\bullet.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>

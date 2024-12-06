@@ -37,12 +37,11 @@ public:
 
 	void unregisterInputs();
 
-   protected:
 	GameObject* gameObject = nullptr;
 	Transform* transform = nullptr;
-	std::vector<InputLocation> registerdInputs;
-
 	Camera* camera = nullptr;
 
+protected:
+	std::vector<InputLocation> registerdInputs;
 };
 

@@ -2,7 +2,9 @@
 
 #include <Engine/Delta.hpp>
 
-class Boomerang : public BehaviourScript
+#include "../Classes/Projectiles/Projectile.hpp"
+
+class Boomerang : public Projectile
 {
 public:
 	void OnStart() override;
@@ -15,8 +17,6 @@ public:
 
 private:
 	GameObject* _thrower = nullptr;
-	Sprite* sprite = nullptr;
-	Rigidbody* rigidbody = nullptr;
 	Audio::SFXSource* audioSource = nullptr;
 
 	float _distance = 10.0f;

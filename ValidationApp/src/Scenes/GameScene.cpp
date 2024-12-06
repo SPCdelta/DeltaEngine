@@ -12,6 +12,8 @@ GameScene::GameScene(const std::string& name)
 	player->AddComponent<PlayerBehaviour>();
 	player->SetTag("player");
 
+	Instantiate({{8.0f, 7.0f}, 0.0f, {1.0f, 1.0f}})->AddComponent<DummyBehaviour>();
+
 	size_t mapWidth = 30;
 	size_t mapHeight = 18;
 

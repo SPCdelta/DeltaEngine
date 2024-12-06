@@ -2,26 +2,12 @@
 
 void Boomerang::OnStart() 
 {
-	sprite = gameObject->AddComponent<Sprite>("boomerang");
-	sprite->SetLayer(Layer::Projectiles);
-	gameObject->AddComponent<BoxCollider>()->SetTrigger(true);
-	rigidbody = gameObject->AddComponent<Rigidbody>();
-	rigidbody->SetGravityScale(0.0f);
-	audioSource = gameObject->AddComponent<Audio::SFXSource>("Assets\\Audio\\SFX\\boomerang.mp3", false, false);
-
-	rigidbody->onTriggerEnter.Register(
-		[this](Collider& collider)
-		{ 
-			if (collider.transform.gameObject->GetTag() != "player")
-			{
-				Return();
-			}
-		}
-	);
+	Projectile::OnStart();
 }
 
 void Boomerang::OnUpdate() 
 {
+	Projectile::OnUpdate();
 	if (_finished) return;
 
 	// Rotations per second
@@ -51,11 +37,26 @@ void Boomerang::OnUpdate()
 
 void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
 {
+	audioSource = gameObject->AddComponent<Audio::SFXSource>();
+	audioSource->SetClip("Assets\\Audio\\SFX\\boomerang.mp3");
+
 	_thrower = thrower;
 	_throwSpeed = speed;
 	gameObject->transform->position.Set(origin);
 	_targetPosition = origin + direction.GetNormalized() * _distance;
-	rigidbody->AddForce(direction * speed, ForceMode::IMPULSE);
+
+	SetProjectileData({ "boomerang", 35, speed, direction.GetNormalized() });
+
+	rigidbody->onTriggerEnter.Register(
+		[this](Collider& collider)
+		{ 
+			if (collider.transform.gameObject->GetTag() != "player")
+			{
+				Return();
+			}
+		}
+	);
+
 	audioSource->Loop(true);
 	audioSource->Play();
 }
