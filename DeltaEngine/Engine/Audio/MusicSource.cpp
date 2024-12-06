@@ -4,13 +4,14 @@
 
 using namespace Audio;
 
-MusicSource::MusicSource(const std::string& path, bool playOnAwake,
-						 AudioFacade& audioFacade, bool loop)
-	: AudioSource(playOnAwake, audioFacade, path, loop),
+MusicSource::MusicSource(const std::string& path, bool playOnAwake, int loops)
+	: AudioSource(playOnAwake, path, loops),
 	  _clip(std::move(AudioLoader::LoadMusic(path)))
 {
 	PlayOnAwake();
 }
+
+MusicSource::MusicSource() : AudioSource(false, "", 0), _clip(AudioLoader::LoadMusic("")) {}
 
 MusicSource::MusicSource(const MusicSource& other)
 	: AudioSource(other), _clip(AudioLoader::LoadMusic(other._path))
@@ -46,32 +47,32 @@ Audio::MusicSource::~MusicSource() {}
 
 void MusicSource::Play()
 {
-	_audioFacade.PlayMusic(_clip.get(), _loop);
+	AudioManager::GetInstance().PlayMusic(_clip.get(), _loops);
 }
 
 void MusicSource::Pause()
 {
-	_audioFacade.PauseMusic();
+	AudioManager::GetInstance().PauseMusic();
 }
 
 void MusicSource::Resume()
 {
-	_audioFacade.ResumeMusic();
+	AudioManager::GetInstance().ResumeMusic();
 }
 
 void MusicSource::Stop()
 {
-	_audioFacade.StopMusic();
+	AudioManager::GetInstance().StopMusic();
 }
 
 void MusicSource::SetVolume(int volume)
 {
-	_audioFacade.SetMusicVolume(volume);
+	AudioManager::GetInstance().SetMusicVolume(volume);
 }
 
 void MusicSource::IncreaseVolume(int volume)
 {
-	_audioFacade.IncreaseMusicVolume(volume);
+	AudioManager::GetInstance().IncreaseMusicVolume(volume);
 }
 
 void MusicSource::SetClip(std::string pathToClip)

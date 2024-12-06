@@ -3,7 +3,7 @@
 #include <SDL_mixer.h>
 #include <memory>
 #include <string>
-#include "AudioFacade.hpp"
+#include "AudioManager.hpp"
 #include "AudioSource.hpp"
 
 namespace Audio
@@ -11,7 +11,8 @@ namespace Audio
 	class MusicSource : public AudioSource
 	{
 		public:
-			MusicSource(const std::string& path, bool playOnAwake, AudioFacade& audioFacade, bool loop);
+			MusicSource();
+			MusicSource(const std::string& path, bool playOnAwake, int loops);
 			MusicSource(const MusicSource& other);
 			MusicSource& operator=(const MusicSource& other);
 			MusicSource(MusicSource&& other) noexcept;

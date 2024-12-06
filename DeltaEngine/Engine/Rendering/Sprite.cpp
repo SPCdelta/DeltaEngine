@@ -27,12 +27,10 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 		viewportData.height -
 		((transform.position.GetY() - camera->transform.position.GetY()) *
 		 viewportData.unitPixelSize) -
-		(transform.scale.GetY() * viewportData.unitPixelSize));
+		(viewportData.unitPixelSize * transform.scale.GetY()));
 
-	destRect.w =
-		(static_cast<int>(transform.scale.GetX()) * viewportData.unitPixelSize);
-	destRect.h =
-		(static_cast<int>(transform.scale.GetY()) * viewportData.unitPixelSize);
+	destRect.w = static_cast<int>(viewportData.unitPixelSize * transform.scale.GetX());
+	destRect.h = static_cast<int>(viewportData.unitPixelSize * transform.scale.GetY());
 
 	if (_sheet)
 	{

@@ -19,15 +19,19 @@ namespace Math
 		void SetY(float y);
 		void Set(float x, float y);
 		void Set(const Vector2& position);
+		void AddX(float x);
+		void AddY(float y);
 		// AKA length
 		float Magnitude() const;
 		float DistanceTo(const Vector2& other) const;
+		Math::Vector2 DirectionTo(const Vector2& other) const;
 		Vector2 GetNormalized() const;
 		Vector2 operator+(const Vector2& other) const;
 		Vector2 operator-(const Vector2& other) const;
 		Vector2 operator-(float other) const;
 		Vector2 operator-() const;
 		Vector2 operator*(float scalar) const;
+		Vector2& operator+=(const Vector2& other);
 		bool operator==(const Vector2& other) const;
 		bool operator!=(const Vector2& other) const;
 		bool IsNonZero() const;

@@ -18,7 +18,7 @@
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
     <ClCompile Include="Engine\Input\InputManager.cpp" />
-    <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
+    <ClCompile Include="Engine\Audio\AudioManager.cpp" />
     <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\Audio\MusicSource.cpp" />
     <ClCompile Include="Engine\Audio\AudioSource.cpp" />
@@ -53,7 +53,6 @@
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
-    <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
@@ -79,7 +78,7 @@
     <ClInclude Include="Engine\Audio\MusicSource.hpp" />
     <ClInclude Include="Engine\Audio\AudioSource.hpp" />
     <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
-    <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
+    <ClInclude Include="Engine\Audio\AudioManager.hpp" />
     <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp" />
     <ClInclude Include="Engine\Temp\TempAudio.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
@@ -103,10 +102,13 @@
     <ClInclude Include="Engine\Rendering\SpriteData.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\TextureManager.hpp" />
+    <ClInclude Include="Engine\Systems\DespawnSystem.hpp" />
+    <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
     <ClInclude Include="Engine\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
+    <ClInclude Include="Engine\Core\Math\Math.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

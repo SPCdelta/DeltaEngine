@@ -9,7 +9,7 @@
 #include "Rendering/Sprite.hpp"
 #include "Rendering/Layer.hpp"
 
-#include "Audio/AudioFacade.hpp"
+#include "Audio/AudioManager.hpp"
 #include "Audio/AudioSource.hpp"
 #include "Audio/MusicSource.hpp"
 #include "Audio/SFXSource.hpp"
@@ -54,16 +54,6 @@ public:
 
 			return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
 		}
-		else if constexpr (std::is_same_v<T, Audio::MusicSource>)
-		{
-			T* component = static_cast<T*>(_AddComponent<Audio::MusicSource>(Audio::MusicSource("", false, _audioFacade, false)));
-			return component;
-		}
-		else if constexpr (std::is_same_v<T, Audio::SFXSource>)
-		{
-			T* component = static_cast<T*>(_AddComponent<Audio::SFXSource>(Audio::SFXSource("", false, _audioFacade, false)));
-			return component;
-		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
 			T* component = static_cast<T*>(_AddComponent<Ui::Button>(Ui::Button(transform->position, transform->scale)));
@@ -84,7 +74,14 @@ public:
 	template<typename T>
 	T& GetComponent()
 	{
-		return _reg.GetComponent<T>(_id);
+		if constexpr (std::is_base_of_v<BehaviourScript, T>)
+		{
+			return *static_cast<T*>(_reg.GetComponent<BehaviourScript*>(_id));
+		}
+		else
+		{
+			return _reg.GetComponent<T>(_id);
+		}
 	}
 
 	template<typename T>
@@ -98,7 +95,7 @@ public:
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg, Audio::AudioFacade& audioFacade,
+	GameObject(ecs::Registry& reg,
 				Physics::PhysicsWorld& physicsWorld,
 				Events::EventDispatcher<const std::string&>& changeScene,
 				Camera* camera, 
@@ -156,8 +153,6 @@ private:
 	Events::EventDispatcher<GameObject*> _destroyObject{};
 	Camera* _camera = nullptr;
 	std::string _tag;
-
-	Audio::AudioFacade& _audioFacade;
 
 	template<typename T>
 	T* _AddComponent(T component)

@@ -9,12 +9,26 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, _player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
+	_weapon = new Gun(this);
+	//_weapon = new Bow(this);
 
-	onMouseMove([this](Input& e) 
-	{ 
-		_mouseX = e.mouseX;
-		_mouseY = e.mouseY;
-	});
+	onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
+	onMouseMove(
+		[this](Input& e) 
+		{ 
+			_mouseX = e.mouseX;
+			_mouseY = e.mouseY;
+		}
+	);
+	keyPressed(Key::KEY_F,
+		[this](Input& e)
+		{ 
+			if (_weapon)
+			{
+				_weapon->Use();
+			}
+		}
+	);
 
 	// TODO dit is voor testen van inventory en het opslaan/inladen van de inventory
 	onKeyPressed(KEY_X, [this](Input& e) { _player.AddItemToInventory(Item("item1", "none"), 4); },"Gameplay");
@@ -174,15 +188,15 @@ void PlayerBehaviour::UpdateAttack(float deltaTime)
 
 void PlayerBehaviour::ThrowBoomerang()
 {
+	// On Delay
 	if (_boomerang)
 		return;
 
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
 	boomerangObj->SetTag("weapon");
+	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
 
-	Math::Vector2 mouseWorldPos{gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY)};
-	Math::Vector2 throwDirection = (mouseWorldPos - gameObject->transform->position).GetNormalized();
 	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
 
 	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
