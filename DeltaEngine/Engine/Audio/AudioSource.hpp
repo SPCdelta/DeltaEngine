@@ -9,7 +9,7 @@ namespace Audio
 	class AudioSource : public Transform
 	{
 	public:
-		AudioSource(bool playOnAwake, std::string path, int loop);
+		AudioSource(bool playOnAwake, const std::string& path, int loops);
 		AudioSource(const AudioSource& other);
 		AudioSource& operator=(const AudioSource& other);
 		AudioSource(AudioSource&& other) noexcept;

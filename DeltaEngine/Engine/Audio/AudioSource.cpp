@@ -3,8 +3,8 @@
 
 using namespace Audio;
 
-AudioSource::AudioSource(bool playOnAwake, std::string path, int loop)
-	: _loops(loop),
+AudioSource::AudioSource(bool playOnAwake, const std::string& path, int loops)
+	: _loops(loops),
 	  _volume(MIX_MAX_VOLUME),
 	  _path(path),
 	  _playOnAwake(playOnAwake)

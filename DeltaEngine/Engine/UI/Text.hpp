@@ -23,7 +23,6 @@ class Text : public TextRenderable
 	void AddPosition(const Math::Vector2& position);
 	void SetPosition(const Math::Vector2& position);
 	void SetColor(const Rendering::Color& color);
-	void unloadText();
 	const Math::Vector2& GetPosition() const;
 
    private:

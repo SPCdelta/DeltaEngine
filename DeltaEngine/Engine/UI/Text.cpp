@@ -132,15 +132,6 @@ void Text::SetColor(const Rendering::Color& color)
 	_color = color;
 }
 
-void Text::unloadText()
-{
-	if (_font != nullptr)
-	{
-		Font::CloseFont(_font);
-		_font == nullptr;
-	}
-}
-
 const Math::Vector2& Ui::Text::GetPosition() const
 {
 	return _position;

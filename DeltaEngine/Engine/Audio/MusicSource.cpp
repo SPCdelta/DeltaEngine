@@ -4,12 +4,14 @@
 
 using namespace Audio;
 
-MusicSource::MusicSource(const std::string& path, bool playOnAwake, int loop)
-	: AudioSource(playOnAwake, path, loop),
+MusicSource::MusicSource(const std::string& path, bool playOnAwake, int loops)
+	: AudioSource(playOnAwake, path, loops),
 	  _clip(std::move(AudioLoader::LoadMusic(path)))
 {
 	PlayOnAwake();
 }
+
+MusicSource::MusicSource() : AudioSource(false, "", 0), _clip(AudioLoader::LoadMusic("")) {}
 
 MusicSource::MusicSource(const MusicSource& other)
 	: AudioSource(other), _clip(AudioLoader::LoadMusic(other._path))

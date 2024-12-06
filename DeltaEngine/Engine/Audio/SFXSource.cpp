@@ -3,8 +3,10 @@
 
 using namespace Audio;
 
-SFXSource::SFXSource(const std::string& path, bool playOnAwake, bool loop)
-	: AudioSource(playOnAwake, path, loop),
+Audio::SFXSource::SFXSource() : AudioSource(false, "", 0), _clip(std::move(AudioLoader::LoadChunk(""))) {}
+
+SFXSource::SFXSource(const std::string& path, bool playOnAwake, int loops = 0)
+	: AudioSource(playOnAwake, path, loops),
 	  _clip(std::move(AudioLoader::LoadChunk(path)))
 {
 	if (playOnAwake)

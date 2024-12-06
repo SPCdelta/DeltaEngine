@@ -1,7 +1,7 @@
 #include "MenuView.hpp"
 
 
-MenuView::MenuView(Scene& scene, const std::string& title, unsigned char numOfButtons, const std::string& pathToFont,
+MenuView::MenuView(Scene& scene, const std::string& title, Rendering::UnsignInt8 numOfButtons, const std::string& pathToFont,
 	const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize) :
 	IView{ scene, pathToFont }, _buttons{}
 {
@@ -220,12 +220,12 @@ void MenuView::SetButtonTexture(int id, const std::string& textureName)
 }
 
 
-std::shared_ptr<GameObject>& MenuView::GetButton(unsigned char id)
+std::shared_ptr<GameObject>& MenuView::GetButton(Rendering::UnsignInt8 id)
 {
 	return _buttons[id];
 }
 
-Ui::Text& MenuView::GetButtonText(unsigned char id)
+Ui::Text& MenuView::GetButtonText(Rendering::UnsignInt8 id)
 {
 	return GetButton(id)->GetComponent<Ui::Text>();
 }
