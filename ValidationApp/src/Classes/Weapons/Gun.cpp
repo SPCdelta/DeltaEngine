@@ -5,6 +5,5 @@ void Gun::Use()
 	std::shared_ptr<GameObject> bullet = _user->gameObject->Instantiate();
 	bullet->transform->position.Set(_user->transform->position);
 	bullet->transform->scale.Set({ 0.5f, 0.5f });
-	//bullet->transform->scale.Set({ 2.0f, 2.0f });
 	bullet->AddComponent<Projectile>()->SetProjectileData({ "bullet", 20, 5.0f, GetAimDirection() });
 }

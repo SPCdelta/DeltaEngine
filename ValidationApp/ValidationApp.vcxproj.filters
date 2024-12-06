@@ -39,6 +39,7 @@
     <ClInclude Include="src\Classes\Weapons\Bow.hpp" />
     <ClInclude Include="src\Classes\Weapons\Weapon.hpp" />
     <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
+    <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

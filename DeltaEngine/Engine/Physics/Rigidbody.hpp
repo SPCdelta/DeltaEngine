@@ -14,6 +14,7 @@ namespace Physics
 			: _collider{ collider }
 		{
 			Physics::SetBodyType(_collider._bodyId, RigidbodyType::DYNAMIC_BODY);
+			b2Body_SetAwake(_collider._bodyId, true);
 		}
 
 		Events::EventDispatcher<Collider&> onTriggerEnter{};

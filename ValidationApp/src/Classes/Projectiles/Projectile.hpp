@@ -18,16 +18,18 @@ public:
 	void OnStart() override;
 	void OnUpdate() override;
 
+	const ProjectileData& GetProjectileData() const { return _data; }
+
 	void SetProjectileData(ProjectileData data)
 	{
+		gameObject->SetTag("projectile");
 		_data = data;
 		gameObject->AddComponent<Sprite>(data.sprite.c_str())->SetLayer(Layer::Projectiles);
 		rigidbody->AddForce(data.direction * data.speed, ForceMode::IMPULSE);
 	}
 
-	const ProjectileData& GetProjectileData() const { return _data; }
+	Rigidbody* rigidbody = nullptr;
 
 private:
 	ProjectileData _data{};
-	Rigidbody* rigidbody = nullptr;
 };

@@ -204,6 +204,7 @@
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
     <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Boomerang.hpp" />
+    <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
