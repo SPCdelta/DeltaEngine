@@ -31,8 +31,6 @@ class Player
 	InventoryItem* GetInventoryItem(int index);
 
 	int GetCoins() const;
-	void AddCoins(int amount);
-	void RemoveCoins(int amount);
 	void SetCoins(int coins);
 
    private:

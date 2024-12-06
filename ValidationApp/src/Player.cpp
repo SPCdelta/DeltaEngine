@@ -96,19 +96,6 @@ int Player::GetCoins() const
 	return _coins;
 }
 
-void Player::AddCoins(int amount)
-{
-	_coins += amount;
-}
-
-void Player::RemoveCoins(int amount)
-{
-	if (_coins - amount < 0)
-		_coins = 0;
-	else
-		_coins -= amount;
-}
-
 void Player::SetCoins(int coins)
 {
 	if (coins < 0)
