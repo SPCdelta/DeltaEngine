@@ -193,10 +193,9 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
-    <ClCompile Include="src\Items\WorldItem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Classes\WorldItemBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClInclude Include="src\Player.hpp" />
     <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
     <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />

@@ -5,7 +5,7 @@
 class HealingPotion : public Potion
 {
    public:
-	HealingPotion(float time, float value, std::string name) : Potion(time, value, name) {}
+	HealingPotion(float time, float value, std::string name, std::string sprite) : Potion(time, value, name, sprite) {}
 
 	void Use(Player& player);
 

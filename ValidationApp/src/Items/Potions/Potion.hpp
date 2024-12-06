@@ -20,7 +20,7 @@ enum class PotionType
 class Potion : public Item
 {
    public:
-	Potion(float time, float value, std::string name): _time{time}, _value{value}, Item(name) {}
+	Potion(float time, float value, std::string name, std::string sprite) : _time{time}, _value{value}, Item(name, sprite) {}
 
 	virtual void Use(Player& player) = 0;
 	virtual void Update() {}

@@ -12,7 +12,7 @@ class AttackUpPotion : public Potion
 	int _originalDamage  = 0;
 
    public:
-	AttackUpPotion(float time, float value, std::string name) : Potion(time, value, name){}
+	AttackUpPotion(float time, float value, std::string name, std::string sprite) : Potion(time, value, name, sprite){}
 
 	void Use(Player& player);
 	void Update() override;

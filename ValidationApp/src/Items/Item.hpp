@@ -5,7 +5,7 @@
 class Item
 {
    public:
-	Item(std::string name);
+	Item(std::string name, const std::string& spriteName);
 	virtual ~Item() = default;
 
 	const std::string& GetName() const;
@@ -19,5 +19,5 @@ class Item
 
    private:
 	std::string _name;
-	std::string sprite;
+	std::string _sprite;
 };

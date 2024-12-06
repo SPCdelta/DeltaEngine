@@ -7,8 +7,11 @@
 
 #include "../Classes/DamageBehaviour.hpp"
 #include "../Classes/FloorBehaviour.hpp"
+#include "../Classes/PickUpBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
+
 #include "Boomerang.hpp"
+
 #include "../Items/Potions/SpeedPotion.hpp"
 #include "../Items/Potions/DefensePotion.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
@@ -43,6 +46,7 @@ public:
 private:
 	FloorBehaviour* _floorBehaviour{nullptr};
 	DamageBehaviour* _damageBehaviour{nullptr};
+	PickUpBehaviour* _pickUpBehaviour{nullptr};
 	PlayerInput _playerInput{ this };
 
 	// Files

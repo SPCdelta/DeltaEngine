@@ -7,6 +7,7 @@ void PlayerBehaviour::OnStart()
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
+	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, _player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
 	onMouseMove([this](Input& e) 
@@ -15,13 +16,11 @@ void PlayerBehaviour::OnStart()
 		_mouseY = e.mouseY;
 	});
 
-	// Bij het testen van inventory, Dit aanzetten! 	 
-	onKeyPressed(KEY_X, [this](Input& e) { _player.AddItemToInventory(Item("item1"), 4); },"Gameplay");
-	onKeyPressed(KEY_C, [this](Input& e) { _player.AddItemToInventory(Item("item2"), 4); }, "Gameplay");
-	onKeyPressed(KEY_V, [this](Input& e) { _player.RemoveItemFromInventory("item1", 5);}, "Gameplay");
-	onKeyPressed(KEY_B, [this](Input& e) { _player.AddItemToInventory(HealingPotion(10, 10, "healingpotion"), 4); }, "Gameplay");
-	onKeyPressed(KEY_N, [this](Input& e) { _player.PrintInventory(); }, "Gameplay");
-	
+	// TODO dit is voor testen van inventory en het opslaan/inladen van de inventory
+	onKeyPressed(KEY_X, [this](Input& e) { _player.AddItemToInventory(Item("item1", "none"), 4); },"Gameplay");
+	onKeyPressed(KEY_C, [this](Input& e) { _player.AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay");
+	onKeyPressed(KEY_V, [this](Input& e) { _player.RemoveItemFromInventory("item1", 5);}, "Gameplay");	
+	onKeyPressed(KEY_B, [this](Input& e) { _player.PrintInventory(); }, "Gameplay");	
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 }
@@ -214,25 +213,25 @@ void PlayerBehaviour::LoadPlayer()
 					{
 						case PotionType::AttackUp:
 						{
-							AttackUpPotion potion = AttackUpPotion(itemData["time"], itemData["value"], itemData["name"]);
+							AttackUpPotion potion = AttackUpPotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
 							_player.AddItemToInventory(potion, itemData["amount"]);
 						}
 						break;
 						case PotionType::Defense:
 						{
-							DefensePotion potion = DefensePotion(itemData["time"], itemData["value"], itemData["name"]);
+							DefensePotion potion = DefensePotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
 							_player.AddItemToInventory(potion, itemData["amount"]);
 						}
 						break;
 						case PotionType::Healing:
 						{
-							HealingPotion potion = HealingPotion(itemData["time"], itemData["value"], itemData["name"]);
+							HealingPotion potion = HealingPotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
 							_player.AddItemToInventory(potion, itemData["amount"]);
 						}
 						break;
 						case PotionType::Speed:
 						{
-							SpeedPotion potion = SpeedPotion(itemData["time"], itemData["value"], itemData["name"]);
+							SpeedPotion potion = SpeedPotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
 							_player.AddItemToInventory(potion, itemData["amount"]);
 						}
 						break;
@@ -240,7 +239,7 @@ void PlayerBehaviour::LoadPlayer()
 				}
 				else
 				{
-					Item item = Item(itemData["name"]); // TODO set sprite, itemData["sprite"], but item has no sprite set yet in constructor
+					Item item = Item(itemData["name"], itemData["sprite"]); 
 					_player.AddItemToInventory(item, itemData["amount"]);
 				}
 

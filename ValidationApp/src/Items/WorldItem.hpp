@@ -2,9 +2,11 @@
 
 #include "Item.hpp"
 
-class WorldItem : public Item
+class WorldItem
 {
    public:
-	int amount;
-	Item item;
+	WorldItem(Item item, int amount) : _item(item), _amount(amount) {};
+
+	int _amount;
+	Item _item;
 };
