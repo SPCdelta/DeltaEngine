@@ -22,6 +22,7 @@
 #include "Core/Time.hpp"
 
 // Math
+#include "Core/Math/Math.hpp"
 #include "Core/Math/MathUtils.hpp"
 
 // Rendering

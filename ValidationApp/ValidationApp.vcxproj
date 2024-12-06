@@ -177,7 +177,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
-    <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
     <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
@@ -264,6 +263,10 @@
     </Image>
     <Image Include="Assets\Textures\square.png" />
     <Image Include="Assets\Textures\wall_map.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Weapons\arrow.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>

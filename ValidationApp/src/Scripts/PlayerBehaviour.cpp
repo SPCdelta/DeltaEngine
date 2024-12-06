@@ -8,7 +8,8 @@ void PlayerBehaviour::OnStart()
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-	_weapon = new Gun(this);
+	//_weapon = new Gun(this);
+	_weapon = new Bow(this);
 
 	onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 	onMouseMove(

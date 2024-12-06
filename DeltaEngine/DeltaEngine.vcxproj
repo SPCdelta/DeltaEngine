@@ -242,6 +242,7 @@
     <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />
     <ClInclude Include="Engine\Core\Files\FileHandlerFactory.hpp" />
     <ClInclude Include="Engine\Core\Files\FileManager.hpp" />
+    <ClInclude Include="Engine\Core\Math\Math.hpp" />
     <ClInclude Include="Engine\Core\Math\Point.hpp" />
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />

@@ -19,7 +19,6 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scripts\Boomerang.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
-    <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +80,7 @@
     <Image Include="Assets\Textures\wall_map.png" />
     <Image Include="Assets\Textures\Weapons\boomerang.png" />
     <Image Include="Assets\Textures\Weapons\bullet.png" />
+    <Image Include="Assets\Textures\Weapons\arrow.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

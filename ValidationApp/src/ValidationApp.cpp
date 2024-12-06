@@ -88,7 +88,8 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
-	ResourceManager::Add("bullet", "Assets\\Textures\\Weapons\\bullet.png");
+	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
+	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
 
 	// Fonts
 	ResourceManager::AddFont("knight", "Assets\\Fonts\\knight_warrior.otf");

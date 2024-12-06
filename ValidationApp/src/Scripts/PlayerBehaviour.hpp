@@ -12,6 +12,7 @@
 
 #include "Boomerang.hpp"
 #include "../Classes/Weapons/Gun.hpp"
+#include "../Classes/Weapons/Bow.hpp"
 
 #include "../Items/Potions/SpeedPotion.hpp"
 #include "../Items/Potions/DefensePotion.hpp"
