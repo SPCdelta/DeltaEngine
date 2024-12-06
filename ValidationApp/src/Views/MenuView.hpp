@@ -17,6 +17,7 @@ public:
 	void SetButtonScale(int id, const Math::Vector2& scale);
 	void SetButtonTextPosition(int id, const Math::Vector2& position);
 	void SetButtonText(int id, const std::string& text);
+	void SetButtonTextSize(int id, int textSize);
 	void SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category);
 	void SetButtonSFX(int id, const std::string& sfxPath);
 	void SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const std::string& sceneName, const std::string& category);

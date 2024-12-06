@@ -105,6 +105,21 @@ void MenuView::SetButtonText(int id, const std::string& text)
 	}
 }
 
+void MenuView::SetButtonTextSize(int id, int textSize)
+{
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->GetComponent<Ui::Text>().SetFontSize(textSize);
+		}
+	}
+	else
+	{
+		_buttons[id]->GetComponent<Ui::Text>().SetFontSize(textSize);
+	}
+}
+
 void MenuView::SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category)
 {
 	if (id == -1)
