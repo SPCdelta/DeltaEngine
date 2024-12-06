@@ -216,6 +216,7 @@
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />
+    <ClCompile Include="Engine\UI\Draggable.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
@@ -284,6 +285,7 @@
     <ClInclude Include="Engine\Transform.hpp" />
     <ClInclude Include="Engine\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
+    <ClInclude Include="Engine\UI\Draggable.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\UI\Image.hpp" />
     <ClInclude Include="Engine\UI\Panel.hpp" />

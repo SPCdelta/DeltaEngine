@@ -35,7 +35,7 @@ public:
 
 protected:
 
-	Rendering::Color color{Rendering::Color(10, 10, 10, 10)};
+	Rendering::Color color{Rendering::Color(255, 255, 255, 255)}; //If this is not White it will not show the textures
 
 	bool flipX{false};
 	bool flipY{false};

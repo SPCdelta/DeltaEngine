@@ -34,6 +34,7 @@
     <ClCompile Include="Engine\Rendering\Renderables\TextRenderable.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
+    <ClCompile Include="Engine\UI\Draggable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
     <ClInclude Include="Engine\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
+    <ClInclude Include="Engine\UI\Draggable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

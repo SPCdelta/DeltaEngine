@@ -30,6 +30,10 @@ public:
 		};
 	}
 
+	int GetunitPixelSize(){
+		return _viewportData->unitPixelSize;
+	}
+
 	Transform& transform;
 
 private:

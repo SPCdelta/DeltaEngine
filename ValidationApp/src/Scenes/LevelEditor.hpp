@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
+#include "Engine/UI/Draggable.hpp"
 
 #include "../Scripts/MouseFollowBehaviour.hpp"
 #include "../Scripts/PlayerBehaviour.hpp"
@@ -84,13 +85,13 @@ class LevelEditor : public Scene
 
 	void FillTopBar(Ui::Text* title, int maxOptionPerRow, float scaleInUIBar, float padding, float paddingOutLeftUI, float paddingTop)
 	{
-		title->SetText("test");
 
-		std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({ "enemy" });
+		std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({ "floor_tiles" });
 		std::vector<std::shared_ptr<GameObject>> optionTiles;
 
 		int index = 0;
 
+		title->SetText("Assets ..."); //TODO moet dus de type van de sprites zijn
 		for (auto& pair : sprites)
 		{
 			if (maxOptionPerRow <= index)
@@ -98,13 +99,21 @@ class LevelEditor : public Scene
 
 			optionTiles.emplace_back(Instantiate({ { scaleInUIBar * index + padding * index + paddingOutLeftUI, paddingTop }, 0.0f,{ scaleInUIBar, scaleInUIBar } }));
 
-			optionTiles.back()->AddComponent<Ui::Image>(pair.first.c_str());
-			optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
-				[this]() -> void {
-					this->_tiles.emplace_back(Instantiate({ { 1.0f, 1.0f }, 0.0f,{ 3.0f, 3.0f } })); },
-					"UI");
+			optionTiles.back()->AddComponent<Ui::Image>(pair.first);
+			optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this, pair]() -> void {this->makeNewTile(pair.first);},"UI");
 			index++;
 		}
+	}
+
+	void makeNewTile(const std::string& spriteName){
+
+		//float spriteScale = 32.0f;
+
+		auto mousePos = InputManager::GetMousePosition();
+		_tiles.emplace_back(Instantiate({ { mousePos.mouseX - 0.5f, mousePos.mouseY - 0.5f }, 0.0f,{ 1.0f, 1.0f } }));
+		_tiles.back()->AddComponent<Draggable>();
+		_tiles.back()->AddComponent<Sprite>(spriteName);
+
 	}
 
    private:

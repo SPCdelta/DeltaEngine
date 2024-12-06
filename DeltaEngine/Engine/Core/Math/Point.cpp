@@ -1,5 +1,6 @@
 #include <cmath>
 #include "Point.hpp"
+#include "Vector2.hpp"
 
 using namespace Math;
 

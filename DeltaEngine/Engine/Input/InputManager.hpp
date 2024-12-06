@@ -38,6 +38,11 @@ class InputManager
 	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
 
+	static MousePosition GetMousePosition(){
+		return {instance_.allInputs.mouseX, instance_.allInputs.mouseY};
+	}
+
+
 	void updateKeyDown(Key input);
 	void updateKeyUp(Key input);
 
