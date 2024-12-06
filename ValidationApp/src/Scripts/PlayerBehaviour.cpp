@@ -9,9 +9,6 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
-	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
-	
 	onMouseMove([this](Input& e) 
 	{ 
 		_mouseX = e.mouseX;
@@ -21,11 +18,12 @@ void PlayerBehaviour::OnStart()
 	// Bij het testen van inventory, Dit aanzetten! 	 
 	onKeyPressed(KEY_X, [this](Input& e) { _player.AddItemToInventory(Item("item1"), 4); },"Gameplay");
 	onKeyPressed(KEY_C, [this](Input& e) { _player.AddItemToInventory(Item("item2"), 4); }, "Gameplay");
-	//onKeyPressed(KEY_V, [this](Input& e) { _player.RemoveItemFromInventory(_item1, 5);}, "Gameplay");
+	onKeyPressed(KEY_V, [this](Input& e) { _player.RemoveItemFromInventory("item1", 5);}, "Gameplay");
 	onKeyPressed(KEY_B, [this](Input& e) { _player.AddItemToInventory(HealingPotion(10, 10, "healingpotion"), 4); }, "Gameplay");
 	onKeyPressed(KEY_N, [this](Input& e) { _player.PrintInventory(); }, "Gameplay");
 	
-	
+	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
+	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 }
 
 void PlayerBehaviour::OnUpdate() 
@@ -42,9 +40,6 @@ void PlayerBehaviour::OnUpdate()
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
-
-	// TODO
-	//_pot.Update();
 
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player.GetHealth() > 0)
 	{
@@ -107,7 +102,11 @@ void PlayerBehaviour::OnUpdate()
 		if (_player.GetHealth() > 0)
 		{
 			_damageBehaviour->TakeDamage();
-			_player.SetHealth(_player.GetHealth() - 1); // TODO different amount??
+
+			// TODO different amount of damage?? 
+			// If need be, get colliding gameobj in takedamage() and decide then what the damage is 
+			// and return the damage to then use here in the sethealth() call
+			_player.SetHealth(_player.GetHealth() - 1); 
 
 			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			_sfx->Play();
@@ -138,8 +137,6 @@ void PlayerBehaviour::OnUpdate()
 		// Attacking
 		if (attack)
 		{
-			// TODO
-			// boomerang doesnt work quite yet, but when testing if an enemy (pokemonobj) takes damage from a weapon comment this in
 			ThrowBoomerang();
 
 			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
@@ -198,7 +195,6 @@ void PlayerBehaviour::ThrowBoomerang()
 
 void PlayerBehaviour::LoadPlayer()
 {
-	// TODO
 	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
 	if (loadedPlayer.contains("player"))
 	{
@@ -244,7 +240,7 @@ void PlayerBehaviour::LoadPlayer()
 				}
 				else
 				{
-					Item item = Item(itemData["name"]); // TODO set sprite, itemData["sprite"] 
+					Item item = Item(itemData["name"]); // TODO set sprite, itemData["sprite"], but item has no sprite set yet in constructor
 					_player.AddItemToInventory(item, itemData["amount"]);
 				}
 
@@ -256,7 +252,6 @@ void PlayerBehaviour::LoadPlayer()
 
 void PlayerBehaviour::SavePlayer()
 {
-	// TODO
 	Json::json playerFile;
 
 	playerFile["player"]["health"] = _player.GetHealth();
@@ -275,7 +270,7 @@ void PlayerBehaviour::SavePlayer()
 			Potion* potion = dynamic_cast<Potion*>(&_player.GetInventoryItem(i)->GetItem());
 			if (potion)
 			{
-				itemData["type"] = static_cast<int>(potion->GetType()); // static_cast<int>(sprite.GetLayer());
+				itemData["type"] = static_cast<int>(potion->GetType());
 				itemData["value"] = potion->GetValue();
 				itemData["time"] = potion->GetTime();
 			}

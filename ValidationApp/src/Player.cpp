@@ -66,9 +66,9 @@ void Player::AddItemToInventory(Item item, int amount)
 	_inventory.AddItem(item, amount);
 }
 
-void Player::RemoveItemFromInventory(Item item, int amount)
+void Player::RemoveItemFromInventory(std::string itemName, int amount)
 {
-	_inventory.RemoveItem(item, amount);
+	_inventory.RemoveItem(itemName, amount);
 }
 
 int Player::GetInventorySize()

@@ -13,7 +13,7 @@ class Inventory
 	//~Inventory();
 
 	void AddItem(Item item, int amount);
-	void RemoveItem(Item item, int amount);
+	void RemoveItem(std::string itemName, int amount);
 	void PrintInventory();
 
 	int GetItemAmount();

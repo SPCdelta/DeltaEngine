@@ -23,7 +23,7 @@ class Player
 	const int _maxHealth = 100;
 
 	void AddItemToInventory(Item item, int amount);
-	void RemoveItemFromInventory(Item item, int amount);
+	void RemoveItemFromInventory(std::string itemName, int amount);
 	void ResetInventory();
 	void PrintInventory();
 
