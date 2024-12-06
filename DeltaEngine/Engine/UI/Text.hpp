@@ -1,16 +1,16 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "../Core/Math/Point.hpp"
 #include "Font.hpp"
-#include "../Rendering/Renderable.hpp"
+#include "../Core/Math/Point.hpp"
+#include "../Rendering/Renderables/TextRenderable.hpp"
 
 namespace Ui
 {
-class Text : Renderable
+class Text : public TextRenderable
 {
    public:
-	Text(const std::string& text, const std::string& path, const Rendering::Color& color);
+	Text(const std::string& text, const std::string& fontName, int fontSize, const Rendering::Color& color);
 	Text(const Text& other);
 	Text& operator=(const Text& other);
 	Text(Text&& other) noexcept;
@@ -18,15 +18,18 @@ class Text : Renderable
 	~Text();
 	void Render(Rendering::Renderer* renderer, const Transform& transform);
 	void SetText(const std::string& text);
-	void SetFontSize(const size_t size);
+	void SetFont(const std::string& fontName);
+	void SetFontSize(int size);
 	void SetPosition(const Math::Vector2& position);
-	void unloadText();
 
    private:
-	std::string _path;
 	std::string _text;
+	std::string _fontName;
 	Font::Font* _font;
+	int _fontSize;
 	Rendering::Color _color;
 	Math::Vector2 _position;
+
+	const int defaultFontSize = 16;
 };
 }  // namespace Ui

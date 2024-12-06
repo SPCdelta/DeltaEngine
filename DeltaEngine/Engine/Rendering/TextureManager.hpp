@@ -23,8 +23,9 @@ class TextureManager
 	{
 		if (instance._textures.find(spritePath) == instance._textures.end())
 		{
-			Rendering::Texture* texture =
-				Rendering::LoadTexture(instance._renderer, spritePath.c_str());
+			Rendering::Texture* texture = Rendering::LoadTexture(instance._renderer, spritePath.c_str());
+			if (texture == nullptr)
+				throw new std::exception("Asset das not exist");
 			instance._textures.emplace(spritePath, texture);
 			return texture;
 		}
@@ -51,5 +52,5 @@ class TextureManager
 	Rendering::Renderer* _renderer = nullptr;
 	std::map<std::string, Rendering::Texture*> _textures;
 
-	TextureManager(){};
+	TextureManager() {};
 };

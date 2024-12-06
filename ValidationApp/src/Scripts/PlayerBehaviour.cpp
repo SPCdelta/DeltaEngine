@@ -27,6 +27,13 @@ void PlayerBehaviour::OnStart()
 			}
 		}
 	);
+
+	// Bij het testen van inventory, Dit aanzetten! 
+	onKeyPressed(KEY_V, [this](Input& e) { _pot.Use(_player); }, "Gameplay");
+	//onKeyPressed(KEY_V, [this](Input& e) { inventory.AddItem(_item1, 4); }, "Gameplay");
+	//onKeyPressed(KEY_E, [this](Input& e) { inventory.PrintInventory(); }, "Gameplay");
+	//onKeyPressed(KEY_L, [this](Input& e) { inventory.AddItem(_item2, 4); }, "Gameplay");
+	//onKeyPressed(KEY_Q, [this](Input& e) { inventory.RemoveItem(_item1, 5);}, "Gameplay");
 }
 
 void PlayerBehaviour::OnUpdate() 
@@ -43,6 +50,7 @@ void PlayerBehaviour::OnUpdate()
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
+	//_pot.Update();
 
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && hp > 0)
 	{

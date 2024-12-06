@@ -12,7 +12,7 @@ class UIScene : public Scene
 	{
 		std::shared_ptr<GameObject> g {Instantiate({{100.0f, 100.0f}, 0.0f, {100.0f, 100.0f}})};
 		g->AddComponent<Ui::Image>("default_texture")->SetColor({255, 255, 255, 255});
-		g->AddComponent<Ui::Text>("Hallo Wereld!", "Assets\\Fonts\\knight_warrior.otf", Rendering::Color{0, 0, 0, 0});
+		g->AddComponent<Ui::Text>("Hallo Wereld!", "knight", 32, Rendering::Color{0, 0, 0, 0});
 
 		auto func1 = [this]{ LoadScene("PhysicsScene"); };
 		auto button = g->AddComponent<Ui::Button>();
@@ -25,6 +25,6 @@ class UIScene : public Scene
 				std::cout << message;
 			}, "Default");
 		g->GetComponent<Ui::Text>().SetPosition(Math::Vector2{500, 500});
-		g->GetComponent<Ui::Text>().SetFontSize(100);
+		//g->GetComponent<Ui::Text>().SetFontSize(100);
 	}
 };

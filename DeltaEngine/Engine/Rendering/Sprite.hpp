@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Renderable.hpp"
+#include "Renderables/SpriteRenderable.hpp"
 
-class Sprite : public Renderable
+class Sprite : public SpriteRenderable
 {
 public:
-	Sprite(const char* spriteName) : Renderable(spriteName)
+	Sprite(const std::string& spriteName) : SpriteRenderable(spriteName)
 	{ }
 
-	Sprite(const char* spriteName, std::shared_ptr<AnimationSheet> sheet) : Renderable(spriteName, sheet)
+	Sprite(const std::string& spriteName, std::shared_ptr<AnimationSheet> sheet) : SpriteRenderable(spriteName, sheet)
 	{ }
 
 	void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform);

@@ -61,8 +61,8 @@ void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Ma
 		}
 	);
 
-	audioSource->Play();
 	audioSource->Loop(true);
+	audioSource->Play();
 }
 
 void Boomerang::Return() 

@@ -12,23 +12,19 @@ namespace Font
 		return TTF_Init();
 	}
 
-	inline TTF_Font* OpenFont(const char* path, int size) 
+	inline Font* OpenFont(const std::string& path, int size) 
 	{
-		return TTF_OpenFont(path, size);
+		return TTF_OpenFont(path.c_str(), size);
 	}
 
-	inline Rendering::Surface* RenderText_Solid(TTF_Font* font, const char* text, Rendering::Color color)
+	inline Rendering::Surface* RenderText_Solid(Font* font, const std::string& text, Rendering::Color color)
 	{
-		return TTF_RenderText_Solid(font, text, color);
+		return TTF_RenderText_Solid(font, text.c_str(), color);
 	}
 
-	inline void CloseFont(TTF_Font* font) {
+	inline void CloseFont(Font* font)
+	{
 		TTF_CloseFont(font);
-	}
-
-	inline void SetFontSize(TTF_Font* font, const size_t size) 
-	{
-		TTF_SetFontSize(font, size);
 	}
 
 	inline const char* GetError() 

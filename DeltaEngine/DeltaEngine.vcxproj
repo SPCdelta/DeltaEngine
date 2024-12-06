@@ -205,7 +205,7 @@
     <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="Engine\Rendering\ResourceManager.cpp" />
-    <ClCompile Include="Engine\Rendering\Renderable.cpp" />
+    <ClCompile Include="Engine\Rendering\Renderables\Renderable.cpp" />
     <ClCompile Include="Engine\Rendering\TextureManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Scene\SceneManager.cpp" />
@@ -216,11 +216,14 @@
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />
+    <ClCompile Include="Engine\UI\FontManager.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\UI\Text.cpp" />
     <ClCompile Include="Engine\Core\Math\MathUtils.cpp" />
+    <ClCompile Include="Engine\Rendering\Renderables\TextRenderable.cpp" />
+    <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
@@ -259,7 +262,7 @@
     <ClInclude Include="Engine\Rendering\Camera.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
-    <ClInclude Include="Engine\Rendering\Renderable.hpp" />
+    <ClInclude Include="Engine\Rendering\Renderables\Renderable.hpp" />
     <ClInclude Include="Engine\Rendering\Layer.hpp" />
     <ClInclude Include="Engine\Rendering\Rendering.hpp" />
     <ClInclude Include="Engine\Rendering\Sprite.hpp" />
@@ -281,7 +284,9 @@
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Core\Time.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />
+    <ClInclude Include="Engine\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
+    <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\UI\Image.hpp" />
     <ClInclude Include="Engine\UI\Panel.hpp" />
     <ClInclude Include="Engine\Window.hpp" />
@@ -290,6 +295,8 @@
     <ClInclude Include="Engine\UI\Text.hpp" />
     <ClInclude Include="Engine\UI\Font.hpp" />
     <ClInclude Include="Engine\Core\Math\MathUtils.hpp" />
+    <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
+    <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

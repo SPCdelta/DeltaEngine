@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include "Application.hpp"
 #include "GameObject.hpp"
@@ -12,6 +13,7 @@
 
 // Files
 #include "Core/Files/FileManager.hpp"
+#include "TransformDTO.hpp"
 
 //Audio
 #include "Audio/AudioFacade.hpp"
