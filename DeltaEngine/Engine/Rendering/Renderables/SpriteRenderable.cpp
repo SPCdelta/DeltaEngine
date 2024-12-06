@@ -14,3 +14,9 @@ SpriteRenderable::SpriteRenderable(const std::string& spriteName, std::shared_pt
 	_sheet = sheet;
 	_spriteData = ResourceManager::Get(spriteName);
 }
+
+void SpriteRenderable::SetSprite(const std::string& spriteName)
+{
+	_spriteName = spriteName;
+	_spriteData = ResourceManager::Get(spriteName);
+}

@@ -54,6 +54,7 @@ namespace Physics
 
 			_shape.shape = Physics::DefaultShape();
 			_shape.shape.isSensor = trigger;
+			_shape.shape.enableContactEvents = trigger;
 			_shape.shape.enableSensorEvents = trigger;
 			switch (_shapeType)
 			{

@@ -33,5 +33,7 @@ void Image::Render(Rendering::Renderer* renderer,
 	destRect.w = static_cast<int>(transform.scale.GetX());
 	destRect.h = static_cast<int>(transform.scale.GetY());
 
+	Rendering::ModifyColor(_spriteData->texture, color);
+
 	Rendering::RenderCopyEx(renderer, _spriteData->texture, &srcRect, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
 }

@@ -191,7 +191,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Audio\AudioFacade.cpp" />
+    <ClCompile Include="Engine\Audio\AudioManager.cpp" />
     <ClCompile Include="Engine\Audio\AudioLoader.cpp" />
     <ClCompile Include="Engine\Audio\AudioSource.cpp" />
     <ClCompile Include="Engine\Audio\MusicSource.cpp" />
@@ -227,13 +227,14 @@
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Audio\AudioFacade.hpp" />
+    <ClInclude Include="Engine\Audio\AudioManager.hpp" />
     <ClInclude Include="Engine\Audio\AudioLoader.hpp" />
     <ClInclude Include="Engine\Audio\AudioSource.hpp" />
     <ClInclude Include="Engine\Audio\MusicSource.hpp" />
     <ClInclude Include="Engine\Audio\SFXSource.hpp" />
     <ClInclude Include="Engine\BehaviourScript.hpp" />
     <ClInclude Include="Engine\Application.hpp" />
+    <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
     <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />
     <ClInclude Include="Engine\Core\Files\FileHandlerFactory.hpp" />
     <ClInclude Include="Engine\Core\Files\FileManager.hpp" />
+    <ClInclude Include="Engine\Core\Math\Math.hpp" />
     <ClInclude Include="Engine\Core\Math\Point.hpp" />
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
@@ -274,6 +276,7 @@
     <ClInclude Include="Engine\Systems\CollisionSystem.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
+    <ClInclude Include="Engine\Systems\DespawnSystem.hpp" />
     <ClInclude Include="Engine\Systems\ImageRenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />

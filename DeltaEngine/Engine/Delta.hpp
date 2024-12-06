@@ -8,17 +8,21 @@
 #include "BehaviourScript.hpp"
 #include "Scene/Scene.hpp"
 
+// Components
+#include "Core/Despawner.hpp"
+
 // Files
 #include "Core/Files/FileManager.hpp"
 #include "TransformDTO.hpp"
 
 //Audio
-#include "Audio/AudioFacade.hpp"
+#include "Audio/AudioManager.hpp"
 
 // Time
 #include "Core/Time.hpp"
 
 // Math
+#include "Core/Math/Math.hpp"
 #include "Core/Math/MathUtils.hpp"
 
 // Rendering

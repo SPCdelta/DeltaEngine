@@ -3,11 +3,11 @@
 
 GameObject::GameObject(
 	ecs::Registry& reg, 
-	Audio::AudioFacade& audioFacade, Physics::PhysicsWorld& physicsWorld, 
+	Physics::PhysicsWorld& physicsWorld, 
 	Events::EventDispatcher<const std::string&>& changeScene,
 	Camera* camera, Transform newTransform)
 	: _reg(reg), 
-	_physicsWorld{ physicsWorld }, _audioFacade{ audioFacade }, 
+	_physicsWorld{ physicsWorld },
 	_changeScene{ changeScene },
 	_camera{ camera }
 {

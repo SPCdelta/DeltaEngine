@@ -9,7 +9,11 @@
 #include "../Classes/DamageBehaviour.hpp"
 #include "../Classes/FloorBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
+
 #include "Boomerang.hpp"
+#include "../Classes/Weapons/Gun.hpp"
+#include "../Classes/Weapons/Bow.hpp"
+
 #include "../Items/Potions/SpeedPotion.hpp"
 #include "../Items/Potions/DefensePotion.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
@@ -45,6 +49,7 @@ private:
 
 	// Weapons
 	Boomerang* _boomerang = nullptr;
+	Weapon* _weapon = nullptr;
 
 	// Audio
 	Audio::SFXSource* _sfx;
