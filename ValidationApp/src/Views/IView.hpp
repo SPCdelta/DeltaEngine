@@ -9,6 +9,6 @@ public:
 	IView(Scene& scene, const std::string& pathToFont);
 	void SetFont(const std::string& pathToFont);
 protected:
-	std::string _fontPath;
+	std::string _fontName;
 	Scene& _scene;
 };

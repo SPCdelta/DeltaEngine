@@ -43,8 +43,7 @@ void MenuView::SetButtonScale(int id, const Math::Vector2& scale)
 void MenuView::InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos)
 {
 	_title = std::shared_ptr<GameObject>{ _scene.Instantiate({ {100.0f, 100.0f}, 0.0f, {200.0f, 100.0f} }) };
-	auto& text = *_title->AddComponent<Ui::Text>(title, _fontPath, DEFAULT_COLOR);
-	text.SetFontSize(fontSize);
+	auto& text = *_title->AddComponent<Ui::Text>(title, _fontName, fontSize, DEFAULT_COLOR);
 	text.SetPosition(startPos);
 }
 
@@ -68,7 +67,7 @@ void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& star
 
 		// Text
 		_buttons[i]->AddComponent<Ui::Text>(
-			std::string{"Button" + std::to_string(i)}, _fontPath, DEFAULT_COLOR)->SetFontSize(fontSize);
+			std::string{"Button" + std::to_string(i)}, _fontName, fontSize, DEFAULT_COLOR);
 		_buttons[i]->GetComponent<Ui::Text>().SetPosition(pos);
 
 		pos.SetY(pos.GetY() + scale.GetY() + margin);
@@ -87,6 +86,21 @@ void MenuView::SetButtonTextPosition(int id, const Math::Vector2& position)
 	else
 	{
 		_buttons[id]->GetComponent<Ui::Text>().SetPosition(position);
+	}
+}
+
+void MenuView::AddButtonTextPosition(int id, const Math::Vector2& position)
+{
+	if (id == -1)
+	{
+		for (auto item : _buttons)
+		{
+			item.second->GetComponent<Ui::Text>().AddPosition(position);
+		}
+	}
+	else
+	{
+		_buttons[id]->GetComponent<Ui::Text>().AddPosition(position);
 	}
 }
 
@@ -157,7 +171,6 @@ void MenuView::SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const st
 	btn.SetOnLeftMouseClick([&scene, sceneName, &btn]() -> void
 		{
 			scene.LoadScene(sceneName);
-			btn.ClearFunctions();
 		}, category);
 }
 

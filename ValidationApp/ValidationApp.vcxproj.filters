@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
-    <Media Include="Assets\Audio\Music\Menu_music.mp3" />
     <Media Include="Assets\Audio\SFX\Explosion.mp3" />
     <Media Include="Assets\Audio\SFX\Death.mp3" />
     <Media Include="Assets\Audio\SFX\NPC.mp3" />
@@ -68,6 +67,7 @@
     <Media Include="Assets\Audio\SFX\Button_2.mp3" />
     <Media Include="Assets\Audio\SFX\Button_3.mp3" />
     <Media Include="Assets\Audio\SFX\boomerang.mp3" />
+    <Media Include="Assets\Audio\Music\Intro_Theme.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\player.png" />

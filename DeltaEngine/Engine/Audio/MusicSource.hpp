@@ -11,7 +11,7 @@ namespace Audio
 	class MusicSource : public AudioSource
 	{
 		public:
-			MusicSource(const std::string& path, bool playOnAwake, bool loop);
+			MusicSource(const std::string& path, bool playOnAwake, int loop);
 			MusicSource(const MusicSource& other);
 			MusicSource& operator=(const MusicSource& other);
 			MusicSource(MusicSource&& other) noexcept;

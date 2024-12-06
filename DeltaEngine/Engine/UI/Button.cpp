@@ -47,3 +47,8 @@ void Button::ClearFunctions()
 	}
 	_inputLocations.clear();
 }
+
+Button::~Button()
+{
+	ClearFunctions();
+}

@@ -21,7 +21,7 @@ class Button
 	void SetPosition(const Vector2& scale);
 	void SetScale(const Vector2& scale);
 	void ClearFunctions();
-
+	~Button();
    private:
 	Vector2 _position;
 	Vector2 _scale;

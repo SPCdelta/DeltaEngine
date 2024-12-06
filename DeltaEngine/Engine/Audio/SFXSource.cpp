@@ -51,7 +51,7 @@ Audio::SFXSource::~SFXSource() {}
 
 void SFXSource::Play()
 {
-	AudioManager::GetInstance().PlaySFX(_clip.get(), _loop);
+	AudioManager::GetInstance().PlaySFX(_clip.get(), _loops);
 }
 
 void SFXSource::Pause()

@@ -4,7 +4,7 @@
 
 using namespace Audio;
 
-MusicSource::MusicSource(const std::string& path, bool playOnAwake, bool loop)
+MusicSource::MusicSource(const std::string& path, bool playOnAwake, int loop)
 	: AudioSource(playOnAwake, path, loop),
 	  _clip(std::move(AudioLoader::LoadMusic(path)))
 {
@@ -45,7 +45,7 @@ Audio::MusicSource::~MusicSource() {}
 
 void MusicSource::Play()
 {
-	AudioManager::GetInstance().PlayMusic(_clip.get(), _loop);
+	AudioManager::GetInstance().PlayMusic(_clip.get(), _loops);
 }
 
 void MusicSource::Pause()

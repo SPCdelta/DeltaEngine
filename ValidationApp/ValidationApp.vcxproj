@@ -319,11 +319,13 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Audio\Music\Menu_music.mp3">
+    <Media Include="Assets\Audio\Music\Intro_Theme.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Media>
     <Media Include="Assets\Audio\SFX\Button_1.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Media>
     <Media Include="Assets\Audio\SFX\Button_2.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
