@@ -36,8 +36,10 @@ class Player
 	void SetCoins(int coins);
 
 	void AddHealthObserver(std::function<void(int)> observer) { _healthObservers.emplace_back(observer); }
+	void AddInventoryObserver(std::function<void(const Item& item, int amount)> observer) { _inventoryObservers.emplace_back(observer); }
    private:
 	void NotifyHealthChanged();
+	void NotifyInventoryChanged(const Item& item, int amount);
 	int _shield;
 	int _attackDamage;
 	int _speed;
@@ -45,5 +47,6 @@ class Player
 	int _coins;
 
 	std::vector<std::function<void(int)>> _healthObservers;
+	std::vector<std::function<void(const Item& item, int amount)>> _inventoryObservers;
 	Inventory _inventory;
 };

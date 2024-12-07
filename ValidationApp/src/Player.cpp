@@ -68,6 +68,8 @@ int Player::GetHealth() const
 void Player::AddItemToInventory(Item item, int amount)
 {
 	_inventory.AddItem(item, amount);
+
+	NotifyInventoryChanged(item, amount);
 }
 
 void Player::RemoveItemFromInventory(std::string itemName, int amount)
@@ -113,5 +115,13 @@ void Player::NotifyHealthChanged()
 	for (const auto& observer : _healthObservers)
 	{
 		observer(_health);
+	}
+}
+
+void Player::NotifyInventoryChanged(const Item& item, int amount)
+{
+	for (const auto& observer : _inventoryObservers)
+	{
+		observer(item, amount);
 	}
 }

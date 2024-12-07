@@ -179,7 +179,7 @@
     <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
     <ClCompile Include="src\Views\Components\GameSpeed.cpp" />
     <ClCompile Include="src\Views\Components\HealthComponent.cpp" />
-    <ClCompile Include="src\Views\Components\InventoryComponent.cpp" />
+    <ClCompile Include="src\Views\Components\HotbarComponent.cpp" />
     <ClCompile Include="src\Views\HUDView.cpp" />
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
@@ -205,7 +205,7 @@
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
     <ClInclude Include="src\Views\Components\GameSpeed.hpp" />
     <ClInclude Include="src\Views\Components\HealthComponent.hpp" />
-    <ClInclude Include="src\Views\Components\InventoryComponent.hpp" />
+    <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
     <ClInclude Include="src\Views\HUDView.hpp" />
     <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClCompile Include="src\Views\IView.cpp" />
@@ -280,6 +280,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\HUD\health_bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\hotbar_slot.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>

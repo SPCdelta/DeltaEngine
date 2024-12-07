@@ -84,7 +84,7 @@ int Inventory::GetItemAmount()
 
 std::shared_ptr<InventoryItem> Inventory::GetItem(int index)
 {
-	return _items[index];
+	return _items.size() == 0 ? nullptr : _items[index];
 }
 
 void Inventory::Clear()

@@ -5,6 +5,7 @@
 #include "../Views/Components/HealthComponent.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
 #include <memory>
+#include "../Views/Components/HotbarComponent.hpp"
 
 class LayerScene : public Scene
 {
@@ -51,10 +52,12 @@ class LayerScene : public Scene
 
 		_playerHealthBar = std::make_unique<HealthComponent>(
 			*this,
-			Math::Vector2{ 400, 600 },
+			"",
+			Math::Vector2{ 200, 600 },
 			Math::Vector2{ 600, 30 },
 			playerObject->GetComponent<PlayerBehaviour>().GetPlayer()
 		);
+		HotbarComponent hotbar{*this, 6, "", Math::Vector2{200, 200}, Math::Vector2{100, 100}, playerObject->GetComponent<PlayerBehaviour>().GetPlayer()};
 	}
 
 private:
