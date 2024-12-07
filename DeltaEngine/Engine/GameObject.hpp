@@ -119,7 +119,7 @@ public:
 	Transform* transform = nullptr;
 
 	bool IsActive() const { return _active; }
-	bool SetActive(bool active) { _active = active; }
+	void SetActive(bool active) { _active = active; }
 
 	Layer GetLayer() const 
 	{  

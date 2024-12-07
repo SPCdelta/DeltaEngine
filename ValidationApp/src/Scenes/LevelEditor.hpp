@@ -93,10 +93,19 @@ public:
 
         std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({ "floor_tiles" });
 
-        auto lambdaChangeSprite = [this, sprites, maxOptionPerRow](int wheelDirection) { 
+        int maxtileIndexOptions = sprites.size() / maxOptionPerRow;
 
-            _optionTiles.clear();
+        auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
+
+            CleanOptionTiles();
             auto startIt = sprites.begin();
+
+            _tileIndexOptions += wheelDirection;
+            if (_tileIndexOptions < 0)
+                _tileIndexOptions = maxtileIndexOptions;
+            else if (_tileIndexOptions > maxtileIndexOptions)
+                _tileIndexOptions = 0;
+
             std::advance(startIt, maxOptionPerRow * _tileIndexOptions);
 
             int index = 0;
@@ -119,7 +128,7 @@ public:
 
 
         std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };
-        TopBar->AddComponent<Ui::Image>("gray_rect")->SetColor({ 0, 0, 0, 0 });
+        //TopBar->AddComponent<Ui::Image>("gray_rect")->SetColor({ 0, 0, 0, 0 });
         TopBar->AddComponent<Ui::Scrollable>(lambdaChangeSprite);
 
     }
@@ -151,7 +160,16 @@ public:
     }
 
 private:
-    std::vector<std::shared_ptr<GameObject>> _tiles; //Dit een map van maken om met de layers als key en alle draagables een category geven die per layer actief is of niet
+    
+    void CleanOptionTiles(){
+        for (auto& option : _optionTiles)
+        {
+            option->Destroy(option.get());
+        }
+        _optionTiles.clear();
+    }
+
+    std::vector<std::shared_ptr<GameObject>> _tiles;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
     int _tileIndexOptions = 0;
 
