@@ -35,8 +35,7 @@ public:
 				if (Math::MathUtils::IsVector2WithinRect(mousevector, gameObject->transform->position, gameObject->transform->scale)){
 					bingDragged = true;
 				}
-
-			}
+			}, "Ui:layer-" + LayerHelper::GetString(Layer::Default) // TODo dit dynamis maken
 		);
 
 		InputManager::onMouseButtonUp(MouseButton::Left,

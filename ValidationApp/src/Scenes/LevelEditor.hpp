@@ -83,31 +83,32 @@ public:
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto title = titleTxt->AddComponent<Ui::Text>("floor_tiles", "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        auto title = titleTxt->AddComponent<Ui::Text>("Tiles", "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         title->SetBackground({ 255, 255, 255, 255 });
 
         std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({ "floor_tiles" });
 
-        auto lambdaChangeSprite = [this, title, sprites, maxOptionPerRow](int wheelDirection) { 
+        auto lambdaChangeSprite = [this, sprites, maxOptionPerRow](int wheelDirection) { 
+
+            _optionTiles.clear();
+            auto startIt = sprites.begin();
+            std::advance(startIt, maxOptionPerRow * _tileIndexOptions);
+
             int index = 0;
-
-            title->SetText("Assets ..."); // TODO: Change to sprite type
-            std::vector<std::shared_ptr<GameObject>> optionTiles;
-
-            for (auto& pair : sprites) {
-                if (maxOptionPerRow <= index)
-                    break;
-
-                optionTiles.emplace_back(Instantiate({
+            for (auto pair = startIt; pair != sprites.end() && index < maxOptionPerRow; ++pair) {
+                _optionTiles.emplace_back(Instantiate({
                     {SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP},
                     0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
 
-                optionTiles.back()->AddComponent<Ui::Image>(pair.first);
-                optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this, pair]() {
-                    this->makeNewTile(pair.first);
+                const std::string& key = pair->first;
+                _optionTiles.back()->AddComponent<Ui::Image>(key);
+                _optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
+                    [this, key]() { 
+                        makeNewTile(key);
                     }, "UI");
                 index++;
             }
+
         };
         lambdaChangeSprite(0);
 
@@ -135,7 +136,9 @@ public:
     }
 
 private:
-    std::vector<std::shared_ptr<GameObject>> _tiles;
+    std::vector<std::shared_ptr<GameObject>> _tiles; //Dit een map van maken om met de layers als key en alle draagables een category geven die per layer actief is of niet
+    std::vector<std::shared_ptr<GameObject>> _optionTiles;
+    int _tileIndexOptions = 0;
 
     Layer _layer = Layer::Default;
 
