@@ -112,6 +112,7 @@
     <ClInclude Include="Engine\UI\SnapToGridDraggable.hpp" />
     <ClInclude Include="Engine\Core\Math\Math.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
+    <ClInclude Include="Engine\UI\Scrollable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

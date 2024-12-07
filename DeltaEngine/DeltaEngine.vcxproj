@@ -288,6 +288,7 @@
     <ClInclude Include="Engine\Transform.hpp" />
     <ClInclude Include="Engine\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
+    <ClInclude Include="Engine\UI\Scrollable.hpp" />
     <ClInclude Include="Engine\UI\SnapToGridDraggable.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\UI\Image.hpp" />
