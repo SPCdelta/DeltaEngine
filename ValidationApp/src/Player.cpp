@@ -31,6 +31,8 @@ void Player::SetHealth(int health)
 		_health = 0;
 	else
 		_health = health;
+
+	NotifyHealthChanged();
 }
 
 void Player::AddHealth(int health) 
@@ -39,6 +41,8 @@ void Player::AddHealth(int health)
 		_health = _maxHealth;
 	else
 		_health += health;
+
+	NotifyHealthChanged();
 }
 
 int Player::GetShield() const
@@ -102,4 +106,12 @@ void Player::SetCoins(int coins)
 		_coins = 0;
 	else
 		_coins = coins;
+}
+
+void Player::NotifyHealthChanged()
+{
+	for (const auto& observer : _healthObservers)
+	{
+		observer(_health);
+	}
 }

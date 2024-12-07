@@ -176,6 +176,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
+    <ClCompile Include="src\Views\Components\GameSpeed.cpp" />
+    <ClCompile Include="src\Views\Components\HealthComponent.cpp" />
+    <ClCompile Include="src\Views\Components\InventoryComponent.cpp" />
+    <ClCompile Include="src\Views\HUDView.cpp" />
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -197,6 +202,11 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
+    <ClInclude Include="src\Views\Components\GameSpeed.hpp" />
+    <ClInclude Include="src\Views\Components\HealthComponent.hpp" />
+    <ClInclude Include="src\Views\Components\InventoryComponent.hpp" />
+    <ClInclude Include="src\Views\HUDView.hpp" />
     <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClCompile Include="src\Views\IView.cpp" />
   </ItemGroup>
@@ -254,6 +264,22 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\floor_map.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\bar_frame.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\gold_coin.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\health_bar.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>

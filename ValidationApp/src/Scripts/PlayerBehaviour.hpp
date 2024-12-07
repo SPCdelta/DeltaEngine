@@ -30,12 +30,15 @@ public:
 		delete _floorBehaviour;
 		delete _damageBehaviour;
 		delete _pickUpBehaviour;
+		delete _player;
 	}
 
 	void ThrowBoomerang();
 
 	void LoadPlayer();
 	void SavePlayer();
+
+	Player& GetPlayer() const { return *_player; }
 
 	// Components
 	Sprite* sprite = nullptr;
@@ -68,7 +71,7 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
-	Player _player;
+	Player* _player;
 
 	bool _attacking{false};
 	float _attackTime{0.0f};

@@ -7,9 +7,11 @@ void PlayerBehaviour::OnStart()
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
-	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, _player);
+	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 	_weapon = new Gun(this);
+	_player = new Player{};
+	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 	//_weapon = new Bow(this);
 
 	onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
@@ -31,10 +33,10 @@ void PlayerBehaviour::OnStart()
 	);
 
 	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_X, [this](Input& e) { _player.AddItemToInventory(Item("item1", "none"), 4); },"Gameplay");
-	onKeyPressed(KEY_C, [this](Input& e) { _player.AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay");
-	onKeyPressed(KEY_V, [this](Input& e) { _player.RemoveItemFromInventory("item1", 5);}, "Gameplay");	
-	onKeyPressed(KEY_B, [this](Input& e) { _player.PrintInventory(); }, "Gameplay");	
+	onKeyPressed(KEY_X, [this](Input& e) { _player->AddItemToInventory(Item("item1", "none"), 4); },"Gameplay");
+	onKeyPressed(KEY_C, [this](Input& e) { _player->AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay");
+	onKeyPressed(KEY_V, [this](Input& e) { _player->RemoveItemFromInventory("item1", 5);}, "Gameplay");
+	onKeyPressed(KEY_B, [this](Input& e) { _player->PrintInventory(); }, "Gameplay");
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 }
@@ -54,7 +56,7 @@ void PlayerBehaviour::OnUpdate()
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
 
-	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player.GetHealth() > 0)
+	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
 	{
 		switch (_onFloor)
 		{
@@ -105,20 +107,20 @@ void PlayerBehaviour::OnUpdate()
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
-		if (_player.GetHealth() > 0)
+		if (_player->GetHealth() > 0)
 		{
 			_damageBehaviour->TakeDamage();
 
 			// TODO different amount of damage?? 
 			// If need be, get colliding gameobj in takedamage() and decide then what the damage is 
 			// and return the damage to then use here in the sethealth() call
-			_player.SetHealth(_player.GetHealth() - 1); 
+			_player->SetHealth(_player->GetHealth() - 1);
 
 			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			_sfx->Play();
 		}
 		
-		if (_player.GetHealth() <= 0) 
+		if (_player->GetHealth() <= 0)
 		{
 			if (!deathSoundPlayed && !sprite->GetSheet()->PlayCustomAnimation("death"))
 			{
@@ -138,7 +140,7 @@ void PlayerBehaviour::OnUpdate()
 		}
 	}
 
-	if (sprite && sprite->GetAnimator() && _player.GetHealth() > 0)
+	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
 	{
 		// Attacking
 		if (attack)
@@ -160,6 +162,7 @@ void PlayerBehaviour::OnUpdate()
 		else
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
+	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 }
 
 void PlayerBehaviour::UpdateAttack(float deltaTime)
@@ -195,9 +198,9 @@ void PlayerBehaviour::LoadPlayer()
 	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
 	if (loadedPlayer.contains("player"))
 	{
-		_player.SetHealth(loadedPlayer["player"]["health"]);
-		_player.SetCoins(loadedPlayer["player"]["coins"]);
-		_player.ResetInventory();
+		_player->SetHealth(loadedPlayer["player"]["health"]);
+		_player->SetCoins(loadedPlayer["player"]["coins"]);
+		_player->ResetInventory();
 
 		if (loadedPlayer["player"].contains("inventory"))
 		{
@@ -208,12 +211,12 @@ void PlayerBehaviour::LoadPlayer()
 				{
 					PotionType type = static_cast<PotionType>(itemData["type"]);
 					auto potion = PotionFactory::CreatePotion(type, itemData);
-					_player.AddItemToInventory(*potion, itemData["amount"]);
+					_player->AddItemToInventory(*potion, itemData["amount"]);
 				}
 				else
 				{
 					Item item = Item(itemData["name"], itemData["sprite"]); 
-					_player.AddItemToInventory(item, itemData["amount"]);
+					_player->AddItemToInventory(item, itemData["amount"]);
 				}
 
 				// TODO weapons?
@@ -226,19 +229,19 @@ void PlayerBehaviour::SavePlayer()
 {
 	Json::json playerFile;
 
-	playerFile["player"]["health"] = _player.GetHealth();
-	playerFile["player"]["coins"] = _player.GetCoins();
+	playerFile["player"]["health"] = _player->GetHealth();
+	playerFile["player"]["coins"] = _player->GetCoins();
 
-	if (_player.GetInventorySize() > 0)
+	if (_player->GetInventorySize() > 0)
 	{
-		for (size_t i = 0; i < _player.GetInventorySize(); ++ i)
+		for (size_t i = 0; i < _player->GetInventorySize(); ++ i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
-			auto& inventoryItem = _player.GetInventoryItem(i)->GetItem();
+			auto& inventoryItem = _player->GetInventoryItem(i)->GetItem();
 
 			itemData["name"] = inventoryItem.GetName();
 			itemData["sprite"] = inventoryItem.GetSprite();
-			itemData["amount"] = _player.GetInventoryItem(i)->GetAmount();
+			itemData["amount"] = _player->GetInventoryItem(i)->GetAmount();
 
 			if (auto potion = dynamic_cast<Potion*>(&inventoryItem))
 			{

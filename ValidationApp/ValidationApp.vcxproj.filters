@@ -21,6 +21,11 @@
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
+    <ClCompile Include="src\Views\HUDView.cpp" />
+    <ClCompile Include="src\Views\Components\InventoryComponent.cpp" />
+    <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
+    <ClCompile Include="src\Views\Components\GameSpeed.cpp" />
+    <ClCompile Include="src\Views\Components\HealthComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -64,6 +69,11 @@
     <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
     <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
+    <ClInclude Include="src\Views\HUDView.hpp" />
+    <ClInclude Include="src\Views\Components\InventoryComponent.hpp" />
+    <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
+    <ClInclude Include="src\Views\Components\GameSpeed.hpp" />
+    <ClInclude Include="src\Views\Components\HealthComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -93,6 +103,10 @@
     <Image Include="Assets\Textures\UI\Buttons\scroll3.png" />
     <Image Include="Assets\Textures\Weapons\bullet.png" />
     <Image Include="Assets\Textures\Weapons\arrow.png" />
+    <Image Include="Assets\Textures\HUD\health_bar.png" />
+    <Image Include="Assets\Textures\HUD\bar.png" />
+    <Image Include="Assets\Textures\HUD\gold_coin.png" />
+    <Image Include="Assets\Textures\HUD\bar_frame.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

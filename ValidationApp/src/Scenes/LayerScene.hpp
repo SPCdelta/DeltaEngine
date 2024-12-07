@@ -2,7 +2,9 @@
 
 #include "Engine/Delta.hpp"
 #include "../Scripts/EnemyBehaviour.hpp"
+#include "../Views/Components/HealthComponent.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
+#include <memory>
 
 class LayerScene : public Scene
 {
@@ -46,5 +48,15 @@ class LayerScene : public Scene
 		cyanPotionObj->AddComponent<BoxCollider>()->SetTrigger(true);	
 		cyanPotionObj->AddComponent<WorldItem>(worldItem);
 		cyanPotionObj->SetTag("item");
+
+		_playerHealthBar = std::make_unique<HealthComponent>(
+			*this,
+			Math::Vector2{ 400, 600 },
+			Math::Vector2{ 600, 30 },
+			playerObject->GetComponent<PlayerBehaviour>().GetPlayer()
+		);
 	}
+
+private:
+	std::unique_ptr<HealthComponent> _playerHealthBar; // TODO: encapsulate
 };

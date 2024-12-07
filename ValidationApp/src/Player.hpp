@@ -2,6 +2,8 @@
 
 #include "Inventory/Inventory.hpp"
 #include "Items/Item.hpp"
+#include <vector>
+#include <functional>
 
 class Player
 {
@@ -33,12 +35,15 @@ class Player
 	int GetCoins() const;
 	void SetCoins(int coins);
 
+	void AddHealthObserver(std::function<void(int)> observer) { _healthObservers.emplace_back(observer); }
    private:
+	void NotifyHealthChanged();
 	int _shield;
 	int _attackDamage;
 	int _speed;
 	int _health;
 	int _coins;
 
+	std::vector<std::function<void(int)>> _healthObservers;
 	Inventory _inventory;
 };

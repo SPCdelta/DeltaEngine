@@ -89,12 +89,20 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
+	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
+	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
+
+	// UI
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
 	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");
 	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
 	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
-	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
-	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
+
+	// HUD
+	ResourceManager::AddSprite("bar", "Assets\\Textures\\HUD\\bar.png");
+	ResourceManager::AddSprite("bar_frame", "Assets\\Textures\\HUD\\bar_frame.png");
+	ResourceManager::AddSprite("gold_coin", "Assets\\Textures\\HUD\\gold_coin.png");
+	ResourceManager::AddSprite("health_bar", "Assets\\Textures\\HUD\\health_bar.png");
 
 	// Fonts
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
