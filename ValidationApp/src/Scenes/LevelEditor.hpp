@@ -39,18 +39,20 @@ public:
 
         const float rightBarStart = windowWidth - RIGHT_BAR_WIDTH;
 
-        // Save Button
+        SaveButton(rightBarStart);
+        LayerChanger(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
+        TopBar(windowWidth, titleLeftPadding, topBarHeight);
+    }
+
+    void SaveButton(const float rightBarStart)
+    {
         std::shared_ptr<GameObject> saveButton{
-            Instantiate({{rightBarStart - 20.0f, PADDING_TOP * 1.2f}, 0.0f, {160.0f, SAVE_FONT_SIZE}})
+            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.2f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
         };
         saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
-        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([]() -> void {
+        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([]() {
             std::cout << "Level saved!!! test";
             }, "UI");
-
-        LayerChanger(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
-        TopBar(windowWidth, titleLeftPadding);
-        BackgroundOfUI(windowWidth, windowHeight, topBarHeight, rightBarStart);
     }
 
     void LayerChanger(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
@@ -60,7 +62,7 @@ public:
         layer->SetBackground({ 255, 255, 255, 255 });
 
         std::shared_ptr<GameObject> worldView{ Instantiate({{0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight}}) };
-        worldView->AddComponent<Ui::Scrollable>([this, layer](int wheelDirection) -> void {
+        worldView->AddComponent<Ui::Scrollable>([this, layer](int wheelDirection) {
             int layerInt = LayerHelper::GetInt(_layer);
 
             int newLayer = layerInt + wheelDirection;
@@ -72,7 +74,7 @@ public:
             });
     }
 
-    void TopBar(int windowWidth, float titleLeftPadding)
+    void TopBar(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
 
         const float imagespace = (SCALE_IN_UI_BAR + PADDING);
@@ -85,25 +87,35 @@ public:
         title->SetBackground({ 255, 255, 255, 255 });
 
         std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({ "floor_tiles" });
-        std::vector<std::shared_ptr<GameObject>> optionTiles;
 
-        int index = 0;
+        auto lambdaChangeSprite = [this, title, sprites, maxOptionPerRow](int wheelDirection) { 
+            int index = 0;
 
-        title->SetText("Assets ..."); // TODO: Change to sprite type
-        for (auto& pair : sprites) {
-            if (maxOptionPerRow <= index)
-                break;
+            title->SetText("Assets ..."); // TODO: Change to sprite type
+            std::vector<std::shared_ptr<GameObject>> optionTiles;
 
-            optionTiles.emplace_back(Instantiate({ 
-                {SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP},
-                0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
+            for (auto& pair : sprites) {
+                if (maxOptionPerRow <= index)
+                    break;
 
-            optionTiles.back()->AddComponent<Ui::Image>(pair.first);
-            optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this, pair]() -> void {
-                this->makeNewTile(pair.first);
-                }, "UI");
-            index++;
-        }
+                optionTiles.emplace_back(Instantiate({
+                    {SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP},
+                    0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
+
+                optionTiles.back()->AddComponent<Ui::Image>(pair.first);
+                optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this, pair]() {
+                    this->makeNewTile(pair.first);
+                    }, "UI");
+                index++;
+            }
+        };
+        lambdaChangeSprite(0);
+
+
+        std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };
+        TopBar->AddComponent<Ui::Image>("gray_rect")->SetColor({ 0, 0, 0, 0 });
+        TopBar->AddComponent<Ui::Scrollable>(lambdaChangeSprite);
+
     }
 
     void makeNewTile(const std::string& spriteName)
@@ -127,15 +139,4 @@ private:
 
     Layer _layer = Layer::Default;
 
-    void BackgroundOfUI(float windowWidth, float windowHeight, float topBarHeight, float rightBarStart)
-    {
-        std::shared_ptr<GameObject> backgroundTopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {windowWidth, topBarHeight}}) };
-        backgroundTopBar->AddComponent<Ui::Image>("gray_rect")->SetColor({ 0, 0, 0, 0 }); // TODO: Replace with a rectangle
-
-        // Uncomment if needed:
-        /*
-        std::shared_ptr<GameObject> backgroundSideBar{Instantiate({{rightBarStart, topBarHeight}, 0.0f, {rightBarWidth, windowHeight - topBarHeight}})};
-        backgroundSideBar->AddComponent<Ui::Image>("gray_rect")->SetColor({0, 0, 0, 0}); // TODO: Replace with a rectangle
-        */
-    }
 };
