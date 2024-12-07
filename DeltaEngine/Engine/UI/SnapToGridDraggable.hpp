@@ -1,18 +1,20 @@
 #pragma once
-#include "../BehaviourScript.hpp"
 #include "../Core/Math/MathUtils.hpp"
 
 
-class SnapToGridDraggable : public BehaviourScript
+class SnapToGridDraggable
 {
 public:
-	void OnStart() override
-	{
-		camera = gameObject->GetCamera();
 
-		int pxUnit = camera->GetunitPixelSize();
+	SnapToGridDraggable(Camera* camera, Transform* transform, const std::string& category = "UI") : _camera{camera}, _transform{transform}, _category{category}
+	{}
 
-		InputManager::onMouseMove(
+	void activate(const std::string& category, std::function<void()> func){
+		int pxUnit = _camera->GetunitPixelSize();
+		CleanUp(_category);
+		_category = category;
+
+		_inputLocations.push_back(InputManager::onMouseMove(
 			[this, pxUnit](Input& e)
 			{
 				if (!bingDragged)
@@ -21,37 +23,69 @@ public:
 				int posX = e.mouseX - e.mouseX % pxUnit;
 				int posY = e.mouseY - e.mouseY % pxUnit;
 
-				Math::Vector2 mouseToWorldPos{ camera->ScreenToWorldPoint(posX, posY + pxUnit) };
-				gameObject->transform->position.Set(mouseToWorldPos);
-			}
-		);
+				Math::Vector2 mouseToWorldPos{ _camera->ScreenToWorldPoint(posX, posY + pxUnit) };
+				_transform->position.Set(mouseToWorldPos);
+			}, category
+		));
 
-		InputManager::onMouseButtonDown(MouseButton::Left,
-			[this](Input& e)
+		_inputLocations.push_back(InputManager::onMouseButtonDown(MouseButton::Left,
+			[this, func](Input& e)
 			{
 				if (bingDragged)
 					return;
-				auto mousevector = camera->ScreenToWorldPoint(e.mouseX, e.mouseY);
-				if (Math::MathUtils::IsVector2WithinRect(mousevector, gameObject->transform->position, gameObject->transform->scale)){
-					bingDragged = true;
-				}
-			}, "Ui:layer-" + LayerHelper::GetString(Layer::Default) // TODo dit dynamis maken
-		);
+				auto mousevector = _camera->ScreenToWorldPoint(e.mouseX, e.mouseY);
+				if (!Math::MathUtils::IsVector2WithinRect(mousevector, _transform->position, _transform->scale))
+					return;
 
-		InputManager::onMouseButtonUp(MouseButton::Left,
+				bingDragged = true;
+				func();
+			}, _category
+		));
+
+		_inputLocations.push_back(InputManager::onMouseButtonUp(MouseButton::Left,
 			[this](Input& e)
 			{
-				if (bingDragged)
-					bingDragged = false;
+				bingDragged = false;
+			}, _category
+		));
+	}
 
-			}
-		);
+	void CleanUp(const std::string& category = ""){
+		auto& inputM = InputManager::GetInstance();
+		for (auto& input : _inputLocations)
+		{
+			if (category.empty() || category == input.category)
+				inputM.remove(input);
+		}
 	}
 
 	bool isBingDragged(){
 		return bingDragged;
 	}
 
+	void SetCategory(const std::string& category){
+		_category = category;
+	}
+
+	void RemoveOnKey(Key key, std::function<void()> func){
+		_inputLocations.push_back(InputManager::onKeyPressed(key, [this, func](Input& e){
+				if (bingDragged)
+					func();
+			
+			}, _category));
+	}
+
+
+	~SnapToGridDraggable()
+	{
+		CleanUp();
+	}
+
 private:
+	Camera* _camera;
+	Transform* _transform;
+	std::string _category;
 	bool bingDragged = true;
+
+	std::vector<InputLocation> _inputLocations;
 };

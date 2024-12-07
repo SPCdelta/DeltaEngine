@@ -16,6 +16,7 @@
 
 #include "UI/Button.hpp"
 #include "UI/Scrollable.hpp"
+#include "UI/SnapToGridDraggable.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
 
@@ -63,6 +64,11 @@ public:
 		else if constexpr (std::is_same_v<T, Ui::Scrollable>)
 		{
 			T* component = static_cast<T*>(_AddComponent<Ui::Scrollable>(Ui::Scrollable(transform, std::forward<Args>(args)...)));
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, SnapToGridDraggable>)
+		{
+			T* component = static_cast<T*>(_AddComponent<SnapToGridDraggable>(SnapToGridDraggable(_camera, transform, std::forward<Args>(args)...)));
 			return component;
 		}
 		else

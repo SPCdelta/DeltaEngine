@@ -68,10 +68,15 @@ public:
             int newLayer = layerInt + wheelDirection;
 
             if (LayerHelper::InLayers(newLayer)) {
+                //InputManager::deactivateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
                 _layer = LayerHelper::GetLayer(newLayer);
+                
+                //InputManager::activateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
+
                 layer->SetText("Layer: " + LayerHelper::GetString(_layer));
             }
-            });
+
+        });
     }
 
     void TopBar(int windowWidth, float titleLeftPadding, float topBarHeight)
@@ -105,7 +110,7 @@ public:
                 _optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
                     [this, key]() { 
                         makeNewTile(key);
-                    }, "UI");
+                    }, "UI:Leveleditor");
                 index++;
             }
 
@@ -123,15 +128,25 @@ public:
     {
         auto mousePos = InputManager::GetMousePosition();
         _tiles.emplace_back(Instantiate({ {mousePos.mouseX - 0.5f, mousePos.mouseY - 0.5f}, 0.0f, {1.0f, 1.0f} }));
-        auto draggable = _tiles.back()->AddComponent<SnapToGridDraggable>();
-        auto sprite = _tiles.back()->AddComponent<Sprite>(spriteName);
-
+        auto& tile = _tiles.back();
+        auto draggable = tile->AddComponent<SnapToGridDraggable>();
+        auto sprite = tile->AddComponent<Sprite>(spriteName);
         sprite->SetLayer(_layer);
+
+        draggable->activate("Ui:layer - " + LayerHelper::GetString(_layer), [this, sprite](){
+            sprite->SetLayer(_layer);
+            });
+
+        draggable->RemoveOnKey(KEY_Q, [this, tile](){
+            //_tiles.erase(std::remove(_tiles.begin(), _tiles.end(), tile), _tiles.end());
+            tile->Destroy(tile.get());
+            });
 
         InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
             if (!draggable->isBingDragged())
                 return;
             sprite->SetLayer(_layer);
+            draggable->SetCategory("Ui:layer - " + LayerHelper::GetString(_layer));
             });
     }
 
