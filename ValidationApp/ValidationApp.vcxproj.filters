@@ -9,7 +9,6 @@
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
     <ClCompile Include="src\Items\Item.cpp" />
-    <ClCompile Include="src\Items\WorldItem.cpp" />
     <ClCompile Include="src\Inventory\Inventory.cpp" />
     <ClCompile Include="src\Inventory\InventoryItem.cpp" />
     <ClCompile Include="src\Items\Potions\HealingPotion.cpp" />
@@ -58,11 +57,13 @@
     <ClInclude Include="src\Scenes\DevScene.hpp" />
     <ClInclude Include="src\Scenes\LevelEditor.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClInclude Include="src\Classes\Weapons\Gun.hpp" />
     <ClInclude Include="src\Classes\Weapons\Bow.hpp" />
     <ClInclude Include="src\Classes\Weapons\Weapon.hpp" />
     <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
     <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
+    <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

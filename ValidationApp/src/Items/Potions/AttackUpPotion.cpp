@@ -1,6 +1,7 @@
 #include "AttackUpPotion.hpp"
 
-void AttackUpPotion::Use(Player& player) {
+void AttackUpPotion::Use(Player& player) 
+{
 	if (IsActive)
 	{
 		std::cout << "Potion already active!" << std::endl;
@@ -20,7 +21,8 @@ void AttackUpPotion::Use(Player& player) {
 
 }
 
-void AttackUpPotion::Update() {
+void AttackUpPotion::Update() 
+{
 	if (!IsActive)
 		return;
 
