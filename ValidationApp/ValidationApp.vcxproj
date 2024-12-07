@@ -201,6 +201,7 @@
     <ClCompile Include="src\Views\IView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
   </ItemGroup>

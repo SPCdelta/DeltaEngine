@@ -63,6 +63,7 @@
     <ClInclude Include="src\Classes\Weapons\Weapon.hpp" />
     <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
     <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
+    <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

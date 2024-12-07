@@ -3,7 +3,6 @@
 #include "Engine/Delta.hpp"
 
 #include "../Player.hpp"
-#include "../Items/Potions/AttackUpPotion.hpp"
 
 #include "../Classes/DamageBehaviour.hpp"
 #include "../Classes/FloorBehaviour.hpp"
@@ -14,9 +13,7 @@
 #include "../Classes/Weapons/Gun.hpp"
 #include "../Classes/Weapons/Bow.hpp"
 
-#include "../Items/Potions/SpeedPotion.hpp"
-#include "../Items/Potions/DefensePotion.hpp"
-#include "../Items/Potions/HealingPotion.hpp"
+#include "../Items/Potions/PotionFactory.hpp"
 
 class PlayerBehaviour : public BehaviourScript
 {

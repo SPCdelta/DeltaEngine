@@ -60,10 +60,7 @@ void PlayerBehaviour::OnUpdate()
 		{
 			case FloorType::NORMAL:
 			{
-				if (!attack)
-					rigidbody->SetVelocity(_moveDirection * _moveSpeed);
-				else
-					rigidbody->SetVelocity({0.0f, 0.0f});
+				rigidbody->SetVelocity(_moveDirection * _moveSpeed);
 			}
 			break;
 
@@ -83,10 +80,7 @@ void PlayerBehaviour::OnUpdate()
 
 			case FloorType::MUD:
 			{
-				if (!attack)
-					rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
-				else
-					rigidbody->SetVelocity({0.0f, 0.0f});
+				rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
 			}
 			break;
 		}			
@@ -111,7 +105,6 @@ void PlayerBehaviour::OnUpdate()
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
-		_player.GetHealth();
 		if (_player.GetHealth() > 0)
 		{
 			_damageBehaviour->TakeDamage();
@@ -151,30 +144,21 @@ void PlayerBehaviour::OnUpdate()
 		if (attack)
 		{
 			ThrowBoomerang();
-
-			if (sprite->GetSheet()->GetFacingDirection() == Direction::LEFT)
-				sprite->GetSheet()->PlayCustomAnimation("attackLeft");
-			else if (sprite->GetSheet()->GetFacingDirection() == Direction::RIGHT)
-				sprite->GetSheet()->PlayCustomAnimation("attackRight");
-			else if (sprite->GetSheet()->GetFacingDirection() == Direction::DOWN)
-				sprite->GetSheet()->PlayCustomAnimation("attackDown");
-			else if (sprite->GetSheet()->GetFacingDirection() == Direction::UP)
-				sprite->GetSheet()->PlayCustomAnimation("attackUp");
 		}
 		
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, attack);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, false);
 		else if (_moveDirection.GetX() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT, attack);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT, false);
 		else if (_moveDirection.GetY() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, attack);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, false);
 		else if (_moveDirection.GetY() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, attack);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, false);
 
 		// Idle
 		else
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, attack);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
 }
 
@@ -223,33 +207,8 @@ void PlayerBehaviour::LoadPlayer()
 				if (itemData.contains("type"))
 				{
 					PotionType type = static_cast<PotionType>(itemData["type"]);
-					switch (type)
-					{
-						case PotionType::AttackUp:
-						{
-							AttackUpPotion potion = AttackUpPotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
-							_player.AddItemToInventory(potion, itemData["amount"]);
-						}
-						break;
-						case PotionType::Defense:
-						{
-							DefensePotion potion = DefensePotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
-							_player.AddItemToInventory(potion, itemData["amount"]);
-						}
-						break;
-						case PotionType::Healing:
-						{
-							HealingPotion potion = HealingPotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
-							_player.AddItemToInventory(potion, itemData["amount"]);
-						}
-						break;
-						case PotionType::Speed:
-						{
-							SpeedPotion potion = SpeedPotion(itemData["time"], itemData["value"], itemData["name"], itemData["sprite"]);
-							_player.AddItemToInventory(potion, itemData["amount"]);
-						}
-						break;
-					}
+					auto potion = PotionFactory::CreatePotion(type, itemData);
+					_player.AddItemToInventory(*potion, itemData["amount"]);
 				}
 				else
 				{
@@ -275,13 +234,13 @@ void PlayerBehaviour::SavePlayer()
 		for (size_t i = 0; i < _player.GetInventorySize(); ++ i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
+			auto& inventoryItem = _player.GetInventoryItem(i)->GetItem();
 
-			itemData["name"] = _player.GetInventoryItem(i)->GetItem().GetName();
-			itemData["sprite"] = _player.GetInventoryItem(i)->GetItem().GetSprite();
+			itemData["name"] = inventoryItem.GetName();
+			itemData["sprite"] = inventoryItem.GetSprite();
 			itemData["amount"] = _player.GetInventoryItem(i)->GetAmount();
 
-			Potion* potion = dynamic_cast<Potion*>(&_player.GetInventoryItem(i)->GetItem());
-			if (potion)
+			if (auto potion = dynamic_cast<Potion*>(&inventoryItem))
 			{
 				itemData["type"] = static_cast<int>(potion->GetType());
 				itemData["value"] = potion->GetValue();

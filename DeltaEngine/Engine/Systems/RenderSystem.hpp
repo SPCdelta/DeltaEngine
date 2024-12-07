@@ -47,7 +47,8 @@ public:
 			Sprite& sprite = _view.get<Sprite>(entityId);
 
 			// Render the sprite associated with this entity
-			sprite.Render(_window->GetRenderer(), *_viewportData, _camera, transform);
+			if (sprite.GetVisible())
+				sprite.Render(_window->GetRenderer(), *_viewportData, _camera, transform);
 		}
 	}
 

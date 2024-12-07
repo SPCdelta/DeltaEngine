@@ -7,6 +7,11 @@
                 "amount": 1,
                 "name": "healingpotion",
                 "sprite": "cyanPotion"
+            },
+            {
+                "amount": 4,
+                "name": "item2",
+                "sprite": "none"
             }
         ]
     }

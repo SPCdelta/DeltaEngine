@@ -14,11 +14,6 @@ class LayerScene : public Scene
 
 		std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 
-		sheet->AddCustomAnimation("attackUp", 8, 5, 60);
-		sheet->AddCustomAnimation("attackDown", 8, 7, 60);
-		sheet->AddCustomAnimation("attackLeft", 8, 6, 60);
-		sheet->AddCustomAnimation("attackRight", 8, 8, 60);
-
 		sheet->AddCustomAnimation("death", 6, 21, 150);
 
 		playerObject->AddComponent<Sprite>("layerPlayer", sheet)->SetLayer(Layer::Player);	
