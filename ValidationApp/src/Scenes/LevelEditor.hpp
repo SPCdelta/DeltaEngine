@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
-#include "Engine/UI/Draggable.hpp"
+#include "Engine/UI/SnapToGridDraggable.hpp"
 
 #include "../Scripts/MouseFollowBehaviour.hpp"
 #include "../Scripts/PlayerBehaviour.hpp"
@@ -53,7 +53,13 @@ class LevelEditor : public Scene
 		std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, titleTopPadding}, 0.0f, {titleWitdh, titleFontSize}}) };
 		auto title = titleTxt->AddComponent<Ui::Text>("floor_tiles", "knight", titleFontSize, Rendering::Color{ 0, 0, 0, 255 });
 		title->SetBackground({ 255,255,255,255 });
-		
+
+		std::shared_ptr<GameObject> layerTxt{ Instantiate({{titleLeftPadding + 160.f, titleTopPadding}, 0.0f, {titleWitdh, titleFontSize}}) };
+		auto layer = layerTxt->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", titleFontSize, Rendering::Color{ 0, 0, 0, 255 });
+		layer->SetBackground({ 255,255,255,255 });
+		layerWheel(layer);
+
+
 		FillTopBar(title, maxOptionPerRow, scaleInUIBar, padding, paddingOutLeftUI, paddingTop);
 
 		/*std::vector<std::shared_ptr<GameObject>> optionEnemies;
@@ -105,19 +111,60 @@ class LevelEditor : public Scene
 		}
 	}
 
-	void makeNewTile(const std::string& spriteName){
+	void layerWheel(Ui::Text* title){
 
-		//float spriteScale = 32.0f;
+		InputManager::onMouseWheel([this, title](Input& e) {
+			int wheelDirection = 1;
+			if (e.wheelVertically < 0)
+				wheelDirection = -1;
+
+
+			int layer = LayerHelper::GetInt(_layer);
+
+			int newLayer = layer + wheelDirection;
+
+			if (LayerHelper::InLayers(newLayer)){
+				_layer = LayerHelper::GetLayer(newLayer);
+				title->SetText("Layer: " + LayerHelper::GetString(_layer));
+			}
+
+		});
+
+	}
+
+	void makeNewTile(const std::string& spriteName){
 
 		auto mousePos = InputManager::GetMousePosition();
 		_tiles.emplace_back(Instantiate({ { mousePos.mouseX - 0.5f, mousePos.mouseY - 0.5f }, 0.0f,{ 1.0f, 1.0f } }));
-		_tiles.back()->AddComponent<Draggable>();
-		_tiles.back()->AddComponent<Sprite>(spriteName);
+		auto draggable = _tiles.back()->AddComponent<SnapToGridDraggable>();
+		auto sprite = _tiles.back()->AddComponent<Sprite>(spriteName);
+
+		sprite->SetLayer(Layer::Default);
+
+		InputManager::onMouseWheel([draggable, sprite] (Input& e){
+				if (!draggable->isBingDragged())
+					return;
+
+				/*int wheelDirection = 1;
+				if (e.wheelVertically < 0)
+					wheelDirection = -1;
+
+
+				int layer = LayerHelper::GetInt(sprite->GetLayer());
+				
+				int newLayer = layer + wheelDirection;
+
+				if (LayerHelper::InLayers(newLayer))
+					sprite->SetLayer(LayerHelper::GetLayer(newLayer));*/
+
+			});
 
 	}
 
    private:
 	std::vector<std::shared_ptr<GameObject>> _tiles;
+
+	Layer _layer = Layer::Default;
 
 	void BackgroundOfUI(float windowWitdh, float windowHeight, float topBarHight, float rightBarstart, float rightBarWith)
 	{
@@ -125,8 +172,8 @@ class LevelEditor : public Scene
 		backgroundTopBar->AddComponent<Ui::Image>("gray_rect")->SetColor({0, 0, 0, 0}); //TODO dit miss een rect maken inplaats van een image
 
 
-		std::shared_ptr<GameObject> backgroundSideBar{Instantiate({{rightBarstart, topBarHight}, 0.0f, {rightBarWith, windowHeight - topBarHight}})};
-		backgroundSideBar->AddComponent<Ui::Image>("gray_rect")->SetColor({0, 0, 0, 0}); //TODO dit miss een rect maken inplaats van een image
+		/*std::shared_ptr<GameObject> backgroundSideBar{Instantiate({{rightBarstart, topBarHight}, 0.0f, {rightBarWith, windowHeight - topBarHight}})};
+		backgroundSideBar->AddComponent<Ui::Image>("gray_rect")->SetColor({0, 0, 0, 0});*/ //TODO dit miss een rect maken inplaats van een image
 
 	}
 };

@@ -1,34 +1,39 @@
 #pragma once
 #include "../BehaviourScript.hpp"
+#include "../Core/Math/MathUtils.hpp"
 
 
-class Draggable : public BehaviourScript
+class SnapToGridDraggable : public BehaviourScript
 {
 public:
 	void OnStart() override
 	{
-		//gameObject->AddComponent<Sprite>("player")->SetLayer(Layer::Foreground);
 		camera = gameObject->GetCamera();
 
+		int pxUnit = camera->GetunitPixelSize();
+
 		InputManager::onMouseMove(
-			[this](Input& e)
+			[this, pxUnit](Input& e)
 			{
-				if (!isDraggable)
+				if (!bingDragged)
 					return;
 
-				Math::Vector2 mouseToWorldPos{ camera->ScreenToWorldPoint(e.mouseX, e.mouseY) };
-				gameObject->transform->position.Set(mouseToWorldPos - 0.5f);
+				int posX = e.mouseX - e.mouseX % pxUnit;
+				int posY = e.mouseY - e.mouseY % pxUnit;
+
+				Math::Vector2 mouseToWorldPos{ camera->ScreenToWorldPoint(posX, posY + pxUnit) };
+				gameObject->transform->position.Set(mouseToWorldPos);
 			}
 		);
 
 		InputManager::onMouseButtonDown(MouseButton::Left,
 			[this](Input& e)
 			{
-				if (isDraggable)
+				if (bingDragged)
 					return;
 				auto mousevector = camera->ScreenToWorldPoint(e.mouseX, e.mouseY);
 				if (Math::MathUtils::IsVector2WithinRect(mousevector, gameObject->transform->position, gameObject->transform->scale)){
-					isDraggable = true;
+					bingDragged = true;
 				}
 
 			}
@@ -37,15 +42,17 @@ public:
 		InputManager::onMouseButtonUp(MouseButton::Left,
 			[this](Input& e)
 			{
-				if (isDraggable)
-					isDraggable = false;
+				if (bingDragged)
+					bingDragged = false;
 
 			}
 		);
+	}
 
-
+	bool isBingDragged(){
+		return bingDragged;
 	}
 
 private:
-	bool isDraggable = true;
+	bool bingDragged = true;
 };

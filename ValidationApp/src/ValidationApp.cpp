@@ -28,7 +28,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("LevelEditor");
 
 	// Start Application
 	Run();
