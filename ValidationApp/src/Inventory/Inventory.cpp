@@ -2,7 +2,8 @@
 
 Inventory::Inventory() {}
 
-void Inventory::AddItem(Item item, int amount) {
+void Inventory::AddItem(Item item, int amount) 
+{
 	if (_items.size() == 0)
 	{
 		_items.push_back(std::make_shared<InventoryItem>(item, amount));
@@ -10,7 +11,6 @@ void Inventory::AddItem(Item item, int amount) {
 	}
 
 	bool itemFound = false;
-
 	for (size_t i = 0; i < _items.size(); i++)
 	{
 		if (_items[i]->GetItem().GetName() == item.GetName())
@@ -25,10 +25,9 @@ void Inventory::AddItem(Item item, int amount) {
 	{
 		_items.push_back(std::make_shared<InventoryItem>(item, amount));
 	}
-
 }
 
-void Inventory::RemoveItem(Item item, int amount)
+void Inventory::RemoveItem(std::string itemName, int amount)
 {
 	if (_items.size() <= 0)
 	{
@@ -37,7 +36,7 @@ void Inventory::RemoveItem(Item item, int amount)
 
 	for (size_t i = 0; i < _items.size(); i++)
 	{
-		if (_items[i]->GetItem().GetName() == item.GetName())
+		if (_items[i]->GetItem().GetName() == itemName)
 		{
 			if (amount < _items[i]->GetAmount())
 			{
@@ -50,10 +49,12 @@ void Inventory::RemoveItem(Item item, int amount)
 					std::remove_if(
 						_items.begin(), _items.end(),
 						[&](const std::shared_ptr<InventoryItem>& elem) {
-							return elem->GetItem().GetName() == item.GetName();
+							return elem->GetItem().GetName() == itemName;
 						}),
 					_items.end());
 			}
+			
+			return;
 		}
 		else
 		{
@@ -62,7 +63,8 @@ void Inventory::RemoveItem(Item item, int amount)
 	}
 }
 
-void Inventory::PrintInventory() {
+void Inventory::PrintInventory() 
+{
 	if (_items.size() == 0)
 	{
 		std::cout << "Inventory is empty" << std::endl;
@@ -71,7 +73,21 @@ void Inventory::PrintInventory() {
 
 	for (size_t i = 0; i < _items.size(); i++)
 	{
-		std::cout << _items[i]->GetItem().GetName() << " "
-				  << _items[i]->GetAmount() << std::endl;
+		std::cout << _items[i]->GetItem().GetName() << " " << _items[i]->GetAmount() << std::endl;
 	}
+}
+
+int Inventory::GetItemAmount()
+{
+	return _items.size();
+}
+
+std::shared_ptr<InventoryItem> Inventory::GetItem(int index)
+{
+	return _items[index];
+}
+
+void Inventory::Clear()
+{
+	_items.clear();
 }

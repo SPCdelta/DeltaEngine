@@ -195,12 +195,15 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClCompile Include="src\Views\IView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
-    <ClCompile Include="src\Items\WorldItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />

@@ -80,8 +80,10 @@ void ValidationApp::LoadAssets()
 		}
 	};
 
+	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
 	ResourceManager::AddSprite("gray_rect", "Assets\\Textures\\Rect.png");
+	ResourceManager::AddSprite("cyanPotion", "Assets\\Textures\\Items\\potions\\cyan.png");
 	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");

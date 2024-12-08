@@ -16,11 +16,16 @@ class SpriteRenderable : public Renderable
 	std::shared_ptr<Animator> GetAnimator() const { return _animator; }
 	std::shared_ptr<AnimationSheet> GetSheet() const { return _sheet; }
 
+	bool GetVisible() const { return _visible; }
+	void SetVisible(bool vis) { _visible = vis; }
+
 protected:
 	std::string _spriteName;
 	SpriteData* _spriteData;
 
 	std::shared_ptr<Animator> _animator;
 	std::shared_ptr<AnimationSheet> _sheet;
+
+	bool _visible{true};
 
 };
