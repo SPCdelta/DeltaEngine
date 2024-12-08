@@ -28,7 +28,6 @@ private:
 	void SortHotbar(Uint8 index);
 	Uint8 GetAvailableIndex() const;
 	bool HasItem(const Item& item);
-	// key = hotbar slot, value = item sprite
 	std::vector<Slot> _hotbar;
 };
 

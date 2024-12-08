@@ -64,10 +64,6 @@ class LayerScene : public Scene
 		effrvscntPotionObj2->AddComponent<WorldItem>(worldItem3);
 		effrvscntPotionObj2->SetTag("item");
 
-		const auto viewport = GetWindow()->GetViewport();
-		const int windowWidth = viewport.width;
-		const int windowHeight = viewport.height;
-
 		_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 	}
 
