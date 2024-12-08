@@ -2,7 +2,7 @@
 
 Inventory::Inventory() {}
 
-void Inventory::AddItem(Item item, int amount) 
+void Inventory::AddItem(const Item& item, int amount) 
 {
 	if (_items.size() == 0)
 	{
@@ -27,7 +27,7 @@ void Inventory::AddItem(Item item, int amount)
 	}
 }
 
-void Inventory::RemoveItem(std::string itemName, int amount)
+void Inventory::RemoveItem(const Item& item, int amount)
 {
 	if (_items.size() <= 0)
 	{
@@ -36,7 +36,7 @@ void Inventory::RemoveItem(std::string itemName, int amount)
 
 	for (size_t i = 0; i < _items.size(); i++)
 	{
-		if (_items[i]->GetItem().GetName() == itemName)
+		if (_items[i]->GetItem() == item)
 		{
 			if (amount < _items[i]->GetAmount())
 			{
@@ -49,7 +49,7 @@ void Inventory::RemoveItem(std::string itemName, int amount)
 					std::remove_if(
 						_items.begin(), _items.end(),
 						[&](const std::shared_ptr<InventoryItem>& elem) {
-							return elem->GetItem().GetName() == itemName;
+							return elem->GetItem() == item;
 						}),
 					_items.end());
 			}
@@ -84,7 +84,7 @@ int Inventory::GetItemAmount()
 
 std::shared_ptr<InventoryItem> Inventory::GetItem(int index)
 {
-	return _items[index];
+	return _items.size() == 0 ? nullptr : _items[index];
 }
 
 void Inventory::Clear()

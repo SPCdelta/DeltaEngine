@@ -7,7 +7,7 @@ const std::string& Item::GetName() const
 	return _name;
 }
 
-std::string Item::GetSprite()
+const std::string& Item::GetSprite() const
 {
 	return _sprite;
 }

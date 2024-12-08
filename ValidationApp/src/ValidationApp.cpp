@@ -83,20 +83,32 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
 	ResourceManager::AddSprite("cyanPotion", "Assets\\Textures\\Items\\potions\\cyan.png");
+	ResourceManager::AddSprite("potion_effervescent", "Assets\\Textures\\Items\\potions\\potion_effervescent.png");
 	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
+	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
+	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
+
+	// UI
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
 	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");
 	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
 	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
-	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
-	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
+
+	// HUD
+	ResourceManager::AddSprite("bar", "Assets\\Textures\\HUD\\bar.png");
+	ResourceManager::AddSprite("bar_frame", "Assets\\Textures\\HUD\\bar_frame.png");
+	ResourceManager::AddSprite("coin", "Assets\\Textures\\Items\\coin.png");
+	ResourceManager::AddSprite("health_bar", "Assets\\Textures\\HUD\\health_bar.png");
+	ResourceManager::AddSprite("shield_bar", "Assets\\Textures\\HUD\\shield_bar.png");
+	ResourceManager::AddSprite("hotbar_slot", "Assets\\Textures\\HUD\\hotbar_slot.png");
 
 	// Fonts
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
 	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
+	ResourceManager::AddFont("goblin","Assets\\Fonts\\a_goblin_appears.ttf");
 }

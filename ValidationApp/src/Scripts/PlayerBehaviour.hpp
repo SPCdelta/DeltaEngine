@@ -37,6 +37,8 @@ public:
 	void LoadPlayer();
 	void SavePlayer();
 
+	Player& GetPlayer() const { return *_player; }
+
 	// Components
 	Sprite* sprite = nullptr;
 	Rigidbody* rigidbody = nullptr;
@@ -68,7 +70,7 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
-	Player _player;
+	std::unique_ptr<Player> _player;
 
 	bool _attacking{false};
 	float _attackTime{0.0f};
