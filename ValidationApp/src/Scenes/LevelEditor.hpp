@@ -50,18 +50,18 @@ public:
     void WorldView()
     {
         float speed = 0.3f;
-        InputManager::keyPressed(KEY_D, [this, speed](Input& e){
+        _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e){
             _camera->AddToPosition({ speed,0.f});
-        });
-        InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
+        }));
+        _inputs.push_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
             _camera->AddToPosition({ -speed,0.f });
-        });
-        InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
+        }));
+        _inputs.push_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
             _camera->AddToPosition({ 0.f,-speed });
-        });
-        InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
+        }));
+        _inputs.push_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
             _camera->AddToPosition({ 0.f,speed });
-        });
+        }));
     }
 
     void SaveButton(const float rightBarStart)
@@ -163,7 +163,7 @@ public:
 
         auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
 
-            CleanOptionTiles();
+            HiddeOptionTiles();
             auto startIt = sprites.begin();
 
             _tileIndexOptions += wheelDirection;
@@ -198,7 +198,7 @@ public:
     void makeNewTile(const std::string& spriteName, const std::string& category)
     {
         auto mousePos = InputManager::GetMousePosition();
-        _tiles.emplace_back(Instantiate({ {mousePos.mouseX - 0.5f, mousePos.mouseY - 0.5f}, 0.0f, {1.0f, 1.0f} }));
+        _tiles.emplace_back(Instantiate({ {mousePos.mouseX, mousePos.mouseY }, 0.0f, {1.0f, 1.0f} }));
         auto& tile = _tiles.back();
         tile->SetTag(category);
         auto draggable = tile->AddComponent<SnapToGridDraggable>();
@@ -213,17 +213,22 @@ public:
             tile->Destroy(tile.get());
             });
 
-        InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
+        _inputs.push_back(InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
             if (!draggable->isBingDragged())
                 return;
             sprite->SetLayer(_layer);
             draggable->SetCategory("Ui:layer - " + LayerHelper::GetString(_layer));
-            });
+            }));
+    }
+
+    ~LevelEditor()
+    {
+        CleanUp();
     }
 
 private:
     
-    void CleanOptionTiles(){
+    void HiddeOptionTiles(){
         for (auto& option : _optionTiles)
         {
             option->transform->position.Set({ -SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR });
@@ -232,9 +237,19 @@ private:
         }
     }
 
+    void CleanUp(){
+        for (auto& input : _inputs)
+        {
+            InputManager::GetInstance().remove(input);
+        }
+    
+    }
+
     std::vector<std::shared_ptr<GameObject>> _tiles;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
     int _tileIndexOptions = 0;
+
+    std::vector<InputLocation> _inputs;
 
     Layer _layer = Layer::Default;
 
