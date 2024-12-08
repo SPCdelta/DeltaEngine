@@ -12,21 +12,31 @@ public:
 
 	}
 
+	void AddToPosition(const Math::Vector2 direction)
+	{
+		transform.position.Add(direction);
+	}
+
 	void SetPosition(const Math::Vector2 position)
 	{ 
 		transform.position.Set(position);
 	}
+
 	void SetViewportData(ViewportData* viewportData)
 	{
 		_viewportData = viewportData;
+	}
+
+	Math::Vector2 ScreenToWorldPoint(const Math::Vector2 position){
+		return ScreenToWorldPoint(position.GetX(), position.GetY());
 	}
 
 	Math::Vector2 ScreenToWorldPoint(int screenX, int screenY)
 	{
 		return 
 		{ 
-			static_cast<float>(screenX) / static_cast<float>(_viewportData->unitPixelSize),
-			static_cast<float>(-screenY + _viewportData->height) / static_cast<float>(_viewportData->unitPixelSize)
+			static_cast<float>(screenX) / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetX(),
+			static_cast<float>(-screenY + _viewportData->height) / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetY()
 		};
 	}
 

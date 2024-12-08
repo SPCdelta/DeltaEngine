@@ -44,6 +44,24 @@ public:
         SaveButton(rightBarStart);
         LayerChanger(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
         TopBar(windowWidth, titleLeftPadding, topBarHeight);
+        WorldView();
+    }
+
+    void WorldView()
+    {
+        float speed = 0.3f;
+        InputManager::keyPressed(KEY_D, [this, speed](Input& e){
+            _camera->AddToPosition({ speed,0.f});
+        });
+        InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
+            _camera->AddToPosition({ -speed,0.f });
+        });
+        InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
+            _camera->AddToPosition({ 0.f,-speed });
+        });
+        InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
+            _camera->AddToPosition({ 0.f,speed });
+        });
     }
 
     void SaveButton(const float rightBarStart)
@@ -68,18 +86,22 @@ public:
                 auto& tileJson = tilesJson["tiles"][i];
                 TransformDTO::ToJson(tileJson, _tiles[i]->GetComponent<Transform>());
                 tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = tileJson["spriteName"];
+                tileJson["tag"] = SPRITE_CATEGORY[0];
                 tileJson["layer"] = _tiles[i]->GetLayer();
             } else if (_tiles[i]->GetTag() == SPRITE_CATEGORY[1]){ //player
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson["transform"], _tiles[i]->GetComponent<Transform>());
                 tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = tileJson["spriteName"];
+                tileJson["tag"] = SPRITE_CATEGORY[1];
                 tileJson["layer"] = _tiles[i]->GetLayer();
             }
 
         }
-        fileManager.Save("Assets\\Files\\LevelEditor.json", "json", tilesJson);
+
+        std::string name = "level-1";
+        std::string saveFile = "Assets\\Files\\Level\\" + name + ".json";
+
+        fileManager.Save(saveFile, "json", tilesJson);
 
     }
 

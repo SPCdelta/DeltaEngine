@@ -34,6 +34,7 @@ public:
 				if (bingDragged)
 					return;
 				auto mousevector = _camera->ScreenToWorldPoint(e.mouseX, e.mouseY);
+				//auto worldPos = _camera->ScreenToWorldPoint(_transform->position);
 				if (!Math::MathUtils::IsVector2WithinRect(mousevector, _transform->position, _transform->scale))
 					return;
 
