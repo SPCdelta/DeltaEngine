@@ -19,18 +19,24 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 
 	menuView.SetButtonTexture(0, "scroll2");
 	menuView.SetButtonTextColor(-1, {255, 255, 255, 255});
+	menuView.SetButtonTexture(1, "scroll2");
 
 	menuView.SetButtonPosition(0, {435, 175});
 	menuView.SetButtonScale(0, {400, 100});
 
+	menuView.SetButtonPosition(1, { 435, 175 });
+	menuView.SetButtonScale(1, { 400, 100 });
+
 	menuView.SetButtonText(0, "Start");
-	menuView.SetButtonText(1, "Options");
+	menuView.SetButtonText(1, "Level Editor");
 	menuView.SetButtonText(2, "Dev");
 	menuView.SetButtonText(3, "Quit");
 	menuView.AddButtonTextPosition(-1, {65, 15});
 	menuView.AddButtonTextPosition(0, {15, 0});
+	menuView.AddButtonTextPosition(1, {15, 0});
 	menuView.AddButtonTextPosition(2, {45, 0});
 	menuView.AddButtonTextPosition(3, {40, 0});
+	menuView.SetButtonOnLeftMouseClickLoadScene(1, *this, "LevelEditorLevelChose", "Level Editor");
 	menuView.SetButtonOnLeftMouseClickLoadScene(2, *this, "DevScene", "Main Menu");
 	menuView.SetButtonSFX(-1, "Assets\\Audio\\SFX\\Button_1.mp3");
 

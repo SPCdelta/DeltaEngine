@@ -203,6 +203,7 @@
   <ItemGroup>
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorLevelChose.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
   </ItemGroup>
   <ItemGroup>
