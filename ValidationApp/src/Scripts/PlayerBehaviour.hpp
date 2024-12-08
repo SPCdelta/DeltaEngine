@@ -30,7 +30,6 @@ public:
 		delete _floorBehaviour;
 		delete _damageBehaviour;
 		delete _pickUpBehaviour;
-		delete _player;
 	}
 
 	void ThrowBoomerang();
@@ -71,7 +70,7 @@ private:
 
 	FloorType _onFloor{ FloorType::NORMAL };
 
-	Player* _player;
+	std::unique_ptr<Player> _player;
 
 	bool _attacking{false};
 	float _attackTime{0.0f};

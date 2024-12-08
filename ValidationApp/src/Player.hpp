@@ -8,12 +8,8 @@
 class Player
 {
    public:
-	Player(int shield = 25, int damage = 10, int speed = 10, int health = 95) : _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{health}, _coins{0} 
-	{
-		_inventory = new Inventory();
-	}
-
-	~Player();
+	Player(int shield = 25, int damage = 10, int speed = 10, int health = 95) : _shield{shield}, _attackDamage{damage}, 
+		_speed{speed}, _health{health}, _coins{0}, _inventory{std::make_unique<Inventory>()} {}
 
 	void SetShield(int shield);
 	void SetAttackDamage(int damage);
@@ -59,5 +55,5 @@ class Player
 	std::vector<std::function<void(int)>> _shieldObservers;
 	std::vector<std::function<void(int)>> _coinObservers;
 	std::vector<std::function<void(const Item& item, int amount)>> _inventoryObservers;
-	Inventory* _inventory;
+	std::unique_ptr<Inventory> _inventory;
 };

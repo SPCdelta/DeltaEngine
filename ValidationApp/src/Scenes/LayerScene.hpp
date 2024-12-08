@@ -68,5 +68,5 @@ class LayerScene : public Scene
 	}
 
 private:
-	std::unique_ptr<HUDView> _hud; // TODO: encapsulate
+	std::unique_ptr<HUDView> _hud;
 };

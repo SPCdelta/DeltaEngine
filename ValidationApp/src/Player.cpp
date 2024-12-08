@@ -1,10 +1,5 @@
 #include "Player.hpp"
 
-Player::~Player()
-{
-	delete _inventory;
-}
-
 void Player::SetShield(int shield)
 {
 	if (shield < 0)

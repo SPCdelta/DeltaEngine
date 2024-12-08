@@ -2,7 +2,7 @@
 
 void PlayerBehaviour::OnStart() 
 {
-	_player = new Player{};
+	_player = std::make_unique<Player>();
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
