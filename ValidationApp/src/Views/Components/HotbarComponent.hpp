@@ -26,9 +26,9 @@ private:
 	void IncrementItem(const Item& item, int amount);
 	void DeleteItem(const Item& item);
 	void SortHotbar(Uint8 index);
+	Uint8 GetAvailableIndex() const;
 	bool HasItem(const Item& item);
 	// key = hotbar slot, value = item sprite
 	std::vector<Slot> _hotbar;
-	Uint8 _counter = 0; // used to remember which slot is not filled with an item.
 };
 

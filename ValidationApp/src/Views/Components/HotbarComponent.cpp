@@ -27,7 +27,7 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 
 void HotbarComponent::InventoryChanged(const Item& item, int amount)
 {
-	if (_counter > _hotbar.size())
+	if (GetAvailableIndex() == UINT8_MAX)
 	{
 		return;
 	}
@@ -67,16 +67,16 @@ Uint8 HotbarComponent::GetIndex(const Item& item) const
 
 void HotbarComponent::AddItem(const Item& item, int amount)
 {
-	_hotbar[_counter].itemName = item.GetName();
+	auto index = GetAvailableIndex();
+	_hotbar[index].itemName = item.GetName();
 	auto itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({
-		_hotbar[_counter].slot->transform->position,
+		_hotbar[index].slot->transform->position,
 		0.0f,
-		_hotbar[_counter].slot->transform->scale }) };
+		_hotbar[index].slot->transform->scale }) };
 	itemIcon->AddComponent<Ui::Image>(item.GetSprite());
 	itemIcon->AddComponent<Ui::Text>(std::to_string(amount), _fontName, 20, DEFAULT_COLOR);
-	_hotbar[_counter].itemIcon = itemIcon;
-	_hotbar[_counter].amount += amount;
-	++_counter;
+	_hotbar[index].itemIcon = itemIcon;
+	_hotbar[index].amount += amount;
 }
 
 void HotbarComponent::IncrementItem(const Item& item, int amount)
@@ -95,19 +95,41 @@ void HotbarComponent::IncrementItem(const Item& item, int amount)
 
 void HotbarComponent::DeleteItem(const Item& item)
 {
-	auto& slot = _hotbar[GetIndex(item)];
+	auto index = GetIndex(item);
+	auto& slot = _hotbar[index];
 	slot.amount = 0;
 	slot.itemName = "";
 	_scene.DestroyObject(slot.itemIcon.get());
-	--_counter;
+	SortHotbar(index);
 }
 
 void HotbarComponent::SortHotbar(Uint8 index)
 {
-	for (Uint8 i = index; i < _hotbar.size(); ++i)
+	for (Uint8 i = index; i < _hotbar.size()-1; ++i)
 	{
-		_hotbar.swap(_hotbar[i], ++i);
+		std::swap(_hotbar[i], _hotbar[++i]);
 	}
+}
+
+
+Uint8 HotbarComponent::GetAvailableIndex() const
+{
+	auto result = std::find_if(_hotbar.begin(), _hotbar.end(), [](const Slot& slot)
+		{
+			return slot.itemName.empty();
+		});
+
+	Uint8 index = 0;
+	if (result != _hotbar.end())
+	{
+		index = static_cast<Uint8>(std::distance(_hotbar.begin(), result));
+	}
+	else
+	{
+		index = UINT8_MAX;
+	}
+
+	return index;
 }
 
 bool HotbarComponent::HasItem(const Item& item)
