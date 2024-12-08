@@ -13,11 +13,6 @@
 class LevelEditor : public Scene
 {
 public:
-    // Constructor
-    LevelEditor(const std::string& sceneName) : Scene(sceneName) {
-        MakeSaveFilePath();
-    
-    }
 
     // Constants
     static constexpr float PADDING_TOP = 50.0f;
@@ -30,10 +25,57 @@ public:
     static constexpr float TITLE_WIDTH = 80.0f;
     static constexpr float TITLE_FONT_SIZE = 24.0f;
     static constexpr float SAVE_FONT_SIZE = 20.0f;
+
     const std::string LEVEL_PATH = "Assets\\Level\\";
-
-
     const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles" , "player" };
+
+    // Constructor
+    LevelEditor(const std::string& sceneName) : Scene(sceneName) {
+        _saveFileName = "level-1";
+
+        _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
+    }
+
+    void InitLevelEditor(const std::string& level){
+
+        if (level.empty()){
+            MakeSaveFilePath();
+            return;
+        }
+        FileManager fileManager;
+
+        Json::json loadTiles = fileManager.Load(LEVEL_PATH + level + ".json", "json");
+        if (loadTiles.contains("tiles"))
+        {
+            for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+            {
+                auto& tile = loadTiles["tiles"][i];
+
+
+                if (tile.contains("transform") && tile.contains("sprite") && tile.contains("tag"))
+                {
+                    Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
+                    _layer = layer;
+                    makeNewTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
+                    _tiles.back()->SetTag(SPRITE_CATEGORY[0]);
+                    _tiles.back()->GetComponent<SnapToGridDraggable>().SetDraggeble(false);
+                }
+            }
+        }
+        if (loadTiles.contains(SPRITE_CATEGORY[1]))
+        {
+            auto& player = loadTiles[SPRITE_CATEGORY[1]];
+            if (player.contains("transform") && player.contains("sprite") && player.contains("tag"))
+            {
+                Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
+                _layer = layer;
+                makeNewTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
+                _tiles.back()->SetTag(SPRITE_CATEGORY[1]);
+                _tiles.back()->GetComponent<SnapToGridDraggable>().SetDraggeble(false);
+            }
+        }
+    }
+
 
     void OnStart() override
     {
@@ -45,6 +87,9 @@ public:
         const float titleLeftPadding = windowWidth / 2 - TITLE_WIDTH / 2;
 
         const float rightBarStart = windowWidth - RIGHT_BAR_WIDTH;
+
+        InitLevelEditor(_saveFileName);
+
 
         SaveButton(rightBarStart);
         LayerChanger(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
@@ -85,20 +130,24 @@ public:
         FileManager fileManager;
 
         Json::json tilesJson;
-        for (size_t i = 0; i < _tiles.size(); i++)
+        int tileCounter = 0;
+
+        for (auto& tile : _tiles)
         {
-            if (_tiles[i]->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
-                auto& tileJson = tilesJson["tiles"][i];
-                TransformDTO::ToJson(tileJson, _tiles[i]->GetComponent<Transform>());
-                tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = String::split(tileJson["spriteName"], '_')[0];
-                tileJson["layer"] = _tiles[i]->GetLayer();
-            } else if (_tiles[i]->GetTag() == SPRITE_CATEGORY[1]){ //player
+            if (tile->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
+                auto& tileJson = tilesJson["tiles"][tileCounter];
+                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
+                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
+                tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
+                tileJson["sprite"]["layer"] = tile->GetLayer();
+                tileCounter++;
+
+            } else if (tile->GetTag() == SPRITE_CATEGORY[1]){ //player
                 auto& tileJson = tilesJson["player"];
-                TransformDTO::ToJson(tileJson["transform"], _tiles[i]->GetComponent<Transform>());
-                tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = String::split(tileJson["spriteName"], '_')[0];
-                tileJson["layer"] = _tiles[i]->GetLayer();
+                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
+                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
+                tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
+                tileJson["sprite"]["layer"] = tile->GetLayer();
             }
 
         }
@@ -201,10 +250,19 @@ public:
 
     }
 
-    void makeNewTile(const std::string& spriteName, const std::string& category)
+    void makeNewTile(const std::string& spriteName, const std::string& category, Transform transform){
+        _tiles.emplace_back(Instantiate(transform));
+        makeNewTile(spriteName, category, false);
+
+    }
+
+    void makeNewTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
     {
-        auto mousePos = InputManager::GetMousePosition();
-        _tiles.emplace_back(Instantiate({ {mousePos.mouseX, mousePos.mouseY }, 0.0f, {1.0f, 1.0f} }));
+        if (mousePos){
+            auto mousePos = InputManager::GetMousePosition();
+            _tiles.emplace_back(Instantiate({ {mousePos.mouseX, mousePos.mouseY }, 0.0f, {1.0f, 1.0f} }));
+        }
+
         auto& tile = _tiles.back();
         tile->SetTag(category);
         auto draggable = tile->AddComponent<SnapToGridDraggable>();

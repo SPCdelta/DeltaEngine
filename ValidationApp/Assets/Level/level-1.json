@@ -1,0 +1,112 @@
+{
+    "player": {
+        "sprite": {
+            "layer": 3,
+            "name": "player"
+        },
+        "tag": "player",
+        "transform": {
+            "position": {
+                "x": 9.0,
+                "y": 10.5
+            },
+            "rotation": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        }
+    },
+    "tiles": [
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_3_new"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 21.0,
+                    "y": 14.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_3"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 27.0,
+                    "y": 7.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_5"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 14.0,
+                    "y": 8.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_2"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 18.0,
+                    "y": 8.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_1_new"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 22.0,
+                    "y": 7.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        }
+    ]
+}

@@ -76,6 +76,9 @@ public:
 			}, _category));
 	}
 
+	void SetDraggeble(bool value){
+		bingDragged = value;
+	}
 
 	~SnapToGridDraggable()
 	{
