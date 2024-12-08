@@ -95,6 +95,20 @@ public:
 
         int maxtileIndexOptions = sprites.size() / maxOptionPerRow;
 
+        for (auto& [key, value] : sprites)
+        {
+            _optionTiles.emplace_back(Instantiate({
+                    {-SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR},
+                    0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
+
+
+            _optionTiles.back()->AddComponent<Ui::Image>(key);
+            _optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
+                [this, key]() {
+                    makeNewTile(key);
+                }, "UI:Leveleditor-" + key);
+        }
+
         auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
 
             CleanOptionTiles();
@@ -110,16 +124,12 @@ public:
 
             int index = 0;
             for (auto pair = startIt; pair != sprites.end() && index < maxOptionPerRow; ++pair) {
-                _optionTiles.emplace_back(Instantiate({
-                    {SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP},
-                    0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
 
-                const std::string& key = pair->first;
-                _optionTiles.back()->AddComponent<Ui::Image>(key);
-                _optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
-                    [this, key]() { 
-                        makeNewTile(key);
-                    }, "UI:Leveleditor");
+                auto tileoption = _optionTiles.at(maxOptionPerRow * _tileIndexOptions + index);
+
+                tileoption->transform->position.Set({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });
+                tileoption->GetComponent<Ui::Button>().SetPosition({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });
+
                 index++;
             }
 
@@ -164,9 +174,10 @@ private:
     void CleanOptionTiles(){
         for (auto& option : _optionTiles)
         {
-            option->Destroy(option.get());
+            option->transform->position.Set({ -SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR });
+            option->GetComponent<Ui::Button>().SetPosition({ -SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR });
+
         }
-        _optionTiles.clear();
     }
 
     std::vector<std::shared_ptr<GameObject>> _tiles;
