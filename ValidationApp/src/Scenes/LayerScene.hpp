@@ -2,10 +2,9 @@
 
 #include "Engine/Delta.hpp"
 #include "../Scripts/EnemyBehaviour.hpp"
-#include "../Views/Components/HealthComponent.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
 #include <memory>
-#include "../Views/Components/HotbarComponent.hpp"
+#include "../Views/HUDView.hpp"
 
 class LayerScene : public Scene
 {
@@ -68,21 +67,10 @@ class LayerScene : public Scene
 		const auto viewport = GetWindow()->GetViewport();
 		const int windowWidth = viewport.width;
 		const int windowHeight = viewport.height;
-		_playerHealthBar = std::make_unique<HealthComponent>(
-			*this,
-			"",
-			Math::Vector2{ windowHeight/2, 550 },
-			Math::Vector2{ 600, 30 },
-			playerObject->GetComponent<PlayerBehaviour>().GetPlayer()
-		);
-		_playerHotbar = std::make_unique<HotbarComponent>(
-			*this, 6, "goblin",
-			Math::Vector2{ windowHeight / 2, 620 },
-			Math::Vector2{ 100, 100 },
-			playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
+
+		_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 	}
 
 private:
-	std::unique_ptr<HealthComponent> _playerHealthBar; // TODO: encapsulate
-	std::unique_ptr<HotbarComponent> _playerHotbar; // TODO: encapsulate
+	std::unique_ptr<HUDView> _hud; // TODO: encapsulate
 };

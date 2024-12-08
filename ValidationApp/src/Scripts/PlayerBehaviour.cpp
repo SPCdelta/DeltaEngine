@@ -37,6 +37,8 @@ void PlayerBehaviour::OnStart()
 	onKeyPressed(KEY_C, [this](Input& e) { _player->AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay");
 	onKeyPressed(KEY_V, [this](Input& e) { _player->RemoveItemFromInventory(Item("item1", "cyanPotion"), 5);}, "Gameplay");
 	onKeyPressed(KEY_B, [this](Input& e) { _player->PrintInventory(); }, "Gameplay");
+	onKeyPressed(KEY_Y, [this](Input& e) { _player->SetShield(69); }, "Gameplay");
+	onKeyPressed(KEY_Q, [this](Input& e) { _player->SetCoins(69); }, "Gameplay");
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 }

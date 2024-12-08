@@ -11,6 +11,8 @@ void Player::SetShield(int shield)
 		_shield = 0;
 	else
 		_shield = shield;
+
+	NotifyShieldChanged();
 }
 
 void Player::SetAttackDamage(int damage) 
@@ -110,9 +112,11 @@ int Player::GetCoins() const
 
 void Player::SetCoins(int coins)
 {
+
 	if (coins < 0)
 		_coins = 0;
 	else
+		NotifyCoinsChanged(coins - _coins);
 		_coins = coins;
 }
 
@@ -121,6 +125,22 @@ void Player::NotifyHealthChanged()
 	for (const auto& observer : _healthObservers)
 	{
 		observer(_health);
+	}
+}
+
+void Player::NotifyCoinsChanged(int coins)
+{
+	for (const auto& observer : _coinObservers)
+	{
+		observer(coins);
+	}
+}
+
+void Player::NotifyShieldChanged()
+{
+	for (const auto& observer : _shieldObservers)
+	{
+		observer(_shield);
 	}
 }
 
