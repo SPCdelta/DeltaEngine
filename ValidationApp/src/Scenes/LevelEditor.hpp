@@ -14,7 +14,10 @@ class LevelEditor : public Scene
 {
 public:
     // Constructor
-    LevelEditor(const std::string& sceneName) : Scene(sceneName) {}
+    LevelEditor(const std::string& sceneName) : Scene(sceneName) {
+        MakeSaveFilePath();
+    
+    }
 
     // Constants
     static constexpr float PADDING_TOP = 50.0f;
@@ -88,31 +91,25 @@ public:
                 auto& tileJson = tilesJson["tiles"][i];
                 TransformDTO::ToJson(tileJson, _tiles[i]->GetComponent<Transform>());
                 tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = tileJson["spriteName"];
+                tileJson["tag"] = String::split(tileJson["spriteName"], '_')[0];
                 tileJson["layer"] = _tiles[i]->GetLayer();
             } else if (_tiles[i]->GetTag() == SPRITE_CATEGORY[1]){ //player
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson["transform"], _tiles[i]->GetComponent<Transform>());
                 tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = tileJson["spriteName"];
+                tileJson["tag"] = String::split(tileJson["spriteName"], '_')[0];
                 tileJson["layer"] = _tiles[i]->GetLayer();
             }
 
         }
-        MakeSaveFileName();
         fileManager.Save(_saveFilePath, "json", tilesJson);
     }
 
-    void MakeSaveFileName(){
+    void MakeSaveFilePath(){
         auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
-        std::string name;
-        if (fileNames.size() == 0) {
-            name = "level-1";
-        }
-        else {
-            name = "level-" + std::to_string(fileNames.size() + 1);
-        }
-        std::string _saveFile = LEVEL_PATH + name + ".json";
+        _saveFileName = "level-" + std::to_string(fileNames.size() + 1);
+        
+        _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
 
     }
 
@@ -149,6 +146,8 @@ public:
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
+        auto title = titleTxt->AddComponent<Ui::Text>("Level: " + _saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        title->SetBackground({ 255, 255, 255, 255 });
 
         std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
 
@@ -253,6 +252,7 @@ private:
 
 
     std::string _saveFilePath;
+    std::string _saveFileName;
 
     std::vector<std::shared_ptr<GameObject>> _tiles;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;

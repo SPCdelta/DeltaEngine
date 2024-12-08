@@ -25,6 +25,9 @@
 #include "Core/Math/Math.hpp"
 #include "Core/Math/MathUtils.hpp"
 
+// String
+#include "Core/StringHelper.hpp"
+
 // Rendering
 #include "Rendering/Layer.hpp"
 #include "Rendering/SpriteMap.hpp"

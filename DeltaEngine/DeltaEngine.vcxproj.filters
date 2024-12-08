@@ -114,6 +114,7 @@
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\UI\Scrollable.hpp" />
     <ClInclude Include="Engine\Core\Files\DTO\FloorDTO.h" />
+    <ClInclude Include="Engine\Core\StringHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
