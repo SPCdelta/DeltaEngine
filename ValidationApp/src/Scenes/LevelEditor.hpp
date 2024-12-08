@@ -27,6 +27,8 @@ public:
     static constexpr float TITLE_WIDTH = 80.0f;
     static constexpr float TITLE_FONT_SIZE = 24.0f;
     static constexpr float SAVE_FONT_SIZE = 20.0f;
+    const std::string LEVEL_PATH = "Assets\\Level\\";
+
 
     const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles" , "player" };
 
@@ -86,22 +88,31 @@ public:
                 auto& tileJson = tilesJson["tiles"][i];
                 TransformDTO::ToJson(tileJson, _tiles[i]->GetComponent<Transform>());
                 tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = SPRITE_CATEGORY[0];
+                tileJson["tag"] = tileJson["spriteName"];
                 tileJson["layer"] = _tiles[i]->GetLayer();
             } else if (_tiles[i]->GetTag() == SPRITE_CATEGORY[1]){ //player
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson["transform"], _tiles[i]->GetComponent<Transform>());
                 tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = SPRITE_CATEGORY[1];
+                tileJson["tag"] = tileJson["spriteName"];
                 tileJson["layer"] = _tiles[i]->GetLayer();
             }
 
         }
+        MakeSaveFileName();
+        fileManager.Save(_saveFilePath, "json", tilesJson);
+    }
 
-        std::string name = "level-1";
-        std::string saveFile = "Assets\\Files\\Level\\" + name + ".json";
-
-        fileManager.Save(saveFile, "json", tilesJson);
+    void MakeSaveFileName(){
+        auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
+        std::string name;
+        if (fileNames.size() == 0) {
+            name = "level-1";
+        }
+        else {
+            name = "level-" + std::to_string(fileNames.size() + 1);
+        }
+        std::string _saveFile = LEVEL_PATH + name + ".json";
 
     }
 
@@ -238,8 +249,10 @@ private:
         {
             InputManager::GetInstance().remove(input);
         }
-    
     }
+
+
+    std::string _saveFilePath;
 
     std::vector<std::shared_ptr<GameObject>> _tiles;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
