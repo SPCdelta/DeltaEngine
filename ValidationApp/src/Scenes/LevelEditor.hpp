@@ -125,7 +125,6 @@ public:
 
                 layer->SetText("Layer: " + LayerHelper::GetString(_layer));
             }
-
         });
     }
 
@@ -133,15 +132,12 @@ public:
 
     void TopBar(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
-
         const float imagespace = (SCALE_IN_UI_BAR + PADDING);
         
         const int maxOptionPerRow = (windowWidth - PADDING_OUT_LEFT_UI * 2 - RIGHT_BAR_WIDTH) / imagespace;
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto title = titleTxt->AddComponent<Ui::Text>("Tiles", "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
-        title->SetBackground({ 255, 255, 255, 255 });
 
         std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
 
