@@ -28,6 +28,8 @@ public:
     static constexpr float TITLE_FONT_SIZE = 24.0f;
     static constexpr float SAVE_FONT_SIZE = 20.0f;
 
+    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles" , "player" };
+
     void OnStart() override
     {
         const auto viewport = GetWindow()->GetViewport();
@@ -50,9 +52,35 @@ public:
             Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.2f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
         };
         saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
-        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([]() {
-            std::cout << "Level saved!!! test";
+        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
+            SaveLevel();
             }, "UI");
+    }
+
+    void SaveLevel(){
+
+        FileManager fileManager;
+
+        Json::json tilesJson;
+        for (size_t i = 0; i < _tiles.size(); i++)
+        {
+            if (_tiles[i]->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
+                auto& tileJson = tilesJson["tiles"][i];
+                TransformDTO::ToJson(tileJson, _tiles[i]->GetComponent<Transform>());
+                tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
+                tileJson["tag"] = tileJson["spriteName"];
+                tileJson["layer"] = _tiles[i]->GetLayer();
+            } else if (_tiles[i]->GetTag() == SPRITE_CATEGORY[1]){ //player
+                auto& tileJson = tilesJson["player"];
+                TransformDTO::ToJson(tileJson["transform"], _tiles[i]->GetComponent<Transform>());
+                tileJson["spriteName"] = _tiles[i]->GetComponent<Sprite>().GetSprite();
+                tileJson["tag"] = tileJson["spriteName"];
+                tileJson["layer"] = _tiles[i]->GetLayer();
+            }
+
+        }
+        fileManager.Save("Assets\\Files\\LevelEditor.json", "json", tilesJson);
+
     }
 
     void LayerChanger(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
@@ -79,6 +107,8 @@ public:
         });
     }
 
+
+
     void TopBar(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
 
@@ -91,7 +121,7 @@ public:
         auto title = titleTxt->AddComponent<Ui::Text>("Tiles", "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         title->SetBackground({ 255, 255, 255, 255 });
 
-        std::map<std::string, SpriteData*> sprites = ResourceManager::GetSprites({ "floor_tiles" });
+        std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
 
         int maxtileIndexOptions = sprites.size() / maxOptionPerRow;
 
@@ -104,8 +134,8 @@ public:
 
             _optionTiles.back()->AddComponent<Ui::Image>(key);
             _optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
-                [this, key]() {
-                    makeNewTile(key);
+                [this, key, value]() {
+                    makeNewTile(key, value->category);
                 }, "UI:Leveleditor-" + key);
         }
 
@@ -143,11 +173,12 @@ public:
 
     }
 
-    void makeNewTile(const std::string& spriteName)
+    void makeNewTile(const std::string& spriteName, const std::string& category)
     {
         auto mousePos = InputManager::GetMousePosition();
         _tiles.emplace_back(Instantiate({ {mousePos.mouseX - 0.5f, mousePos.mouseY - 0.5f}, 0.0f, {1.0f, 1.0f} }));
         auto& tile = _tiles.back();
+        tile->SetTag(category);
         auto draggable = tile->AddComponent<SnapToGridDraggable>();
         auto sprite = tile->AddComponent<Sprite>(spriteName);
         sprite->SetLayer(_layer);
@@ -157,7 +188,6 @@ public:
             });
 
         draggable->RemoveOnKey(KEY_Q, [this, tile](){
-            //_tiles.erase(std::remove(_tiles.begin(), _tiles.end(), tile), _tiles.end());
             tile->Destroy(tile.get());
             });
 

@@ -2,6 +2,7 @@
 
 #include "TextureManager.hpp"
 #include "../UI/FontManager.hpp"
+#include <unordered_map>
 #include <algorithm>
 
 class SpriteMap;
@@ -54,12 +55,12 @@ public:
 		return instance._sprites[name];
 	}
 
-	static std::map<std::string, SpriteData*>& GetAllSprites() {
+	static std::unordered_map<std::string, SpriteData*>& GetAllSprites() {
 		return instance._sprites;
 	}
 
-	static std::map<std::string, SpriteData*> GetSprites(std::vector<std::string> categories){
-		std::map<std::string, SpriteData*> result;
+	static std::unordered_map<std::string, SpriteData*> GetSprites(std::vector<std::string> categories){
+		std::unordered_map<std::string, SpriteData*> result;
 		for (const auto& pair : instance._sprites) {
 			if (pair.second && std::find(categories.begin(), categories.end(), pair.second->category) != categories.end() ) {
 				result[pair.first] = pair.second;
@@ -77,8 +78,8 @@ public:
 
 private:
 	static ResourceManager instance;
-	std::map<std::string, SpriteData*> _sprites;
-	std::map<std::string, Font::Font*> _fonts;
+	std::unordered_map<std::string, SpriteData*> _sprites;
+	std::unordered_map<std::string, Font::Font*> _fonts;
 
 	ResourceManager() { }
 	~ResourceManager()

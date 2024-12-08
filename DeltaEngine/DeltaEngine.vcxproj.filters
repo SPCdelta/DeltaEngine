@@ -107,12 +107,13 @@
     <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
-    <ClInclude Include="Engine\TransformDTO.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\UI\SnapToGridDraggable.hpp" />
     <ClInclude Include="Engine\Core\Math\Math.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\UI\Scrollable.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\FloorDTO.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

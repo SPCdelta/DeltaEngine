@@ -238,6 +238,7 @@
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
     <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\FloorDTO.h" />
     <ClInclude Include="Engine\Core\Files\IFileHandler.hpp" />
     <ClInclude Include="Engine\Core\Files\Json.hpp" />
     <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />
@@ -286,7 +287,7 @@
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Core\Time.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />
-    <ClInclude Include="Engine\TransformDTO.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
     <ClInclude Include="Engine\UI\Scrollable.hpp" />
     <ClInclude Include="Engine\UI\SnapToGridDraggable.hpp" />

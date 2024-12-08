@@ -13,7 +13,7 @@
 
 // Files
 #include "Core/Files/FileManager.hpp"
-#include "TransformDTO.hpp"
+#include "Core/Files/DTO/TransformDTO.hpp"
 
 //Audio
 #include "Audio/AudioManager.hpp"
