@@ -31,7 +31,6 @@ public:
 	std::shared_ptr<GameObject>& GetButton(Uint8 id);
 	Ui::Text& GetButtonText(Uint8 id);
 private:
-	const Rendering::Color DEFAULT_COLOR {0, 0, 0, 255};
 	void InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos);
 	void InitButtons(unsigned char numOfButtons, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);
 	std::shared_ptr<GameObject> _title;

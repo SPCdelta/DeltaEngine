@@ -1,7 +1,8 @@
 #include "HotbarComponent.hpp"
+#include <algorithm>
 
-HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontPath, 
-	const Math::Vector2& startPos, const Math::Vector2& scale, Player& player) : IView(scene, fontPath)
+HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, 
+	const Math::Vector2& startPos, const Math::Vector2& scale, Player& player) : IView(scene, fontName)
 {
 	auto pos = startPos;
 	for (Uint8 i = 0; i < capacity; ++i)
@@ -21,4 +22,102 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 		_hotbar.emplace_back(slot, itemIcon, itemName);
 		pos.AddX(scale.GetX());
 	}
+	player.AddInventoryObserver([this](const Item& item, int amount) { this->InventoryChanged(item, amount); });
+}
+
+void HotbarComponent::InventoryChanged(const Item& item, int amount)
+{
+	if (_counter > _hotbar.size())
+	{
+		return;
+	}
+
+	if (HasItem(item))
+	{
+		if (amount == 0) return;
+		if (_hotbar[GetIndex(item)].amount + amount <= 0)
+		{
+			DeleteItem(item);
+		}
+		else 
+		{
+			IncrementItem(item, amount);
+		}
+	}
+	else
+	{
+		if (amount > 0)
+		{
+			AddItem(item, amount);
+		}
+	}
+}
+
+Uint8 HotbarComponent::GetIndex(const Item& item) const
+{
+	for (Uint8 i = 0; i < _hotbar.size(); ++i)
+	{
+		if (_hotbar[i].itemName == item.GetName())
+		{
+			return i;
+		}
+	}
+	throw std::exception("Could not find index of item.");
+}
+
+void HotbarComponent::AddItem(const Item& item, int amount)
+{
+	_hotbar[_counter].itemName = item.GetName();
+	auto itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({
+		_hotbar[_counter].slot->transform->position,
+		0.0f,
+		_hotbar[_counter].slot->transform->scale }) };
+	itemIcon->AddComponent<Ui::Image>(item.GetSprite());
+	itemIcon->AddComponent<Ui::Text>(std::to_string(amount), _fontName, 20, DEFAULT_COLOR);
+	_hotbar[_counter].itemIcon = itemIcon;
+	_hotbar[_counter].amount += amount;
+	++_counter;
+}
+
+void HotbarComponent::IncrementItem(const Item& item, int amount)
+{
+	try
+	{
+		auto& slot = _hotbar[GetIndex(item)];
+		slot.itemIcon->GetComponent<Ui::Text>().SetText(std::to_string(slot.amount + amount));
+		slot.amount += amount;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+}
+
+void HotbarComponent::DeleteItem(const Item& item)
+{
+	auto& slot = _hotbar[GetIndex(item)];
+	slot.amount = 0;
+	slot.itemName = "";
+	_scene.DestroyObject(slot.itemIcon.get());
+	--_counter;
+}
+
+void HotbarComponent::SortHotbar(Uint8 index)
+{
+	for (Uint8 i = index; i < _hotbar.size(); ++i)
+	{
+		_hotbar.swap(_hotbar[i], ++i);
+	}
+}
+
+bool HotbarComponent::HasItem(const Item& item)
+{
+	for (auto slot : _hotbar)
+	{
+		if (slot.itemName == item.GetName())
+		{
+			return true;
+		}
+	}
+	return false;
 }

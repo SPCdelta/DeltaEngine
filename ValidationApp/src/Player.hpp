@@ -8,7 +8,12 @@
 class Player
 {
    public:
-	Player(int shield = 25, int damage = 10, int speed = 10, int health = 95) : _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{health}, _coins{0} {}
+	Player(int shield = 25, int damage = 10, int speed = 10, int health = 95) : _shield{shield}, _attackDamage{damage}, _speed{speed}, _health{health}, _coins{0} 
+	{
+		_inventory = new Inventory();
+	}
+
+	~Player();
 
 	void SetShield(int shield);
 	void SetAttackDamage(int damage);
@@ -24,8 +29,8 @@ class Player
 
 	const int _maxHealth = 100;
 
-	void AddItemToInventory(Item item, int amount);
-	void RemoveItemFromInventory(std::string itemName, int amount);
+	void AddItemToInventory(const Item& item, int amount);
+	void RemoveItemFromInventory(const Item& item, int amount);
 	void ResetInventory();
 	void PrintInventory();
 
@@ -48,5 +53,5 @@ class Player
 
 	std::vector<std::function<void(int)>> _healthObservers;
 	std::vector<std::function<void(const Item& item, int amount)>> _inventoryObservers;
-	Inventory _inventory;
+	Inventory* _inventory;
 };

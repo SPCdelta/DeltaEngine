@@ -1,7 +1,11 @@
 #include "Player.hpp"
 
+Player::~Player()
+{
+	delete _inventory;
+}
 
-void Player::SetShield(int shield) 
+void Player::SetShield(int shield)
 {
 	if (shield < 0)
 		_shield = 0;
@@ -65,36 +69,38 @@ int Player::GetHealth() const
 	return _health;
 }
 
-void Player::AddItemToInventory(Item item, int amount)
+void Player::AddItemToInventory(const Item& item, int amount)
 {
-	_inventory.AddItem(item, amount);
+	_inventory->AddItem(item, amount);
 
 	NotifyInventoryChanged(item, amount);
 }
 
-void Player::RemoveItemFromInventory(std::string itemName, int amount)
+void Player::RemoveItemFromInventory(const Item& item, int amount)
 {
-	_inventory.RemoveItem(itemName, amount);
+	_inventory->RemoveItem(item, amount);
+
+	NotifyInventoryChanged(item, -amount);
 }
 
 int Player::GetInventorySize()
 {
-	return _inventory.GetItemAmount();
+	return _inventory->GetItemAmount();
 }
 
 InventoryItem* Player::GetInventoryItem(int index)
 {
-	return _inventory.GetItem(index).get();
+	return _inventory->GetItem(index).get();
 }
 
 void Player::ResetInventory() // Empties the inventory
 {
-	_inventory.Clear();
+	_inventory->Clear();
 }
 
 void Player::PrintInventory()
 {
-	_inventory.PrintInventory();
+	_inventory->PrintInventory();
 }
 
 int Player::GetCoins() const

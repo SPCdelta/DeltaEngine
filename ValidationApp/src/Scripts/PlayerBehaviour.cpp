@@ -2,6 +2,7 @@
 
 void PlayerBehaviour::OnStart() 
 {
+	_player = new Player{};
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
@@ -10,7 +11,6 @@ void PlayerBehaviour::OnStart()
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 	_weapon = new Gun(this);
-	_player = new Player{};
 	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 	//_weapon = new Bow(this);
 
@@ -33,9 +33,9 @@ void PlayerBehaviour::OnStart()
 	);
 
 	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_X, [this](Input& e) { _player->AddItemToInventory(Item("item1", "none"), 4); },"Gameplay");
+	onKeyPressed(KEY_X, [this](Input& e) { _player->AddItemToInventory(Item("item1", "cyanPotion"), 4); },"Gameplay");
 	onKeyPressed(KEY_C, [this](Input& e) { _player->AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay");
-	onKeyPressed(KEY_V, [this](Input& e) { _player->RemoveItemFromInventory("item1", 5);}, "Gameplay");
+	onKeyPressed(KEY_V, [this](Input& e) { _player->RemoveItemFromInventory(Item("item1", "cyanPotion"), 5);}, "Gameplay");
 	onKeyPressed(KEY_B, [this](Input& e) { _player->PrintInventory(); }, "Gameplay");
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");

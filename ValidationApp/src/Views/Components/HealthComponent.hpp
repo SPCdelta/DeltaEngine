@@ -8,7 +8,7 @@
 class HealthComponent : public IView
 {
 public:
-	HealthComponent(Scene& scene, const std::string& fontPath, const Math::Vector2& startPos, 
+	HealthComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, 
 		const Math::Vector2& scale, Player& player);
 	void HealthChanged(int health);
 private:

@@ -43,12 +43,26 @@ class LayerScene : public Scene
 		pokemonObject->AddComponent<EnemyBehaviour>();
 
 		// Create potion object to pick up
-		WorldItem worldItem = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
+		WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
 		std::shared_ptr<GameObject> cyanPotionObj{Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}})};
 		cyanPotionObj->AddComponent<Sprite>("cyanPotion");
 		cyanPotionObj->AddComponent<BoxCollider>()->SetTrigger(true);	
-		cyanPotionObj->AddComponent<WorldItem>(worldItem);
+		cyanPotionObj->AddComponent<WorldItem>(worldItem1);
 		cyanPotionObj->SetTag("item");
+
+		WorldItem worldItem2 = WorldItem(HealingPotion(10, 10, "somepotion", "potion_effervescent"), 1);
+		std::shared_ptr<GameObject> effrvscntPotionObj1{ Instantiate({{20.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
+		effrvscntPotionObj1->AddComponent<Sprite>("potion_effervescent");
+		effrvscntPotionObj1->AddComponent<BoxCollider>()->SetTrigger(true);
+		effrvscntPotionObj1->AddComponent<WorldItem>(worldItem2);
+		effrvscntPotionObj1->SetTag("item");
+
+		WorldItem worldItem3 = WorldItem(HealingPotion(10, 10, "somepotion", "potion_effervescent"), 1);
+		std::shared_ptr<GameObject> effrvscntPotionObj2{ Instantiate({{30.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
+		effrvscntPotionObj2->AddComponent<Sprite>("potion_effervescent");
+		effrvscntPotionObj2->AddComponent<BoxCollider>()->SetTrigger(true);
+		effrvscntPotionObj2->AddComponent<WorldItem>(worldItem3);
+		effrvscntPotionObj2->SetTag("item");
 
 		_playerHealthBar = std::make_unique<HealthComponent>(
 			*this,
@@ -57,9 +71,14 @@ class LayerScene : public Scene
 			Math::Vector2{ 600, 30 },
 			playerObject->GetComponent<PlayerBehaviour>().GetPlayer()
 		);
-		HotbarComponent hotbar{*this, 6, "", Math::Vector2{200, 200}, Math::Vector2{100, 100}, playerObject->GetComponent<PlayerBehaviour>().GetPlayer()};
+		_playerHotbar = std::make_unique<HotbarComponent>(
+			*this, 6, "goblin", 
+			Math::Vector2{200, 200}, 
+			Math::Vector2{100, 100}, 
+			playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 	}
 
 private:
 	std::unique_ptr<HealthComponent> _playerHealthBar; // TODO: encapsulate
+	std::unique_ptr<HotbarComponent> _playerHotbar; // TODO: encapsulate
 };

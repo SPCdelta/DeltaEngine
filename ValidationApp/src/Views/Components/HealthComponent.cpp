@@ -1,7 +1,7 @@
 #include "HealthComponent.hpp"
 
-HealthComponent::HealthComponent(Scene& scene, const std::string& fontPath, const Math::Vector2& startPos, const Math::Vector2& scale, 
-	Player& player) : IView(scene, fontPath)
+HealthComponent::HealthComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale,
+	Player& player) : IView(scene, fontName)
 {
 	InitFrame(startPos, scale);
 

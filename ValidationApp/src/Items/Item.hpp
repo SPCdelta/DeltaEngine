@@ -15,7 +15,7 @@ class Item
 		return this->GetName() == other.GetName();
 	}
 
-	std::string GetSprite();
+	const std::string& GetSprite() const;
 
    private:
 	std::string _name;

@@ -108,6 +108,8 @@
     <Image Include="Assets\Textures\HUD\gold_coin.png" />
     <Image Include="Assets\Textures\HUD\bar_frame.png" />
     <Image Include="Assets\Textures\HUD\hotbar_slot.png" />
+    <Image Include="Assets\Textures\Items\potions\potion_effervescent.png" />
+    <Image Include="Assets\Textures\Items\potions\cyan.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
@@ -121,5 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf" />
+    <Font Include="Assets\Fonts\a_goblin_appears.ttf" />
   </ItemGroup>
 </Project>

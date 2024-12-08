@@ -83,6 +83,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
 	ResourceManager::AddSprite("cyanPotion", "Assets\\Textures\\Items\\potions\\cyan.png");
+	ResourceManager::AddSprite("potion_effervescent", "Assets\\Textures\\Items\\potions\\potion_effervescent.png");
 	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
@@ -108,4 +109,5 @@ void ValidationApp::LoadAssets()
 	// Fonts
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
 	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
+	ResourceManager::AddFont("goblin","Assets\\Fonts\\a_goblin_appears.ttf");
 }
