@@ -21,6 +21,7 @@
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
+    <ClCompile Include="Assets\Level\level-2.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -105,6 +106,7 @@
   <ItemGroup>
     <None Include="Assets\Files\example.json" />
     <Font Include="Assets\Fonts\alucrads.otf" />
+    <None Include="Assets\Level\level-1.json" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf" />

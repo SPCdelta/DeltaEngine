@@ -176,6 +176,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assets\Level\level-2.json" />
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -378,6 +379,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Font>
     <None Include="Assets\Files\example.json" />
+    <None Include="Assets\Level\level-1.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -90,7 +90,7 @@ public:
 
         InitLevelEditor(_saveFileName);
 
-
+        BackButton(rightBarStart);
         SaveButton(rightBarStart);
         LayerChanger(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
         TopBar(windowWidth, titleLeftPadding, topBarHeight);
@@ -114,10 +114,21 @@ public:
         }));
     }
 
+    void BackButton(const float rightBarStart)
+    {
+        std::shared_ptr<GameObject> saveButton{
+            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
+        };
+        saveButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
+        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
+            SaveLevel();
+            }, "UI");
+    }
+
     void SaveButton(const float rightBarStart)
     {
         std::shared_ptr<GameObject> saveButton{
-            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.2f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
+            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.7f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
         };
         saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
         saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
