@@ -23,7 +23,7 @@ private:
 	std::unique_ptr<HealthBarComponent> _healthBar;
 	std::unique_ptr<ShieldBarComponent> _shieldBar;
 	std::unique_ptr<CoinComponent> _coinCounter;
-	Uint8 NUM_OF_COLS = 6;
+	const Uint8 NUM_OF_COLS = 6;
 	Player& _player;
 };
 

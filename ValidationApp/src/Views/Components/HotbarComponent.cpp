@@ -44,12 +44,9 @@ void HotbarComponent::InventoryChanged(const Item& item, int amount)
 			IncrementItem(item, amount);
 		}
 	}
-	else
+	else if (amount > 0)
 	{
-		if (amount > 0)
-		{
-			AddItem(item, amount);
-		}
+		AddItem(item, amount);
 	}
 }
 
@@ -119,17 +116,7 @@ Uint8 HotbarComponent::GetAvailableIndex() const
 			return slot.itemName.empty();
 		});
 
-	Uint8 index = 0;
-	if (result != _hotbar.end())
-	{
-		index = static_cast<Uint8>(std::distance(_hotbar.begin(), result));
-	}
-	else
-	{
-		index = UINT8_MAX;
-	}
-
-	return index;
+	return static_cast<Uint8>(std::distance(_hotbar.begin(), result));
 }
 
 bool HotbarComponent::HasItem(const Item& item)
