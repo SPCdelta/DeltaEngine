@@ -176,6 +176,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Views\Components\BarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
+    <ClCompile Include="src\Views\Components\GameSpeedComponent.cpp" />
+    <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\HotbarComponent.cpp" />
+    <ClCompile Include="src\Views\HUDView.cpp" />
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -197,6 +204,13 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Views\Components\BarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
+    <ClInclude Include="src\Views\Components\GameSpeedComponent.hpp" />
+    <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
+    <ClInclude Include="src\Views\HUDView.hpp" />
     <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClCompile Include="src\Views\IView.cpp" />
   </ItemGroup>
@@ -254,6 +268,38 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\floor_map.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\bar_frame.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\health_bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\hotbar_slot.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\shield_bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Items\coin.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Items\potions\cyan.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Items\potions\potion_effervescent.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
@@ -369,6 +415,10 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\alucrads.otf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Font>
+    <Font Include="Assets\Fonts\a_goblin_appears.ttf">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Font>

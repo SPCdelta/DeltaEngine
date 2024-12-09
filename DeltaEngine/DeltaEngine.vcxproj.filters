@@ -109,6 +109,7 @@
     <ClInclude Include="Engine\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\Core\Math\Math.hpp" />
+    <ClInclude Include="Engine\Ecs\View.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

@@ -51,6 +51,16 @@ void Vector2::AddY(float y)
 	_y += y;
 }
 
+Vector2 Vector2::AddX(float x) const
+{
+	return Vector2{ _x + x, _y };
+}
+
+Vector2 Vector2::AddY(float y) const
+{
+	return Vector2{_x, _y + y};
+}
+
 float Vector2::Magnitude() const
 {
 	return std::sqrt(_x * _x + _y * _y);

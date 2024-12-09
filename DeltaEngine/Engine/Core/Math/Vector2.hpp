@@ -21,6 +21,8 @@ namespace Math
 		void Set(const Vector2& position);
 		void AddX(float x);
 		void AddY(float y);
+		Vector2 AddX(float x) const;
+		Vector2 AddY(float y) const;
 		// AKA length
 		float Magnitude() const;
 		float DistanceTo(const Vector2& other) const;
