@@ -9,9 +9,10 @@ Text::Text(const std::string& text, const std::string& fontName, int fontSize,
 	  _fontName{ fontName },
 	  _fontSize{ fontSize },
 	  _text{text},
-	  _color{color}
+	  _color{color},
+	  _font{ ResourceManager::GetFont(fontName, fontSize)},
+	  _backgroundColor{0,0,0,0}
 {
-	_font = ResourceManager::GetFont(fontName, fontSize);
 	if (_font == nullptr)
 	{
 		std::cerr << "Error loading font: " << Font::GetError() << std::endl;
@@ -22,7 +23,12 @@ Text::Text(const Text& other)
 	: 
 	  _text{other._text},
 	  _font{other._font},
-	  _color{other._color}
+	  _color{other._color},
+	_fontName{ other._fontName },
+	_fontSize{ other._fontSize },
+	_background{ other._background },
+	_backgroundColor{ other._backgroundColor },
+	_position{ other._position }
 {
 }
 
@@ -33,6 +39,11 @@ Text& Text::operator=(const Text& other)
 		_text = other._text;
 		_font = other._font;
 		_color = other._color;
+		_fontName = other._fontName;
+		_fontSize = other._fontSize;
+		_background =other._background;
+		_backgroundColor = other._backgroundColor;
+		_position =  other._position;
 	}
 	return *this;
 }
@@ -40,7 +51,13 @@ Text& Text::operator=(const Text& other)
 Text::Text(Text&& other) noexcept
 	: _text{other._text},
 	  _font{other._font},
-	  _color{other._color}
+	  _color{other._color},
+	  _fontName{other._fontName},
+	_fontSize{other._fontSize},
+	_background{other._background },
+	_backgroundColor{other._backgroundColor},
+	_position{other._position}
+
 {
 }
 
@@ -51,6 +68,11 @@ Text& Text::operator=(Text&& other) noexcept
 		_text = other._text;
 		_font = other._font;
 		_color = other._color;
+		_fontName = other._fontName;
+		_fontSize = other._fontSize;
+		_background = other._background;
+		_backgroundColor = other._backgroundColor;
+		_position = other._position;
 
 	}
 	return *this;

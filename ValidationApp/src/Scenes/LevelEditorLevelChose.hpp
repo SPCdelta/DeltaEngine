@@ -22,6 +22,8 @@ public:
 
 		menuView.SetTitleTextPosition({ 515, 50 });
 		menuView.SetTitleTextColor({ 255, 255, 255, 255 });
+		menuView.SetButtonTextColor(-1, { 255, 255, 255, 255 });
+
 
 		menuView.SetButtonTexture(0, "scroll2");
 
@@ -44,10 +46,10 @@ public:
 			{
 				LoadScene("MainMenuScene");
 			}, "UI:Back");
-		menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
+/*		menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
 			{
 				LoadScene("LevelEditor");
-			}, "UI:new Level");
+			}, "UI:new Level");*/
 	}
 
 private:

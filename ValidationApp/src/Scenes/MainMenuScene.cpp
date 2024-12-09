@@ -24,8 +24,10 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	menuView.SetButtonPosition(0, {435, 175});
 	menuView.SetButtonScale(0, {400, 100});
 
-	menuView.SetButtonPosition(1, { 435, 175 });
+	menuView.SetButtonPosition(1, { 435, 300 });
 	menuView.SetButtonScale(1, { 400, 100 });
+
+	menuView.SetButtonTextSize(1, 60);
 
 	menuView.SetButtonText(0, "Start");
 	menuView.SetButtonText(1, "Level Editor");
@@ -33,7 +35,7 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	menuView.SetButtonText(3, "Quit");
 	menuView.AddButtonTextPosition(-1, {65, 15});
 	menuView.AddButtonTextPosition(0, {15, 0});
-	menuView.AddButtonTextPosition(1, {15, 0});
+	menuView.AddButtonTextPosition(1, {-20, 10});
 	menuView.AddButtonTextPosition(2, {45, 0});
 	menuView.AddButtonTextPosition(3, {40, 0});
 	menuView.SetButtonOnLeftMouseClickLoadScene(1, *this, "LevelEditorLevelChose", "Level Editor");
