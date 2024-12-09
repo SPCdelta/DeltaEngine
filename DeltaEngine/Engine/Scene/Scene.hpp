@@ -71,6 +71,10 @@ class Scene
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
+protected:
+	Camera* _camera;
+
+
 private:
 	InputFacade* _inputfacade = nullptr;
 	Rendering::Event* _windowEvent = nullptr;
@@ -82,7 +86,6 @@ private:
 	Events::EventDispatcher<std::shared_ptr<GameObject>> _instantiateEvent{};
 
 	std::shared_ptr<GameObject> _cameraObj;
-	Camera* _camera;
 
 	Physics::PhysicsWorld _physicsWorld{};
 

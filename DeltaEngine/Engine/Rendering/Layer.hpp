@@ -10,3 +10,55 @@ enum class Layer : int
 	Projectiles,
 	Foreground,
 };
+
+class LayerHelper
+{
+public:
+	static Layer GetLowest(){
+		return Layer::Background;
+	}
+
+	static Layer GetHeights() {
+		return Layer::Foreground;
+	}
+
+	static bool InLayers(int layer){
+		int lowests = static_cast<int>(GetLowest());
+		int heights = static_cast<int>(GetHeights());
+
+		return (lowests <= layer && layer <= heights);
+	}
+
+	static int GetInt(Layer layer){
+		return static_cast<int>(layer);
+	}
+
+	static Layer GetLayer(int layer) {
+		return static_cast<Layer>(layer);
+	}
+
+	static std::string GetString(Layer layer) {
+		switch (layer)
+		{
+		case Layer::Background:
+			return "Background";
+		case Layer::Floor:
+			return "Floor";
+		case Layer::Walls:
+			return "Walls";
+		case Layer::Default:
+			return "Default";
+		case Layer::Player:
+			return "Player";
+		case Layer::Projectiles:
+			return "Projectiles";
+		case Layer::Foreground:
+			return "Foreground";
+		default:
+			return "UNKNOWN";
+		}
+	}
+
+private:
+
+};

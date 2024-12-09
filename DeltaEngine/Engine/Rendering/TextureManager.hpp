@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <string>
 
 #include "SpriteData.hpp"
@@ -50,7 +50,7 @@ class TextureManager
    private:
 	static TextureManager instance;
 	Rendering::Renderer* _renderer = nullptr;
-	std::map<std::string, Rendering::Texture*> _textures;
+	std::unordered_map<std::string, Rendering::Texture*> _textures;
 
 	TextureManager() {};
 };

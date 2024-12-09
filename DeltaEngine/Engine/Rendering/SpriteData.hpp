@@ -8,8 +8,8 @@
 class SpriteData
 {
 public:
-	SpriteData(Rendering::Texture* texture_, Math::Vector2 spriteStart_, Math::Vector2 spriteEnd_)
-		: texture{texture_}, spriteStart{spriteStart_}, spriteEnd{spriteEnd_}
+	SpriteData(Rendering::Texture* texture_, Math::Vector2 spriteStart_, Math::Vector2 spriteEnd_, const std::string& category_)
+		:  texture{texture_}, spriteStart{spriteStart_}, spriteEnd{spriteEnd_}, category{ category_}
 	{
 
 	}
@@ -17,4 +17,5 @@ public:
 	Rendering::Texture* texture;
 	Math::Vector2 spriteStart;
 	Math::Vector2 spriteEnd;
+	std::string category;
 };

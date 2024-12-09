@@ -34,8 +34,13 @@ class InputManager
 
 	static InputLocation onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
 	static InputLocation onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
-	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent);
-	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent);
+	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent, std::string category = defaultCategory);
+	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent, std::string category = defaultCategory);
+
+
+	static MousePosition GetMousePosition(){
+		return {instance_.allInputs.mouseX, instance_.allInputs.mouseY};
+	}
 
 
 	void updateKeyDown(Key input);
@@ -60,6 +65,6 @@ class InputManager
 
 	std::map<InputState, InputEventDispatchers> inputState;
 
-	Events::EventDispatcher<Input&> mouseMovement;
-	Events::EventDispatcher<Input&> mouseWheelMovement;
+	std::map<std::string, Events::EventDispatcher<Input&>> mouseMovement;
+	std::map < std::string, Events::EventDispatcher<Input&>> mouseWheelMovement;
 };

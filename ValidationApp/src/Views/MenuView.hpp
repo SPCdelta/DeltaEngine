@@ -29,6 +29,7 @@ public:
 	void SetButtonTexture(int id, const std::string& textureName);
 	std::shared_ptr<GameObject>& GetButton(Rendering::UnsignInt8 id);
 	Ui::Text& GetButtonText(Rendering::UnsignInt8 id);
+
 private:
 	const Rendering::Color DEFAULT_COLOR {0, 0, 0, 255};
 	void InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos);

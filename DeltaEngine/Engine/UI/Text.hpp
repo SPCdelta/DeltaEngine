@@ -18,6 +18,7 @@ class Text : public TextRenderable
 	~Text();
 	void Render(Rendering::Renderer* renderer, const Transform& transform);
 	void SetText(const std::string& text);
+	void SetBackground(Rendering::Color color);
 	void SetFont(const std::string& fontName);
 	void SetFontSize(int size);
 	void AddPosition(const Math::Vector2& position);
@@ -31,6 +32,8 @@ class Text : public TextRenderable
 	Font::Font* _font;
 	int _fontSize;
 	Rendering::Color _color;
+	bool _background = false;
+	Rendering::Color _backgroundColor;
 	Math::Vector2 _position;
 
 	const int defaultFontSize = 16;

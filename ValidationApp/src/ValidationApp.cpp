@@ -8,6 +8,8 @@
 #include "Scenes/LayerScene.hpp"
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
+#include "Scenes/LevelEditorLevelChose.hpp"
+
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -26,6 +28,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
+	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 
 	// Load Desired Scene
 	LoadScene("MainMenuScene");
@@ -53,7 +56,7 @@ void ValidationApp::LoadAssets()
 
 	SpriteMap floormap
 	{
-		"floor_map",
+		"floor_tiles",
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
 
@@ -82,11 +85,12 @@ void ValidationApp::LoadAssets()
 
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
+	ResourceManager::AddSprite("gray_rect", "Assets\\Textures\\Rect.png");
 	ResourceManager::AddSprite("cyanPotion", "Assets\\Textures\\Items\\potions\\cyan.png");
 	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
-	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
+	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png", "enemy");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
