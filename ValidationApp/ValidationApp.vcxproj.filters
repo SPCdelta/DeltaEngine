@@ -78,6 +78,8 @@
     <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
+    <ClInclude Include="src\Scenes\ParticleScene.hpp" />
+    <ClInclude Include="src\Classes\ParticleFactory.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

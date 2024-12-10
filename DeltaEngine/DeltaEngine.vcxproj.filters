@@ -110,6 +110,9 @@
     <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\Core\Math\Math.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
+    <ClInclude Include="Engine\Rendering\Particles\Particle.hpp" />
+    <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.hpp" />
+    <ClInclude Include="Engine\Systems\ParticleSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

@@ -8,6 +8,7 @@
 #include "Rendering/Camera.hpp"
 #include "Rendering/Sprite.hpp"
 #include "Rendering/Layer.hpp"
+#include "Rendering/Particles/ParticleEmitter.hpp"
 
 #include "Audio/AudioManager.hpp"
 #include "Audio/AudioSource.hpp"
@@ -58,6 +59,10 @@ public:
 		{
 			T* component = static_cast<T*>(_AddComponent<Ui::Button>(Ui::Button(transform->position, transform->scale)));
 			return component;
+		}
+		else if constexpr (std::is_same_v<T, ParticleEmitter>)
+		{
+			T* component = static_cast<T*>(_AddComponent<ParticleEmitter>(this, std::forward<Args>(args)...));
 		}
 		else
 		{

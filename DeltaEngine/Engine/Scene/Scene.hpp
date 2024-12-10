@@ -17,6 +17,7 @@
 // Systems
 #include "../Ecs/Registry.hpp"
 #include "../Systems/UpdateSystem.hpp"
+#include "../Systems/ParticleSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/ImageRenderSystem.hpp"
@@ -90,6 +91,7 @@ private:
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 	std::shared_ptr<TextRenderSystem> _textRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<ParticleSystem> _particleSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
 };

@@ -7,6 +7,7 @@ Scene::Scene(const std::string& name)
 	_camera = _cameraObj->AddComponent<Camera>(_cameraObj->GetComponent<Transform>());
 
 	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	_particleSystem = _reg.CreateSystem<ParticleSystem, Transform, ParticleEmitter>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(_camera);
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
@@ -36,6 +37,7 @@ void Scene::Update()
 
 	// Update
 	_updateSystem->Update();
+	_particleSystem->Update();
 
 	// LateUpdate
 	_physicsSystem->TransformToBox2D();

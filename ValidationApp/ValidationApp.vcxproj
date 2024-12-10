@@ -204,6 +204,8 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\ParticleFactory.hpp" />
+    <ClInclude Include="src\Scenes\ParticleScene.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
