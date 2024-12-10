@@ -13,7 +13,17 @@ class AStarStrategy : public IAIStrategy
 
 	std::vector<Math::Vector2> CalculatePath(const Math::Vector2& start, const Math::Vector2& end) override
 	{
-		std::vector<Math::Vector2> path;
+		Node* startNode;
+		startNode->point = start;
+		startNode->f_cost = 1;
+		startNode->tag = "normal";
+
+		Node* endNode;
+		endNode->point = end;
+		endNode->f_cost = 1;
+		endNode->tag = "normal";
+
+		/* std::vector<Math::Vector2> path;
 
 		// Priority queue for open set
 		auto cmp = [](const Node& a, const Node& b)
@@ -61,8 +71,8 @@ class AStarStrategy : public IAIStrategy
 				Math::Vector2 neighbor = {current.GetX() + direction.GetX(),
 										  current.GetY() + direction.GetY()};
 
-				/*if (!IsWalkable(neighbor))
-					continue;*/
+				if (!IsWalkable(neighbor))
+					continue;
 
 				double tentative_g_cost = g_cost[current] + 1;  // Assume uniform cost for simplicity
 
@@ -76,7 +86,59 @@ class AStarStrategy : public IAIStrategy
 			}
 		}
 
-		return path;  // Return empty path if no path exists
+		return path;  // Return empty path if no path exists */
+
+		//graph.untag_all();
+        std::unordered_map<Node*, double> g_costs;
+        std::unordered_map<Node*, Node*> predecessors;
+        std::priority_queue<std::pair<double, Node*>, std::vector<std::pair<double, Node*>>, std::greater<>> pq;
+
+        for (auto& node : graph) 
+            g_costs[&node] = std::numeric_limits<double>::infinity();
+        
+        g_costs[startNode] = 0.0;
+		pq.push({0.0, startNode});
+
+        while (!pq.empty()) 
+        {
+            auto [current_f_cost, current_node] = pq.top();
+            pq.pop();
+
+            if (current_node->tag != "visited") 
+                current_node->tag = "visited";
+
+            if (current_node == endNode) 
+                break;
+            
+            for (auto edge : *current_node) 
+            {
+                auto* neighbor = &edge.to();
+				if (neighbor->tag != "visited")
+					neighbor->tag = "visited";
+            
+                double tentative_g_cost = g_costs[current_node] + edge.weight();
+
+                if (tentative_g_cost < g_costs[neighbor]) 
+                {
+                    g_costs[neighbor] = tentative_g_cost;
+                    double h_cost = manhattan_distance(neighbor->location(), endNode->point);
+                    double f_cost = tentative_g_cost + h_cost;
+
+                    predecessors[neighbor] = current_node;
+                    pq.push({f_cost, neighbor});
+                }
+            }
+        }
+
+        std::vector<Math::Vector2> path;
+        for (Node* at = const_cast<Node*>(endNode); at != nullptr; at = predecessors[at]) 
+        {
+			path.push_back(at->point);
+			at->tag = "path";
+        }
+
+        std::reverse(path.begin(), path.end());
+        return path;
 	}
 
    private:
@@ -84,6 +146,7 @@ class AStarStrategy : public IAIStrategy
 	{
 		Math::Vector2 point;
 		double f_cost;
+		std::string tag;
 	};
 
 	struct Hash
@@ -96,6 +159,11 @@ class AStarStrategy : public IAIStrategy
 
 	//const std::vector<std::vector<int>>& grid_;
 	const std::vector<Math::Vector2> directions_ = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+	float manhattan_distance(const Math::Vector2& a, const Math::Vector2& b)
+	{
+		return std::abs(a.GetX() - b.GetX()) + std::abs(a.GetY() - b.GetY());
+	}
 
 	/*bool IsWalkable(const Math::Point& point) const
 	{
