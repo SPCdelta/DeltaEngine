@@ -11,142 +11,83 @@ class AStarStrategy : public IAIStrategy
    public:
 	AStarStrategy() {}
 
-	std::vector<Math::Vector2> CalculatePath(const Math::Vector2& start, const Math::Vector2& end) override
+	std::vector<Math::Vector2> CalculatePath(const Math::Vector2& start, const Math::Vector2& end)
 	{
-		Node* startNode;
-		startNode->point = start;
-		startNode->f_cost = 1;
-		startNode->tag = "normal";
-
-		Node* endNode;
-		endNode->point = end;
-		endNode->f_cost = 1;
-		endNode->tag = "normal";
-
-		/* std::vector<Math::Vector2> path;
-
-		// Priority queue for open set
-		auto cmp = [](const Node& a, const Node& b)
+		auto cmp = [](Node* a, Node* b)
 		{
-			return a.f_cost > b.f_cost;
-		};
-		std::priority_queue<Node, std::vector<Node>, decltype(cmp)> open_set(cmp);
-
-		std::unordered_map<Math::Vector2, Math::Vector2, Hash> came_from;
-		std::unordered_map<Math::Vector2, double, Hash> g_cost;
-		std::unordered_map<Math::Vector2, double, Hash> f_cost;
-
-		auto heuristic = [](const Math::Vector2& a, const Math::Vector2& b)
-		{
-			return std::abs(a.GetX() - b.GetX()) + std::abs(a.GetY() - b.GetY()); // Manhattan distance
+			return a->f_cost() > b->f_cost();
 		};
 
-		// Initialize
-		g_cost[start] = 0;
-		f_cost[start] = heuristic(start, end);
-		open_set.push({start, f_cost[start]});
+		std::priority_queue<Node*, std::vector<Node*>, decltype(cmp)> open_list(cmp);
+		std::unordered_set<Math::Vector2, Hash> closed_list;
 
-		while (!open_set.empty())
+		Node* start_node = new Node(start, 0.0, ManhattanDistance(start, end));
+		open_list.push(start_node);
+
+		std::unordered_map<Math::Vector2, Node*, Hash> all_nodes;
+		all_nodes[start] = start_node;
+
+		Node* end_node = nullptr;
+
+		while (!open_list.empty())
 		{
-			Math::Vector2 current = open_set.top().point;
-			open_set.pop();
+			Node* current_node = open_list.top();
+			open_list.pop();
 
-			if (current == end)
+			if (current_node->point == end)
 			{
-				// Reconstruct path
-				while (came_from.find(current) != came_from.end())
-				{
-					path.push_back(current);
-					current = came_from[current];
-				}
-
-				path.push_back(start);
-				std::reverse(path.begin(), path.end());
-				return path;
+				end_node = current_node;
+				break;
 			}
 
-			// Explore neighbors
-			for (const auto& direction : directions_)
-			{
-				Math::Vector2 neighbor = {current.GetX() + direction.GetX(),
-										  current.GetY() + direction.GetY()};
+			if (closed_list.count(current_node->point))
+				continue;
+			closed_list.insert(current_node->point);
 
-				if (!IsWalkable(neighbor))
+			for (const auto& neighbor_pos : GetNeighbors(current_node->point))
+			{
+				if (closed_list.count(neighbor_pos))
 					continue;
 
-				double tentative_g_cost = g_cost[current] + 1;  // Assume uniform cost for simplicity
-
-				if (tentative_g_cost < g_cost[neighbor] || g_cost.find(neighbor) == g_cost.end())
+				double tentative_g_cost = current_node->g_cost + 1.0;	 // Assume uniform cost
+				if (all_nodes.find(neighbor_pos) == all_nodes.end() || tentative_g_cost < all_nodes[neighbor_pos]->g_cost)
 				{
-					came_from[neighbor] = current;
-					g_cost[neighbor] = tentative_g_cost;
-					f_cost[neighbor] = tentative_g_cost + heuristic(neighbor, end);
-					open_set.push({neighbor, f_cost[neighbor]});
+					Node* neighbor_node = new Node(neighbor_pos, tentative_g_cost, ManhattanDistance(neighbor_pos, end), current_node);
+					open_list.push(neighbor_node);
+					all_nodes[neighbor_pos] = neighbor_node;
 				}
 			}
 		}
 
-		return path;  // Return empty path if no path exists */
+		// Reconstruct the path
+		std::vector<Math::Vector2> path;
+		Node* current = end_node;
+		while (current != nullptr)
+		{
+			path.push_back(current->point);
+			current = current->parent;
+		}
+		std::reverse(path.begin(), path.end());
 
-		//graph.untag_all();
-        std::unordered_map<Node*, double> g_costs;
-        std::unordered_map<Node*, Node*> predecessors;
-        std::priority_queue<std::pair<double, Node*>, std::vector<std::pair<double, Node*>>, std::greater<>> pq;
+		// Cleanup
+		for (auto& [_, node] : all_nodes)
+			delete node;
 
-        for (auto& node : graph) 
-            g_costs[&node] = std::numeric_limits<double>::infinity();
-        
-        g_costs[startNode] = 0.0;
-		pq.push({0.0, startNode});
-
-        while (!pq.empty()) 
-        {
-            auto [current_f_cost, current_node] = pq.top();
-            pq.pop();
-
-            if (current_node->tag != "visited") 
-                current_node->tag = "visited";
-
-            if (current_node == endNode) 
-                break;
-            
-            for (auto edge : *current_node) 
-            {
-                auto* neighbor = &edge.to();
-				if (neighbor->tag != "visited")
-					neighbor->tag = "visited";
-            
-                double tentative_g_cost = g_costs[current_node] + edge.weight();
-
-                if (tentative_g_cost < g_costs[neighbor]) 
-                {
-                    g_costs[neighbor] = tentative_g_cost;
-                    double h_cost = manhattan_distance(neighbor->location(), endNode->point);
-                    double f_cost = tentative_g_cost + h_cost;
-
-                    predecessors[neighbor] = current_node;
-                    pq.push({f_cost, neighbor});
-                }
-            }
-        }
-
-        std::vector<Math::Vector2> path;
-        for (Node* at = const_cast<Node*>(endNode); at != nullptr; at = predecessors[at]) 
-        {
-			path.push_back(at->point);
-			at->tag = "path";
-        }
-
-        std::reverse(path.begin(), path.end());
-        return path;
+		return path;
 	}
 
    private:
 	struct Node
 	{
 		Math::Vector2 point;
-		double f_cost;
-		std::string tag;
+
+		double g_cost;
+		double h_cost;
+		double f_cost() const { return g_cost + h_cost; }
+
+		Node* parent;
+
+		Node(Math::Vector2 point, double g, double h, Node* parent = nullptr) : point(point), g_cost(g), h_cost(h), parent(parent) {}
 	};
 
 	struct Hash
@@ -157,16 +98,34 @@ class AStarStrategy : public IAIStrategy
 		}
 	};
 
+	std::vector<Math::Vector2> GetNeighbors(const Math::Vector2& current) 
+	{
+		std::vector<Math::Vector2> neighbors = {
+			{current.GetX() + 1, current.GetY()},
+			{current.GetX() - 1, current.GetY()},
+			{current.GetX(), current.GetY() + 1},
+			{current.GetX(), current.GetY() - 1},
+		};
+
+		// Filter walkable tiles
+		neighbors.erase(std::remove_if(neighbors.begin(), neighbors.end(), [this](const Math::Vector2& pos) 
+		{ 
+			return !IsWalkable(pos); 
+		}), neighbors.end());
+
+		return neighbors;
+	}
+
 	//const std::vector<std::vector<int>>& grid_;
 	const std::vector<Math::Vector2> directions_ = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-	float manhattan_distance(const Math::Vector2& a, const Math::Vector2& b)
+	float ManhattanDistance(const Math::Vector2& a, const Math::Vector2& b)
 	{
 		return std::abs(a.GetX() - b.GetX()) + std::abs(a.GetY() - b.GetY());
 	}
 
-	/*bool IsWalkable(const Math::Point& point) const
+	bool IsWalkable(const Math::Vector2& point) const	// TODO
 	{
-		return point.GetX() >= 0 && point.GetX() < grid_.size() && point.GetY() >= 0 && point.GetY() < grid_[0].size() && grid_[point.GetX()][point.GetY()] != 1;  // 1 indicates non-walkable
-	}*/
+		return true;
+	}
 };

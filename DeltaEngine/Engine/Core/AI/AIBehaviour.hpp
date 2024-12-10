@@ -16,7 +16,6 @@ class AIBehaviour
 		if (!position_ || !_playerPosition)
 			return;
 
-		// TODO path is always empty
 		path_ = strategy_->CalculatePath(*position_, *_playerPosition);
 
 		if (!path_.empty())
@@ -38,27 +37,3 @@ class AIBehaviour
 	Math::Vector2* position_;
 	Math::Vector2* _playerPosition;
 };
-
-// TODO
-/* std::vector<std::vector<int>> dungeon = {
-    {0, 0, 0, 0, 1},
-    {0, 1, 1, 0, 1},
-    {0, 0, 0, 0, 0},
-    {0, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0}
-};
-
-Math::Point player_position = {4, 4};
-Math::Point enemy_start = {0, 0};
-
-AStarStrategy astar(dungeon);
-AIBehaviour enemy(&astar);
-enemy.SetPosition(enemy_start);
-
-for (int i = 0; i < 10; ++i)
-{
-	enemy.Update(player_position);
-	Math::Point enemy_position = enemy.GetPosition();
-	std::cout << "Enemy Position: (" << enemy_position.x << ", "
-			  << enemy_position.y << ")\n";
-}*/
