@@ -42,6 +42,13 @@ void Scene::Update()
 	// LateUpdate
 	_physicsSystem->TransformToBox2D();
 
+	// Destroy
+	while (!_toDeleteQueue.empty())
+	{
+		DestroyObject(_toDeleteQueue.front());
+		_toDeleteQueue.pop();  // Remove the pointer from the queue
+	}
+
 	// Render
 	_renderSystem->Update();
 	_imageRenderSystem->Update();
@@ -66,7 +73,11 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 			e = Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
 		}
 	);
-	obj->_destroyObject.Register([this](GameObject* gameObject){ DestroyObject(gameObject); });
+	obj->_destroyObject.Register([this](GameObject* gameObject)
+		{ 
+			MarkForDestroy(gameObject); 
+		}
+	);
 
 	return obj;
 }

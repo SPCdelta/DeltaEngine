@@ -8,6 +8,7 @@
 #include "Scenes/LayerScene.hpp"
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
+#include "Scenes/ParticleScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -26,9 +27,10 @@ ValidationApp::ValidationApp()
 	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
+	RegisterScene<ParticleScene>("ParticleScene");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("ParticleScene");
 
 	// Start Application
 	Run();

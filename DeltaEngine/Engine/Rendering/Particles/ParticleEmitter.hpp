@@ -2,6 +2,9 @@
 
 #include <vector>
 
+#include "../../GameObject.hpp"
+#include "../../Core/Time.hpp"
+
 #include "Particle.hpp"
 
 struct ParticleEmitterConfiguration
@@ -31,6 +34,13 @@ public:
 		{
 			CreateParticle();
 		}
+		_started = true;
+	}
+
+	void Stop()
+	{ 
+		_started = false;
+		// TODO
 	}
 
 	void SetLoop(bool looping) { _configuration.loop = looping; }
@@ -40,24 +50,29 @@ protected:
 
 	Particle* CreateParticle()
 	{ 
-		std::shared_ptr<GameObject> particle = Instantiate();
-		particle->AddComponent<Sprite>(_configuration.sprite);
+		std::shared_ptr<GameObject> particleObj = Instantiate();
+		particleObj->AddComponent<Sprite>(_configuration.sprite)->SetLayer(Layer::Particles);
 
-		return _particles.emplace_back(
+		Particle* particle = _particles.emplace_back(
 			new Particle
 			{
-				particle->transform,
+				particleObj->transform,
 				GetDirection(),
 				GetSpeed(),
 				GetRotationSpeed(),
 				_configuration.particleLifeTime
 			}
 		);
+
+		particle->transform->position = _gameObject->transform->position;
+		particle->transform->scale = GetScale();
+
+		return particle;
 	}
 
 	Vector2 GetDirection()
 	{
-		return {0.0f, 0.0f};
+		return { 1.0f, 0.0f };
 	}
 
 	float GetSpeed()
@@ -70,6 +85,11 @@ protected:
 		return 0.25f;
 	}
 
+	Vector2 GetScale()
+	{
+		return { 0.25f, 0.25f };
+	}
+
 private:
 	ParticleEmitterConfiguration _configuration;
 	std::vector<Particle*> _particles{};
@@ -80,16 +100,22 @@ private:
 		return _gameObject->Instantiate();
 	}
 
+	void Destroy(Particle* gameObject)
+	{ 
+		_gameObject->Destroy(gameObject->transform->gameObject);
+	}
+
 	void Update()
 	{
 		if (!_started)
 			return;
 
 		_particles.erase(std::remove_if(_particles.begin(), _particles.end(),
-			[](Particle* particle)
+			[this](Particle* particle)
 			{
 				if (particle->aliveFor <= 0.0f)
 				{
+					Destroy(particle);
 					delete particle;
 					return true;
 				}
