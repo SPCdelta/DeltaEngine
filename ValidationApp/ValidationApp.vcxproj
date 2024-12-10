@@ -204,6 +204,10 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />

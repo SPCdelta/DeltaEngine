@@ -6,10 +6,16 @@ void EnemyBehaviour::OnStart()
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "weapon");
+
+	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
+	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
+	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition);
 }
 
 void EnemyBehaviour::OnUpdate()
 {
+	_aiBehaviour->Update();
+
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{

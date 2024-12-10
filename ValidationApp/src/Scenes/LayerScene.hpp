@@ -1,9 +1,11 @@
 #pragma once
 
+#include <memory>
+
 #include "Engine/Delta.hpp"
+
 #include "../Scripts/EnemyBehaviour.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
-#include <memory>
 #include "../Views/HUDView.hpp"
 
 class LayerScene : public Scene
@@ -34,13 +36,11 @@ class LayerScene : public Scene
 		hurtfulObject->SetTag("enemy");
 
 		// Create object that gets hurt when a weapon touches it
-		std::shared_ptr<GameObject> pokemonObject{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
-		pokemonObject->AddComponent<Sprite>("spritesheet");
-
-		pokemonObject->AddComponent<BoxCollider>();
-		pokemonObject->AddComponent<Rigidbody>();
-
-		pokemonObject->AddComponent<EnemyBehaviour>();
+		std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
+		enemyObj->AddComponent<Sprite>("spritesheet");
+		enemyObj->AddComponent<BoxCollider>();
+		enemyObj->AddComponent<Rigidbody>();
+		enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPos(&playerObject->GetComponent<Transform>().position);
 
 		// Create potion object to pick up
 		WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
