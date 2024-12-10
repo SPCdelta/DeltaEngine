@@ -9,8 +9,8 @@ class Shop
 	Shop(Inventory inventory);
 	void Buy();
 	void Sell();
-	void Add(const ShopItem& item);
-	void Remove(const ShopItem& item);
+	void Add(int price, int amount, const ShopItem& item);
+	void Remove(const ShopItem& item, int amount);
    private:
 	std::vector<std::shared_ptr<ShopItem>> _shopItems;
 	Inventory _inventory;
