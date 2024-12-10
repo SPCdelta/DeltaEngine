@@ -9,6 +9,6 @@ class Goblin : public Enemy
 
 	void Update(const Math::Point& player_position) override
 	{
-		MoveTowards(player_position);
+
 	}
 };
