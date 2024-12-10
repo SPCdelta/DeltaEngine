@@ -176,6 +176,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Items\Shop\Shop.cpp" />
+    <ClCompile Include="src\Items\Shop\ShopItem.cpp" />
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
@@ -204,6 +206,8 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Items\Shop\Shop.hpp" />
+    <ClInclude Include="src\Items\Shop\ShopItem.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />

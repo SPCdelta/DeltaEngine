@@ -115,6 +115,14 @@ void Player::SetCoins(int coins)
 		_coins = coins;
 }
 
+void Player::AddCoins(int coins) {
+	
+}
+
+void Player::LowerCoins(int coins) {
+	
+}
+
 void Player::NotifyHealthChanged()
 {
 	for (const auto& observer : _healthObservers)

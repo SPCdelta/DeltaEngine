@@ -36,6 +36,10 @@ class Player
 	int GetCoins() const;
 	void SetCoins(int coins);
 
+	void AddCoins(int coins);
+	void LowerCoins(int coins);
+
+
 	void AddHealthObserver(std::function<void(int)> observer) { _healthObservers.emplace_back(observer); }
 	void AddShieldObserver(std::function<void(int)> observer) { _shieldObservers.emplace_back(observer); }
 	void AddCoinObserver(std::function<void(int)> observer) { _coinObservers.emplace_back(observer); }
