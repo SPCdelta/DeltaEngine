@@ -98,14 +98,14 @@ InputLocation InputManager::onMouseButtonUp(MouseButton button, Events::EventCal
 InputLocation InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent, std::string category)
 {
 	instance_.mouseMovement[category].Register(mouseEvent);
-	return {"mouse-move:" + category, Unknown, "", mouseEvent};
+	return {"MouseMovement", Unknown, category, mouseEvent, "MouseMove"};
 
 }
 
 InputLocation InputManager::onMouseWheel(Events::EventCallback<Input&> wheelEvent, std::string category)
 {
 	instance_.mouseWheelMovement[category].Register(wheelEvent);
-	return {"mouse-wheel:" + category, Unknown, "", wheelEvent};
+	return {"MouseWheel", Unknown, category, wheelEvent, "MouseWheel" };
 }
 
 void InputManager::updateKeyDown(Key input)
@@ -184,11 +184,11 @@ void InputManager::executeInputEvents()
 }
 
 void InputManager::remove(InputLocation inputLoc) {
-	if (inputLoc.input.find("mouse-wheel:") != std::string::npos)
+	if (inputLoc.inputType.find("MouseWheel") != std::string::npos)
 	{
 		mouseWheelMovement[inputLoc.category].Unregister(inputLoc.regesterd);
 	}
-	else if (inputLoc.input.find("mouse-move:") != std::string::npos)
+	else if (inputLoc.inputType.find("MouseMove") != std::string::npos)
 	{
 		mouseMovement[inputLoc.category].Unregister(inputLoc.regesterd);
 	}

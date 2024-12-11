@@ -14,6 +14,7 @@ struct InputLocation
 	InputState state;
 	std::string category;
 	Events::EventCallback<Input&> regesterd;
+	std::string inputType = "Key/MouseButton";
 };
 
 
