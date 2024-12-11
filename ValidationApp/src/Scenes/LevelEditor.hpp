@@ -56,7 +56,7 @@ public:
                 {
                     Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
                     _layer = layer;
-                    makeNewTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
+                    CreateLevelEditorTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
                     _tiles.back()->SetTag(SPRITE_CATEGORY[0]);
                     _tiles.back()->GetComponent<SnapToGridDraggable>().SetDraggeble(false);
                 }
@@ -69,7 +69,7 @@ public:
             {
                 Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
                 _layer = layer;
-                makeNewTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
+                CreateLevelEditorTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
                 _tiles.back()->SetTag(SPRITE_CATEGORY[1]);
                 _tiles.back()->GetComponent<SnapToGridDraggable>().SetDraggeble(false);
             }
@@ -90,14 +90,14 @@ public:
 
         InitLevelEditor(_saveFileName);
 
-        BackButton(rightBarStart);
-        SaveButton(rightBarStart);
-        LayerChanger(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
-        TopBar(windowWidth, titleLeftPadding, topBarHeight);
-        WorldView();
+        UIBackButtonAndBinding(rightBarStart);
+        UISaveButtonAndBinding(rightBarStart);
+        BindLayerChangerToMouseWheel(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
+        UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
+        BindCamara();
     }
 
-    void WorldView()
+    void BindCamara()
     {
         float speed = 0.3f;
         _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e){
@@ -114,7 +114,7 @@ public:
         }));
     }
 
-    void BackButton(const float rightBarStart)
+    void UIBackButtonAndBinding(const float rightBarStart)
     {
         std::shared_ptr<GameObject> saveButton{
             Instantiate({ { rightBarStart - 20.0f, PADDING_TOP }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
@@ -125,7 +125,7 @@ public:
             }, "UI");
     }
 
-    void SaveButton(const float rightBarStart)
+    void UISaveButtonAndBinding(const float rightBarStart)
     {
         std::shared_ptr<GameObject> saveButton{
             Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.7f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
@@ -133,6 +133,7 @@ public:
         saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
         saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
             SaveLevel();
+            std::cout << "Saved Level: ";
             }, "UI");
     }
 
@@ -173,7 +174,7 @@ public:
 
     }
 
-    void LayerChanger(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
+    void BindLayerChangerToMouseWheel(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
     {
         std::shared_ptr<GameObject> layerTxt{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
         auto layer = layerTxt->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
@@ -198,7 +199,7 @@ public:
 
 
 
-    void TopBar(int windowWidth, float titleLeftPadding, float topBarHeight)
+    void UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
         const float imagespace = (SCALE_IN_UI_BAR + PADDING);
         
@@ -223,7 +224,7 @@ public:
             _optionTiles.back()->AddComponent<Ui::Image>(key);
             _optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
                 [this, key, value]() {
-                    makeNewTile(key, value->category);
+                    CreateLevelEditorTile(key, value->category);
                 }, "UI:Leveleditor-" + key);
         }
 
@@ -261,13 +262,13 @@ public:
 
     }
 
-    void makeNewTile(const std::string& spriteName, const std::string& category, Transform transform){
+    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, Transform transform){
         _tiles.emplace_back(Instantiate(transform));
-        makeNewTile(spriteName, category, false);
+        CreateLevelEditorTile(spriteName, category, false);
 
     }
 
-    void makeNewTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
+    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
     {
         if (mousePos){
             auto mousePos = InputManager::GetMousePosition();

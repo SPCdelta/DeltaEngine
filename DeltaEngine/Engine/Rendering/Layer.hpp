@@ -18,13 +18,13 @@ public:
 		return Layer::Background;
 	}
 
-	static Layer GetHeights() {
+	static Layer GetHighest() {
 		return Layer::Foreground;
 	}
 
 	static bool InLayers(int layer){
 		int lowests = static_cast<int>(GetLowest());
-		int heights = static_cast<int>(GetHeights());
+		int heights = static_cast<int>(GetHighest());
 
 		return (lowests <= layer && layer <= heights);
 	}

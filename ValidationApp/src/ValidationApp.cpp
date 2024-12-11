@@ -44,7 +44,6 @@ void ValidationApp::LoadAssets()
 	float scale = 32.0f;
 
 	SpriteMap gamefloormap{
-		"gamefloor_map",
 		"Assets\\Textures\\floor_map.png",
 		{
 
@@ -52,11 +51,11 @@ void ValidationApp::LoadAssets()
 			{"mud", {scale * 1, scale * 0}, {scale, scale}},
 			{"stone_wall", {scale * 0, scale * 1}, {scale, scale}},
 			{"stone_floor", {scale * 1, scale * 1}, {scale, scale}},
-		}};
+		}
+	};
 
 	SpriteMap floormap
 	{
-		"floor_tiles",
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
 
@@ -80,7 +79,8 @@ void ValidationApp::LoadAssets()
 			{"Sandstone_floor_9",	{scale * 7, scale * 1}, {scale*(7 + 1), scale*(1 + 1)}},
 			{"rect_gray_0_old",		{scale * 8, scale * 1}, {scale*(8 + 1), scale*(1 + 1)}},
 			{"rect_gray_0_new",		{scale * 9, scale * 1}, {scale*(9 + 1), scale*(1 + 1)}},
-		}
+		},
+		"floor_tiles"
 	};
 
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");

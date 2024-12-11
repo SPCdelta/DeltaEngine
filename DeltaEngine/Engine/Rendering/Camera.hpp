@@ -14,7 +14,7 @@ public:
 
 	void AddToPosition(const Math::Vector2 direction)
 	{
-		transform.position.Add(direction);
+		transform.position += direction;
 	}
 
 	void SetPosition(const Math::Vector2 position)
