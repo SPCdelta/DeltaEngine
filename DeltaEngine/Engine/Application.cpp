@@ -57,7 +57,7 @@ void Application::Run()
 		{
 			// DeltaTIme
 			Uint32 currentTime = Rendering::GetTicks();
-			Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.0f));
+			Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.f));
 			previousTime = currentTime;
 
 			// 
@@ -85,7 +85,7 @@ void Application::Run()
 			Rendering::RenderPresent(_window.GetRenderer());
 
 			// Framerate
-			Rendering::Delay(1000 / Time::multiplier / 60);
+			Rendering::Delay(1000 / 60);
 		}
 #ifndef _DEBUG
 	}
@@ -137,15 +137,23 @@ void Application::InitGameSpeed()
 {
 	_gameSpeed = std::make_unique<Ui::Text>(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x", "goblin", 48, _gameSpeedTextColor);
 	
+	Time::SetIncrement(0.25f);
+
 	InputManager::onKeyPressed(KEY_PAGEUP, [this](Input& e)
 		{
-			Time::IncreaseMultiplier(1.f); // Moet dit configureerbaar zijn?
+			Time::IncreaseMultiplier();
 			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
 		}, "Application");
 
 	InputManager::onKeyPressed(KEY_PAGEDOWN, [this](Input& e)
 		{
-			Time::IncreaseMultiplier(-0.25f);
+			Time::DecreaseMultiplier();
+			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+		}, "Application");
+
+	InputManager::onKeyPressed(KEY_HOME, [this](Input& e)
+		{
+			Time::SetMultiplier(1);
 			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
 		}, "Application");
 }
