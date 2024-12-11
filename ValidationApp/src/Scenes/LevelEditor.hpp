@@ -79,7 +79,7 @@ public:
 
     void OnStart() override
     {
-        const auto viewport = GetWindow()->GetViewport();
+        ViewportData& viewport = GetWindow()->GetViewport();
         const int windowWidth = viewport.width;
         const int windowHeight = viewport.height;
 
@@ -318,6 +318,7 @@ private:
         {
             InputManager::GetInstance().remove(input);
         }
+        _inputs.clear();
     }
 
 
