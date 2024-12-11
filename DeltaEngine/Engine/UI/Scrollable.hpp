@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Core/Math/MathUtils.hpp"
-#include <functional>
+#include "../Input/InputManager.hpp"
 
 namespace Ui
 {
@@ -11,7 +11,7 @@ public:
 
 	Scrollable(Transform* transform, std::function<void(int)> func) {
 	
-		InputManager::onMouseWheel([func, transform](Input& e) {
+		_scrollebole = InputManager::onMouseWheel([func, transform](Input& e) {
 
 			if (!Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, transform->position, transform->scale))
 				return;
@@ -24,7 +24,12 @@ public:
 		});
 	}
 
+	~Scrollable(){
+		InputManager::GetInstance().remove(_scrollebole);
+	}
+
 private:
-	std::function<void(int)> _func; //Waarom is dit nodig om Registry te laten werken?
+	InputLocation _scrollebole;
+
 };
 }
