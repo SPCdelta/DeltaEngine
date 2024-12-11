@@ -97,46 +97,8 @@ public:
         BindCamara();
     }
 
-    void BindCamara()
-    {
-        float speed = 0.3f;
-        _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e){
-            _camera->AddToPosition({ speed,0.f});
-        }));
-        _inputs.push_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
-            _camera->AddToPosition({ -speed,0.f });
-        }));
-        _inputs.push_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
-            _camera->AddToPosition({ 0.f,-speed });
-        }));
-        _inputs.push_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
-            _camera->AddToPosition({ 0.f,speed });
-        }));
-    }
-
-    void UIBackButtonAndBinding(const float rightBarStart)
-    {
-        std::shared_ptr<GameObject> saveButton{
-            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
-        };
-        saveButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
-        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
-            LoadScene("LevelEditorLevelChose");
-            }, "UI");
-    }
-
-    void UISaveButtonAndBinding(const float rightBarStart)
-    {
-        std::shared_ptr<GameObject> saveButton{
-            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.7f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
-        };
-        saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
-        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
-            SaveLevel();
-            std::cout << "Saved Level: ";
-            }, "UI");
-    }
-
+   
+    //File handeling
     void SaveLevel(){
 
         FileManager fileManager;
@@ -174,6 +136,45 @@ public:
 
     }
 
+
+    //Create
+    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, Transform transform) {
+        _tiles.emplace_back(Instantiate(transform));
+        CreateLevelEditorTile(spriteName, category, false);
+
+    }
+
+    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
+    {
+        if (mousePos) {
+            auto mousePos = InputManager::GetMousePosition();
+            _tiles.emplace_back(Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} }));
+        }
+
+        auto& tile = _tiles.back();
+        tile->SetTag(category);
+        auto draggable = tile->AddComponent<SnapToGridDraggable>();
+        auto sprite = tile->AddComponent<Sprite>(spriteName);
+        sprite->SetLayer(_layer);
+
+        draggable->activate("Ui:layer - " + LayerHelper::GetString(_layer), [this, sprite]() {
+            sprite->SetLayer(_layer);
+            });
+
+        draggable->RemoveOnKey(KEY_Q, [this, tile]() {
+            tile->Destroy(tile.get());
+            });
+
+        _inputs.push_back(InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
+            if (!draggable->isBingDragged())
+                return;
+            sprite->SetLayer(_layer);
+            draggable->SetCategory("Ui:layer - " + LayerHelper::GetString(_layer));
+            }));
+    }
+
+
+    //Input Binding
     void BindLayerChangerToMouseWheel(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
     {
         std::shared_ptr<GameObject> layerTxt{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
@@ -189,15 +190,55 @@ public:
             if (LayerHelper::InLayers(newLayer)) {
                 //InputManager::deactivateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
                 _layer = LayerHelper::GetLayer(newLayer);
-                
+
                 //InputManager::activateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
 
                 layer->SetText("Layer: " + LayerHelper::GetString(_layer));
             }
-        });
+            });
+    }
+
+    void BindCamara()
+    {
+        float speed = 0.3f;
+        _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
+            _camera->AddToPosition({ speed,0.f });
+            }));
+        _inputs.push_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
+            _camera->AddToPosition({ -speed,0.f });
+            }));
+        _inputs.push_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
+            _camera->AddToPosition({ 0.f,-speed });
+            }));
+        _inputs.push_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
+            _camera->AddToPosition({ 0.f,speed });
+            }));
     }
 
 
+    //UI/ Input Binding
+    void UIBackButtonAndBinding(const float rightBarStart)
+    {
+        std::shared_ptr<GameObject> saveButton{
+            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
+        };
+        saveButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
+        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
+            LoadScene("LevelEditorLevelChose");
+            }, "UI");
+    }
+
+    void UISaveButtonAndBinding(const float rightBarStart)
+    {
+        std::shared_ptr<GameObject> saveButton{
+            Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.7f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
+        };
+        saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
+        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
+            SaveLevel();
+            std::cout << "Saved Level: ";
+            }, "UI");
+    }
 
     void UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
@@ -262,40 +303,6 @@ public:
 
     }
 
-    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, Transform transform){
-        _tiles.emplace_back(Instantiate(transform));
-        CreateLevelEditorTile(spriteName, category, false);
-
-    }
-
-    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
-    {
-        if (mousePos){
-            auto mousePos = InputManager::GetMousePosition();
-            _tiles.emplace_back(Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} }));
-        }
-
-        auto& tile = _tiles.back();
-        tile->SetTag(category);
-        auto draggable = tile->AddComponent<SnapToGridDraggable>();
-        auto sprite = tile->AddComponent<Sprite>(spriteName);
-        sprite->SetLayer(_layer);
-
-        draggable->activate("Ui:layer - " + LayerHelper::GetString(_layer), [this, sprite](){
-            sprite->SetLayer(_layer);
-            });
-
-        draggable->RemoveOnKey(KEY_Q, [this, tile](){
-            tile->Destroy(tile.get());
-            });
-
-        _inputs.push_back(InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
-            if (!draggable->isBingDragged())
-                return;
-            sprite->SetLayer(_layer);
-            draggable->SetCategory("Ui:layer - " + LayerHelper::GetString(_layer));
-            }));
-    }
 
     ~LevelEditor()
     {
