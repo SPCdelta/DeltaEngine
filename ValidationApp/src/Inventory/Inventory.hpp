@@ -16,8 +16,8 @@ class Inventory
 	void RemoveItem(std::string itemName, int amount);
 	void PrintInventory();
 
-	int GetItemAmount();
-	std::shared_ptr<InventoryItem> GetItem(int index);
+	size_t GetItemAmount();
+	std::shared_ptr<InventoryItem> GetItem(size_t  index);
 
 	void Clear();
 

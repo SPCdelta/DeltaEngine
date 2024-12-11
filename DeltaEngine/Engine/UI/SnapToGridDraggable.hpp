@@ -23,7 +23,7 @@ public:
 				int posX = e.mouseX - e.mouseX % pxUnit;
 				int posY = e.mouseY - e.mouseY % pxUnit;
 
-				Math::Vector2 mouseToWorldPos{ _camera->ScreenToWorldPoint(posX, posY + pxUnit) };
+				Math::Vector2 mouseToWorldPos{ _camera->ScreenToWorldPoint({posX, posY + pxUnit}) };
 				_transform->position.Set(mouseToWorldPos);
 			}, category
 		));
@@ -33,7 +33,7 @@ public:
 			{
 				if (bingDragged)
 					return;
-				auto mousevector = _camera->ScreenToWorldPoint(e.mouseX, e.mouseY);
+				auto mousevector = _camera->ScreenToWorldPoint({e.mouseX, e.mouseY});
 
 				if (!Math::MathUtils::IsVector2WithinRect(mousevector, _transform->position, _transform->scale))
 					return;

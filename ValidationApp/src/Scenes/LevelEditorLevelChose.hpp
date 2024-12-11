@@ -12,7 +12,7 @@ public:
 
 		auto allLevels = FileManager::filesInDirectory(LEVEL_PATH);
 
-		Rendering::UnsignInt8 buttonAmount = allLevels.size() + 2;
+		Rendering::UnsignInt8 buttonAmount = static_cast<Rendering::UnsignInt8>(allLevels.size()) + 2;
 
 		MenuView menuView{ *this, "Main Menu", buttonAmount, "alucrads", {485, 50}, {300, 100}, 25, 80 };
 
@@ -43,7 +43,7 @@ public:
 
 		menuView.AddButtonTextPosition(0, { 15, 0 });
 		//menuView
-		for (size_t i = 0; i < allLevels.size(); i++)
+		for (int i = 0; i < static_cast<int>(allLevels.size()); i++)
 		{
 			menuView.AddButtonTextPosition(i + 2, { 45, 0 });
 			menuView.SetButtonOnLeftMouseClickLoadScene(i + 2, *this, "LevelEditor", "UI:Editor");

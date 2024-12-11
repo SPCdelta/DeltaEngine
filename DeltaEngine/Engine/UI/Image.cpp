@@ -21,10 +21,10 @@ void Image::Render(Rendering::Renderer* renderer,
 	}
 
 	Rendering::Rect srcRect;
-	srcRect.x = _spriteData->spriteStart.GetX();
-	srcRect.y = _spriteData->spriteStart.GetY();
-	srcRect.w = _spriteData->spriteEnd.GetX() - srcRect.x;
-	srcRect.h = _spriteData->spriteEnd.GetY() - srcRect.y;
+	srcRect.x = static_cast<int>(_spriteData->spriteStart.GetX());
+	srcRect.y = static_cast<int>(_spriteData->spriteStart.GetY());
+	srcRect.w = static_cast<int>(_spriteData->spriteEnd.GetX() - srcRect.x);
+	srcRect.h = static_cast<int>(_spriteData->spriteEnd.GetY() - srcRect.y);
 
 	Rendering::Rect destRect;
 	destRect.x = static_cast<int>(transform.position.GetX());

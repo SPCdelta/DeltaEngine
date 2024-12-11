@@ -252,11 +252,11 @@ public:
             }, "UI");
     }
 
-    void UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
+    void UITopBarAndBinding(float windowWidth, float titleLeftPadding, float topBarHeight)
     {
         const float imagespace = (SCALE_IN_UI_BAR + PADDING);
         
-        const int maxOptionPerRow = (windowWidth - PADDING_OUT_LEFT_UI * 2 - RIGHT_BAR_WIDTH) / imagespace;
+        const int maxOptionPerRow = static_cast<int>((windowWidth - PADDING_OUT_LEFT_UI * 2 - RIGHT_BAR_WIDTH) / imagespace);
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
@@ -265,7 +265,7 @@ public:
 
         std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
 
-        int maxtileIndexOptions = sprites.size() / maxOptionPerRow;
+        int maxtileIndexOptions = static_cast<int>(sprites.size()) / maxOptionPerRow;
 
         for (auto& [key, value] : sprites)
         {
@@ -295,9 +295,9 @@ public:
             std::advance(startIt, maxOptionPerRow * _tileIndexOptions);
 
             int index = 0;
-            for (auto pair = startIt; pair != sprites.end() && index < maxOptionPerRow; ++pair) {
+            for (auto& pair = startIt; pair != sprites.end() && index < maxOptionPerRow; ++pair) {
 
-                auto tileoption = _optionTiles.at(maxOptionPerRow * _tileIndexOptions + index);
+                auto& tileoption = _optionTiles.at(maxOptionPerRow * _tileIndexOptions + index);
 
                 tileoption->transform->position.Set({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });
                 tileoption->GetComponent<Ui::Button>().SetPosition({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });

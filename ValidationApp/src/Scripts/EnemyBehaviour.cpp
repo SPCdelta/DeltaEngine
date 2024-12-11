@@ -23,7 +23,7 @@ void EnemyBehaviour::OnUpdate()
 		if (hp <= 0)
 		{
 			std::cout << "i died!" << std::endl;
-			sprite->SetColor(Rendering::Color(0.0f, 0.0f, 0.0f, 1.0f)); 
+			sprite->SetColor(Rendering::Color(0,0,0, 255)); 
 		}
 	}
 }

@@ -141,7 +141,7 @@ const std::string& InputsEnum::toStr(Key key)
 	{
 		return it->second;
 	}
-	return "UNKNOWN";
+	return keyMap.at(KEY_UNKNOWN);
 }
 
 const std::vector<MouseButton>& InputsEnum::getButtonVector()

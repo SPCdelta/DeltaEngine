@@ -69,7 +69,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	return obj;
 }
 
-const std::string& const Scene::GetName() const 
+const std::string& Scene::GetName() const 
 {
 	return _name;
 }

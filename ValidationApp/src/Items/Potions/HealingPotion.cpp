@@ -5,7 +5,7 @@ void HealingPotion::Use(Player& player)
 	std::cout << "Current Health: " << player.GetHealth() << std::endl;
 	if (player.GetHealth() != player._maxHealth)
 	{
-		int newHealth = player.GetHealth() + _value;
+		int newHealth = player.GetHealth() + static_cast<int>(_value);
 		if (newHealth > player._maxHealth)
 		{
 			player.SetHealth(player._maxHealth);
