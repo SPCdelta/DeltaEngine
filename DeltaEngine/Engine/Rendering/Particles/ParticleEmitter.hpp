@@ -4,6 +4,8 @@
 
 #include "../../GameObject.hpp"
 #include "../../Core/Time.hpp"
+#include "../../Core/Math/Random.hpp"
+#include "../../Core/Math/Math.hpp"
 
 #include "Particle.hpp"
 
@@ -11,8 +13,22 @@ struct ParticleEmitterConfiguration
 {
 	std::string sprite;
 	size_t initialSpawnAmount;
-	float particleLifeTime;
+
+	float spawnRadius;
 	bool loop;
+
+	// Generates a random between these two values
+	float minLifetime;
+	float maxLifetime;
+
+	float minSpeed; 
+	float maxSpeed;
+
+	float minAngle;
+	float maxAngle;
+
+	float minRotationSpeed;
+	float maxRotationSpeed;
 };
 
 class ParticleSystem;
@@ -40,13 +56,63 @@ public:
 	void Stop()
 	{ 
 		_started = false;
-		// TODO
+		// TODO reset stuff
 	}
 
 	void SetLoop(bool looping) { _configuration.loop = looping; }
 
 protected:
 	GameObject* _gameObject;
+
+	virtual Vector2 GetSpawnOffset()
+	{
+		return 
+		{ 
+			Random::NextFloat(-_configuration.spawnRadius, _configuration.spawnRadius),
+			Random::NextFloat(-_configuration.spawnRadius, _configuration.spawnRadius)
+		};
+	}
+
+	virtual float GetLifetime()
+	{
+		return Random::NextFloat(_configuration.minLifetime, _configuration.maxLifetime);
+	}
+
+	virtual Vector2 GetDirection()
+	{
+		float angle = Random::NextFloat(_configuration.minAngle, _configuration.maxAngle);
+		Vector2 direction
+		{
+			std::cos(angle * Math::Rad2Deg), std::sin(angle * Math::Rad2Deg)
+		};
+
+		return direction.GetNormalized();
+	}
+
+	virtual float GetSpeed()
+	{ 
+		return Random::NextFloat(_configuration.minSpeed, _configuration.maxSpeed);
+	}
+
+	virtual float GetRotationSpeed()
+	{
+		return Random::NextFloat(_configuration.minRotationSpeed, _configuration.maxRotationSpeed);
+	}
+
+	virtual Vector2 GetScale()
+	{
+		return { 0.25f, 0.25f };
+	}
+
+private:
+	ParticleEmitterConfiguration _configuration;
+	std::vector<Particle*> _particles{};
+	bool _started{ false };
+
+	std::shared_ptr<GameObject> Instantiate()
+	{
+		return _gameObject->Instantiate();
+	}
 
 	Particle* CreateParticle()
 	{ 
@@ -60,44 +126,14 @@ protected:
 				GetDirection(),
 				GetSpeed(),
 				GetRotationSpeed(),
-				_configuration.particleLifeTime
+				GetLifetime()
 			}
 		);
 
-		particle->transform->position = _gameObject->transform->position;
+		particle->transform->position = _gameObject->transform->position + GetSpawnOffset();
 		particle->transform->scale = GetScale();
 
 		return particle;
-	}
-
-	Vector2 GetDirection()
-	{
-		return { 1.0f, 0.0f };
-	}
-
-	float GetSpeed()
-	{
-		return 0.25f;
-	}
-
-	float GetRotationSpeed()
-	{
-		return 0.25f;
-	}
-
-	Vector2 GetScale()
-	{
-		return { 0.25f, 0.25f };
-	}
-
-private:
-	ParticleEmitterConfiguration _configuration;
-	std::vector<Particle*> _particles{};
-	bool _started{ false };
-
-	std::shared_ptr<GameObject> Instantiate()
-	{
-		return _gameObject->Instantiate();
 	}
 
 	void Destroy(Particle* gameObject)

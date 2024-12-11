@@ -33,7 +33,7 @@ class Scene
 
 	friend class Application;
 
-	const std::string& const GetName() const;
+	const std::string& GetName() const { return _name; }
 
 	Window* GetWindow() { return _renderSystem->GetWindow(); }
 	void SetWindow(Window& window)

@@ -9,7 +9,7 @@ class SpeedPotion : public Potion
 	float _elapsedTime = 0.0f;
 	float _potionDuration = 0.0f;
 	Player* _affectedPlayer = nullptr;
-	int _originalSpeed = 0;
+	float _originalSpeed = 0.0f;
 
    public:
 	SpeedPotion(float time, float value, std::string name, std::string sprite) : Potion(time, value, name, sprite) {}
