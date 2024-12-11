@@ -68,5 +68,5 @@ class InputManager
 	std::map<InputState, InputEventDispatchers> inputState;
 
 	std::map<std::string, Events::EventDispatcher<Input&>> mouseMovement;
-	std::map < std::string, Events::EventDispatcher<Input&>> mouseWheelMovement;
+	std::map<std::string, Events::EventDispatcher<Input&>> mouseWheelMovement;
 };
