@@ -30,10 +30,10 @@ class LayerScene : public Scene
 		playerObject->AddComponent<PlayerBehaviour>();
 
 		// Create object that hurts player when player touches it
-		std::shared_ptr<GameObject> hurtfulObject{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
+		/*std::shared_ptr<GameObject> hurtfulObject{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
 		hurtfulObject->AddComponent<Sprite>("spritesheet2");
 		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
-		hurtfulObject->SetTag("enemy");
+		hurtfulObject->SetTag("enemy");*/
 
 		// Create object that gets hurt when a weapon touches it
 		std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
@@ -43,7 +43,7 @@ class LayerScene : public Scene
 		enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPos(&playerObject->GetComponent<Transform>().position);
 
 		// Create potion object to pick up
-		WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
+		/*WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
 		std::shared_ptr<GameObject> cyanPotionObj{ Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
 		cyanPotionObj->AddComponent<Sprite>("cyanPotion");
 		cyanPotionObj->AddComponent<BoxCollider>()->SetTrigger(true);
@@ -62,7 +62,7 @@ class LayerScene : public Scene
 		effrvscntPotionObj2->AddComponent<Sprite>("potion_effervescent");
 		effrvscntPotionObj2->AddComponent<BoxCollider>()->SetTrigger(true);
 		effrvscntPotionObj2->AddComponent<WorldItem>(worldItem3);
-		effrvscntPotionObj2->SetTag("item");
+		effrvscntPotionObj2->SetTag("item");*/
 
 		_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 	}
