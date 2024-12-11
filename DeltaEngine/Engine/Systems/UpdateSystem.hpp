@@ -21,14 +21,6 @@ public:
 		}
 	}
 
-	void OnStart()
-	{
-		//for (ecs::EntityId entityId : _view)
-		//{
-		//	_view.get<BehaviourScript*>(entityId)->OnStart();
-		//}
-	}
-
 	void Update()
 	{
 		for (ecs::EntityId entityId : _view)
