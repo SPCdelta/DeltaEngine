@@ -23,6 +23,10 @@ void Time::SetDeltaTime(float deltaTime)
 
 void Time::SetMultiplier(float value)
 {
+	if (value > 1)
+	{
+		throw std::exception{ "Multiplier value cannot be greater than 1." };
+	}
 	instance.multiplier = value;
 }
 
@@ -37,7 +41,8 @@ void Time::SetIncrement(float value)
 
 void Time::IncreaseMultiplier()
 {
-	instance.multiplier += instance.increment;
+	float newMultiplier = instance.multiplier + increment;
+	instance.multiplier = newMultiplier > MAX_MULTIPLIER ? instance.multiplier : newMultiplier;
 }
 
 void Time::DecreaseMultiplier()

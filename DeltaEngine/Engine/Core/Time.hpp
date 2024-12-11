@@ -2,6 +2,8 @@
 
 class Application;
 
+constexpr float MAX_MULTIPLIER = 2.f;
+
 class Time
 {
 public:
