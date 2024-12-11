@@ -1,12 +1,11 @@
 #pragma once
 #include "../Core/Math/MathUtils.hpp"
 
-
-class SnapToGridDraggable
+class SnapToGridBrush
 {
 public:
 
-	SnapToGridDraggable(Camera* camera, Transform* transform, const std::string& category = "UI") : _camera{camera}, _transform{transform}, _category{category}
+	SnapToGridBrush(Camera* camera, Transform* transform, const std::string& category = "UI") : _camera{camera}, _transform{transform}, _category{category}
 	{}
 
 	void activate(const std::string& category, std::function<void()> func){
@@ -81,7 +80,7 @@ public:
 		bingDragged = value;
 	}
 
-	~SnapToGridDraggable()
+	~SnapToGridBrush()
 	{
 		CleanUp();
 	}

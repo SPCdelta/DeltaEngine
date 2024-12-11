@@ -216,7 +216,7 @@
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />
-    <ClCompile Include="Engine\UI\SnapToGridDraggable.cpp" />
+    <ClCompile Include="Engine\UI\SnapToGridBrush.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
@@ -290,7 +290,7 @@
     <ClInclude Include="Engine\Core\Files\DTO\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
     <ClInclude Include="Engine\UI\Scrollable.hpp" />
-    <ClInclude Include="Engine\UI\SnapToGridDraggable.hpp" />
+    <ClInclude Include="Engine\UI\SnapToGridBrush.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\UI\Image.hpp" />
     <ClInclude Include="Engine\UI\Panel.hpp" />

@@ -16,7 +16,7 @@
 
 #include "UI/Button.hpp"
 #include "UI/Scrollable.hpp"
-#include "UI/SnapToGridDraggable.hpp"
+#include "UI/SnapToGridBrush.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
 
