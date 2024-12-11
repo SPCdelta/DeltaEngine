@@ -19,7 +19,10 @@ class Text : public TextRenderable
 	void Render(Rendering::Renderer* renderer, const Transform& transform);
 	void SetText(const std::string& text);
 	void SetFont(const std::string& fontName);
+	const std::string& GetText() const;
 	void SetFontSize(int size);
+	int GetFontSize() const;
+	Font::Font* GetFont() const;
 	void AddPosition(const Math::Vector2& position);
 	void SetPosition(const Math::Vector2& position);
 	void SetColor(const Rendering::Color& color);

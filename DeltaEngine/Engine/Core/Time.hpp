@@ -10,12 +10,15 @@ public:
 	Time& operator=(const Time&) = delete;
 	Time& operator=(Time&&) = delete;
 	static float GetDeltaTime();
+	static float GetMultiplier();
 
 	friend class Application;
 
 private:
 	static Time instance;
 	static float deltaTime;
+	static float multiplier;
 	static void SetDeltaTime(float deltaTime);
+	static void IncreaseMultiplier(float multiplier);
 	Time() {}
 };

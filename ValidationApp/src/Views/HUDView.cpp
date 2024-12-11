@@ -1,5 +1,4 @@
 #include "HUDView.hpp"
-#include "Components/GameSpeedComponent.hpp"
 
 HUDView::HUDView(Scene& scene, const std::string& fontName, Player& player) : IView(scene, fontName),
 	_player(player)
@@ -8,7 +7,6 @@ HUDView::HUDView(Scene& scene, const std::string& fontName, Player& player) : IV
 	InitHealthBar();
 	InitHotbar();
 	InitCoinCounter();
-	InitGameSpeed();
 }
 
 // TODO: make absolute positions relative
@@ -54,10 +52,4 @@ void HUDView::InitCoinCounter()
 		Math::Vector2{ 50, 50 },
 		_player
 	);
-}
-
-void HUDView::InitGameSpeed()
-{
-	auto windowWidth = _scene.GetWindow()->GetViewport().width;
-	GameSpeedComponent gameSpeed {_scene, _fontName, {windowWidth-50, 0}, {50, 50}};
 }

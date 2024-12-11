@@ -18,7 +18,6 @@ private:
 	void InitHealthBar();
 	void InitShieldBar();
 	void InitCoinCounter();
-	void InitGameSpeed();
 	std::unique_ptr<HotbarComponent> _hotbar;
 	std::unique_ptr<HealthBarComponent> _healthBar;
 	std::unique_ptr<ShieldBarComponent> _shieldBar;
