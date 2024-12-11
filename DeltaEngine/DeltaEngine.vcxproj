@@ -238,7 +238,6 @@
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
     <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
-    <ClInclude Include="Engine\Core\Files\DTO\FloorDTO.h" />
     <ClInclude Include="Engine\Core\Files\IFileHandler.hpp" />
     <ClInclude Include="Engine\Core\Files\Json.hpp" />
     <ClInclude Include="Engine\Core\Files\JSONFileHandler.hpp" />

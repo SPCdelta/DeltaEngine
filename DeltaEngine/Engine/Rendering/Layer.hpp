@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 
 enum class Layer : int
 {
@@ -35,6 +37,17 @@ public:
 
 	static Layer GetLayer(int layer) {
 		return static_cast<Layer>(layer);
+	}
+
+	static std::vector<Layer> GetAllLayer() {
+		std::vector<Layer> result;
+
+		for (int i = GetInt(GetLowest()); i <= GetInt(GetHighest()); i++)
+		{
+			result.push_back(GetLayer(i));
+		}
+
+		return result;
 	}
 
 	static std::string GetString(Layer layer) {
