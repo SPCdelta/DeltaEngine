@@ -153,12 +153,6 @@ struct Input
 	int wheelVertically;
 };
 
-struct MousePosition{
-	int mouseY;
-	int mouseX;
-};
-
-
 class InputsEnum
 {
    public:

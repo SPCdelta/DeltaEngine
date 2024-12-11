@@ -121,7 +121,7 @@ public:
         };
         saveButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
         saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
-            SaveLevel();
+            LoadScene("LevelEditorLevelChose");
             }, "UI");
     }
 
@@ -271,7 +271,7 @@ public:
     {
         if (mousePos){
             auto mousePos = InputManager::GetMousePosition();
-            _tiles.emplace_back(Instantiate({ {mousePos.mouseX, mousePos.mouseY }, 0.0f, {1.0f, 1.0f} }));
+            _tiles.emplace_back(Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} }));
         }
 
         auto& tile = _tiles.back();

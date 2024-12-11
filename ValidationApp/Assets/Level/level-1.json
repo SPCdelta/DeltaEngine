@@ -107,6 +107,132 @@
                     "y": 1.0
                 }
             }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_1"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 21.0,
+                    "y": 13.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_5"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 26.0,
+                    "y": 13.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_3_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 6.0,
+                    "y": 7.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "rect_gray_0_old"
+            },
+            "tag": "rect",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": 3.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_new"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 19.0,
+                    "y": 10.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_5"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 20.0,
+                    "y": 3.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "rect_gray_0_old"
+            },
+            "tag": "rect",
+            "transform": {
+                "position": {
+                    "x": 12.0,
+                    "y": 12.5
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
         }
     ]
 }

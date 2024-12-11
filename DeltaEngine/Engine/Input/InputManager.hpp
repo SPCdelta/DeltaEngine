@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <vector>
 #include "../Core/Events/EventDispatcher.hpp"
+#include "../Core/Math/Point.hpp"
 #include "InputEventDispatchers.hpp"
 #include "DeltaInputs.hpp"
 
@@ -38,8 +39,9 @@ class InputManager
 	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent, std::string category = defaultCategory);
 
 
-	static MousePosition GetMousePosition(){
-		return {instance_.allInputs.mouseX, instance_.allInputs.mouseY};
+	static Math::Point GetMousePosition()
+	{
+		return Math::Point{instance_.allInputs.mouseX, instance_.allInputs.mouseY};
 	}
 
 

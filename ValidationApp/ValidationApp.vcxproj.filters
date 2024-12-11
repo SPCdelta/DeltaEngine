@@ -107,6 +107,7 @@
     <None Include="Assets\Files\example.json" />
     <Font Include="Assets\Fonts\alucrads.otf" />
     <None Include="Assets\Level\level-1.json" />
+    <None Include="Diagram\Strategy.cd" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf" />

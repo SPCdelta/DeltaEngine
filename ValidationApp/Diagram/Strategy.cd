@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpeedPotion">
+    <Position X="1.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAEAAAAAAEAAQAAAEAAAEAAEAAAAAAAAAgAA=</HashCode>
+      <FileName>src\Items\Potions\SpeedPotion.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackUpPotion">
+    <Position X="6.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAEAAAAAAEAQQAAAAAAAEAAEAAAAAAQAAgAA=</HashCode>
+      <FileName>src\Items\Potions\AttackUpPotion.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefensePotion">
+    <Position X="8.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAEAAAAAAECAQAAAAAAAEQAEAAAAAAAAAgAA=</HashCode>
+      <FileName>src\Items\Potions\DefensePotion.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealingPotion">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAEAA=</HashCode>
+      <FileName>src\Items\Potions\HealingPotion.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Potion">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARQAAAAIIAAgAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Items\Potions\Potion.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PotionFactory">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>src\Items\Potions\PotionFactory.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="PotionType">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgEgAAA=</HashCode>
+      <FileName>src\Items\Potions\Potion.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

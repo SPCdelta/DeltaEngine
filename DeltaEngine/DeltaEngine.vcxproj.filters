@@ -121,4 +121,8 @@
     <Image Include="Assets\Textures\spritesheet2.png" />
     <Image Include="Assets\Textures\spritesheet3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Pattrans\Singleton.cd" />
+    <None Include="Pattrans\Facade.cd" />
+  </ItemGroup>
 </Project>

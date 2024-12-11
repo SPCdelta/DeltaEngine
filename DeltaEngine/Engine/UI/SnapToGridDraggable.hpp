@@ -58,6 +58,7 @@ public:
 			if (category.empty() || category == input.category)
 				inputM.remove(input);
 		}
+		_inputLocations.clear();
 	}
 
 	bool isBingDragged(){

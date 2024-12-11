@@ -309,6 +309,10 @@
     <Image Include="Assets\Textures\spritesheet2.png" />
     <Image Include="Assets\Textures\spritesheet3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Pattrans\Facade.cd" />
+    <None Include="Pattrans\Singleton.cd" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
