@@ -6,6 +6,8 @@
 #include "../IView.hpp"
 #include "../../Player.hpp"
 
+const float _textScale = 0.2f;
+
 struct Slot
 {
 	std::shared_ptr<GameObject> slot;
@@ -20,6 +22,7 @@ public:
 	HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, const Math::Vector2& startPos,
 		const Math::Vector2& scale, Player& player);
 	void InventoryChanged(const Item& item, int amount);
+	const Math::Vector2& GetSize() const override;
 private:
 	Uint8 GetIndex(const Item& item) const;
 	void AddItem(const Item& item, int amount);

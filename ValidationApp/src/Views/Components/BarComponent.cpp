@@ -1,18 +1,11 @@
 #include "BarComponent.hpp"
 
 BarComponent::BarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale,
-	Player& player, const std::string& spriteName) : IView(scene, fontName), _spriteName{spriteName}, _scale{scale}
+	Player& player, const std::string& spriteName) : IView(scene, fontName, startPos, scale), _spriteName{spriteName}
 {
-	InitFrame(startPos);
-
-	// TODO: Values are hardcoded for now...
-	auto barStartPos = startPos.AddX(60);
-	barStartPos.AddY(10);
-	_scale.AddX(-120);
-	_scale.AddY(-20);
-
-	InitBarFg(barStartPos, player);
-	InitBarBg(barStartPos);
+	InitBarFg(player);
+	InitBarBg();
+	InitText(startPos, player);
 }
 
 void BarComponent::ValueChanged(int value)
@@ -20,22 +13,34 @@ void BarComponent::ValueChanged(int value)
 	auto diff = _value - static_cast<float>(value);
 	_value = value;
 	_barFg->transform->scale.AddX(-_unit * diff);
+	UpdateText();
 }
 
-void BarComponent::InitFrame(const Math::Vector2& startPos)
+const Math::Vector2& BarComponent::GetSize() const
 {
-	_frame = std::shared_ptr<GameObject>{ _scene.Instantiate({ startPos, 0.0f, _scale }) };
-	_frame->AddComponent<Ui::Image>(DEFAULT_FRAME);
+	return _scale;
 }
 
-void BarComponent::InitBarBg(const Math::Vector2& startPos)
+void BarComponent::InitText(const Math::Vector2& pos, Player& player)
 {
-	_barBg = std::shared_ptr<GameObject>{ _scene.Instantiate({ startPos, 0.0f, _scale }) };
+	_text = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, _scale }) };
+	auto* text = _text->AddComponent<Ui::Text>("", _fontName, static_cast<int>(_scale.Magnitude() * TEXT_SCALE), DEFAULT_COLOR);
+	_text->transform->position.AddY(-Font::GetFontSize(text->GetFont(), text->GetText()).GetY());
+}
+
+void BarComponent::UpdateText()
+{
+	_text->GetComponent<Ui::Text>().SetText(std::to_string(_maxValue) + "/" + std::to_string(_value));
+}
+
+void BarComponent::InitBarBg()
+{
+	_barBg = std::shared_ptr<GameObject>{ _scene.Instantiate({ _pos, 0.0f, _scale }) };
 	_barBg->AddComponent<Ui::Image>(DEFAULT_BAR);
 }
 
-void BarComponent::InitBarFg(const Math::Vector2& startPos, Player& player)
+void BarComponent::InitBarFg(Player& player)
 {
-	_barFg = std::shared_ptr<GameObject>{ _scene.Instantiate({ startPos, 0.0f, _scale }) };
+	_barFg = std::shared_ptr<GameObject>{ _scene.Instantiate({ _pos, 0.0f, _scale }) };
 	_barFg->AddComponent<Ui::Image>(_spriteName);
 }
