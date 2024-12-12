@@ -31,6 +31,7 @@
     <ClCompile Include="src\Items\Shop\Shop.cpp" />
     <ClCompile Include="src\Items\Shop\ShopItem.cpp" />
     <ClCompile Include="src\Scenes\ShopScene.cpp" />
+    <ClCompile Include="src\Views\ShopView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="src\Items\Shop\Shop.hpp" />
     <ClInclude Include="src\Items\Shop\ShopItem.hpp" />
     <ClInclude Include="src\Scenes\ShopScene.hpp" />
+    <ClInclude Include="src\Views\ShopView.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -121,6 +123,8 @@
     <Image Include="Assets\Textures\Items\potions\cyan.png" />
     <Image Include="Assets\Textures\HUD\shield_bar.png" />
     <Image Include="Assets\Textures\Items\coin.png" />
+    <Image Include="Assets\Textures\UI\Shop\shop.png" />
+    <Image Include="Assets\Textures\UI\Shop\shop2.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

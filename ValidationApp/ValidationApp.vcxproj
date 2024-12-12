@@ -176,6 +176,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Views\ShopView.cpp" />
     <ClCompile Include="src\Scenes\ShopScene.cpp" />
     <ClCompile Include="src\Items\Shop\Shop.cpp" />
     <ClCompile Include="src\Items\Shop\ShopItem.cpp" />
@@ -207,6 +208,7 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Views\ShopView.hpp" />
     <ClInclude Include="src\Scenes\ShopScene.hpp" />
     <ClInclude Include="src\Items\Shop\Shop.hpp" />
     <ClInclude Include="src\Items\Shop\ShopItem.hpp" />
@@ -335,6 +337,14 @@
     </Image>
     <Image Include="assets\Textures\UI\Buttons\scroll3.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\UI\Shop\shop.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\UI\Shop\shop2.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\wall_map.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>

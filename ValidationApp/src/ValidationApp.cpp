@@ -8,6 +8,7 @@
 #include "Scenes/LayerScene.hpp"
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
+#include "Scenes/ShopScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -26,9 +27,10 @@ ValidationApp::ValidationApp()
 	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
+	RegisterScene<ShopScene>("ShopScene");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("ShopScene");
 
 	// Start Application
 	Run();
@@ -111,4 +113,8 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
 	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 	ResourceManager::AddFont("goblin","Assets\\Fonts\\a_goblin_appears.ttf");
+
+	// Shop
+	ResourceManager::AddSprite("shop", "Assets\\Textures\\UI\\Shop\\shop.png");
+	ResourceManager::AddSprite("shop2", "Assets\\Textures\\UI\\Shop\\shop2.png");
 }

@@ -1,8 +1,8 @@
 #include "ShopItem.hpp"
 
-ShopItem::ShopItem(int price, int amount, Item item)
-	: _price{price}, _amount{amount}, _item{item}
-{}
+//ShopItem::ShopItem(int price, int amount )
+//	: _price{price}, _amount{amount}
+//{}
 
 void ShopItem::LowerAmount(int amount) {
 	if (_amount - amount < 0)
@@ -25,7 +25,7 @@ int ShopItem::GetAmount() const
 	return _amount;
 }
 
-Item& ShopItem::GetItem()
-{
-	return _item;
-}
+//Item& ShopItem::GetItem()
+//{
+//	return _item;
+//}

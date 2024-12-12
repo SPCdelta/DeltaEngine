@@ -4,16 +4,16 @@
 class ShopItem : public Item
 {
    public:
-	ShopItem(int price, int amount, Item item);
+	//ShopItem(int price, int amount);
 	void LowerAmount(int amount);
 	void AddAmount(int amount);
 
 	int GetPrice() const;
 	int GetAmount() const;
-	Item& GetItem(); 
+	//Item& GetItem(); 
 
    private:
 	int _price;
 	int _amount;
-	Item _item;
+	//Item _item;
 };
