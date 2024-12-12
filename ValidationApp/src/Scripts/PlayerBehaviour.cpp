@@ -164,6 +164,7 @@ void PlayerBehaviour::OnUpdate()
 		else
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
+
 	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 }
 

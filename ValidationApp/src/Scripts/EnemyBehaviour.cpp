@@ -8,13 +8,14 @@ void EnemyBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "weapon");
 
 	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
-	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
-	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition);
+		std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
+		_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition);
 }
 
 void EnemyBehaviour::OnUpdate()
 {
-	_aiBehaviour->Update();
+	if (playerPosition)
+		_aiBehaviour->Update();
 
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
@@ -32,4 +33,10 @@ void EnemyBehaviour::OnUpdate()
 			sprite->SetColor(Rendering::Color(0.0f, 0.0f, 0.0f, 1.0f)); 
 		}
 	}
+}
+
+void EnemyBehaviour::SetPlayerPosition(Math::Vector2* pos)
+{
+	playerPosition = pos;
+	_aiBehaviour->SetTargetPosition(playerPosition);
 }

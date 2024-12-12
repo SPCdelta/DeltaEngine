@@ -25,13 +25,7 @@ class EnemyBehaviour : public BehaviourScript
 	Rigidbody* rigidbody = nullptr;
 
 	Math::Vector2* playerPosition = nullptr;
-	void SetPlayerPos(Math::Vector2* pos)
-	{
-		playerPosition = pos;
-
-		if (_aiBehaviour)
-			_aiBehaviour->SetPlayerPosition(pos);
-	}
+	void SetPlayerPosition(Math::Vector2* pos);
 
    private:
 	DamageBehaviour* _damageBehaviour{nullptr};

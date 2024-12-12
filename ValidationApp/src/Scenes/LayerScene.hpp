@@ -39,8 +39,8 @@ class LayerScene : public Scene
 		std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
 		enemyObj->AddComponent<Sprite>("spritesheet");
 		enemyObj->AddComponent<BoxCollider>();
-		enemyObj->AddComponent<Rigidbody>();
-		enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPos(&playerObject->GetComponent<Transform>().position);
+		enemyObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+		enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);
 
 		// Create potion object to pick up
 		/*WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
