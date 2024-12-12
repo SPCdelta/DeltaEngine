@@ -28,7 +28,7 @@ private:
 	const float HOTBAR_SCALE = 0.0001f;
 	const float BAR_YSCALE = 0.00003f;
 	const float BAR_MY_SCALE = 0.33f;
-	const float COIN_SCALE = 0.00005f;
+	const float COIN_SIZE = 50.f;
 	const float COIN_MARGIN_SCALE = 0.5f;
 };
 

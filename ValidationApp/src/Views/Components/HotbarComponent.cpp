@@ -2,12 +2,12 @@
 #include <algorithm>
 
 HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, 
-	const Math::Vector2& startPos, const Math::Vector2& scale, Player& player) : IView(scene, fontName, startPos, scale)
+	const Math::Vector2& startPos, const Math::Vector2& slotScale, Player& player) : IView(scene, fontName, startPos, slotScale)
 {
 	auto pos = startPos;
 	for (Uint8 i = 0; i < capacity; ++i)
 	{
-		auto slot = std::shared_ptr<GameObject>{ _scene.Instantiate({pos, 0.0f, scale }) };
+		auto slot = std::shared_ptr<GameObject>{ _scene.Instantiate({pos, 0.0f, slotScale }) };
 		slot->AddComponent<Ui::Image>("hotbar_slot");
 
 		auto* item = player.GetInventoryItem(i);
@@ -15,12 +15,12 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 		std::string itemName = "";
 		if (item)
 		{
-			itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, scale }) };
+			itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, slotScale }) };
 			itemIcon->AddComponent<Ui::Image>(item->GetItem().GetSprite());
 			itemName = item->GetItem().GetName();
 		}
 		_hotbar.emplace_back(slot, itemIcon, itemName);
-		pos.AddX(scale.GetX());
+		pos.AddX(slotScale.GetX());
 	}
 	player.AddInventoryObserver([this](const Item& item, int amount) { this->InventoryChanged(item, amount); });
 }

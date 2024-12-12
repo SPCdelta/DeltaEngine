@@ -18,7 +18,7 @@ class HotbarComponent : public IView
 {
 public:
 	HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, const Math::Vector2& startPos,
-		const Math::Vector2& scale, Player& player);
+		const Math::Vector2& slotScale, Player& player);
 	void InventoryChanged(const Item& item, int amount);
 	const Math::Vector2& GetSize() const override;
 private:

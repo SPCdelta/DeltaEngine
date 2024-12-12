@@ -19,16 +19,15 @@ const Math::Vector2& HUDView::GetSize() const
 void HUDView::InitHotbar()
 {
 	auto vp = _scene.GetWindow()->GetViewport();
-	float size = vp.width * vp.height * HOTBAR_SCALE;
-	Math::Vector2 scale = Math::Vector2{ size, size };
-	float xPos = (vp.width / 2) - ((NUM_OF_COLS * scale.GetX()) / 2);
-	float yPos = vp.height - scale.GetY();
+	Math::Vector2 slotScale = Math::Vector2{ 100, 100 };
+	float xPos = (vp.width / 2) - ((NUM_OF_COLS * slotScale.GetX()) / 2);
+	float yPos = vp.height - slotScale.GetY();
 	_hotbar = std::make_unique<HotbarComponent>(
 		_scene,
 		NUM_OF_COLS,
 		_fontName,
 		Math::Vector2{ xPos, yPos },
-		scale,
+		slotScale,
 		_player);
 }
 
@@ -69,11 +68,10 @@ void HUDView::InitShieldBar()
 void HUDView::InitCoinCounter()
 {
 	auto vp = _scene.GetWindow()->GetViewport();
-	float size = vp.width * vp.height * COIN_SCALE;
-	Math::Vector2 scale = { size, size };
-	float margin = size * COIN_MARGIN_SCALE;
+	Math::Vector2 scale = { COIN_SIZE, COIN_SIZE };
+	float margin = COIN_SIZE * COIN_MARGIN_SCALE;
 	float xPos = _hotbar->GetSize().GetX() + _hotbar->GetPos().GetX() + margin;
-	float yPos = vp.height - size - margin;
+	float yPos = vp.height - COIN_SIZE - margin;
 	_coinCounter = std::make_unique<CoinComponent>(
 		_scene, 
 		_fontName, 
