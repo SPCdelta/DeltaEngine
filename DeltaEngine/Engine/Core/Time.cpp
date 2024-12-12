@@ -23,7 +23,7 @@ void Time::SetDeltaTime(float deltaTime)
 
 void Time::SetMultiplier(float value)
 {
-	if (value > 1)
+	if (value > 1 || value <= 0)
 	{
 		throw std::exception{ "Multiplier value cannot be greater than 1." };
 	}
