@@ -98,8 +98,6 @@ class AStarStrategy : public IAIStrategy
         return path;
 	}
 
-
-
    private:
         Node* CreateNode(const Math::Vector2& position, Node* parent = nullptr)
         {

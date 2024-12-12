@@ -13,17 +13,13 @@ class DamageBehaviour
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
 				if (IsDamageSource(collider.transform.gameObject->GetTag()))
-				{
-					_damageCount = 1; // Ensure damage is triggered
-				}
+					_damageCount = 1; 
 			});
 
 			_rigidbody.onTriggerExit.Register([this](Collider& collider)
 			{
 				if (IsDamageSource(collider.transform.gameObject->GetTag()))
-				{
 					_damageCount = 0;
-				}
 			});
 		}
 
