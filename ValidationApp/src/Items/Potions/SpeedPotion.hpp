@@ -15,7 +15,7 @@ class SpeedPotion : public Potion
 	SpeedPotion(float time, float value, std::string name, std::string sprite) : Potion(time, value, name, sprite) {}
 
 	void Use(Player& player);
-	void Update() override;
+	bool Update() override;
 
 	PotionType GetType() override { return PotionType::Speed; }
 };

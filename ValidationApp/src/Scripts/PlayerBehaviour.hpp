@@ -71,6 +71,10 @@ private:
 	FloorType _onFloor{ FloorType::NORMAL };
 
 	std::unique_ptr<Player> _player;
+	std::vector<ConsumableItem*> _activeConsumables;
+
+	void InitHotbarKeybinds();
+	void ConsumeItem();
 
 	bool _attacking{false};
 	float _attackTime{0.0f};

@@ -1,11 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include <thread>
 
-#include <Engine/Core/Time.hpp>
-
-#include "../Item.hpp"
+#include "Engine/Delta.hpp"
+#include "../ConsumableItem.hpp"
 #include "../../Player.hpp"
 
 enum class PotionType
@@ -17,13 +15,13 @@ enum class PotionType
 	None
 };
 
-class Potion : public Item
+class Potion : public ConsumableItem
 {
    public:
-	Potion(float time, float value, std::string name, std::string sprite) : _time{time}, _value{value}, Item(name, sprite) {}
+	Potion(float time, float value, const std::string& name, const std::string& spriteName);
 
 	virtual void Use(Player& player) = 0;
-	virtual void Update() {}
+	virtual bool Update() { return true; };
 
 	virtual PotionType GetType() { return PotionType::None; }
 

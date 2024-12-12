@@ -21,10 +21,10 @@ void AttackUpPotion::Use(Player& player)
 
 }
 
-void AttackUpPotion::Update() 
+bool AttackUpPotion::Update()
 {
 	if (!IsActive)
-		return;
+		return true;
 
 	float deltaTime = Time::GetDeltaTime();
 	_elapsedTime += deltaTime;
@@ -42,4 +42,5 @@ void AttackUpPotion::Update()
 		_affectedPlayer = nullptr;
 		std::cout << "Potion effect worn off" << std::endl;
 	}
+	return false;
 }

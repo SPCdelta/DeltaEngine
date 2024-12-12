@@ -1,12 +1,12 @@
 #pragma once
 
+#include <memory>
 #include "Item.hpp"
 
 class WorldItem
 {
    public:
-	WorldItem(Item item, int amount) : _item(item), _amount(amount) {};
-
+	WorldItem(std::shared_ptr<Item> item, int amount);
 	int _amount;
-	Item _item;
+	std::shared_ptr<Item> _item;
 };

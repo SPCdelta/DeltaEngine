@@ -27,6 +27,9 @@
     <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
+    <ClCompile Include="src\Items\ConsumableItem.cpp" />
+    <ClCompile Include="src\Items\Potions\Potion.cpp" />
+    <ClCompile Include="src\Items\WorldItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -76,6 +79,7 @@
     <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
+    <ClInclude Include="src\Items\ConsumableItem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -113,6 +117,7 @@
     <Image Include="Assets\Textures\Items\potions\cyan.png" />
     <Image Include="Assets\Textures\HUD\shield_bar.png" />
     <Image Include="Assets\Textures\Items\coin.png" />
+    <Image Include="Assets\Textures\HUD\active_slot.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

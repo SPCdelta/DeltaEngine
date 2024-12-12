@@ -22,9 +22,9 @@ void SpeedPotion::Use(Player& player) {
 
 }
 
-void SpeedPotion::Update() {
+bool SpeedPotion::Update() {
 	if (!IsActive)
-		return;
+		return true;
 
 	float deltaTime = Time::GetDeltaTime();
 	_elapsedTime += deltaTime;
@@ -42,4 +42,5 @@ void SpeedPotion::Update() {
 		_affectedPlayer = nullptr;
 		std::cout << "Potion effect worn off" << std::endl;
 	}
+	return false;
 }

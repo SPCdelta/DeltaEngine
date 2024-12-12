@@ -14,8 +14,8 @@ class AttackUpPotion : public Potion
    public:
 	AttackUpPotion(float time, float value, std::string name, std::string sprite) : Potion(time, value, name, sprite){}
 
-	void Use(Player& player);
-	void Update() override;
+	void Use(Player& player) override;
+	bool Update() override;
 
 	PotionType GetType() override { return PotionType::AttackUp; }
 };

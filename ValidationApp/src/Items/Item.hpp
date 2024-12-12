@@ -5,8 +5,9 @@
 class Item
 {
    public:
-	Item(std::string name, const std::string& spriteName);
-	virtual ~Item() = default;
+	Item(const std::string& name, const std::string& spriteName);
+	//virtual ~Item() = default;
+	virtual void kek() {};
 
 	const std::string& GetName() const;
 

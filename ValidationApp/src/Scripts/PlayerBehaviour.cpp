@@ -10,7 +10,7 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-	_weapon = new Gun(this);
+	//_weapon = new Gun(this); TODO: Memory leaks
 	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 	//_weapon = new Bow(this);
 
@@ -32,13 +32,12 @@ void PlayerBehaviour::OnStart()
 		}
 	);
 
+	InitHotbarKeybinds();
+	// use consumables on right mb so that left mb is reserved for maybe throwing potions and the like?
+	//onMouseButtonDown(MouseButton::Right, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // TODO: fix inputmanager. For some reason this maps to KEY_02?
+	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
+
 	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_X, [this](Input& e) { _player->AddItemToInventory(Item("item1", "cyanPotion"), 4); },"Gameplay");
-	//onKeyPressed(KEY_C, [this](Input& e) { _player->AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay"); stukkie wukkie
-	onKeyPressed(KEY_V, [this](Input& e) { _player->RemoveItemFromInventory(Item("item1", "cyanPotion"), 5);}, "Gameplay");
-	onKeyPressed(KEY_B, [this](Input& e) { _player->PrintInventory(); }, "Gameplay");
-	onKeyPressed(KEY_Y, [this](Input& e) { _player->SetShield(69); }, "Gameplay");
-	onKeyPressed(KEY_Q, [this](Input& e) { _player->SetCoins(69); }, "Gameplay");
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 }
@@ -147,7 +146,7 @@ void PlayerBehaviour::OnUpdate()
 		// Attacking
 		if (attack)
 		{
-			ThrowBoomerang();
+			// ThrowBoomerang(); TODO: This causes memory leaks because of input manager?
 		}
 		
 		// Walking
@@ -164,6 +163,15 @@ void PlayerBehaviour::OnUpdate()
 		else
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
+
+	for (size_t i = 0; i < _activeConsumables.size(); ++i)
+	{
+		if (_activeConsumables[i]->Update())
+		{
+			_activeConsumables.erase(_activeConsumables.begin() + i);
+		}
+	}
+
 	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 }
 
@@ -173,6 +181,31 @@ void PlayerBehaviour::UpdateAttack(float deltaTime)
 		_attackTime -= deltaTime;
 	else
 		_attacking = false;
+}
+
+void PlayerBehaviour::InitHotbarKeybinds()
+{
+	for (Uint8 i = 1; i <= 9; ++i)
+	{
+		onKeyPressed(InputsEnum::toKey(std::to_string(i)), [this, i](Input& e) { _player->SetInventoryIndex(i-1); }, "Gameplay");
+	}
+}
+
+void PlayerBehaviour::ConsumeItem()
+{
+	if (_player->GetInventoryIndex() < _player->GetInventorySize())
+	{
+		auto* item = _player->GetCurrentInventoryItem().GetItem();
+		if (!item) return;
+
+		auto* consumable = dynamic_cast<ConsumableItem*>(item);
+		if (consumable)
+		{
+			consumable->Use(*_player.get());
+			_activeConsumables.emplace_back(consumable);
+			_player->RemoveItemFromInventory(*consumable, 1);
+		}
+	}
 }
 
 void PlayerBehaviour::ThrowBoomerang()
@@ -213,12 +246,12 @@ void PlayerBehaviour::LoadPlayer()
 				{
 					PotionType type = static_cast<PotionType>(itemData["type"]);
 					auto potion = PotionFactory::CreatePotion(type, itemData);
-					_player->AddItemToInventory(*potion, itemData["amount"]);
+					_player->AddItemToInventory(potion.release(), itemData["amount"]);
 				}
 				else
 				{
-					Item item = Item(itemData["name"], itemData["sprite"]); 
-					_player->AddItemToInventory(item, itemData["amount"]);
+					std::unique_ptr<Item> item = std::make_unique<Item>(itemData["name"], itemData["sprite"]); 
+					_player->AddItemToInventory(item.release(), itemData["amount"]);
 				}
 
 				// TODO weapons?
@@ -239,11 +272,11 @@ void PlayerBehaviour::SavePlayer()
 		for (size_t i = 0; i < _player->GetInventorySize(); ++ i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
-			auto& inventoryItem = _player->GetInventoryItem(i)->GetItem();
+			auto& inventoryItem = *_player->GetInventoryItem(i).GetItem();
 
 			itemData["name"] = inventoryItem.GetName();
 			itemData["sprite"] = inventoryItem.GetSprite();
-			itemData["amount"] = _player->GetInventoryItem(i)->GetAmount();
+			itemData["amount"] = _player->GetInventoryItem(i).GetAmount();
 
 			if (auto potion = dynamic_cast<Potion*>(&inventoryItem))
 			{

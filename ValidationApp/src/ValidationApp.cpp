@@ -106,6 +106,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("health_bar", "Assets\\Textures\\HUD\\health_bar.png");
 	ResourceManager::AddSprite("shield_bar", "Assets\\Textures\\HUD\\shield_bar.png");
 	ResourceManager::AddSprite("hotbar_slot", "Assets\\Textures\\HUD\\hotbar_slot.png");
+	ResourceManager::AddSprite("active_slot", "Assets\\Textures\\HUD\\active_slot.png");
 
 	// Fonts
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");

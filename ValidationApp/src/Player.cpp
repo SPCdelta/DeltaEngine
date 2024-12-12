@@ -66,38 +66,38 @@ int Player::GetHealth() const
 	return _health;
 }
 
-void Player::AddItemToInventory(const Item& item, int amount)
+void Player::AddItemToInventory(Item* item, int amount)
 {
-	_inventory->AddItem(item, amount);
+	_inventory.AddItem(item, amount);
 
-	NotifyInventoryChanged(item, amount);
+	NotifyInventoryChanged(*item, amount);
 }
 
 void Player::RemoveItemFromInventory(const Item& item, int amount)
 {
-	_inventory->RemoveItem(item, amount);
+	_inventory.RemoveItem(item, amount);
 
 	NotifyInventoryChanged(item, -amount);
 }
 
 int Player::GetInventorySize()
 {
-	return _inventory->GetItemAmount();
+	return _inventory.GetItemAmount();
 }
 
-InventoryItem* Player::GetInventoryItem(int index)
+InventoryItem& Player::GetInventoryItem(int index)
 {
-	return _inventory->GetItem(index).get();
+	return _inventory.GetItem(index);
+}
+
+InventoryItem& Player::GetCurrentInventoryItem()
+{
+	return _inventory.GetItem(_inventoryIndex);
 }
 
 void Player::ResetInventory() // Empties the inventory
 {
-	_inventory->Clear();
-}
-
-void Player::PrintInventory()
-{
-	_inventory->PrintInventory();
+	_inventory.Clear();
 }
 
 int Player::GetCoins() const
@@ -114,6 +114,34 @@ void Player::SetCoins(int coins)
 		NotifyCoinsChanged(coins - _coins);
 		_coins = coins;
 }
+
+void Player::IncrementInventoryIndex()
+{
+	++_inventoryIndex;
+	NotifyInventoryIndexChanged();
+}
+
+void Player::DecrementInventoryIndex()
+{
+	--_inventoryIndex;
+	NotifyInventoryIndexChanged();
+}
+
+void Player::SetInventoryIndex(Uint8 index)
+{
+	if (index < 0 || index > _inventory.GetCapacity()-1)
+	{
+		throw std::exception{"Index cannot be lower than 0 or higher than inventory capacity"};
+	}
+	_inventoryIndex = index;
+	NotifyInventoryIndexChanged();
+}
+
+Uint8 Player::GetInventoryIndex() const
+{
+	return _inventoryIndex;
+}
+
 
 void Player::NotifyHealthChanged()
 {
@@ -144,5 +172,13 @@ void Player::NotifyInventoryChanged(const Item& item, int amount)
 	for (const auto& observer : _inventoryObservers)
 	{
 		observer(item, amount);
+	}
+}
+
+void Player::NotifyInventoryIndexChanged()
+{
+	for (const auto& observer : _inventoryIndexObservers)
+	{
+		observer(_inventoryIndex);
 	}
 }

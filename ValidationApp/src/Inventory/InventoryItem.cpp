@@ -1,6 +1,6 @@
 #include "InventoryItem.hpp"
 
-InventoryItem::InventoryItem(Item item, int amount) : _item{item}, _amount{amount} {}
+InventoryItem::InventoryItem(Item* item, int amount) : _item{item}, _amount{amount} {}
 
 void InventoryItem::AddAmount(int amount)
 {
@@ -20,7 +20,7 @@ int InventoryItem::GetAmount() const
 	return _amount;
 }
 
-Item& InventoryItem::GetItem()
+Item* InventoryItem::GetItem() const
 {
 	return _item;
 }

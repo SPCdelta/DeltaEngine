@@ -1,6 +1,6 @@
 #include "Item.hpp"
 
-Item::Item(std::string name, const std::string& spriteName) : _name{name}, _sprite{spriteName} {}
+Item::Item(const std::string& name, const std::string& spriteName) : _name{name}, _sprite{spriteName} {}
 
 const std::string& Item::GetName() const
 {
