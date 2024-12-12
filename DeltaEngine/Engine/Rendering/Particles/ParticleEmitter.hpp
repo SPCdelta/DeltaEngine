@@ -11,10 +11,16 @@
 
 struct ParticleEmitterConfiguration
 {
-	std::string sprite;
+	std::vector<std::string> sprites;
+	Rendering::Color colorFrom;
+	Rendering::Color colorTo;
 	size_t initialSpawnAmount;
 
 	float spawnRadius;
+
+	float minSpawnInterval;
+	float maxSpawnInterval;
+
 	bool loop;
 
 	// Generates a random between these two values
@@ -73,6 +79,22 @@ protected:
 		};
 	}
 
+	virtual const std::string& GetSprite()
+	{
+		return _configuration.sprites[static_cast<size_t>(Random::NextInt(0, static_cast<int>(_configuration.sprites.size()) - 1))];
+	}
+
+	virtual Rendering::Color GetColor()
+	{
+		return 
+		{
+			static_cast<uint8_t>(Random::NextInt(_configuration.colorFrom.r, _configuration.colorTo.r)),
+			static_cast<uint8_t>(Random::NextInt(_configuration.colorFrom.g, _configuration.colorTo.g)),
+			static_cast<uint8_t>(Random::NextInt(_configuration.colorFrom.b, _configuration.colorTo.b)),
+			static_cast<uint8_t>(Random::NextInt(_configuration.colorFrom.a, _configuration.colorTo.a))
+		};
+	}
+
 	virtual float GetLifetime()
 	{
 		return Random::NextFloat(_configuration.minLifetime, _configuration.maxLifetime);
@@ -108,6 +130,7 @@ private:
 	ParticleEmitterConfiguration _configuration;
 	std::vector<Particle*> _particles{};
 	bool _started{ false };
+	float _spawnParticleIn = 0.0f;
 
 	std::shared_ptr<GameObject> Instantiate()
 	{
@@ -117,7 +140,9 @@ private:
 	Particle* CreateParticle()
 	{ 
 		std::shared_ptr<GameObject> particleObj = Instantiate();
-		particleObj->AddComponent<Sprite>(_configuration.sprite)->SetLayer(Layer::Particles);
+		Sprite* sprite = particleObj->AddComponent<Sprite>(GetSprite());
+		sprite->SetLayer(Layer::Particles);
+		sprite->SetColor(GetColor());
 
 		Particle* particle = _particles.emplace_back(
 			new Particle
@@ -141,6 +166,18 @@ private:
 		_gameObject->Destroy(gameObject->transform->gameObject);
 	}
 
+	void TrySpawnParticle()
+	{
+		if (_spawnParticleIn > 0.0f)
+		{
+			_spawnParticleIn -= Time::GetDeltaTime();
+			return;
+		}
+
+		_spawnParticleIn = Random::NextFloat(_configuration.minSpawnInterval, _configuration.maxSpawnInterval);
+		CreateParticle();
+	}
+
 	void Update()
 	{
 		if (!_started)
@@ -160,6 +197,10 @@ private:
 			}),_particles.end()
 		);
 
+		// Spawn New Particles
+		TrySpawnParticle();
+
+		// Update Particles
 		for (Particle* particle : _particles)
 		{
 			particle->transform->position += (particle->direction * particle->speed * Time::GetDeltaTime());

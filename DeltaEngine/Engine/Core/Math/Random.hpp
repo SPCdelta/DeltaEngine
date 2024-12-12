@@ -16,7 +16,9 @@ namespace Math
 		{
 			if (min > max)
 			{
-				throw std::invalid_argument("Min should not be greater than max.");
+				float tempMin = min;
+				min = max;
+				max = tempMin;
 			}
 
 			std::uniform_real_distribution<float> dist(min, max);
@@ -24,7 +26,19 @@ namespace Math
 			return dist(instance.rnd);
 		}
 
-		int NextInt(int min, int max) const;
+		static int NextInt(int min, int max)
+		{
+			if (min > max)
+			{
+				int tempMin = min;
+				min = max;
+				max = tempMin;
+			}
+
+			std::uniform_int_distribution<int> dist(min, max);
+
+			return dist(instance.rnd);
+		}
 
 		double NextDouble(int min, int max) const;
 		double NextDouble() const;

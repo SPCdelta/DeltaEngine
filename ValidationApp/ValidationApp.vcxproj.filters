@@ -117,6 +117,7 @@
     <Image Include="Assets\Textures\Items\potions\cyan.png" />
     <Image Include="Assets\Textures\HUD\shield_bar.png" />
     <Image Include="Assets\Textures\Items\coin.png" />
+    <Image Include="Assets\Textures\Particles\particles.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
