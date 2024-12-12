@@ -21,9 +21,9 @@ const Math::Vector2& BarComponent::GetSize() const
 	return _scale;
 }
 
-void BarComponent::InitText(const Math::Vector2& pos, Player& player)
+void BarComponent::InitText(Player& player)
 {
-	_text = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, _scale }) };
+	_text = std::shared_ptr<GameObject>{ _scene.Instantiate({ _pos, 0.0f, _scale }) };
 	auto* text = _text->AddComponent<Ui::Text>("", _fontName, static_cast<int>(_scale.Magnitude() * TEXT_SCALE), DEFAULT_COLOR);
 	_text->transform->position.AddY(-Font::GetFontSize(text->GetFont(), text->GetText()).GetY());
 }

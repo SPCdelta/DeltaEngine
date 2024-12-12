@@ -15,7 +15,7 @@ public:
 protected:
 	void InitBarBg();
 	void InitBarFg(Player& player);
-	void InitText(const Math::Vector2& pos, Player& player);
+	void InitText(Player& player);
 	virtual void InitValues(Player& player) = 0;
 	void UpdateText();
 	std::shared_ptr<GameObject> _text;
