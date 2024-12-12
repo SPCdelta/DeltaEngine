@@ -1,4 +1,5 @@
 #include "AnimationSheet.hpp"
+#include "../Core/Time.hpp"
 
 AnimationSheet::AnimationSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp, int rowDown, 
 	int rowLeft, int rowRight) : frameCount(framesInRow), frameRowUp(rowUp), frameRowDown(rowDown), frameRowLeft(rowLeft), 
@@ -26,7 +27,7 @@ void AnimationSheet::AddCustomAnimation(const std::string& animationName, int fr
 
 bool AnimationSheet::PlayCustomAnimation(const std::string& animationName)
 {
-	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();
+	Rendering::UnsignInt32 currentTime = Time::GetDeltaTime();
 	if (customAnimations.find(animationName) != customAnimations.end())
 	{
 		const AnimationData& animData = customAnimations[animationName];

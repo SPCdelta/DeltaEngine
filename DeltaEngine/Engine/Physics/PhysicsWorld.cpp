@@ -5,7 +5,7 @@ void Physics::PhysicsWorld::Update()
 	_currentCollisions.clear();
 	_currentTriggers.clear();
 
-	Physics::AdvancePhysics(_data.id, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
+	Physics::AdvancePhysics(_data.id, Time::GetDeltaTime(), Physics::SUB_STEP_COUNT);
 
 	CollisionEvents contactEvents = Physics::GetCollisionEvents(_data.id);
 	TriggerEvents triggerEvents = Physics::GetTriggerEvents(_data.id);
