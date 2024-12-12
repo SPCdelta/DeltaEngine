@@ -6,8 +6,6 @@
 #include "../IView.hpp"
 #include "../../Player.hpp"
 
-const float _textScale = 0.2f;
-
 struct Slot
 {
 	std::shared_ptr<GameObject> slot;
@@ -32,5 +30,6 @@ private:
 	Uint8 GetAvailableIndex() const;
 	bool HasItem(const Item& item);
 	std::vector<Slot> _hotbar;
+	const float TEXT_SCALE = 0.2f;
 };
 
