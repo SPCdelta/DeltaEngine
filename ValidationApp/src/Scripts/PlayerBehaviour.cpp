@@ -11,20 +11,17 @@ void PlayerBehaviour::OnStart()
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 	
-	
 	//this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 
 	//_weapon = new Gun(this);
 	//_weapon = new Bow(this);
 	//onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 
-	onMouseMove(
-		[this](Input& e) 
-		{ 
-			_mouseX = e.mouseX;
-			_mouseY = e.mouseY;
-		}
-	);
+	onMouseMove([this](Input& e) 
+	{ 
+		_mouseX = e.mouseX;
+		_mouseY = e.mouseY;
+	});
 
 	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
 	onKeyPressed(KEY_X, [this](Input& e) { _player->AddItemToInventory(Item("item1", "cyanPotion"), 4); },"Gameplay");
@@ -181,8 +178,6 @@ void PlayerBehaviour::ThrowBoomerang()
 
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
-	//boomerangObj->AddComponent<BoxCollider>()->SetTrigger(true); TODO
-	boomerangObj->SetTag("weapon");
 	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
 
 	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);

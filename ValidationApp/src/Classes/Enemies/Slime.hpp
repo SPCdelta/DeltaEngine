@@ -7,9 +7,9 @@
 class Slime : public Enemy
 {
    public:
-	Slime(const Math::Point& start_position) : Enemy(start_position, 0.8f) {}
+	Slime(Math::Vector2* position, int health) : Enemy(position, 1.0f, health) {}
 
-	void Update(const Math::Point& player_position) override
+	void Update(const Math::Vector2& player_position) override
 	{
 
 	}

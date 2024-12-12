@@ -31,6 +31,5 @@ class IAIStrategy
 {
    public:
 		virtual ~IAIStrategy() = default;
-
 		virtual std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end) = 0;
 };

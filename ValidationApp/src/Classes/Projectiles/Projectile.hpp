@@ -2,6 +2,8 @@
 
 #include <Engine/Delta.hpp>
 
+#include "../../Scripts/EnemyBehaviour.hpp"
+
 struct ProjectileData
 {
 	std::string sprite;

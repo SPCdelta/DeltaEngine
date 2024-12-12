@@ -2,7 +2,8 @@
 
 #include "Engine/Delta.hpp"
 
-#include "../Player.hpp"
+#include "../Classes/Enemies/Enemy.hpp"
+#include "../Classes/Enemies/Goblin.hpp"
 #include "../Classes/DamageBehaviour.hpp"
 
 class EnemyBehaviour : public BehaviourScript
@@ -27,11 +28,16 @@ class EnemyBehaviour : public BehaviourScript
 	Math::Vector2* playerPosition = nullptr;
 	void SetPlayerPosition(Math::Vector2* pos);
 
+	Enemy& GetEnemy() const { return *_enemy; }
+
    private:
 	DamageBehaviour* _damageBehaviour{nullptr};
 	AIBehaviour* _aiBehaviour{nullptr};
 
+	// Audio
+	Audio::SFXSource* _sfx;
+
 	Math::Vector2 _moveDirection{0.0f, 0.0f};
 
-	int hp{5};	
+	std::unique_ptr<Enemy> _enemy;
 };

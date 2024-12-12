@@ -29,11 +29,9 @@ class AIBehaviour
 		float targetChangeThreshold = 2.0f; 
 
 		if (start || ((*_targetPosition - _lastKnownTargetPosition).Magnitude() > targetChangeThreshold && 
-			timeSinceLastPathCalculation > pathRecalculationCooldown) /*|| (*_targetPosition - *position_).Magnitude() < 0.5f*/) 
+			timeSinceLastPathCalculation > pathRecalculationCooldown)) 
 		{
             _lastKnownTargetPosition = *_targetPosition;
-            std::cout << "Target position changed!" << std::endl;
-
 			CalculateNewPath();
 			timeSinceLastPathCalculation = 0.0f;
 			start = false;
@@ -49,7 +47,7 @@ class AIBehaviour
 		_direction = path_.front() - *position_;
 		float distance = _direction.Magnitude();
 
-        if (distance < 0.3f)  // Reached the next node
+        if (distance < 0.3f)  // Reached the next 'node'
         {
 			if (path_.size() == 1 && path_.front() == *_targetPosition)
 			{
@@ -63,9 +61,8 @@ class AIBehaviour
         else
         {
 			Math::Vector2 normalizedDirection = _direction.GetNormalized();
-			*position_ += normalizedDirection * _moveSpeed * Time::GetDeltaTime();  // Smooth movement
+			*position_ += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 			_direction = normalizedDirection;
-
         }
 	}
 

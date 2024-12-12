@@ -15,7 +15,7 @@ class LayerScene : public Scene
 	void OnStart() override
 	{
 		// Create Player
-		std::shared_ptr<GameObject> playerObject{ Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
+		std::shared_ptr<GameObject> playerObject{ Instantiate({{4.0f, 4.0f}, 0.0f, {3.0f, 3.0f}}) };
 		std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 		playerSheet->AddCustomAnimation("death", 6, 21, 150);
 		playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
@@ -29,6 +29,7 @@ class LayerScene : public Scene
 		std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
 		std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(enemyObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
 		enemyObj->AddComponent<Sprite>("goblin", goblinSheet);
+		enemyObj->AddComponent<Audio::SFXSource>("", false, false);
 		enemyObj->AddComponent<BoxCollider>()->SetTrigger(true);
 		enemyObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 		enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);

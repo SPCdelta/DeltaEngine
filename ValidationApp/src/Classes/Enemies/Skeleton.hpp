@@ -5,9 +5,9 @@
 class Skeleton : public Enemy
 {
    public:
-	Skeleton(const Math::Point& start_position) : Enemy(start_position, 0.5f) {}  // Skeleton moves slower
+	Skeleton(Math::Vector2* position, int health) : Enemy(position, 2.5f, health) {}  // Skeleton moves slower
 
-	void Update(const Math::Point& player_position) override
+	void Update(const Math::Vector2& player_position) override
 	{
 
 	}

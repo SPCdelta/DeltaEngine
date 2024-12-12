@@ -43,6 +43,7 @@ class AStarStrategy : public IAIStrategy
             if (current_node->position == end) 
                 break;
 
+            // N, E, S, W and diagonals
             const std::vector<Math::Vector2> directions = 
             {
 				{1, 0}, {-1, 0},  {0, 1},  {0, -1},	
@@ -51,7 +52,7 @@ class AStarStrategy : public IAIStrategy
             
             for (auto& dir : directions) 
             {
-				Math::Vector2 neighborPos = current_node->position + dir * 50; // TODO *50 or no?
+				Math::Vector2 neighborPos = current_node->position + dir; 
 
                 if (!IsWalkable(neighborPos))
 					continue;
@@ -94,6 +95,12 @@ class AStarStrategy : public IAIStrategy
 			at->tag = "path";
         }
 
+        for (auto& entry : nodeMap)
+			delete entry.second;
+		nodeMap.clear();
+		delete startNode;
+		delete endNode;
+
         std::reverse(path.begin(), path.end());
         return path;
 	}
@@ -106,13 +113,15 @@ class AStarStrategy : public IAIStrategy
             return newNode;
         }
 
-        void InitializeNodesAround(Math::Vector2 center, int range, int step, std::unordered_map<Math::Vector2, Node*, Vector2Hash>& nodeMap) {
-            for (int x = -range; x <= range; x += step) {
-                for (int y = -range; y <= range; y += step) {
+        void InitializeNodesAround(Math::Vector2 center, int range, int step, std::unordered_map<Math::Vector2, Node*, Vector2Hash>& nodeMap) 
+        {
+            for (int x = -range; x <= range; x += step) 
+            {
+                for (int y = -range; y <= range; y += step) 
+                {
                     Math::Vector2 position = center + Math::Vector2(x, y);
-
-                    // Ensure position is walkable before adding it
-                    if (IsWalkable(position) && nodeMap.find(position) == nodeMap.end()) {
+                    if (IsWalkable(position) && nodeMap.find(position) == nodeMap.end()) 
+                    {
                         Node* newNode = CreateNode(position);
                         nodeMap[position] = newNode;
                     }
@@ -120,7 +129,7 @@ class AStarStrategy : public IAIStrategy
             }
         }
 
-        bool IsWalkable(const Math::Vector2& position)
+        bool IsWalkable(const Math::Vector2& position) // TODO
         {
 			bool isWalkable = true;	
 
