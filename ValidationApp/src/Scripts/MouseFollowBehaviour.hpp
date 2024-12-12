@@ -21,7 +21,7 @@ public:
 
 	void OnUpdate() override 
 	{ 
-		Math::Vector2 mouseToWorldPos{ _camera->ScreenToWorldPoint(mouseX, mouseY) };
+		Math::Vector2 mouseToWorldPos{ _camera->ScreenToWorldPoint({mouseX, mouseY}) };
 		gameObject->transform->position.Set(mouseToWorldPos - 0.5f);
 	}
 

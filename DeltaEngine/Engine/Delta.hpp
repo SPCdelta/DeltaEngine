@@ -45,3 +45,4 @@ using namespace Physics;
 #include "UI/Text.hpp"
 #include "UI/Image.hpp"
 #include "UI/Button.hpp"
+#include "UI/Brush/SnapToGridBrush.hpp"

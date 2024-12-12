@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
-#include "Engine/UI/SnapToGridDraggable.hpp"
 #include "Engine/UI/Scrollable.hpp"
 
 #include "../Scripts/MouseFollowBehaviour.hpp"
@@ -47,6 +46,14 @@ public:
 
     void InitLevelEditor(const std::string& level){
 
+        auto mousePos = InputManager::GetMousePosition();
+        _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
+        _brush->AddComponent<SnapToGridBrush>()->activate([](){
+            std::cout << "pressed";
+            
+            
+            });
+
         if (level.empty()){
             MakeSaveFilePath();
             return;
@@ -67,7 +74,6 @@ public:
                     _layer = layer;
                     CreateLevelEditorTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
                     _tilesPerLayer[_layer].back()->SetTag(SPRITE_CATEGORY[0]);
-                    _tilesPerLayer[_layer].back()->GetComponent<SnapToGridDraggable>().SetDraggeble(false);
                 }
             }
         }
@@ -80,7 +86,7 @@ public:
                 _layer = layer;
                 CreateLevelEditorTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
                 _tilesPerLayer[_layer].back()->SetTag(SPRITE_CATEGORY[1]);
-                _tilesPerLayer[_layer].back()->GetComponent<SnapToGridDraggable>().SetDraggeble(false);
+                //_tilesPerLayer[_layer].back()->GetComponent<SnapToGridBrush>().SetDraggeble(false);
             }
         }
     }
@@ -165,24 +171,24 @@ public:
 
         auto& tile = _tilesPerLayer[_layer].back();
         tile->SetTag(category);
-        auto draggable = tile->AddComponent<SnapToGridDraggable>();
+
         auto sprite = tile->AddComponent<Sprite>(spriteName);
         sprite->SetLayer(_layer);
 
-        draggable->activate("Ui:layer - " + LayerHelper::GetString(_layer), [this, sprite]() {
-            sprite->SetLayer(_layer);
-            });
+        //draggable->activate("Ui:layer - " + LayerHelper::GetString(_layer), [this, sprite]() {
+        //    sprite->SetLayer(_layer);
+        //    });
 
-        draggable->RemoveOnKey(KEY_Q, [this, tile]() {
-            tile->Destroy(tile.get());
-            });
+        //draggable->RemoveOnKey(KEY_Q, [this, tile]() {
+        //    tile->Destroy(tile.get());
+        //    });
 
-        _inputs.push_back(InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
+        /*_inputs.push_back(InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
             if (!draggable->isBingDragged())
                 return;
             sprite->SetLayer(_layer);
             draggable->SetCategory("Ui:layer - " + LayerHelper::GetString(_layer));
-            }));
+            }));*/
     }
 
 
@@ -194,7 +200,8 @@ public:
         layer->SetBackground({ 255, 255, 255, 255 });
 
         std::shared_ptr<GameObject> worldView{ Instantiate({{0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight}}) };
-        worldView->AddComponent<Ui::Scrollable>([this, layer](int wheelDirection) {
+        worldView->AddComponent<Ui::Scrollable>(
+            [this, layer](int wheelDirection) {
             int layerInt = LayerHelper::GetInt(_layer);
 
             int newLayer = layerInt + wheelDirection;
@@ -202,10 +209,11 @@ public:
             if (LayerHelper::InLayers(newLayer)) {
                 //InputManager::deactivateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
                 _layer = LayerHelper::GetLayer(newLayer);
-
+                _brush->SetLayer(_layer);
                 //InputManager::activateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
 
                 layer->SetText("Layer: " + LayerHelper::GetString(_layer));
+
             }
             });
     }
@@ -269,16 +277,18 @@ public:
 
         for (auto& [key, value] : sprites)
         {
-            _optionTiles.emplace_back(Instantiate({
+            auto& optionTile = _optionTiles.emplace_back(Instantiate({
                     {-SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR},
                     0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
 
 
-            _optionTiles.back()->AddComponent<Ui::Image>(key);
-            _optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
-                [this, key, value]() {
-                    CreateLevelEditorTile(key, value->category);
-                }, "UI:Leveleditor-" + key);
+            optionTile->AddComponent<Ui::Image>(key);
+            optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
+
+            //_optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
+            //    [this, key, value]() {
+            //        CreateLevelEditorTile(key, value->category); //TODO Brush updaten naar deze sprite
+            //    }, "UI:Leveleditor-" + key);
         }
 
         auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
@@ -300,7 +310,6 @@ public:
                 auto& tileoption = _optionTiles.at(maxOptionPerRow * _tileIndexOptions + index);
 
                 tileoption->transform->position.Set({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });
-                tileoption->GetComponent<Ui::Button>().SetPosition({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });
 
                 index++;
             }
@@ -327,8 +336,6 @@ private:
         for (auto& option : _optionTiles)
         {
             option->transform->position.Set({ -SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR });
-            option->GetComponent<Ui::Button>().SetPosition({ -SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR });
-
         }
     }
 
@@ -348,6 +355,8 @@ private:
     std::map<Layer, std::vector<std::shared_ptr<GameObject>>> _tilesPerLayer;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
     int _tileIndexOptions = 0;
+
+    std::shared_ptr<GameObject> _brush;
 
     std::vector<InputLocation> _inputs;
 

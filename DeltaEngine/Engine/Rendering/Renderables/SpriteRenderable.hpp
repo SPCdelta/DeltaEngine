@@ -19,6 +19,11 @@ class SpriteRenderable : public Renderable
 	bool GetVisible() const { return _visible; }
 	void SetVisible(bool vis) { _visible = vis; }
 
+	~SpriteRenderable(){
+		auto test = 0;
+	
+	}
+
 protected:
 	std::string _spriteName;
 	SpriteData* _spriteData;

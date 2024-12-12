@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <entt/entt.hpp>
+#include <iostream>
 
 namespace ecs
 {
@@ -74,6 +75,19 @@ namespace ecs
 		{
 			return _registry.emplace<Component>(entityId, component);
 		}
+
+		template<typename Component, typename... Args>
+		Component& EmplaceComponent(ecs::EntityId entityId, Args&&... args)
+		{
+			try
+			{
+				return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
+			}
+			catch (const std::exception& ex) {
+				std::cerr << "Error while emplacing component: " << ex.what() << std::endl;
+			}
+		}
+
 
 		template<typename Component>
 		void RemoveComponent(ecs::EntityId entityId)

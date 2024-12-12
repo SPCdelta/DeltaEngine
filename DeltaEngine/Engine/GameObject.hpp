@@ -16,7 +16,8 @@
 
 #include "UI/Button.hpp"
 #include "UI/Scrollable.hpp"
-#include "UI/SnapToGridBrush.hpp"
+#include "UI/Brush/SnapToGridBrush.hpp"
+#include "UI/Brush/BrushSprite.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
 
@@ -58,22 +59,29 @@ public:
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
-			T* component = static_cast<T*>(_AddComponent<Ui::Button>(Ui::Button(transform->position, transform->scale)));
+			T* component = static_cast<T*>(_EmplaceComponent<Ui::Button>(transform->position, transform->scale));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Ui::Scrollable>)
 		{
-			T* component = static_cast<T*>(_AddComponent<Ui::Scrollable>(Ui::Scrollable(transform, std::forward<Args>(args)...)));
+			T* component = static_cast<T*>(_EmplaceComponent<Ui::Scrollable>(transform, std::forward<Args>(args)...));
 			return component;
 		}
-		else if constexpr (std::is_same_v<T, SnapToGridDraggable>)
+		else if constexpr (std::is_same_v<T, SnapToGridBrush>)
 		{
-			T* component = static_cast<T*>(_AddComponent<SnapToGridDraggable>(SnapToGridDraggable(_camera, transform, std::forward<Args>(args)...)));
+			Sprite* sprite = AddComponent<Sprite>("default_texture");
+			T* component = static_cast<T*>(_EmplaceComponent<SnapToGridBrush>(*transform, sprite, _camera, std::forward<Args>(args)...));
+			
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, BrushSprite>)
+		{
+			T* component = static_cast<T*>(_EmplaceComponent<BrushSprite>(*transform, std::forward<Args>(args)...));
 			return component;
 		}
 		else
 		{
-			return static_cast<T*>(_AddComponent<T>(T(std::forward<Args>(args)...)));
+			return static_cast<T*>(_EmplaceComponent<T>(std::forward<Args>(args)...));
 		}
 	}
 
@@ -170,5 +178,11 @@ private:
 	T* _AddComponent(T component)
 	{
 		return &_reg.AddComponent<T>(_id, std::move(component)); 
+	}
+
+	template <typename T, typename... Args>
+	T* _EmplaceComponent(Args&&... args)
+	{
+		return &_reg.EmplaceComponent<T>(_id, std::forward<Args>(args)...);
 	}
 };
