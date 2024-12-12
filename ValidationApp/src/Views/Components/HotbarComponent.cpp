@@ -78,7 +78,7 @@ void HotbarComponent::AddItem(const Item& item, int amount)
 		0.0f,
 		_hotbar[index].slot->transform->scale }) };
 	itemIcon->AddComponent<Ui::Image>(item.GetSprite());
-	itemIcon->AddComponent<Ui::Text>(std::to_string(amount), _fontName, static_cast<int>(_scale.Magnitude() * _textScale), DEFAULT_COLOR);
+	itemIcon->AddComponent<Ui::Text>(std::to_string(amount), _fontName, static_cast<int>(_scale.Magnitude() * TEXT_SCALE), DEFAULT_COLOR);
 	_hotbar[index].itemIcon = itemIcon;
 	_hotbar[index].amount += amount;
 }
