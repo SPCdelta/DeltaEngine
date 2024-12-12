@@ -5,7 +5,7 @@ BarComponent::BarComponent(Scene& scene, const std::string& fontName, const Math
 {
 	InitBarFg(player);
 	InitBarBg();
-	InitText(startPos, player);
+	InitText(player);
 }
 
 void BarComponent::ValueChanged(int value)
