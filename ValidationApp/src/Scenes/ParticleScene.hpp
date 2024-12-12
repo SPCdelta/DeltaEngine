@@ -20,7 +20,7 @@ public:
 				{ 215, 253, 2, 255 },
 
 				// Extra
-				20,
+				200,
 				0.25f,
 
 				// Particle spawn interval

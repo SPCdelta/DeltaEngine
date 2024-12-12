@@ -130,7 +130,7 @@ protected:
 
 private:
 	ParticleEmitterConfiguration _configuration;
-	std::vector<Particle*> _particles{};
+	std::vector<Particle> _particles{};
 	bool _started{ false };
 	float _spawnParticleIn = 0.0f;
 
@@ -139,7 +139,7 @@ private:
 		return _gameObject->Instantiate();
 	}
 
-	Particle* CreateParticle()
+	void CreateParticle()
 	{ 
 		Debugger::AddToEnTTCounter(1);
 
@@ -148,26 +148,21 @@ private:
 		sprite->SetLayer(Layer::Particles);
 		sprite->SetColor(GetColor());
 
-		Particle* particle = _particles.emplace_back(
-			new Particle
-			{
-				particleObj->transform,
-				GetDirection(),
-				GetSpeed(),
-				GetRotationSpeed(),
-				GetLifetime()
-			}
+		Particle& particle = _particles.emplace_back(
+			particleObj->transform, 
+			GetDirection(),
+			GetSpeed(), 
+			GetRotationSpeed(),
+			GetLifetime()
 		);
 
-		particle->transform->position = _gameObject->transform->position + GetSpawnOffset();
-		particle->transform->scale = GetScale();
-
-		return particle;
+		particle.transform->position = _gameObject->transform->position + GetSpawnOffset();
+		particle.transform->scale = GetScale();
 	}
 
-	void Destroy(Particle* particle)
+	void Destroy(Particle& particle)
 	{ 
-		_gameObject->Destroy(particle->transform->gameObject);
+		_gameObject->Destroy(particle.transform->gameObject);
 	}
 
 	void TrySpawnParticle()
@@ -187,29 +182,17 @@ private:
 		if (!_started)
 			return;
 
-		for (size_t i = _particles.size() - 1; i > 0; i--)
+		for (size_t i = _particles.size(); i-- > 0;)
 		{
-			if (_particles[i]->aliveFor <= 0.0f)
+			if (_particles[i].aliveFor <= 0.0f)
 			{
 				Destroy(_particles[i]);
 				_particles.erase(_particles.begin() + i);
+				//_particles[i]
+				//	->transform->gameObject->GetComponent<Sprite>()
+				//	.SetVisible(false);
 			}
 		}
-
-		//_particles.erase(std::remove_if(_particles.begin(), _particles.end(),
-		//	[this](Particle* particle)
-		//	{
-		//		if (particle->aliveFor <= 0.0f)
-		//		{
-		//			Debugger::RemoveFromEnTTCounter(1);
-		//			Destroy(particle);
-		//			delete particle;
-		//			return true;
-		//		}
-
-		//		return false;
-		//	}),_particles.end()
-		//);
 
 		// Spawn New Particles
 		TrySpawnParticle();
@@ -217,11 +200,11 @@ private:
 		//std::cout << "Aantal Particles: " << _particles.size() << std::endl;
 
 		// Update Particles
-		for (Particle* particle : _particles)
+		for (Particle& particle : _particles)
 		{
-			particle->transform->position += (particle->direction * particle->speed * Time::GetDeltaTime());
-			particle->transform->rotation += ((360.0f / 1.0f * particle->rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
-			particle->aliveFor -= Time::GetDeltaTime();
+			particle.transform->position += (particle.direction * particle.speed * Time::GetDeltaTime());
+			particle.transform->rotation += ((360.0f / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
+			particle.aliveFor -= Time::GetDeltaTime();
 		}
 	}
 };

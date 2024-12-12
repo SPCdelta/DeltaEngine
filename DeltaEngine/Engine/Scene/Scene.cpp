@@ -14,6 +14,15 @@ Scene::Scene(const std::string& name)
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
 }
 
+Scene::~Scene() 
+{
+	for (GameObject* gameObject : _objects)
+	{
+		delete gameObject;
+	}
+	_objects.clear();
+}
+
 void Scene::DestroyObject(GameObject* gameObject)
 {
 	size_t toDelete = 0;
@@ -21,7 +30,7 @@ void Scene::DestroyObject(GameObject* gameObject)
 
 	for (size_t i = 0 ; i < _objects.size(); i++)
 	{
-		if (_objects[i].get() == gameObject)
+		if (_objects[i] == gameObject)
 		{
 			toDelete = i;
 			found = true;
@@ -33,6 +42,7 @@ void Scene::DestroyObject(GameObject* gameObject)
 	{
 		gameObject->deleted = true;
 		_reg.DestroyEntity(gameObject->_id);
+		delete _objects[toDelete];
 		_objects.erase(_objects.begin() + toDelete);
 	}
 	else
@@ -73,26 +83,32 @@ void Scene::Update()
 	_renderSystem->Update();
 	_imageRenderSystem->Update();
 	_textRenderSystem->Update();
+
+	while (_toDeleteQueue.size() > 0)
+	{
+		DestroyObject(_toDeleteQueue.front());
+		_toDeleteQueue.pop();
+	}
+
+	for (GameObject* gameObject : _objects)
+	{
+		if (reinterpret_cast<void*>(gameObject->transform) == reinterpret_cast<void*>(0xdddddddddddddddd))
+		{
+			int aaa = 0;
+		}
+	}
 }
 
 GameObject* Scene::Instantiate(Transform transform)
 {
-	std::unique_ptr<GameObject>& obj = _objects.emplace_back(std::make_unique<GameObject>(_reg, _physicsWorld, _changeSceneEvent, _camera, transform));
-	obj->transform->gameObject = obj.get();
+	//std::unique_ptr<GameObject>& obj = _objects.emplace_back(std::make_unique<GameObject>(_reg, _physicsWorld, _changeSceneEvent, _camera, transform));
+	GameObject* obj = new GameObject(this, _reg, _physicsWorld, _changeSceneEvent, _camera, transform);
+	_objects.push_back(obj);
+	obj->transform->gameObject = obj;
+	return obj;
+}
 
-	// Allow Instantiation
-	obj->_instantiatePromise.Register(
-		[this](GameObject*& e)
-		{ 
-			e = Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
-		}
-	);
-	obj->_destroyObject.Register([this](GameObject* gameObject)
-		{ 
-			DestroyObject(gameObject);
-			//MarkForDestroy(gameObject);
-		}
-	);
-
-	return obj.get();
+GameObject* Scene::Instantiate()
+{
+	return Instantiate({{1.0f, 1.0f}, 0.0f, {1.0f, 1.0f}});
 }

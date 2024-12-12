@@ -101,7 +101,7 @@ public:
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg,
+	GameObject(Scene* scene, ecs::Registry& reg,
 				Physics::PhysicsWorld& physicsWorld,
 				Events::EventDispatcher<const std::string&>& changeScene,
 				Camera* camera, 
@@ -109,6 +109,7 @@ public:
 
 	friend class Scene;
 
+	Scene* _scene;
 	Transform* transform = nullptr;
 
 	bool IsActive() const { return _active; }
@@ -131,16 +132,9 @@ public:
 	const std::string& GetTag() const { return _tag; }
 
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
-	GameObject* Instantiate()
-	{
-		GameObject* result = nullptr;
-		_instantiatePromise.Dispatch(result);
-		return result;
-	};
-	void Destroy(GameObject* gameObject) 
-	{
-		_destroyObject.Dispatch(gameObject);
-	}
+
+	GameObject* Instantiate();
+	void Destroy(GameObject* gameObject);
 
 	Camera* GetCamera()
 	{ 
@@ -156,8 +150,6 @@ private:
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
 	Events::EventDispatcher<const std::string&>& _changeScene;
-	Events::EventDispatcher<GameObject*&> _instantiatePromise{};
-	Events::EventDispatcher<GameObject*> _destroyObject{};
 	Camera* _camera = nullptr;
 	std::string _tag;
 

@@ -24,12 +24,14 @@
 #include "../Systems/ImageRenderSystem.hpp"
 #include "../Systems/TextRenderSystem.hpp"
 
+class GameObject;
 class Application;
 
 class Scene
 {
    public:
 	Scene(const std::string& name);
+	~Scene();
 
 	friend class Application;
 
@@ -58,6 +60,7 @@ class Scene
 	void Update();
 
 	GameObject* Instantiate(Transform transform);
+	GameObject* Instantiate();
 
 private:
 	InputFacade* _inputfacade = nullptr;
@@ -65,7 +68,7 @@ private:
 
 	ecs::Registry _reg;
 	std::string _name;
-	std::vector<std::unique_ptr<GameObject>> _objects{};
+	std::vector<GameObject*> _objects{};
 	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
 	Events::EventDispatcher<GameObject*> _instantiateEvent{};
 
@@ -83,9 +86,9 @@ private:
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
 
 	// Destroy
-	//std::queue<GameObject*> _toDeleteQueue{};
-	//void MarkForDestroy(GameObject* gameObject)
-	//{
-	//	_toDeleteQueue.push(gameObject);
-	//}
+	std::queue<GameObject*> _toDeleteQueue{};
+	void MarkForDestroy(GameObject* gameObject)
+	{
+		_toDeleteQueue.push(gameObject);
+	}
 };
