@@ -179,7 +179,6 @@
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
-    <ClCompile Include="src\Views\Components\GameSpeedComponent.cpp" />
     <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\HotbarComponent.cpp" />
     <ClCompile Include="src\Views\HUDView.cpp" />
@@ -211,7 +210,6 @@
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
-    <ClInclude Include="src\Views\Components\GameSpeedComponent.hpp" />
     <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
     <ClInclude Include="src\Views\HUDView.hpp" />

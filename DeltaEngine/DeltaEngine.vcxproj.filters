@@ -34,6 +34,7 @@
     <ClCompile Include="Engine\Rendering\Renderables\TextRenderable.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
+    <ClCompile Include="Engine\Core\Strings\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="Engine\Core\AI\AIBehaviour.hpp" />
     <ClInclude Include="Engine\Core\AI\IAIStrategy.hpp" />
     <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
+    <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
