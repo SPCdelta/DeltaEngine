@@ -7,7 +7,7 @@ const std::string StringUtils::FloatToString(float value, int precision)
 {
     std::ostringstream oss;
 
-    oss << std::fixed << std::setprecision(2) << value;
+    oss << std::fixed << std::setprecision(precision) << value;
 
     return oss.str();
 }
