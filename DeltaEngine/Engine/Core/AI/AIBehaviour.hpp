@@ -11,23 +11,31 @@ class AIBehaviour
 	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Math::Vector2* pos, Math::Vector2* targetPos, float speed = 1.0f) : 
 		strategy_(strategy), position_(pos), _targetPosition(targetPos), _moveSpeed(speed) {}
 
+	~AIBehaviour()
+	{
+		position_ = nullptr;
+		_targetPosition = nullptr;
+	}
+
 	void Update()
 	{
 		if (!_targetPosition)
 			return;
 
-		/*static float timeSinceLastPathCalculation = 0.0f;
-		timeSinceLastPathCalculation += Time::GetDeltaTime();*/
-		float targetChangeThreshold = 1.0f; 
+		float pathRecalculationCooldown = 1.0f;	 // Seconds
+		static float timeSinceLastPathCalculation = 0.0f;
+		timeSinceLastPathCalculation += Time::GetDeltaTime();
+
+		float targetChangeThreshold = 2.0f; 
 
         // Check if the target's position has changed
-        if ((*_targetPosition - lastKnownTargetPosition_).Magnitude() > targetChangeThreshold /*|| (*_targetPosition - *position_).Magnitude() < 0.5f*/) 
+        if ((*_targetPosition - lastKnownTargetPosition_).Magnitude() > targetChangeThreshold && timeSinceLastPathCalculation > pathRecalculationCooldown /*|| (*_targetPosition - *position_).Magnitude() < 0.5f*/) 
 		{
             lastKnownTargetPosition_ = *_targetPosition;
             std::cout << "Target position changed!" << std::endl;
 
 			CalculateNewPath();
-			//timeSinceLastPathCalculation = 0.0f;
+			timeSinceLastPathCalculation = 0.0f;
         }
 
 		if (path_.empty())
@@ -36,7 +44,7 @@ class AIBehaviour
         Math::Vector2 direction = path_.front() - *position_;
         float distance = direction.Magnitude();
 
-        if (distance < 0.1f)  // Reached the next node.
+        if (distance < 0.06f)  // Reached the next node.
         {
 			if (path_.size() == 1 && path_.front() == *_targetPosition)
 			{
@@ -57,8 +65,12 @@ class AIBehaviour
 
     void CalculateNewPath()
 	{
-		if (strategy_)
-			path_ = strategy_->CalculatePath(*position_, *_targetPosition);
+		if (strategy_) 
+		{
+			auto newPath = strategy_->CalculatePath(*position_, *_targetPosition);
+			if (!newPath.empty() && ((*_targetPosition - newPath.front()).Magnitude() < (*_targetPosition - *position_).Magnitude())) 
+				path_ = std::move(newPath);
+		}
 	}
 
 	Math::Vector2* GetPosition() const { return position_; }
