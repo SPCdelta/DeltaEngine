@@ -28,27 +28,32 @@ class AIBehaviour
 
 		float targetChangeThreshold = 2.0f; 
 
-        // Check if the target's position has changed
-        if ((*_targetPosition - lastKnownTargetPosition_).Magnitude() > targetChangeThreshold && timeSinceLastPathCalculation > pathRecalculationCooldown /*|| (*_targetPosition - *position_).Magnitude() < 0.5f*/) 
+		if (start || ((*_targetPosition - _lastKnownTargetPosition).Magnitude() > targetChangeThreshold && 
+			timeSinceLastPathCalculation > pathRecalculationCooldown) /*|| (*_targetPosition - *position_).Magnitude() < 0.5f*/) 
 		{
-            lastKnownTargetPosition_ = *_targetPosition;
+            _lastKnownTargetPosition = *_targetPosition;
             std::cout << "Target position changed!" << std::endl;
 
 			CalculateNewPath();
 			timeSinceLastPathCalculation = 0.0f;
+			start = false;
         }
+		else
+		{
+			_direction = {0.0f, 0.0f};
+		}
 
 		if (path_.empty())
 			return;
 
-        Math::Vector2 direction = path_.front() - *position_;
-        float distance = direction.Magnitude();
+		_direction = path_.front() - *position_;
+		float distance = _direction.Magnitude();
 
-        if (distance < 0.06f)  // Reached the next node.
+        if (distance < 0.3f)  // Reached the next node
         {
 			if (path_.size() == 1 && path_.front() == *_targetPosition)
 			{
-				path_.clear();	// Stop as the final target has been reached
+				path_.clear();
 				return;
 			}
 
@@ -57,8 +62,9 @@ class AIBehaviour
         }
         else
         {
-            Math::Vector2 normalizedDirection = direction.GetNormalized();
+			Math::Vector2 normalizedDirection = _direction.GetNormalized();
 			*position_ += normalizedDirection * _moveSpeed * Time::GetDeltaTime();  // Smooth movement
+			_direction = normalizedDirection;
 
         }
 	}
@@ -79,13 +85,17 @@ class AIBehaviour
 	Math::Vector2* GetTargetPosition() const { return _targetPosition; }
 	void SetTargetPosition(Math::Vector2* position) { _targetPosition = position; }
 
+	Math::Vector2 GetDirection() { return _direction; }
+
    private:
 	std::shared_ptr<IAIStrategy> strategy_;
 	std::vector<Math::Vector2> path_;
 
 	Math::Vector2* position_;
 	Math::Vector2* _targetPosition;
-	Math::Vector2 lastKnownTargetPosition_;
+	Math::Vector2 _lastKnownTargetPosition;
+	bool start{true};
 
 	float _moveSpeed;
+	Math::Vector2 _direction;
 };

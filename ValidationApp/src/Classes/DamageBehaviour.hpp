@@ -5,24 +5,22 @@
 class DamageBehaviour
 {
    public:
-		DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const std::string& damageSourceTag) : _rigidbody{ rigidbody }, _sprite{ sprite }, _damageSourceTag{ damageSourceTag }
+		DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const std::vector<std::string>& damageSourceTags) : _rigidbody{ rigidbody }, _sprite{ sprite }, 
+			_damageSourceTags{damageSourceTags}
 		{
 			_ogColor = sprite.GetColor();
 
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
-				if (CanTakeDamage())
+				if (IsDamageSource(collider.transform.gameObject->GetTag()))
 				{
-					if (collider.transform.gameObject->GetTag() == _damageSourceTag)
-					{
-						_damageCount = 1;
-					}
+					_damageCount = 1; // Ensure damage is triggered
 				}
 			});
 
 			_rigidbody.onTriggerExit.Register([this](Collider& collider)
 			{
-				if (collider.transform.gameObject->GetTag() == _damageSourceTag)
+				if (IsDamageSource(collider.transform.gameObject->GetTag()))
 				{
 					_damageCount = 0;
 				}
@@ -64,9 +62,10 @@ class DamageBehaviour
 	private:
 		Rigidbody& _rigidbody;
 		Sprite& _sprite;
-		std::string _damageSourceTag;
 
 		Rendering::Color _ogColor;
+
+		std::vector<std::string> _damageSourceTags;
 
 		int _damageCount{0};
 
@@ -81,5 +80,10 @@ class DamageBehaviour
 		bool CanTakeDamage() const
 		{
 			return _invincibleTime <= 0.0f;
+		}
+
+		bool IsDamageSource(const std::string& tag) const
+		{
+			return std::find(_damageSourceTags.begin(), _damageSourceTags.end(), tag) != _damageSourceTags.end();
 		}
 };

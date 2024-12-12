@@ -16,31 +16,23 @@ class LayerScene : public Scene
 	{
 		// Create Player
 		std::shared_ptr<GameObject> playerObject{ Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
-
-		std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
-
-		sheet->AddCustomAnimation("death", 6, 21, 150);
-
-		playerObject->AddComponent<Sprite>("layerPlayer", sheet)->SetLayer(Layer::Player);
-
+		std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
+		playerSheet->AddCustomAnimation("death", 6, 21, 150);
+		playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
+		playerObject->AddComponent<Audio::SFXSource>("", false, false);
 		playerObject->AddComponent<BoxCollider>();
-		playerObject->AddComponent<Rigidbody>();
-
-		playerObject->AddComponent<Audio::SFXSource>();
+		playerObject->AddComponent<Rigidbody>();	
 		playerObject->AddComponent<PlayerBehaviour>();
-
-		// Create object that hurts player when player touches it
-		/*std::shared_ptr<GameObject> hurtfulObject{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
-		hurtfulObject->AddComponent<Sprite>("spritesheet2");
-		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
-		hurtfulObject->SetTag("enemy");*/
+		playerObject->SetTag("player");
 
 		// Create object that gets hurt when a weapon touches it
 		std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
-		enemyObj->AddComponent<Sprite>("spritesheet");
-		enemyObj->AddComponent<BoxCollider>();
+		std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(enemyObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
+		enemyObj->AddComponent<Sprite>("goblin", goblinSheet);
+		enemyObj->AddComponent<BoxCollider>()->SetTrigger(true);
 		enemyObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 		enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);
+		enemyObj->SetTag("goblin");
 
 		// Create potion object to pick up
 		/*WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);

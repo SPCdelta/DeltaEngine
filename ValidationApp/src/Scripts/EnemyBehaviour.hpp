@@ -31,5 +31,7 @@ class EnemyBehaviour : public BehaviourScript
 	DamageBehaviour* _damageBehaviour{nullptr};
 	AIBehaviour* _aiBehaviour{nullptr};
 
+	Math::Vector2 _moveDirection{0.0f, 0.0f};
+
 	int hp{5};	
 };

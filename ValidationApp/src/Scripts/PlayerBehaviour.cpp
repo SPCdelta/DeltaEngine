@@ -7,28 +7,22 @@ void PlayerBehaviour::OnStart()
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
-	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
+	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-	_weapon = new Gun(this);
-	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
-	//_weapon = new Bow(this);
+	
+	
+	//this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 
-	onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
+	//_weapon = new Gun(this);
+	//_weapon = new Bow(this);
+	//onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
+
 	onMouseMove(
 		[this](Input& e) 
 		{ 
 			_mouseX = e.mouseX;
 			_mouseY = e.mouseY;
-		}
-	);
-	keyPressed(Key::KEY_F,
-		[this](Input& e)
-		{ 
-			if (_weapon)
-			{
-				_weapon->Use();
-			}
 		}
 	);
 
@@ -48,7 +42,7 @@ void PlayerBehaviour::OnUpdate()
 	_moveDirection = _playerInput.GetDirection();
 
 	UpdateAttack(Time::GetDeltaTime());
-	if (_playerInput.GetLeftClick())
+	if (_playerInput.GetSpace())
 	{
 		_attacking = true;
 		StartAttack();
@@ -147,7 +141,10 @@ void PlayerBehaviour::OnUpdate()
 		// Attacking
 		if (attack)
 		{
-			ThrowBoomerang();
+			if (_weapon)
+				_weapon->Use();
+			else
+				ThrowBoomerang();
 		}
 		
 		// Walking
@@ -184,6 +181,7 @@ void PlayerBehaviour::ThrowBoomerang()
 
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
+	//boomerangObj->AddComponent<BoxCollider>()->SetTrigger(true); TODO
 	boomerangObj->SetTag("weapon");
 	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
 

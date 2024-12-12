@@ -16,6 +16,7 @@ public:
 	{ 
 		transform.position.Set(position);
 	}
+
 	void SetViewportData(ViewportData* viewportData)
 	{
 		_viewportData = viewportData;

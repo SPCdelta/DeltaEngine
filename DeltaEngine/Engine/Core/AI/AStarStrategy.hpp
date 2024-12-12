@@ -14,79 +14,14 @@ class AStarStrategy : public IAIStrategy
 	std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end) override
 	{
 		std::unordered_map<Math::Vector2, Node*, Vector2Hash> nodeMap;
-
 		Math::Vector2 startPosition(0, 0);
 		int range = 500;  // 500 units in each direction
 		int step = 50;	  // Nodes every 50 units
-
 		InitializeNodesAround(startPosition, range, step, nodeMap);
-
-		/* auto compare = [](const Node* lhs, const Node* rhs) 
-        { 
-            return lhs->fCost() > rhs->fCost(); 
-        };
-
-        std::priority_queue<Node*, std::vector<Node*>, decltype(compare)> openSet(compare);
-
-        auto heuristic = [&](const Math::Vector2& a, const Math::Vector2& b) 
-        {
-            return std::abs(a.GetX() - b.GetX()) + std::abs(a.GetY() - b.GetY()); // Manhattan distance
-        };
-
-        Node* startNode = CreateNode(start, 0.0f, heuristic(start, end));
-        openSet.push(startNode);
-
-        std::unordered_map<Math::Vector2, bool, Vector2Hash> closedSet;
-
-        int maxIterations = 10000;	// Limit iterations to prevent freezes
-		int iterations = 0;
-        while (!openSet.empty()) 
-        {
-            Node* current = openSet.top();
-            openSet.pop();
-
-            if (++iterations > maxIterations || current->position == end)
-			{
-				std::vector<Math::Vector2> path;
-				while (current)
-				{
-					path.push_back(current->position);
-					current = current->parent;
-				}
-
-				std::reverse(path.begin(), path.end());
-				return path;
-			}
-
-            closedSet[current->position] = true;
-
-			const std::vector<Math::Vector2> directions = 
-            {
-				{1, 0}, {-1, 0},  {0, 1},  {0, -1},	
-				{1, 1}, {-1, -1}, {1, -1}, {-1, 1}	 
-			};
-
-            for (const auto& dir : directions) 
-            {
-                Math::Vector2 neighborPos = current->position + dir;
-
-                if (closedSet.find(neighborPos) != closedSet.end()) continue; // Already visited
-                if (!IsWalkable(neighborPos)) continue; // Wall detected, cannot walk here
-
-                float gCost = current->gCost + 1.0f;
-                Node* neighbor = CreateNode(neighborPos, gCost, heuristic(neighborPos, end), current);
-                if (neighbor) openSet.push(neighbor);
-            }
-        }
-
-        return {}; // No path found*/
 
 		std::unordered_map<Node*, double> g_costs;
 		std::unordered_map<Node*, Node*> predecessors;
         std::priority_queue<std::pair<double, Node*>, std::vector<std::pair<double, Node*>>, std::greater<>> pq;
-
-        /*for (auto& node : graph) 
-            g_costs[&node] = std::numeric_limits<double>::infinity();*/
 
         auto heuristic = [&](const Math::Vector2& a, const Math::Vector2& b) 
         {
@@ -186,7 +121,6 @@ class AStarStrategy : public IAIStrategy
                 }
             }
         }
-
 
         bool IsWalkable(const Math::Vector2& position)
         {
