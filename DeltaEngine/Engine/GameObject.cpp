@@ -14,8 +14,3 @@ GameObject::GameObject(
 	_id = reg.CreateEntity();
 	transform = &_reg.AddComponent<Transform>(_id, newTransform);
 }
-
-GameObject::~GameObject()
-{
-
-}

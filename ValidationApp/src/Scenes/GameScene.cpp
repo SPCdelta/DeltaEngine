@@ -4,7 +4,7 @@ GameScene::GameScene(const std::string& name)
 	: Scene(name) 
 {
 	// Create Player
-	std::shared_ptr<GameObject> player{ Instantiate({{3.0f, 6.0f}, 0.0f, {1.0f, 1.0f}}) };
+	GameObject* player{Instantiate({{3.0f, 6.0f}, 0.0f, {1.0f, 1.0f}})};
 	player->AddComponent<Sprite>("player")->SetLayer(Layer::Player);
 	player->AddComponent<Audio::SFXSource>("", false, false);
 	player->AddComponent<BoxCollider>();
@@ -22,7 +22,7 @@ GameScene::GameScene(const std::string& name)
 	{
 		for (size_t x = 0; x < mapWidth; x++)
 		{
-			std::shared_ptr<GameObject> obj{ Instantiate({{ x * 1.0f, y * 1.0f }, 0.0f, { 1.0f, 1.0f }}) };
+			GameObject* obj{ Instantiate({{ x * 1.0f, y * 1.0f }, 0.0f, { 1.0f, 1.0f }}) };
 
 			// Ice
 			if ((x > 7 && x < 14) && (y > 8 && y < 15))

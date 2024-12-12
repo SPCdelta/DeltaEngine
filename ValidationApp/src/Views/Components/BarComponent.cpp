@@ -24,18 +24,18 @@ void BarComponent::ValueChanged(int value)
 
 void BarComponent::InitFrame(const Math::Vector2& startPos)
 {
-	_frame = std::shared_ptr<GameObject>{ _scene.Instantiate({ startPos, 0.0f, _scale }) };
+	_frame = _scene.Instantiate({ startPos, 0.0f, _scale });
 	_frame->AddComponent<Ui::Image>(DEFAULT_FRAME);
 }
 
 void BarComponent::InitBarBg(const Math::Vector2& startPos)
 {
-	_barBg = std::shared_ptr<GameObject>{ _scene.Instantiate({ startPos, 0.0f, _scale }) };
+	_barBg = _scene.Instantiate({ startPos, 0.0f, _scale });
 	_barBg->AddComponent<Ui::Image>(DEFAULT_BAR);
 }
 
 void BarComponent::InitBarFg(const Math::Vector2& startPos, Player& player)
 {
-	_barFg = std::shared_ptr<GameObject>{ _scene.Instantiate({ startPos, 0.0f, _scale }) };
+	_barFg = _scene.Instantiate({ startPos, 0.0f, _scale });
 	_barFg->AddComponent<Ui::Image>(_spriteName);
 }

@@ -106,7 +106,6 @@ public:
 				Events::EventDispatcher<const std::string&>& changeScene,
 				Camera* camera, 
 				Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
-	~GameObject();
 
 	friend class Scene;
 
@@ -132,9 +131,9 @@ public:
 	const std::string& GetTag() const { return _tag; }
 
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
-	std::shared_ptr<GameObject> Instantiate()
+	GameObject* Instantiate()
 	{
-		std::shared_ptr<GameObject> result;
+		GameObject* result = nullptr;
 		_instantiatePromise.Dispatch(result);
 		return result;
 	};
@@ -148,6 +147,8 @@ public:
 		return _camera;
 	}
 
+	bool deleted = false;
+
 private:
 	bool _active{ true };
 
@@ -155,7 +156,7 @@ private:
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
 	Events::EventDispatcher<const std::string&>& _changeScene;
-	Events::EventDispatcher<std::shared_ptr<GameObject>&> _instantiatePromise{};
+	Events::EventDispatcher<GameObject*&> _instantiatePromise{};
 	Events::EventDispatcher<GameObject*> _destroyObject{};
 	Camera* _camera = nullptr;
 	std::string _tag;
@@ -163,6 +164,6 @@ private:
 	template<typename T>
 	T* _AddComponent(T component)
 	{
-		return &_reg.AddComponent<T>(_id, std::move(component)); 
+		return &_reg.AddComponent<T>(_id, std::move(component));
 	}
 };

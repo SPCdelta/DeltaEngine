@@ -10,7 +10,7 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 {
 	MenuView menuView { *this, "Main Menu", 4, "alucrads", {485, 50}, {300, 100}, 25, 80 };
 
-	std::shared_ptr<GameObject> menu{ Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };
+	GameObject* menu{Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}})};
 	menu->AddComponent<Ui::Image>("main_menu_bg");
 	menu->AddComponent<Audio::MusicSource>("Assets\\Audio\\Music\\Intro_Theme.mp3", false, true)->Play();
 

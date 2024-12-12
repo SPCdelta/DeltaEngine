@@ -14,7 +14,7 @@ public:
 		const Math::Vector2& scale, Player& player);
 	void CoinsChanged(int coins);
 private:
-	std::shared_ptr<GameObject> _coinCounter;
+	GameObject* _coinCounter;
 	size_t _coins = 0;
 	static constexpr const char* SPRITE = "coin";
 };

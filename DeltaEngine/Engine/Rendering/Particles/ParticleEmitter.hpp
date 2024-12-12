@@ -9,13 +9,15 @@
 
 #include "Particle.hpp"
 
+#include "../../Debugger.hpp"
+
 struct ParticleEmitterConfiguration
 {
 	std::vector<std::string> sprites;
 	Rendering::Color colorFrom;
 	Rendering::Color colorTo;
-	size_t initialSpawnAmount;
 
+	size_t initialSpawnAmount;
 	float spawnRadius;
 
 	float minSpawnInterval;
@@ -132,14 +134,16 @@ private:
 	bool _started{ false };
 	float _spawnParticleIn = 0.0f;
 
-	std::shared_ptr<GameObject> Instantiate()
+	GameObject* Instantiate()
 	{
 		return _gameObject->Instantiate();
 	}
 
 	Particle* CreateParticle()
 	{ 
-		std::shared_ptr<GameObject> particleObj = Instantiate();
+		Debugger::AddToEnTTCounter(1);
+
+		GameObject* particleObj = Instantiate();
 		Sprite* sprite = particleObj->AddComponent<Sprite>(GetSprite());
 		sprite->SetLayer(Layer::Particles);
 		sprite->SetColor(GetColor());
@@ -161,9 +165,9 @@ private:
 		return particle;
 	}
 
-	void Destroy(Particle* gameObject)
+	void Destroy(Particle* particle)
 	{ 
-		_gameObject->Destroy(gameObject->transform->gameObject);
+		_gameObject->Destroy(particle->transform->gameObject);
 	}
 
 	void TrySpawnParticle()
@@ -183,22 +187,34 @@ private:
 		if (!_started)
 			return;
 
-		_particles.erase(std::remove_if(_particles.begin(), _particles.end(),
-			[this](Particle* particle)
+		for (size_t i = _particles.size() - 1; i > 0; i--)
+		{
+			if (_particles[i]->aliveFor <= 0.0f)
 			{
-				if (particle->aliveFor <= 0.0f)
-				{
-					Destroy(particle);
-					delete particle;
-					return true;
-				}
+				Destroy(_particles[i]);
+				_particles.erase(_particles.begin() + i);
+			}
+		}
 
-				return false;
-			}),_particles.end()
-		);
+		//_particles.erase(std::remove_if(_particles.begin(), _particles.end(),
+		//	[this](Particle* particle)
+		//	{
+		//		if (particle->aliveFor <= 0.0f)
+		//		{
+		//			Debugger::RemoveFromEnTTCounter(1);
+		//			Destroy(particle);
+		//			delete particle;
+		//			return true;
+		//		}
+
+		//		return false;
+		//	}),_particles.end()
+		//);
 
 		// Spawn New Particles
 		TrySpawnParticle();
+
+		//std::cout << "Aantal Particles: " << _particles.size() << std::endl;
 
 		// Update Particles
 		for (Particle* particle : _particles)

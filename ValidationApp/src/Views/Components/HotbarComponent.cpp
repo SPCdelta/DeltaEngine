@@ -7,15 +7,15 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 	auto pos = startPos;
 	for (Uint8 i = 0; i < capacity; ++i)
 	{
-		auto slot = std::shared_ptr<GameObject>{ _scene.Instantiate({pos, 0.0f, scale }) };
+		GameObject* slot = _scene.Instantiate({pos, 0.0f, scale});
 		slot->AddComponent<Ui::Image>("hotbar_slot");
 
 		auto* item = player.GetInventoryItem(i);
-		auto itemIcon = std::shared_ptr<GameObject>{};
+		GameObject* itemIcon = nullptr;
 		std::string itemName = "";
 		if (item)
 		{
-			itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, scale }) };
+			itemIcon = _scene.Instantiate({ pos, 0.0f, scale });
 			itemIcon->AddComponent<Ui::Image>(item->GetItem().GetSprite());
 			itemName = item->GetItem().GetName();
 		}
@@ -66,10 +66,10 @@ void HotbarComponent::AddItem(const Item& item, int amount)
 {
 	auto index = GetAvailableIndex();
 	_hotbar[index].itemName = item.GetName();
-	auto itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({
+	GameObject* itemIcon = _scene.Instantiate({
 		_hotbar[index].slot->transform->position,
 		0.0f,
-		_hotbar[index].slot->transform->scale }) };
+		_hotbar[index].slot->transform->scale });
 	itemIcon->AddComponent<Ui::Image>(item.GetSprite());
 	itemIcon->AddComponent<Ui::Text>(std::to_string(amount), _fontName, 20, DEFAULT_COLOR);
 	_hotbar[index].itemIcon = itemIcon;
@@ -96,7 +96,7 @@ void HotbarComponent::DeleteItem(const Item& item)
 	auto& slot = _hotbar[index];
 	slot.amount = 0;
 	slot.itemName = "";
-	_scene.DestroyObject(slot.itemIcon.get());
+	_scene.DestroyObject(slot.itemIcon);
 	SortHotbar(index);
 }
 

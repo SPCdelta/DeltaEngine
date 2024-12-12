@@ -8,8 +8,8 @@
 
 struct Slot
 {
-	std::shared_ptr<GameObject> slot;
-	std::shared_ptr<GameObject> itemIcon;
+	GameObject* slot;
+	GameObject* itemIcon;
 	std::string itemName;
 	int amount;
 };

@@ -42,7 +42,7 @@ void MenuView::SetButtonScale(int id, const Math::Vector2& scale)
 
 void MenuView::InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos)
 {
-	_title = std::shared_ptr<GameObject>{ _scene.Instantiate({ {100.0f, 100.0f}, 0.0f, {200.0f, 100.0f} }) };
+	_title = _scene.Instantiate({ {100.0f, 100.0f}, 0.0f, {200.0f, 100.0f} });
 	auto& text = *_title->AddComponent<Ui::Text>(title, _fontName, fontSize, DEFAULT_COLOR);
 	text.SetPosition(startPos);
 }
@@ -54,7 +54,7 @@ void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& star
 	pos.SetY(pos.GetY() + scale.GetY() + margin);
 	for (unsigned char i = 0; i < numOfButtons; ++i)
 	{
-		_buttons.push_back(std::shared_ptr<GameObject> { _scene.Instantiate({ pos, 0.0f, scale }) });
+		_buttons.push_back(_scene.Instantiate({ pos, 0.0f, scale }));
 
 		// Image
 		_buttons[i]->AddComponent<Ui::Image>(DEFAULT_BUTTON_TEXTURE.c_str());
@@ -220,7 +220,7 @@ void MenuView::SetButtonTexture(int id, const std::string& textureName)
 }
 
 
-std::shared_ptr<GameObject>& MenuView::GetButton(Uint8 id)
+GameObject* MenuView::GetButton(Uint8 id)
 {
 	return _buttons[id];
 }

@@ -13,7 +13,7 @@ class LayerScene : public Scene
 	void OnStart() override
 	{
 		// Create Player
-		std::shared_ptr<GameObject> playerObject{ Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
+		GameObject* playerObject{ Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
 
 		std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 
@@ -28,13 +28,13 @@ class LayerScene : public Scene
 		playerObject->AddComponent<PlayerBehaviour>();
 
 		// Create object that hurts player when player touches it
-		std::shared_ptr<GameObject> hurtfulObject{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
+		GameObject* hurtfulObject{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
 		hurtfulObject->AddComponent<Sprite>("spritesheet2");
 		hurtfulObject->AddComponent<BoxCollider>()->SetTrigger(true);
 		hurtfulObject->SetTag("enemy");
 
 		// Create object that gets hurt when a weapon touches it
-		std::shared_ptr<GameObject> pokemonObject{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
+		GameObject* pokemonObject{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
 		pokemonObject->AddComponent<Sprite>("spritesheet");
 
 		pokemonObject->AddComponent<BoxCollider>();
@@ -44,21 +44,21 @@ class LayerScene : public Scene
 
 		// Create potion object to pick up
 		WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
-		std::shared_ptr<GameObject> cyanPotionObj{ Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
+		GameObject* cyanPotionObj{ Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
 		cyanPotionObj->AddComponent<Sprite>("cyanPotion");
 		cyanPotionObj->AddComponent<BoxCollider>()->SetTrigger(true);
 		cyanPotionObj->AddComponent<WorldItem>(worldItem1);
 		cyanPotionObj->SetTag("item");
 
 		WorldItem worldItem2 = WorldItem(HealingPotion(10, 10, "somepotion", "potion_effervescent"), 1);
-		std::shared_ptr<GameObject> effrvscntPotionObj1{ Instantiate({{20.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
+		GameObject* effrvscntPotionObj1{ Instantiate({{20.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
 		effrvscntPotionObj1->AddComponent<Sprite>("potion_effervescent");
 		effrvscntPotionObj1->AddComponent<BoxCollider>()->SetTrigger(true);
 		effrvscntPotionObj1->AddComponent<WorldItem>(worldItem2);
 		effrvscntPotionObj1->SetTag("item");
 
 		WorldItem worldItem3 = WorldItem(HealingPotion(10, 10, "somepotion", "potion_effervescent"), 1);
-		std::shared_ptr<GameObject> effrvscntPotionObj2{ Instantiate({{30.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
+		GameObject* effrvscntPotionObj2{ Instantiate({{30.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
 		effrvscntPotionObj2->AddComponent<Sprite>("potion_effervescent");
 		effrvscntPotionObj2->AddComponent<BoxCollider>()->SetTrigger(true);
 		effrvscntPotionObj2->AddComponent<WorldItem>(worldItem3);

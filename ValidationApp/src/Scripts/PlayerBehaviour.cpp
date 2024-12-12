@@ -181,7 +181,7 @@ void PlayerBehaviour::ThrowBoomerang()
 	if (_boomerang)
 		return;
 
-	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
+	GameObject* boomerangObj = gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
 	boomerangObj->SetTag("weapon");
 	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));

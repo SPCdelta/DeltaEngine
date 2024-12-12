@@ -52,26 +52,12 @@ class Scene
 	}
 
 	virtual void OnStart(){};
-	void DestroyObject(GameObject* gameObject)
-	{
-		auto it = std::find_if(_objects.begin(), _objects.end(),
-			[gameObject](const std::shared_ptr<GameObject>& obj)
-			{ 
-				return obj.get() == gameObject; 
-			}
-		);
-
-		if (it != _objects.end())
-		{
-			_reg.DestroyEntity(gameObject->_id);
-			_objects.erase(it);
-		}
-	}
+	void DestroyObject(GameObject* gameObject);
 
 	void Start();
 	void Update();
 
-	std::shared_ptr<GameObject> Instantiate(Transform transform);
+	GameObject* Instantiate(Transform transform);
 
 private:
 	InputFacade* _inputfacade = nullptr;
@@ -79,11 +65,11 @@ private:
 
 	ecs::Registry _reg;
 	std::string _name;
-	std::vector<std::shared_ptr<GameObject>> _objects{};
+	std::vector<std::unique_ptr<GameObject>> _objects{};
 	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
-	Events::EventDispatcher<std::shared_ptr<GameObject>> _instantiateEvent{};
+	Events::EventDispatcher<GameObject*> _instantiateEvent{};
 
-	std::shared_ptr<GameObject> _cameraObj;
+	GameObject* _cameraObj;
 	Camera* _camera;
 
 	Physics::PhysicsWorld _physicsWorld{};
@@ -97,9 +83,9 @@ private:
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
 
 	// Destroy
-	std::queue<GameObject*> _toDeleteQueue{};
-	void MarkForDestroy(GameObject* gameObject)
-	{
-		_toDeleteQueue.push(gameObject);
-	}
+	//std::queue<GameObject*> _toDeleteQueue{};
+	//void MarkForDestroy(GameObject* gameObject)
+	//{
+	//	_toDeleteQueue.push(gameObject);
+	//}
 };

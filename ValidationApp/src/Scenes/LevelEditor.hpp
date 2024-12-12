@@ -31,7 +31,7 @@ class LevelEditor : public Scene
 			(windowWidth - paddingOutLeftUI * 2 - rightBarWidth) / imagespace;
 		float UILenght = imagespace * maxOptionPerRow;
 
-		std::shared_ptr<GameObject> saveButton{Instantiate({{100.0f, 100.0f}, 0.0f, {100.0f, 100.0f}})};
+		GameObject* saveButton{Instantiate({{100.0f, 100.0f}, 0.0f, {100.0f, 100.0f}})};
 		//saveButton->AddComponent<Ui::Image>("default_texture")->SetColor({255, 255, 255, 255});
 		saveButton->AddComponent<Ui::Text>("Save Level!", "knight", 16, Rendering::Color{0, 0, 0, 0});
 
@@ -40,7 +40,7 @@ class LevelEditor : public Scene
 
 		std::map<std::string, SpriteData*>& sprites =
 			ResourceManager::GetAllSprites();
-		std::vector<std::shared_ptr<GameObject>> optionTiles;
+		std::vector<GameObject*> optionTiles;
 
 		int index = 0;
 
@@ -67,5 +67,5 @@ class LevelEditor : public Scene
 	}
 
    private:
-	std::vector<std::shared_ptr<GameObject>> _tiles;
+	std::vector<GameObject*> _tiles;
 };

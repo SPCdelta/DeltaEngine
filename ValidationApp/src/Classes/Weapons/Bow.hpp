@@ -10,7 +10,7 @@ public:
 
 	void Use() override
 	{
-		std::shared_ptr<GameObject> arrow = _user->gameObject->Instantiate();
+		GameObject* arrow = _user->gameObject->Instantiate();
 		arrow->transform->position.Set(_user->transform->position);
 		arrow->AddComponent<Projectile>()->SetProjectileData({"arrow", 10, 5.0f, GetAimDirection()});
 	}

@@ -41,10 +41,16 @@ public:
 			return layerA < layerB; // Lower layers render first
 		});
 
+		//std::cout << "Aantal Sprites: " << entities.size() << std::endl;
+
 		for (ecs::EntityId entityId : entities)
 		{
 			Transform& transform = _view.get<Transform>(entityId);
 			Sprite& sprite = _view.get<Sprite>(entityId);
+			if (transform.gameObject == nullptr)
+			{
+				std::cout << "RenderSystem:NULLPTR" << std::endl;
+			}
 
 			// Render the sprite associated with this entity
 			if (sprite.GetVisible())

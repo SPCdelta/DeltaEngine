@@ -16,9 +16,9 @@ protected:
 	void InitBarBg(const Math::Vector2& startPos);
 	void InitBarFg(const Math::Vector2& startPos, Player& player);
 	virtual void InitValues(Player& player) = 0;
-	std::shared_ptr<GameObject> _frame;
-	std::shared_ptr<GameObject> _barBg;
-	std::shared_ptr<GameObject> _barFg;
+	GameObject* _frame;
+	GameObject* _barBg;
+	GameObject* _barFg;
 	std::string _spriteName;
 	int _maxValue;
 	Math::Vector2 _scale;

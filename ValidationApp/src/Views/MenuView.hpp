@@ -28,13 +28,13 @@ public:
 	void SetButtonTextColor(int id, const Rendering::Color& color);
 	void SetTitleTextColor(const Rendering::Color& color);
 	void SetButtonTexture(int id, const std::string& textureName);
-	std::shared_ptr<GameObject>& GetButton(Uint8 id);
+	GameObject* GetButton(Uint8 id);
 	Ui::Text& GetButtonText(Uint8 id);
 private:
 	void InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos);
 	void InitButtons(unsigned char numOfButtons, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);
-	std::shared_ptr<GameObject> _title;
+	GameObject* _title;
 	// unsigned char is used as id
-	std::vector<std::shared_ptr<GameObject>> _buttons;
+	std::vector<GameObject*> _buttons;
 	const std::string DEFAULT_BUTTON_TEXTURE = "scroll3";
 };

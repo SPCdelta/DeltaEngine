@@ -11,34 +11,34 @@ class FileScene : public Scene
 
 			// Comment this in to save tiles to file (I'd reccomend leaving the loading commented out)
 			// Ice floor
-			 std::vector<std::shared_ptr<GameObject>> tiles = std::vector<std::shared_ptr<GameObject>>();
+			 std::vector<GameObject*> tiles = std::vector<GameObject*>();
 
-			std::shared_ptr<GameObject> iceFloorObj{ Instantiate({{ 10.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
+			GameObject* iceFloorObj{ Instantiate({{ 10.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
 			iceFloorObj->AddComponent<Sprite>("ice")->SetLayer(Layer::Floor);
 			iceFloorObj->AddComponent<BoxCollider>()->SetTrigger(true);
 			iceFloorObj->SetTag("ice");
 			tiles.push_back(iceFloorObj);
 
-			std::shared_ptr<GameObject> iceFloorObj2{ Instantiate({{ 1.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
+			GameObject* iceFloorObj2{ Instantiate({{ 1.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
 			iceFloorObj2->AddComponent<Sprite>("ice")->SetLayer(Layer::Floor);
 			iceFloorObj2->AddComponent<BoxCollider>()->SetTrigger(true);
 			iceFloorObj2->SetTag("ice");
 			tiles.push_back(iceFloorObj2);
 
-			std::shared_ptr<GameObject> iceFloorObj3{ Instantiate({{ 10.0f, 1.0f }, 0.0f, { 1.0f, 1.0f }}) };
+			GameObject* iceFloorObj3{ Instantiate({{ 10.0f, 1.0f }, 0.0f, { 1.0f, 1.0f }}) };
 			iceFloorObj3->AddComponent<Sprite>("ice")->SetLayer(Layer::Floor);
 			iceFloorObj3->AddComponent<BoxCollider>()->SetTrigger(true);
 			iceFloorObj3->SetTag("ice");
 			tiles.push_back(iceFloorObj3);
 
 			// Wall
-			std::shared_ptr<GameObject> wallObj{ Instantiate({{ 20.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
+			GameObject* wallObj{ Instantiate({{ 20.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
 			wallObj->AddComponent<Sprite>("stone_wall")->SetLayer(Layer::Walls);
 			wallObj->AddComponent<BoxCollider>();
 			tiles.push_back(wallObj);
 
 			// Stone floor
-			std::shared_ptr<GameObject> stoneFloorObj{ Instantiate({{ 10.0f, 20.0f }, 0.0f, { 1.0f, 1.0f }}) };
+			GameObject* stoneFloorObj{ Instantiate({{ 10.0f, 20.0f }, 0.0f, { 1.0f, 1.0f }}) };
 			stoneFloorObj->AddComponent<Sprite>("stone_floor")->SetLayer(Layer::Floor);
 			tiles.push_back(stoneFloorObj);
 
@@ -91,7 +91,7 @@ class FileScene : public Scene
 							static_cast<float>(tile["transform"]["scale"]["y"])
 						};
 
-						std::shared_ptr<GameObject> obj{ Instantiate(transformDTO.ToTransform()) };
+						GameObject* obj{ Instantiate(transformDTO.ToTransform()) };
 
 						if (tile.contains("sprite"))
 						{

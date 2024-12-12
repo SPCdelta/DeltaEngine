@@ -14,6 +14,34 @@ Scene::Scene(const std::string& name)
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
 }
 
+void Scene::DestroyObject(GameObject* gameObject)
+{
+	size_t toDelete = 0;
+	bool found = false;
+
+	for (size_t i = 0 ; i < _objects.size(); i++)
+	{
+		if (_objects[i].get() == gameObject)
+		{
+			toDelete = i;
+			found = true;
+			break;
+		}
+	}
+
+	if (found)
+	{
+		gameObject->deleted = true;
+		_reg.DestroyEntity(gameObject->_id);
+		_objects.erase(_objects.begin() + toDelete);
+	}
+	else
+	{
+		int bp = 0;
+		std::cout << "Scene: OBJECT TO BE DELETED NOT FOUND!" << std::endl;
+	}
+}
+
 void Scene::Start()
 { 
 	_renderSystem->OnStart();
@@ -41,42 +69,30 @@ void Scene::Update()
 	// LateUpdate
 	_physicsSystem->TransformToBox2D();
 
-	// Destroy
-	while (!_toDeleteQueue.empty())
-	{
-		DestroyObject(_toDeleteQueue.front());
-		_toDeleteQueue.pop();  // Remove the pointer from the queue
-	}
-
 	// Render
 	_renderSystem->Update();
 	_imageRenderSystem->Update();
 	_textRenderSystem->Update();
 }
 
-std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
+GameObject* Scene::Instantiate(Transform transform)
 {
-	std::shared_ptr<GameObject> obj{ 
-		std::make_shared<GameObject>
-		(
-			_reg, _physicsWorld, _changeSceneEvent, _camera, transform
-		) 
-	};
+	std::unique_ptr<GameObject>& obj = _objects.emplace_back(std::make_unique<GameObject>(_reg, _physicsWorld, _changeSceneEvent, _camera, transform));
 	obj->transform->gameObject = obj.get();
-	_objects.push_back(obj);
 
 	// Allow Instantiation
 	obj->_instantiatePromise.Register(
-		[this](std::shared_ptr<GameObject>& e)
+		[this](GameObject*& e)
 		{ 
 			e = Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
 		}
 	);
 	obj->_destroyObject.Register([this](GameObject* gameObject)
 		{ 
-			MarkForDestroy(gameObject); 
+			DestroyObject(gameObject);
+			//MarkForDestroy(gameObject);
 		}
 	);
 
-	return obj;
+	return obj.get();
 }
