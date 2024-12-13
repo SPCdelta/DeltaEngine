@@ -15,7 +15,6 @@ class InputManager
 {
    public:
 	// Singleton
-	InputManager();
 	static InputManager& GetInstance();
 	~InputManager();
 	InputManager(const InputManager&) = delete;
@@ -60,6 +59,7 @@ class InputManager
 	static constexpr const char* defaultCategory = "Default";
 
    private:
+	InputManager();
 	static InputManager instance_;
 
 

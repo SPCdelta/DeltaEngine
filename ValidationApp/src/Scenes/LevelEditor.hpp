@@ -48,9 +48,21 @@ public:
 
         auto mousePos = InputManager::GetMousePosition();
         _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
-        _brush->AddComponent<SnapToGridBrush>()->activate([](){
-            std::cout << "pressed";
-            
+        _brush->AddComponent<SnapToGridBrush>()->activate([this](Transform& transform, Sprite* sprite){
+                std::cout << "pressed";
+                auto& vector = _tilesPerLayer[sprite->GetLayer()];
+                std::string spriteName = sprite->GetSprite();
+            	
+            	auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) {
+            		if (e->transform->position == transform.position){
+            			e->GetComponent<Sprite>().SetSprite(spriteName);
+                        return true;
+            		}
+                    return false;
+            	});
+
+            	if (it == vector.end())
+                    CreateTile(spriteName, spriteName);
             
             });
 
@@ -72,7 +84,7 @@ public:
                 {
                     Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
                     _layer = layer;
-                    CreateLevelEditorTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
+                    CreateTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
                     _tilesPerLayer[_layer].back()->SetTag(SPRITE_CATEGORY[0]);
                 }
             }
@@ -84,7 +96,7 @@ public:
             {
                 Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
                 _layer = layer;
-                CreateLevelEditorTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
+                CreateTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
                 _tilesPerLayer[_layer].back()->SetTag(SPRITE_CATEGORY[1]);
                 //_tilesPerLayer[_layer].back()->GetComponent<SnapToGridBrush>().SetDraggeble(false);
             }
@@ -156,13 +168,13 @@ public:
 
 
     //Create
-    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, Transform transform) {
+    void CreateTile(const std::string& spriteName, const std::string& category, Transform transform) {
         _tilesPerLayer[_layer].emplace_back(Instantiate(transform));
-        CreateLevelEditorTile(spriteName, category, false);
+        CreateTile(spriteName, category, false);
 
     }
 
-    void CreateLevelEditorTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
+    void CreateTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
     {
         if (mousePos) {
             auto mousePos = InputManager::GetMousePosition();
@@ -220,7 +232,7 @@ public:
 
     void BindCamara()
     {
-        float speed = 0.3f;
+        float speed = 1.0f;
         _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
             _camera->AddToPosition({ speed,0.f });
             }));

@@ -52,8 +52,8 @@ public:
 	static SpriteData* Get(const std::string& name)
 	{
 		if (!instance._sprites.contains(name))
-			assert(std::string{"Sprite das not exist!!"}.empty());
-		//	throw new std::exception("Sprite das not exist!!");
+			//assert(std::string{"Sprite das not exist!!"}.empty());
+			throw new std::exception("Sprite das not exist!!");
 
 		return instance._sprites[name];
 	}

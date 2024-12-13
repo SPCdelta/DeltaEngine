@@ -2,6 +2,10 @@
 #include "../../Core/Math/MathUtils.hpp"
 #include "../../Rendering/Sprite.hpp"
 
+//#include "../../GameObject.hpp"
+
+#include <algorithm>
+
 class SnapToGridBrush
 {
 public:
@@ -12,20 +16,15 @@ public:
 		_sprite->SetVisible(false);		
 	}
 
-	void activate(std::function<void()> func){
+	void activate(std::function<void(Transform&, Sprite*)> func){
 		int pxUnit = _camera->GetunitPixelSize();
 		
 		_inputLocations.push_back(InputManager::onMouseMove(
 			[this, pxUnit, func](Input& e)
 			{
-
-				int posX = e.mouseX - e.mouseX % pxUnit;
-				int posY = e.mouseY - e.mouseY % pxUnit;
-
-				Math::Vector2 mouseToWorldPos{ _camera->ScreenToWorldPoint({posX, posY + pxUnit}) };
-				_transform.position.Set(mouseToWorldPos);
+				_transform.position.Set(_camera->ToWorldGrid(_camera->ScreenToWorldPoint({e.mouseX, e.mouseY})));
 				if (_pressed)
-					func();
+					func(_transform, _sprite);
 
 			}, _category
 		));
@@ -33,6 +32,8 @@ public:
 		_inputLocations.push_back(InputManager::onMouseButtonDown(MouseButton::Left,
 			[this, func](Input& e)
 			{
+				std::cout << _transform.position.GetX() << "\n";
+				func(_transform, _sprite);
 				_pressed = true;
 			}, _category
 		));
@@ -44,6 +45,20 @@ public:
 			}, _category
 		));
 	}
+
+	//void placeTile(std::map<Layer, std::vector<std::shared_ptr<GameObject>>>& tilesPerLayer){
+	//	auto& vector = tilesPerLayer[_sprite->GetLayer()];
+	//	
+	//	auto it = std::find_if(vector.begin(), vector.end(), [this](GameObject& e) {
+	//		if (e.transform->position == _transform.position){
+	//			e.GetComponent<Sprite>().SetSprite(_sprite->GetSprite());
+	//			return;	
+	//		}
+	//	});
+
+	//	//if (it == vector.end())
+	//		//vector.emplace_back(Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} }));;
+	//}
 
 	void SetSprite(const std::string& spriteName){
 		_sprite->SetSprite(spriteName);

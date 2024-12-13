@@ -32,7 +32,7 @@ class InputEventDispatchers
 	bool activateCategory(const std::string& category);
 	bool activateCategories(std::set<std::string> categories);
 
-	void executeInputsPressedDown(Input allInputs, std::vector<std::string> strInputs, const std::string& strPressedDown);
+	void executeInputsPressedDown(Input allInputs, std::vector<std::string>& strInputs, const std::string& strPressedDown);
 	void executeInputsPressed(Input allInputs, std::vector<std::string> strInputs);
    
 	void remove(InputLocation inputLoc);

@@ -76,7 +76,7 @@ void InputEventDispatchers::dispatchActive(const std::string& input, Input input
 		eventIt->second.Dispatch(inputEvent);
 }
 
-void InputEventDispatchers::executeInputsPressedDown(Input allInputs, std::vector<std::string> strInputs, const std::string&  strPressedDown)
+void InputEventDispatchers::executeInputsPressedDown(Input allInputs, std::vector<std::string>& strInputs, const std::string&  strPressedDown)
 {
 	auto it = inputBindings.find(strPressedDown);
 	if (it != inputBindings.end())

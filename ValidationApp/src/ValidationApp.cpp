@@ -32,7 +32,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("LevelEditor");
 
 	// Start Application
 	Run();
