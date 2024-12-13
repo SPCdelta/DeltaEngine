@@ -11,6 +11,7 @@ enum class Layer : int
 	Player,
 	Projectiles,
 	Foreground,
+	EngineLayer
 };
 
 class LayerHelper

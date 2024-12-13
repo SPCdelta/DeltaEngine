@@ -43,20 +43,6 @@ public:
 		));
 	}
 
-	//void placeTile(std::map<Layer, std::vector<std::shared_ptr<GameObject>>>& tilesPerLayer){
-	//	auto& vector = tilesPerLayer[_sprite->GetLayer()];
-	//	
-	//	auto it = std::find_if(vector.begin(), vector.end(), [this](GameObject& e) {
-	//		if (e.transform->position == _transform.position){
-	//			e.GetComponent<Sprite>().SetSprite(_sprite->GetSprite());
-	//			return;	
-	//		}
-	//	});
-
-	//	//if (it == vector.end())
-	//		//vector.emplace_back(Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} }));;
-	//}
-
 	void SetSprite(const std::string& spriteName){
 		_sprite->SetSprite(spriteName);
 		_sprite->SetVisible(true);

@@ -36,12 +36,6 @@ public:
         _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
 
         auto allLayers = LayerHelper::GetAllLayer();
-
-        for (auto& layer : allLayers)
-        {
-            _tilesPerLayer.insert(std::make_pair(layer, std::vector<std::shared_ptr<GameObject>>{}));
-        }
-
     }
 
     void InitLevelEditor(const std::string& level){
@@ -49,7 +43,7 @@ public:
         auto mousePos = InputManager::GetMousePosition();
         _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
         _brush->AddComponent<SnapToGridBrush>()->activate([this](Transform& transform, Sprite* sprite){
-                auto& vector = _tilesPerLayer[sprite->GetLayer()];
+                auto& vector = _tiles;
                 std::string spriteName = sprite->GetSprite();
             	
             	auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) {
@@ -84,7 +78,7 @@ public:
                     Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
                     _layer = layer;
                     CreateTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
-                    _tilesPerLayer[_layer].back()->SetTag(SPRITE_CATEGORY[0]);
+                    _tiles.back()->SetTag(SPRITE_CATEGORY[0]);
                 }
             }
         }
@@ -96,7 +90,7 @@ public:
                 Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
                 _layer = layer;
                 CreateTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
-                _tilesPerLayer[_layer].back()->SetTag(SPRITE_CATEGORY[1]);
+                _tiles.back()->SetTag(SPRITE_CATEGORY[1]);
                 //_tilesPerLayer[_layer].back()->GetComponent<SnapToGridBrush>().SetDraggeble(false);
             }
         }
@@ -132,27 +126,23 @@ public:
         Json::json tilesJson;
         int tileCounter = 0;
 
-        for (auto& [layer, tiles] : _tilesPerLayer)
+        for (auto& tile : _tiles)
         {
-            for (auto& tile : tiles)
-            {
-                if (tile->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
-                    auto& tileJson = tilesJson["tiles"][tileCounter];
-                    TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                    tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
-                    tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
-                    tileJson["sprite"]["layer"] = tile->GetLayer();
-                    tileCounter++;
+            if (tile->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
+                auto& tileJson = tilesJson["tiles"][tileCounter];
+                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
+                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
+                tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
+                tileJson["sprite"]["layer"] = tile->GetLayer();
+                tileCounter++;
 
-                } else if (tile->GetTag() == SPRITE_CATEGORY[1]){ //player
-                    auto& tileJson = tilesJson["player"];
-                    TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                    tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
-                    tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
-                    tileJson["sprite"]["layer"] = tile->GetLayer();
-                }
+            } else if (tile->GetTag() == SPRITE_CATEGORY[1]){ //player
+                auto& tileJson = tilesJson["player"];
+                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
+                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
+                tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
+                tileJson["sprite"]["layer"] = tile->GetLayer();
             }
-
         }
         fileManager.Save(_saveFilePath, "json", tilesJson);
     }
@@ -168,7 +158,7 @@ public:
 
     //Create
     void CreateTile(const std::string& spriteName, const std::string& category, Transform transform) {
-        _tilesPerLayer[_layer].emplace_back(Instantiate(transform));
+        _tiles.emplace_back(Instantiate(transform));
         CreateTile(spriteName, category, false);
 
     }
@@ -177,10 +167,10 @@ public:
     {
         if (mousePos) {
             auto mousePos = InputManager::GetMousePosition();
-            _tilesPerLayer[_layer].emplace_back(Instantiate({ _camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
+            _tiles.emplace_back(Instantiate({ _camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
         }
 
-        auto& tile = _tilesPerLayer[_layer].back();
+        auto& tile = _tiles.back();
         tile->SetTag(category);
 
         auto sprite = tile->AddComponent<Sprite>(spriteName);
@@ -219,8 +209,8 @@ public:
 
             if (LayerHelper::InLayers(newLayer)) {
                 //InputManager::deactivateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
+                _brush->SetLayer(Layer::EngineLayer);
                 _layer = LayerHelper::GetLayer(newLayer);
-                _brush->SetLayer(_layer);
                 //InputManager::activateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
 
                 layer->SetText("Layer: " + LayerHelper::GetString(_layer));
@@ -357,8 +347,8 @@ private:
     std::string _saveFilePath;
     std::string _saveFileName;
 
-    //std::vector<std::shared_ptr<GameObject>> _tiles;
-    std::map<Layer, std::vector<std::shared_ptr<GameObject>>> _tilesPerLayer;
+    std::vector<std::shared_ptr<GameObject>> _tiles;
+    //std::map<Layer, std::vector<std::shared_ptr<GameObject>>> _tilesPerLayer;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
     int _tileIndexOptions = 0;
 
