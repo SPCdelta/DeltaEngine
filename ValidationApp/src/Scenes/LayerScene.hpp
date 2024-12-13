@@ -5,6 +5,7 @@
 #include "Engine/Delta.hpp"
 
 #include "../Scripts/EnemyBehaviour.hpp"
+#include "../Scripts/EnemyHitboxBehaviour.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
 #include "../Views/HUDView.hpp"
 
@@ -34,6 +35,15 @@ class LayerScene : public Scene
 		enemyObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 		enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);
 		enemyObj->SetTag("goblin");
+		
+		// Create hitbox for the enemy so it can get hurt by the projectiles
+		std::shared_ptr<GameObject> enemyDmgObj{ Instantiate(enemyObj->GetComponent<Transform>()) };
+		enemyDmgObj->AddComponent<Sprite>("goblin")->SetVisible(false);
+		enemyDmgObj->AddComponent<BoxCollider>();
+		enemyDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+		enemyDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&enemyObj->GetComponent<Transform>().position) ;
+		auto behaviour = &enemyObj->GetComponent<EnemyBehaviour>();
+		behaviour->SetDamageBehaviour(enemyDmgObj->GetComponent<Rigidbody>());
 
 		// Create potion object to pick up
 		/*WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);

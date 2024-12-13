@@ -30,6 +30,8 @@ class EnemyBehaviour : public BehaviourScript
 
 	Enemy& GetEnemy() const { return *_enemy; }
 
+	void SetDamageBehaviour(Rigidbody& rigid);
+
    private:
 	DamageBehaviour* _damageBehaviour{nullptr};
 	AIBehaviour* _aiBehaviour{nullptr};

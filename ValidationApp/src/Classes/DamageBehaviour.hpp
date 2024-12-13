@@ -13,7 +13,15 @@ class DamageBehaviour
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
 				if (IsDamageSource(collider.transform.gameObject->GetTag()))
+				{
+					if (_damageSourceTags[0] == "projectile")
+					{
+						std::cout << "damage" << std::endl;
+					}
+					
 					_damageCount = 1; 
+				}
+					
 			});
 
 			_rigidbody.onTriggerExit.Register([this](Collider& collider)

@@ -17,11 +17,11 @@ class AIBehaviour
 		_targetPosition = nullptr;
 	}
 
-	void Update()
+	Math::Vector2* Update()
 	{
 		if (!_targetPosition)
-			return;
-
+			return position_;
+		 
 		float pathRecalculationCooldown = 1.0f;	 // Seconds
 		static float timeSinceLastPathCalculation = 0.0f;
 		timeSinceLastPathCalculation += Time::GetDeltaTime();
@@ -42,7 +42,7 @@ class AIBehaviour
 		}
 
 		if (path_.empty())
-			return;
+			return position_;
 
 		_direction = path_.front() - *position_;
 		float distance = _direction.Magnitude();
@@ -52,7 +52,7 @@ class AIBehaviour
 			if (path_.size() == 1 && path_.front() == *_targetPosition)
 			{
 				path_.clear();
-				return;
+				return position_;
 			}
 
             *position_ = path_.front();
@@ -64,6 +64,8 @@ class AIBehaviour
 			*position_ += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 			_direction = normalizedDirection;
         }
+
+		return position_;
 	}
 
     void CalculateNewPath()

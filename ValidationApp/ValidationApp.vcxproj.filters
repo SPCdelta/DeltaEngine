@@ -27,6 +27,7 @@
     <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
+    <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
     <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
     <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
+    <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
