@@ -6,7 +6,7 @@
 class InventoryItem
 {
    public:
-	InventoryItem(Item* item, int amount);
+	InventoryItem(std::shared_ptr<Item> item, int amount);
 	void AddAmount(int amount);
 	void LowerAmount(int amount);
 	int GetAmount() const;
@@ -15,5 +15,5 @@ class InventoryItem
 
    private:
 	int _amount;
-	Item* _item;
+	std::shared_ptr<Item> _item;
 };

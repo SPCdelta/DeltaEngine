@@ -246,12 +246,12 @@ void PlayerBehaviour::LoadPlayer()
 				{
 					PotionType type = static_cast<PotionType>(itemData["type"]);
 					auto potion = PotionFactory::CreatePotion(type, itemData);
-					_player->AddItemToInventory(potion.release(), itemData["amount"]);
+					_player->AddItemToInventory(std::shared_ptr<Item>(potion.release()), itemData["amount"]);
 				}
 				else
 				{
 					std::unique_ptr<Item> item = std::make_unique<Item>(itemData["name"], itemData["sprite"]); 
-					_player->AddItemToInventory(item.release(), itemData["amount"]);
+					_player->AddItemToInventory(std::shared_ptr<Item>(item.release()), itemData["amount"]);
 				}
 
 				// TODO weapons?

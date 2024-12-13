@@ -17,7 +17,7 @@ class PickUpBehaviour
 					if (collider.transform.gameObject->HasComponent<WorldItem>())
 					{
 						WorldItem& item = collider.transform.gameObject->GetComponent<WorldItem>();
-						_player.AddItemToInventory(item._item.get(), item._amount);
+						_player.AddItemToInventory(item._item, item._amount);
 
 						std::cout << "player picked up " << item._amount << " " << item._item->GetName() <<std::endl;
 

@@ -66,7 +66,7 @@ int Player::GetHealth() const
 	return _health;
 }
 
-void Player::AddItemToInventory(Item* item, int amount)
+void Player::AddItemToInventory(std::shared_ptr<Item> item, int amount)
 {
 	_inventory.AddItem(item, amount);
 
@@ -95,8 +95,13 @@ InventoryItem& Player::GetCurrentInventoryItem()
 	return _inventory.GetItem(_inventoryIndex);
 }
 
-void Player::ResetInventory() // Empties the inventory
+void Player::ResetInventory()
 {
+	for (size_t i = 0; i < _inventory.GetSize(); ++i)
+	{
+		auto& item = _inventory.GetItem(i);
+		NotifyInventoryChanged(*item.GetItem(), -item.GetAmount());
+	}
 	_inventory.Clear();
 }
 

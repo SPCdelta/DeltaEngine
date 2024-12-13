@@ -9,7 +9,7 @@ class Inventory
 {
    public:
 	Inventory();
-	void AddItem(Item* item, int amount);
+	void AddItem(std::shared_ptr<Item> item, int amount);
 	void RemoveItem(const Item& item, int amount);
 
 	int GetItemAmount();

@@ -6,12 +6,10 @@
             {
                 "amount": 1,
                 "name": "healingpotion",
-                "sprite": "cyanPotion"
-            },
-            {
-                "amount": 4,
-                "name": "item2",
-                "sprite": "none"
+                "sprite": "cyanPotion",
+                "time": 10.0,
+                "type": 2,
+                "value": 10.0
             }
         ]
     }

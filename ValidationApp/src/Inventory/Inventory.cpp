@@ -2,7 +2,7 @@
 
 Inventory::Inventory() {}
 
-void Inventory::AddItem(Item* item, int amount) 
+void Inventory::AddItem(std::shared_ptr<Item> item, int amount) 
 {
 	if (_items.size() == 0 && !IsFull())
 	{
