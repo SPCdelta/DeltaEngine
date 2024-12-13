@@ -1,8 +1,17 @@
 #include "EnemyBehaviour.hpp"
 
+EnemyBehaviour::~EnemyBehaviour()
+{
+	sprite = nullptr;
+	rigidbody = nullptr;
+	delete _damageBehaviour;
+	delete _aiBehaviour;
+	playerPosition = nullptr;
+}
+
 void EnemyBehaviour::OnStart()
 {
-	_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position, 5); // TODO, not always a goblin
+	_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position, 5); // TODO, not always a goblin (change when working on enemies)
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);	
@@ -62,10 +71,11 @@ void EnemyBehaviour::OnUpdate()
 				_sfx->Play();
 			}
 
-			if (_enemy->GetHealth() <= 0) // TODO
+			if (_enemy->GetHealth() <= 0)
 			{
-				std::cout << "i died!" << std::endl;
-				sprite->SetColor(Rendering::Color(0.0f, 0.0f, 0.0f, 1.0f)); 
+				_dead = true;
+				Events::Event e{};
+				onDeath.Dispatch(e);
 			}
 		}
 	}

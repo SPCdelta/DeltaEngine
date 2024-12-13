@@ -9,14 +9,7 @@
 class EnemyBehaviour : public BehaviourScript
 {
    public:
-	~EnemyBehaviour()
-	{
-		sprite = nullptr;
-		rigidbody = nullptr;
-		delete _damageBehaviour;
-		delete _aiBehaviour;
-		playerPosition = nullptr;
-	}
+	~EnemyBehaviour();
 
 	void OnStart() override;
 	void OnUpdate() override;
@@ -32,6 +25,8 @@ class EnemyBehaviour : public BehaviourScript
 
 	void SetDamageBehaviour(Rigidbody& rigid);
 
+	Events::EventDispatcher<Events::Event> onDeath{};
+
    private:
 	DamageBehaviour* _damageBehaviour{nullptr};
 	AIBehaviour* _aiBehaviour{nullptr};
@@ -42,4 +37,5 @@ class EnemyBehaviour : public BehaviourScript
 	Math::Vector2 _moveDirection{0.0f, 0.0f};
 
 	std::unique_ptr<Enemy> _enemy;
+	bool _dead = false;
 };

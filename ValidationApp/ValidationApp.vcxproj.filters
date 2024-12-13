@@ -28,6 +28,8 @@
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
     <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
+    <ClCompile Include="src\Scenes\LayerScene.cpp" />
+    <ClCompile Include="src\Classes\DamageBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />

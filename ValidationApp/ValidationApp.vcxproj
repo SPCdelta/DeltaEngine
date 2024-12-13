@@ -176,6 +176,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Classes\DamageBehaviour.cpp" />
+    <ClCompile Include="src\Scenes\LayerScene.cpp" />
     <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />

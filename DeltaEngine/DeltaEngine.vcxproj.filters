@@ -35,6 +35,8 @@
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
     <ClCompile Include="Engine\Core\Strings\StringUtils.cpp" />
+    <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
+    <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />

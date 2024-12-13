@@ -71,6 +71,9 @@ class Scene
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
+	void DestroyObject(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
+	void DestroyPointerObject(GameObject* gameObject) { gameObject->Destroy(gameObject); }
+
 private:
 	InputFacade* _inputfacade = nullptr;
 	Rendering::Event* _windowEvent = nullptr;

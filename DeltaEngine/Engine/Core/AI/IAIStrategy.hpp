@@ -1,8 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #include "../Math/Point.hpp"
+#include "../Math/Vector2.hpp"
 
 struct Node 
 {
@@ -31,5 +33,7 @@ class IAIStrategy
 {
    public:
 		virtual ~IAIStrategy() = default;
-		virtual std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end) = 0;
+
+		// Range is amount of units in each direction, with step being 1 node per step amount of units
+		virtual std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range = 500, int step = 50) = 0; 
 };
