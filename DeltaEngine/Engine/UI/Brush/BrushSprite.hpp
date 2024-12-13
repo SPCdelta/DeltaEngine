@@ -21,7 +21,6 @@ public:
 				if (!Math::MathUtils::IsVector2WithinRect({ e.mouseX, e.mouseY }, transform.position, transform.scale))
 					return;
 
-				std::cout << transform.position.GetX() << " klikt\n" ;
 				brush->SetSprite(spriteName);
 
 			}, _category
@@ -39,7 +38,6 @@ public:
 	}
 
 private:
-
 	std::vector<InputLocation> _inputLocations;
 
 };

@@ -42,7 +42,9 @@ public:
 
         auto mousePos = InputManager::GetMousePosition();
         _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
-        _brush->AddComponent<SnapToGridBrush>()->activate([this](Transform& transform, Sprite* sprite){
+        _brush->AddComponent<SnapToGridBrush>(
+            [this](Transform& transform, Sprite* sprite)
+            {
                 auto& vector = _tiles;
                 std::string spriteName = sprite->GetSprite();
             	
@@ -55,9 +57,9 @@ public:
             	});
 
             	if (it == vector.end())
-                    CreateTile(spriteName, spriteName);
+                    CreateTile(spriteName, sprite->GetSpriteData()->category);
             
-            });
+            })->RemoveOnKey(KEY_E);
 
         if (level.empty()){
             MakeSaveFilePath();
@@ -224,15 +226,19 @@ public:
         float speed = 1.0f;
         _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
             _camera->AddToPosition({ speed,0.f });
+            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
         _inputs.push_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
             _camera->AddToPosition({ -speed,0.f });
+            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
         _inputs.push_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
             _camera->AddToPosition({ 0.f,-speed });
+            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
         _inputs.push_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
             _camera->AddToPosition({ 0.f,speed });
+            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
     }
 
