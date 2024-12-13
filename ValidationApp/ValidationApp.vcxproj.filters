@@ -30,6 +30,7 @@
     <ClCompile Include="src\Items\ConsumableItem.cpp" />
     <ClCompile Include="src\Items\Potions\Potion.cpp" />
     <ClCompile Include="src\Items\WorldItem.cpp" />
+    <ClCompile Include="src\GameObjectBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Items\ConsumableItem.hpp" />
+    <ClInclude Include="src\GameObjectBuilder.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

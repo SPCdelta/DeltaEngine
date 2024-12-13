@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "Application.hpp"
 #include "GameObject.hpp"
