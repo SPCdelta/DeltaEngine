@@ -10,7 +10,7 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, "enemy");
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-	//_weapon = new Gun(this); TODO: Memory leaks
+	_weapon = new Gun(this);
 	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 	//_weapon = new Bow(this);
 

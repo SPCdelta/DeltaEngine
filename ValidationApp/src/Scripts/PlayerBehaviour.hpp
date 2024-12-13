@@ -30,6 +30,7 @@ public:
 		delete _floorBehaviour;
 		delete _damageBehaviour;
 		delete _pickUpBehaviour;
+		delete _weapon;
 	}
 
 	void ThrowBoomerang();

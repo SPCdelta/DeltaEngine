@@ -28,8 +28,10 @@ private:
 	void DeleteItem(const Item& item);
 	Uint8 GetAvailableIndex() const;
 	bool HasItem(const Item& item);
+	void Subscribe();
 	std::vector<Slot> _hotbar;
 	Uint8 _index = 0;
+	Player& _player;
 	const float TEXT_SCALE = 0.2f;
 	const Rendering::Color TEXT_COLOR = {255, 255, 255, 255};
 	const std::string HOTBAR_SLOT_SPRITENAME = "hotbar_slot";
