@@ -26,7 +26,7 @@ class LayerScene : public Scene
 		playerObject->SetTag("player");
 
 		// Create object that gets hurt when a weapon touches it
-		std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
+		std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
 		std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(enemyObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
 		enemyObj->AddComponent<Sprite>("goblin", goblinSheet);
 		enemyObj->AddComponent<Audio::SFXSource>("", false, false);
