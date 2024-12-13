@@ -189,6 +189,7 @@ void PlayerBehaviour::InitHotbarKeybinds()
 	{
 		onKeyPressed(InputsEnum::toKey(std::to_string(i)), [this, i](Input& e) { _player->SetInventoryIndex(i-1); }, "Gameplay");
 	}
+	onKeyPressed(KEY_Q, [this](Input& e) { DropCurrentItem(); }, "Gameplay");
 }
 
 void PlayerBehaviour::ConsumeItem()
@@ -206,6 +207,13 @@ void PlayerBehaviour::ConsumeItem()
 			_player->RemoveItemFromInventory(*consumable, 1);
 		}
 	}
+}
+
+void PlayerBehaviour::DropCurrentItem()
+{
+	if (_player->GetInventorySize() == 0) return;
+	//std
+	_player->RemoveItemFromInventory(*_player->GetCurrentInventoryItem().GetItem(), 1);
 }
 
 void PlayerBehaviour::ThrowBoomerang()

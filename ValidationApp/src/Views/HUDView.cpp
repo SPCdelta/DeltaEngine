@@ -12,7 +12,6 @@ HUDView::HUDView(Scene& scene, const std::string& fontName, Player& player) : IV
 
 const Math::Vector2& HUDView::GetSize() const
 {
-	// TODO: insert return statement here
 	return _scale;
 }
 

@@ -76,6 +76,7 @@ private:
 
 	void InitHotbarKeybinds();
 	void ConsumeItem();
+	void DropCurrentItem();
 
 	bool _attacking{false};
 	float _attackTime{0.0f};
