@@ -30,8 +30,9 @@ public:
 
 	}
 
-	Math::Vector2 ToWorldGrid(const Math::Vector2 pos){
+	Math::Vector2 ToWorldGrid(const Math::Point position){
 		int pxUnit = GetunitPixelSize();
+		const Math::Vector2 pos = ScreenToWorldPoint(position.GetX(), position.GetY());
 
 		float addX = 0.0f;
 		float addY = 0.0f;

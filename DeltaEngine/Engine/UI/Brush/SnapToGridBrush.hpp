@@ -2,8 +2,6 @@
 #include "../../Core/Math/MathUtils.hpp"
 #include "../../Rendering/Sprite.hpp"
 
-//#include "../../GameObject.hpp"
-
 #include <algorithm>
 
 class SnapToGridBrush
@@ -22,7 +20,7 @@ public:
 		_inputLocations.push_back(InputManager::onMouseMove(
 			[this, pxUnit, func](Input& e)
 			{
-				_transform.position.Set(_camera->ToWorldGrid(_camera->ScreenToWorldPoint({e.mouseX, e.mouseY})));
+				_transform.position.Set(_camera->ToWorldGrid({e.mouseX, e.mouseY}));
 				if (_pressed)
 					func(_transform, _sprite);
 
@@ -32,7 +30,6 @@ public:
 		_inputLocations.push_back(InputManager::onMouseButtonDown(MouseButton::Left,
 			[this, func](Input& e)
 			{
-				std::cout << _transform.position.GetX() << "\n";
 				func(_transform, _sprite);
 				_pressed = true;
 			}, _category

@@ -49,7 +49,6 @@ public:
         auto mousePos = InputManager::GetMousePosition();
         _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
         _brush->AddComponent<SnapToGridBrush>()->activate([this](Transform& transform, Sprite* sprite){
-                std::cout << "pressed";
                 auto& vector = _tilesPerLayer[sprite->GetLayer()];
                 std::string spriteName = sprite->GetSprite();
             	
@@ -178,7 +177,7 @@ public:
     {
         if (mousePos) {
             auto mousePos = InputManager::GetMousePosition();
-            _tilesPerLayer[_layer].emplace_back(Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} }));
+            _tilesPerLayer[_layer].emplace_back(Instantiate({ _camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
         }
 
         auto& tile = _tilesPerLayer[_layer].back();
@@ -296,11 +295,6 @@ public:
 
             optionTile->AddComponent<Ui::Image>(key);
             optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
-
-            //_optionTiles.back()->AddComponent<Ui::Button>()->SetOnLeftMouseClick(
-            //    [this, key, value]() {
-            //        CreateLevelEditorTile(key, value->category); //TODO Brush updaten naar deze sprite
-            //    }, "UI:Leveleditor-" + key);
         }
 
         auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
