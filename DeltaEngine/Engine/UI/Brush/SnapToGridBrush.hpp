@@ -52,8 +52,6 @@ public:
 	}
 
 	void NotifyTransform(){
-
-
 		if (!_pressed)
 			return;
 		
