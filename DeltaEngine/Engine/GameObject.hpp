@@ -55,33 +55,34 @@ public:
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			return static_cast<T*>(_EmplaceComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
+			return static_cast<T*>(&_reg.AddPointerComponent<Physics::Rigidbody>(_id, *_reg.GetComponent<Physics::Collider*>(_id)));
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
-			T* component = static_cast<T*>(_EmplaceComponent<Ui::Button>(transform->position, transform->scale));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Button>(_id, transform->position, transform->scale));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Ui::Scrollable>)
 		{
-			T* component = static_cast<T*>(_EmplaceComponent<Ui::Scrollable>(transform, std::forward<Args>(args)...));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Scrollable>(_id, transform, std::forward<Args>(args)...));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, SnapToGridBrush>)
 		{
 			Sprite* sprite = AddComponent<Sprite>("default_texture");
-			T* component = static_cast<T*>(_EmplaceComponent<SnapToGridBrush>(*transform, sprite, _camera, std::forward<Args>(args)...));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<SnapToGridBrush>(_id, *transform, sprite, _camera, std::forward<Args>(args)...));
 			
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, BrushSprite>)
 		{
-			T* component = static_cast<T*>(_EmplaceComponent<BrushSprite>(*transform, std::forward<Args>(args)...));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<BrushSprite>(_id, *transform, std::forward<Args>(args)...));
+
 			return component;
 		}
 		else
 		{
-			return static_cast<T*>(_EmplaceComponent<T>(std::forward<Args>(args)...));
+			return static_cast<T*>(&_reg.EmplaceComponent<T>(_id, std::forward<Args>(args)...));
 		}
 	}
 
@@ -178,11 +179,5 @@ private:
 	T* _AddComponent(T component)
 	{
 		return &_reg.AddComponent<T>(_id, std::move(component)); 
-	}
-
-	template <typename T, typename... Args>
-	T* _EmplaceComponent(Args&&... args)
-	{
-		return &_reg.EmplaceComponent<T>(_id, std::forward<Args>(args)...);
 	}
 };
