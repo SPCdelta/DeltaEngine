@@ -184,7 +184,7 @@ void PlayerBehaviour::ThrowBoomerang()
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
 	boomerangObj->SetTag("weapon");
-	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
+	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint({_mouseX, _mouseY}));
 
 	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
 
@@ -236,7 +236,7 @@ void PlayerBehaviour::SavePlayer()
 
 	if (_player->GetInventorySize() > 0)
 	{
-		for (size_t i = 0; i < _player->GetInventorySize(); ++ i)
+		for (int i = 0; i < static_cast<int>(_player->GetInventorySize()); ++ i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
 			auto& inventoryItem = _player->GetInventoryItem(i)->GetItem();

@@ -269,11 +269,11 @@ public:
             }, "UI");
     }
 
-    void UITopBarAndBinding(float windowWidth, float titleLeftPadding, float topBarHeight)
+    void UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
         const float imagespace = (SCALE_IN_UI_BAR + PADDING);
         
-        const int maxOptionPerRow = static_cast<int>((windowWidth - PADDING_OUT_LEFT_UI * 2 - RIGHT_BAR_WIDTH) / imagespace);
+        const int maxOptionPerRow = static_cast<int>((static_cast<float>(windowWidth) - PADDING_OUT_LEFT_UI * 2 - RIGHT_BAR_WIDTH) / imagespace);
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
