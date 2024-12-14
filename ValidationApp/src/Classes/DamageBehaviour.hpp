@@ -75,7 +75,7 @@ class DamageBehaviour
 
 		void StartInvincibility()
 		{
-			_invincibleTime = _invincibilityDuration;
+			_invincibleTime = _invincibilityDuration / Time::GetMultiplier();
 		}
 
 		bool CanTakeDamage() const

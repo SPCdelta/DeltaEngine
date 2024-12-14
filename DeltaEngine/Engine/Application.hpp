@@ -79,12 +79,18 @@ private:
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
 	// Debug
-	Rendering::Color textColor{ 255, 0, 0, 255 };
-	Transform _textTransform { { 10.0f, 10.0f }, 0.0f, { 200.0f, 100.0f } };
+	Rendering::Color _debugTextColor{ 255, 0, 0, 255 };
+	Transform _debugTextTransform { { 10.0f, 10.0f }, 0.0f, { 200.0f, 100.0f } };
 	Ui::Text* _fpsText = nullptr;
 	float _fpsTimer = 1.0f;
 	bool _renderFps = false;
 	void Debug();
 	void InitDebug();
+
+	// Gamespeed
+	Rendering::Color _gameSpeedTextColor{ 0, 0, 0, 255 };
+	std::unique_ptr<Ui::Text> _gameSpeed;
+	void InitGameSpeed();
+	void RenderGameSpeed();
 };
 

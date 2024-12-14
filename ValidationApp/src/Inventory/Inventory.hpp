@@ -12,8 +12,8 @@ class Inventory
 	Inventory();
 	//~Inventory();
 
-	void AddItem(Item item, int amount);
-	void RemoveItem(std::string itemName, int amount);
+	void AddItem(const Item& item, int amount);
+	void RemoveItem(const Item& item, int amount);
 	void PrintInventory();
 
 	size_t GetItemAmount();

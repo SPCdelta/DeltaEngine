@@ -21,7 +21,12 @@
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
     <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
-    <ClCompile Include="Assets\Level\level-2.json" />
+    <ClCompile Include="src\Views\HUDView.cpp" />
+    <ClCompile Include="src\Views\Components\HotbarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
+    <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\BarComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -66,6 +71,12 @@
     <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
     <ClInclude Include="src\Scenes\LevelEditorLevelChose.hpp" />
+    <ClInclude Include="src\Views\HUDView.hpp" />
+    <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
+    <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\BarComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -96,6 +107,14 @@
     <Image Include="Assets\Textures\UI\Buttons\scroll3.png" />
     <Image Include="Assets\Textures\Weapons\bullet.png" />
     <Image Include="Assets\Textures\Weapons\arrow.png" />
+    <Image Include="Assets\Textures\HUD\health_bar.png" />
+    <Image Include="Assets\Textures\HUD\bar.png" />
+    <Image Include="Assets\Textures\HUD\bar_frame.png" />
+    <Image Include="Assets\Textures\HUD\hotbar_slot.png" />
+    <Image Include="Assets\Textures\Items\potions\potion_effervescent.png" />
+    <Image Include="Assets\Textures\Items\potions\cyan.png" />
+    <Image Include="Assets\Textures\HUD\shield_bar.png" />
+    <Image Include="Assets\Textures\Items\coin.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
@@ -111,5 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf" />
+    <Font Include="Assets\Fonts\a_goblin_appears.ttf" />
   </ItemGroup>
 </Project>

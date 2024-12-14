@@ -4,6 +4,7 @@
 #include <memory>
 #include <functional>
 #include "Engine/Delta.hpp"
+#include <vector>
 
 class MenuView : public IView
 {
@@ -12,7 +13,7 @@ public:
 	* we use uint8 to limit buttons to 255. change to different type if needed
 	* scale is applied to every button element
 	*/
-	MenuView(Scene& scene, const std::string& title, Rendering::UnsignInt8 numOfButtons, const std::string& fontPath, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);
+	MenuView(Scene& scene, const std::string& title, Uint8 numOfButtons, const std::string& fontPath, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);
 	void SetButtonPosition(int id, const Math::Vector2& position);
 	void SetButtonScale(int id, const Math::Vector2& scale);
 	void SetButtonTextPosition(int id, const Math::Vector2& position);
@@ -27,15 +28,13 @@ public:
 	void SetButtonTextColor(int id, const Rendering::Color& color);
 	void SetTitleTextColor(const Rendering::Color& color);
 	void SetButtonTexture(int id, const std::string& textureName);
-	std::shared_ptr<GameObject>& GetButton(Rendering::UnsignInt8 id);
-	Ui::Text& GetButtonText(Rendering::UnsignInt8 id);
-
+	std::shared_ptr<GameObject>& GetButton(Uint8 id);
+	Ui::Text& GetButtonText(Uint8 id);
 private:
-	const Rendering::Color DEFAULT_COLOR {0, 0, 0, 255};
 	void InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos);
 	void InitButtons(unsigned char numOfButtons, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);
 	std::shared_ptr<GameObject> _title;
 	// unsigned char is used as id
-	std::unordered_map<Rendering::UnsignInt8, std::shared_ptr<GameObject>> _buttons;
+	std::vector<std::shared_ptr<GameObject>> _buttons;
 	const std::string DEFAULT_BUTTON_TEXTURE = "scroll3";
 };

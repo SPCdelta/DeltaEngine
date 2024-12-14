@@ -141,10 +141,25 @@ void Text::SetFont(const std::string& fontName)
 	_font = ResourceManager::GetFont(_fontName, _fontSize);
 }
 
+const std::string& Ui::Text::GetText() const
+{
+	return _text;
+}
+
 void Text::SetFontSize(int size)
 {
 	_fontSize = size;
 	_font = ResourceManager::GetFont(_fontName, _fontSize);
+}
+
+int Ui::Text::GetFontSize() const
+{
+	return _fontSize;
+}
+
+Font::Font* Ui::Text::GetFont() const
+{
+	return _font;
 }
 
 void Text::SetPosition(const Math::Vector2& position)

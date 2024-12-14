@@ -1,4 +1,5 @@
 #include "AnimationSheet.hpp"
+#include "../Core/Time.hpp"
 
 AnimationSheet::AnimationSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp, int rowDown, 
 	int rowLeft, int rowRight) : frameCount(framesInRow), frameRowUp(rowUp), frameRowDown(rowDown), frameRowLeft(rowLeft), 
@@ -32,19 +33,18 @@ bool AnimationSheet::PlayCustomAnimation(const std::string& animationName)
 	
 	
 	const AnimationData& animData = customAnimations[animationName];
-	if (currentTime - lastFrameTime > animData.animSpeed)
-	{
-		currentFrame = (currentFrame + 1) % animData.frameCount;
-		srcRect.y = (animData.row - 1) * frameHeight;
-		srcRect.x = currentFrame * frameWidth;
-		lastFrameTime = currentTime;
+	if (currentTime - lastFrameTime < animData.animSpeed)
+		return false;
+	
+	currentFrame = (currentFrame + 1) % animData.frameCount;
+	srcRect.y = (animData.row - 1) * frameHeight;
+	srcRect.x = currentFrame * frameWidth;
+	lastFrameTime = currentTime;
 
-		// If true, animation still playing
-		// If false, animation is done playing
-		if ((currentFrame + 1) == animData.frameCount) 
-			return false;
-		else
-			return true;
-	}
-	return false;
+	// If true, animation still playing
+	// If false, animation is done playing
+	if ((currentFrame + 1) == animData.frameCount) 
+		return false;
+	else
+		return true;
 }

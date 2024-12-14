@@ -1,4 +1,6 @@
 #include "Application.hpp"
+#include "Core/Strings/StringUtils.hpp"
+#include "UI/Font.hpp"
 
 bool Application::_isRunning = true;
 
@@ -48,13 +50,14 @@ void Application::Run()
 #endif	// _DEBUG
 	
 		InitDebug();
+		InitGameSpeed();
 		Uint32 previousTime = Rendering::GetTicks();
 	
 		while (!_window.ShouldWindowClose())
 		{
 			// DeltaTIme
 			Uint32 currentTime = Rendering::GetTicks();
-			Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.0f));
+			Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.f));
 			previousTime = currentTime;
 
 			// 
@@ -76,6 +79,7 @@ void Application::Run()
 			currentScene->Update();
 
 			Debug();
+			RenderGameSpeed();
 
 			// Render all
 			Rendering::RenderPresent(_window.GetRenderer());
@@ -106,7 +110,7 @@ void Application::LoadScene(const std::string& sceneName)
 
 void Application::InitDebug()
 {
-	_fpsText = new Ui::Text("FPS: ", "knight", 48, textColor);
+	_fpsText = new Ui::Text("FPS: ", "knight", 48, _debugTextColor);
 
 	InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderFps = !_renderFps; });
 }
@@ -114,17 +118,50 @@ void Application::Debug()
 {
 	if (_fpsTimer >= 1.0f)
 	{
-		std::string fps = "FPS: " + std::to_string(static_cast<int>((1.0f / Time::GetDeltaTime())));
+		std::string fps = "FPS: " + std::to_string(static_cast<int>((1.0f / Time::deltaTime)));
 		_fpsText->SetText(fps);
 		_fpsTimer = 0.0f;
 	}
 	else
 	{
-		_fpsTimer += Time::GetDeltaTime();
+		_fpsTimer += Time::deltaTime;
 	}
 
 	if (_renderFps)
 	{
-		_fpsText->Render(_window.GetRenderer(), _textTransform);
+		_fpsText->Render(_window.GetRenderer(), _debugTextTransform);
 	}
+}
+
+void Application::InitGameSpeed()
+{
+	_gameSpeed = std::make_unique<Ui::Text>(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x", "goblin", 48, _gameSpeedTextColor);
+	
+	Time::SetIncrement(0.25f);
+
+	InputManager::onKeyPressed(KEY_PAGEUP, [this](Input& e)
+		{
+			Time::IncreaseMultiplier();
+			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+		}, "Application");
+
+	InputManager::onKeyPressed(KEY_PAGEDOWN, [this](Input& e)
+		{
+			Time::DecreaseMultiplier();
+			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+		}, "Application");
+
+	InputManager::onKeyPressed(KEY_HOME, [this](Input& e)
+		{
+			Time::SetMultiplier(1);
+			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+		}, "Application");
+}
+
+void Application::RenderGameSpeed()
+{
+	Math::Vector2 scale = Font::GetFontSize(_gameSpeed->GetFont(), _gameSpeed->GetText());
+	Math::Vector2 pos = {static_cast<float>(_window.GetViewport().width) - scale.GetX(), 0.f + scale.GetY()};
+	Transform _gameSpeedTextTransform{ pos, 0.0f, scale };
+	_gameSpeed->Render(_window.GetRenderer(), _gameSpeedTextTransform);
 }

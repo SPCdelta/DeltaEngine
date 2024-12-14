@@ -1,7 +1,7 @@
 #include "MenuView.hpp"
 
 
-MenuView::MenuView(Scene& scene, const std::string& title, Rendering::UnsignInt8 numOfButtons, const std::string& pathToFont,
+MenuView::MenuView(Scene& scene, const std::string& title, Uint8 numOfButtons, const std::string& pathToFont,
 	const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize) :
 	IView{ scene, pathToFont }, _buttons{}
 {
@@ -16,7 +16,7 @@ void MenuView::SetButtonPosition(int id, const Math::Vector2& position)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->transform->position = position;
+			item->transform->position = position;
 		}
 	}
 	else
@@ -31,7 +31,7 @@ void MenuView::SetButtonScale(int id, const Math::Vector2& scale)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->transform->scale = scale;
+			item->transform->scale = scale;
 		}
 	}
 	else
@@ -54,7 +54,7 @@ void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& star
 	pos.SetY(pos.GetY() + scale.GetY() + margin);
 	for (unsigned char i = 0; i < numOfButtons; ++i)
 	{
-		_buttons.emplace(i, std::shared_ptr<GameObject> { _scene.Instantiate({ pos, 0.0f, scale }) });
+		_buttons.push_back(std::shared_ptr<GameObject> { _scene.Instantiate({ pos, 0.0f, scale }) });
 
 		// Image
 		_buttons[i]->AddComponent<Ui::Image>(DEFAULT_BUTTON_TEXTURE.c_str());
@@ -85,7 +85,7 @@ void MenuView::SetButtonTextPosition(int id, const Math::Vector2& position)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Ui::Text>().SetPosition(position);
+			item->GetComponent<Ui::Text>().SetPosition(position);
 		}	
 	}
 	else
@@ -100,7 +100,7 @@ void MenuView::AddButtonTextPosition(int id, const Math::Vector2& position)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Ui::Text>().AddPosition(position);
+			item->GetComponent<Ui::Text>().AddPosition(position);
 		}
 	}
 	else
@@ -115,7 +115,7 @@ void MenuView::SetButtonText(int id, const std::string& text)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Ui::Text>().SetText(text);
+			item->GetComponent<Ui::Text>().SetText(text);
 		}
 	}
 	else
@@ -130,7 +130,7 @@ void MenuView::SetButtonTextSize(int id, int textSize)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Ui::Text>().SetFontSize(textSize);
+			item->GetComponent<Ui::Text>().SetFontSize(textSize);
 		}
 	}
 	else
@@ -145,7 +145,7 @@ void MenuView::SetButtonOnLeftMouseClick(int id, std::function<void()> func, con
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Ui::Button>().SetOnLeftMouseClick(func, category);
+			item->GetComponent<Ui::Button>().SetOnLeftMouseClick(func, category);
 		}
 	}
 	else
@@ -160,7 +160,7 @@ void MenuView::SetButtonSFX(int id, const std::string& sfxPath)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Audio::SFXSource>().SetClip(sfxPath);
+			item->GetComponent<Audio::SFXSource>().SetClip(sfxPath);
 		}
 	}
 	else
@@ -195,7 +195,7 @@ void MenuView::SetButtonTextColor(int id, const Rendering::Color& color)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Ui::Text>().SetColor(color);
+			item->GetComponent<Ui::Text>().SetColor(color);
 		}
 	}
 	else
@@ -215,7 +215,7 @@ void MenuView::SetButtonTexture(int id, const std::string& textureName)
 	{
 		for (auto item : _buttons)
 		{
-			item.second->GetComponent<Ui::Image>().SetSprite(textureName);
+			item->GetComponent<Ui::Image>().SetSprite(textureName);
 		}
 	}
 	else
@@ -225,12 +225,12 @@ void MenuView::SetButtonTexture(int id, const std::string& textureName)
 }
 
 
-std::shared_ptr<GameObject>& MenuView::GetButton(Rendering::UnsignInt8 id)
+std::shared_ptr<GameObject>& MenuView::GetButton(Uint8 id)
 {
 	return _buttons[id];
 }
 
-Ui::Text& MenuView::GetButtonText(Rendering::UnsignInt8 id)
+Ui::Text& MenuView::GetButtonText(Uint8 id)
 {
 	return GetButton(id)->GetComponent<Ui::Text>();
 }

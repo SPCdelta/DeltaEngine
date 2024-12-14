@@ -35,6 +35,7 @@
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
     <ClCompile Include="Engine\UI\Brush\BrushSprite.hpp" />
+    <ClCompile Include="Engine\Core\Strings\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\UI\Scrollable.hpp" />
     <ClInclude Include="Engine\Core\StringHelper.hpp" />
+    <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
