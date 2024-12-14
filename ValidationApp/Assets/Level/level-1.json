@@ -597,7 +597,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -903,7 +903,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -921,7 +921,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -1299,9 +1299,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_0"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 11.0,
@@ -1317,7 +1317,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -1461,7 +1461,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -2073,7 +2073,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -2091,9 +2091,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 29.0,
@@ -2379,7 +2379,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -2397,7 +2397,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -2415,7 +2415,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -2451,9 +2451,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_0"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 8.0,
@@ -2613,9 +2613,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -5.0,
@@ -2631,9 +2631,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -7.0,
@@ -2649,9 +2649,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -9.0,
@@ -3045,9 +3045,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -14.0,
@@ -3063,9 +3063,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -12.0,
@@ -3495,9 +3495,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 58.0,
@@ -3639,9 +3639,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 39.0,
@@ -3657,9 +3657,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 38.0,
@@ -4953,7 +4953,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -7203,9 +7203,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -5.0,
@@ -7275,9 +7275,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -6.0,
@@ -7329,9 +7329,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -6.0,
@@ -7365,7 +7365,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -7383,7 +7383,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -7437,9 +7437,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -10.0,
@@ -7491,9 +7491,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": -14.0,
@@ -8445,7 +8445,7 @@
         {
             "sprite": {
                 "layer": 6,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -9003,9 +9003,9 @@
         {
             "sprite": {
                 "layer": 5,
-                "name": "Sandstone_floor_3"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 19.0,
@@ -9021,7 +9021,7 @@
         {
             "sprite": {
                 "layer": 5,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -9273,7 +9273,7 @@
         {
             "sprite": {
                 "layer": 5,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -9363,7 +9363,7 @@
         {
             "sprite": {
                 "layer": 5,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -9381,7 +9381,7 @@
         {
             "sprite": {
                 "layer": 5,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -9417,7 +9417,7 @@
         {
             "sprite": {
                 "layer": 5,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -9507,9 +9507,9 @@
         {
             "sprite": {
                 "layer": 5,
-                "name": "Sandstone_floor_0"
+                "name": "tomb_2_old"
             },
-            "tag": "Sandstone",
+            "tag": "tomb",
             "transform": {
                 "position": {
                     "x": 7.0,
@@ -10479,7 +10479,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -11289,7 +11289,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -11325,7 +11325,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -11343,7 +11343,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -13431,7 +13431,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -14295,7 +14295,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -14313,7 +14313,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -14547,7 +14547,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -14565,7 +14565,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_0_old"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -14799,7 +14799,7 @@
         {
             "sprite": {
                 "layer": 0,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -16995,7 +16995,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -17085,7 +17085,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -19209,7 +19209,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -19227,7 +19227,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -21279,7 +21279,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -21297,7 +21297,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -21369,7 +21369,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -21567,7 +21567,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -22665,7 +22665,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -22683,7 +22683,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -24267,7 +24267,7 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "tomb_3_new"
+                "name": "tomb_2_old"
             },
             "tag": "tomb",
             "transform": {
@@ -24868,6 +24868,6252 @@
                 "position": {
                     "x": 29.0,
                     "y": 31.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 15.0,
+                    "y": 43.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 14.0,
+                    "y": 43.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 13.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 12.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 11.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 8.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 7.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 6.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 5.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 4.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 3.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 2.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 1.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 0.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -1.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -2.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -3.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -3.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -4.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -5.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -6.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -7.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -8.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -9.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -10.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -11.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -12.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -13.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -14.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -15.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -16.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -17.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -18.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -20.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -21.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -22.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -23.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -23.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -24.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -25.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -26.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -27.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -28.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -29.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -30.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -30.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -31.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -31.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -32.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -32.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -32.0,
+                    "y": 43.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -32.0,
+                    "y": 42.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -32.0,
+                    "y": 40.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -32.0,
+                    "y": 39.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -31.0,
+                    "y": 39.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -31.0,
+                    "y": 38.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -30.0,
+                    "y": 38.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -30.0,
+                    "y": 37.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -30.0,
+                    "y": 36.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -29.0,
+                    "y": 36.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -29.0,
+                    "y": 35.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -28.0,
+                    "y": 35.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -28.0,
+                    "y": 34.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -27.0,
+                    "y": 33.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -26.0,
+                    "y": 33.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -26.0,
+                    "y": 32.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -25.0,
+                    "y": 32.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -25.0,
+                    "y": 31.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -25.0,
+                    "y": 30.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -24.0,
+                    "y": 30.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -24.0,
+                    "y": 29.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -23.0,
+                    "y": 29.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -23.0,
+                    "y": 28.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -22.0,
+                    "y": 28.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -22.0,
+                    "y": 27.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -21.0,
+                    "y": 27.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -21.0,
+                    "y": 26.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -20.0,
+                    "y": 26.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -20.0,
+                    "y": 25.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 25.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 24.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -18.0,
+                    "y": 24.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -18.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -17.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -16.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -15.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -14.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -13.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -12.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -11.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -10.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -9.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -8.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -7.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -6.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -5.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -4.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -3.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -2.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -1.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 0.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 1.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 2.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 3.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 4.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 4.0,
+                    "y": 24.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 5.0,
+                    "y": 24.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 5.0,
+                    "y": 25.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 6.0,
+                    "y": 25.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 6.0,
+                    "y": 26.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 8.0,
+                    "y": 28.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 9.0,
+                    "y": 28.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 9.0,
+                    "y": 29.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": 29.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": 30.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 11.0,
+                    "y": 30.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 11.0,
+                    "y": 31.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 12.0,
+                    "y": 31.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 12.0,
+                    "y": 32.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 13.0,
+                    "y": 33.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 14.0,
+                    "y": 33.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 14.0,
+                    "y": 34.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 15.0,
+                    "y": 34.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 16.0,
+                    "y": 36.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 17.0,
+                    "y": 36.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 18.0,
+                    "y": 36.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 18.0,
+                    "y": 37.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 19.0,
+                    "y": 37.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 19.0,
+                    "y": 38.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 20.0,
+                    "y": 38.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 20.0,
+                    "y": 39.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 21.0,
+                    "y": 39.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 21.0,
+                    "y": 40.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 22.0,
+                    "y": 40.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 23.0,
+                    "y": 40.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 23.0,
+                    "y": 41.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 24.0,
+                    "y": 41.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 24.0,
+                    "y": 42.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 24.0,
+                    "y": 43.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 25.0,
+                    "y": 43.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 25.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 26.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 26.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 27.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 27.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 28.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 28.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 29.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 29.0,
+                    "y": 48.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 30.0,
+                    "y": 48.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 30.0,
+                    "y": 49.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 30.0,
+                    "y": 50.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 31.0,
+                    "y": 50.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 31.0,
+                    "y": 51.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 32.0,
+                    "y": 51.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 32.0,
+                    "y": 52.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 33.0,
+                    "y": 52.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 33.0,
+                    "y": 53.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 34.0,
+                    "y": 53.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 34.0,
+                    "y": 54.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 35.0,
+                    "y": 54.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 35.0,
+                    "y": 55.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 36.0,
+                    "y": 55.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 36.0,
+                    "y": 56.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 37.0,
+                    "y": 56.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 37.0,
+                    "y": 57.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 36.0,
+                    "y": 58.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 37.0,
+                    "y": 58.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 37.0,
+                    "y": 59.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 38.0,
+                    "y": 59.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 38.0,
+                    "y": 60.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 39.0,
+                    "y": 60.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 39.0,
+                    "y": 61.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 40.0,
+                    "y": 61.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 38.0,
+                    "y": 61.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 39.0,
+                    "y": 58.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 39.0,
+                    "y": 56.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 39.0,
+                    "y": 55.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 39.0,
+                    "y": 54.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 43.0,
+                    "y": 52.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 43.0,
+                    "y": 51.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 43.0,
+                    "y": 50.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 50.0,
+                    "y": 49.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 50.0,
+                    "y": 48.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 50.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 52.0,
+                    "y": 48.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 52.0,
+                    "y": 47.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 52.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 52.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 52.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 53.0,
+                    "y": 46.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 53.0,
+                    "y": 45.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 53.0,
+                    "y": 44.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 53.0,
+                    "y": 43.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 54.0,
+                    "y": 43.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 54.0,
+                    "y": 42.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 55.0,
+                    "y": 42.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 55.0,
+                    "y": 41.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 56.0,
+                    "y": 41.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 56.0,
+                    "y": 40.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": 40.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": 39.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 55.0,
+                    "y": 38.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 56.0,
+                    "y": 38.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 56.0,
+                    "y": 37.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": 37.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": 36.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 56.0,
+                    "y": 34.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": 34.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": 33.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 58.0,
+                    "y": 33.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 58.0,
+                    "y": 32.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": 29.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 58.0,
+                    "y": 29.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 58.0,
+                    "y": 28.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 59.0,
+                    "y": 28.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 59.0,
+                    "y": 27.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 60.0,
+                    "y": 26.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 61.0,
+                    "y": 26.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 61.0,
+                    "y": 25.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 62.0,
+                    "y": 25.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 62.0,
+                    "y": 24.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 63.0,
+                    "y": 24.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 64.0,
+                    "y": 24.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 64.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 65.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 65.0,
+                    "y": 22.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 66.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 67.0,
+                    "y": 23.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 67.0,
+                    "y": 22.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 68.0,
+                    "y": 22.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 68.0,
+                    "y": 21.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 22.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 22.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 21.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 71.0,
+                    "y": 21.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 71.0,
+                    "y": 20.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 72.0,
+                    "y": 20.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 72.0,
+                    "y": 19.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 21.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 20.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 71.0,
+                    "y": 19.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 19.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 71.0,
+                    "y": 18.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 72.0,
+                    "y": 18.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 72.0,
+                    "y": 17.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 73.0,
+                    "y": 17.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 73.0,
+                    "y": 16.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 72.0,
+                    "y": 16.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 73.0,
+                    "y": 15.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 72.0,
+                    "y": 15.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 73.0,
+                    "y": 14.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 71.0,
+                    "y": 14.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 14.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 71.0,
+                    "y": 13.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 13.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 71.0,
+                    "y": 12.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 9.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 9.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 8.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 68.0,
+                    "y": 5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 68.0,
+                    "y": 4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 70.0,
+                    "y": 3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 69.0,
+                    "y": 2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 68.0,
+                    "y": 2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 68.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 67.0,
+                    "y": 2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 67.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 66.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 66.0,
+                    "y": 0.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 64.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 63.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 63.0,
+                    "y": 0.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 62.0,
+                    "y": 0.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 61.0,
+                    "y": 0.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 61.0,
+                    "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 60.0,
+                    "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 60.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 57.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 56.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 52.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 51.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 50.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 48.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 47.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 46.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 45.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 44.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 43.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 42.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 42.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 41.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 33.0,
+                    "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 32.0,
+                    "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 28.0,
+                    "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 28.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 27.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 26.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 26.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 21.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 20.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 19.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 9.0,
+                    "y": 12.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 8.0,
+                    "y": 12.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 3.0,
+                    "y": 15.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 1.0,
+                    "y": 15.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -2.0,
+                    "y": 14.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -3.0,
+                    "y": 14.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -8.0,
+                    "y": 12.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -9.0,
+                    "y": 11.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -10.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -11.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -11.0,
+                    "y": 9.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -13.0,
+                    "y": 11.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -14.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -15.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -15.0,
+                    "y": 9.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -16.0,
+                    "y": 8.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -17.0,
+                    "y": 8.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -17.0,
+                    "y": 7.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -18.0,
+                    "y": 7.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -18.0,
+                    "y": 6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -18.0,
+                    "y": 5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -19.0,
+                    "y": 0.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -17.0,
+                    "y": 0.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -17.0,
+                    "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -16.0,
+                    "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -16.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -15.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -15.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -14.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -13.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -13.0,
+                    "y": -5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": -12.0,
+                    "y": -5.0
                 },
                 "rotation": 0.0,
                 "scale": {

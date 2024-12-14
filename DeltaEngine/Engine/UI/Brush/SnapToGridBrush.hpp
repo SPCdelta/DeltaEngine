@@ -15,6 +15,7 @@ public:
 		_sprite->SetVisible(false);
 		_sprite->SetBorder(2);
 		_sprite->SetBorderColor({ 100, 0, 0 });
+		_sprite->SetLayer(Layer::EngineLayer);
 		int pxUnit = _camera->GetunitPixelSize();
 		
 		_inputLocations.push_back(InputManager::onMouseMove(
@@ -23,7 +24,7 @@ public:
 				if (!_isActive)
 					return;
 
-				_transform.position.Set(_camera->ToWorldGrid({e.mouseX, e.mouseY}));
+				_transform.position.Set(_camera->ToWorldGrid({ e.mouseX, e.mouseY }));
 				if (_pressed)
 					_func(_transform, _sprite);
 
@@ -33,8 +34,9 @@ public:
 		_inputLocations.push_back(InputManager::onMouseButtonDown(MouseButton::Left,
 			[this](Input& e)
 			{
-				if (!_isActive)
+				if (!_isActive || !Math::MathUtils::IsPointWithinRect({ e.mouseX, e.mouseY }, _screenViewPort.position, _screenViewPort.scale))
 					return;
+
 
 				_func(_transform, _sprite);
 				_pressed = true;
@@ -50,9 +52,13 @@ public:
 	}
 
 	void NotifyTransform(){
+
+
+		if (!_pressed)
+			return;
+		
 		_transform.position.Set(_camera->ToWorldGrid(InputManager::GetMousePosition()));
-		if (_pressed)
-			_func(_transform, _sprite);
+		_func(_transform, _sprite);
 	}
 
 	void SetSprite(const std::string& spriteName){
@@ -74,16 +80,37 @@ public:
 			}, _category));
 	}
 
+	void SetCanves(Transform screenViewPort_){
+		_screenViewPort = screenViewPort_;
+	}
+
 	~SnapToGridBrush()
 	{
 		CleanUp();
 	}
 
 private:
+	void MouseToCanvase(Math::Point& mouse){
+		if (mouse.GetX() < _screenViewPort.position.GetX())
+			mouse.SetX(_screenViewPort.position.GetX());
+		
+		if (mouse.GetY() < _screenViewPort.position.GetY())
+			mouse.SetY(_screenViewPort.position.GetY());
+		
+		if (mouse.GetX() > _screenViewPort.scale.GetX())
+			mouse.SetX(_screenViewPort.scale.GetX());
+		
+		if (mouse.GetY() > _screenViewPort.scale.GetY())
+			mouse.SetY(_screenViewPort.scale.GetY());
+
+	}
+
 	std::vector<InputLocation> _inputLocations;
 	
 	Camera* _camera;
 	Transform& _transform;
+	Transform _screenViewPort;
+
 	std::string _category;
 
 	Sprite* _sprite;

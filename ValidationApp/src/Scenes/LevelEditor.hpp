@@ -38,11 +38,35 @@ public:
         auto allLayers = LayerHelper::GetAllLayer();
     }
 
+    void OnStart() override
+    {
+        ViewportData& viewport = GetWindow()->GetViewport();
+        const int windowWidth = viewport.width;
+        const int windowHeight = viewport.height;
+
+        const float topBarHeight = PADDING_TOP + SCALE_IN_UI_BAR + 10.0f;
+        const float titleLeftPadding = windowWidth / 2 - TITLE_WIDTH / 2;
+
+        const float rightBarStart = windowWidth - RIGHT_BAR_WIDTH;
+
+        _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
+
+        InitLevelEditor(_saveFileName);
+
+        UIBackButtonAndBinding(rightBarStart);
+        UISaveButtonAndBinding(rightBarStart);
+        BindLayerChangerToMouseWheel(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
+        UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
+        BindCamara();
+    }
+
+
+
     void InitLevelEditor(const std::string& level){
 
         auto mousePos = InputManager::GetMousePosition();
         _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
-        _brush->AddComponent<SnapToGridBrush>(
+        auto* brushComponnet = _brush->AddComponent<SnapToGridBrush>(
             [this](Transform& transform, Sprite* sprite)
             {
                 auto& vector = _tiles;
@@ -59,7 +83,9 @@ public:
             	if (it == vector.end())
                     CreateTile(spriteName, sprite->GetSpriteData()->category);
             
-            })->RemoveOnKey(KEY_E);
+            }); 
+        brushComponnet->RemoveOnKey(KEY_E);
+        brushComponnet->SetCanves(_screenPort);
 
         if (level.empty()){
             MakeSaveFilePath();
@@ -97,28 +123,6 @@ public:
             }
         }
     }
-
-
-    void OnStart() override
-    {
-        ViewportData& viewport = GetWindow()->GetViewport();
-        const int windowWidth = viewport.width;
-        const int windowHeight = viewport.height;
-
-        const float topBarHeight = PADDING_TOP + SCALE_IN_UI_BAR + 10.0f;
-        const float titleLeftPadding = windowWidth / 2 - TITLE_WIDTH / 2;
-
-        const float rightBarStart = windowWidth - RIGHT_BAR_WIDTH;
-
-        InitLevelEditor(_saveFileName);
-
-        UIBackButtonAndBinding(rightBarStart);
-        UISaveButtonAndBinding(rightBarStart);
-        BindLayerChangerToMouseWheel(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
-        UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
-        BindCamara();
-    }
-
    
     //File handeling
     void SaveLevel(){
@@ -187,7 +191,7 @@ public:
         auto layer = layerTxt->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         layer->SetBackground({ 255, 255, 255, 255 });
 
-        std::shared_ptr<GameObject> worldView{ Instantiate({{0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight}}) };
+        std::shared_ptr<GameObject> worldView{ Instantiate(_screenPort) };
         worldView->AddComponent<Ui::Scrollable>(
             [this, layer](int wheelDirection) {
             int layerInt = LayerHelper::GetInt(_layer);
@@ -196,7 +200,6 @@ public:
 
             if (LayerHelper::InLayers(newLayer)) {
                 //InputManager::deactivateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
-                _brush->SetLayer(Layer::EngineLayer);
                 _layer = LayerHelper::GetLayer(newLayer);
                 //InputManager::activateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
 
@@ -320,7 +323,6 @@ public:
 
 
         std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };
-        //TopBar->AddComponent<Ui::Image>("gray_rect")->SetColor({ 0, 0, 0, 0 });
         TopBar->AddComponent<Ui::Scrollable>(lambdaChangeSprite);
 
     }
@@ -348,12 +350,12 @@ private:
         _inputs.clear();
     }
 
+    Transform _screenPort;
 
     std::string _saveFilePath;
     std::string _saveFileName;
 
     std::vector<std::shared_ptr<GameObject>> _tiles;
-    //std::map<Layer, std::vector<std::shared_ptr<GameObject>>> _tilesPerLayer;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
     int _tileIndexOptions = 0;
 
