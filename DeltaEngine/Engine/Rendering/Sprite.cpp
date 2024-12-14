@@ -31,6 +31,8 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 
 	destRect.w = static_cast<int>(viewportData.unitPixelSize * transform.scale.GetX());
 	destRect.h = static_cast<int>(viewportData.unitPixelSize * transform.scale.GetY());
+	
+	RenderBorder(renderer, destRect);
 
 	if (_sheet)
 	{

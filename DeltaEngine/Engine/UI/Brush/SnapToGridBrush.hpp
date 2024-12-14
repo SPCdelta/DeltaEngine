@@ -13,6 +13,8 @@ public:
 		_camera{camera}, _transform{transform}, _category{category}, _sprite{ sprite }, _func{ func }
 	{
 		_sprite->SetVisible(false);
+		_sprite->SetBorder(2);
+		_sprite->SetBorderColor({ 100, 0, 0 });
 		int pxUnit = _camera->GetunitPixelSize();
 		
 		_inputLocations.push_back(InputManager::onMouseMove(

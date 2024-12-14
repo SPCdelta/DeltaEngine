@@ -42,7 +42,6 @@ class Scene
 		_imageRenderSystem->SetViewportData(&window.GetViewport());
 		_textRenderSystem->SetWindow(&window);
 		_camera->SetViewportData(&window.GetViewport());
-		std::cout << (_camera != nullptr ? std::to_string(_camera->GetunitPixelSize()) : "Null");
 	}
 
 	void LoadScene(const std::string& name)

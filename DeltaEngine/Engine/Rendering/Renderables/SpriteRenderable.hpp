@@ -21,7 +21,6 @@ class SpriteRenderable : public Renderable
 
 	~SpriteRenderable(){
 		auto test = 0;
-	
 	}
 
 protected:

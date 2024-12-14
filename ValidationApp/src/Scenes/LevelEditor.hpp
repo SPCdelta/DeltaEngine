@@ -177,21 +177,6 @@ public:
 
         auto sprite = tile->AddComponent<Sprite>(spriteName);
         sprite->SetLayer(_layer);
-
-        //draggable->activate("Ui:layer - " + LayerHelper::GetString(_layer), [this, sprite]() {
-        //    sprite->SetLayer(_layer);
-        //    });
-
-        //draggable->RemoveOnKey(KEY_Q, [this, tile]() {
-        //    tile->Destroy(tile.get());
-        //    });
-
-        /*_inputs.push_back(InputManager::onMouseWheel([this, draggable, sprite](Input& e) {
-            if (!draggable->isBingDragged())
-                return;
-            sprite->SetLayer(_layer);
-            draggable->SetCategory("Ui:layer - " + LayerHelper::GetString(_layer));
-            }));*/
     }
 
 
@@ -246,12 +231,19 @@ public:
     //UI/ Input Binding
     void UIBackButtonAndBinding(const float rightBarStart)
     {
-        std::shared_ptr<GameObject> saveButton{
+        std::shared_ptr<GameObject> backButton{
             Instantiate({ { rightBarStart - 20.0f, PADDING_TOP }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
         };
-        saveButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
-        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
+        auto* text = backButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 }); 
+        text->SetBackground({ 255, 255, 255, 255 });
+        
+        auto* button = backButton->AddComponent<Ui::Button>();
+        button->SetOnLeftMouseClick([this]() {
+            SaveLevel();
             LoadScene("LevelEditorLevelChose");
+            }, "UI");
+        button->SetOnMousePressed([text](){
+            text->SetColor({80,80 ,80 });
             }, "UI");
     }
 
@@ -260,10 +252,17 @@ public:
         std::shared_ptr<GameObject> saveButton{
             Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.7f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
         };
-        saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 })->SetBackground({ 255, 255, 255, 255 });
-        saveButton->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() {
+        auto* text = saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        text->SetBackground({ 255, 255, 255, 255 });
+
+        auto* button = saveButton->AddComponent<Ui::Button>();
+        button->SetOnLeftMouseClick([this, text]() {
             SaveLevel();
-            std::cout << "Saved Level: ";
+            text->SetColor({ 0,0 ,0 });
+
+            }, "UI");
+        button->SetOnMousePressed([text]() {
+            text->SetColor({ 80,80 ,80 });
             }, "UI");
     }
 
