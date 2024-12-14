@@ -18,6 +18,7 @@ class Button
 	Button(const Vector2& position, const Vector2& scale) : _position{position}, _scale{scale} {}
 	void SetOnLeftMouseClick(std::function<void()> func, const std::string& category);
 	void SetOnMouseHover(std::function<void()> func);
+	void SetOnMousePressed(std::function<void()> func, const std::string& category);
 	void SetPosition(const Vector2& scale);
 	void SetScale(const Vector2& scale);
 	void ClearFunctions();

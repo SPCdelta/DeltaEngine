@@ -25,23 +25,19 @@ public:
 		menuView.SetButtonTextColor(-1, { 255, 255, 255, 255 });
 
 		menuView.SetButtonTexture(0, "scroll2");
-
-		menuView.SetButtonPosition(0, { 435, 175 });
-		menuView.SetButtonScale(0, { 400, 100 });
+		menuView.SetButtonPosition(0, { 300, 175 });
+		menuView.SetButtonScale(0, { 300, 100 });
 		menuView.SetButtonText(0, "Back");
+		menuView.AddButtonTextPosition(0, { -150, 10 });
+
+
 		menuView.SetButtonTexture(1, "scroll2");
-		menuView.SetButtonPosition(1, { 435, 175 });
-		menuView.SetButtonTextPosition(1, {-100000, -110000});
+		menuView.SetButtonPosition(1, { 650, 175 });
+		menuView.SetButtonScale(1, { 300, 100 });
+		menuView.SetButtonText(1, "Make New Level");
+		menuView.AddButtonTextPosition(1, { 230, -90 });
+		menuView.SetButtonTextSize(1, 40);
 
-
-		//menuView.SetButtonTexture(1, "scroll2");
-		//menuView.SetButtonPosition(1, { 650, 175 });
-		//menuView.SetButtonScale(1, { 300, 100 });
-		//menuView.SetButtonTextSize(1, 60);
-		//menuView.SetButtonText(1, "Make New Level");
-		//menuView.AddButtonTextPosition(1, { 15,0 });
-
-		menuView.AddButtonTextPosition(0, { 15, 0 });
 		//menuView
 		for (int i = 0; i < static_cast<int>(allLevels.size()); i++)
 		{
@@ -55,10 +51,10 @@ public:
 			{
 				LoadScene("MainMenuScene");
 			}, "UI:Back");
-/*		menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
-			{
-				LoadScene("LevelEditor");
-			}, "UI:new Level");*/
+		//menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
+		//	{
+		//		LoadScene("LevelEditor");
+		//	}, "UI:new Level"); // TODO Error zit hier in maar geen idee waarom
 	}
 
 private:

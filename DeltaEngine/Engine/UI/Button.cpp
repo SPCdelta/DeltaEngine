@@ -5,7 +5,7 @@ using namespace Ui;
 
 void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& category)
 {
-	_inputLocations.emplace_back(InputManager::onMouseButtonDown(
+	_inputLocations.emplace_back(InputManager::onMouseButtonUp(
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
@@ -27,6 +27,20 @@ void Ui::Button::SetOnMouseHover(std::function<void()> func)
 				func();
 			}
 		}));
+}
+
+void Ui::Button::SetOnMousePressed(std::function<void()> func, const std::string& category)
+{
+	_inputLocations.emplace_back(InputManager::onMouseButtonDown(
+		MouseButton::Left,
+		[this, func](Input& e)
+		{
+			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			{
+				func();
+			}
+		},
+		category));
 }
 
 void Button::SetPosition(const Vector2& position)
