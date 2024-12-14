@@ -54,7 +54,7 @@ public:
 		//menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
 		//	{
 		//		LoadScene("LevelEditor");
-		//	}, "UI:new Level"); // TODO Error zit hier in maar geen idee waarom
+		//	}, "UI:new Level"); // TODO Error zit hier in maar geen idee waarom voor volgende US
 	}
 
 private:

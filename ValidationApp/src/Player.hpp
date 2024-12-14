@@ -8,7 +8,7 @@
 class Player
 {
    public:
-	Player(int shield = 25, int damage = 10, int speed = 10, int health = 95) : _shield{shield}, _attackDamage{damage}, 
+	Player(int shield = 25, float damage = 10.0f, float speed = 10.0f, int health = 95) : _shield{shield}, _attackDamage{damage},
 		_speed{speed}, _health{health}, _coins{0}, _inventory{std::make_unique<Inventory>()} {}
 
 	void SetShield(int shield);
