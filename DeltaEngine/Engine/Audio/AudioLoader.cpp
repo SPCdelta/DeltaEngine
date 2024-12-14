@@ -8,7 +8,7 @@ std::unique_ptr<Mix_Music, void (*)(Mix_Music*)> AudioLoader::LoadMusic(std::str
 	auto* music = Mix_LoadMUS(path.c_str());
 	if (!music)
 	{
-		//std::cerr << "Could not load music.\n";
+		std::cerr << "Could not load music.\n";
 	}
 	return std::unique_ptr<Mix_Music, void (*)(Mix_Music*)>{music, Mix_FreeMusic};
 }
@@ -18,7 +18,7 @@ std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)> AudioLoader::LoadChunk(std::str
 	auto* chunk = Mix_LoadWAV(path.c_str());
 	if (!chunk)
 	{
-		//std::cerr << "Could not load music.\n";
+		std::cerr << "Could not load music.\n";
 	}
 	return std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)>{chunk, Mix_FreeChunk};
 }

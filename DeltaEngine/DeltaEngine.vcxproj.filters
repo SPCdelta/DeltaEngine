@@ -114,7 +114,6 @@
     <ClInclude Include="Engine\Core\Math\Math.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\UI\Scrollable.hpp" />
-    <ClInclude Include="Engine\Core\StringHelper.hpp" />
     <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
   </ItemGroup>
   <ItemGroup>

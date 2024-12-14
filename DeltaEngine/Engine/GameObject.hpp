@@ -36,7 +36,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
+			T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T()));
 			component->gameObject = this;
 			component->transform = transform;
 			component->camera = _camera;
@@ -45,7 +45,7 @@ public:
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddPointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
+			T* component = static_cast<T*>(_reg.EmplacePointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
@@ -55,7 +55,7 @@ public:
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
+			return static_cast<T*>(_EmplaceComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{

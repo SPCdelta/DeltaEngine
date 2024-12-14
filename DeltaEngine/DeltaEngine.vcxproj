@@ -248,7 +248,6 @@
     <ClInclude Include="Engine\Core\Math\Point.hpp" />
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />
-    <ClInclude Include="Engine\Core\StringHelper.hpp" />
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Input\DeltaInputs.hpp" />

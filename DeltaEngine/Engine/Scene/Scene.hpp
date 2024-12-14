@@ -41,7 +41,7 @@ class Scene
 		_imageRenderSystem->SetWindow(&window);
 		_imageRenderSystem->SetViewportData(&window.GetViewport());
 		_textRenderSystem->SetWindow(&window);
-		_camera->SetViewportData(&window.GetViewport());
+		camera->SetViewportData(&window.GetViewport());
 	}
 
 	void LoadScene(const std::string& name)
@@ -72,7 +72,7 @@ class Scene
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
 protected:
-	Camera* _camera;
+	Camera* camera;
 
 
 private:

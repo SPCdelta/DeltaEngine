@@ -4,10 +4,10 @@ Scene::Scene(const std::string& name)
 	: _name{name}
 {
 	_cameraObj = Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}});
-	_camera = _cameraObj->AddComponent<Camera>(_cameraObj->GetComponent<Transform>());
+	camera = _cameraObj->AddComponent<Camera>(_cameraObj->GetComponent<Transform>());
 
 	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
-	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(_camera);
+	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(camera);
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
@@ -51,7 +51,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	std::shared_ptr<GameObject> obj{ 
 		std::make_shared<GameObject>
 		(
-			_reg, _physicsWorld, _changeSceneEvent, _camera, transform
+			_reg, _physicsWorld, _changeSceneEvent, camera, transform
 		) 
 	};
 	obj->transform->gameObject = obj.get();

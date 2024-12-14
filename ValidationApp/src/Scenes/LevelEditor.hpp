@@ -138,7 +138,7 @@ public:
                 auto& tileJson = tilesJson["tiles"][tileCounter];
                 TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
                 tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
+                tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
                 tileJson["sprite"]["layer"] = tile->GetLayer();
                 tileCounter++;
 
@@ -146,7 +146,7 @@ public:
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
                 tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = String::split(tileJson["sprite"]["name"], '_')[0];
+                tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
                 tileJson["sprite"]["layer"] = tile->GetLayer();
             }
         }
@@ -173,7 +173,7 @@ public:
     {
         if (mousePos) {
             auto mousePos = InputManager::GetMousePosition();
-            _tiles.emplace_back(Instantiate({ _camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
+            _tiles.emplace_back(Instantiate({ camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
         }
 
         auto& tile = _tiles.back();
@@ -213,19 +213,19 @@ public:
     {
         float speed = 1.0f;
         _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
-            _camera->AddToPosition({ speed,0.f });
+            camera->AddToPosition({ speed,0.f });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
         _inputs.push_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
-            _camera->AddToPosition({ -speed,0.f });
+            camera->AddToPosition({ -speed,0.f });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
         _inputs.push_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
-            _camera->AddToPosition({ 0.f,-speed });
+            camera->AddToPosition({ 0.f,-speed });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
         _inputs.push_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
-            _camera->AddToPosition({ 0.f,speed });
+            camera->AddToPosition({ 0.f,speed });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
     }

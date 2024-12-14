@@ -17,11 +17,7 @@ class SpriteRenderable : public Renderable
 	std::shared_ptr<AnimationSheet> GetSheet() const { return _sheet; }
 
 	bool GetVisible() const { return _visible; }
-	void SetVisible(bool vis) { _visible = vis; }
-
-	~SpriteRenderable(){
-		auto test = 0;
-	}
+	void SetVisible(bool visible_) { _visible = visible_; }
 
 protected:
 	std::string _spriteName;

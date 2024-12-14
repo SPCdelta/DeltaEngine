@@ -149,7 +149,6 @@ namespace Rendering
 	inline void RenderRect(Renderer* renderer, Rect rect, Color color)
 	{
 		SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-		//SDL_RenderDrawRect(renderer, &rect);
 		SDL_RenderFillRect(renderer, &rect);
 	}
 
