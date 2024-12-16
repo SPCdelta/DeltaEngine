@@ -10,18 +10,18 @@ void Player::SetShield(int shield)
 	NotifyShieldChanged();
 }
 
-void Player::SetAttackDamage(int damage) 
+void Player::SetAttackDamage(float damage)
 {
-	if (damage < 0)
-		_attackDamage = 0;
+	if (damage < 0.0f)
+		_attackDamage = 0.0f;
 	else
 		_attackDamage = damage;
 }
 
-void Player::SetSpeed(int speed) 
+void Player::SetSpeed(float speed)
 {
-	if (speed < 0)
-		_speed = 0;
+	if (speed < 0.0f)
+		_speed = 0.0f;
 	else
 		_speed = speed;
 }
@@ -51,12 +51,12 @@ int Player::GetShield() const
 	return _shield;
 }
 
-int Player::GetAttackDamage() const
+float Player::GetAttackDamage() const
 {
 	return _attackDamage;
 }
 
-int Player::GetSpeed() const
+float Player::GetSpeed() const
 {
 	return _speed;
 }
@@ -80,7 +80,7 @@ void Player::RemoveItemFromInventory(const Item& item, int amount)
 	NotifyInventoryChanged(item, -amount);
 }
 
-int Player::GetInventorySize()
+size_t Player::GetInventorySize()
 {
 	return _inventory->GetItemAmount();
 }

@@ -146,6 +146,12 @@ namespace Rendering
 		return SDL_RenderClear(renderer);
 	}
 
+	inline void RenderRect(Renderer* renderer, Rect rect, Color color)
+	{
+		SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+		SDL_RenderFillRect(renderer, &rect);
+	}
+
 	// Present the renderer
 	inline void RenderPresent(SDL_Renderer* renderer)
 	{

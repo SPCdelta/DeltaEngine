@@ -1,0 +1,130 @@
+{
+    "player": {
+        "sprite": {
+            "layer": 3,
+            "name": "Sandstone_floor_3"
+        },
+        "tag": "Sandstone",
+        "transform": {
+            "position": {
+                "x": 10.0,
+                "y": 13.0
+            },
+            "rotation": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        }
+    },
+    "tiles": [
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_9"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 16.0,
+                    "y": 13.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_0_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 27.0,
+                    "y": 7.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_9"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 15.0,
+                    "y": 10.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_3_old"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 17.0,
+                    "y": 9.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_new"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 20.0,
+                    "y": 8.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "tomb_2_new"
+            },
+            "tag": "tomb",
+            "transform": {
+                "position": {
+                    "x": 22.0,
+                    "y": 7.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        }
+    ]
+}

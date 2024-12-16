@@ -13,7 +13,7 @@
 
 // Files
 #include "Core/Files/FileManager.hpp"
-#include "TransformDTO.hpp"
+#include "Core/Files/DTO/TransformDTO.hpp"
 
 //Audio
 #include "Audio/AudioManager.hpp"
@@ -24,6 +24,9 @@
 // Math
 #include "Core/Math/Math.hpp"
 #include "Core/Math/MathUtils.hpp"
+
+// String
+#include "Core/Strings/StringUtils.hpp"
 
 // Rendering
 #include "Rendering/Layer.hpp"
@@ -42,6 +45,7 @@ using namespace Physics;
 #include "UI/Text.hpp"
 #include "UI/Image.hpp"
 #include "UI/Button.hpp"
+#include "UI/Brush/SnapToGridBrush.hpp"
 
 // AI
 #include "Core/AI/AIBehaviour.hpp"

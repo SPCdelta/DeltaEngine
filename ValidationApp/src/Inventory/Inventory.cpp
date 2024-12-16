@@ -77,12 +77,12 @@ void Inventory::PrintInventory()
 	}
 }
 
-int Inventory::GetItemAmount()
+size_t Inventory::GetItemAmount()
 {
 	return _items.size();
 }
 
-std::shared_ptr<InventoryItem> Inventory::GetItem(int index)
+std::shared_ptr<InventoryItem> Inventory::GetItem(size_t  index)
 {
 	return _items.size() == 0 ? nullptr : _items[index];
 }

@@ -11,7 +11,7 @@ void DefensePotion::Use(Player& player) {
 	_originalShield = player.GetShield();
 
 
-	int newShield = _originalShield + _originalShield * _value;
+	int newShield = _originalShield + _originalShield * static_cast<int>(_value);
 
 	player.SetShield(newShield);
 	

@@ -223,6 +223,7 @@
   <ItemGroup>
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorLevelChose.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +313,7 @@
     <Image Include="Assets\Textures\player.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <Image Include="Assets\Textures\Rect.png" />
     <Image Include="Assets\Textures\spritesheet - Copy.png" />
     <Image Include="Assets\Textures\spritesheet.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
@@ -432,6 +434,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Font>
     <None Include="Assets\Files\example.json" />
+    <None Include="Assets\Level\level-1.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

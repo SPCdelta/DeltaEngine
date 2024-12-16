@@ -1,7 +1,10 @@
 #pragma once
+#include <cassert>
 
 #include "TextureManager.hpp"
 #include "../UI/FontManager.hpp"
+#include <unordered_map>
+#include <algorithm>
 
 class SpriteMap;
 
@@ -28,30 +31,46 @@ public:
 	}
 
 	// Sprites
-	static void AddSprite(const std::string& name, const std::string& spritePath)
+	static void AddSprite(const std::string& name, const std::string& spritePath, const std::string& category = "")
 	{
 		Rendering::Texture* texture = TextureManager::Add(spritePath);
 		int width = 0;
 		int height = 0;
 		Rendering::QueryTexture(texture, nullptr, nullptr, &width, &height);
+		std::string category_ = category.empty() ? name : category;
 
 		SpriteData* spriteData = new SpriteData
 		(
 			texture,
 			{ 0.0f, 0.0f },
-			{ static_cast<float>(width), static_cast<float>(height) }
+			{ static_cast<float>(width), static_cast<float>(height) },
+			category_
 		);
 		AddSprite(name, spriteData);
 	}
 
 	static SpriteData* Get(const std::string& name)
 	{
+		if (!instance._sprites.contains(name))
+			assert(std::string{"Sprite das not exist!!"}.empty());
+
 		return instance._sprites[name];
 	}
 
-	static std::map<std::string, SpriteData*>& GetAllSprites() {
+	static std::unordered_map<std::string, SpriteData*>& GetAllSprites() {
 		return instance._sprites;
 	}
+
+	static std::unordered_map<std::string, SpriteData*> GetSprites(std::vector<std::string> categories){
+		std::unordered_map<std::string, SpriteData*> result;
+		for (const auto& pair : instance._sprites) {
+			if (pair.second && std::find(categories.begin(), categories.end(), pair.second->category) != categories.end() ) {
+				result[pair.first] = pair.second;
+			}
+		}
+		return result;
+	}
+
 
 	static void Cleanup() 
 	{
@@ -61,8 +80,8 @@ public:
 
 private:
 	static ResourceManager instance;
-	std::map<std::string, SpriteData*> _sprites;
-	std::map<std::string, Font::Font*> _fonts;
+	std::unordered_map<std::string, SpriteData*> _sprites;
+	std::unordered_map<std::string, Font::Font*> _fonts;
 
 	ResourceManager() { }
 	~ResourceManager()

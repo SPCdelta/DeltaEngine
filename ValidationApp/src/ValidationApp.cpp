@@ -1,3 +1,4 @@
+
 #include "ValidationApp.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
@@ -8,6 +9,8 @@
 #include "Scenes/LayerScene.hpp"
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
+#include "Scenes/LevelEditorLevelChose.hpp"
+
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -26,6 +29,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
+	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 
 	// Load Desired Scene
 	LoadScene("MainMenuScene");
@@ -41,7 +45,6 @@ void ValidationApp::LoadAssets()
 	float scale = 32.0f;
 
 	SpriteMap gamefloormap{
-		"gamefloor_map",
 		"Assets\\Textures\\floor_map.png",
 		{
 
@@ -49,11 +52,11 @@ void ValidationApp::LoadAssets()
 			{"mud", {scale * 1, scale * 0}, {scale, scale}},
 			{"stone_wall", {scale * 0, scale * 1}, {scale, scale}},
 			{"stone_floor", {scale * 1, scale * 1}, {scale, scale}},
-		}};
+		}
+	};
 
 	SpriteMap floormap
 	{
-		"floor_map",
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
 
@@ -77,17 +80,19 @@ void ValidationApp::LoadAssets()
 			{"Sandstone_floor_9",	{scale * 7, scale * 1}, {scale*(7 + 1), scale*(1 + 1)}},
 			{"rect_gray_0_old",		{scale * 8, scale * 1}, {scale*(8 + 1), scale*(1 + 1)}},
 			{"rect_gray_0_new",		{scale * 9, scale * 1}, {scale*(9 + 1), scale*(1 + 1)}},
-		}
+		},
+		"floor_tiles"
 	};
 
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
+	ResourceManager::AddSprite("gray_rect", "Assets\\Textures\\Rect.png");
 	ResourceManager::AddSprite("cyanPotion", "Assets\\Textures\\Items\\potions\\cyan.png");
 	ResourceManager::AddSprite("potion_effervescent", "Assets\\Textures\\Items\\potions\\potion_effervescent.png");
 	ResourceManager::AddSprite("spritesheet", "Assets\\Textures\\spritesheet.png");
 	ResourceManager::AddSprite("spritesheet2", "Assets\\Textures\\spritesheet2.png");
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
-	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png");
+	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png", "enemy");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");

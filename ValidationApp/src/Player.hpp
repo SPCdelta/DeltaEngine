@@ -8,19 +8,19 @@
 class Player
 {
    public:
-	Player(int shield = 25, int damage = 10, int speed = 10, int health = 95) : _shield{shield}, _attackDamage{damage}, 
+	Player(int shield = 25, float damage = 10.0f, float speed = 10.0f, int health = 95) : _shield{shield}, _attackDamage{damage},
 		_speed{speed}, _health{health}, _coins{0}, _inventory{std::make_unique<Inventory>()} {}
 
 	void SetShield(int shield);
-	void SetAttackDamage(int damage);
-	void SetSpeed(int speed);
+	void SetAttackDamage(float damage);
+	void SetSpeed(float speed);
 	void SetHealth(int health);
 
 	void AddHealth(int health);
 
 	int GetShield() const;
-	int GetAttackDamage() const;
-	int GetSpeed() const;
+	float GetAttackDamage() const;
+	float GetSpeed() const;
 	int GetHealth() const;
 
 	const int _maxHealth = 100;
@@ -30,7 +30,7 @@ class Player
 	void ResetInventory();
 	void PrintInventory();
 
-	int GetInventorySize();
+	size_t GetInventorySize();
 	InventoryItem* GetInventoryItem(int index);
 
 	int GetCoins() const;
@@ -46,8 +46,8 @@ class Player
 	void NotifyShieldChanged();
 	void NotifyInventoryChanged(const Item& item, int amount);
 	int _shield;
-	int _attackDamage;
-	int _speed;
+	float _attackDamage;
+	float _speed;
 	int _health;
 	int _coins;
 

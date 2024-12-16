@@ -35,7 +35,7 @@ float Point::DistanceTo(const Point& other) const
 {
 	int dx = _x - other._x;
 	int dy = _y - other._y;
-	return std::sqrt(dx * dx + dy * dy);
+	return static_cast<float>(std::sqrt(dx * dx + dy * dy));
 }
 
 bool Point::operator==(const Point& other) const

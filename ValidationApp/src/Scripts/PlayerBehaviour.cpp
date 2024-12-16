@@ -230,7 +230,7 @@ void PlayerBehaviour::SavePlayer()
 
 	if (_player->GetInventorySize() > 0)
 	{
-		for (size_t i = 0; i < _player->GetInventorySize(); ++ i)
+		for (int i = 0; i < static_cast<int>(_player->GetInventorySize()); ++ i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
 			auto& inventoryItem = _player->GetInventoryItem(i)->GetItem();
