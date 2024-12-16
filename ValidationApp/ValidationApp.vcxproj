@@ -427,7 +427,6 @@
     </Font>
     <None Include="Assets\Files\example.json" />
     <None Include="Assets\Level\level-1.json" />
-    <None Include="Diagram\Strategy.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
