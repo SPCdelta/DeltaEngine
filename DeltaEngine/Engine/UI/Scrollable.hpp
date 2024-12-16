@@ -11,7 +11,7 @@ public:
 
 	Scrollable(Transform* transform, std::function<void(int)> func) {
 	
-		_scrollebole = InputManager::onMouseWheel([func, transform](Input& e) {
+		_scrollable = InputManager::onMouseWheel([func, transform](Input& e) {
 
 			if (!Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, transform->position, transform->scale))
 				return;
@@ -25,11 +25,11 @@ public:
 	}
 
 	~Scrollable(){
-		InputManager::GetInstance().remove(_scrollebole);
+		InputManager::GetInstance().remove(_scrollable);
 	}
 
 private:
-	InputLocation _scrollebole;
+	InputLocation _scrollable;
 
 };
 }
