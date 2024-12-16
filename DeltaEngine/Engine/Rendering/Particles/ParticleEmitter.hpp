@@ -74,6 +74,7 @@ protected:
 
 	virtual Vector2 GetSpawnOffset()
 	{
+		return {1.0f, 0.0f};
 		return 
 		{ 
 			Random::NextFloat(-_configuration.spawnRadius, _configuration.spawnRadius),
@@ -99,11 +100,13 @@ protected:
 
 	virtual float GetLifetime()
 	{
+		return 1.0f;
 		return Random::NextFloat(_configuration.minLifetime, _configuration.maxLifetime);
 	}
 
 	virtual Vector2 GetDirection()
 	{
+		return {1.0f, 0.0f};
 		float angle = Random::NextFloat(_configuration.minAngle, _configuration.maxAngle);
 		Vector2 direction
 		{
@@ -115,11 +118,13 @@ protected:
 
 	virtual float GetSpeed()
 	{ 
+		return 1.0f;
 		return Random::NextFloat(_configuration.minSpeed, _configuration.maxSpeed);
 	}
 
 	virtual float GetRotationSpeed()
 	{
+		return 1.0f;
 		return Random::NextFloat(_configuration.minRotationSpeed, _configuration.maxRotationSpeed);
 	}
 
@@ -160,9 +165,15 @@ private:
 		particle.transform->scale = GetScale();
 	}
 
-	void Destroy(Particle& particle)
+	void Destroy(size_t index)
 	{ 
-		_gameObject->Destroy(particle.transform->gameObject);
+		Particle* particle = &_particles[index];
+		if (reinterpret_cast<void*>(particle->transform->gameObject->transform) == reinterpret_cast<void*>(0xdddddddddddddddd))
+		{
+			int bp = 0;
+		}
+		_gameObject->Destroy(_particles[index].transform->gameObject);
+		_particles.erase(_particles.begin() + index);
 	}
 
 	void TrySpawnParticle()
@@ -186,11 +197,7 @@ private:
 		{
 			if (_particles[i].aliveFor <= 0.0f)
 			{
-				Destroy(_particles[i]);
-				_particles.erase(_particles.begin() + i);
-				//_particles[i]
-				//	->transform->gameObject->GetComponent<Sprite>()
-				//	.SetVisible(false);
+				Destroy(i);
 			}
 		}
 
@@ -205,6 +212,14 @@ private:
 			particle.transform->position += (particle.direction * particle.speed * Time::GetDeltaTime());
 			particle.transform->rotation += ((360.0f / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
 			particle.aliveFor -= Time::GetDeltaTime();
+
+			if (reinterpret_cast<void*>( particle.transform->gameObject->transform) == reinterpret_cast<void*>(0xdddddddddddddddd))
+			{
+				if (particle.aliveFor <= 0.0f)
+				{
+					int bp = 0;
+				}
+			}
 		}
 	}
 };

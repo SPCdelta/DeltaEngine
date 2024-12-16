@@ -25,6 +25,11 @@ Scene::~Scene()
 
 void Scene::DestroyObject(GameObject* gameObject)
 {
+	if (reinterpret_cast<void*>(gameObject->transform) == reinterpret_cast<void*>(0xdddddddddddddddd))
+	{
+		int bp = 0;
+	}
+
 	size_t toDelete = 0;
 	bool found = false;
 
@@ -42,6 +47,7 @@ void Scene::DestroyObject(GameObject* gameObject)
 	{
 		gameObject->deleted = true;
 		_reg.DestroyEntity(gameObject->_id);
+		gameObject = reinterpret_cast<GameObject*>(0x01);
 		delete _objects[toDelete];
 		_objects.erase(_objects.begin() + toDelete);
 	}

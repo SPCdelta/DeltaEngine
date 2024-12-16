@@ -10,7 +10,6 @@ public:
 	{
 		GameObject* particleEmitterObject = Instantiate({{20.0f, 10.0f}, 0.0f, {1.0f, 1.0f}});
 		ParticleEmitter* particleEmitter = particleEmitterObject->AddComponent<ParticleEmitter>(
-			// https://discussions.unity.com/t/2d-pixel-art-particles-tutorial/601613
 			ParticleEmitterConfiguration(
 				// Sprites
 				{ "particle_big", "particle_medium_1", "particle_medium_2", "particle_small", "particle_tiny" },
@@ -19,8 +18,8 @@ public:
 				{ 252, 100, 0, 255 },
 				{ 215, 253, 2, 255 },
 
-				// Extra
-				200,
+				// Extra (amount, radius)
+				1,
 				0.25f,
 
 				// Particle spawn interval
