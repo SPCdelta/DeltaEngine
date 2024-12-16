@@ -13,14 +13,14 @@ public:
 		behaviour->onKeyPressed(KEY_A, [this](Input& e) { _aDown = true; }, "Gameplay");
 		behaviour->onKeyPressed(KEY_D, [this](Input& e) { _dDown = true; }, "Gameplay");
 
-		behaviour->onMouseButtonDown(MouseButton::Left, [this](Input& e) { _leftClick = true; }, "Gameplay");
+		behaviour->onKeyPressed(KEY_SPACE, [this](Input& e) { _space = true; }, "Gameplay");
 
 		behaviour->onKeyReleased(KEY_W, [this](Input& e) { _wDown = false; }, "Gameplay");
 		behaviour->onKeyReleased(KEY_S, [this](Input& e) { _sDown = false; }, "Gameplay");
 		behaviour->onKeyReleased(KEY_A, [this](Input& e) { _aDown = false; }, "Gameplay");
 		behaviour->onKeyReleased(KEY_D, [this](Input& e) { _dDown = false; }, "Gameplay");
 
-		behaviour->onMouseButtonUp(MouseButton::Left, [this](Input& e) { _leftClick = false; }, "Gameplay");
+		behaviour->onKeyReleased(KEY_SPACE, [this](Input& e) { _space = false; }, "Gameplay");
 	}
 
 	const Math::Vector2 GetDirection() const 
@@ -28,9 +28,9 @@ public:
 		return { static_cast<float>(-_aDown + _dDown), static_cast<float>(_wDown + -_sDown) };
 	}
 
-	bool GetLeftClick() const 
+	bool GetSpace() const 
 	{
-		return _leftClick;
+		return _space;
 	}
 
 private:
@@ -39,5 +39,5 @@ private:
 	int _aDown{false};
 	int _dDown{false};
 
-	int _leftClick{false};	
+	int _space{false};	
 };

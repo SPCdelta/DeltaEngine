@@ -19,8 +19,6 @@ class PickUpBehaviour
 						WorldItem item = collider.transform.gameObject->GetComponent<WorldItem>();
 						_player.AddItemToInventory(item._item, item._amount);
 
-						std::cout << "player picked up " << item._amount << " " << item._item.GetName() <<std::endl;
-
 						collider.transform.gameObject->GetComponent<Sprite>().SetVisible(false);
 						MarkForDestruction(collider.transform.gameObject);
 					}

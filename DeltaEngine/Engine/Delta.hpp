@@ -42,3 +42,7 @@ using namespace Physics;
 #include "UI/Text.hpp"
 #include "UI/Image.hpp"
 #include "UI/Button.hpp"
+
+// AI
+#include "Core/AI/AIBehaviour.hpp"
+#include "Core/AI/AStarStrategy.hpp"
