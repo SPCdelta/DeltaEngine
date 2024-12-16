@@ -56,27 +56,19 @@ void Scene::Update()
 
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
-	std::shared_ptr<GameObject> obj{ 
+	std::shared_ptr<GameObject> obj
+	{ 
 		std::make_shared<GameObject>
 		(
-			_reg, _physicsWorld, _changeSceneEvent, _camera, transform
+			this, _reg, _physicsWorld, _changeSceneEvent, _camera, transform
 		) 
 	};
-	obj->transform->gameObject = obj.get();
 	_objects.push_back(obj);
 
-	// Allow Instantiation
-	obj->_instantiatePromise.Register(
-		[this](std::shared_ptr<GameObject>& e)
-		{ 
-			e = Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
-		}
-	);
-	obj->_destroyObject.Register([this](GameObject* gameObject)
-		{ 
-			MarkForDestroy(gameObject); 
-		}
-	);
-
 	return obj;
+}
+
+std::shared_ptr<GameObject> Scene::Instantiate()
+{
+	return Instantiate({{1.0f, 1.0f}, 0.0f, {1.0f, 1.0f}});
 }

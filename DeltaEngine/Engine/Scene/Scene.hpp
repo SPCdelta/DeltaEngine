@@ -72,6 +72,7 @@ class Scene
 	void Update();
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
+	std::shared_ptr<GameObject> Instantiate();
 
 private:
 	InputFacade* _inputfacade = nullptr;
