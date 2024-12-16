@@ -16,8 +16,8 @@ void Boomerang::OnUpdate()
 
 	if (!_isReturning)
 	{
-		// 0.1f is the distance when the boomerang says, sure I reached my target
-		if (transform->position.DistanceTo(_targetPosition) < 0.1f)
+		// 1.0f is the distance when the boomerang says, sure I reached my target
+		if (transform->position.DistanceTo(_targetPosition) < 1.0f)
 		{
 			Return();
 		}

@@ -98,6 +98,9 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
 	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
 
+	// Enemies
+	ResourceManager::AddSprite("goblin", "Assets\\Textures\\Enemies\\goblin_attacking.png");
+
 	// UI
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");
 	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");

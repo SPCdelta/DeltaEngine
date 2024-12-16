@@ -46,3 +46,7 @@ using namespace Physics;
 #include "UI/Image.hpp"
 #include "UI/Button.hpp"
 #include "UI/Brush/SnapToGridBrush.hpp"
+
+// AI
+#include "Core/AI/AIBehaviour.hpp"
+#include "Core/AI/AStarStrategy.hpp"

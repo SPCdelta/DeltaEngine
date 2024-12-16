@@ -30,6 +30,7 @@ public:
 	void SetButtonTexture(int id, const std::string& textureName);
 	std::shared_ptr<GameObject>& GetButton(Uint8 id);
 	Ui::Text& GetButtonText(Uint8 id);
+	const Math::Vector2& GetSize() const override;
 private:
 	void InitTitle(const std::string& title, int fontSize, const Math::Vector2& startPos);
 	void InitButtons(unsigned char numOfButtons, const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize);

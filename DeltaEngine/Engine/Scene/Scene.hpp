@@ -74,6 +74,8 @@ class Scene
 protected:
 	Camera* camera;
 
+	void DestroyObject(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
+	void DestroyPointerObject(GameObject* gameObject) { gameObject->Destroy(gameObject); }
 
 private:
 	InputFacade* _inputfacade = nullptr;

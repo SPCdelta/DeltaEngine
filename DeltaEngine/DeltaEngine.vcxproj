@@ -198,6 +198,8 @@
     <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
+    <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Core\Time.cpp" />
     <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
@@ -235,6 +237,9 @@
     <ClInclude Include="Engine\Audio\SFXSource.hpp" />
     <ClInclude Include="Engine\BehaviourScript.hpp" />
     <ClInclude Include="Engine\Application.hpp" />
+    <ClInclude Include="Engine\Core\AI\AIBehaviour.hpp" />
+    <ClInclude Include="Engine\Core\AI\IAIStrategy.hpp" />
+    <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
     <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
