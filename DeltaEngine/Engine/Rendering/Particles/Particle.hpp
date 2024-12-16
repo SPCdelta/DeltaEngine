@@ -4,7 +4,7 @@
 
 struct Particle
 {
-	Transform* transform;
+	GameObject* gameObject;
 	Vector2 direction; // Travel Direction
 	float speed; // Units per second
 	float rotationSpeed; // Rotations per second

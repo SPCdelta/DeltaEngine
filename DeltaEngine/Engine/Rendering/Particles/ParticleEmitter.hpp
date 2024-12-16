@@ -128,7 +128,7 @@ protected:
 
 private:
 	ParticleEmitterConfiguration _configuration;
-	std::vector<Particle*> _particles{};
+	std::vector<Particle> _particles{};
 	bool _started{ false };
 	float _spawnParticleIn = 0.0f;
 
@@ -137,33 +137,29 @@ private:
 		return _gameObject->Instantiate();
 	}
 
-	Particle* CreateParticle()
+	void CreateParticle()
 	{ 
 		std::shared_ptr<GameObject> particleObj = Instantiate();
 		Sprite* sprite = particleObj->AddComponent<Sprite>(GetSprite());
 		sprite->SetLayer(Layer::Particles);
 		sprite->SetColor(GetColor());
 
-		Particle* particle = _particles.emplace_back(
-			new Particle
-			{
-				particleObj->transform,
-				GetDirection(),
-				GetSpeed(),
-				GetRotationSpeed(),
-				GetLifetime()
-			}
+		Particle& particle = _particles.emplace_back(
+			particleObj.get(),
+			GetDirection(),
+			GetSpeed(),
+			GetRotationSpeed(),
+			GetLifetime()
 		);
 
-		particle->transform->position = _gameObject->transform->position + GetSpawnOffset();
-		particle->transform->scale = GetScale();
-
-		return particle;
+		particle.gameObject->transform->position = _gameObject->transform->position + GetSpawnOffset();
+		particle.gameObject->transform->scale = GetScale();
 	}
 
-	void Destroy(Particle* gameObject)
-	{ 
-		_gameObject->Destroy(gameObject->transform->gameObject);
+	void Destroy(size_t index)
+	{
+		_gameObject->Destroy(_particles[index].gameObject);
+		_particles.erase(_particles.begin() + index);
 	}
 
 	void TrySpawnParticle()
@@ -183,29 +179,23 @@ private:
 		if (!_started)
 			return;
 
-		_particles.erase(std::remove_if(_particles.begin(), _particles.end(),
-			[this](Particle* particle)
+		for (size_t i = _particles.size(); i-- > 0;)
+		{
+			if (_particles[i].aliveFor <= 0.0f)
 			{
-				if (particle->aliveFor <= 0.0f)
-				{
-					Destroy(particle);
-					delete particle;
-					return true;
-				}
-
-				return false;
-			}),_particles.end()
-		);
+				Destroy(i);
+			}
+		}
 
 		// Spawn New Particles
 		TrySpawnParticle();
 
 		// Update Particles
-		for (Particle* particle : _particles)
+		for (Particle& particle : _particles)
 		{
-			particle->transform->position += (particle->direction * particle->speed * Time::GetDeltaTime());
-			particle->transform->rotation += ((360.0f / 1.0f * particle->rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
-			particle->aliveFor -= Time::GetDeltaTime();
+			particle.gameObject->transform->position += (particle.direction * particle.speed * Time::GetDeltaTime());
+			particle.gameObject->transform->rotation += ((360.0f / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
+			particle.aliveFor -= Time::GetDeltaTime();
 		}
 	}
 };

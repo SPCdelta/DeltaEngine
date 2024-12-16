@@ -17,18 +17,23 @@ public:
 				{ 252, 100, 0, 255 },
 				{ 215, 253, 2, 255 },
 
+				// Extra
 				20,
 				0.25f,
 
-				0.1f, 0.15f,
+				// Interval
+				0.05f, 0.05f,
 
+				// Looping
 				true,
 
+				// Lifetime
 				1.5f, 2.0f,
 
 				// Speed
-				0.25f, 1.0f,
+				2.0f, 3.0f,
 
+				// Rotation
 				0.0f, 360.0f,
 				0.0f, 0.0f
 			)
