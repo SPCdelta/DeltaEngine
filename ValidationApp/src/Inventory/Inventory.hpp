@@ -12,7 +12,7 @@ class Inventory
 	void AddItem(std::shared_ptr<Item> item, int amount);
 	void RemoveItem(const Item& item, int amount);
 
-	int GetItemAmount();
+	int GetItemAmount() const;
 	InventoryItem& GetItem(int index);
 
 	void Clear();

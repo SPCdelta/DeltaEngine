@@ -63,7 +63,7 @@ void Inventory::RemoveItem(const Item& item, int amount)
 	}
 }
 
-int Inventory::GetItemAmount()
+int Inventory::GetItemAmount() const
 {
 	return _items.size();
 }

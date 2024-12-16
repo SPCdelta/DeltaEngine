@@ -9,7 +9,7 @@
 class Player
 {
    public:
-	Player(int shield = 25, int damage = 10, int speed = 10, int health = 95, Uint8 _inventoryIndex = 0) 
+	Player(int shield = 25, float damage = 10, float speed = 10, int health = 95, Uint8 _inventoryIndex = 0)
 		: _shield{shield}, _attackDamage{damage}, 
 		_speed{speed}, _health{health}, _coins{0}, _inventoryIndex{0} {}
 
@@ -31,7 +31,7 @@ class Player
 	void RemoveItemFromInventory(const Item& item, int amount);
 	void ResetInventory();
 
-	int GetInventorySize();
+	size_t GetInventorySize() const;
 	InventoryItem& GetInventoryItem(int index);
 	InventoryItem& GetCurrentInventoryItem();
 

@@ -80,7 +80,7 @@ void Player::RemoveItemFromInventory(const Item& item, int amount)
 	NotifyInventoryChanged(item, -amount);
 }
 
-size_t Player::GetInventorySize()
+size_t Player::GetInventorySize() const
 {
 	return _inventory.GetItemAmount();
 }
