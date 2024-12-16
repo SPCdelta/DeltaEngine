@@ -143,6 +143,7 @@ const Key InputsEnum::toKey(const std::string& key)
 			return pair.first;
 		}
 	}
+	return KEY_UNKNOWN;
 }
 
 const std::string& InputsEnum::toStr(Key key)

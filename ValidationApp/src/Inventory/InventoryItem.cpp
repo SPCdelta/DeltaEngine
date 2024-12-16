@@ -1,13 +1,13 @@
 #include "InventoryItem.hpp"
 
-InventoryItem::InventoryItem(std::shared_ptr<Item> item, int amount) : _item{item}, _amount{amount} {}
+InventoryItem::InventoryItem(std::shared_ptr<Item> item, Uint8 amount) : _item{item}, _amount{amount} {}
 
-void InventoryItem::AddAmount(int amount)
+void InventoryItem::AddAmount(Uint8 amount)
 {
 	this->_amount += amount;
 }
 
-void InventoryItem::LowerAmount(int amount) 
+void InventoryItem::LowerAmount(Uint8 amount)
 {
 	if (_amount - amount < 0)
 		this->_amount = 0;
@@ -15,7 +15,7 @@ void InventoryItem::LowerAmount(int amount)
 		this->_amount -= amount;
 }
 
-int InventoryItem::GetAmount() const
+Uint8 InventoryItem::GetAmount() const
 {
 	return _amount;
 }

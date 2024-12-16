@@ -2,7 +2,7 @@
 
 Inventory::Inventory() {}
 
-void Inventory::AddItem(std::shared_ptr<Item> item, int amount) 
+void Inventory::AddItem(std::shared_ptr<Item> item, Uint8 amount)
 {
 	if (_items.size() == 0 && !IsFull())
 	{
@@ -11,7 +11,7 @@ void Inventory::AddItem(std::shared_ptr<Item> item, int amount)
 	}
 
 	bool itemFound = false;
-	for (size_t i = 0; i < _items.size(); i++)
+	for (Uint8 i = 0; i < _items.size(); i++)
 	{
 		if (_items[i].GetItem()->GetName() == item->GetName())
 		{
@@ -27,14 +27,14 @@ void Inventory::AddItem(std::shared_ptr<Item> item, int amount)
 	}
 }
 
-void Inventory::RemoveItem(const Item& item, int amount)
+void Inventory::RemoveItem(const Item& item, Uint8 amount)
 {
 	if (_items.size() <= 0)
 	{
 		return;
 	}
 
-	for (size_t i = 0; i < _items.size(); i++)
+	for (Uint8 i = 0; i < _items.size(); i++)
 	{
 		if (*_items[i].GetItem() == item)
 		{
@@ -63,12 +63,12 @@ void Inventory::RemoveItem(const Item& item, int amount)
 	}
 }
 
-int Inventory::GetItemAmount() const
+Uint8 Inventory::GetItemAmount(Uint8 index) const
 {
-	return _items.size();
+	return _items[index].GetAmount();
 }
 
-InventoryItem& Inventory::GetItem(int index)
+InventoryItem& Inventory::GetItem(Uint8 index)
 {
 	return _items[index];
 }
@@ -78,12 +78,12 @@ void Inventory::Clear()
 	_items.clear();
 }
 
-size_t Inventory::GetSize() const
+Uint8 Inventory::GetSize() const
 {
-	return _items.size();
+	return static_cast<Uint8>(_items.size());
 }
 
-size_t Inventory::GetCapacity() const
+Uint8 Inventory::GetCapacity() const
 {
 	return MAX_SIZE;
 }

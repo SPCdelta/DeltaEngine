@@ -9,9 +9,6 @@ class ConsumableItem : public Item
 public:
 	ConsumableItem(const std::string& name, const std::string& spriteName);
 	virtual void Use(Player& player) = 0;
-	/// <summary>
-	/// 0 = finished, 1 = continue, 2 = finished and marked for removal
-	/// </summary>
-	/// <returns></returns>
+	// return true if consumable effect has completed, false if effect is ongoing
 	virtual bool Update() = 0;
 };

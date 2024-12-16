@@ -9,15 +9,15 @@ class Inventory
 {
    public:
 	Inventory();
-	void AddItem(std::shared_ptr<Item> item, int amount);
-	void RemoveItem(const Item& item, int amount);
+	void AddItem(std::shared_ptr<Item> item, Uint8 amount);
+	void RemoveItem(const Item& item, Uint8 amount);
 
-	int GetItemAmount() const;
-	InventoryItem& GetItem(int index);
+	Uint8 GetItemAmount(Uint8 index) const;
+	InventoryItem& GetItem(Uint8 index);
 
 	void Clear();
-	size_t GetSize() const;
-	size_t GetCapacity() const;
+	Uint8 GetSize() const;
+	Uint8 GetCapacity() const;
 
    private:
 	bool IsFull() const;

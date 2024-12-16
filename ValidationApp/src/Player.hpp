@@ -27,12 +27,12 @@ class Player
 
 	const int _maxHealth = 100;
 
-	void AddItemToInventory(std::shared_ptr<Item> item, int amount);
-	void RemoveItemFromInventory(const Item& item, int amount);
+	void AddItemToInventory(std::shared_ptr<Item> item, Uint8 amount);
+	void RemoveItemFromInventory(const Item& item, Uint8 amount);
 	void ResetInventory();
 
-	size_t GetInventorySize() const;
-	InventoryItem& GetInventoryItem(int index);
+	Uint8 GetInventorySize() const;
+	InventoryItem& GetInventoryItem(Uint8 index);
 	InventoryItem& GetCurrentInventoryItem();
 
 	int GetCoins() const;
