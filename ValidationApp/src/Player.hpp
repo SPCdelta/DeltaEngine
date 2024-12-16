@@ -14,15 +14,15 @@ class Player
 		_speed{speed}, _health{health}, _coins{0}, _inventoryIndex{0} {}
 
 	void SetShield(int shield);
-	void SetAttackDamage(int damage);
-	void SetSpeed(int speed);
+	void SetAttackDamage(float damage);
+	void SetSpeed(float speed);
 	void SetHealth(int health);
 
 	void AddHealth(int health);
 
 	int GetShield() const;
-	int GetAttackDamage() const;
-	int GetSpeed() const;
+	float GetAttackDamage() const;
+	float GetSpeed() const;
 	int GetHealth() const;
 
 	const int _maxHealth = 100;
@@ -55,8 +55,8 @@ class Player
 	void NotifyInventoryChanged(const Item& item, int amount);
 	void NotifyInventoryIndexChanged();
 	int _shield;
-	int _attackDamage;
-	int _speed;
+	float _attackDamage;
+	float _speed;
 	int _health;
 	int _coins;
 	Uint8 _inventoryIndex;

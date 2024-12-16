@@ -64,4 +64,5 @@ void BehaviourScript::unregisterInputs() {
 	{
 		InputManager::GetInstance().remove(input);
 	}
+	registerdInputs.clear();
 }

@@ -48,11 +48,7 @@ class FileScene : public Scene
 			{
 				auto& tileJson = tilesJson["tiles"][i];
 
-				tileJson["transform"]["position"]["x"] = tiles[i]->GetComponent<Transform>().position.GetX();
-				tileJson["transform"]["position"]["y"] = tiles[i]->GetComponent<Transform>().position.GetY();
-				tileJson["transform"]["rotation"] = tiles[i]->GetComponent<Transform>().rotation;
-				tileJson["transform"]["scale"]["x"] = tiles[i]->GetComponent<Transform>().scale.GetX();
-				tileJson["transform"]["scale"]["y"] = tiles[i]->GetComponent<Transform>().scale.GetY();
+				TransformDTO::ToJson(tileJson, tiles[i]->GetComponent<Transform>());
 
 				tileJson["tag"] = tiles[i]->GetTag();
 

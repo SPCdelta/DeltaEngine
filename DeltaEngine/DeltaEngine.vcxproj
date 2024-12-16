@@ -198,6 +198,8 @@
     <ClCompile Include="Engine\Audio\SFXSource.cpp" />
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
+    <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Core\Time.cpp" />
     <ClCompile Include="Engine\Input\DeltaInputs.cpp" />
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
@@ -215,6 +217,7 @@
     <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
+    <ClCompile Include="Engine\UI\Brush\BrushSprite.hpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
@@ -234,6 +237,9 @@
     <ClInclude Include="Engine\Audio\SFXSource.hpp" />
     <ClInclude Include="Engine\BehaviourScript.hpp" />
     <ClInclude Include="Engine\Application.hpp" />
+    <ClInclude Include="Engine\Core\AI\AIBehaviour.hpp" />
+    <ClInclude Include="Engine\Core\AI\IAIStrategy.hpp" />
+    <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
     <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
@@ -286,8 +292,10 @@
     <ClInclude Include="Engine\Temp\TempBehaviour.hpp" />
     <ClInclude Include="Engine\Core\Time.hpp" />
     <ClInclude Include="Engine\Transform.hpp" />
-    <ClInclude Include="Engine\TransformDTO.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\Button.hpp" />
+    <ClInclude Include="Engine\UI\Scrollable.hpp" />
+    <ClInclude Include="Engine\UI\Brush\SnapToGridBrush.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
     <ClInclude Include="Engine\UI\Image.hpp">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>

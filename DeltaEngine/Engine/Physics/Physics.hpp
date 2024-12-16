@@ -215,6 +215,11 @@ namespace Physics
 		return b2World_GetSensorEvents(id);
 	}
 
+	inline void EnableSleep(b2BodyId bodyId, bool enableSleep)
+	{
+		return b2Body_EnableSleep(bodyId, enableSleep);;
+	}
+
 	namespace Event
 	{
 		//class CollisionEventData : public Events::Event

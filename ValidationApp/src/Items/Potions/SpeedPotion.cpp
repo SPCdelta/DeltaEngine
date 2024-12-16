@@ -12,7 +12,7 @@ void SpeedPotion::Use(Player& player) {
 	_originalSpeed = player.GetSpeed(); 
 
 	// speed met meer of minder dan 50% versnellen 
-	int newSpeed = _originalSpeed * _value;
+	float newSpeed = _originalSpeed * _value;
 
 	player.SetSpeed(newSpeed);
 	

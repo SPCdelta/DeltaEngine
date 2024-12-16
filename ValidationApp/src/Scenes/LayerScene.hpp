@@ -1,19 +1,19 @@
 #pragma once
 
-#include "Engine/Delta.hpp"
-#include "../Scripts/EnemyBehaviour.hpp"
-#include "../Items/Potions/HealingPotion.hpp"
 #include <memory>
+
+#include "Engine/Delta.hpp"
+
+#include "../Scripts/PlayerBehaviour.hpp"
+#include "../Scripts/EnemyBehaviour.hpp"
+#include "../Scripts/EnemyHitboxBehaviour.hpp"
+#include "../Items/Potions/HealingPotion.hpp"
 #include "../Views/HUDView.hpp"
 
 class LayerScene : public Scene
 {
    public:
-	LayerScene(const std::string& sceneName) : Scene(sceneName) {}
-	void OnStart() override
-	{
-		// Create Player
-		std::shared_ptr<GameObject> playerObject{ Instantiate({{1.0f, 1.0f}, 0.0f, {3.0f, 3.0f}}) };
+	LayerScene(const std::string& sceneName) : Scene(sceneName){};
 
 		std::shared_ptr<AnimationSheet> sheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 

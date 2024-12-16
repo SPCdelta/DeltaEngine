@@ -79,7 +79,7 @@ private:
 
 	Rendering::Rect srcRect;
 	Rendering::Rect destRect;
-	Rendering::Rect prevDestRect;
+	Rendering::Rect prevDestRect{-1,-1,-1,-1};
 	
 	int frameRowUp{0};
 	int frameRowDown{0};
@@ -90,9 +90,9 @@ private:
 	Rendering::UnsignInt32 lastFrameTime{0};
 	Rendering::UnsignInt32 moveInterval{40};
 
-	int idleFrameCount;
+	int idleFrameCount{0};
 	int idleCurrentFrame{0};
-	Rendering::UnsignInt32 idleAnimationSpeed;
+	Rendering::UnsignInt32 idleAnimationSpeed{0};
 	int idleRow{0};
 
 	Direction facingDirection = RIGHT;

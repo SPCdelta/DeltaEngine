@@ -18,7 +18,7 @@ void Animator::Play(std::shared_ptr<AnimationSheet> sheet, Direction direc, bool
 		else
 			isMoving = false;
 
-		if (isMoving && currentTime - sheet->GetLastFrameTime() > sheet->GetAnimationSpeed())
+		if (isMoving && currentTime - sheet->GetLastFrameTime() > static_cast<Rendering::UnsignInt32>(sheet->GetAnimationSpeed()))
 		{
 			sheet->SetCurrentFrame((sheet->GetCurrentFrame() + 1) % sheet->GetFrameCount());
 			Rendering::Rect tempSrcRect = sheet->GetSrcRect();

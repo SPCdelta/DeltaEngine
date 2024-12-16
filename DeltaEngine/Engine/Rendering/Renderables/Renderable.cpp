@@ -49,3 +49,16 @@ void Renderable::SetColor(Rendering::Color newColor)
 {
 	color = newColor;
 }
+
+void Renderable::RenderBorder(Rendering::Renderer* renderer, Rendering::Rect& borderRect)
+{
+	if (borderThickness > 0) {
+		Rendering::SetRenderDrawColor(renderer, borderColor.r, borderColor.g, borderColor.b, borderColor.a);
+		Rendering::RenderFillRect(renderer, &borderRect);
+		
+		borderRect.x += borderThickness;
+		borderRect.y += borderThickness;
+		borderRect.w -= 2 * borderThickness;
+		borderRect.h -= 2 * borderThickness;
+	}
+}

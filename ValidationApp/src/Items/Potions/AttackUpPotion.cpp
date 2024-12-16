@@ -11,7 +11,7 @@ void AttackUpPotion::Use(Player& player)
 	_affectedPlayer = &player;
 	_originalDamage = player.GetAttackDamage();
 
-	int newDamage = _originalDamage + _value * _originalDamage;
+	float newDamage = _originalDamage + _value * _originalDamage;
 
 	player.SetAttackDamage(newDamage);
 

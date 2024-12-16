@@ -66,9 +66,14 @@ void MenuView::InitButtons(unsigned char numOfButtons, const Math::Vector2& star
 		auto& button = *_buttons[i]->AddComponent<Ui::Button>();
 
 		// Text
-		_buttons[i]->AddComponent<Ui::Text>(
+		Ui::Text* text = _buttons[i]->AddComponent<Ui::Text>(
 			std::string{"Button" + std::to_string(i)}, _fontName, fontSize, DEFAULT_COLOR);
-		_buttons[i]->GetComponent<Ui::Text>().SetPosition(pos);
+		text->SetPosition(pos);
+
+		button.SetOnMousePressed([text](){
+			text->SetColor({60,60,60});
+			
+			}, "UI-Button-ViewMenu");
 
 		pos.SetY(pos.GetY() + scale.GetY() + margin);
 	}

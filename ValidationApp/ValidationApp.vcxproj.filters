@@ -30,6 +30,9 @@
     <ClCompile Include="src\Items\ConsumableItem.cpp" />
     <ClCompile Include="src\Items\Potions\Potion.cpp" />
     <ClCompile Include="src\Items\WorldItem.cpp" />
+    <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
+    <ClCompile Include="src\Scenes\LayerScene.cpp" />
+    <ClCompile Include="src\Classes\DamageBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -73,6 +76,7 @@
     <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
     <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorLevelChose.hpp" />
     <ClInclude Include="src\Views\HUDView.hpp" />
     <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
@@ -80,6 +84,11 @@
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Items\ConsumableItem.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
+    <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -103,6 +112,7 @@
     <Image Include="Assets\Textures\floor_map.png" />
     <Image Include="Assets\Textures\wall_map.png" />
     <Image Include="Assets\Textures\Weapons\boomerang.png" />
+    <Image Include="Assets\Textures\Rect.png" />
     <Image Include="Assets\Textures\UI\Background\main_menu_bg.png" />
     <Image Include="Assets\Textures\UI\Buttons\scroll.png" />
     <Image Include="Assets\Textures\UI\Buttons\scroll2.png" />
@@ -128,6 +138,7 @@
   <ItemGroup>
     <None Include="Assets\Files\example.json" />
     <Font Include="Assets\Fonts\alucrads.otf" />
+    <None Include="Assets\Level\level-1.json" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf" />

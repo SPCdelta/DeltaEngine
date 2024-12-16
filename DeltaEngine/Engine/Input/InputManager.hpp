@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <vector>
 #include "../Core/Events/EventDispatcher.hpp"
+#include "../Core/Math/Point.hpp"
 #include "InputEventDispatchers.hpp"
 #include "DeltaInputs.hpp"
 
@@ -14,7 +15,6 @@ class InputManager
 {
    public:
 	// Singleton
-	InputManager();
 	static InputManager& GetInstance();
 	~InputManager();
 	InputManager(const InputManager&) = delete;
@@ -34,8 +34,14 @@ class InputManager
 
 	static InputLocation onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
 	static InputLocation onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
-	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent);
-	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent);
+	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent, std::string category = defaultCategory);
+	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent, std::string category = defaultCategory);
+
+
+	static Math::Point GetMousePosition()
+	{
+		return Math::Point{instance_.allInputs.mouseX, instance_.allInputs.mouseY};
+	}
 
 
 	void updateKeyDown(Key input);
@@ -53,6 +59,7 @@ class InputManager
 	static constexpr const char* defaultCategory = "Default";
 
    private:
+	InputManager();
 	static InputManager instance_;
 
 
@@ -60,6 +67,6 @@ class InputManager
 
 	std::map<InputState, InputEventDispatchers> inputState;
 
-	Events::EventDispatcher<Input&> mouseMovement;
-	Events::EventDispatcher<Input&> mouseWheelMovement;
+	std::map<std::string, Events::EventDispatcher<Input&>> mouseMovement;
+	std::map<std::string, Events::EventDispatcher<Input&>> mouseWheelMovement;
 };

@@ -5,7 +5,6 @@
 #include <string>
 
 #include "GameObject.hpp"
-//class GameObject;
 
 class BehaviourScript
 {
