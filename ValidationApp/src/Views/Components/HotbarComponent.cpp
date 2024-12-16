@@ -12,12 +12,12 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 		slot->AddComponent<Ui::Button>()->SetOnLeftMouseClick([i, &player]() -> void { player.SetInventoryIndex(i); }, "Hotbar");
 		auto itemIcon = std::shared_ptr<GameObject>{};
 		std::string itemName = "";
-		if (i < player.GetInventorySize())
+		auto& item = player.GetInventoryItem(i);
+		if (item.has_value())
 		{
-			auto& item = player.GetInventoryItem(i);
 			itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, slotScale }) };
-			itemIcon->AddComponent<Ui::Image>(item.GetItem()->GetSprite());
-			itemName = item.GetItem()->GetName();
+			itemIcon->AddComponent<Ui::Image>(item->GetItem()->GetSprite());
+			itemName = item->GetItem()->GetName();
 		}
 		_hotbar.emplace_back(slot, itemIcon, itemName);
 		pos.AddX(slotScale.GetX());

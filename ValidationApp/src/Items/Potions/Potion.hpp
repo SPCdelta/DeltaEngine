@@ -22,7 +22,7 @@ class Potion : public ConsumableItem
 
 	virtual void Use(Player& player) = 0;
 	virtual bool Update() { return true; };
-
+	virtual Item* Clone() const = 0;
 	virtual PotionType GetType() { return PotionType::None; }
 
    protected:

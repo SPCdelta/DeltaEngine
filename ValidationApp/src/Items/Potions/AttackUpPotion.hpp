@@ -16,7 +16,7 @@ class AttackUpPotion : public Potion
 
 	void Use(Player& player) override;
 	bool Update() override;
-
+	Item* Clone() const override;
 	PotionType GetType() override { return PotionType::AttackUp; }
 };
   

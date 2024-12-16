@@ -43,3 +43,8 @@ bool DefensePotion::Update() {
 	}
 	return false;
 }
+
+Item* DefensePotion::Clone() const
+{
+	return new DefensePotion{*this};
+}

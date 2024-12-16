@@ -1,26 +1,30 @@
 #pragma once
 
-#include <memory>
+#include <unordered_map>
 #include "Engine/Delta.hpp"
 #include "InventoryItem.hpp"
 #include "../Items/Item.hpp"
 
 class Inventory
 {
-   public:
+public:
 	Inventory();
-	void AddItem(std::shared_ptr<Item> item, Uint8 amount);
-	void RemoveItem(const Item& item, Uint8 amount);
+	void AddItem(Item* item, Uint8 amount);
+	Item* RemoveItem(const Item& item, Uint8 amount);
 
 	Uint8 GetItemAmount(Uint8 index) const;
-	InventoryItem& GetItem(Uint8 index);
+	const std::optional<InventoryItem>& GetItem(Uint8 index) const;
+	std::optional<InventoryItem>& GetItem(Uint8 index);
 
 	void Clear();
 	Uint8 GetSize() const;
 	Uint8 GetCapacity() const;
 
-   private:
+private:
+	bool IncreaseAmount(const Item& item, Uint8& amount);
+	bool Insert(Item* item, Uint8& amount);
 	bool IsFull() const;
-	std::vector<InventoryItem> _items;
-	const Uint8 MAX_SIZE = 9;
+	static const Uint8 MAX_SIZE = 9;
+	std::array<std::optional<InventoryItem>, MAX_SIZE> _items;
+	Uint8 _size = 0;
 };

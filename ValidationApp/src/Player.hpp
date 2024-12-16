@@ -3,8 +3,8 @@
 #include "Inventory/Inventory.hpp"
 #include "Items/Item.hpp"
 #include "Engine/Delta.hpp"
-#include <vector>
 #include <functional>
+#include <optional>
 
 class Player
 {
@@ -27,13 +27,14 @@ class Player
 
 	const int _maxHealth = 100;
 
-	void AddItemToInventory(std::shared_ptr<Item> item, Uint8 amount);
+	void AddItemToInventory(Item* item, Uint8 amount);
 	void RemoveItemFromInventory(const Item& item, Uint8 amount);
 	void ResetInventory();
 
 	Uint8 GetInventorySize() const;
-	InventoryItem& GetInventoryItem(Uint8 index);
-	InventoryItem& GetCurrentInventoryItem();
+	const std::optional<InventoryItem>& GetInventoryItem(Uint8 index) const;
+	std::optional<InventoryItem>& GetInventoryItem(Uint8 index);
+	const std::optional<InventoryItem>& GetCurrentInventoryItem() const;
 
 	int GetCoins() const;
 	void SetCoins(int coins);

@@ -2,85 +2,71 @@
 
 Inventory::Inventory() {}
 
-void Inventory::AddItem(std::shared_ptr<Item> item, Uint8 amount)
+void Inventory::AddItem(Item* item, Uint8 amount)
 {
-	if (_items.size() == 0 && !IsFull())
+	if (_size == 0)
 	{
-		_items.emplace_back(item, amount);
+		_items[0] = InventoryItem(item, amount);
+		++_size;
 		return;
 	}
-
-	bool itemFound = false;
-	for (Uint8 i = 0; i < _items.size(); i++)
+	if (!IncreaseAmount(*item, amount))
 	{
-		if (_items[i].GetItem()->GetName() == item->GetName())
-		{
-			_items[i].AddAmount(amount);
-			itemFound = true;
-			break;
-		}
-	}
-
-	if (!itemFound && !IsFull())
-	{
-		_items.emplace_back(item, amount);
+		Insert(item, amount);
 	}
 }
 
-void Inventory::RemoveItem(const Item& item, Uint8 amount)
+Item* Inventory::RemoveItem(const Item& item, Uint8 amount)
 {
 	if (_items.size() <= 0)
 	{
-		return;
+		return nullptr;
 	}
 
 	for (Uint8 i = 0; i < _items.size(); i++)
 	{
-		if (*_items[i].GetItem() == item)
+		if (_items[i].has_value() && *_items[i]->GetItem() == item)
 		{
-			if (amount < _items[i].GetAmount())
+			if (amount < _items[i]->GetAmount())
 			{
-				_items[i].LowerAmount(amount);
+				_items[i]->LowerAmount(amount);
 			}
-			else if (amount >= _items[i].GetAmount())
+			else
 			{
-				_items[i].LowerAmount(amount);
-				_items.erase(
-					std::remove_if(
-						_items.begin(), _items.end(),
-						[&](const InventoryItem& elem) {
-							return *elem.GetItem() == item;
-						}),
-					_items.end());
+				auto* result = _items[i]->GetItem().release();
+				_items[i] = std::nullopt;
+				--_size;
+				return result;
 			}
-			
-			return;
-		}
-		else
-		{
-			std::cout << "Item not found" << std::endl;
+			return nullptr;
 		}
 	}
+	return nullptr;
 }
 
 Uint8 Inventory::GetItemAmount(Uint8 index) const
 {
-	return _items[index].GetAmount();
+	return _items[index]->GetAmount();
 }
 
-InventoryItem& Inventory::GetItem(Uint8 index)
+const std::optional<InventoryItem>& Inventory::GetItem(Uint8 index) const
+{
+	return _items[index];
+}
+
+std::optional<InventoryItem>& Inventory::GetItem(Uint8 index)
 {
 	return _items[index];
 }
 
 void Inventory::Clear()
 {
-	_items.clear();
+	_items.fill(std::nullopt);
 }
 
 Uint8 Inventory::GetSize() const
 {
-	return static_cast<Uint8>(_items.size());
+	return _size;
 }
 
 Uint8 Inventory::GetCapacity() const
@@ -88,7 +74,34 @@ Uint8 Inventory::GetCapacity() const
 	return MAX_SIZE;
 }
 
+bool Inventory::IncreaseAmount(const Item& item, Uint8& amount)
+{
+	for (Uint8 i = 0; i < _items.size(); i++)
+	{
+		if (_items[i].has_value() && _items[i]->GetItem()->GetName() == item.GetName())
+		{
+			_items[i]->AddAmount(amount);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Inventory::Insert(Item* item, Uint8& amount)
+{
+	for (auto& optItem : _items)
+	{
+		if (!optItem.has_value())
+		{
+			optItem = InventoryItem(item, amount);
+			++_size;
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Inventory::IsFull() const
 {
-	return _items.size() == MAX_SIZE;
+	return _size == MAX_SIZE;
 }

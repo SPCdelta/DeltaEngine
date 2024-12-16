@@ -17,7 +17,7 @@ class PickUpBehaviour
 					if (collider.transform.gameObject->HasComponent<WorldItem>())
 					{
 						WorldItem& item = collider.transform.gameObject->GetComponent<WorldItem>();
-						_player.AddItemToInventory(item._item, item._amount);
+						_player.AddItemToInventory(item._item.release(), item._amount);
 
 						collider.transform.gameObject->GetComponent<Sprite>().SetVisible(false);
 						MarkForDestruction(collider.transform.gameObject);

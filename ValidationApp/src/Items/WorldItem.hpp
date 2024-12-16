@@ -6,7 +6,12 @@
 class WorldItem
 {
    public:
-	WorldItem(std::shared_ptr<Item> item, int amount);
+	WorldItem(Item* item, int amount);
+	WorldItem(const WorldItem& other);
+	WorldItem& operator=(const WorldItem& other);
+	WorldItem(WorldItem&& other) noexcept;
+	WorldItem& operator=(WorldItem&& other) noexcept;
+	~WorldItem() = default;
 	int _amount;
-	std::shared_ptr<Item> _item;
+	std::unique_ptr<Item> _item;
 };

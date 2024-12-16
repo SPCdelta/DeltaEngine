@@ -7,6 +7,11 @@ const std::string& Item::GetName() const
 	return _name;
 }
 
+bool Item::operator==(const Item& other) const
+{
+	return this->GetName() == other.GetName();
+}
+
 const std::string& Item::GetSprite() const
 {
 	return _sprite;

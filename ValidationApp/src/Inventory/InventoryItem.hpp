@@ -6,14 +6,19 @@
 class InventoryItem
 {
    public:
-	InventoryItem(std::shared_ptr<Item> item, Uint8 amount);
+	InventoryItem(Item* item, Uint8 amount);
+	InventoryItem(const InventoryItem& other);
+	InventoryItem& operator=(const InventoryItem& other);
+	InventoryItem(InventoryItem&& other) noexcept;
+	InventoryItem& operator=(InventoryItem&& other) noexcept;
+	~InventoryItem() = default;
 	void AddAmount(Uint8 amount);
 	void LowerAmount(Uint8 amount);
 	Uint8 GetAmount() const;
-
-	Item* GetItem() const;
+	std::unique_ptr<Item> GetItem();
+	const Item& GetItem() const;
 
    private:
 	Uint8 _amount;
-	std::shared_ptr<Item> _item;
+	std::unique_ptr<Item> _item;
 };

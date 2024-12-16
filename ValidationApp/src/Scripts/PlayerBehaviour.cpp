@@ -158,13 +158,7 @@ void PlayerBehaviour::OnUpdate()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
 
-	for (size_t i = 0; i < _activeConsumables.size(); ++i)
-	{
-		if (_activeConsumables[i]->Update())
-		{
-			_activeConsumables.erase(_activeConsumables.begin() + i);
-		}
-	}
+	UpdateConsumables();
 
 	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 }
@@ -187,17 +181,25 @@ void PlayerBehaviour::InitHotbarKeybinds()
 
 void PlayerBehaviour::ConsumeItem()
 {
-	if (_player->GetInventoryIndex() < _player->GetInventorySize())
-	{
-		auto* item = _player->GetCurrentInventoryItem().GetItem();
-		if (!item) return;
+	auto& item = _player->GetCurrentInventoryItem();
+	if (!item.has_value()) return;
 
-		auto* consumable = dynamic_cast<ConsumableItem*>(item);
-		if (consumable)
+    auto consumable = std::unique_ptr<ConsumableItem>(dynamic_cast<ConsumableItem*>(item->GetItem().Clone()));
+	if (consumable)
+	{
+		consumable->Use(*_player.get());
+		_player->RemoveItemFromInventory(*consumable.get(), 1);
+		_activeConsumables.emplace_back(consumable.release());
+	}
+}
+
+void PlayerBehaviour::UpdateConsumables()
+{
+	for (size_t i = 0; i < _activeConsumables.size(); ++i)
+	{
+		if (_activeConsumables[i]->Update())
 		{
-			consumable->Use(*_player.get());
-			_activeConsumables.emplace_back(consumable);
-			_player->RemoveItemFromInventory(*consumable, 1);
+			_activeConsumables.erase(_activeConsumables.begin() + i);
 		}
 	}
 }
@@ -239,12 +241,7 @@ void PlayerBehaviour::LoadPlayer()
 				{
 					PotionType type = static_cast<PotionType>(itemData["type"]);
 					auto potion = PotionFactory::CreatePotion(type, itemData);
-					_player->AddItemToInventory(std::shared_ptr<Item>(potion.release()), itemData["amount"]);
-				}
-				else
-				{
-					std::unique_ptr<Item> item = std::make_unique<Item>(itemData["name"], itemData["sprite"]); 
-					_player->AddItemToInventory(std::shared_ptr<Item>(item.release()), itemData["amount"]);
+					_player->AddItemToInventory(potion.release(), itemData["amount"]);
 				}
 
 				// TODO weapons?
@@ -262,16 +259,16 @@ void PlayerBehaviour::SavePlayer()
 
 	if (_player->GetInventorySize() > 0)
 	{
-		for (int i = 0; i < static_cast<int>(_player->GetInventorySize()); ++ i)
+		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
-			auto& inventoryItem = *_player->GetInventoryItem(i).GetItem();
+			auto inventoryItem = std::unique_ptr<Item>(_player->GetInventoryItem(i)->GetItem().release());
 
-			itemData["name"] = inventoryItem.GetName();
-			itemData["sprite"] = inventoryItem.GetSprite();
-			itemData["amount"] = _player->GetInventoryItem(i).GetAmount();
+			itemData["name"] = inventoryItem->GetName();
+			itemData["sprite"] = inventoryItem->GetSprite();
+			itemData["amount"] = _player->GetInventoryItem(i)->GetAmount();
 
-			if (auto potion = dynamic_cast<Potion*>(&inventoryItem))
+			if (auto potion = dynamic_cast<Potion*>(inventoryItem.get()))
 			{
 				itemData["type"] = static_cast<int>(potion->GetType());
 				itemData["value"] = potion->GetValue();

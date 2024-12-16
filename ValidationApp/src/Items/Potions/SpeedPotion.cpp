@@ -44,3 +44,8 @@ bool SpeedPotion::Update() {
 	}
 	return false;
 }
+
+Item* SpeedPotion::Clone() const
+{
+	return new SpeedPotion{*this};
+}

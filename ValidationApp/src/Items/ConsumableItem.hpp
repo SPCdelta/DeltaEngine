@@ -11,4 +11,5 @@ public:
 	virtual void Use(Player& player) = 0;
 	// return true if consumable effect has completed, false if effect is ongoing
 	virtual bool Update() = 0;
+	virtual Item* Clone() const = 0;
 };

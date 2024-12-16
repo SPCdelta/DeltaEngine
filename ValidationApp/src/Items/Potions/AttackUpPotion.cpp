@@ -44,3 +44,8 @@ bool AttackUpPotion::Update()
 	}
 	return false;
 }
+
+Item* AttackUpPotion::Clone() const
+{
+	return new AttackUpPotion{*this};
+}

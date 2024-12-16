@@ -18,3 +18,8 @@ void HealingPotion::Use(Player& player)
 	std::cout << "New health: " << player.GetHealth() << std::endl;
 }
 
+Item* HealingPotion::Clone() const
+{
+	return new HealingPotion{*this};
+}
+

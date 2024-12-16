@@ -176,6 +176,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Classes\IPrototype.cpp" />
     <ClCompile Include="src\Items\ConsumableItem.cpp" />
     <ClCompile Include="src\Items\Potions\Potion.cpp" />
     <ClCompile Include="src\Items\WorldItem.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\IPrototype.hpp" />
     <ClInclude Include="src\Items\ConsumableItem.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
     <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />

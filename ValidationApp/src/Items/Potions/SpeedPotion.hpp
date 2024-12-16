@@ -16,6 +16,6 @@ class SpeedPotion : public Potion
 
 	void Use(Player& player);
 	bool Update() override;
-
+	Item* Clone() const override;
 	PotionType GetType() override { return PotionType::Speed; }
 };
