@@ -3,7 +3,7 @@
 
 MenuView::MenuView(Scene& scene, const std::string& title, Uint8 numOfButtons, const std::string& pathToFont,
 	const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize) :
-	IView{ scene, pathToFont }, _buttons{}
+	IView{ scene, pathToFont, startPos, scale }, _buttons{}
 {
 	InputManager::activateCategory(title);
 	InitTitle(title, fontSize, startPos);
@@ -228,4 +228,9 @@ std::shared_ptr<GameObject>& MenuView::GetButton(Uint8 id)
 Ui::Text& MenuView::GetButtonText(Uint8 id)
 {
 	return GetButton(id)->GetComponent<Ui::Text>();
+}
+
+const Math::Vector2& MenuView::GetSize() const
+{
+	return _scale;
 }
