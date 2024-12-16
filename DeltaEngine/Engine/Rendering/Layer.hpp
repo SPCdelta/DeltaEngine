@@ -68,6 +68,8 @@ public:
 			return "Projectiles";
 		case Layer::Foreground:
 			return "Foreground";
+		case Layer::EngineLayer:
+			return "EngineLayer";
 		default:
 			return "UNKNOWN";
 		}
