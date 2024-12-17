@@ -88,6 +88,8 @@
     <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
     <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
+    <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

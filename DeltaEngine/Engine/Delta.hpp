@@ -24,6 +24,7 @@
 // Math
 #include "Core/Math/Math.hpp"
 #include "Core/Math/MathUtils.hpp"
+#include "Core/Math/Random.hpp"
 
 // String
 #include "Core/Strings/StringUtils.hpp"

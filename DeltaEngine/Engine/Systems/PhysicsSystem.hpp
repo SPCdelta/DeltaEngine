@@ -22,7 +22,7 @@ namespace Physics
 			{
 				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
 
-				Physics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
+				EnginePhysics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
 			}
 		}
 
@@ -32,7 +32,7 @@ namespace Physics
 			{
 				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
 
-				Math::Vector2 position = Physics::GetPosition(rb.GetCollider()._bodyId);
+				Math::Vector2 position = EnginePhysics::GetPosition(rb.GetCollider()._bodyId);
 				rb.GetCollider().transform.position.Set(position);
 			}
 		}
@@ -56,12 +56,12 @@ namespace Physics
 				for (CollisionData& trigger : triggers)
 				{
 					// Check if Trigger has our Collider
-					Physics::PhysicsId otherId;
-					if (Physics::AreEqual(rb.GetShape().id, trigger.shape1))
+					EnginePhysics::PhysicsId otherId;
+					if (EnginePhysics::AreEqual(rb.GetShape().id, trigger.shape1))
 					{
 						otherId = trigger.shape2;
 					}
-					else if (Physics::AreEqual(rb.GetShape().id, trigger.shape2))
+					else if (EnginePhysics::AreEqual(rb.GetShape().id, trigger.shape2))
 					{
 						otherId = trigger.shape1;
 					}
@@ -90,12 +90,12 @@ namespace Physics
 				for (CollisionData& collision : collisions)
 				{
 					// Check if Collision has our Collider
-					Physics::PhysicsId otherId;
-					if (Physics::AreEqual(rb.GetShape().id, collision.shape1))
+					EnginePhysics::PhysicsId otherId;
+					if (EnginePhysics::AreEqual(rb.GetShape().id, collision.shape1))
 					{
 						otherId = collision.shape2;
 					}
-					else if (Physics::AreEqual(rb.GetShape().id, collision.shape2))
+					else if (EnginePhysics::AreEqual(rb.GetShape().id, collision.shape2))
 					{
 						otherId = collision.shape1;
 					}

@@ -11,6 +11,7 @@
 #include "Scenes/LevelEditor.hpp"
 #include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
+#include "Scenes/SpawnerScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -31,9 +32,10 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
+	RegisterScene<SpawnerScene>("SpawnerScene");
 
 	// Load Desired Scene
-	LoadScene("ParticleScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();
