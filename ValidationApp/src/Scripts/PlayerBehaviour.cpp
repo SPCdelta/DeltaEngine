@@ -102,13 +102,7 @@ void PlayerBehaviour::OnUpdate()
 	{
 		if (_player->GetHealth() > 0)
 		{
-			_damageBehaviour->TakeDamage();
-
-			// TODO different amount of damage?? 
-			// If need be, get colliding gameobj in takedamage() and decide then what the damage is 
-			// and return the damage to then use here in the sethealth() call
-			_player->SetHealth(_player->GetHealth() - 1);
-
+			_player->SetHealth(_player->GetHealth() - _damageBehaviour->TakeDamage());
 			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			_sfx->Play();
 		}

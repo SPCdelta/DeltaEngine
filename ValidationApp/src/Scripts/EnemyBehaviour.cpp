@@ -1,4 +1,5 @@
 #include "EnemyBehaviour.hpp"
+#include "../Classes/DamageBehaviour.hpp"
 
 EnemyBehaviour::~EnemyBehaviour()
 {
@@ -51,7 +52,33 @@ void EnemyBehaviour::OnUpdate()
 	}
 	
 	_moveDirection = _aiBehaviour->GetDirection();
-	if (sprite && sprite->GetAnimator() && _enemy->GetHealth() > 0)
+	UpdateAnimation();
+
+	if (_damageBehaviour)
+	{
+		_damageBehaviour->Update(Time::GetDeltaTime());
+		if (_damageBehaviour->GetDamage())
+		{
+			if (_enemy->GetHealth() > 0)
+			{
+				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
+				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+				_sfx->Play();
+			}
+
+			if (_enemy->GetHealth() <= 0)
+			{
+				_dead = true;
+				Events::Event e{};
+				onDeath.Dispatch(e);
+			}
+		}
+	}
+}
+
+void EnemyBehaviour::UpdateAnimation()
+{
+    if (sprite && sprite->GetAnimator() && _enemy->GetHealth() > 0)
 	{
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
@@ -66,33 +93,6 @@ void EnemyBehaviour::OnUpdate()
 		// Idle
 		else
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
-	}
-
-	if (_damageBehaviour)
-	{
-		_damageBehaviour->Update(Time::GetDeltaTime());
-		if (_damageBehaviour->GetDamage())
-		{
-			if (_enemy->GetHealth() > 0)
-			{
-				_damageBehaviour->TakeDamage();
-
-				// TODO different amount of damage??
-				// If need be, get colliding gameobj in takedamage() and decide then what the damage is
-				// and return the damage to then use here in the sethealth() call
-				_enemy->SetHealth(_enemy->GetHealth() - 1);
-
-				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
-				_sfx->Play();
-			}
-
-			if (_enemy->GetHealth() <= 0)
-			{
-				_dead = true;
-				Events::Event e{};
-				onDeath.Dispatch(e);
-			}
-		}
 	}
 }
 

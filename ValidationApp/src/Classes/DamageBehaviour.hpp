@@ -2,6 +2,11 @@
 
 #include "Engine/Delta.hpp"
 
+#include "../Player.hpp"
+#include "../Classes/Projectiles/Projectile.hpp"
+
+class EnemyBehaviour;
+
 class DamageBehaviour
 {
    public:
@@ -11,7 +16,7 @@ class DamageBehaviour
 		void Update(float deltaTime);
 
 		bool GetDamage() const;
-		void TakeDamage();
+		int TakeDamage();
 
 	private:
 		Rigidbody& _rigidbody;
@@ -19,6 +24,7 @@ class DamageBehaviour
 
 		Rendering::Color _ogColor;
 
+		Collider* _currentCollider;
 		std::vector<std::string> _damageSourceTags;
 
 		int _damageCount{0};

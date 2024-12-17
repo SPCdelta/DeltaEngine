@@ -12,12 +12,15 @@ enum class EnemyType
 class Enemy
 {
    public:
-	Enemy(Math::Vector2* position, float speed, int health, int range, int step) : position_(position), speed_(speed), _health(health), 
+	Enemy(Math::Vector2* position, float speed, int health, int damage, int range, int step) : position_(position), speed_(speed), _health(health), _damage(damage),
 		range_(range), step_(step) {}
 
 	virtual void Update(const Math::Vector2& player_position, Audio::SFXSource* _sfx) = 0;
 
 	Math::Vector2* GetPosition() const { return position_; }
+
+	int GetDamage() const { return _damage; }
+	void SetDamage(int damage) { _damage = damage; }
 
 	int GetHealth() const { return _health; }
 	void SetHealth(int health) { _health = health; }
@@ -58,6 +61,8 @@ class Enemy
 
    private:
 	int _health;
+	int _damage;
+
 	int range_;
 	int step_;
 

@@ -6,7 +6,8 @@
 #include "../Classes/Enemies/Goblin.hpp"
 #include "../Classes/Enemies/Skeleton.hpp"
 #include "../Classes/Enemies/Slime.hpp"
-#include "../Classes/DamageBehaviour.hpp"
+
+class DamageBehaviour;
 
 class EnemyBehaviour : public BehaviourScript
 {
@@ -40,4 +41,6 @@ class EnemyBehaviour : public BehaviourScript
 
 	std::unique_ptr<Enemy> _enemy;
 	bool _dead = false;
+
+	void UpdateAnimation();
 };

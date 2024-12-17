@@ -6,7 +6,7 @@
 class Skeleton : public Enemy
 {
    public:
-	Skeleton(Math::Vector2* position, GameObject* obj) : Enemy(position, 2.5f, 10, 50, 5), gameObject(obj) {} 
+	Skeleton(Math::Vector2* position, GameObject* obj) : Enemy(position, 2.5f, 20, 0, 50, 5), gameObject(obj) {} 
 
 	void Update(const Math::Vector2& player_position, Audio::SFXSource* _sfx) override
 	{

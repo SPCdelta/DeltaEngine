@@ -1,25 +1,33 @@
 #include "DamageBehaviour.hpp"
+#include "../Scripts/EnemyBehaviour.hpp"
 
 DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const std::vector<std::string>& damageSourceTags) : 
-	_rigidbody{ rigidbody }, _sprite{ sprite }, _damageSourceTags{damageSourceTags}
+	_rigidbody{ rigidbody }, _sprite{ sprite }, _damageSourceTags{damageSourceTags}, _currentCollider{nullptr}
 {
 	_ogColor = sprite.GetColor();
 
 	_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 	{ 
 		if (IsDamageSource(collider.transform.gameObject->GetTag()))
+		{
 			_damageCount = 1; 
+			_currentCollider = &collider;
+		}		
 	});
 
 	_rigidbody.onTriggerExit.Register([this](Collider& collider)
 	{
 		if (IsDamageSource(collider.transform.gameObject->GetTag()))
+		{
 			_damageCount = 0;
+			_currentCollider = nullptr; 
+		}	
 	});
 }
 
 DamageBehaviour::~DamageBehaviour()
 {
+	_currentCollider = nullptr;
 	// TODO unregister events
 }
 
@@ -44,10 +52,27 @@ bool DamageBehaviour::GetDamage() const
 	return _damageCount > 0 && CanTakeDamage();
 }
 
-void DamageBehaviour::TakeDamage()
+int DamageBehaviour::TakeDamage()
 {
-	StartInvincibility();
-	_sprite.SetColor(Rendering::Color(255.0f, 0.0f, 0.0f, 1.0f)); 
+	int damage = 0;
+	if (_currentCollider)
+	{	
+		if (_currentCollider->transform.gameObject->GetTag() == "projectile" || _currentCollider->transform.gameObject->GetTag() == "skeleton_arrow") 
+		{
+			auto& projectile = _currentCollider->transform.gameObject->GetComponent<Projectile>();
+			damage = projectile.GetProjectileData().damage;
+        } 
+		else if (_currentCollider->transform.gameObject->GetTag() == "goblin" || _currentCollider->transform.gameObject->GetTag() == "slime") 
+		{
+			auto& enemy = _currentCollider->transform.gameObject->GetComponent<EnemyBehaviour>().GetEnemy();
+            damage = enemy.GetDamage(); 
+        }
+
+		StartInvincibility();
+		_sprite.SetColor(Rendering::Color(255.0f, 0.0f, 0.0f, 1.0f));	
+	}
+
+	return damage;
 }
 
 void DamageBehaviour::StartInvincibility()
