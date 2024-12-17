@@ -20,14 +20,11 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 	Rendering::ModifyColor(_spriteData->texture, color);
 
 	Rendering::Rect destRect;
-	destRect.x = static_cast<int>(
-		(transform.position.GetX() - camera->transform.position.GetX()) *
-		viewportData.unitPixelSize);
-	destRect.y = static_cast<int>(
-		viewportData.height -
-		((transform.position.GetY() - camera->transform.position.GetY()) *
-		 viewportData.unitPixelSize) -
-		(viewportData.unitPixelSize * transform.scale.GetY()));
+	destRect.x = static_cast<int>((transform.position.GetX() - camera->transform.position.GetX()) * viewportData.unitPixelSize) 
+		+ static_cast<int>(static_cast<float>(viewportData.width) / 2.0f);
+	destRect.y = static_cast<int>(viewportData.height - ((transform.position.GetY() - camera->transform.position.GetY()) *
+		 viewportData.unitPixelSize) - (viewportData.unitPixelSize * transform.scale.GetY())) 
+		- static_cast<int>(static_cast<float>(viewportData.height) / 2.0f);
 
 	destRect.w = static_cast<int>(viewportData.unitPixelSize * transform.scale.GetX());
 	destRect.h = static_cast<int>(viewportData.unitPixelSize * transform.scale.GetY());

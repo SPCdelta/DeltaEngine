@@ -32,6 +32,21 @@ void PlayerBehaviour::OnStart()
 	onKeyPressed(KEY_Q, [this](Input& e) { _player->SetCoins(69); }, "Gameplay");
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
+
+	keyPressed(Key::KEY_M, [this](Input& e) { _weapon->Use(); });
+
+	// Physics Events
+	rigidbody->onTriggerEnter.Register(
+		[this](Collider& collider)
+		{ 
+			// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
+			if (collider.transform.gameObject->GetTag() == "level_exit")
+			{
+				LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
+				exit.Use();
+			}
+		}
+	);
 }
 
 void PlayerBehaviour::OnUpdate() 

@@ -15,6 +15,8 @@
 
 #include "../Items/Potions/PotionFactory.hpp"
 
+#include "Level/LevelExitBehaviour.hpp"
+
 class PlayerBehaviour : public BehaviourScript
 {
 public:

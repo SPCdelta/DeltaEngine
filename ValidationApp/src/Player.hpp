@@ -31,7 +31,7 @@ class Player
 	void PrintInventory();
 
 	size_t GetInventorySize();
-	InventoryItem* GetInventoryItem(int index);
+	InventoryItem* GetInventoryItem(size_t index);
 
 	int GetCoins() const;
 	void SetCoins(int coins);

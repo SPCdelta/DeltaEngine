@@ -48,15 +48,23 @@ public:
 
 	}
 
-	Math::Vector2 ScreenToWorldPoint(const Math::Point position){
+	Math::Vector2 ScreenToWorldPoint(const Math::Point position)
+	{
 		return ScreenToWorldPoint(static_cast<float>(position.GetX()), static_cast<float>(position.GetY()));
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="screenX">X coordinate of screen</param>
+	/// <param name="screenY">Y coordinate of screen</param>
+	/// <returns></returns>
 	Math::Vector2 ScreenToWorldPoint(float screenX, float screenY)
 	{
-		return {
-			screenX / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetX(),
-			static_cast<float>(static_cast<float>(_viewportData->height) - screenY) / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetY()
+		return 
+		{
+			(screenX - (static_cast<float>(_viewportData->width) / 2.0f)) / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetX(),
+			static_cast<float>(static_cast<float>(_viewportData->height / 2.0f) - (screenY)) / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetY()
 		};
 	}
 

@@ -55,4 +55,7 @@ GameScene::GameScene(const std::string& name)
 	}
 
 	Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}})->AddComponent<MouseFollowBehaviour>();
+	std::shared_ptr<GameObject> exit = Instantiate({{5.0f, 5.0f}, 0.0f, {1.0f, 1.0f}});
+	exit->AddComponent<LevelExitBehaviour>("MainMenuScene");
+	exit->AddComponent<Sprite>("player")->SetLayer(Layer::Foreground);
 }

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <queue>
 
 #include "../GameObject.hpp"
 
@@ -17,6 +18,7 @@
 // Systems
 #include "../Ecs/Registry.hpp"
 #include "../Systems/UpdateSystem.hpp"
+#include "../Systems/ParticleSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/ImageRenderSystem.hpp"
@@ -52,7 +54,7 @@ class Scene
 	virtual void OnStart(){};
 	void DestroyObject(GameObject* gameObject)
 	{
-		auto it = std::remove_if(_objects.begin(), _objects.end(),
+		auto it = std::find_if(_objects.begin(), _objects.end(),
 			[gameObject](const std::shared_ptr<GameObject>& obj)
 			{ 
 				return obj.get() == gameObject; 
@@ -61,8 +63,9 @@ class Scene
 
 		if (it != _objects.end())
 		{
-			_reg.DestroyEntity(gameObject->_id);
-			_objects.erase(it, _objects.end());
+			ecs::EntityId toDestroy = gameObject->_id;
+			_objects.erase(it);
+			_reg.DestroyEntity(toDestroy);
 		}
 	}
 
@@ -70,6 +73,7 @@ class Scene
 	void Update();
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
+	std::shared_ptr<GameObject> Instantiate();
 
 protected:
 	Camera* camera;
@@ -95,6 +99,14 @@ private:
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 	std::shared_ptr<TextRenderSystem> _textRenderSystem;
 	std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<ParticleSystem> _particleSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
+
+	// Destroy
+	std::queue<GameObject*> _toDeleteQueue{};
+	void MarkForDestroy(GameObject* gameObject)
+	{
+		_toDeleteQueue.push(gameObject);
+	}
 };

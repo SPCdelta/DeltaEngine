@@ -24,6 +24,7 @@
 // Math
 #include "Core/Math/Math.hpp"
 #include "Core/Math/MathUtils.hpp"
+#include "Core/Math/Random.hpp"
 
 // String
 #include "Core/Strings/StringUtils.hpp"
@@ -31,6 +32,9 @@
 // Rendering
 #include "Rendering/Layer.hpp"
 #include "Rendering/SpriteMap.hpp"
+
+// Particles
+#include "Rendering/Particles/ParticleEmitter.hpp"
 
 // Input
 #include "Input/DeltaInputs.hpp"
