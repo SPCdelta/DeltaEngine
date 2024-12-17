@@ -3,7 +3,7 @@
 void LayerScene::OnStart()
 {
 	// Create Player
-	std::shared_ptr<GameObject> playerObject{ Instantiate({{4.0f, 4.0f}, 0.0f, {3.0f, 3.0f}}) };
+	std::shared_ptr<GameObject> playerObject{ Instantiate({{4.0f, 4.0f}, 0.0f, {2.5f, 2.5f}}) };
 	std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 	playerSheet->AddCustomAnimation("death", 6, 21, 150);
 	playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
@@ -14,7 +14,7 @@ void LayerScene::OnStart()
 	playerObject->SetTag("player");
 
 	// Create goblin enemy
-	std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
+	std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {2.5f, 2.5f}}) };
 	std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(goblinObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
 	goblinObj->AddComponent<Sprite>("goblin", goblinSheet);
 	goblinObj->AddComponent<Audio::SFXSource>("", false, false);

@@ -18,11 +18,26 @@ Math::Vector2* AIBehaviour::Update()
 	}
 
 	Math::Vector2 distanceToPlayer = *_targetPosition - *position_;
-	if (distanceToPlayer.Magnitude() > range_) // If player is outside of range, stop pathfinding
+	if (distanceToPlayer.Magnitude() > range_) 
 	{
-		_direction = {0.0f, 0.0f};
+		// Player is out of range, start wandering
+		isWandering = true;
+		timeSinceLastWander += Time::GetDeltaTime();
+
+		// If enough time has passed, change the wandering direction
+		if (timeSinceLastWander > wanderCooldown)
+		{
+			wanderDirection = Math::Vector2(rand() % 3 - 1, rand() % 3 - 1); 
+			wanderDirection = wanderDirection.GetNormalized(); 
+			timeSinceLastWander = 0.0f;
+		}
+
+		_direction = wanderDirection;
+		*position_ += _direction * _moveSpeed * Time::GetDeltaTime();
 		return position_;
 	}
+
+	 isWandering = false;
 		 
 	float pathRecalculationCooldown = 1.0f;	 // Seconds
 	static float timeSinceLastPathCalculation = 0.0f;

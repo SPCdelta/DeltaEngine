@@ -37,4 +37,9 @@ class AIBehaviour
 
 	int range_;
 	int step_;
+
+	bool isWandering = false;
+	float wanderCooldown {1.0f};
+	float timeSinceLastWander {0.0f};
+	Math::Vector2 wanderDirection;
 };
