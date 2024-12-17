@@ -35,7 +35,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<SpawnerScene>("SpawnerScene");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("SpawnerScene");
 
 	// Start Application
 	Run();
