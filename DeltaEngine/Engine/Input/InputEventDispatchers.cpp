@@ -28,7 +28,7 @@ bool InputEventDispatchers::deactivateCategories(
 	int countDeactivated = 0;
 	for (auto& category : categories)
 	{
-		countDeactivated += activeCategories.erase(category);
+		countDeactivated += static_cast<int>(activeCategories.erase(category));
 	}
 	return countDeactivated == categories.size();
 }
@@ -76,7 +76,7 @@ void InputEventDispatchers::dispatchActive(const std::string& input, Input input
 		eventIt->second.Dispatch(inputEvent);
 }
 
-void InputEventDispatchers::executeInputsPressedDown(Input allInputs, std::vector<std::string> strInputs, const std::string&  strPressedDown)
+void InputEventDispatchers::executeInputsPressedDown(Input allInputs, std::vector<std::string>& strInputs, const std::string&  strPressedDown)
 {
 	auto it = inputBindings.find(strPressedDown);
 	if (it != inputBindings.end())
@@ -89,7 +89,7 @@ void InputEventDispatchers::executeInputsPressed(
 	std::vector<std::string> results;
 	std::unordered_set<std::string> processedInputs;
 
-	int n = strInputs.size();
+	int n = static_cast<int>(strInputs.size());
 	for (int i = 1; i < (1 << n); ++i)
 	{
 		std::string combinedInput;

@@ -14,4 +14,5 @@ void ShieldBarComponent::InitValues(Player& player)
 	_value = player.GetShield();
 	_unit = _scale.GetX() / _maxValue;
 	_barFg->transform->scale.SetX(_value * _unit);
+	UpdateText();
 }

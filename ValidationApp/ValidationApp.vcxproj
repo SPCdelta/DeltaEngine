@@ -176,10 +176,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Classes\DamageBehaviour.cpp" />
+    <ClCompile Include="src\Scenes\LayerScene.cpp" />
+    <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
-    <ClCompile Include="src\Views\Components\GameSpeedComponent.cpp" />
     <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\HotbarComponent.cpp" />
     <ClCompile Include="src\Views\HUDView.cpp" />
@@ -206,10 +208,14 @@
   <ItemGroup>
     <ClInclude Include="src\Classes\ParticleFactory.hpp" />
     <ClInclude Include="src\Scenes\ParticleScene.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
+    <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
-    <ClInclude Include="src\Views\Components\GameSpeedComponent.hpp" />
     <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
     <ClInclude Include="src\Views\HUDView.hpp" />
@@ -219,6 +225,7 @@
   <ItemGroup>
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorLevelChose.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +319,7 @@
     <Image Include="Assets\Textures\player.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <Image Include="Assets\Textures\Rect.png" />
     <Image Include="Assets\Textures\spritesheet - Copy.png" />
     <Image Include="Assets\Textures\spritesheet.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
@@ -432,6 +440,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Font>
     <None Include="Assets\Files\example.json" />
+    <None Include="Assets\Level\level-1.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

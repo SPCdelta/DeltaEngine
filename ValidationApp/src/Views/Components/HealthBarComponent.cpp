@@ -14,6 +14,7 @@ void HealthBarComponent::InitValues(Player& player)
 	_value = player.GetHealth();
 	_unit = _scale.GetX() / _maxValue;
 	_barFg->transform->scale.SetX(_value * _unit);
+	UpdateText();
 }
 
 

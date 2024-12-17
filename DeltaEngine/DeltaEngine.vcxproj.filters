@@ -34,6 +34,10 @@
     <ClCompile Include="Engine\Rendering\Renderables\TextRenderable.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
+    <ClCompile Include="Engine\UI\Brush\BrushSprite.hpp" />
+    <ClCompile Include="Engine\Core\Strings\StringUtils.cpp" />
+    <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
+    <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -106,13 +110,19 @@
     <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
-    <ClInclude Include="Engine\TransformDTO.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\TransformDTO.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
+    <ClInclude Include="Engine\UI\Brush\SnapToGridBrush.hpp" />
     <ClInclude Include="Engine\Core\Math\Math.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\Particle.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.hpp" />
     <ClInclude Include="Engine\Systems\ParticleSystem.hpp" />
+    <ClInclude Include="Engine\UI\Scrollable.hpp" />
+    <ClInclude Include="Engine\Core\AI\AIBehaviour.hpp" />
+    <ClInclude Include="Engine\Core\AI\IAIStrategy.hpp" />
+    <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
+    <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

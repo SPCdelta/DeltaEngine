@@ -19,7 +19,8 @@ public:
 	virtual void Use() = 0;
 	Math::Vector2 GetAimDirection() const
 	{ 
-		return _user->transform->position.DirectionTo(_user->camera->ScreenToWorldPoint(_mouseX, _mouseY)); 
+		return _user->transform->position.DirectionTo(_user->camera->ScreenToWorldPoint({_mouseX, _mouseY})); //TODO je kan nu ook InputManager::getMouse krijgen
+		//InputManager::GetMousePosition(); <---
 	}
 
 protected:

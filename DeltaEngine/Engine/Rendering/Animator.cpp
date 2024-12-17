@@ -1,9 +1,10 @@
 #include "Animator.hpp"
+#include "../Core/Time.hpp"
 
 void Animator::Play(std::shared_ptr<AnimationSheet> sheet, Direction direc, bool pauseWalk)
 {
 	bool isMoving = true;
-	Rendering::UnsignInt32 currentTime = Rendering::GetTicks();	
+	Rendering::UnsignInt32 currentTime = Rendering::GetTicks() * Time::GetMultiplier();	
 	if (!pauseWalk && currentTime - sheet->GetLastMoveTime() >= sheet->GetMoveInterval())
 	{
 		if (direc == Direction::UP) // up 
@@ -17,7 +18,7 @@ void Animator::Play(std::shared_ptr<AnimationSheet> sheet, Direction direc, bool
 		else
 			isMoving = false;
 
-		if (isMoving && currentTime - sheet->GetLastFrameTime() > sheet->GetAnimationSpeed())
+		if (isMoving && currentTime - sheet->GetLastFrameTime() > static_cast<Rendering::UnsignInt32>(sheet->GetAnimationSpeed()))
 		{
 			sheet->SetCurrentFrame((sheet->GetCurrentFrame() + 1) % sheet->GetFrameCount());
 			Rendering::Rect tempSrcRect = sheet->GetSrcRect();

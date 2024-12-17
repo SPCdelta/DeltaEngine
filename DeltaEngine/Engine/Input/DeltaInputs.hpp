@@ -153,7 +153,6 @@ struct Input
 	int wheelVertically;
 };
 
-
 class InputsEnum
 {
    public:

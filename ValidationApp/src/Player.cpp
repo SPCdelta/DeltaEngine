@@ -18,7 +18,7 @@ void Player::SetAttackDamage(float damage)
 		_attackDamage = damage;
 }
 
-void Player::SetSpeed(float speed) 
+void Player::SetSpeed(float speed)
 {
 	if (speed < 0.0f)
 		_speed = 0.0f;

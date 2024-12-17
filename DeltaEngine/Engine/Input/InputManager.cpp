@@ -95,17 +95,17 @@ InputLocation InputManager::onMouseButtonUp(MouseButton button, Events::EventCal
 	return inputLoc;
 }
 
-InputLocation InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent)
+InputLocation InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent, std::string category)
 {
-	instance_.mouseMovement.Register(mouseEvent);
-	return {"mouse-move", Unknown, "", mouseEvent};
+	instance_.mouseMovement[category].Register(mouseEvent);
+	return {"MouseMovement", Unknown, category, mouseEvent, "MouseMove"};
 
 }
 
-InputLocation InputManager::onMouseWheel(Events::EventCallback<Input&> wheelEvent)
+InputLocation InputManager::onMouseWheel(Events::EventCallback<Input&> wheelEvent, std::string category)
 {
-	instance_.mouseWheelMovement.Register(wheelEvent);
-	return {"mouse-wheel", Unknown, "", wheelEvent};
+	instance_.mouseWheelMovement[category].Register(wheelEvent);
+	return {"MouseWheel", Unknown, category, wheelEvent, "MouseWheel" };
 }
 
 void InputManager::updateKeyDown(Key input)
@@ -155,14 +155,19 @@ void InputManager::updateMouseMovement(int x, int y)
 {
 	allInputs.mouseX = x;
 	allInputs.mouseY = y;
-
-	mouseMovement.Dispatch(allInputs);
+	for (auto& [key,value]: mouseMovement)
+	{
+		value.Dispatch(allInputs);
+	}
 }
 
 void InputManager::updateMouseWheel(int wheelVertically)
 {
 	allInputs.wheelVertically = wheelVertically;
-	mouseWheelMovement.Dispatch(allInputs);
+	for (auto& [key, value] : mouseWheelMovement)
+	{
+		value.Dispatch(allInputs);
+	}
 }
 
 // Execute input events
@@ -179,13 +184,13 @@ void InputManager::executeInputEvents()
 }
 
 void InputManager::remove(InputLocation inputLoc) {
-	if (inputLoc.input == "mouse-wheel")
+	if (inputLoc.inputType.find("MouseWheel") != std::string::npos)
 	{
-		mouseWheelMovement.Unregister(inputLoc.regesterd);
+		mouseWheelMovement[inputLoc.category].Unregister(inputLoc.regesterd);
 	}
-	else if (inputLoc.input == "mouse-move")
+	else if (inputLoc.inputType.find("MouseMove") != std::string::npos)
 	{
-		mouseMovement.Unregister(inputLoc.regesterd);
+		mouseMovement[inputLoc.category].Unregister(inputLoc.regesterd);
 	}
 	else
 	{

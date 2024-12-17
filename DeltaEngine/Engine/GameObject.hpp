@@ -15,6 +15,9 @@
 #include "Audio/SFXSource.hpp"
 
 #include "UI/Button.hpp"
+#include "UI/Scrollable.hpp"
+#include "UI/Brush/SnapToGridBrush.hpp"
+#include "UI/Brush/BrushSprite.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
 
@@ -33,7 +36,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddPointerComponent<BehaviourScript*>(_id, new T()));
+			T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T()));
 			component->gameObject = this;
 			component->transform = transform;
 			component->camera = _camera;
@@ -42,7 +45,7 @@ public:
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddPointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
+			T* component = static_cast<T*>(_reg.EmplacePointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
@@ -52,11 +55,29 @@ public:
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
+			return static_cast<T*>(&_reg.AddPointerComponent<Physics::Rigidbody>(_id, *_reg.GetComponent<Physics::Collider*>(_id)));
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
-			T* component = static_cast<T*>(_AddComponent<Ui::Button>(Ui::Button(transform->position, transform->scale)));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Button>(_id, transform->position, transform->scale));
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, Ui::Scrollable>)
+		{
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Scrollable>(_id, transform, std::forward<Args>(args)...));
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, SnapToGridBrush>)
+		{
+			Sprite* sprite = AddComponent<Sprite>("default_texture");
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<SnapToGridBrush>(_id, *transform, sprite, _camera, std::forward<Args>(args)...));
+			
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, BrushSprite>)
+		{
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<BrushSprite>(_id, *transform, std::forward<Args>(args)...));
+
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, ParticleEmitter>)
@@ -66,7 +87,7 @@ public:
 		}
 		else
 		{
-			return static_cast<T*>(_AddComponent<T>(T(std::forward<Args>(args)...)));
+			return static_cast<T*>(&_reg.EmplaceComponent<T>(_id, std::forward<Args>(args)...));
 		}
 	}
 
@@ -114,7 +135,7 @@ public:
 	Transform* transform = nullptr;
 
 	bool IsActive() const { return _active; }
-	bool SetActive(bool active) { _active = active; }
+	void SetActive(bool active) { _active = active; }
 
 	Layer GetLayer() const 
 	{  

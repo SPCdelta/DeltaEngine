@@ -33,12 +33,20 @@ public:
 	Layer GetLayer() const { return _layer; };
 	void SetLayer(Layer layer) { _layer = layer; };
 
-protected:
+	void SetBorder(uint16_t borderThickness_) { borderThickness = borderThickness_; };
+	void SetBorderColor(Rendering::Color borderColor_) { borderColor = borderColor_; };
+	void RemoveBorder() { borderThickness = 0; };
 
-	Rendering::Color color{Rendering::Color(255, 255, 255, 255)};
+protected:
+	void RenderBorder(Rendering::Renderer* renderer, Rendering::Rect& borderRect);
+
+	Rendering::Color color{Rendering::Color(255, 255, 255, 255)}; //If this is not White it will not show the textures
 
 	bool flipX{false};
 	bool flipY{false};
+
+	uint16_t borderThickness{0};
+	Rendering::Color borderColor{ Rendering::Color(0,0,0) };
 
 	Layer _layer{ Layer::Default };
 };

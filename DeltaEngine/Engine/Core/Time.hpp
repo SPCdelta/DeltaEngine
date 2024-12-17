@@ -2,6 +2,8 @@
 
 class Application;
 
+constexpr float MAX_MULTIPLIER = 2.f;
+
 class Time
 {
 public:
@@ -10,12 +12,19 @@ public:
 	Time& operator=(const Time&) = delete;
 	Time& operator=(Time&&) = delete;
 	static float GetDeltaTime();
+	static float GetMultiplier();
+	static void SetMultiplier(float value);
+	static void SetIncrement(float value);
 
 	friend class Application;
 
 private:
 	static Time instance;
 	static float deltaTime;
+	static float multiplier;
+	static float increment;
 	static void SetDeltaTime(float deltaTime);
+	static void IncreaseMultiplier();
+	static void DecreaseMultiplier();
 	Time() {}
 };

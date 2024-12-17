@@ -6,13 +6,12 @@
 
 #include "../Core/Math/Vector2.hpp"
 #include "../Core/Events/EventDispatcher.hpp"
-
+#include "../Core/Time.hpp"
 #include "../Transform.hpp"
 
 
 namespace Physics
 {
-	constexpr float TIME_STEP = (1.0f / 60.0f);
 	constexpr int SUB_STEP_COUNT = 4;
 
 	enum class RigidbodyType
@@ -214,6 +213,11 @@ namespace Physics
 	inline TriggerEvents GetTriggerEvents(WorldId id)
 	{
 		return b2World_GetSensorEvents(id);
+	}
+
+	inline void EnableSleep(b2BodyId bodyId, bool enableSleep)
+	{
+		return b2Body_EnableSleep(bodyId, enableSleep);;
 	}
 
 	namespace Event

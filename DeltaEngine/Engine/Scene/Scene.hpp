@@ -33,7 +33,7 @@ class Scene
 
 	friend class Application;
 
-	const std::string& GetName() const { return _name; }
+	const std::string& GetName() const;
 
 	Window* GetWindow() { return _renderSystem->GetWindow(); }
 	void SetWindow(Window& window)
@@ -43,7 +43,7 @@ class Scene
 		_imageRenderSystem->SetWindow(&window);
 		_imageRenderSystem->SetViewportData(&window.GetViewport());
 		_textRenderSystem->SetWindow(&window);
-		_camera->SetViewportData(&window.GetViewport());
+		camera->SetViewportData(&window.GetViewport());
 	}
 
 	void LoadScene(const std::string& name)
@@ -75,6 +75,12 @@ class Scene
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 	std::shared_ptr<GameObject> Instantiate();
 
+protected:
+	Camera* camera;
+
+	void DestroyObject(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
+	void DestroyPointerObject(GameObject* gameObject) { gameObject->Destroy(gameObject); }
+
 private:
 	InputFacade* _inputfacade = nullptr;
 	Rendering::Event* _windowEvent = nullptr;
@@ -86,7 +92,6 @@ private:
 	Events::EventDispatcher<std::shared_ptr<GameObject>> _instantiateEvent{};
 
 	std::shared_ptr<GameObject> _cameraObj;
-	Camera* _camera;
 
 	Physics::PhysicsWorld _physicsWorld{};
 
