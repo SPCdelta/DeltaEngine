@@ -65,7 +65,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	{ 
 		std::make_shared<GameObject>
 		(
-			this, entityId, _reg, _physicsWorld, _changeSceneEvent, _camera, transformComponent
+			this, entityId, _reg, _physicsWorld, _changeSceneEvent, camera, transformComponent
 		) 
 	};
 	transformComponent.gameObject = obj.get();

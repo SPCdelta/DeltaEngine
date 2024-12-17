@@ -87,7 +87,6 @@ void ValidationApp::LoadAssets()
 
 	SpriteMap particlesMap
 	{
-		"particles_map", 
 		"Assets\\Textures\\Particles\\particles.png",
 		{
 			{ "particle_big", { 0, 0 }, { 5, 5 } },
@@ -95,7 +94,8 @@ void ValidationApp::LoadAssets()
 			{ "particle_medium_2", { 8, 0 }, { 11, 3 } },
 			{ "particle_small", { 11, 0 }, { 13, 2 } },
 			{ "particle_tiny", { 13, 0 }, { 14, 1 } }
-		}
+		},
+		"particles_map", 
 	};
 
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
