@@ -26,12 +26,12 @@ namespace Physics
 			}
 		}
 
-		Collider* GetCollider(Physics::PhysicsId id)
+		Collider* GetCollider(EnginePhysics::PhysicsId id)
 		{
 			for (ecs::EntityId entityId : _view)
 			{
 				Collider* collider{ _view.get<Collider*>(entityId) };
-				if (Physics::AreEqual(collider->_shape.id, id))
+				if (EnginePhysics::AreEqual(collider->_shape.id, id))
 				{
 					return collider;
 				}

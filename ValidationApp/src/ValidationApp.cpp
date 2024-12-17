@@ -10,6 +10,7 @@
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
+#include "Scenes/SpawnerScene.hpp"
 
 
 ValidationApp::ValidationApp()
@@ -30,9 +31,10 @@ ValidationApp::ValidationApp()
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
 	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
+	RegisterScene<SpawnerScene>("SpawnerScene");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("SpawnerScene");
 
 	// Start Application
 	Run();
