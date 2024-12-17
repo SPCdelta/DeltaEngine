@@ -11,7 +11,7 @@ class AStarStrategy : public IAIStrategy
    public:
 	AStarStrategy() = default;
 
-	std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range = 500, int step = 50) override;
+	std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range, int step) override;
 
    private:
         Node* CreateNode(const Math::Vector2& position, Node* parent = nullptr);

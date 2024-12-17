@@ -11,7 +11,19 @@ EnemyBehaviour::~EnemyBehaviour()
 
 void EnemyBehaviour::OnStart()
 {
-	_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position, 5); // TODO, not always a goblin (change when working on enemies)
+	switch (Enemy::StringToType(gameObject->GetTag()))
+	{
+		case EnemyType::Goblin:
+			_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position);
+			break;
+		case EnemyType::Skeleton:
+			_enemy = std::make_unique<Skeleton>(&gameObject->GetComponent<Transform>().position);
+			break;
+		case EnemyType::Slime:
+			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position);
+			break;
+	}
+
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);	
@@ -19,7 +31,7 @@ void EnemyBehaviour::OnStart()
 
 	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
-	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, 2.0);
+	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), 2.0);
 }
 
 void EnemyBehaviour::OnUpdate()

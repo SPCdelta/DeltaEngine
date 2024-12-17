@@ -9,7 +9,7 @@
 class AIBehaviour
 {
    public:
-	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Math::Vector2* pos, Math::Vector2* targetPos, float speed);
+	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Math::Vector2* pos, Math::Vector2* targetPos, int range, int step, float speed);
 	~AIBehaviour();
 
 	Math::Vector2* Update();
@@ -34,4 +34,7 @@ class AIBehaviour
 
 	float _moveSpeed;
 	Math::Vector2 _direction;
+
+	int range_;
+	int step_;
 };

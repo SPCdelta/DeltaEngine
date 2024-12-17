@@ -1,7 +1,7 @@
 #include "AIBehaviour.hpp"
 
-AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Math::Vector2* pos, Math::Vector2* targetPos, float speed = 1.0f) : 
-		strategy_(strategy), position_(pos), _targetPosition(targetPos), _moveSpeed(speed) {}
+AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Math::Vector2* pos, Math::Vector2* targetPos, int range, int step, float speed = 1.0f) : 
+		strategy_(strategy), position_(pos), _targetPosition(targetPos), _moveSpeed(speed), range_(range), step_(step) {}
 
 AIBehaviour::~AIBehaviour()
 {
@@ -63,7 +63,7 @@ void AIBehaviour::CalculateNewPath()
 {
 	if (strategy_) 
 	{
-		auto newPath = strategy_->CalculatePath(*position_, *_targetPosition);
+		auto newPath = strategy_->CalculatePath(*position_, *_targetPosition, range_, step_);
 		if (!newPath.empty() && ((*_targetPosition - newPath.front()).Magnitude() < (*_targetPosition - *position_).Magnitude())) 
 			path_ = std::move(newPath);
 	}

@@ -4,6 +4,8 @@
 
 #include "../Classes/Enemies/Enemy.hpp"
 #include "../Classes/Enemies/Goblin.hpp"
+#include "../Classes/Enemies/Skeleton.hpp"
+#include "../Classes/Enemies/Slime.hpp"
 #include "../Classes/DamageBehaviour.hpp"
 
 class EnemyBehaviour : public BehaviourScript

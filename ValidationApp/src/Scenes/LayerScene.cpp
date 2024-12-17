@@ -20,8 +20,8 @@ void LayerScene::OnStart()
 	enemyObj->AddComponent<Audio::SFXSource>("", false, false);
 	enemyObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	enemyObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;
 	enemyObj->SetTag("goblin");
+	enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
 	auto behaviour = &enemyObj->GetComponent<EnemyBehaviour>();
 		
 	// Create hitbox for the enemy so it can get hurt by the projectiles
