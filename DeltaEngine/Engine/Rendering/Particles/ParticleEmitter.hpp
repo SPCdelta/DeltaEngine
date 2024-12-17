@@ -37,6 +37,9 @@ struct ParticleEmitterConfiguration
 
 	float minRotationSpeed;
 	float maxRotationSpeed;
+
+	float minScale;
+	float maxScale;
 };
 
 class ParticleSystem;
@@ -64,7 +67,14 @@ public:
 	void Stop()
 	{ 
 		_started = false;
-		// TODO reset stuff
+		_playingFor = 0.0f;
+		_spawnParticleIn = 0.0f;
+
+		for (size_t i = _particles.size(); i-- > 0;)
+		{
+			Destroy(i);
+		}
+		_particles.clear();
 	}
 
 	void SetLoop(bool looping) { _configuration.loop = looping; }
@@ -126,7 +136,11 @@ protected:
 
 	virtual Vector2 GetScale()
 	{
-		return { 0.25f, 0.25f };
+		return 
+		{ 
+			Random::NextFloat(_configuration.minScale, _configuration.maxScale),
+			Random::NextFloat(_configuration.minScale, _configuration.maxScale)
+		};
 	}
 
 private:
@@ -181,8 +195,12 @@ private:
 			return;
 		}
 
-		_spawnParticleIn = Random::NextFloat(_configuration.minSpawnInterval, _configuration.maxSpawnInterval);
-		CreateParticle();
+		// Take into account that all extra time that passed should be processed, not lost
+		while (_spawnParticleIn <= 0.0f)
+		{
+			_spawnParticleIn = Random::NextFloat(_configuration.minSpawnInterval, _configuration.maxSpawnInterval) - _spawnParticleIn;
+			CreateParticle();
+		}
 	}
 
 	void Update()
@@ -208,7 +226,6 @@ private:
 			}
 		}
 
-		// TODO: fix this in another user story
 		// Spawn New Particles
 		TrySpawnParticle();
 
@@ -220,10 +237,6 @@ private:
 				gameObject->transformRef.position += (particle.direction * particle.speed * Time::GetDeltaTime());
 				gameObject->transformRef.rotation += ((360.0f / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
 				particle.aliveFor -= Time::GetDeltaTime();
-			}
-			else
-			{
-				std::cout << "Error... again" << std::endl;
 			}
 		}
 
