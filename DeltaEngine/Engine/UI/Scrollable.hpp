@@ -24,12 +24,8 @@ public:
 		});
 	}
 
-	~Scrollable(){
-		InputManager::GetInstance().remove(_scrollable);
-	}
-
 private:
-	InputLocation _scrollable;
+	std::unique_ptr<InputListener> _scrollable;
 
 };
 }

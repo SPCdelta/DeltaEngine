@@ -34,13 +34,12 @@ public:
 	void onMouseMove(Events::EventCallback<Input&> mouseEvent);
 	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
-	void unregisterInputs();
 
 	GameObject* gameObject = nullptr;
 	Transform* transform = nullptr;
 	Camera* camera = nullptr;
 
 protected:
-	std::vector<InputLocation> registerdInputs;
+	std::vector<std::unique_ptr<InputListener>> registerdInputs;
 };
 

@@ -1,9 +1,7 @@
 #include "InputEventDispatchers.hpp"
 #include <algorithm>
 
-void InputEventDispatchers::add(const std::string& inputBinding,
-								const std::string& category,
-								Events::EventCallback<Input&> Inputevent)
+void InputEventDispatchers::Add(InputState state, const std::string& inputBinding, const std::string& category, Events::EventCallback<Input&>& Inputevent)
 {
 	if (allCategories.find(category) == allCategories.end())
 		activeCategories.insert(category);
@@ -11,18 +9,18 @@ void InputEventDispatchers::add(const std::string& inputBinding,
 	allCategories.insert(category);
 	inputBindingCategory[inputBinding] = category;
 
-	if (!find(inputBinding))
-		inputBindings[inputBinding] = Events::EventDispatcher<Input&>();
+	if (!Find(state, inputBinding))
+		inputBindings[state][inputBinding] = Events::EventDispatcher<Input&>();
 
-	inputBindings[inputBinding].Register(Inputevent);
+	inputBindings[state][inputBinding].Register(Inputevent);
 }
 
-bool InputEventDispatchers::deactivateCategory(const std::string& category)
+bool InputEventDispatchers::DeactivateCategory(const std::string& category)
 {
 	return activeCategories.erase(category) == 1;
 }
 
-bool InputEventDispatchers::deactivateCategories(
+bool InputEventDispatchers::DeactivateCategories(
 	std::set<std::string> categories)
 {
 	int countDeactivated = 0;
@@ -33,7 +31,7 @@ bool InputEventDispatchers::deactivateCategories(
 	return countDeactivated == categories.size();
 }
 
-bool InputEventDispatchers::activateCategory(const std::string& category)
+bool InputEventDispatchers::ActivateCategory(const std::string& category)
 {
 	if (allCategories.find(category) == allCategories.end())
 		return false;
@@ -42,7 +40,7 @@ bool InputEventDispatchers::activateCategory(const std::string& category)
 	return true;
 }
 
-bool InputEventDispatchers::activateCategories(std::set<std::string> categories)
+bool InputEventDispatchers::ActivateCategories(std::set<std::string> categories)
 {
 	int countActivated = 0;
 	for (auto& category : categories)
@@ -56,12 +54,12 @@ bool InputEventDispatchers::activateCategories(std::set<std::string> categories)
 	return countActivated == categories.size();
 }
 
-bool InputEventDispatchers::find(const std::string& input)
+bool InputEventDispatchers::Find(InputState state, const std::string& input)
 {
-	return inputBindings.find(input) != inputBindings.end();
+	return inputBindings[state].find(input) != inputBindings[state].end();
 }
 
-void InputEventDispatchers::dispatchActive(const std::string& input, Input inputEvent)
+void InputEventDispatchers::DispatchActive(InputState state, const std::string& input, Input inputEvent)
 {
 	auto it = inputBindingCategory.find(input);
 
@@ -71,20 +69,19 @@ void InputEventDispatchers::dispatchActive(const std::string& input, Input input
 	if (activeCategories.find(it->second) == activeCategories.end())
 		return;
 
-	auto eventIt = inputBindings.find(input);
-	if (eventIt != inputBindings.end())
+	auto eventIt = inputBindings[state].find(input);
+	if (eventIt != inputBindings[state].end())
 		eventIt->second.Dispatch(inputEvent);
 }
 
-void InputEventDispatchers::executeInputsPressedDown(Input allInputs, std::vector<std::string>& strInputs, const std::string&  strPressedDown)
+void InputEventDispatchers::ExecuteInputsPressedDown(Input allInputs, std::vector<std::string>& strInputs, const std::string&  strPressedDown)
 {
-	auto it = inputBindings.find(strPressedDown);
-	if (it != inputBindings.end())
-			dispatchActive(strPressedDown, allInputs);
+	auto it = inputBindings[PressedDown].find(strPressedDown);
+	if (it != inputBindings[PressedDown].end())
+			DispatchActive(PressedDown, strPressedDown, allInputs);
 }
 
-void InputEventDispatchers::executeInputsPressed(
-	Input allInputs, std::vector<std::string> strInputs)
+void InputEventDispatchers::ExecuteInputsPressed(Input allInputs, std::vector<std::string>& strInputs)
 {
 	std::vector<std::string> results;
 	std::unordered_set<std::string> processedInputs;
@@ -101,7 +98,7 @@ void InputEventDispatchers::executeInputsPressed(
 			}
 		}
 
-		if (find(combinedInput) &&
+		if (Find(Pressed, combinedInput) &&
 			processedInputs.find(combinedInput) == processedInputs.end())
 		{
 			results.push_back(combinedInput);
@@ -111,10 +108,10 @@ void InputEventDispatchers::executeInputsPressed(
 
 	for (const auto& input : results)
 	{
-		dispatchActive(input, allInputs);
+		DispatchActive(Pressed, input, allInputs);
 	}
 }
 
-void InputEventDispatchers::remove(InputLocation inputLoc) {
-	inputBindings[inputLoc.input].Unregister(inputLoc.regesterd);
+void InputEventDispatchers::Remove(InputState state, const std::string& inputBinding, const std::string& category, Events::EventCallback<Input&> regesterd) {
+	inputBindings[state][inputBinding].Unregister(regesterd);
 }

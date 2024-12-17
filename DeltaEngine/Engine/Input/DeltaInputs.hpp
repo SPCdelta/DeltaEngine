@@ -144,6 +144,13 @@ enum InputState
 	Unknown
 };
 
+enum InputType{
+	KEYBOARD,
+	MOUSEBUTTON,
+	MOUSEMOVEMENT,
+	MOUSEWHEELMOVEMENT
+};
+
 struct Input
 {
 	std::set<Key> keys;

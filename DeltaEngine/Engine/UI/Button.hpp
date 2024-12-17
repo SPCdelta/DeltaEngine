@@ -21,11 +21,10 @@ class Button
 	void SetOnMousePressed(std::function<void()> func, const std::string& category);
 	void SetPosition(const Vector2& scale);
 	void SetScale(const Vector2& scale);
-	void ClearFunctions();
-	~Button();
+
    private:
 	Vector2 _position;
 	Vector2 _scale;
-	std::vector<InputLocation> _inputLocations;
+	std::vector<std::unique_ptr<InputListener>> _inputLocations;
 };
 }  // namespace Ui

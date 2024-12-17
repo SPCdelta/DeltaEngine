@@ -52,17 +52,3 @@ void Button::SetScale(const Vector2& scale)
 {
 	_scale = scale;
 }
-
-void Button::ClearFunctions()
-{
-	for (auto& item : _inputLocations)
-	{
-		InputManager::GetInstance().remove(item);
-	}
-	_inputLocations.clear();
-}
-
-Button::~Button()
-{
-	ClearFunctions();
-}

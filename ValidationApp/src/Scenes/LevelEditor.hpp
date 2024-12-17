@@ -327,12 +327,6 @@ public:
 
     }
 
-
-    ~LevelEditor()
-    {
-        CleanUp();
-    }
-
 private:
     
     void HiddeOptionTiles(){
@@ -342,14 +336,7 @@ private:
         }
     }
 
-    void CleanUp(){
-        for (auto& input : _inputs)
-        {
-            InputManager::GetInstance().remove(input);
-        }
-        _inputs.clear();
-    }
-
+    std::vector<std::unique_ptr<InputListener>> _inputs;
     Transform _screenPort;
 
     std::string _saveFilePath;
@@ -361,7 +348,6 @@ private:
 
     std::shared_ptr<GameObject> _brush;
 
-    std::vector<InputLocation> _inputs;
 
     Layer _layer = Layer::Default;
 

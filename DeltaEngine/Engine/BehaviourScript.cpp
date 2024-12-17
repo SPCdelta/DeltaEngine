@@ -1,10 +1,6 @@
 #include "BehaviourScript.hpp"
 
 
-BehaviourScript::~BehaviourScript() {
-	unregisterInputs();
-}
-
 void BehaviourScript::keyPressed(Key keyDown,
 								 Events::EventCallback<Input&> keyEvent,
 								 std::string category)
@@ -43,9 +39,7 @@ void BehaviourScript::onMouseButtonDown(
 		InputManager::onMouseButtonDown(button, buttonEvent, category));
 }
 
-void BehaviourScript::onMouseButtonUp(MouseButton button,
-									  Events::EventCallback<Input&> buttonEvent,
-									  std::string category)
+void BehaviourScript::onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category)
 {
 	registerdInputs.push_back(
 		InputManager::onMouseButtonUp(button, buttonEvent, category));
@@ -57,12 +51,4 @@ void BehaviourScript::onMouseMove(Events::EventCallback<Input&> mouseEvent) {
 
 void BehaviourScript::onMouseWheel(Events::EventCallback<Input&> wheelEvent) {
 	registerdInputs.push_back(InputManager::onMouseWheel(wheelEvent));
-}
-
-void BehaviourScript::unregisterInputs() {
-	for (auto& input : registerdInputs)
-	{
-		InputManager::GetInstance().remove(input);
-	}
-	registerdInputs.clear();
 }

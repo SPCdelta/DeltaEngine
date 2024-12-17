@@ -27,17 +27,7 @@ public:
 		));
 	};
 
-
-	~BrushSprite(){
-		for (auto& input : _inputLocations)
-		{
-			InputManager::GetInstance().remove(input);
-		}
-		_inputLocations.clear();
-	
-	}
-
 private:
-	std::vector<InputLocation> _inputLocations;
+	std::vector<std::unique_ptr<InputListener>> _inputLocations;
 
 };

@@ -82,11 +82,6 @@ public:
 		_screenViewPort = screenViewPort_;
 	}
 
-	~SnapToGridBrush()
-	{
-		CleanUp();
-	}
-
 private:
 	void MouseToCanvase(Math::Point& mouse){
 		if (static_cast<float>(mouse.GetX()) < _screenViewPort.position.GetX())
@@ -103,7 +98,7 @@ private:
 
 	}
 
-	std::vector<InputLocation> _inputLocations;
+	std::vector<std::unique_ptr<InputListener>> _inputLocations;
 	
 	Camera* _camera;
 	Transform& _transform;
@@ -115,15 +110,5 @@ private:
 	bool _pressed = false;
 	bool _isActive = false;
 	std::function<void(Transform&, Sprite*)> _func;
-
-	
-	void CleanUp(const std::string& category = "") {
-		auto& inputM = InputManager::GetInstance();
-		for (auto& input : _inputLocations)
-		{
-			inputM.remove(input);
-		}
-		_inputLocations.clear();
-	}
 	
 };
