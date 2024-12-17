@@ -14,29 +14,29 @@ void LayerScene::OnStart()
 	playerObject->SetTag("player");
 
 	// Create goblin enemy
-	//std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
-	//std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(goblinObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
-	//goblinObj->AddComponent<Sprite>("goblin", goblinSheet);
-	//goblinObj->AddComponent<Audio::SFXSource>("", false, false);
-	//goblinObj->AddComponent<BoxCollider>()->SetTrigger(true);
-	//goblinObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	//goblinObj->SetTag("goblin");
-	//goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
-	//auto goblinBehaviour = &goblinObj->GetComponent<EnemyBehaviour>();
-	//	
-	//// Create hitbox for the enemy so it can get hurt by the projectiles
-	//std::shared_ptr<GameObject> goblinDmgObj{ Instantiate(goblinObj->GetComponent<Transform>()) };
-	//goblinDmgObj->AddComponent<Sprite>("goblin")->SetVisible(false);
-	//goblinDmgObj->AddComponent<BoxCollider>();
-	//goblinDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	//goblinDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&goblinObj->GetComponent<Transform>().position) ;
-	//goblinBehaviour->SetDamageBehaviour(goblinDmgObj->GetComponent<Rigidbody>());
+	std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
+	std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(goblinObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
+	goblinObj->AddComponent<Sprite>("goblin", goblinSheet);
+	goblinObj->AddComponent<Audio::SFXSource>("", false, false);
+	goblinObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	goblinObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	goblinObj->SetTag("goblin");
+	goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
+	auto goblinBehaviour = &goblinObj->GetComponent<EnemyBehaviour>();
+		
+	// Create hitbox for the enemy so it can get hurt by the projectiles
+	std::shared_ptr<GameObject> goblinDmgObj{ Instantiate(goblinObj->GetComponent<Transform>()) };
+	goblinDmgObj->AddComponent<Sprite>("goblin")->SetVisible(false);
+	goblinDmgObj->AddComponent<BoxCollider>();
+	goblinDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	goblinDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&goblinObj->GetComponent<Transform>().position) ;
+	goblinBehaviour->SetDamageBehaviour(goblinDmgObj->GetComponent<Rigidbody>());
 
-	//goblinBehaviour->onDeath.Register([this, goblinObj, goblinDmgObj](Events::Event e)
-	//{
-	//	DestroyObject(goblinObj);
-	//	DestroyObject(goblinDmgObj);
-	//});
+	goblinBehaviour->onDeath.Register([this, goblinObj, goblinDmgObj](Events::Event e)
+	{
+		DestroyObject(goblinObj);
+		DestroyObject(goblinDmgObj);
+	});
 
 	// Create slime enemy
 	std::shared_ptr<GameObject> slimeObj{ Instantiate({{20.0f, 20.0f}, 0.0f, {1.0f, 1.0f}}) };
