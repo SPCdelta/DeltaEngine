@@ -36,7 +36,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T()));
+			T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T(std::forward<Args>(args)...)));
 			component->gameObject = this;
 			component->transform = transform;
 			component->camera = _camera;

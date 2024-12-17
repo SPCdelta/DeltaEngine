@@ -213,6 +213,7 @@
     <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
     <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
     <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
