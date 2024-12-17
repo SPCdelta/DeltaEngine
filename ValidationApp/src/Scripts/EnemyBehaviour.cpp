@@ -8,6 +8,7 @@ EnemyBehaviour::~EnemyBehaviour()
 	delete _damageBehaviour;
 	delete _aiBehaviour;
 	playerPosition = nullptr;
+	_sfx = nullptr;
 }
 
 void EnemyBehaviour::OnStart()

@@ -25,6 +25,9 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const st
 	});
 }
 
+// TODO bug:
+// after 1 enemy is killed, if you do damage to another one, entt error
+
 DamageBehaviour::~DamageBehaviour()
 {
 	_currentCollider = nullptr;
