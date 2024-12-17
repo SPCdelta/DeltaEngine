@@ -76,7 +76,7 @@ namespace ecs
 			return _registry.emplace<Component>(entityId, component);
 		}
 
-		template <typename Component, typename... Args>
+		template<typename Component, typename... Args>
 		Component& EmplacePointerComponent(ecs::EntityId entityId, Args&&... args)
 		{
 			return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
