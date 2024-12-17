@@ -114,6 +114,11 @@ void AIBehaviour::SetTargetPosition(Math::Vector2* position)
 	_targetPosition = position;
 }
 
+float AIBehaviour::GetSpeed()
+{
+	return _moveSpeed;
+}
+
 Math::Vector2 AIBehaviour::GetDirection()
 {
 	return _direction;

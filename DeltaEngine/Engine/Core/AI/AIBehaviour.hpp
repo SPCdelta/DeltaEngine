@@ -21,6 +21,7 @@ class AIBehaviour
 	Math::Vector2* GetTargetPosition() const;
 	void SetTargetPosition(Math::Vector2* position);
 
+	float GetSpeed();
 	Math::Vector2 GetDirection();
 
    private:

@@ -15,7 +15,7 @@ class Enemy
 	Enemy(Math::Vector2* position, float speed, int health, int range, int step) : position_(position), speed_(speed), _health(health), 
 		range_(range), step_(step) {}
 
-	virtual void Update(const Math::Vector2& player_position) = 0;
+	virtual void Update(const Math::Vector2& player_position, Audio::SFXSource* _sfx) = 0;
 
 	Math::Vector2* GetPosition() const { return position_; }
 
@@ -24,6 +24,7 @@ class Enemy
 
 	int GetRange() const { return range_; }
 	int GetStep() const { return step_; }
+	float GetSpeed() const { return speed_; }
 
 	static std::string TypeToString(EnemyType type)
 	{

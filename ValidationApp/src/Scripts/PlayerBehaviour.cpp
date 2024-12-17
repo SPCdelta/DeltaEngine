@@ -7,14 +7,14 @@ void PlayerBehaviour::OnStart()
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
-	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton"});
+	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 	
 	//this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 
 	//_weapon = new Gun(this);
-	//_weapon = new Bow(this);
+	_weapon = new Bow(this);
 	//onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 
 	onMouseMove([this](Input& e) 

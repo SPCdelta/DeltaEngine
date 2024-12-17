@@ -63,6 +63,31 @@ void LayerScene::OnStart()
 		DestroyObject(slimeDmgObj);
 	});
 
+	// Create skeleton enemy
+	std::shared_ptr<GameObject> skeletonObj{ Instantiate({{20.0f, 20.0f}, 0.0f, {2.5f, 2.5f}}) };
+	std::shared_ptr<AnimationSheet> skeletonSheet = std::make_shared<AnimationSheet>(skeletonObj->GetComponent<Transform>(), 9, 64, 64, 1, 3, 2, 4);
+	skeletonObj->AddComponent<Sprite>("skeleton", skeletonSheet);
+	skeletonObj->AddComponent<Audio::SFXSource>("", false, false);
+	skeletonObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	skeletonObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	skeletonObj->SetTag("skeleton");
+	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
+	auto skeletonBehaviour = &skeletonObj->GetComponent<EnemyBehaviour>();
+		
+	// Create hitbox for the enemy so it can get hurt by the projectiles
+	std::shared_ptr<GameObject> skeletonDmgObj{ Instantiate(skeletonObj->GetComponent<Transform>()) };
+	skeletonDmgObj->AddComponent<Sprite>("skeleton")->SetVisible(false);
+	skeletonDmgObj->AddComponent<BoxCollider>();
+	skeletonDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	skeletonDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&skeletonObj->GetComponent<Transform>().position) ;
+	skeletonBehaviour->SetDamageBehaviour(skeletonDmgObj->GetComponent<Rigidbody>());
+
+	skeletonBehaviour->onDeath.Register([this, skeletonObj, skeletonDmgObj](Events::Event e)
+	{
+		DestroyObject(skeletonObj);
+		DestroyObject(skeletonDmgObj);
+	});
+
 	// Create potion object to pick up
 	WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
 	std::shared_ptr<GameObject> cyanPotionObj{ Instantiate({{1.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };

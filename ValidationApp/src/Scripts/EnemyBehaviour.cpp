@@ -17,7 +17,7 @@ void EnemyBehaviour::OnStart()
 			_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position);
 			break;
 		case EnemyType::Skeleton:
-			_enemy = std::make_unique<Skeleton>(&gameObject->GetComponent<Transform>().position);
+			_enemy = std::make_unique<Skeleton>(&gameObject->GetComponent<Transform>().position, gameObject);
 			break;
 		case EnemyType::Slime:
 			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position);
@@ -31,7 +31,7 @@ void EnemyBehaviour::OnStart()
 
 	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
-	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), 2.0); // TODO speed is now 2.0
+	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
 }
 
 void EnemyBehaviour::OnUpdate()
@@ -39,8 +39,11 @@ void EnemyBehaviour::OnUpdate()
 	Math::Vector2* pos = &gameObject->GetComponent<Transform>().position;
 
 	if (playerPosition)
+	{
 		pos = _aiBehaviour->Update();
-
+		_enemy->Update(*playerPosition, _sfx);
+	}
+		
 	if (pos != &gameObject->GetComponent<Transform>().position)
 	{
 		gameObject->GetComponent<Transform>().position.SetX(pos->GetX());
