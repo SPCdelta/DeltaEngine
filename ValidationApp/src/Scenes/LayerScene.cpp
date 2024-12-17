@@ -13,29 +13,54 @@ void LayerScene::OnStart()
 	playerObject->AddComponent<PlayerBehaviour>();
 	playerObject->SetTag("player");
 
-	// Create object that gets hurt when a weapon touches it
-	std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
-	std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(enemyObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
-	enemyObj->AddComponent<Sprite>("goblin", goblinSheet);
-	enemyObj->AddComponent<Audio::SFXSource>("", false, false);
-	enemyObj->AddComponent<BoxCollider>()->SetTrigger(true);
-	enemyObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	enemyObj->SetTag("goblin");
-	enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
-	auto behaviour = &enemyObj->GetComponent<EnemyBehaviour>();
+	// Create goblin enemy
+	//std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
+	//std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(goblinObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
+	//goblinObj->AddComponent<Sprite>("goblin", goblinSheet);
+	//goblinObj->AddComponent<Audio::SFXSource>("", false, false);
+	//goblinObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	//goblinObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	//goblinObj->SetTag("goblin");
+	//goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
+	//auto goblinBehaviour = &goblinObj->GetComponent<EnemyBehaviour>();
+	//	
+	//// Create hitbox for the enemy so it can get hurt by the projectiles
+	//std::shared_ptr<GameObject> goblinDmgObj{ Instantiate(goblinObj->GetComponent<Transform>()) };
+	//goblinDmgObj->AddComponent<Sprite>("goblin")->SetVisible(false);
+	//goblinDmgObj->AddComponent<BoxCollider>();
+	//goblinDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	//goblinDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&goblinObj->GetComponent<Transform>().position) ;
+	//goblinBehaviour->SetDamageBehaviour(goblinDmgObj->GetComponent<Rigidbody>());
+
+	//goblinBehaviour->onDeath.Register([this, goblinObj, goblinDmgObj](Events::Event e)
+	//{
+	//	DestroyObject(goblinObj);
+	//	DestroyObject(goblinDmgObj);
+	//});
+
+	// Create slime enemy
+	std::shared_ptr<GameObject> slimeObj{ Instantiate({{20.0f, 20.0f}, 0.0f, {1.0f, 1.0f}}) };
+	std::shared_ptr<AnimationSheet> slimeSheet = std::make_shared<AnimationSheet>(slimeObj->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
+	slimeObj->AddComponent<Sprite>("slime", slimeSheet);
+	slimeObj->AddComponent<Audio::SFXSource>("", false, false);
+	slimeObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	slimeObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	slimeObj->SetTag("slime");
+	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
+	auto slimeBehaviour = &slimeObj->GetComponent<EnemyBehaviour>();
 		
 	// Create hitbox for the enemy so it can get hurt by the projectiles
-	std::shared_ptr<GameObject> enemyDmgObj{ Instantiate(enemyObj->GetComponent<Transform>()) };
-	enemyDmgObj->AddComponent<Sprite>("goblin")->SetVisible(false);
-	enemyDmgObj->AddComponent<BoxCollider>();
-	enemyDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	enemyDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&enemyObj->GetComponent<Transform>().position) ;
-	behaviour->SetDamageBehaviour(enemyDmgObj->GetComponent<Rigidbody>());
+	std::shared_ptr<GameObject> slimeDmgObj{ Instantiate(slimeObj->GetComponent<Transform>()) };
+	slimeDmgObj->AddComponent<Sprite>("slime")->SetVisible(false);
+	slimeDmgObj->AddComponent<BoxCollider>();
+	slimeDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	slimeDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&slimeObj->GetComponent<Transform>().position) ;
+	slimeBehaviour->SetDamageBehaviour(slimeDmgObj->GetComponent<Rigidbody>());
 
-	behaviour->onDeath.Register([this, enemyObj, enemyDmgObj](Events::Event e)
+	slimeBehaviour->onDeath.Register([this, slimeObj, slimeDmgObj](Events::Event e)
 	{
-		DestroyObject(enemyObj);
-		DestroyObject(enemyDmgObj);
+		DestroyObject(slimeObj);
+		DestroyObject(slimeDmgObj);
 	});
 
 	// Create potion object to pick up

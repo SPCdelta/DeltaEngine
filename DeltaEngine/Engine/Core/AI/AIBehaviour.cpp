@@ -11,8 +11,18 @@ AIBehaviour::~AIBehaviour()
 
 Math::Vector2* AIBehaviour::Update()
 {
-	if (!_targetPosition)
+	if (!_targetPosition || range_ <= 0 || step_ <= 0)
+	{
+		_direction = {0.0f, 0.0f};
 		return position_;
+	}
+
+	Math::Vector2 distanceToPlayer = *_targetPosition - *position_;
+	if (distanceToPlayer.Magnitude() > range_) // If player is outside of range, stop pathfinding
+	{
+		_direction = {0.0f, 0.0f};
+		return position_;
+	}
 		 
 	float pathRecalculationCooldown = 1.0f;	 // Seconds
 	static float timeSinceLastPathCalculation = 0.0f;

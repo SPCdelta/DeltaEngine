@@ -100,6 +100,7 @@ void ValidationApp::LoadAssets()
 
 	// Enemies
 	ResourceManager::AddSprite("goblin", "Assets\\Textures\\Enemies\\goblin_attacking.png");
+	ResourceManager::AddSprite("slime", "Assets\\Textures\\Enemies\\slime_walking.png");
 
 	// UI
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");

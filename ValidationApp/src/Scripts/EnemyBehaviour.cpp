@@ -31,7 +31,7 @@ void EnemyBehaviour::OnStart()
 
 	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
-	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), 2.0);
+	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), 2.0); // TODO speed is now 2.0
 }
 
 void EnemyBehaviour::OnUpdate()
