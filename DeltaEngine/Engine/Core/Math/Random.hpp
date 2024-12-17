@@ -12,33 +12,8 @@ namespace Math
 		Random& operator=(const Random&) = delete;
 		Random& operator=(Random&&) = delete;
 
-		static float NextFloat(float min, float max)
-		{
-			if (min > max)
-			{
-				float tempMin = min;
-				min = max;
-				max = tempMin;
-			}
-
-			std::uniform_real_distribution<float> dist(min, max);
-
-			return dist(instance.rnd);
-		}
-
-		static int NextInt(int min, int max)
-		{
-			if (min > max)
-			{
-				int tempMin = min;
-				min = max;
-				max = tempMin;
-			}
-
-			std::uniform_int_distribution<int> dist(min, max);
-
-			return dist(instance.rnd);
-		}
+		static float NextFloat(float min, float max);
+		static int NextInt(int min, int max);
 
 		double NextDouble(int min, int max) const;
 		double NextDouble() const;

@@ -11,7 +11,7 @@ public:
 		std::shared_ptr<GameObject> particleEmitterObject = Instantiate({{20.0f, 10.0f}, 0.0f, {1.0f, 1.0f}});
 		ParticleEmitter* particleEmitter = particleEmitterObject->AddComponent<ParticleEmitter>(
 			// https://discussions.unity.com/t/2d-pixel-art-particles-tutorial/601613
-			ParticleEmitterConfiguration(
+			ParticleEmitterConfiguration{
 				{ "particle_big", "particle_medium_1", "particle_medium_2", "particle_small", "particle_tiny" },
 
 				{ 252, 100, 0, 255 },
@@ -40,7 +40,7 @@ public:
 
 				// Scale
 				0.25f, 0.25f
-			)
+			}
 		);
 
 		InputManager::onKeyPressed(Key::KEY_U,

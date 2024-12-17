@@ -82,7 +82,7 @@ public:
 		}
 		else if constexpr (std::is_same_v<T, ParticleEmitter>)
 		{
-			T* component = static_cast<T*>(_AddComponent<T>(ParticleEmitter(this, std::forward<Args>(args)...)));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<ParticleEmitter>(_id, this, std::forward<Args>(args)...));
 			return component;
 		}
 		else
