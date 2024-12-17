@@ -82,7 +82,7 @@ size_t Inventory::GetItemAmount()
 	return _items.size();
 }
 
-std::shared_ptr<InventoryItem> Inventory::GetItem(size_t  index)
+std::shared_ptr<InventoryItem> Inventory::GetItem(size_t index)
 {
 	return _items.size() == 0 ? nullptr : _items[index];
 }

@@ -32,6 +32,9 @@
 #include "Rendering/Layer.hpp"
 #include "Rendering/SpriteMap.hpp"
 
+// Particles
+#include "Rendering/Particles/ParticleEmitter.hpp"
+
 // Input
 #include "Input/DeltaInputs.hpp"
 

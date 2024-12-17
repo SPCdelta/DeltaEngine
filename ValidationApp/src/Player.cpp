@@ -85,7 +85,7 @@ size_t Player::GetInventorySize()
 	return _inventory->GetItemAmount();
 }
 
-InventoryItem* Player::GetInventoryItem(int index)
+InventoryItem* Player::GetInventoryItem(size_t index)
 {
 	return _inventory->GetItem(index).get();
 }

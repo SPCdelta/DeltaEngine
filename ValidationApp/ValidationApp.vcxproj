@@ -206,6 +206,8 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\ParticleFactory.hpp" />
+    <ClInclude Include="src\Scenes\ParticleScene.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
     <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
     <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
@@ -307,6 +309,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\Items\potions\potion_effervescent.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Particles\particles.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
