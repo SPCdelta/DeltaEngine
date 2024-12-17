@@ -24,7 +24,7 @@ class DamageBehaviour
 
 		Rendering::Color _ogColor;
 
-		Collider* _currentCollider;
+		std::shared_ptr<Collider> _currentCollider;
 		std::vector<std::string> _damageSourceTags;
 
 		int _damageCount{0};

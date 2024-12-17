@@ -8,16 +8,16 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const st
 
 	_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 	{ 
-		if (IsDamageSource(collider.transform.gameObject->GetTag()))
+		if (collider.transform.gameObject &&IsDamageSource(collider.transform.gameObject->GetTag()))
 		{
 			_damageCount = 1; 
-			_currentCollider = &collider;
+			_currentCollider = std::make_shared<Collider>(collider);
 		}		
 	});
 
 	_rigidbody.onTriggerExit.Register([this](Collider& collider)
 	{
-		if (IsDamageSource(collider.transform.gameObject->GetTag()))
+		if (collider.transform.gameObject &&IsDamageSource(collider.transform.gameObject->GetTag()))
 		{
 			_damageCount = 0;
 			_currentCollider = nullptr; 
@@ -58,7 +58,7 @@ bool DamageBehaviour::GetDamage() const
 int DamageBehaviour::TakeDamage()
 {
 	int damage = 0;
-	if (_currentCollider)
+	if (_currentCollider && _currentCollider->transform.gameObject)
 	{	
 		if (_currentCollider->transform.gameObject->GetTag() == "projectile" || _currentCollider->transform.gameObject->GetTag() == "skeleton_arrow") 
 		{
@@ -73,6 +73,10 @@ int DamageBehaviour::TakeDamage()
 
 		StartInvincibility();
 		_sprite.SetColor(Rendering::Color(255.0f, 0.0f, 0.0f, 1.0f));	
+	}
+	else
+	{
+		_currentCollider = nullptr;	 
 	}
 
 	return damage;
