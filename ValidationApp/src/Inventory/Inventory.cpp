@@ -49,12 +49,12 @@ Uint8 Inventory::GetItemAmount(Uint8 index) const
 	return _items[index]->GetAmount();
 }
 
-const std::optional<InventoryItem>& Inventory::GetItem(Uint8 index) const
+const std::optional<InventoryItem>& Inventory::GetInventoryItem(Uint8 index) const
 {
 	return _items[index];
 }
 
-std::optional<InventoryItem>& Inventory::GetItem(Uint8 index)
+std::optional<InventoryItem>& Inventory::GetInventoryItem(Uint8 index)
 {
 	return _items[index];
 }
@@ -78,7 +78,8 @@ bool Inventory::IncreaseAmount(const Item& item, Uint8& amount)
 {
 	for (Uint8 i = 0; i < _items.size(); i++)
 	{
-		if (_items[i].has_value() && _items[i]->GetItem()->GetName() == item.GetName())
+		const std::optional<InventoryItem>& optItem = _items[i];
+		if (optItem.has_value() && optItem->GetItem().GetName() == item.GetName())
 		{
 			_items[i]->AddAmount(amount);
 			return true;

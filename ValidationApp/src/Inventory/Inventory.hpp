@@ -13,8 +13,8 @@ public:
 	Item* RemoveItem(const Item& item, Uint8 amount);
 
 	Uint8 GetItemAmount(Uint8 index) const;
-	const std::optional<InventoryItem>& GetItem(Uint8 index) const;
-	std::optional<InventoryItem>& GetItem(Uint8 index);
+	const std::optional<InventoryItem>& GetInventoryItem(Uint8 index) const;
+	std::optional<InventoryItem>& GetInventoryItem(Uint8 index);
 
 	void Clear();
 	Uint8 GetSize() const;

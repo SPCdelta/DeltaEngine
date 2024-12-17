@@ -230,23 +230,24 @@ void PlayerBehaviour::LoadPlayer()
 	{
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
+		_player->SetShield(loadedPlayer["player"]["shield"]);
 		_player->ResetInventory();
 
-		if (loadedPlayer["player"].contains("inventory"))
-		{
-			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
-			{
-				auto& itemData = loadedPlayer["player"]["inventory"][i];
-				if (itemData.contains("type"))
-				{
-					PotionType type = static_cast<PotionType>(itemData["type"]);
-					auto potion = PotionFactory::CreatePotion(type, itemData);
-					_player->AddItemToInventory(potion.release(), itemData["amount"]);
-				}
+		//if (loadedPlayer["player"].contains("inventory"))
+		//{
+		//	for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
+		//	{
+		//		auto& itemData = loadedPlayer["player"]["inventory"][i];
+		//		if (itemData.contains("type"))
+		//		{
+		//			PotionType type = static_cast<PotionType>(itemData["type"]);
+		//			auto potion = PotionFactory::CreatePotion(type, itemData);
+		//			_player->AddItemToInventory(potion.release(), itemData["amount"]);
+		//		}
 
-				// TODO weapons?
-			}
-		}
+		//		 TODO weapons?
+		//	}
+		//}
 	}
 }
 
@@ -255,29 +256,32 @@ void PlayerBehaviour::SavePlayer()
 	Json::json playerFile;
 
 	playerFile["player"]["health"] = _player->GetHealth();
+	playerFile["player"]["shield"] = _player->GetShield();
 	playerFile["player"]["coins"] = _player->GetCoins();
 
-	if (_player->GetInventorySize() > 0)
-	{
-		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
-		{
-			auto& itemData = playerFile["player"]["inventory"][i];
-			auto inventoryItem = std::unique_ptr<Item>(_player->GetInventoryItem(i)->GetItem().release());
+	//if (_player->GetInventorySize() > 0)
+	//{
+	//	for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
+	//	{
+	//		auto& itemData = playerFile["player"]["inventory"][i];
+	//		const std::optional<InventoryItem>& inventoryItem = _player->GetInventoryItem(i);
 
-			itemData["name"] = inventoryItem->GetName();
-			itemData["sprite"] = inventoryItem->GetSprite();
-			itemData["amount"] = _player->GetInventoryItem(i)->GetAmount();
+	//		if (!inventoryItem.has_value()) continue;
 
-			if (auto potion = dynamic_cast<Potion*>(inventoryItem.get()))
-			{
-				itemData["type"] = static_cast<int>(potion->GetType());
-				itemData["value"] = potion->GetValue();
-				itemData["time"] = potion->GetTime();
-			}
+	//		itemData["name"] = inventoryItem->GetItem().GetName();
+	//		itemData["sprite"] = inventoryItem->GetItem().GetSprite();
+	//		itemData["amount"] = _player->GetInventoryItem(i)->GetAmount();
 
-			// TODO weapons?
-		}
-	}
+	//		if (auto consumable = std::unique_ptr<ConsumableItem>(dynamic_cast<ConsumableItem*>(inventoryItem->GetItem().Clone())))
+	//		{
+	//			itemData["type"] = static_cast<int>(consumable->);
+	//			itemData["value"] = potion->GetValue();
+	//			itemData["time"] = potion->GetTime();
+	//		}
+
+	//		// TODO weapons?
+	//	}
+	//}
 	
 	_fileManager.Save("Assets\\Files\\player.json", "json", playerFile);
 }

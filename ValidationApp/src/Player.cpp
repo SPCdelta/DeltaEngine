@@ -87,24 +87,24 @@ Uint8 Player::GetInventorySize() const
 
 const std::optional<InventoryItem>& Player::GetInventoryItem(Uint8 index) const
 {
-	return _inventory.GetItem(index);
+	return _inventory.GetInventoryItem(index);
 }
 
 std::optional<InventoryItem>& Player::GetInventoryItem(Uint8 index)
 {
-	return _inventory.GetItem(index);
+	return _inventory.GetInventoryItem(index);
 }
 
 const std::optional<InventoryItem>& Player::GetCurrentInventoryItem() const
 {
-	return _inventory.GetItem(_inventoryIndex);
+	return _inventory.GetInventoryItem(_inventoryIndex);
 }
 
 void Player::ResetInventory()
 {
 	for (Uint8 i = 0; i < _inventory.GetSize(); ++i)
 	{
-		auto& item = _inventory.GetItem(i);
+		auto& item = _inventory.GetInventoryItem(i);
 		if (item.has_value())
 		{
 			NotifyInventoryChanged(*item->GetItem().get(), static_cast<int>(-item->GetAmount()));
