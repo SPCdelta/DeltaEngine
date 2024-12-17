@@ -14,6 +14,8 @@ struct ParticleEmitterConfiguration
 	std::vector<std::string> sprites;
 	Rendering::Color colorFrom;
 	Rendering::Color colorTo;
+
+	float playTime;
 	size_t initialSpawnAmount;
 
 	float spawnRadius;
@@ -66,6 +68,7 @@ public:
 	}
 
 	void SetLoop(bool looping) { _configuration.loop = looping; }
+	bool IsPlaying() const { return _started; }
 
 protected:
 	GameObject* _gameObject;
@@ -131,6 +134,7 @@ private:
 	std::vector<Particle> _particles{};
 	bool _started{ false };
 	float _spawnParticleIn = 0.0f;
+	float _playingFor = 0.0f;
 
 	std::shared_ptr<GameObject> Instantiate()
 	{
@@ -143,23 +147,30 @@ private:
 		Sprite* sprite = particleObj->AddComponent<Sprite>(GetSprite());
 		sprite->SetLayer(Layer::Particles);
 		sprite->SetColor(GetColor());
+		particleObj->transformRef.position = _gameObject->transformRef.position + GetSpawnOffset();
+		particleObj->transformRef.scale = GetScale();
 
 		Particle& particle = _particles.emplace_back(
-			particleObj.get(),
+			particleObj,
 			GetDirection(),
 			GetSpeed(),
 			GetRotationSpeed(),
 			GetLifetime()
 		);
-
-		particle.gameObject->transform->position = _gameObject->transform->position + GetSpawnOffset();
-		particle.gameObject->transform->scale = GetScale();
 	}
 
 	void Destroy(size_t index)
 	{
-		_gameObject->Destroy(_particles[index].gameObject);
-		_particles.erase(_particles.begin() + index);
+		if (std::shared_ptr<GameObject> gameObject = _particles[index].gameObject.lock())
+		{
+			_gameObject->Destroy(gameObject.get());
+			_particles.erase(_particles.begin() + index);
+		}
+		else
+		{
+			_particles.erase(_particles.begin() + index);
+		}
+
 	}
 
 	void TrySpawnParticle()
@@ -179,6 +190,16 @@ private:
 		if (!_started)
 			return;
 
+		if (!_configuration.loop && _playingFor >= _configuration.playTime)
+		{
+			_started = false;
+
+			for (size_t i = _particles.size(); i-- > 0;)
+			{
+				Destroy(i);
+			}
+		}
+
 		for (size_t i = _particles.size(); i-- > 0;)
 		{
 			if (_particles[i].aliveFor <= 0.0f)
@@ -187,15 +208,25 @@ private:
 			}
 		}
 
+		// TODO: fix this in another user story
 		// Spawn New Particles
 		TrySpawnParticle();
 
 		// Update Particles
 		for (Particle& particle : _particles)
 		{
-			particle.gameObject->transform->position += (particle.direction * particle.speed * Time::GetDeltaTime());
-			particle.gameObject->transform->rotation += ((360.0f / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
-			particle.aliveFor -= Time::GetDeltaTime();
+			if (std::shared_ptr<GameObject> gameObject = particle.gameObject.lock())
+			{
+				gameObject->transformRef.position += (particle.direction * particle.speed * Time::GetDeltaTime());
+				gameObject->transformRef.rotation += ((360.0f / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
+				particle.aliveFor -= Time::GetDeltaTime();
+			}
+			else
+			{
+				std::cout << "Error... again" << std::endl;
+			}
 		}
+
+		_playingFor += Time::GetDeltaTime();
 	}
 };

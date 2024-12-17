@@ -56,13 +56,19 @@ void Scene::Update()
 
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
+	// Create Entity Beforehand
+	ecs::EntityId entityId = _reg.CreateEntity();
+	Transform& transformComponent = _reg.AddComponent<Transform>(entityId, transform);
+
+	// Use entityId for obj
 	std::shared_ptr<GameObject> obj
 	{ 
 		std::make_shared<GameObject>
 		(
-			this, _reg, _physicsWorld, _changeSceneEvent, _camera, transform
+			this, entityId, _reg, _physicsWorld, _changeSceneEvent, _camera, transformComponent
 		) 
 	};
+	transformComponent.gameObject = obj.get();
 	_objects.push_back(obj);
 
 	return obj;

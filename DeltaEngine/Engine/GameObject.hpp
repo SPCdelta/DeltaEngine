@@ -100,17 +100,17 @@ public:
 		return _id;
 	}
 
-	GameObject(Scene* scene,
+	GameObject(Scene* scene, ecs::EntityId id,
 				ecs::Registry& reg,
 				Physics::PhysicsWorld& physicsWorld,
 				Events::EventDispatcher<const std::string&>& changeScene,
-				Camera* camera, 
-				Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+				Camera* camera, Transform& transform_);
 	~GameObject();
 
 	friend class Scene;
 
 	Scene* _scene;
+	Transform& transformRef;
 	Transform* transform = nullptr;
 
 	bool IsActive() const { return _active; }

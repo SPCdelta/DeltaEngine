@@ -17,7 +17,8 @@ public:
 				{ 252, 100, 0, 255 },
 				{ 215, 253, 2, 255 },
 
-				// Extra
+				// Extra (Playtime | Initial Spawn Amount | Spawn Radius)
+				5.0f,
 				2000,
 				0.25f,
 
@@ -38,6 +39,20 @@ public:
 				0.0f, 0.0f
 			)
 		);
+
+		InputManager::onKeyPressed(Key::KEY_U,
+			[particleEmitter](Input& e)
+			{ 
+				if (particleEmitter->IsPlaying())
+				{
+					particleEmitter->Start();
+				}
+				else
+				{
+					particleEmitter->Stop();
+				}
+			});
+
 		particleEmitter->Start();
 	}
 };

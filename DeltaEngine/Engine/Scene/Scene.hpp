@@ -63,8 +63,9 @@ class Scene
 
 		if (it != _objects.end())
 		{
-			_reg.DestroyEntity(gameObject->_id);
+			ecs::EntityId toDestroy = gameObject->_id;
 			_objects.erase(it);
+			_reg.DestroyEntity(toDestroy);
 		}
 	}
 
