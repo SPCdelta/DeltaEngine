@@ -5,6 +5,34 @@ using namespace Math;
 Random Random::instance;
 std::random_device Random::rnd;
 
+float Math::Random::NextFloat(float min, float max)
+{
+	if (min > max)
+	{
+		float tempMin = min;
+		min = max;
+		max = tempMin;
+	}
+
+	std::uniform_real_distribution<float> dist(min, max);
+
+	return dist(instance.rnd);
+}
+
+int Math::Random::NextInt(int min, int max)
+{
+	if (min > max)
+	{
+		int tempMin = min;
+		min = max;
+		max = tempMin;
+	}
+
+	std::uniform_int_distribution<int> dist(min, max);
+
+	return dist(instance.rnd);
+}
+
 double Random::NextDouble(int min, int max) const
 {
 	if (min > max)
