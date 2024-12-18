@@ -11,7 +11,7 @@ public:
 
 	Scrollable(Transform* transform, std::function<void(int)> func) {
 	
-		_scrollable = InputManager::onMouseWheel([func, transform](Input& e) {
+		_scrollable = std::unique_ptr<InputListener>(InputManager::onMouseWheel([func, transform](Input& e) {
 
 			if (!Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, transform->position, transform->scale))
 				return;
@@ -21,7 +21,7 @@ public:
 				wheelDirection = -1;
 			
 			func(wheelDirection);
-		});
+		}));
 	}
 
 private:

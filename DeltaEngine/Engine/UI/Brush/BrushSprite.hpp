@@ -15,7 +15,7 @@ public:
 	BrushSprite(Transform& transform, const std::string& spriteName, SnapToGridBrush* brush)
 	{
 		std::string _category = "";
-		_inputLocations.push_back(InputManager::onMouseButtonDown(MouseButton::Left,
+		_inputLocations.emplace_back(InputManager::onMouseButtonDown(MouseButton::Left,
 			[this, &transform, spriteName, brush](Input& e)
 			{
 				if (!Math::MathUtils::IsVector2WithinRect({ e.mouseX, e.mouseY }, transform.position, transform.scale))

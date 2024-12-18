@@ -212,19 +212,19 @@ public:
     void BindCamara()
     {
         float speed = 1.0f;
-        _inputs.push_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
+        _inputs.emplace_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
             camera->AddToPosition({ speed,0.f });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
-        _inputs.push_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
+        _inputs.emplace_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
             camera->AddToPosition({ -speed,0.f });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
-        _inputs.push_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
+        _inputs.emplace_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
             camera->AddToPosition({ 0.f,-speed });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
-        _inputs.push_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
+        _inputs.emplace_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
             camera->AddToPosition({ 0.f,speed });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));

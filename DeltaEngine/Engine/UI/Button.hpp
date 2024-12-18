@@ -5,6 +5,7 @@
 #include "../Input/DeltaInputs.hpp"
 #include "../Input/InputManager.hpp"
 #include <functional>
+#include <memory>
 #include <vector>
 
 using namespace Math;

@@ -2,6 +2,7 @@
 #include "../../Core/Math/MathUtils.hpp"
 #include "../../Rendering/Sprite.hpp"
 #include "../../Core/Events/EventDispatcher.hpp"
+#include "../../Input/InputManager.hpp"
 
 #include <algorithm>
 
@@ -18,7 +19,7 @@ public:
 		_sprite->SetLayer(Layer::EngineLayer);
 		int pxUnit = _camera->GetunitPixelSize();
 		
-		_inputLocations.push_back(InputManager::onMouseMove(
+		_inputLocations.emplace_back(InputManager::onMouseMove(
 			[this, pxUnit](Input& e)
 			{
 				if (!_isActive)
@@ -31,7 +32,7 @@ public:
 			}, _category
 		));
 
-		_inputLocations.push_back(InputManager::onMouseButtonDown(MouseButton::Left,
+		_inputLocations.emplace_back(InputManager::onMouseButtonDown(MouseButton::Left,
 			[this](Input& e)
 			{
 				if (!_isActive || !Math::MathUtils::IsPointWithinRect({ e.mouseX, e.mouseY }, _screenViewPort.position, _screenViewPort.scale))
@@ -43,7 +44,7 @@ public:
 			}, _category
 		));
 
-		_inputLocations.push_back(InputManager::onMouseButtonUp(MouseButton::Left,
+		_inputLocations.emplace_back(InputManager::onMouseButtonUp(MouseButton::Left,
 			[this](Input& e)
 			{
 				_pressed = false;
@@ -72,7 +73,7 @@ public:
 	}
 
 	void RemoveOnKey(Key key){
-		_inputLocations.push_back(InputManager::onKeyPressed(key, [this](Input& e){
+		_inputLocations.emplace_back(InputManager::onKeyPressed(key, [this](Input& e){
 				_isActive = false;
 				_sprite->SetVisible(false);
 			}, _category));

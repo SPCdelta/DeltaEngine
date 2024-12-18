@@ -18,7 +18,7 @@ public:
 	void Destroy(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
 	void Destroy(GameObject* gameObject) { gameObject->Destroy(gameObject); }
 
-	virtual ~BehaviourScript();
+	virtual ~BehaviourScript() = default;
 
 	//Inputs
 

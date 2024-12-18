@@ -27,7 +27,7 @@ class InputManager
 	static void deactivateCategory(const std::string& category);
 	static void activateCategory(const std::string& category);
 
-	static std::unique_ptr<InputListener> onKeyPressed(Key keyDown, Events::EventCallback<Input&>& keyEvent, const std::string & = defaultCategory);
+	static std::unique_ptr<InputListener> onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
 	static std::unique_ptr<InputListener> keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
 	static std::unique_ptr<InputListener> onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
 
@@ -71,20 +71,42 @@ class InputManager
 
 
 
-class InputListener
-{
+class InputListener {
 public:
-	InputListener(InputType type, const std::string& input, InputState state, const	std::string& category, Events::EventCallback<Input&>& regesterd)
-		: _type{ type }, _input{ input }, _state{ state }, _category{ category }, _regesterd{ regesterd } {}
-	~InputListener()
-	{
-		InputManager::GetInstance().Remove(_type, _input, _state, _category, _regesterd);
-	}
+    InputListener(InputType type, const std::string& input, InputState state, const std::string& category, Events::EventCallback<Input&> regesterd)
+        : _type{ type }, _input{ input }, _state{ state }, _category{ category }, _regesterd{ regesterd } {}
+
+    ~InputListener() {
+        InputManager::GetInstance().Remove(_type, _input, _state, _category, _regesterd);
+    }
+
+    //InputListener(const InputListener&) = delete;
+    //InputListener& operator=(const InputListener&) = delete;
+
+    //InputListener(InputListener&& other) noexcept
+    //    : _type{ other._type },
+    //    _state{ other._state },
+    //    _input{ std::move(other._input) },
+    //    _category{ std::move(other._category) },
+    //    _regesterd{ other._regesterd }
+    //{}
+
+    //InputListener& operator=(InputListener&& other) noexcept {
+    //    if (this != &other) {
+
+    //        _type = other._type;
+    //        _state = other._state;
+    //        _input = std::move(other._input);
+    //        _category = std::move(other._category);
+    //        _regesterd = other._regesterd;
+    //    }
+    //    return *this;
+    //}
 
 private:
-	InputType _type;
-	std::string _input;
-	InputState _state;
-	std::string _category;
-	Events::EventCallback<Input&>& _regesterd;
+    InputType _type;
+    InputState _state;
+    std::string _input;
+    std::string _category;
+    Events::EventCallback<Input&> _regesterd;
 };
