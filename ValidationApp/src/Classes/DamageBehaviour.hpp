@@ -10,7 +10,7 @@ class EnemyBehaviour;
 class DamageBehaviour
 {
    public:
-		DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const std::vector<std::string>& damageSourceTags);
+		DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::initializer_list<std::string> damageSourceTags);
 		~DamageBehaviour();
 
 		void Update(float deltaTime);

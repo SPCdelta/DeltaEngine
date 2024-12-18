@@ -10,7 +10,7 @@ struct ProjectileData
 	Math::Vector2 direction;
 };
 
-constexpr float DEFAULT_PROJECTILE_DESPAWN_TIME = 30.0f;
+constexpr float DEFAULT_PROJECTILE_DESPAWN_TIME = 10.0f;
 
 class Projectile : public BehaviourScript
 {

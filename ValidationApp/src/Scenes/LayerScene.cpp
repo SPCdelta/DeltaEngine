@@ -21,7 +21,7 @@ void LayerScene::OnStart()
 	goblinObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	goblinObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	goblinObj->SetTag("goblin");
-	goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
+	goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);	
 	auto goblinBehaviour = &goblinObj->GetComponent<EnemyBehaviour>();
 		
 	// Create hitbox for the enemy so it can get hurt by the projectiles
@@ -34,8 +34,8 @@ void LayerScene::OnStart()
 
 	goblinBehaviour->onDeath.Register([this, goblinObj, goblinDmgObj](Events::Event e)
 	{
-		DestroyObject(goblinObj);
 		DestroyObject(goblinDmgObj);
+		DestroyObject(goblinObj);			
 	});
 
 	// Create slime enemy
@@ -59,8 +59,8 @@ void LayerScene::OnStart()
 
 	slimeBehaviour->onDeath.Register([this, slimeObj, slimeDmgObj](Events::Event e)
 	{
-		DestroyObject(slimeObj);
 		DestroyObject(slimeDmgObj);
+		DestroyObject(slimeObj);
 	});
 
 	// Create skeleton enemy
@@ -84,8 +84,8 @@ void LayerScene::OnStart()
 
 	skeletonBehaviour->onDeath.Register([this, skeletonObj, skeletonDmgObj](Events::Event e)
 	{
-		DestroyObject(skeletonObj);
 		DestroyObject(skeletonDmgObj);
+		DestroyObject(skeletonObj);
 	});
 
 	// Create potion object to pick up

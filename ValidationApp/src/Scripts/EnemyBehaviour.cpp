@@ -5,10 +5,9 @@ EnemyBehaviour::~EnemyBehaviour()
 {
 	sprite = nullptr;
 	rigidbody = nullptr;
-	delete _damageBehaviour;
-	delete _aiBehaviour;
 	playerPosition = nullptr;
 	_sfx = nullptr;
+	_damageBehaviour = nullptr;
 }
 
 void EnemyBehaviour::OnStart()
@@ -33,7 +32,7 @@ void EnemyBehaviour::OnStart()
 
 	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
-	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
+	_aiBehaviour = std::make_unique<AIBehaviour>(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
 }
 
 void EnemyBehaviour::OnUpdate()
@@ -72,6 +71,7 @@ void EnemyBehaviour::OnUpdate()
 				_dead = true;
 				Events::Event e{};
 				onDeath.Dispatch(e);
+				return;
 			}
 		}
 	}
@@ -105,5 +105,5 @@ void EnemyBehaviour::SetPlayerPosition(Math::Vector2* pos)
 
 void EnemyBehaviour::SetDamageBehaviour(Rigidbody& rigid)
 {
-	_damageBehaviour = new DamageBehaviour(rigid, *sprite, {"projectile"});
+	_damageBehaviour = std::make_unique<DamageBehaviour>(rigid, *sprite, std::initializer_list<std::string>{"projectile"});
 }

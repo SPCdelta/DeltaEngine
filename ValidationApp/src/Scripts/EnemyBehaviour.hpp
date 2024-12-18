@@ -31,8 +31,8 @@ class EnemyBehaviour : public BehaviourScript
 	Events::EventDispatcher<Events::Event> onDeath{};
 
    private:
-	DamageBehaviour* _damageBehaviour{nullptr};
-	AIBehaviour* _aiBehaviour{nullptr};
+	std::unique_ptr<DamageBehaviour> _damageBehaviour;
+	std::unique_ptr<AIBehaviour> _aiBehaviour;
 
 	// Audio
 	Audio::SFXSource* _sfx;

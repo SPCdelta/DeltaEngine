@@ -1,7 +1,7 @@
 #include "DamageBehaviour.hpp"
 #include "../Scripts/EnemyBehaviour.hpp"
 
-DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, const std::vector<std::string>& damageSourceTags) : 
+DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::initializer_list<std::string> damageSourceTags) : 
 	_rigidbody{ rigidbody }, _sprite{ sprite }, _damageSourceTags{damageSourceTags}, _currentCollider{nullptr}
 {
 	_ogColor = sprite.GetColor();
@@ -76,6 +76,7 @@ int DamageBehaviour::TakeDamage()
 	}
 	else
 	{
+		_damageCount = 0;
 		_currentCollider = nullptr;	 
 	}
 

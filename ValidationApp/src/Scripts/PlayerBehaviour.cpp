@@ -33,20 +33,22 @@ void PlayerBehaviour::OnStart()
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 
-	keyPressed(Key::KEY_M, [this](Input& e) { _weapon->Use(); });
+	keyPressed(Key::KEY_SPACE, [this](Input& e)
+	{
+		_attacking = true;
+		StartAttack();
+	});
 
 	// Physics Events
-	rigidbody->onTriggerEnter.Register(
-		[this](Collider& collider)
-		{ 
-			// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
-			if (collider.transform.gameObject->GetTag() == "level_exit")
-			{
-				LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
-				exit.Use();
-			}
+	rigidbody->onTriggerEnter.Register([this](Collider& collider)
+	{ 
+		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
+		if (collider.transform.gameObject->GetTag() == "level_exit")
+		{
+			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
+			exit.Use();
 		}
-	);
+	});
 }
 
 void PlayerBehaviour::OnUpdate() 
@@ -54,12 +56,13 @@ void PlayerBehaviour::OnUpdate()
 	_moveDirection = _playerInput.GetDirection();
 
 	UpdateAttack(Time::GetDeltaTime());
-	if (_playerInput.GetSpace())
+	if (_attacking)
 	{
-		_attacking = true;
-		StartAttack();
+		if (_weapon)
+			_weapon->Use();
+		else
+			ThrowBoomerang();
 	}
-	bool attack = _attacking;
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
@@ -144,15 +147,6 @@ void PlayerBehaviour::OnUpdate()
 
 	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
 	{
-		// Attacking
-		if (attack)
-		{
-			if (_weapon)
-				_weapon->Use();
-			else
-				ThrowBoomerang();
-		}
-		
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, false);
