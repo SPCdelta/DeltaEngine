@@ -38,7 +38,7 @@ public:
 		menuView.AddButtonTextPosition(1, { 230, -90 });
 		menuView.SetButtonTextSize(1, 40);
 
-		//menuView
+		//menuView TODO maak h box hier van
 		for (int i = 0; i < static_cast<int>(allLevels.size()); i++)
 		{
 			menuView.AddButtonTextPosition(i + 2, { 45, 0 });
@@ -46,7 +46,7 @@ public:
 			menuView.SetButtonText(i + 2, allLevels[i]);
 
 		}
-		
+		//TODO maak v box hier van
 		menuView.SetButtonOnLeftMouseClick(0, [this]() -> void
 			{
 				LoadScene("MainMenuScene");
@@ -54,7 +54,7 @@ public:
 		menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
 			{
 				LoadScene("LevelEditor");
-			}, "UI:new Level"); // TODO Error zit hier in maar geen idee waarom voor volgende US
+			}, "UI:new Level");
 	}
 
 private:
