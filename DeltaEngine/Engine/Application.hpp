@@ -84,6 +84,7 @@ protected:
 	ecs::Registry _reg;
 
 private:
+	InputHandler _inputListeners;
 	static bool _isRunning;
 	void* _userData = nullptr;
 

@@ -108,7 +108,7 @@ void Application::InitDebug()
 {
 	_fpsText = new Ui::Text("FPS: ", "knight", 48, _debugTextColor);
 
-	InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderFps = !_renderFps; });
+	_inputListeners.Add(InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderFps = !_renderFps; }));
 }
 void Application::Debug()
 {
@@ -135,23 +135,23 @@ void Application::InitGameSpeed()
 	
 	Time::SetIncrement(0.25f);
 
-	InputManager::onKeyPressed(KEY_PAGEUP, [this](Input& e)
+	_inputListeners.Add(InputManager::onKeyPressed(KEY_PAGEUP, [this](Input& e)
 		{
 			Time::IncreaseMultiplier();
 			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
-		}, "Application");
+		}, "Application"));
 
-	InputManager::onKeyPressed(KEY_PAGEDOWN, [this](Input& e)
+	_inputListeners.Add(InputManager::onKeyPressed(KEY_PAGEDOWN, [this](Input& e)
 		{
 			Time::DecreaseMultiplier();
 			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
-		}, "Application");
+		}, "Application"));
 
-	InputManager::onKeyPressed(KEY_HOME, [this](Input& e)
+	_inputListeners.Add(InputManager::onKeyPressed(KEY_HOME, [this](Input& e)
 		{
 			Time::SetMultiplier(1);
 			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
-		}, "Application");
+		}, "Application"));
 }
 
 void Application::RenderGameSpeed()

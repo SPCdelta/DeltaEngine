@@ -3,8 +3,9 @@
 #include "../Core/Math/Vector2.hpp"
 #include "../Core/Math/Point.hpp"
 #include "../Input/DeltaInputs.hpp"
-#include "../Input/InputManager.hpp"
+#include "../Input/InputHandler.hpp"
 #include <functional>
+#include <memory>
 #include <vector>
 
 using namespace Math;
@@ -21,11 +22,11 @@ class Button
 	void SetOnMousePressed(std::function<void()> func, const std::string& category);
 	void SetPosition(const Vector2& scale);
 	void SetScale(const Vector2& scale);
-	void ClearFunctions();
-	~Button();
+
    private:
+	InputHandler _inputListeners;
+	bool _pressed = false;
 	Vector2 _position;
 	Vector2 _scale;
-	std::vector<InputLocation> _inputLocations;
 };
 }  // namespace Ui

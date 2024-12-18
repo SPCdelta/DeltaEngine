@@ -39,6 +39,7 @@
 
 // Input
 #include "Input/DeltaInputs.hpp"
+#include "Input/InputHandler.hpp"
 
 // Physics
 using namespace Physics;

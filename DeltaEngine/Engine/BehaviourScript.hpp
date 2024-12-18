@@ -19,7 +19,7 @@ public:
 	void Destroy(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
 	void Destroy(GameObject* gameObject) { gameObject->Destroy(gameObject); }
 
-	virtual ~BehaviourScript();
+	virtual ~BehaviourScript() = default;
 
 	//Inputs
 
@@ -35,14 +35,13 @@ public:
 	void onMouseMove(Events::EventCallback<Input&> mouseEvent);
 	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
-	void unregisterInputs();
 
 	GameObject* gameObject = nullptr;
 	Transform* transform = nullptr;
 	Camera* camera = nullptr;
 
 protected:
-	std::vector<InputLocation> registerdInputs;
+	InputHandler _inputListeners;
 
 	std::shared_ptr<GameObject> Instantiate()
 	{
