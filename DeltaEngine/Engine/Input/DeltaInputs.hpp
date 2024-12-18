@@ -164,7 +164,7 @@ class InputsEnum
 {
    public:
 	static const std::unordered_map<Key, std::string>& getKeyMap();
-
+	static const Key toKey(const std::string& key);
 	static const std::string& toStr(Key key);
 
 	static const std::vector<MouseButton>& getButtonVector();

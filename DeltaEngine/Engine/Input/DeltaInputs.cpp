@@ -134,6 +134,18 @@ const std::unordered_map<Key, std::string>& InputsEnum::getKeyMap()
 	return keyMap;
 }
 
+const Key InputsEnum::toKey(const std::string& key)
+{
+	for (const auto& pair : keyMap)
+	{
+		if (pair.second == key)
+		{
+			return pair.first;
+		}
+	}
+	return KEY_UNKNOWN;
+}
+
 const std::string& InputsEnum::toStr(Key key)
 {
 	auto it = keyMap.find(key);

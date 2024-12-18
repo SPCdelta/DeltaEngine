@@ -1,4 +1,5 @@
 #include "PlayerBehaviour.hpp"
+#include "../Items/Serializers/JsonItemSerializer.hpp"
 
 void PlayerBehaviour::OnStart() 
 {
@@ -23,13 +24,12 @@ void PlayerBehaviour::OnStart()
 		_mouseY = e.mouseY;
 	});
 
+	InitHotbarKeybinds();
+	// use consumables on right mb so that left mb is reserved for maybe throwing potions and the like?
+	//onMouseButtonDown(MouseButton::Right, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // TODO: fix inputmanager. For some reason this maps to KEY_02?
+	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
+
 	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_X, [this](Input& e) { _player->AddItemToInventory(Item("item1", "cyanPotion"), 4); },"Gameplay");
-	//onKeyPressed(KEY_C, [this](Input& e) { _player->AddItemToInventory(Item("item2", "none"), 4); }, "Gameplay"); stukkie wukkie
-	onKeyPressed(KEY_V, [this](Input& e) { _player->RemoveItemFromInventory(Item("item1", "cyanPotion"), 5);}, "Gameplay");
-	onKeyPressed(KEY_B, [this](Input& e) { _player->PrintInventory(); }, "Gameplay");
-	onKeyPressed(KEY_Y, [this](Input& e) { _player->SetShield(69); }, "Gameplay");
-	onKeyPressed(KEY_Q, [this](Input& e) { _player->SetCoins(69); }, "Gameplay");
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
 
@@ -162,6 +162,8 @@ void PlayerBehaviour::OnUpdate()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
 
+	UpdateConsumables();
+
 	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 }
 
@@ -171,6 +173,39 @@ void PlayerBehaviour::UpdateAttack(float deltaTime)
 		_attackTime -= deltaTime;
 	else
 		_attacking = false;
+}
+
+void PlayerBehaviour::InitHotbarKeybinds()
+{
+	for (Uint8 i = 1; i <= 9; ++i)
+	{
+		onKeyPressed(InputsEnum::toKey(std::to_string(i)), [this, i](Input& e) { _player->SetInventoryIndex(i-1); }, "Gameplay");
+	}
+}
+
+void PlayerBehaviour::ConsumeItem()
+{
+	auto& item = _player->GetCurrentInventoryItem();
+	if (!item.has_value()) return;
+
+    auto consumable = std::unique_ptr<ConsumableItem>(dynamic_cast<ConsumableItem*>(item->GetItem().Clone().release()));
+	if (consumable)
+	{
+		consumable->Use(*_player.get());
+		_player->RemoveItemFromInventory(*consumable.get(), 1);
+		_activeConsumables.emplace_back(consumable.release());
+	}
+}
+
+void PlayerBehaviour::UpdateConsumables()
+{
+	for (size_t i = 0; i < _activeConsumables.size(); ++i)
+	{
+		if (_activeConsumables[i]->Update())
+		{
+			_activeConsumables.erase(_activeConsumables.begin() + i);
+		}
+	}
 }
 
 void PlayerBehaviour::ThrowBoomerang()
@@ -199,6 +234,8 @@ void PlayerBehaviour::LoadPlayer()
 	{
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
+		_player->SetShield(loadedPlayer["player"]["shield"]);
+		_player->ResetInventory();
 
 		if (!loadedPlayer["player"]["weapon"].contains("boomerang"))
 		{
@@ -216,15 +253,16 @@ void PlayerBehaviour::LoadPlayer()
 				auto& itemData = loadedPlayer["player"]["inventory"][i];
 				if (itemData.contains("type"))
 				{
-					PotionType type = static_cast<PotionType>(itemData["type"]);
-					auto potion = PotionFactory::CreatePotion(type, itemData);
-					_player->AddItemToInventory(*potion, itemData["amount"]);
+					_player->AddItemToInventory(PotionFactory::CreatePotion
+					(
+						itemData["type"],
+						itemData["time"],
+						itemData["sprite"],
+						itemData["name"],
+						itemData["value"]
+					).release(), itemData["amount"]);
 				}
-				else
-				{
-					Item item = Item(itemData["name"], itemData["sprite"]); 
-					_player->AddItemToInventory(item, itemData["amount"]);
-				}
+				// TODO weapons?
 			}
 		}
 	}
@@ -235,6 +273,7 @@ void PlayerBehaviour::SavePlayer()
 	Json::json playerFile;
 
 	playerFile["player"]["health"] = _player->GetHealth();
+	playerFile["player"]["shield"] = _player->GetShield();
 	playerFile["player"]["coins"] = _player->GetCoins();
 	if (_weapon)
 	{
@@ -250,21 +289,16 @@ void PlayerBehaviour::SavePlayer()
 
 	if (_player->GetInventorySize() > 0)
 	{
-		for (int i = 0; i < static_cast<int>(_player->GetInventorySize()); ++ i)
+		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
-			auto& inventoryItem = _player->GetInventoryItem(i)->GetItem();
+			const std::optional<InventoryItem>& inventoryItem = _player->GetInventoryItem(i);
 
-			itemData["name"] = inventoryItem.GetName();
-			itemData["sprite"] = inventoryItem.GetSprite();
-			itemData["amount"] = _player->GetInventoryItem(i)->GetAmount();
+			if (!inventoryItem.has_value()) continue;
 
-			if (auto potion = dynamic_cast<Potion*>(&inventoryItem))
-			{
-				itemData["type"] = static_cast<int>(potion->GetType());
-				itemData["value"] = potion->GetValue();
-				itemData["time"] = potion->GetTime();
-			}
+			itemData = JsonItemSerializer::Serialize(*inventoryItem->GetItem().Clone());
+			itemData["amount"] = inventoryItem->GetAmount();
+			// TODO weapons?
 		}
 	}
 	

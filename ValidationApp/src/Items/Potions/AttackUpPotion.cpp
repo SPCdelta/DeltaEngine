@@ -1,6 +1,11 @@
 #include "AttackUpPotion.hpp"
 
-void AttackUpPotion::Use(Player& player) 
+PotionType AttackUpPotion::GetPotionType() const
+{
+	return PotionType::AttackUp;
+}
+
+void AttackUpPotion::Use(Player& player)
 {
 	if (IsActive)
 	{
@@ -21,10 +26,10 @@ void AttackUpPotion::Use(Player& player)
 
 }
 
-void AttackUpPotion::Update() 
+bool AttackUpPotion::Update()
 {
 	if (!IsActive)
-		return;
+		return true;
 
 	float deltaTime = Time::GetDeltaTime();
 	_elapsedTime += deltaTime;
@@ -42,4 +47,10 @@ void AttackUpPotion::Update()
 		_affectedPlayer = nullptr;
 		std::cout << "Potion effect worn off" << std::endl;
 	}
+	return false;
+}
+
+std::unique_ptr<Item> AttackUpPotion::Clone() const
+{
+	return std::make_unique<AttackUpPotion>(*this);
 }

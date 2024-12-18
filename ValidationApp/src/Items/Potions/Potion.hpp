@@ -1,37 +1,31 @@
 #pragma once
 
-#include <iostream>
-#include <thread>
-
-#include <Engine/Core/Time.hpp>
-
-#include "../Item.hpp"
+#include "Engine/Delta.hpp"
+#include "../ConsumableItem.hpp"
 #include "../../Player.hpp"
+#include "../../Utils/PotionTypeUtils.hpp"
+#include "PotionType.hpp"
 
-enum class PotionType
+class Potion : public ConsumableItem
 {
-	AttackUp,
-	Defense,
-	Healing,
-	Speed,
-	None
-};
-
-class Potion : public Item
-{
-   public:
-	Potion(float time, float value, std::string name, std::string sprite) : _time{time}, _value{value}, Item(name, sprite) {}
+public:
+	Potion(float time, float value, const std::string& name, const std::string& spriteName);
 
 	virtual void Use(Player& player) = 0;
-	virtual void Update() {}
-
-	virtual PotionType GetType() { return PotionType::None; }
-
-   protected:
-	float _time;
-	float _value;
-	
-   public:
+	virtual bool Update() { return true; };
+	virtual std::unique_ptr<Item> Clone() const = 0;
 	float GetTime() const { return _time; }
 	float GetValue() const { return _value; }
+	virtual const std::string GetType() const
+	{
+		return std::string{TYPE + ':' + PotionTypeUtils::ToString(GetPotionType())};
+	}
+
+protected:
+	float _time;
+	float _value;
+	virtual PotionType GetPotionType() const = 0;
+
+private:
+	const std::string TYPE = "potion";
 };

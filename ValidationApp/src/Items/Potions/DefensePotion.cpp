@@ -1,5 +1,10 @@
 #include "DefensePotion.hpp"
 
+PotionType DefensePotion::GetPotionType() const
+{
+	return PotionType::Defense;
+}
+
 void DefensePotion::Use(Player& player) {
 	if (IsActive)
 	{
@@ -21,9 +26,9 @@ void DefensePotion::Use(Player& player) {
 
 }
 
-void DefensePotion::Update() {
+bool DefensePotion::Update() {
 	if (!IsActive)
-		return;
+		return true;
 
 	float deltaTime = Time::GetDeltaTime();
 	_elapsedTime += deltaTime;
@@ -41,4 +46,10 @@ void DefensePotion::Update() {
 		_affectedPlayer = nullptr;
 		std::cout << "Potion effect worn off" << std::endl;
 	}
+	return false;
+}
+
+std::unique_ptr<Item> DefensePotion::Clone() const
+{
+	return std::make_unique<DefensePotion>(*this);
 }

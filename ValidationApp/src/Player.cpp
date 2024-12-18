@@ -66,38 +66,51 @@ int Player::GetHealth() const
 	return _health;
 }
 
-void Player::AddItemToInventory(const Item& item, int amount)
+void Player::AddItemToInventory(Item* item, Uint8 amount)
 {
-	_inventory->AddItem(item, amount);
+	_inventory.AddItem(item, amount);
 
-	NotifyInventoryChanged(item, amount);
+	NotifyInventoryChanged(*item, amount);
 }
 
-void Player::RemoveItemFromInventory(const Item& item, int amount)
+void Player::RemoveItemFromInventory(const Item& item, Uint8 amount)
 {
-	_inventory->RemoveItem(item, amount);
+	_inventory.RemoveItem(item, amount);
 
 	NotifyInventoryChanged(item, -amount);
 }
 
-size_t Player::GetInventorySize()
+Uint8 Player::GetInventorySize() const
 {
-	return _inventory->GetItemAmount();
+	return _inventory.GetSize();
 }
 
-InventoryItem* Player::GetInventoryItem(size_t index)
+const std::optional<InventoryItem>& Player::GetInventoryItem(Uint8 index) const
 {
-	return _inventory->GetItem(index).get();
+	return _inventory.GetInventoryItem(index);
 }
 
-void Player::ResetInventory() // Empties the inventory
+std::optional<InventoryItem>& Player::GetInventoryItem(Uint8 index)
 {
-	_inventory->Clear();
+	return _inventory.GetInventoryItem(index);
 }
 
-void Player::PrintInventory()
+const std::optional<InventoryItem>& Player::GetCurrentInventoryItem() const
 {
-	_inventory->PrintInventory();
+	return _inventory.GetInventoryItem(_inventoryIndex);
+}
+
+void Player::ResetInventory()
+{
+	for (Uint8 i = 0; i < _inventory.GetSize(); ++i)
+	{
+		auto& item = _inventory.GetInventoryItem(i);
+		if (item.has_value())
+		{
+			NotifyInventoryChanged(*item->GetItem().get(), static_cast<int>(-item->GetAmount()));
+		}
+	}
+	_inventory.Clear();
 }
 
 int Player::GetCoins() const
@@ -114,6 +127,34 @@ void Player::SetCoins(int coins)
 		NotifyCoinsChanged(coins - _coins);
 		_coins = coins;
 }
+
+void Player::IncrementInventoryIndex()
+{
+	++_inventoryIndex;
+	NotifyInventoryIndexChanged();
+}
+
+void Player::DecrementInventoryIndex()
+{
+	--_inventoryIndex;
+	NotifyInventoryIndexChanged();
+}
+
+void Player::SetInventoryIndex(Uint8 index)
+{
+	if (index < 0 || index > _inventory.GetCapacity()-1)
+	{
+		throw std::exception{"Index cannot be lower than 0 or higher than inventory capacity"};
+	}
+	_inventoryIndex = index;
+	NotifyInventoryIndexChanged();
+}
+
+Uint8 Player::GetInventoryIndex() const
+{
+	return _inventoryIndex;
+}
+
 
 void Player::NotifyHealthChanged()
 {
@@ -144,5 +185,13 @@ void Player::NotifyInventoryChanged(const Item& item, int amount)
 	for (const auto& observer : _inventoryObservers)
 	{
 		observer(item, amount);
+	}
+}
+
+void Player::NotifyInventoryIndexChanged()
+{
+	for (const auto& observer : _inventoryIndexObservers)
+	{
+		observer(_inventoryIndex);
 	}
 }

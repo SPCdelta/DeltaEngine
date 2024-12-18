@@ -27,9 +27,18 @@
     <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
     <ClCompile Include="src\Views\Components\BarComponent.cpp" />
+    <ClCompile Include="src\Items\ConsumableItem.cpp" />
+    <ClCompile Include="src\Items\Potions\Potion.cpp" />
+    <ClCompile Include="src\Items\WorldItem.cpp" />
     <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
     <ClCompile Include="src\Scenes\LayerScene.cpp" />
     <ClCompile Include="src\Classes\DamageBehaviour.cpp" />
+    <ClCompile Include="src\Classes\IPrototype.cpp" />
+    <ClCompile Include="src\Utils\PotionTypeUtils.cpp" />
+    <ClCompile Include="src\Items\Serializers\IItemSerializer.cpp" />
+    <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
+    <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
+    <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -80,6 +89,7 @@
     <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
+    <ClInclude Include="src\Items\ConsumableItem.hpp" />
     <ClInclude Include="src\Scenes\ParticleScene.hpp" />
     <ClInclude Include="src\Classes\ParticleFactory.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
@@ -87,6 +97,12 @@
     <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
     <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
     <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
+    <ClInclude Include="src\Classes\IPrototype.hpp" />
+    <ClInclude Include="src\Utils\PotionTypeUtils.hpp" />
+    <ClInclude Include="src\Items\Serializers\IItemSerializer.hpp" />
+    <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
+    <ClInclude Include="src\Items\Potions\PotionType.hpp" />
+    <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
     <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
@@ -129,6 +145,7 @@
     <Image Include="Assets\Textures\Items\potions\cyan.png" />
     <Image Include="Assets\Textures\HUD\shield_bar.png" />
     <Image Include="Assets\Textures\Items\coin.png" />
+    <Image Include="Assets\Textures\HUD\active_slot.png" />
     <Image Include="Assets\Textures\Particles\particles.png" />
   </ItemGroup>
   <ItemGroup>

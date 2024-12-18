@@ -1,5 +1,10 @@
 #include "SpeedPotion.hpp"
 
+PotionType SpeedPotion::GetPotionType() const
+{
+	return PotionType::Speed;
+}
+
 void SpeedPotion::Use(Player& player) {
 	if (IsActive)
 	{
@@ -22,9 +27,9 @@ void SpeedPotion::Use(Player& player) {
 
 }
 
-void SpeedPotion::Update() {
+bool SpeedPotion::Update() {
 	if (!IsActive)
-		return;
+		return true;
 
 	float deltaTime = Time::GetDeltaTime();
 	_elapsedTime += deltaTime;
@@ -42,4 +47,10 @@ void SpeedPotion::Update() {
 		_affectedPlayer = nullptr;
 		std::cout << "Potion effect worn off" << std::endl;
 	}
+	return false;
+}
+
+std::unique_ptr<Item> SpeedPotion::Clone() const
+{
+	return std::make_unique<SpeedPotion>(*this);
 }

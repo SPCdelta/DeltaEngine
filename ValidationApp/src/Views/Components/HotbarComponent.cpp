@@ -2,27 +2,28 @@
 #include <algorithm>
 
 HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, 
-	const Math::Vector2& startPos, const Math::Vector2& slotScale, Player& player) : IView(scene, fontName, startPos, slotScale)
+	const Math::Vector2& startPos, const Math::Vector2& slotScale, Player& player) : IView(scene, fontName, startPos, slotScale), _player{player}
 {
 	auto pos = startPos;
 	for (Uint8 i = 0; i < capacity; ++i)
 	{
 		auto slot = std::shared_ptr<GameObject>{ _scene.Instantiate({pos, 0.0f, slotScale }) };
-		slot->AddComponent<Ui::Image>("hotbar_slot");
-
-		auto* item = player.GetInventoryItem(i);
+		slot->AddComponent<Ui::Image>(HOTBAR_SLOT_SPRITENAME);
+		slot->AddComponent<Ui::Button>()->SetOnLeftMouseClick([i, &player]() -> void { player.SetInventoryIndex(i); }, "Hotbar");
 		auto itemIcon = std::shared_ptr<GameObject>{};
 		std::string itemName = "";
-		if (item)
+		auto& item = player.GetInventoryItem(i);
+		if (item.has_value())
 		{
 			itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, slotScale }) };
-			itemIcon->AddComponent<Ui::Image>(item->GetItem().GetSprite());
-			itemName = item->GetItem().GetName();
+			itemIcon->AddComponent<Ui::Image>(item->GetItem()->GetSprite());
+			itemName = item->GetItem()->GetName();
 		}
 		_hotbar.emplace_back(slot, itemIcon, itemName);
 		pos.AddX(slotScale.GetX());
 	}
-	player.AddInventoryObserver([this](const Item& item, int amount) { this->InventoryChanged(item, amount); });
+	_hotbar[_index].slot->GetComponent<Ui::Image>().SetSprite(ACTIVE_HOTBAR_SLOT_SPRITENAME);
+	Subscribe();
 }
 
 void HotbarComponent::InventoryChanged(const Item& item, int amount)
@@ -48,6 +49,13 @@ void HotbarComponent::InventoryChanged(const Item& item, int amount)
 	{
 		AddItem(item, amount);
 	}
+}
+
+void HotbarComponent::InventoryIndexChanged(Uint8 index)
+{
+	_hotbar[_index].slot->GetComponent<Ui::Image>().SetSprite(HOTBAR_SLOT_SPRITENAME);
+	_index = index;
+	_hotbar[_index].slot->GetComponent<Ui::Image>().SetSprite(ACTIVE_HOTBAR_SLOT_SPRITENAME);
 }
 
 const Math::Vector2& HotbarComponent::GetSize() const
@@ -104,17 +112,7 @@ void HotbarComponent::DeleteItem(const Item& item)
 	slot.amount = 0;
 	slot.itemName = "";
 	_scene.DestroyObject(slot.itemIcon.get());
-	SortHotbar(index);
 }
-
-void HotbarComponent::SortHotbar(Uint8 index)
-{
-	for (Uint8 i = index; i < _hotbar.size()-1; ++i)
-	{
-		std::swap(_hotbar[i], _hotbar[++i]);
-	}
-}
-
 
 Uint8 HotbarComponent::GetAvailableIndex() const
 {
@@ -136,4 +134,10 @@ bool HotbarComponent::HasItem(const Item& item)
 		}
 	}
 	return false;
+}
+
+void HotbarComponent::Subscribe()
+{
+	_player.AddInventoryObserver([this](const Item& item, int amount) { this->InventoryChanged(item, amount); });
+	_player.AddInventoryIndexObserver([this](Uint8 index) { this->InventoryIndexChanged(index); });
 }
