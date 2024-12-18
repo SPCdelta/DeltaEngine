@@ -104,6 +104,7 @@ void Application::LoadScene(const std::string& sceneName)
 	currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
 	currentScene->_inputfacade = &_inputFacade;
 	currentScene->_windowEvent = &_windowEvent;
+	currentScene->_application = this;
 	currentScene->SetWindow(_window);
 	currentScene->Start();
 }

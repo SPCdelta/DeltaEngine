@@ -206,6 +206,7 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\MySceneData.hpp" />
     <ClInclude Include="src\Classes\ParticleFactory.hpp" />
     <ClInclude Include="src\Scenes\ParticleScene.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />

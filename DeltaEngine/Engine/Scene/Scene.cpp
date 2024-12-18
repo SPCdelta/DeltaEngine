@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+#include "../Application.hpp"
 
 Scene::Scene(const std::string& name)
 	: _name{name}
@@ -12,6 +13,18 @@ Scene::Scene(const std::string& name)
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
+}
+
+void Scene::LoadScene(const std::string& name)
+{
+	_application->LoadScene(name);
+	//_changeSceneEvent.Dispatch(name);
+	//_application->LoadScene(name);
+}
+
+void Scene::LoadScene(const std::string& name, void* userData)
+{
+	_application->LoadScene<void>(name, userData);
 }
 
 void Scene::Start()
@@ -52,6 +65,16 @@ void Scene::Update()
 	_renderSystem->Update();
 	_imageRenderSystem->Update();
 	_textRenderSystem->Update();
+}
+
+void* Scene::GetUserData()
+{
+	return _application->GetUserData();
+}
+
+void Scene::SetUserData(void* userData)
+{
+	_application->SetUserData(userData);
 }
 
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)

@@ -41,6 +41,20 @@ public:
 
 	void LoadScene(const std::string& sceneName);
 
+	template<typename T>
+	void LoadScene(const std::string& sceneName, T* userData)
+	{
+		SetUserData(reinterpret_cast<void*>(userData));
+		_sceneManager.Load(sceneName);
+		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
+		//currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
+		currentScene->_inputfacade = &_inputFacade;
+		currentScene->_windowEvent = &_windowEvent;
+		currentScene->_application = this;
+		currentScene->SetWindow(_window);
+		currentScene->Start();
+	}
+
 	static void Quit()
 	{
 		_isRunning = false;
@@ -64,11 +78,22 @@ public:
 		_window.SetViewportPos(xPos, yPos);
 	}
 
+	void* GetUserData()
+	{
+		return _userData;
+	}
+
+	void SetUserData(void* userData)
+	{
+		_userData = userData;
+	}
+
 protected:
 	ecs::Registry _reg;
 
 private:
 	static bool _isRunning;
+	void* _userData = nullptr;
 
 	Window _window;
 	Rendering::Event _windowEvent{};
@@ -84,6 +109,7 @@ private:
 	Ui::Text* _fpsText = nullptr;
 	float _fpsTimer = 1.0f;
 	bool _renderFps = false;
+
 	void Debug();
 	void InitDebug();
 
