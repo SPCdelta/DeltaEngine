@@ -8,6 +8,7 @@
 #include "../Scripts/EnemyBehaviour.hpp"
 #include "../Scripts/EnemyHitboxBehaviour.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
+#include "../Items/Potions/DefensePotion.hpp"
 #include "../Views/HUDView.hpp"
 
 class LayerScene : public Scene

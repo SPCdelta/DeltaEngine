@@ -1,5 +1,10 @@
 #include "DefensePotion.hpp"
 
+PotionType DefensePotion::GetPotionType() const
+{
+	return PotionType::Defense;
+}
+
 void DefensePotion::Use(Player& player) {
 	if (IsActive)
 	{
@@ -44,7 +49,7 @@ bool DefensePotion::Update() {
 	return false;
 }
 
-Item* DefensePotion::Clone() const
+std::unique_ptr<Item> DefensePotion::Clone() const
 {
-	return new DefensePotion{*this};
+	return std::make_unique<DefensePotion>(*this);
 }

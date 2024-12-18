@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Potion.hpp"
+#include "Engine/Delta.hpp"
 
 class HealingPotion : public Potion
 {
-   public:
+public:
 	HealingPotion(float time, float value, std::string name, std::string sprite) : Potion(time, value, name, sprite) {}
-
 	void Use(Player& player) override;
-	Item* Clone() const override;
-	PotionType GetType() override { return PotionType::Healing; }
+	std::unique_ptr<Item> Clone() const override;
+	PotionType GetPotionType() const override;
+
 };

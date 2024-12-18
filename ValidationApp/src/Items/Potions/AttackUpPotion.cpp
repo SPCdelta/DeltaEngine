@@ -1,6 +1,11 @@
 #include "AttackUpPotion.hpp"
 
-void AttackUpPotion::Use(Player& player) 
+PotionType AttackUpPotion::GetPotionType() const
+{
+	return PotionType::AttackUp;
+}
+
+void AttackUpPotion::Use(Player& player)
 {
 	if (IsActive)
 	{
@@ -45,7 +50,7 @@ bool AttackUpPotion::Update()
 	return false;
 }
 
-Item* AttackUpPotion::Clone() const
+std::unique_ptr<Item> AttackUpPotion::Clone() const
 {
-	return new AttackUpPotion{*this};
+	return std::make_unique<AttackUpPotion>(*this);
 }

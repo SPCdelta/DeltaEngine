@@ -1,4 +1,5 @@
 #include "PlayerBehaviour.hpp"
+#include "../Items/Serializers/JsonItemSerializer.hpp"
 
 void PlayerBehaviour::OnStart() 
 {
@@ -184,7 +185,7 @@ void PlayerBehaviour::ConsumeItem()
 	auto& item = _player->GetCurrentInventoryItem();
 	if (!item.has_value()) return;
 
-    auto consumable = std::unique_ptr<ConsumableItem>(dynamic_cast<ConsumableItem*>(item->GetItem().Clone()));
+    auto consumable = std::unique_ptr<ConsumableItem>(dynamic_cast<ConsumableItem*>(item->GetItem().Clone().release()));
 	if (consumable)
 	{
 		consumable->Use(*_player.get());
@@ -233,21 +234,25 @@ void PlayerBehaviour::LoadPlayer()
 		_player->SetShield(loadedPlayer["player"]["shield"]);
 		_player->ResetInventory();
 
-		//if (loadedPlayer["player"].contains("inventory"))
-		//{
-		//	for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
-		//	{
-		//		auto& itemData = loadedPlayer["player"]["inventory"][i];
-		//		if (itemData.contains("type"))
-		//		{
-		//			PotionType type = static_cast<PotionType>(itemData["type"]);
-		//			auto potion = PotionFactory::CreatePotion(type, itemData);
-		//			_player->AddItemToInventory(potion.release(), itemData["amount"]);
-		//		}
-
-		//		 TODO weapons?
-		//	}
-		//}
+		if (loadedPlayer["player"].contains("inventory"))
+		{
+			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
+			{
+				auto& itemData = loadedPlayer["player"]["inventory"][i];
+				if (itemData.contains("type"))
+				{
+					_player->AddItemToInventory(PotionFactory::CreatePotion
+					(
+						itemData["type"],
+						itemData["time"],
+						itemData["sprite"],
+						itemData["name"],
+						itemData["value"]
+					).release(), itemData["amount"]);
+				}
+				// TODO weapons?
+			}
+		}
 	}
 }
 
@@ -259,29 +264,20 @@ void PlayerBehaviour::SavePlayer()
 	playerFile["player"]["shield"] = _player->GetShield();
 	playerFile["player"]["coins"] = _player->GetCoins();
 
-	//if (_player->GetInventorySize() > 0)
-	//{
-	//	for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
-	//	{
-	//		auto& itemData = playerFile["player"]["inventory"][i];
-	//		const std::optional<InventoryItem>& inventoryItem = _player->GetInventoryItem(i);
+	if (_player->GetInventorySize() > 0)
+	{
+		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
+		{
+			auto& itemData = playerFile["player"]["inventory"][i];
+			const std::optional<InventoryItem>& inventoryItem = _player->GetInventoryItem(i);
 
-	//		if (!inventoryItem.has_value()) continue;
+			if (!inventoryItem.has_value()) continue;
 
-	//		itemData["name"] = inventoryItem->GetItem().GetName();
-	//		itemData["sprite"] = inventoryItem->GetItem().GetSprite();
-	//		itemData["amount"] = _player->GetInventoryItem(i)->GetAmount();
-
-	//		if (auto consumable = std::unique_ptr<ConsumableItem>(dynamic_cast<ConsumableItem*>(inventoryItem->GetItem().Clone())))
-	//		{
-	//			itemData["type"] = static_cast<int>(consumable->);
-	//			itemData["value"] = potion->GetValue();
-	//			itemData["time"] = potion->GetTime();
-	//		}
-
-	//		// TODO weapons?
-	//	}
-	//}
+			itemData = JsonItemSerializer::Serialize(*inventoryItem->GetItem().Clone());
+			itemData["amount"] = inventoryItem->GetAmount();
+			// TODO weapons?
+		}
+	}
 	
 	_fileManager.Save("Assets\\Files\\player.json", "json", playerFile);
 }

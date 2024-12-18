@@ -1,5 +1,10 @@
 #include "SpeedPotion.hpp"
 
+PotionType SpeedPotion::GetPotionType() const
+{
+	return PotionType::Speed;
+}
+
 void SpeedPotion::Use(Player& player) {
 	if (IsActive)
 	{
@@ -45,7 +50,7 @@ bool SpeedPotion::Update() {
 	return false;
 }
 
-Item* SpeedPotion::Clone() const
+std::unique_ptr<Item> SpeedPotion::Clone() const
 {
-	return new SpeedPotion{*this};
+	return std::make_unique<SpeedPotion>(*this);
 }

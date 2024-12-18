@@ -1,4 +1,5 @@
 #include "HealingPotion.hpp"
+#include "../../Utils/PotionTypeUtils.hpp"
 
 void HealingPotion::Use(Player& player)
 {
@@ -18,8 +19,13 @@ void HealingPotion::Use(Player& player)
 	std::cout << "New health: " << player.GetHealth() << std::endl;
 }
 
-Item* HealingPotion::Clone() const
+std::unique_ptr<Item> HealingPotion::Clone() const
 {
-	return new HealingPotion{*this};
+	return std::make_unique<HealingPotion>(*this);
+}
+
+PotionType HealingPotion::GetPotionType() const
+{
+	return PotionType::Healing;
 }
 
