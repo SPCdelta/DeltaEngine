@@ -157,6 +157,7 @@ public:
 
 	std::shared_ptr<GameObject> Instantiate();
 	void Destroy(GameObject* gameObject);
+	void Destroy(std::shared_ptr<GameObject> gameObject);
 
 	Camera* GetCamera()
 	{ 

@@ -59,8 +59,9 @@ void EnemyBehaviour::OnUpdate()
 		_damageBehaviour->Update(Time::GetDeltaTime());
 		if (_damageBehaviour->GetDamage())
 		{
-			if (_enemy->GetHealth() > 0)
+			if (_enemy->GetHealth() > 0 && _sfx)
 			{
+				std::cout << "taking damage\n";
 				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
 				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 				_sfx->Play();
@@ -68,7 +69,7 @@ void EnemyBehaviour::OnUpdate()
 
 			if (_enemy->GetHealth() <= 0)
 			{
-				_dead = true;
+				std::cout << "dying!\n";
 				_enemy->Die();
 				Events::Event e{};
 				onDeath.Dispatch(e);

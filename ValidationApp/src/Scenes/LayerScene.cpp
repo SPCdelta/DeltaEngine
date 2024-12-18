@@ -34,9 +34,12 @@ void LayerScene::OnStart()
 
 	goblinBehaviour->onDeath.Register([this, goblinObj, goblinDmgObj](Events::Event e)
 	{
+		std::cout << "goblin dead\n";
 		DestroyObject(goblinDmgObj);
-		//goblinObj->GetComponent<Sprite>().SetVisible(false);
-		DestroyObject(goblinObj);			
+		goblinObj->GetComponent<Sprite>().SetVisible(false);
+		//MarkForDestroy(goblinObj.get());
+		DestroyObject(goblinObj);		
+		//goblinObj->Destroy(goblinObj);	
 	});
 
 	// Create slime enemy
@@ -47,7 +50,7 @@ void LayerScene::OnStart()
 	slimeObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	slimeObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	slimeObj->SetTag("slime");
-	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
+	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);
 	auto slimeBehaviour = &slimeObj->GetComponent<EnemyBehaviour>();
 		
 	// Create hitbox for the enemy so it can get hurt by the projectiles
@@ -55,14 +58,17 @@ void LayerScene::OnStart()
 	slimeDmgObj->AddComponent<Sprite>("slime")->SetVisible(false);
 	slimeDmgObj->AddComponent<BoxCollider>();
 	slimeDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	slimeDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&slimeObj->GetComponent<Transform>().position) ;
+	slimeDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&slimeObj->GetComponent<Transform>().position);
 	slimeBehaviour->SetDamageBehaviour(slimeDmgObj->GetComponent<Rigidbody>());
 
 	slimeBehaviour->onDeath.Register([this, slimeObj, slimeDmgObj](Events::Event e)
 	{
+		std::cout << "slime dead\n";
 		DestroyObject(slimeDmgObj);
-		//slimeObj->GetComponent<Sprite>().SetVisible(false);
+		slimeObj->GetComponent<Sprite>().SetVisible(false);
+		//MarkForDestroy(slimeObj.get());
 		DestroyObject(slimeObj);
+		//slimeObj->Destroy(slimeObj);	
 	});
 
 	// Create skeleton enemy
@@ -86,9 +92,12 @@ void LayerScene::OnStart()
 
 	skeletonBehaviour->onDeath.Register([this, skeletonObj, skeletonDmgObj](Events::Event e)
 	{
+		std::cout << "skeleton dead\n";
 		DestroyObject(skeletonDmgObj);
-		//skeletonObj->GetComponent<Sprite>().SetVisible(false);
+		skeletonObj->GetComponent<Sprite>().SetVisible(false);
+		//MarkForDestroy(skeletonObj.get());
 		DestroyObject(skeletonObj);
+		//skeletonObj->Destroy(skeletonObj);
 	});
 
 	// Create potion object to pick up

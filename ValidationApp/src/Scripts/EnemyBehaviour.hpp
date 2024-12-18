@@ -33,6 +33,7 @@ class EnemyBehaviour : public BehaviourScript
    private:
 	std::unique_ptr<DamageBehaviour> _damageBehaviour;
 	std::unique_ptr<AIBehaviour> _aiBehaviour;
+	std::shared_ptr<GameObject> _damageObj;
 
 	// Audio
 	Audio::SFXSource* _sfx;
@@ -40,7 +41,6 @@ class EnemyBehaviour : public BehaviourScript
 	Math::Vector2 _moveDirection{0.0f, 0.0f};
 
 	std::unique_ptr<Enemy> _enemy;
-	bool _dead = false;
 
 	void UpdateAnimation();
 };

@@ -71,19 +71,7 @@ class Scene
 
 	void DestroyObject(std::shared_ptr<GameObject> gameObject)
 	{
-		auto it = std::find_if(_objects.begin(), _objects.end(),
-			[gameObject](const std::shared_ptr<GameObject>& obj)
-			{ 
-				return obj == gameObject; 
-			}
-		);
-
-		if (it != _objects.end())
-		{
-			ecs::EntityId toDestroy = gameObject->_id;
-			_objects.erase(it);
-			_reg.DestroyEntity(toDestroy);
-		}
+		DestroyObject(gameObject.get());
 	}
 
 	void Start();

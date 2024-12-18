@@ -30,3 +30,8 @@ void GameObject::Destroy(GameObject* toDestroy)
 {
 	_scene->DestroyObject(toDestroy);
 }
+
+void GameObject::Destroy(std::shared_ptr<GameObject> toDestroy)
+{
+	_scene->DestroyObject(toDestroy);
+}
