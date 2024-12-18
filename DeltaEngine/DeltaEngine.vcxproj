@@ -210,7 +210,6 @@
     <ClCompile Include="Engine\Rendering\Renderables\Renderable.cpp" />
     <ClCompile Include="Engine\Rendering\TextureManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
-    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Core\Math\Point.cpp" />
     <ClCompile Include="Engine\Core\Math\Random.cpp" />
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
