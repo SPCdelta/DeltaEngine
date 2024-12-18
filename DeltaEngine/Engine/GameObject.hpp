@@ -156,7 +156,10 @@ public:
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
 
 	std::shared_ptr<GameObject> Instantiate();
+	std::shared_ptr<GameObject> Instantiate(Transform transform);
+
 	void Destroy(GameObject* gameObject);
+	void Destroy(std::shared_ptr<GameObject> gameObject);
 
 	Camera* GetCamera()
 	{ 

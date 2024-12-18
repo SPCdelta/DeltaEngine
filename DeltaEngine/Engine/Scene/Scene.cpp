@@ -12,6 +12,7 @@ Scene::Scene(const std::string& name)
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
+	_despawnSystem = _reg.CreateSystem<DespawnSystem, Transform, Despawner>();
 }
 
 void Scene::Start()
@@ -42,9 +43,23 @@ void Scene::Update()
 	_physicsSystem->TransformToBox2D();
 
 	// Destroy
+	_despawnSystem->Update();
 	while (!_toDeleteQueue.empty())
 	{
-		DestroyObject(_toDeleteQueue.front());
+		GameObject* gameObject = _toDeleteQueue.front();
+		auto it = std::find_if(_objects.begin(), _objects.end(),
+		[gameObject](const std::shared_ptr<GameObject>& obj)
+		{ 
+			return obj.get() == gameObject; 
+		});
+
+		if (it != _objects.end())
+		{
+			ecs::EntityId toDestroy = gameObject->_id;
+			_objects.erase(it);
+			_reg.DestroyEntity(toDestroy);
+		}
+
 		_toDeleteQueue.pop();  // Remove the pointer from the queue
 	}
 

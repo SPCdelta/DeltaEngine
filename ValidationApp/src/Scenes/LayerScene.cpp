@@ -3,7 +3,7 @@
 void LayerScene::OnStart()
 {
 	// Create Player
-	std::shared_ptr<GameObject> playerObject{ Instantiate({{4.0f, 4.0f}, 0.0f, {3.0f, 3.0f}}) };
+	std::shared_ptr<GameObject> playerObject{ Instantiate({{4.0f, 4.0f}, 0.0f, {2.5f, 2.5f}}) };
 	std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 	playerSheet->AddCustomAnimation("death", 6, 21, 150);
 	playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
@@ -13,30 +13,35 @@ void LayerScene::OnStart()
 	playerObject->AddComponent<PlayerBehaviour>();
 	playerObject->SetTag("player");
 
-	// Create object that gets hurt when a weapon touches it
-	std::shared_ptr<GameObject> enemyObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {3.0f, 3.0f}}) };
-	std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(enemyObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
-	enemyObj->AddComponent<Sprite>("goblin", goblinSheet);
-	enemyObj->AddComponent<Audio::SFXSource>("", false, false);
-	enemyObj->AddComponent<BoxCollider>()->SetTrigger(true);
-	enemyObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	enemyObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;
-	enemyObj->SetTag("goblin");
-	auto behaviour = &enemyObj->GetComponent<EnemyBehaviour>();
-		
-	// Create hitbox for the enemy so it can get hurt by the projectiles
-	std::shared_ptr<GameObject> enemyDmgObj{ Instantiate(enemyObj->GetComponent<Transform>()) };
-	enemyDmgObj->AddComponent<Sprite>("goblin")->SetVisible(false);
-	enemyDmgObj->AddComponent<BoxCollider>();
-	enemyDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	enemyDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&enemyObj->GetComponent<Transform>().position) ;
-	behaviour->SetDamageBehaviour(enemyDmgObj->GetComponent<Rigidbody>());
+	// Create goblin enemy
+	std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {2.5f, 2.5f}}) };
+	std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(goblinObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
+	goblinObj->AddComponent<Sprite>("goblin", goblinSheet);
+	goblinObj->AddComponent<Audio::SFXSource>("", false, false);
+	goblinObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	goblinObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	goblinObj->SetTag("goblin");
+	goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());	
 
-	behaviour->onDeath.Register([this, enemyObj, enemyDmgObj](Events::Event e)
-	{
-		DestroyObject(enemyObj);
-		DestroyObject(enemyDmgObj);
-	});
+	// Create slime enemy
+	std::shared_ptr<GameObject> slimeObj{ Instantiate({{1.0f, 12.0f}, 0.0f, {1.0f, 1.0f}}) };
+	std::shared_ptr<AnimationSheet> slimeSheet = std::make_shared<AnimationSheet>(slimeObj->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
+	slimeObj->AddComponent<Sprite>("slime", slimeSheet);
+	slimeObj->AddComponent<Audio::SFXSource>("", false, false);
+	slimeObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	slimeObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	slimeObj->SetTag("slime");
+	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());
+
+	// Create skeleton enemy
+	std::shared_ptr<GameObject> skeletonObj{ Instantiate({{-10.0f, 10.0f}, 0.0f, {2.5f, 2.5f}}) };
+	std::shared_ptr<AnimationSheet> skeletonSheet = std::make_shared<AnimationSheet>(skeletonObj->GetComponent<Transform>(), 9, 64, 64, 1, 3, 2, 4);
+	skeletonObj->AddComponent<Sprite>("skeleton", skeletonSheet);
+	skeletonObj->AddComponent<Audio::SFXSource>("", false, false);
+	skeletonObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	skeletonObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	skeletonObj->SetTag("skeleton");
+	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());;	
 
 	// Create potion object to pick up
 	WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);
