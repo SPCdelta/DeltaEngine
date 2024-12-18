@@ -3,10 +3,9 @@
 
 GameObject::GameObject(
 	Scene* scene, ecs::EntityId id, ecs::Registry& reg, Physics::PhysicsWorld& physicsWorld, 
-	Events::EventDispatcher<const std::string&>& changeScene, Camera* camera, Transform& transform_)
+	Camera* camera, Transform& transform_)
 	: _reg(reg), 
 	  _physicsWorld{ physicsWorld },
-	  _changeScene{ changeScene },
 	  _camera{ camera },
 	  _scene{ scene },
 	  _id{ id },

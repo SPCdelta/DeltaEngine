@@ -18,8 +18,6 @@ Scene::Scene(const std::string& name)
 void Scene::LoadScene(const std::string& name)
 {
 	_application->LoadScene(name);
-	//_changeSceneEvent.Dispatch(name);
-	//_application->LoadScene(name);
 }
 
 void Scene::LoadScene(const std::string& name, void* userData)
@@ -88,7 +86,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	{ 
 		std::make_shared<GameObject>
 		(
-			this, entityId, _reg, _physicsWorld, _changeSceneEvent, camera, transformComponent
+			this, entityId, _reg, _physicsWorld, camera, transformComponent
 		) 
 	};
 	transformComponent.gameObject = obj.get();

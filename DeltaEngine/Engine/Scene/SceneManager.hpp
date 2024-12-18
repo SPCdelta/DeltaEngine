@@ -32,9 +32,6 @@ public:
 		}
 	}
 
-	// ?
-	// std::unique_ptr<Scene> ExportScene();
-
 private:
 	std::unordered_map<std::string, std::function<std::shared_ptr<Scene>(const std::string&)>> _factories;
 	std::shared_ptr<Scene> _currentScene;

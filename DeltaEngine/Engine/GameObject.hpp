@@ -124,7 +124,6 @@ public:
 	GameObject(Scene* scene, ecs::EntityId id,
 				ecs::Registry& reg,
 				Physics::PhysicsWorld& physicsWorld,
-				Events::EventDispatcher<const std::string&>& changeScene,
 				Camera* camera, Transform& transform_);
 	~GameObject();
 
@@ -169,7 +168,6 @@ private:
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
-	Events::EventDispatcher<const std::string&>& _changeScene;
 	Camera* _camera = nullptr;
 	std::string _tag;
 

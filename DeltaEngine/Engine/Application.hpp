@@ -23,15 +23,18 @@
 
 #include "Core/Time.hpp"
 
+class SceneHelper;
+
 class Application
 {
 public:
 	Application(int unitPixelSize);
 	~Application();
 
-	void Run();
+	friend class Scene;
+	friend class SceneHelper;
 
-	Events::EventDispatcher<const std::string&> ChangeScene{};
+	void Run();
 
 	template<typename T>
 	void RegisterScene(const std::string& sceneName)
@@ -47,7 +50,6 @@ public:
 		SetUserData(reinterpret_cast<void*>(userData));
 		_sceneManager.Load(sceneName);
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-		//currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
 		currentScene->_inputfacade = &_inputFacade;
 		currentScene->_windowEvent = &_windowEvent;
 		currentScene->_application = this;
@@ -76,16 +78,6 @@ public:
 	{
 		_window.SetViewportSize(sizeWidth, sizeHeight);
 		_window.SetViewportPos(xPos, yPos);
-	}
-
-	void* GetUserData()
-	{
-		return _userData;
-	}
-
-	void SetUserData(void* userData)
-	{
-		_userData = userData;
 	}
 
 protected:
@@ -118,5 +110,9 @@ private:
 	std::unique_ptr<Ui::Text> _gameSpeed;
 	void InitGameSpeed();
 	void RenderGameSpeed();
+
+	// Data
+	void* GetUserData() { return _userData; }
+	void SetUserData(void* userData) { _userData = userData; }
 };
 
