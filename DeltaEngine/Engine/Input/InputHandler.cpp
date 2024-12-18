@@ -31,5 +31,5 @@ const std::string& InputListener::GetCategory() const {
 }
 
 const Events::EventCallback<Input&>& InputListener::GetRegistered() const {
-    return _regesterd;
+    return _registered;
 }
