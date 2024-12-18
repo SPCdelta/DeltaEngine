@@ -8,12 +8,12 @@ class Skeleton : public Enemy
    public:
 	Skeleton(Math::Vector2* position, GameObject* obj) : Enemy(position, 2.5f, 20, 0, 50, 5), gameObject(obj) {} 
 
-	void Update(const Math::Vector2& player_position, Audio::SFXSource* _sfx) override
+	void Update(Transform& player_position, Audio::SFXSource* _sfx) override
 	{
 		if (_dead)
 			return;
 
-        Math::Vector2 distanceToPlayer = gameObject->transform->position - player_position;
+        Math::Vector2 distanceToPlayer = gameObject->transform->position - player_position.position;
         if (distanceToPlayer.Magnitude() <= _attackRange)
         {
             float deltaTime = Time::GetDeltaTime();
@@ -30,11 +30,11 @@ class Skeleton : public Enemy
         }
 	}
 
-    void ShootArrow(const Math::Vector2& player_position)
+    void ShootArrow(Transform& player_position)
     {
         std::shared_ptr<GameObject> arrowObj = gameObject->Instantiate();
 		arrowObj->transform->position.Set(gameObject->transform->position);
-        arrowObj->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, gameObject->transform->position.DirectionTo(player_position)});
+        arrowObj->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, gameObject->transform->position.DirectionTo(player_position.position)});
 		arrowObj->SetTag("skeleton_arrow");
 
         

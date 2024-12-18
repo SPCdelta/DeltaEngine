@@ -31,7 +31,7 @@ void EnemyBehaviour::OnStart()
 
 	Math::Vector2* enemyPosition = &transform->position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
-	_aiBehaviour = std::make_unique<AIBehaviour>(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
+	_aiBehaviour = std::make_unique<AIBehaviour>(astar, transform, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
 
 	_damageObj = Instantiate(*transform);
 	_damageObj->AddComponent<Sprite>("skeleton")->SetVisible(false);
@@ -43,7 +43,7 @@ void EnemyBehaviour::OnStart()
 
 void EnemyBehaviour::OnUpdate()
 {
-	Math::Vector2* pos = &gameObject->GetComponent<Transform>().position;
+	Transform* pos = &gameObject->GetComponent<Transform>();
 
 	if (playerPosition)
 	{
@@ -51,10 +51,10 @@ void EnemyBehaviour::OnUpdate()
 		_enemy->Update(*playerPosition, _sfx.get());
 	}
 		
-	if (pos != &gameObject->GetComponent<Transform>().position)
+	if (pos != &gameObject->GetComponent<Transform>())
 	{
-		gameObject->GetComponent<Transform>().position.SetX(pos->GetX());
-		gameObject->GetComponent<Transform>().position.SetY(pos->GetY());
+		gameObject->GetComponent<Transform>().position.SetX(pos->position.GetX());
+		gameObject->GetComponent<Transform>().position.SetY(pos->position.GetY());
 	}
 	
 	_moveDirection = _aiBehaviour->GetDirection();
@@ -102,7 +102,7 @@ void EnemyBehaviour::UpdateAnimation()
 	}
 }
 
-void EnemyBehaviour::SetPlayerPosition(Math::Vector2* pos)
+void EnemyBehaviour::SetPlayerPosition(Transform* pos)
 {
 	playerPosition = pos;
 	_aiBehaviour->SetTargetPosition(playerPosition);

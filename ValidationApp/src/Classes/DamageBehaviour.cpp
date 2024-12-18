@@ -28,7 +28,6 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::ini
 DamageBehaviour::~DamageBehaviour()
 {
 	_currentCollider = nullptr;
-	// TODO unregister events
 }
 
 void DamageBehaviour::Update(float deltaTime)
