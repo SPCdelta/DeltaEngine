@@ -10,6 +10,9 @@ class Skeleton : public Enemy
 
 	void Update(const Math::Vector2& player_position, Audio::SFXSource* _sfx) override
 	{
+		if (_dead)
+			return;
+
         Math::Vector2 distanceToPlayer = gameObject->transform->position - player_position;
         if (distanceToPlayer.Magnitude() <= _attackRange)
         {

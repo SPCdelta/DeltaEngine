@@ -69,6 +69,7 @@ void EnemyBehaviour::OnUpdate()
 			if (_enemy->GetHealth() <= 0)
 			{
 				_dead = true;
+				_enemy->Die();
 				Events::Event e{};
 				onDeath.Dispatch(e);
 				return;

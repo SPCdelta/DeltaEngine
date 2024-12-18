@@ -35,6 +35,7 @@ void LayerScene::OnStart()
 	goblinBehaviour->onDeath.Register([this, goblinObj, goblinDmgObj](Events::Event e)
 	{
 		DestroyObject(goblinDmgObj);
+		//goblinObj->GetComponent<Sprite>().SetVisible(false);
 		DestroyObject(goblinObj);			
 	});
 
@@ -60,6 +61,7 @@ void LayerScene::OnStart()
 	slimeBehaviour->onDeath.Register([this, slimeObj, slimeDmgObj](Events::Event e)
 	{
 		DestroyObject(slimeDmgObj);
+		//slimeObj->GetComponent<Sprite>().SetVisible(false);
 		DestroyObject(slimeObj);
 	});
 
@@ -85,6 +87,7 @@ void LayerScene::OnStart()
 	skeletonBehaviour->onDeath.Register([this, skeletonObj, skeletonDmgObj](Events::Event e)
 	{
 		DestroyObject(skeletonDmgObj);
+		//skeletonObj->GetComponent<Sprite>().SetVisible(false);
 		DestroyObject(skeletonObj);
 	});
 

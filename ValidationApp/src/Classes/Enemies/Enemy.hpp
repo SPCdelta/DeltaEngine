@@ -25,6 +25,8 @@ class Enemy
 	int GetHealth() const { return _health; }
 	void SetHealth(int health) { _health = health; }
 
+	void Die() { _dead = true; }
+
 	int GetRange() const { return range_; }
 	int GetStep() const { return step_; }
 	float GetSpeed() const { return speed_; }
@@ -69,4 +71,6 @@ class Enemy
    protected:
 	Math::Vector2* position_;
 	float speed_;
+
+	bool _dead{false};
 };

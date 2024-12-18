@@ -8,7 +8,7 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::ini
 
 	_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 	{ 
-		if (collider.transform.gameObject &&IsDamageSource(collider.transform.gameObject->GetTag()))
+		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 		{
 			_damageCount = 1; 
 			_currentCollider = std::make_shared<Collider>(collider);
@@ -17,7 +17,7 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::ini
 
 	_rigidbody.onTriggerExit.Register([this](Collider& collider)
 	{
-		if (collider.transform.gameObject &&IsDamageSource(collider.transform.gameObject->GetTag()))
+		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 		{
 			_damageCount = 0;
 			_currentCollider = nullptr; 
@@ -58,7 +58,7 @@ bool DamageBehaviour::GetDamage() const
 int DamageBehaviour::TakeDamage()
 {
 	int damage = 0;
-	if (_currentCollider && _currentCollider->transform.gameObject)
+	if (_currentCollider && _currentCollider->transform.gameObject  && _currentCollider->transform.gameObject->GetComponent<Sprite>().GetVisible())
 	{	
 		if (_currentCollider->transform.gameObject->GetTag() == "projectile" || _currentCollider->transform.gameObject->GetTag() == "skeleton_arrow") 
 		{
