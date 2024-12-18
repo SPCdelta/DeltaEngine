@@ -7,23 +7,14 @@
 #include <string>
 #include "../Core/Events/EventDispatcher.hpp"
 #include "DeltaInputs.hpp"
-//#include "InputListener.hpp"
 
-//struct InputLocation
-//{
-//	std::string input;
-//	InputState state;
-//	std::string category;
-//	Events::EventCallback<Input&> regesterd;
-//	std::string inputType = "Key/MouseButton";
-//};
-//
+class InputListener;
 
 class InputEventDispatchers
 {
    public:
-	void Add(InputState state, const std::string& inputBinding, const std::string& category, Events::EventCallback<Input&>& Inputevent);
-	void Remove(InputState state, const std::string& inputBinding, const std::string& category, Events::EventCallback<Input&> Inputevent);
+	void Add(InputListener* input);
+	void Remove(InputListener* input);
 
 	bool Find(InputState state, const std::string& input);
 	void DispatchActive(InputState state, const std::string& input, Input inputEvent);

@@ -2,7 +2,7 @@
 #include "../../Core/Math/MathUtils.hpp"
 #include "../../Rendering/Sprite.hpp"
 #include "../../Core/Events/EventDispatcher.hpp"
-#include "../../Input/InputManager.hpp"
+#include "../../Input/InputHandler.hpp"
 
 #include <algorithm>
 

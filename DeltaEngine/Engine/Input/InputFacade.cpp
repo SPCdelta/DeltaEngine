@@ -2,7 +2,6 @@
 #include <algorithm>
 
 InputFacade::InputFacade() : inputManager(InputManager::GetInstance()){
-
 };
 
 bool InputFacade::isInputEvent(SDL_Event event)
@@ -69,7 +68,7 @@ void InputFacade::onMouseButtonUp(SDL_Event event)
 }
 
 void InputFacade::onMouseMove(SDL_Event event) {
-	inputManager.updateMouseMovement(event.button.x, event.button.y);
+	inputManager.updateMouseMovement({event.button.x, event.button.y});
 }
 
 void InputFacade::onMouseScroll(SDL_Event event) {

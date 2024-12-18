@@ -228,6 +228,7 @@
     <ClCompile Include="Engine\Rendering\Renderables\TextRenderable.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
     <ClCompile Include="Engine\Core\Strings\StringUtils.cpp" />
+    <ClCompile Include="Engine\Input\InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio\AudioManager.hpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
     <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
+    <ClInclude Include="Engine\Input\InputHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

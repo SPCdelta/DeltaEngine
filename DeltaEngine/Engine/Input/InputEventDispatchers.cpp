@@ -1,18 +1,19 @@
 #include "InputEventDispatchers.hpp"
+#include "InputHandler.hpp"
 #include <algorithm>
 
-void InputEventDispatchers::Add(InputState state, const std::string& inputBinding, const std::string& category, Events::EventCallback<Input&>& Inputevent)
+void InputEventDispatchers::Add(InputListener* input)
 {
-	if (allCategories.find(category) == allCategories.end())
-		activeCategories.insert(category);
+	if (allCategories.find(input->GetCategory()) == allCategories.end())
+		activeCategories.insert(input->GetCategory());
 
-	allCategories.insert(category);
-	inputBindingCategory[inputBinding] = category;
+	allCategories.insert(input->GetCategory());
+	inputBindingCategory[input->GetInput()] = input->GetCategory();
 
-	if (!Find(state, inputBinding))
-		inputBindings[state][inputBinding] = Events::EventDispatcher<Input&>();
+	if (!Find(input->GetState(), input->GetInput()))
+		inputBindings[input->GetState()][input->GetInput()] = Events::EventDispatcher<Input&>();
 
-	inputBindings[state][inputBinding].Register(Inputevent);
+	inputBindings[input->GetState()][input->GetInput()].Register(input->GetRegistered());
 }
 
 bool InputEventDispatchers::DeactivateCategory(const std::string& category)
@@ -112,6 +113,6 @@ void InputEventDispatchers::ExecuteInputsPressed(Input allInputs, std::vector<st
 	}
 }
 
-void InputEventDispatchers::Remove(InputState state, const std::string& inputBinding, const std::string& category, Events::EventCallback<Input&> regesterd) {
-	inputBindings[state][inputBinding].Unregister(regesterd);
+void InputEventDispatchers::Remove(InputListener* input) {
+	inputBindings[input->GetState()][input->GetInput()].Unregister(input->GetRegistered());
 }

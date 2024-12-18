@@ -3,7 +3,7 @@
 #include "../Core/Math/Vector2.hpp"
 #include "../Core/Math/Point.hpp"
 #include "../Input/DeltaInputs.hpp"
-#include "../Input/InputManager.hpp"
+#include "../Input/InputHandler.hpp"
 #include <functional>
 #include <memory>
 #include <vector>
