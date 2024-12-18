@@ -11,10 +11,15 @@ namespace Math
 		Random(Random&&) = delete;
 		Random& operator=(const Random&) = delete;
 		Random& operator=(Random&&) = delete;
-		int NextInt(int min, int max) const;
+
+		static float NextFloat(float min, float max);
+		static int NextInt(int min, int max);
+
 		double NextDouble(int min, int max) const;
 		double NextDouble() const;
+
 		bool NextBool() const;
+
 	private:
 		static Random instance;
 		static std::random_device rnd;

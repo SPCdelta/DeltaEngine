@@ -1,17 +1,6 @@
 {
     "player": {
         "coins": 0,
-        "health": 93,
-        "inventory": [
-            {
-                "amount": 1,
-                "name": "healingpotion",
-                "sprite": "cyanPotion",
-                "time": 10.0,
-                "type": "potion:healing",
-                "value": 10.0
-            }
-        ],
-        "shield": 25
+        "health": 95
     }
 }

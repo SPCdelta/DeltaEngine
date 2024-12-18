@@ -21,9 +21,9 @@
 
 #include "Core/Events/EventDispatcher.hpp"
 
-//#include "BehaviourScript.hpp"
 class Scene;
 class BehaviourScript;
+class ParticleEmitter;
 
 #include "Physics/Collider.hpp"
 #include "Physics/Rigidbody.hpp"
@@ -36,7 +36,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T()));
+			T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T(std::forward<Args>(args)...)));
 			component->gameObject = this;
 			component->transform = transform;
 			component->camera = _camera;
@@ -80,6 +80,11 @@ public:
 
 			return component;
 		}
+		else if constexpr (std::is_same_v<T, ParticleEmitter>)
+		{
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<ParticleEmitter>(_id, this, std::forward<Args>(args)...));
+			return component;
+		}
 		else
 		{
 			return static_cast<T*>(&_reg.EmplaceComponent<T>(_id, std::forward<Args>(args)...));
@@ -116,15 +121,17 @@ public:
 		return _id;
 	}
 
-	GameObject(ecs::Registry& reg,
+	GameObject(Scene* scene, ecs::EntityId id,
+				ecs::Registry& reg,
 				Physics::PhysicsWorld& physicsWorld,
 				Events::EventDispatcher<const std::string&>& changeScene,
-				Camera* camera, 
-				Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+				Camera* camera, Transform& transform_);
 	~GameObject();
 
 	friend class Scene;
 
+	Scene* _scene;
+	Transform& transformRef;
 	Transform* transform = nullptr;
 
 	bool IsActive() const { return _active; }
@@ -147,16 +154,9 @@ public:
 	const std::string& GetTag() const { return _tag; }
 
 	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
-	std::shared_ptr<GameObject> Instantiate()
-	{
-		std::shared_ptr<GameObject> result;
-		_instantiatePromise.Dispatch(result);
-		return result;
-	};
-	void Destroy(GameObject* gameObject) 
-	{
-		_destroyObject.Dispatch(gameObject);
-	}
+
+	std::shared_ptr<GameObject> Instantiate();
+	void Destroy(GameObject* gameObject);
 
 	Camera* GetCamera()
 	{ 
@@ -170,8 +170,6 @@ private:
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
 	Events::EventDispatcher<const std::string&>& _changeScene;
-	Events::EventDispatcher<std::shared_ptr<GameObject>&> _instantiatePromise{};
-	Events::EventDispatcher<GameObject*> _destroyObject{};
 	Camera* _camera = nullptr;
 	std::string _tag;
 

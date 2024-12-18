@@ -5,16 +5,32 @@ using namespace Math;
 Random Random::instance;
 std::random_device Random::rnd;
 
-int Random::NextInt(int min, int max) const
+float Math::Random::NextFloat(float min, float max)
 {
 	if (min > max)
 	{
-		throw std::invalid_argument("Min should not be greater than max.");
+		float tempMin = min;
+		min = max;
+		max = tempMin;
+	}
+
+	std::uniform_real_distribution<float> dist(min, max);
+
+	return dist(instance.rnd);
+}
+
+int Math::Random::NextInt(int min, int max)
+{
+	if (min > max)
+	{
+		int tempMin = min;
+		min = max;
+		max = tempMin;
 	}
 
 	std::uniform_int_distribution<int> dist(min, max);
 
-	return dist(rnd);
+	return dist(instance.rnd);
 }
 
 double Random::NextDouble(int min, int max) const

@@ -14,7 +14,7 @@ void PlayerBehaviour::OnStart()
 	
 	//this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 
-	//_weapon = new Gun(this);
+	_weapon = new Gun(this);
 	//_weapon = new Bow(this);
 	//onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 
@@ -32,6 +32,21 @@ void PlayerBehaviour::OnStart()
 	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
+
+	keyPressed(Key::KEY_M, [this](Input& e) { _weapon->Use(); });
+
+	// Physics Events
+	rigidbody->onTriggerEnter.Register(
+		[this](Collider& collider)
+		{ 
+			// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
+			if (collider.transform.gameObject->GetTag() == "level_exit")
+			{
+				LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
+				exit.Use();
+			}
+		}
+	);
 }
 
 void PlayerBehaviour::OnUpdate() 
