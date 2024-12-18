@@ -21,21 +21,23 @@ class Skeleton : public Enemy
 
             if (_lastAttackTime >= _attackCooldown)
             {
-                ShootArrow(player_position, _sfx);
+                ShootArrow(player_position);
                 _lastAttackTime = 0.0f; 
+
+                _sfx->SetClip("Assets\\Audio\\SFX\\Bow_shoot.mp3");
+				_sfx->Play();
             }
         }
 	}
 
-    void ShootArrow(const Math::Vector2& player_position, Audio::SFXSource* _sfx)
+    void ShootArrow(const Math::Vector2& player_position)
     {
         std::shared_ptr<GameObject> arrowObj = gameObject->Instantiate();
 		arrowObj->transform->position.Set(gameObject->transform->position);
         arrowObj->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, gameObject->transform->position.DirectionTo(player_position)});
 		arrowObj->SetTag("skeleton_arrow");
 
-        _sfx->SetClip("Assets\\Audio\\SFX\\Bow_shoot.mp3");
-        _sfx->Play();
+        
     }
 
    private:

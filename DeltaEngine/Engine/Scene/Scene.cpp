@@ -44,7 +44,21 @@ void Scene::Update()
 	// Destroy
 	while (!_toDeleteQueue.empty())
 	{
-		DestroyObject(_toDeleteQueue.front());
+		GameObject* gameObject = _toDeleteQueue.front();
+
+		auto it = std::find_if(_objects.begin(), _objects.end(),
+			[gameObject](const std::shared_ptr<GameObject>& obj)
+			{ 
+				return obj.get() == gameObject; 
+			}
+		);
+
+		if (it != _objects.end())
+		{
+			ecs::EntityId toDestroy = gameObject->_id;
+			_objects.erase(it);
+			_reg.DestroyEntity(toDestroy);
+		}
 		_toDeleteQueue.pop();  // Remove the pointer from the queue
 	}
 

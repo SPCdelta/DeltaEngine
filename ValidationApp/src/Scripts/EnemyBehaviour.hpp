@@ -39,7 +39,7 @@ class EnemyBehaviour : public BehaviourScript
 	std::shared_ptr<GameObject> _damageObj;
 
 	// Audio
-	Audio::SFXSource* _sfx;
+	std::unique_ptr<Audio::SFXSource> _sfx;
 
 	Math::Vector2 _moveDirection{0.0f, 0.0f};
 

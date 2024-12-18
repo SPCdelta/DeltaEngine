@@ -6,7 +6,6 @@ EnemyBehaviour::~EnemyBehaviour()
 	sprite = nullptr;
 	rigidbody = nullptr;
 	playerPosition = nullptr;
-	_sfx = nullptr;
 	_damageBehaviour = nullptr;
 }
 
@@ -28,7 +27,7 @@ void EnemyBehaviour::OnStart()
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);	
-	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
+	_sfx = std::make_unique<Audio::SFXSource>(gameObject->GetComponent<Audio::SFXSource>());
 
 	Math::Vector2* enemyPosition = &transform->position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
@@ -49,7 +48,7 @@ void EnemyBehaviour::OnUpdate()
 	if (playerPosition)
 	{
 		pos = _aiBehaviour->Update();
-		_enemy->Update(*playerPosition, _sfx);
+		_enemy->Update(*playerPosition, _sfx.get());
 	}
 		
 	if (pos != &gameObject->GetComponent<Transform>().position)
@@ -68,7 +67,6 @@ void EnemyBehaviour::OnUpdate()
 		{
 			if (_enemy->GetHealth() > 0 && _sfx)
 			{
-				std::cout << "taking damage\n";
 				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
 				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 				_sfx->Play();
@@ -76,9 +74,7 @@ void EnemyBehaviour::OnUpdate()
 
 			if (_enemy->GetHealth() <= 0)
 			{
-				std::cout << "dying!\n";
 				_enemy->Die();
-				//Events::Event e{};
 				OnDeath();
 				return;
 			}
@@ -119,8 +115,7 @@ void EnemyBehaviour::SetDamageBehaviour(Rigidbody& rigid)
 
 void EnemyBehaviour::OnDeath()
 {
-	std::cout << "on death\n";
 	Destroy(_damageObj);
 	gameObject->GetComponent<Sprite>().SetVisible(false);
-	//gameObject->Destroy(gameObject);
+	gameObject->Destroy(gameObject);
 }
