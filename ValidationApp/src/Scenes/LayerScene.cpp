@@ -21,7 +21,7 @@ void LayerScene::OnStart()
 	goblinObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	goblinObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	goblinObj->SetTag("goblin");
-	goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);	
+	goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());	
 
 	// Create slime enemy
 	std::shared_ptr<GameObject> slimeObj{ Instantiate({{1.0f, 12.0f}, 0.0f, {1.0f, 1.0f}}) };
@@ -31,7 +31,7 @@ void LayerScene::OnStart()
 	slimeObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	slimeObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	slimeObj->SetTag("slime");
-	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);
+	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());
 
 	// Create skeleton enemy
 	std::shared_ptr<GameObject> skeletonObj{ Instantiate({{-10.0f, 10.0f}, 0.0f, {2.5f, 2.5f}}) };
@@ -41,7 +41,7 @@ void LayerScene::OnStart()
 	skeletonObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	skeletonObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	skeletonObj->SetTag("skeleton");
-	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
+	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());;	
 
 	// Create potion object to pick up
 	WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);

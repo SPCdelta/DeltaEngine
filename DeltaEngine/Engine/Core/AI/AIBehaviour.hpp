@@ -5,21 +5,22 @@
 
 #include "IAIStrategy.hpp"
 #include "../Time.hpp"
+#include "../../Transform.hpp"
 
 class AIBehaviour
 {
    public:
-	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Math::Vector2* pos, Math::Vector2* targetPos, int range, int step, float speed);
+	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed);
 	~AIBehaviour();
 
-	Math::Vector2* Update();
+	Transform* Update();
     void CalculateNewPath();
 
-	Math::Vector2* GetPosition() const;
-	void SetPosition(Math::Vector2* position);
+	Transform* GetPosition() const;
+	void SetPosition(Transform* position);
 
-	Math::Vector2* GetTargetPosition() const;
-	void SetTargetPosition(Math::Vector2* position);
+	Transform* GetTargetPosition() const;
+	void SetTargetPosition(Transform* position);
 
 	float GetSpeed();
 	Math::Vector2 GetDirection();
@@ -28,9 +29,9 @@ class AIBehaviour
 	std::shared_ptr<IAIStrategy> strategy_;
 	std::vector<Math::Vector2> path_;
 
-	Math::Vector2* position_;
-	Math::Vector2* _targetPosition;
-	Math::Vector2 _lastKnownTargetPosition;
+	Transform* position_;
+	Transform* _targetPosition;
+	Transform _lastKnownTargetPosition;
 	bool start{true};
 
 	float _moveSpeed;

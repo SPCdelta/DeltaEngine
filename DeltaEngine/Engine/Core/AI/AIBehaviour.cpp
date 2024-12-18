@@ -1,6 +1,6 @@
 #include "AIBehaviour.hpp"
 
-AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Math::Vector2* pos, Math::Vector2* targetPos, int range, int step, float speed = 1.0f) : 
+AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed = 1.0f) : 
 		strategy_(strategy), position_(pos), _targetPosition(targetPos), _moveSpeed(speed), range_(range), step_(step) {}
 
 AIBehaviour::~AIBehaviour()
@@ -9,7 +9,7 @@ AIBehaviour::~AIBehaviour()
 	_targetPosition = nullptr;
 }
 
-Math::Vector2* AIBehaviour::Update()
+Transform* AIBehaviour::Update()
 {
 	if (!_targetPosition || range_ <= 0 || step_ <= 0)
 	{
@@ -17,7 +17,7 @@ Math::Vector2* AIBehaviour::Update()
 		return position_;
 	}
 
-	Math::Vector2 distanceToPlayer = *_targetPosition - *position_;
+	Math::Vector2 distanceToPlayer = _targetPosition->position - position_->position;
 	if (distanceToPlayer.Magnitude() > range_) 
 	{
 		// Player is out of range, start wandering
@@ -33,7 +33,7 @@ Math::Vector2* AIBehaviour::Update()
 		}
 
 		_direction = wanderDirection;
-		*position_ += _direction * _moveSpeed * Time::GetDeltaTime();
+		position_->position += _direction * _moveSpeed * Time::GetDeltaTime();
 		return position_;
 	}
 
@@ -44,7 +44,7 @@ Math::Vector2* AIBehaviour::Update()
 	timeSinceLastPathCalculation += Time::GetDeltaTime();
 	float targetChangeThreshold = 2.0f; 
 
-	if (start || ((*_targetPosition - _lastKnownTargetPosition).Magnitude() > targetChangeThreshold && 
+	if (start || ((_targetPosition->position - _lastKnownTargetPosition.position).Magnitude() > targetChangeThreshold && 
 		timeSinceLastPathCalculation > pathRecalculationCooldown)) 
 	{
         _lastKnownTargetPosition = *_targetPosition;
@@ -60,24 +60,24 @@ Math::Vector2* AIBehaviour::Update()
 	if (path_.empty())
 		return position_;
 
-	_direction = path_.front() - *position_;
+	_direction = path_.front() - position_->position;
 	float distance = _direction.Magnitude();
 
     if (distance < 0.3f)  // Reached the next 'node'
     {
-		if (path_.size() == 1 && path_.front() == *_targetPosition)
+		if (path_.size() == 1 && path_.front() == _targetPosition->position)
 		{
 			path_.clear();
 			return position_;
 		}
 
-        *position_ = path_.front();
+        position_->position = path_.front();
         path_.erase(path_.begin());
     }
     else
     {
 		Math::Vector2 normalizedDirection = _direction.GetNormalized();
-		*position_ += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
+		position_->position += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 		_direction = normalizedDirection;
     }
 
@@ -88,28 +88,28 @@ void AIBehaviour::CalculateNewPath()
 {
 	if (strategy_) 
 	{
-		auto newPath = strategy_->CalculatePath(*position_, *_targetPosition, range_, step_);
-		if (!newPath.empty() && ((*_targetPosition - newPath.front()).Magnitude() < (*_targetPosition - *position_).Magnitude())) 
+		auto newPath = strategy_->CalculatePath(position_->position, _targetPosition->position, range_, step_);
+		if (!newPath.empty() && ((_targetPosition->position - newPath.front()).Magnitude() < (_targetPosition->position - position_->position).Magnitude())) 
 			path_ = std::move(newPath);
 	}
 }
 
-Math::Vector2* AIBehaviour::GetPosition() const
+Transform* AIBehaviour::GetPosition() const
 {
 	return position_;
 }
 
-void AIBehaviour::SetPosition(Math::Vector2* position)
+void AIBehaviour::SetPosition(Transform* position)
 {
 	position_ = position;
 }
 
-Math::Vector2* AIBehaviour::GetTargetPosition() const
+Transform* AIBehaviour::GetTargetPosition() const
 {
 	return _targetPosition;
 }
 
-void AIBehaviour::SetTargetPosition(Math::Vector2* position)
+void AIBehaviour::SetTargetPosition(Transform* position)
 {
 	_targetPosition = position;
 }

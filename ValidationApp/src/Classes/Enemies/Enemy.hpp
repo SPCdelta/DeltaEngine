@@ -15,7 +15,7 @@ class Enemy
 	Enemy(Math::Vector2* position, float speed, int health, int damage, int range, int step) : position_(position), speed_(speed), _health(health), _damage(damage),
 		range_(range), step_(step) {}
 
-	virtual void Update(const Math::Vector2& player_position, Audio::SFXSource* _sfx) = 0;
+	virtual void Update(Transform& player_position, Audio::SFXSource* _sfx) = 0;
 
 	Math::Vector2* GetPosition() const { return position_; }
 

@@ -22,8 +22,8 @@ class EnemyBehaviour : public BehaviourScript
 	Sprite* sprite = nullptr;
 	Rigidbody* rigidbody = nullptr;
 
-	Math::Vector2* playerPosition = nullptr;
-	void SetPlayerPosition(Math::Vector2* pos);
+	Transform* playerPosition = nullptr;
+	void SetPlayerPosition(Transform* pos);
 
 	Enemy& GetEnemy() const { return *_enemy; }
 
