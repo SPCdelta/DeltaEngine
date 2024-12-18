@@ -4,8 +4,8 @@
 
 class InputListener {
 public:
-    InputListener(InputType type, const std::string& input, InputState state, const std::string& category, Events::EventCallback<Input&> regesterd)
-        : _type{ type }, _input{ input }, _state{ state }, _category{ category }, _registered{ regesterd } {}
+    InputListener(InputType type, const std::string& input, InputState state, const std::string& category, Events::EventCallback<Input&> registered)
+        : _type{ type }, _input{ input }, _state{ state }, _category{ category }, _registered{ registered } {}
 
     ~InputListener() {
         InputManager::GetInstance().Remove(this);
