@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Engine/Delta.hpp"
+#include <Engine/Delta.hpp>
+
+#include "../Classes/MySceneData.hpp"
 
 class SceneSwitchBehaviour : public BehaviourScript
 {
@@ -14,7 +16,8 @@ public:
 	{
 		if (_timer >= _switchAfter)
 		{
-			LoadScene(_switchTo);
+			MySceneData* data = SceneHelper::GetSceneData<MySceneData>(gameObject->_scene);
+			LoadScene(_switchTo, data);
 		}
 		_timer++;
 	}
@@ -37,10 +40,24 @@ class Scene1 : public Scene
 {
 public:
 	Scene1(const std::string& name) : Scene(name)
+	{ }
+
+	void OnStart() override
 	{
 		Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}})
 			->AddComponent<SceneSwitchBehaviour>()
 			->SetSwitchTo("Scene2", "Scene1");
+
+		// Data
+		MySceneData* data = SceneHelper::GetSceneData<MySceneData>(this);
+		if (data == nullptr)
+		{
+			data = new MySceneData{ 5, 12, "Hello!" };
+			SceneHelper::SetSceneData<MySceneData>(this, data);
+		}
+
+		MySceneData* dataAgain = SceneHelper::GetSceneData<MySceneData>(this);
+		dataAgain->Print();
 	}
 };
 
@@ -48,9 +65,20 @@ class Scene2 : public Scene
 {
 public:
 	Scene2(const std::string& name) : Scene(name) 
+	{ }
+
+	void OnStart() override
 	{
 		Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}})
 			->AddComponent<SceneSwitchBehaviour>()
 			->SetSwitchTo("Scene1", "Scene2");
+
+		// Data
+		MySceneData* dataAgain = SceneHelper::GetSceneData<MySceneData>(this);
+		dataAgain->_a += 1;
+		if (dataAgain != nullptr)
+		{
+			dataAgain->Print();
+		}
 	}
 };

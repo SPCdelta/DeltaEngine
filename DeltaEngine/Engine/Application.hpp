@@ -23,15 +23,18 @@
 
 #include "Core/Time.hpp"
 
+class SceneHelper;
+
 class Application
 {
 public:
 	Application(int unitPixelSize);
 	~Application();
 
-	void Run();
+	friend class Scene;
+	friend class SceneHelper;
 
-	Events::EventDispatcher<const std::string&> ChangeScene{};
+	void Run();
 
 	template<typename T>
 	void RegisterScene(const std::string& sceneName)
@@ -40,6 +43,19 @@ public:
 	}
 
 	void LoadScene(const std::string& sceneName);
+
+	template<typename T>
+	void LoadScene(const std::string& sceneName, T* userData)
+	{
+		SetUserData(reinterpret_cast<void*>(userData));
+		_sceneManager.Load(sceneName);
+		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
+		currentScene->_inputfacade = &_inputFacade;
+		currentScene->_windowEvent = &_windowEvent;
+		currentScene->_application = this;
+		currentScene->SetWindow(_window);
+		currentScene->Start();
+	}
 
 	static void Quit()
 	{
@@ -69,6 +85,7 @@ protected:
 
 private:
 	static bool _isRunning;
+	void* _userData = nullptr;
 
 	Window _window;
 	Rendering::Event _windowEvent{};
@@ -84,6 +101,7 @@ private:
 	Ui::Text* _fpsText = nullptr;
 	float _fpsTimer = 1.0f;
 	bool _renderFps = false;
+
 	void Debug();
 	void InitDebug();
 
@@ -92,5 +110,9 @@ private:
 	std::unique_ptr<Ui::Text> _gameSpeed;
 	void InitGameSpeed();
 	void RenderGameSpeed();
+
+	// Data
+	void* GetUserData() { return _userData; }
+	void SetUserData(void* userData) { _userData = userData; }
 };
 

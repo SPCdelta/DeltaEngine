@@ -124,7 +124,6 @@ public:
 	GameObject(Scene* scene, ecs::EntityId id,
 				ecs::Registry& reg,
 				Physics::PhysicsWorld& physicsWorld,
-				Events::EventDispatcher<const std::string&>& changeScene,
 				Camera* camera, Transform& transform_);
 	~GameObject();
 
@@ -152,8 +151,8 @@ public:
 	
 	void SetTag(const std::string& tag) { _tag = tag; }
 	const std::string& GetTag() const { return _tag; }
-
-	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
+	void LoadScene(const std::string& name);
+	void LoadScene(const std::string& name, void* userData);
 
 	std::shared_ptr<GameObject> Instantiate();
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
@@ -172,7 +171,6 @@ private:
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
-	Events::EventDispatcher<const std::string&>& _changeScene;
 	Camera* _camera = nullptr;
 	std::string _tag;
 

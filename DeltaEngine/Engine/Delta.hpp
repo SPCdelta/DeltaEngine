@@ -7,6 +7,7 @@
 #include "GameObject.hpp"
 #include "BehaviourScript.hpp"
 #include "Scene/Scene.hpp"
+#include "Scene/SceneHelper.hpp"
 
 // Components
 #include "Core/Despawner.hpp"
@@ -15,7 +16,7 @@
 #include "Core/Files/FileManager.hpp"
 #include "Core/Files/DTO/TransformDTO.hpp"
 
-//Audio
+// Audio
 #include "Audio/AudioManager.hpp"
 
 // Time
