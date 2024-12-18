@@ -199,8 +199,16 @@ void PlayerBehaviour::LoadPlayer()
 	{
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
-		_player->ResetInventory();
 
+		if (!loadedPlayer["player"]["weapon"].contains("boomerang"))
+		{
+			if (loadedPlayer["player"]["weapon"].contains("gun"))
+				_weapon = new Gun(this);
+			else
+				_weapon = new Bow(this);
+		}
+
+		_player->ResetInventory();
 		if (loadedPlayer["player"].contains("inventory"))
 		{
 			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
@@ -217,8 +225,6 @@ void PlayerBehaviour::LoadPlayer()
 					Item item = Item(itemData["name"], itemData["sprite"]); 
 					_player->AddItemToInventory(item, itemData["amount"]);
 				}
-
-				// TODO weapons?
 			}
 		}
 	}
@@ -230,6 +236,17 @@ void PlayerBehaviour::SavePlayer()
 
 	playerFile["player"]["health"] = _player->GetHealth();
 	playerFile["player"]["coins"] = _player->GetCoins();
+	if (_weapon)
+	{
+		if (auto gun = dynamic_cast<Gun*>(_weapon))
+			playerFile["player"]["weapon"] = "gun";
+		else
+			playerFile["player"]["weapon"] = "bow";
+	}		
+	else
+	{
+		playerFile["player"]["weapon"] = "boomerang";
+	}
 
 	if (_player->GetInventorySize() > 0)
 	{
@@ -248,8 +265,6 @@ void PlayerBehaviour::SavePlayer()
 				itemData["value"] = potion->GetValue();
 				itemData["time"] = potion->GetTime();
 			}
-
-			// TODO weapons?
 		}
 	}
 	
