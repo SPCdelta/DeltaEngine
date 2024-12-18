@@ -25,11 +25,6 @@ Application::Application(int unitPixelSize)
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
 	}
 
-	ChangeScene.Register([this](const std::string& sceneName) 
-	{ 
-		LoadScene(sceneName); 
-	});
-
 	_window.SetUnitPixelSize(unitPixelSize);
 }
 
@@ -37,6 +32,7 @@ Application::Application(int unitPixelSize)
 Application::~Application()
 {
 	delete _fpsText;
+	delete _userData;
 	Stop();
 }
 
@@ -101,9 +97,9 @@ void Application::LoadScene(const std::string& sceneName)
 {
 	_sceneManager.Load(sceneName);
 	std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-	currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
 	currentScene->_inputfacade = &_inputFacade;
 	currentScene->_windowEvent = &_windowEvent;
+	currentScene->_application = this;
 	currentScene->SetWindow(_window);
 	currentScene->Start();
 }

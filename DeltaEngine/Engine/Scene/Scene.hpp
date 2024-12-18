@@ -26,6 +26,7 @@
 #include "../Systems/DespawnSystem.hpp"
 
 class Application;
+class SceneHelper;
 
 class Scene
 {
@@ -33,6 +34,7 @@ class Scene
 	Scene(const std::string& name);
 
 	friend class Application;
+	friend class SceneHelper;
 
 	const std::string& GetName() const;
 
@@ -47,10 +49,8 @@ class Scene
 		camera->SetViewportData(&window.GetViewport());
 	}
 
-	void LoadScene(const std::string& name)
-	{
-		_changeSceneEvent.Dispatch(name);
-	}
+	void LoadScene(const std::string& name);
+	void LoadScene(const std::string& name, void* userData);
 
 	virtual void OnStart(){};
 	void DestroyObject(GameObject* gameObject)
@@ -66,6 +66,9 @@ class Scene
 	void Start();
 	void Update();
 
+	void* GetUserData();
+	void SetUserData(void* userData);
+
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 	std::shared_ptr<GameObject> Instantiate();
 
@@ -75,12 +78,11 @@ protected:
 private:
 	InputFacade* _inputfacade = nullptr;
 	Rendering::Event* _windowEvent = nullptr;
+	Application* _application = nullptr;
 
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
-	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
-	Events::EventDispatcher<std::shared_ptr<GameObject>> _instantiateEvent{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 

@@ -125,6 +125,7 @@
     <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
     <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
     <ClInclude Include="Engine\Input\InputHandler.hpp" />
+    <ClInclude Include="Engine\Scene\SceneHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
