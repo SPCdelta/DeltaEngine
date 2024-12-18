@@ -2,6 +2,7 @@
 
 #include "Engine/Delta.hpp"
 
+#include "../Scripts/EnemyHitboxBehaviour.hpp"
 #include "../Classes/Enemies/Enemy.hpp"
 #include "../Classes/Enemies/Goblin.hpp"
 #include "../Classes/Enemies/Skeleton.hpp"
@@ -28,11 +29,13 @@ class EnemyBehaviour : public BehaviourScript
 
 	void SetDamageBehaviour(Rigidbody& rigid);
 
-	Events::EventDispatcher<Events::Event> onDeath{};
+	void OnDeath();
+
 
    private:
 	std::unique_ptr<DamageBehaviour> _damageBehaviour;
 	std::unique_ptr<AIBehaviour> _aiBehaviour;
+
 	std::shared_ptr<GameObject> _damageObj;
 
 	// Audio

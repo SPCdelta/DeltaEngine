@@ -22,25 +22,6 @@ void LayerScene::OnStart()
 	goblinObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	goblinObj->SetTag("goblin");
 	goblinObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);	
-	auto goblinBehaviour = &goblinObj->GetComponent<EnemyBehaviour>();
-		
-	// Create hitbox for the enemy so it can get hurt by the projectiles
-	std::shared_ptr<GameObject> goblinDmgObj{ Instantiate(goblinObj->GetComponent<Transform>()) };
-	goblinDmgObj->AddComponent<Sprite>("goblin")->SetVisible(false);
-	goblinDmgObj->AddComponent<BoxCollider>();
-	goblinDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	goblinDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&goblinObj->GetComponent<Transform>().position) ;
-	goblinBehaviour->SetDamageBehaviour(goblinDmgObj->GetComponent<Rigidbody>());
-
-	goblinBehaviour->onDeath.Register([this, goblinObj, goblinDmgObj](Events::Event e)
-	{
-		std::cout << "goblin dead\n";
-		DestroyObject(goblinDmgObj);
-		goblinObj->GetComponent<Sprite>().SetVisible(false);
-		//MarkForDestroy(goblinObj.get());
-		DestroyObject(goblinObj);		
-		//goblinObj->Destroy(goblinObj);	
-	});
 
 	// Create slime enemy
 	std::shared_ptr<GameObject> slimeObj{ Instantiate({{1.0f, 12.0f}, 0.0f, {1.0f, 1.0f}}) };
@@ -51,25 +32,6 @@ void LayerScene::OnStart()
 	slimeObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	slimeObj->SetTag("slime");
 	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);
-	auto slimeBehaviour = &slimeObj->GetComponent<EnemyBehaviour>();
-		
-	// Create hitbox for the enemy so it can get hurt by the projectiles
-	std::shared_ptr<GameObject> slimeDmgObj{ Instantiate(slimeObj->GetComponent<Transform>()) };
-	slimeDmgObj->AddComponent<Sprite>("slime")->SetVisible(false);
-	slimeDmgObj->AddComponent<BoxCollider>();
-	slimeDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	slimeDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&slimeObj->GetComponent<Transform>().position);
-	slimeBehaviour->SetDamageBehaviour(slimeDmgObj->GetComponent<Rigidbody>());
-
-	slimeBehaviour->onDeath.Register([this, slimeObj, slimeDmgObj](Events::Event e)
-	{
-		std::cout << "slime dead\n";
-		DestroyObject(slimeDmgObj);
-		slimeObj->GetComponent<Sprite>().SetVisible(false);
-		//MarkForDestroy(slimeObj.get());
-		DestroyObject(slimeObj);
-		//slimeObj->Destroy(slimeObj);	
-	});
 
 	// Create skeleton enemy
 	std::shared_ptr<GameObject> skeletonObj{ Instantiate({{-10.0f, 10.0f}, 0.0f, {2.5f, 2.5f}}) };
@@ -80,25 +42,6 @@ void LayerScene::OnStart()
 	skeletonObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	skeletonObj->SetTag("skeleton");
 	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>().position);;	
-	auto skeletonBehaviour = &skeletonObj->GetComponent<EnemyBehaviour>();
-		
-	// Create hitbox for the enemy so it can get hurt by the projectiles
-	std::shared_ptr<GameObject> skeletonDmgObj{ Instantiate(skeletonObj->GetComponent<Transform>()) };
-	skeletonDmgObj->AddComponent<Sprite>("skeleton")->SetVisible(false);
-	skeletonDmgObj->AddComponent<BoxCollider>();
-	skeletonDmgObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	skeletonDmgObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&skeletonObj->GetComponent<Transform>().position) ;
-	skeletonBehaviour->SetDamageBehaviour(skeletonDmgObj->GetComponent<Rigidbody>());
-
-	skeletonBehaviour->onDeath.Register([this, skeletonObj, skeletonDmgObj](Events::Event e)
-	{
-		std::cout << "skeleton dead\n";
-		DestroyObject(skeletonDmgObj);
-		skeletonObj->GetComponent<Sprite>().SetVisible(false);
-		//MarkForDestroy(skeletonObj.get());
-		DestroyObject(skeletonObj);
-		//skeletonObj->Destroy(skeletonObj);
-	});
 
 	// Create potion object to pick up
 	WorldItem worldItem1 = WorldItem(HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);

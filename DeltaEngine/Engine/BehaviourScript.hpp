@@ -42,5 +42,15 @@ public:
 
 protected:
 	std::vector<InputLocation> registerdInputs;
+
+	std::shared_ptr<GameObject> Instantiate()
+	{
+		return gameObject->Instantiate();
+	}
+
+	std::shared_ptr<GameObject> Instantiate(Transform transform)
+	{
+		return gameObject->Instantiate(transform);
+	}
 };
 

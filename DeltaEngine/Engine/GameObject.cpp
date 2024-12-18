@@ -26,6 +26,11 @@ std::shared_ptr<GameObject> GameObject::Instantiate()
 	return _scene->Instantiate();
 }
 
+std::shared_ptr<GameObject> GameObject::Instantiate(Transform transform)
+{
+	return _scene->Instantiate(transform);
+}
+
 void GameObject::Destroy(GameObject* toDestroy)
 {
 	_scene->DestroyObject(toDestroy);

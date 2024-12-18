@@ -30,9 +30,16 @@ void EnemyBehaviour::OnStart()
 	rigidbody->SetGravityScale(0.0f);	
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
+	Math::Vector2* enemyPosition = &transform->position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
 	_aiBehaviour = std::make_unique<AIBehaviour>(astar, enemyPosition, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
+
+	_damageObj = Instantiate(*transform);
+	_damageObj->AddComponent<Sprite>("skeleton")->SetVisible(false);
+	_damageObj->AddComponent<BoxCollider>();
+	_damageObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position) ;
+	SetDamageBehaviour(_damageObj->GetComponent<Rigidbody>());
 }
 
 void EnemyBehaviour::OnUpdate()
@@ -71,8 +78,8 @@ void EnemyBehaviour::OnUpdate()
 			{
 				std::cout << "dying!\n";
 				_enemy->Die();
-				Events::Event e{};
-				onDeath.Dispatch(e);
+				//Events::Event e{};
+				OnDeath();
 				return;
 			}
 		}
@@ -108,4 +115,12 @@ void EnemyBehaviour::SetPlayerPosition(Math::Vector2* pos)
 void EnemyBehaviour::SetDamageBehaviour(Rigidbody& rigid)
 {
 	_damageBehaviour = std::make_unique<DamageBehaviour>(rigid, *sprite, std::initializer_list<std::string>{"projectile"});
+}
+
+void EnemyBehaviour::OnDeath()
+{
+	std::cout << "on death\n";
+	Destroy(_damageObj);
+	gameObject->GetComponent<Sprite>().SetVisible(false);
+	//gameObject->Destroy(gameObject);
 }
