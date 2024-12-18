@@ -23,8 +23,10 @@
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/ImageRenderSystem.hpp"
 #include "../Systems/TextRenderSystem.hpp"
+#include "../Systems/DespawnSystem.hpp"
 
 class Application;
+class SceneHelper;
 
 class Scene
 {
@@ -32,6 +34,7 @@ class Scene
 	Scene(const std::string& name);
 
 	friend class Application;
+	friend class SceneHelper;
 
 	const std::string& GetName() const;
 
@@ -46,31 +49,25 @@ class Scene
 		camera->SetViewportData(&window.GetViewport());
 	}
 
-	void LoadScene(const std::string& name)
-	{
-		_changeSceneEvent.Dispatch(name);
-	}
+	void LoadScene(const std::string& name);
+	void LoadScene(const std::string& name, void* userData);
 
 	virtual void OnStart(){};
 	void DestroyObject(GameObject* gameObject)
 	{
-		auto it = std::find_if(_objects.begin(), _objects.end(),
-			[gameObject](const std::shared_ptr<GameObject>& obj)
-			{ 
-				return obj.get() == gameObject; 
-			}
-		);
+		MarkForDestroy(gameObject);
+	}
 
-		if (it != _objects.end())
-		{
-			ecs::EntityId toDestroy = gameObject->_id;
-			_objects.erase(it);
-			_reg.DestroyEntity(toDestroy);
-		}
+	void DestroyObject(std::shared_ptr<GameObject> gameObject)
+	{
+		DestroyObject(gameObject.get());
 	}
 
 	void Start();
 	void Update();
+
+	void* GetUserData();
+	void SetUserData(void* userData);
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 	std::shared_ptr<GameObject> Instantiate();
@@ -78,18 +75,14 @@ class Scene
 protected:
 	Camera* camera;
 
-	void DestroyObject(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
-	void DestroyPointerObject(GameObject* gameObject) { gameObject->Destroy(gameObject); }
-
 private:
 	InputFacade* _inputfacade = nullptr;
 	Rendering::Event* _windowEvent = nullptr;
+	Application* _application = nullptr;
 
 	ecs::Registry _reg;
 	std::string _name;
 	std::vector<std::shared_ptr<GameObject>> _objects{};
-	Events::EventDispatcher<const std::string&> _changeSceneEvent{};
-	Events::EventDispatcher<std::shared_ptr<GameObject>> _instantiateEvent{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 
@@ -102,6 +95,7 @@ private:
 	std::shared_ptr<ParticleSystem> _particleSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
+	std::shared_ptr<DespawnSystem> _despawnSystem;
 
 	// Destroy
 	std::queue<GameObject*> _toDeleteQueue{};

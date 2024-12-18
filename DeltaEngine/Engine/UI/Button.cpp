@@ -5,21 +5,31 @@ using namespace Ui;
 
 void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& category)
 {
-	_inputLocations.emplace_back(InputManager::onMouseButtonUp(
+	_inputListeners.Add(InputManager::onMouseButtonDown(
+		MouseButton::Left,
+		[this](Input& e)
+		{
+			_pressed = true;
+		},
+		category));
+
+
+	_inputListeners.Add(InputManager::onMouseButtonUp(
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
-			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			if (_pressed && func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
 			{
 				func();
 			}
+			_pressed = false;
 		},
 		category));
 }
 
 void Ui::Button::SetOnMouseHover(std::function<void()> func)
 {
-	_inputLocations.emplace_back(InputManager::onMouseMove(
+	_inputListeners.Add(InputManager::onMouseMove(
 		[this, func](Input& e)
 		{
 			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
@@ -31,7 +41,7 @@ void Ui::Button::SetOnMouseHover(std::function<void()> func)
 
 void Ui::Button::SetOnMousePressed(std::function<void()> func, const std::string& category)
 {
-	_inputLocations.emplace_back(InputManager::onMouseButtonDown(
+	_inputListeners.Add(InputManager::onMouseButtonDown(
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
@@ -51,18 +61,4 @@ void Button::SetPosition(const Vector2& position)
 void Button::SetScale(const Vector2& scale)
 {
 	_scale = scale;
-}
-
-void Button::ClearFunctions()
-{
-	for (auto& item : _inputLocations)
-	{
-		InputManager::GetInstance().remove(item);
-	}
-	_inputLocations.clear();
-}
-
-Button::~Button()
-{
-	ClearFunctions();
 }

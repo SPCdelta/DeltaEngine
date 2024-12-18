@@ -2,6 +2,7 @@
 #include "../../Core/Math/MathUtils.hpp"
 #include "../../Rendering/Sprite.hpp"
 #include "../../Core/Events/EventDispatcher.hpp"
+#include "../../Input/InputHandler.hpp"
 
 #include <algorithm>
 
@@ -18,7 +19,7 @@ public:
 		_sprite->SetLayer(Layer::EngineLayer);
 		int pxUnit = _camera->GetunitPixelSize();
 		
-		_inputLocations.push_back(InputManager::onMouseMove(
+		_inputListeners.Add(InputManager::onMouseMove(
 			[this, pxUnit](Input& e)
 			{
 				if (!_isActive)
@@ -31,7 +32,7 @@ public:
 			}, _category
 		));
 
-		_inputLocations.push_back(InputManager::onMouseButtonDown(MouseButton::Left,
+		_inputListeners.Add(InputManager::onMouseButtonDown(MouseButton::Left,
 			[this](Input& e)
 			{
 				if (!_isActive || !Math::MathUtils::IsPointWithinRect({ e.mouseX, e.mouseY }, _screenViewPort.position, _screenViewPort.scale))
@@ -43,7 +44,7 @@ public:
 			}, _category
 		));
 
-		_inputLocations.push_back(InputManager::onMouseButtonUp(MouseButton::Left,
+		_inputListeners.Add(InputManager::onMouseButtonUp(MouseButton::Left,
 			[this](Input& e)
 			{
 				_pressed = false;
@@ -72,7 +73,7 @@ public:
 	}
 
 	void RemoveOnKey(Key key){
-		_inputLocations.push_back(InputManager::onKeyPressed(key, [this](Input& e){
+		_inputListeners.Add(InputManager::onKeyPressed(key, [this](Input& e){
 				_isActive = false;
 				_sprite->SetVisible(false);
 			}, _category));
@@ -80,11 +81,6 @@ public:
 
 	void SetCanves(Transform screenViewPort_){
 		_screenViewPort = screenViewPort_;
-	}
-
-	~SnapToGridBrush()
-	{
-		CleanUp();
 	}
 
 private:
@@ -103,7 +99,7 @@ private:
 
 	}
 
-	std::vector<InputLocation> _inputLocations;
+	InputHandler _inputListeners;
 	
 	Camera* _camera;
 	Transform& _transform;
@@ -115,15 +111,5 @@ private:
 	bool _pressed = false;
 	bool _isActive = false;
 	std::function<void(Transform&, Sprite*)> _func;
-
-	
-	void CleanUp(const std::string& category = "") {
-		auto& inputM = InputManager::GetInstance();
-		for (auto& input : _inputLocations)
-		{
-			inputM.remove(input);
-		}
-		_inputLocations.clear();
-	}
 	
 };

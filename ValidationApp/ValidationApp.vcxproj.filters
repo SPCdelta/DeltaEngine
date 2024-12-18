@@ -106,6 +106,7 @@
     <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
     <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
     <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
+    <ClInclude Include="src\Classes\MySceneData.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

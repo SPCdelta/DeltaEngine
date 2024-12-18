@@ -1,42 +1,90 @@
 #include "EnemyBehaviour.hpp"
+#include "../Classes/DamageBehaviour.hpp"
 
 EnemyBehaviour::~EnemyBehaviour()
 {
 	sprite = nullptr;
 	rigidbody = nullptr;
-	delete _damageBehaviour;
-	delete _aiBehaviour;
 	playerPosition = nullptr;
+	_damageBehaviour = nullptr;
 }
 
 void EnemyBehaviour::OnStart()
 {
-	_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position, 5); // TODO, not always a goblin (change when working on enemies)
+	switch (Enemy::StringToType(gameObject->GetTag()))
+	{
+		case EnemyType::Goblin:
+			_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position);
+			break;
+		case EnemyType::Skeleton:
+			_enemy = std::make_unique<Skeleton>(&gameObject->GetComponent<Transform>().position, gameObject);
+			break;
+		case EnemyType::Slime:
+			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position);
+			break;
+	}
+
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);	
-	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
+	_sfx = std::make_unique<Audio::SFXSource>(gameObject->GetComponent<Audio::SFXSource>());
 
-	Math::Vector2* enemyPosition = &gameObject->GetComponent<Transform>().position;
+	Math::Vector2* enemyPosition = &transform->position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
-	_aiBehaviour = new AIBehaviour(astar, enemyPosition, playerPosition, 2.0);
+	_aiBehaviour = std::make_unique<AIBehaviour>(astar, transform, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
+
+	_damageObj = Instantiate(*transform);
+	_damageObj->AddComponent<Sprite>("skeleton")->SetVisible(false);
+	_damageObj->AddComponent<BoxCollider>();
+	_damageObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position) ;
+	SetDamageBehaviour(_damageObj->GetComponent<Rigidbody>());
 }
 
 void EnemyBehaviour::OnUpdate()
 {
-	Math::Vector2* pos = &gameObject->GetComponent<Transform>().position;
+	Transform* pos = &gameObject->GetComponent<Transform>();
 
 	if (playerPosition)
-		pos = _aiBehaviour->Update();
-
-	if (pos != &gameObject->GetComponent<Transform>().position)
 	{
-		gameObject->GetComponent<Transform>().position.SetX(pos->GetX());
-		gameObject->GetComponent<Transform>().position.SetY(pos->GetY());
+		pos = _aiBehaviour->Update();
+		_enemy->Update(*playerPosition, _sfx.get());
+	}
+		
+	if (pos != &gameObject->GetComponent<Transform>())
+	{
+		gameObject->GetComponent<Transform>().position.SetX(pos->position.GetX());
+		gameObject->GetComponent<Transform>().position.SetY(pos->position.GetY());
 	}
 	
 	_moveDirection = _aiBehaviour->GetDirection();
-	if (sprite && sprite->GetAnimator() && _enemy->GetHealth() > 0)
+	UpdateAnimation();
+
+	if (_damageBehaviour)
+	{
+		_damageBehaviour->Update(Time::GetDeltaTime());
+		if (_damageBehaviour->GetDamage())
+		{
+			if (_enemy->GetHealth() > 0 && _sfx)
+			{
+				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
+				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+				_sfx->Play();
+			}
+
+			if (_enemy->GetHealth() <= 0)
+			{
+				_enemy->Die();
+				OnDeath();
+				return;
+			}
+		}
+	}
+}
+
+void EnemyBehaviour::UpdateAnimation()
+{
+    if (sprite && sprite->GetAnimator() && _enemy->GetHealth() > 0)
 	{
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
@@ -52,36 +100,9 @@ void EnemyBehaviour::OnUpdate()
 		else
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
-
-	if (_damageBehaviour)
-	{
-		_damageBehaviour->Update(Time::GetDeltaTime());
-		if (_damageBehaviour->GetDamage())
-		{
-			if (_enemy->GetHealth() > 0)
-			{
-				_damageBehaviour->TakeDamage();
-
-				// TODO different amount of damage??
-				// If need be, get colliding gameobj in takedamage() and decide then what the damage is
-				// and return the damage to then use here in the sethealth() call
-				_enemy->SetHealth(_enemy->GetHealth() - 1);
-
-				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
-				_sfx->Play();
-			}
-
-			if (_enemy->GetHealth() <= 0)
-			{
-				_dead = true;
-				Events::Event e{};
-				onDeath.Dispatch(e);
-			}
-		}
-	}
 }
 
-void EnemyBehaviour::SetPlayerPosition(Math::Vector2* pos)
+void EnemyBehaviour::SetPlayerPosition(Transform* pos)
 {
 	playerPosition = pos;
 	_aiBehaviour->SetTargetPosition(playerPosition);
@@ -89,5 +110,12 @@ void EnemyBehaviour::SetPlayerPosition(Math::Vector2* pos)
 
 void EnemyBehaviour::SetDamageBehaviour(Rigidbody& rigid)
 {
-	_damageBehaviour = new DamageBehaviour(rigid, *sprite, {"projectile"});
+	_damageBehaviour = std::make_unique<DamageBehaviour>(rigid, *sprite, std::initializer_list<std::string>{"projectile"});
+}
+
+void EnemyBehaviour::OnDeath()
+{
+	Destroy(_damageObj);
+	gameObject->GetComponent<Sprite>().SetVisible(false);
+	gameObject->Destroy(gameObject);
 }

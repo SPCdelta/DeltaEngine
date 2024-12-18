@@ -112,9 +112,12 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
+	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
 
 	// Enemies
 	ResourceManager::AddSprite("goblin", "Assets\\Textures\\Enemies\\goblin_attacking.png");
+	ResourceManager::AddSprite("slime", "Assets\\Textures\\Enemies\\slime_walking.png");
+	ResourceManager::AddSprite("skeleton", "Assets\\Textures\\Enemies\\skeleton_walking_bow.png");
 
 	// UI
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");

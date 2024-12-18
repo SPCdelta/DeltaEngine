@@ -222,6 +222,7 @@
     <ClInclude Include="src\Utils\PotionTypeUtils.hpp" />
     <ClInclude Include="src\Classes\IPrototype.hpp" />
     <ClInclude Include="src\Items\ConsumableItem.hpp" />
+    <ClInclude Include="src\Classes\MySceneData.hpp" />
     <ClInclude Include="src\Classes\ParticleFactory.hpp" />
     <ClInclude Include="src\Scenes\ParticleScene.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />

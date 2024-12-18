@@ -210,7 +210,6 @@
     <ClCompile Include="Engine\Rendering\Renderables\Renderable.cpp" />
     <ClCompile Include="Engine\Rendering\TextureManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
-    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Core\Math\Point.cpp" />
     <ClCompile Include="Engine\Core\Math\Random.cpp" />
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
@@ -228,6 +227,7 @@
     <ClCompile Include="Engine\Rendering\Renderables\TextRenderable.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\SpriteRenderable.cpp" />
     <ClCompile Include="Engine\Core\Strings\StringUtils.cpp" />
+    <ClCompile Include="Engine\Input\InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio\AudioManager.hpp" />
@@ -271,6 +271,7 @@
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\Particle.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.hpp" />
+    <ClInclude Include="Engine\Scene\SceneHelper.hpp" />
     <ClInclude Include="Engine\Systems\ParticleSystem.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\Renderable.hpp" />
@@ -314,6 +315,7 @@
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
     <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
+    <ClInclude Include="Engine\Input\InputHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

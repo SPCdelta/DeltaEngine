@@ -1,13 +1,17 @@
 #include "MainMenuScene.hpp"
+
+#include <memory>
+
 #include "../Scripts/TempAudio.hpp"
 #include "Engine/Audio/MusicSource.hpp"
 #include "Engine/Audio/SFXSource.hpp"
 #include "../Views/MenuView.hpp"
-#include <memory>
+#include "../Classes/MySceneData.hpp"
 
 MainMenuScene::MainMenuScene(const std::string& sceneName) 
 	: Scene(sceneName)
 {
+	// Other
 	MenuView menuView { *this, "Main Menu", 4, "alucrads", {485, 50}, {300, 100}, 25, 80 };
 
 	std::shared_ptr<GameObject> menu{ Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };

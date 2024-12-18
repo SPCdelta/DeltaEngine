@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+#include "../Application.hpp"
 
 Scene::Scene(const std::string& name)
 	: _name{name}
@@ -12,6 +13,17 @@ Scene::Scene(const std::string& name)
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
+	_despawnSystem = _reg.CreateSystem<DespawnSystem, Transform, Despawner>();
+}
+
+void Scene::LoadScene(const std::string& name)
+{
+	_application->LoadScene(name);
+}
+
+void Scene::LoadScene(const std::string& name, void* userData)
+{
+	_application->LoadScene<void>(name, userData);
 }
 
 void Scene::Start()
@@ -42,9 +54,23 @@ void Scene::Update()
 	_physicsSystem->TransformToBox2D();
 
 	// Destroy
+	_despawnSystem->Update();
 	while (!_toDeleteQueue.empty())
 	{
-		DestroyObject(_toDeleteQueue.front());
+		GameObject* gameObject = _toDeleteQueue.front();
+		auto it = std::find_if(_objects.begin(), _objects.end(),
+		[gameObject](const std::shared_ptr<GameObject>& obj)
+		{ 
+			return obj.get() == gameObject; 
+		});
+
+		if (it != _objects.end())
+		{
+			ecs::EntityId toDestroy = gameObject->_id;
+			_objects.erase(it);
+			_reg.DestroyEntity(toDestroy);
+		}
+
 		_toDeleteQueue.pop();  // Remove the pointer from the queue
 	}
 
@@ -52,6 +78,16 @@ void Scene::Update()
 	_renderSystem->Update();
 	_imageRenderSystem->Update();
 	_textRenderSystem->Update();
+}
+
+void* Scene::GetUserData()
+{
+	return _application->GetUserData();
+}
+
+void Scene::SetUserData(void* userData)
+{
+	_application->SetUserData(userData);
 }
 
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
@@ -65,7 +101,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	{ 
 		std::make_shared<GameObject>
 		(
-			this, entityId, _reg, _physicsWorld, _changeSceneEvent, camera, transformComponent
+			this, entityId, _reg, _physicsWorld, camera, transformComponent
 		) 
 	};
 	transformComponent.gameObject = obj.get();

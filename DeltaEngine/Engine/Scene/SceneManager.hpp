@@ -23,12 +23,17 @@ public:
 
 	std::shared_ptr<Scene> GetCurrent() const { return _currentScene; }
 
-	void Load(const std::string& sceneName);
-
-	// ?
-	// std::unique_ptr<Scene> ExportScene();
+	void Load(const std::string& sceneName)
+	{
+		auto it = _factories.find(sceneName);
+		if (it != _factories.end())
+		{
+			_currentScene = it->second(sceneName);
+		}
+	}
 
 private:
 	std::unordered_map<std::string, std::function<std::shared_ptr<Scene>(const std::string&)>> _factories;
 	std::shared_ptr<Scene> _currentScene;
+	std::shared_ptr<Scene> _previousScene;
 };
