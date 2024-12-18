@@ -7,15 +7,16 @@ Scene::Scene(const std::string& name)
 	camera = _cameraObj->AddComponent<Camera>(_cameraObj->GetComponent<Transform>());
 
 	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	_particleSystem = _reg.CreateSystem<ParticleSystem, Transform, ParticleEmitter>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(camera);
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
+	_despawnSystem = _reg.CreateSystem<DespawnSystem, Transform, Despawner>();
 }
 
 void Scene::Start()
 { 
-	_updateSystem->OnStart();
 	_renderSystem->OnStart();
 	_textRenderSystem->OnStart();
 	OnStart();
@@ -36,9 +37,31 @@ void Scene::Update()
 
 	// Update
 	_updateSystem->Update();
+	_particleSystem->Update();
 
 	// LateUpdate
 	_physicsSystem->TransformToBox2D();
+
+	// Destroy
+	_despawnSystem->Update();
+	while (!_toDeleteQueue.empty())
+	{
+		GameObject* gameObject = _toDeleteQueue.front();
+		auto it = std::find_if(_objects.begin(), _objects.end(),
+		[gameObject](const std::shared_ptr<GameObject>& obj)
+		{ 
+			return obj.get() == gameObject; 
+		});
+
+		if (it != _objects.end())
+		{
+			ecs::EntityId toDestroy = gameObject->_id;
+			_objects.erase(it);
+			_reg.DestroyEntity(toDestroy);
+		}
+
+		_toDeleteQueue.pop();  // Remove the pointer from the queue
+	}
 
 	// Render
 	_renderSystem->Update();
@@ -48,28 +71,30 @@ void Scene::Update()
 
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
-	std::shared_ptr<GameObject> obj{ 
+	// Create Entity Beforehand
+	ecs::EntityId entityId = _reg.CreateEntity();
+	Transform& transformComponent = _reg.AddComponent<Transform>(entityId, transform);
+
+	// Use entityId for obj
+	std::shared_ptr<GameObject> obj
+	{ 
 		std::make_shared<GameObject>
 		(
-			_reg, _physicsWorld, _changeSceneEvent, camera, transform
+			this, entityId, _reg, _physicsWorld, _changeSceneEvent, camera, transformComponent
 		) 
 	};
-	obj->transform->gameObject = obj.get();
+	transformComponent.gameObject = obj.get();
 	_objects.push_back(obj);
-
-	// Allow Instantiation
-	obj->_instantiatePromise.Register(
-		[this](std::shared_ptr<GameObject>& e)
-		{ 
-			e = Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
-		}
-	);
-	obj->_destroyObject.Register([this](GameObject* gameObject){ DestroyObject(gameObject); });
 
 	return obj;
 }
 
-const std::string& Scene::GetName() const 
+std::shared_ptr<GameObject> Scene::Instantiate()
+{
+	return Instantiate({{1.0f, 1.0f}, 0.0f, {1.0f, 1.0f}});
+}
+
+const std::string& Scene::GetName() const
 {
 	return _name;
 }

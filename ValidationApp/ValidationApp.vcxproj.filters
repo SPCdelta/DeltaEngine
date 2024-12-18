@@ -80,11 +80,16 @@
     <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
+    <ClInclude Include="src\Scenes\ParticleScene.hpp" />
+    <ClInclude Include="src\Classes\ParticleFactory.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
     <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
     <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
     <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
     <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
+    <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -123,6 +128,7 @@
     <Image Include="Assets\Textures\Items\potions\cyan.png" />
     <Image Include="Assets\Textures\HUD\shield_bar.png" />
     <Image Include="Assets\Textures\Items\coin.png" />
+    <Image Include="Assets\Textures\Particles\particles.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

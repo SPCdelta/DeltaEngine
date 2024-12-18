@@ -206,11 +206,16 @@
     <ClCompile Include="src\ValidationApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\ParticleFactory.hpp" />
+    <ClInclude Include="src\Scenes\ParticleScene.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
     <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
     <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
     <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
+    <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
     <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
+    <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
     <ClInclude Include="src\Views\Components\BarComponent.hpp" />
     <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
     <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
@@ -307,6 +312,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\Items\potions\potion_effervescent.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Particles\particles.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>

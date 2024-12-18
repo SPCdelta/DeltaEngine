@@ -2,17 +2,6 @@
     "player": {
         "coins": 0,
         "health": 95,
-        "inventory": [
-            {
-                "amount": 1,
-                "name": "healingpotion",
-                "sprite": "cyanPotion"
-            },
-            {
-                "amount": 4,
-                "name": "item2",
-                "sprite": "none"
-            }
-        ]
+        "weapon": "bow"
     }
 }

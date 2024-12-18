@@ -12,7 +12,6 @@
 
 namespace Physics
 {
-	constexpr int SUB_STEP_COUNT = 4;
 
 	enum class RigidbodyType
 	{
@@ -26,6 +25,11 @@ namespace Physics
 		ACCELERATE = 0,
 		IMPULSE = 1,
 	};
+}
+
+namespace EnginePhysics
+{
+	constexpr int SUB_STEP_COUNT = 4;
 
 	struct PhysicsId
 	{
@@ -111,13 +115,13 @@ namespace Physics
 	{
 		WorldData data{};
 		data.world = b2DefaultWorldDef();
-		data.id = Physics::ToWorldId(b2CreateWorld(&data.world));
+		data.id = EnginePhysics::ToWorldId(b2CreateWorld(&data.world));
 		return data;
 	}
 
 	inline PhysicsId CreateBody(WorldId worldId, PhysicsBody* physicsBody)
 	{
-		return Physics::ToPhysicsId(b2CreateBody(worldId, physicsBody));
+		return EnginePhysics::ToPhysicsId(b2CreateBody(worldId, physicsBody));
 	}
 
 	inline PhysicsPolygon CreateBox(const Math::Vector2& scale)
@@ -132,16 +136,16 @@ namespace Physics
 
 	inline PhysicsId CreatePolygonShape(PhysicsId bodyId, const PhysicsShape* shape, const PhysicsPolygon* polygon)
 	{
-		return Physics::ToPhysicsId(b2CreatePolygonShape(bodyId, &shape->shape, polygon));
+		return EnginePhysics::ToPhysicsId(b2CreatePolygonShape(bodyId, &shape->shape, polygon));
 	}
 
-	inline void SetBodyType(PhysicsId bodyId, RigidbodyType type)
+	inline void SetBodyType(PhysicsId bodyId, Physics::RigidbodyType type)
 	{
-		b2Body_SetType(bodyId, static_cast<b2BodyType>(RigidbodyType::DYNAMIC_BODY));
+		b2Body_SetType(bodyId, static_cast<b2BodyType>(Physics::RigidbodyType::DYNAMIC_BODY));
 	}
-	inline RigidbodyType GetBodyType(PhysicsId bodyId)
+	inline Physics::RigidbodyType GetBodyType(PhysicsId bodyId)
 	{
-		return static_cast<RigidbodyType>(b2Body_GetType(bodyId));
+		return static_cast<Physics::RigidbodyType>(b2Body_GetType(bodyId));
 	}
 
 	inline void SetVelocity(PhysicsId bodyId, const Math::Vector2& velocity)
@@ -164,16 +168,16 @@ namespace Physics
 		return b2Body_GetGravityScale(bodyId);
 	}
 
-	inline void AddForce(PhysicsId bodyId, const Math::Vector2& force, ForceMode forceMode)
+	inline void AddForce(PhysicsId bodyId, const Math::Vector2& force, Physics::ForceMode forceMode)
 	{
 		b2Vec2 b2Force(force.GetX(), force.GetY());
 
 		switch (forceMode)
 		{
-			case ForceMode::ACCELERATE:
+			case Physics::ForceMode::ACCELERATE:
 				b2Body_ApplyForceToCenter(bodyId, b2Force, true);
 				break;
-			case ForceMode::IMPULSE:
+			case Physics::ForceMode::IMPULSE:
 				b2Body_ApplyLinearImpulseToCenter(bodyId, b2Force, true);
 				break;
 		}

@@ -9,8 +9,9 @@
 #include "Scenes/LayerScene.hpp"
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
+#include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
-
+#include "Scenes/SpawnerScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -29,7 +30,9 @@ ValidationApp::ValidationApp()
 	RegisterScene<DevScene>("DevScene");
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
+	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
+	RegisterScene<SpawnerScene>("SpawnerScene");
 
 	// Load Desired Scene
 	LoadScene("MainMenuScene");
@@ -84,6 +87,19 @@ void ValidationApp::LoadAssets()
 		"floor_tiles"
 	};
 
+	SpriteMap particlesMap
+	{
+		"Assets\\Textures\\Particles\\particles.png",
+		{
+			{ "particle_big", { 0, 0 }, { 5, 5 } },
+			{ "particle_medium_1", { 5, 0 }, { 8, 3 } },
+			{ "particle_medium_2", { 8, 0 }, { 11, 3 } },
+			{ "particle_small", { 11, 0 }, { 13, 2 } },
+			{ "particle_tiny", { 13, 0 }, { 14, 1 } }
+		},
+		"particles_map", 
+	};
+
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
 	ResourceManager::AddSprite("gray_rect", "Assets\\Textures\\Rect.png");
@@ -100,6 +116,8 @@ void ValidationApp::LoadAssets()
 
 	// Enemies
 	ResourceManager::AddSprite("goblin", "Assets\\Textures\\Enemies\\goblin_attacking.png");
+	ResourceManager::AddSprite("slime", "Assets\\Textures\\Enemies\\slime_walking.png");
+	ResourceManager::AddSprite("skeleton", "Assets\\Textures\\Enemies\\skeleton_walking_bow.png");
 
 	// UI
 	ResourceManager::AddSprite("main_menu_bg", "Assets\\Textures\\UI\\Background\\main_menu_bg.png");

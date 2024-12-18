@@ -17,8 +17,8 @@ namespace Physics
 
 	struct CollisionData
 	{
-		PhysicsId shape1;
-		PhysicsId shape2;
+		EnginePhysics::PhysicsId shape1;
+		EnginePhysics::PhysicsId shape2;
 		CollisionState state;
 	};
 
@@ -27,14 +27,14 @@ namespace Physics
 	public:
 		PhysicsWorld()
 		{
-			_data = Physics::CreateWorld();
+			_data = EnginePhysics::CreateWorld();
 		}
 
-		~PhysicsWorld() { Physics::DestroyWorld(_data.id); }
+		~PhysicsWorld() { EnginePhysics::DestroyWorld(_data.id); }
 
 		friend class Rigidbody;
 
-		const WorldId& GetWorldId() const { return _data.id; }
+		const EnginePhysics::WorldId& GetWorldId() const { return _data.id; }
 
 		void Update();
 
@@ -45,7 +45,7 @@ namespace Physics
 		const std::vector<CollisionData>& GetCurrentCollisions() const{ return _currentCollisions; }
 
 	private:
-		WorldData _data;
+		EnginePhysics::WorldData _data;
 
 		std::vector<CollisionData> _currentTriggers;
 		std::vector<CollisionData> _currentCollisions;

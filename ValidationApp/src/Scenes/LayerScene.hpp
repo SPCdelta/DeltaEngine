@@ -6,7 +6,6 @@
 
 #include "../Scripts/PlayerBehaviour.hpp"
 #include "../Scripts/EnemyBehaviour.hpp"
-#include "../Scripts/EnemyHitboxBehaviour.hpp"
 #include "../Items/Potions/HealingPotion.hpp"
 #include "../Views/HUDView.hpp"
 

@@ -21,7 +21,7 @@ public:
 			if (despawner._timer <= 0.0f)
 			{
 				Transform& transform = _view.get<Transform>(entityId);
-				transform.gameObject->Destroy(transform.gameObject.get());
+				transform.gameObject->Destroy(transform.gameObject);
 			}
 			else
 			{

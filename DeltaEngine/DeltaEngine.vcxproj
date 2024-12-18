@@ -270,6 +270,9 @@
     <ClInclude Include="Engine\Rendering\Animator.hpp" />
     <ClInclude Include="Engine\Rendering\Camera.hpp" />
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
+    <ClInclude Include="Engine\Rendering\Particles\Particle.hpp" />
+    <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.hpp" />
+    <ClInclude Include="Engine\Systems\ParticleSystem.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\Renderable.hpp" />
     <ClInclude Include="Engine\Rendering\Layer.hpp" />

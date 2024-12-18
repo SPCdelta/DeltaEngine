@@ -13,8 +13,8 @@ namespace Physics
 		Rigidbody(Collider& collider)
 			: _collider{ collider }
 		{
-			Physics::SetBodyType(_collider._bodyId, RigidbodyType::DYNAMIC_BODY);
-			Physics::EnableSleep(collider._bodyId, false);
+			EnginePhysics::SetBodyType(_collider._bodyId, RigidbodyType::DYNAMIC_BODY);
+			EnginePhysics::EnableSleep(collider._bodyId, false);
 		}
 
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
@@ -22,20 +22,20 @@ namespace Physics
 		Events::EventDispatcher<Collider&> onCollisionEnter{};
 		Events::EventDispatcher<Collider&> onCollisionExit{};
 
-		const PhysicsShape& GetShape() const { return _collider._shape; }
+		const EnginePhysics::PhysicsShape& GetShape() const { return _collider._shape; }
 
-		void SetType(RigidbodyType type) { Physics::SetBodyType(_collider._bodyId, type); }
-		RigidbodyType GetType() const { return Physics::GetBodyType(_collider._bodyId); }
+		void SetType(RigidbodyType type) { EnginePhysics::SetBodyType(_collider._bodyId, type); }
+		RigidbodyType GetType() const { return EnginePhysics::GetBodyType(_collider._bodyId); }
 
 		Collider& GetCollider() const { return _collider; }
 
-		void AddForce(Math::Vector2 force, ForceMode forceMode) { Physics::AddForce(_collider._bodyId, force, forceMode); }
+		void AddForce(Math::Vector2 force, ForceMode forceMode) { EnginePhysics::AddForce(_collider._bodyId, force, forceMode); }
 
-		void SetVelocity(Math::Vector2 velocity) { Physics::SetVelocity(_collider._bodyId, velocity); }
-		const Math::Vector2 GetVelocity() const { return Physics::GetVelocity(_collider._bodyId); }
+		void SetVelocity(Math::Vector2 velocity) { EnginePhysics::SetVelocity(_collider._bodyId, velocity); }
+		const Math::Vector2 GetVelocity() const { return EnginePhysics::GetVelocity(_collider._bodyId); }
 
-		void SetGravityScale(float gravityScale) { Physics::SetGravityScale(_collider._bodyId, gravityScale); }
-		float GetGravityScale() const { return Physics::GetGravityScale(_collider._bodyId); }
+		void SetGravityScale(float gravityScale) { EnginePhysics::SetGravityScale(_collider._bodyId, gravityScale); }
+		float GetGravityScale() const { return EnginePhysics::GetGravityScale(_collider._bodyId); }
 
 		float GetSpeed() const 
 		{

@@ -10,6 +10,7 @@ enum class Layer : int
 	Default,
 	Player,
 	Projectiles,
+	Particles,
 	Foreground,
 	EngineLayer
 };

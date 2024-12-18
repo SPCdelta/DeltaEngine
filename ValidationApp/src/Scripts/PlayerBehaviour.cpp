@@ -7,14 +7,14 @@ void PlayerBehaviour::OnStart()
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
-	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton"});
+	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 	
 	//this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 
 	//_weapon = new Gun(this);
-	//_weapon = new Bow(this);
+	_weapon = new Bow(this);
 	//onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 
 	onMouseMove([this](Input& e) 
@@ -32,6 +32,23 @@ void PlayerBehaviour::OnStart()
 	onKeyPressed(KEY_Q, [this](Input& e) { _player->SetCoins(69); }, "Gameplay");
 	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
 	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
+
+	keyPressed(Key::KEY_SPACE, [this](Input& e)
+	{
+		_attacking = true;
+		StartAttack();
+	});
+
+	// Physics Events
+	rigidbody->onTriggerEnter.Register([this](Collider& collider)
+	{ 
+		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
+		if (collider.transform.gameObject->GetTag() == "level_exit")
+		{
+			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
+			exit.Use();
+		}
+	});
 }
 
 void PlayerBehaviour::OnUpdate() 
@@ -39,12 +56,13 @@ void PlayerBehaviour::OnUpdate()
 	_moveDirection = _playerInput.GetDirection();
 
 	UpdateAttack(Time::GetDeltaTime());
-	if (_playerInput.GetSpace())
+	if (_attacking)
 	{
-		_attacking = true;
-		StartAttack();
+		if (_weapon)
+			_weapon->Use();
+		else
+			ThrowBoomerang();
 	}
-	bool attack = _attacking;
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
@@ -102,13 +120,7 @@ void PlayerBehaviour::OnUpdate()
 	{
 		if (_player->GetHealth() > 0)
 		{
-			_damageBehaviour->TakeDamage();
-
-			// TODO different amount of damage?? 
-			// If need be, get colliding gameobj in takedamage() and decide then what the damage is 
-			// and return the damage to then use here in the sethealth() call
-			_player->SetHealth(_player->GetHealth() - 1);
-
+			_player->SetHealth(_player->GetHealth() - _damageBehaviour->TakeDamage());
 			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			_sfx->Play();
 		}
@@ -135,15 +147,6 @@ void PlayerBehaviour::OnUpdate()
 
 	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
 	{
-		// Attacking
-		if (attack)
-		{
-			if (_weapon)
-				_weapon->Use();
-			else
-				ThrowBoomerang();
-		}
-		
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, false);
@@ -196,8 +199,16 @@ void PlayerBehaviour::LoadPlayer()
 	{
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
-		_player->ResetInventory();
 
+		if (!loadedPlayer["player"]["weapon"].contains("boomerang"))
+		{
+			if (loadedPlayer["player"]["weapon"].contains("gun"))
+				_weapon = new Gun(this);
+			else
+				_weapon = new Bow(this);
+		}
+
+		_player->ResetInventory();
 		if (loadedPlayer["player"].contains("inventory"))
 		{
 			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
@@ -214,8 +225,6 @@ void PlayerBehaviour::LoadPlayer()
 					Item item = Item(itemData["name"], itemData["sprite"]); 
 					_player->AddItemToInventory(item, itemData["amount"]);
 				}
-
-				// TODO weapons?
 			}
 		}
 	}
@@ -227,6 +236,17 @@ void PlayerBehaviour::SavePlayer()
 
 	playerFile["player"]["health"] = _player->GetHealth();
 	playerFile["player"]["coins"] = _player->GetCoins();
+	if (_weapon)
+	{
+		if (auto gun = dynamic_cast<Gun*>(_weapon))
+			playerFile["player"]["weapon"] = "gun";
+		else
+			playerFile["player"]["weapon"] = "bow";
+	}		
+	else
+	{
+		playerFile["player"]["weapon"] = "boomerang";
+	}
 
 	if (_player->GetInventorySize() > 0)
 	{
@@ -245,8 +265,6 @@ void PlayerBehaviour::SavePlayer()
 				itemData["value"] = potion->GetValue();
 				itemData["time"] = potion->GetTime();
 			}
-
-			// TODO weapons?
 		}
 	}
 	
