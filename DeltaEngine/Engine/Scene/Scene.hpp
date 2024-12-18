@@ -23,6 +23,7 @@
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/ImageRenderSystem.hpp"
 #include "../Systems/TextRenderSystem.hpp"
+#include "../Systems/DespawnSystem.hpp"
 
 class Application;
 
@@ -95,6 +96,7 @@ private:
 	std::shared_ptr<ParticleSystem> _particleSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
+	std::shared_ptr<DespawnSystem> _despawnSystem;
 
 	// Destroy
 	std::queue<GameObject*> _toDeleteQueue{};

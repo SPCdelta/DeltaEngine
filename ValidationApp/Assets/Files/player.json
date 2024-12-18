@@ -1,6 +1,7 @@
 {
     "player": {
         "coins": 0,
-        "health": 95
+        "health": 95,
+        "weapon": "bow"
     }
 }

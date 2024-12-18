@@ -12,6 +12,7 @@ Scene::Scene(const std::string& name)
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
+	_despawnSystem = _reg.CreateSystem<DespawnSystem, Transform, Despawner>();
 }
 
 void Scene::Start()
@@ -42,6 +43,7 @@ void Scene::Update()
 	_physicsSystem->TransformToBox2D();
 
 	// Destroy
+	_despawnSystem->Update();
 	while (!_toDeleteQueue.empty())
 	{
 		GameObject* gameObject = _toDeleteQueue.front();
