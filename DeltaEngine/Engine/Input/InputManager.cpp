@@ -37,7 +37,6 @@ InputListener* InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Inp
 InputListener* InputManager::keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	instance_.inputState[KEYBOARD].Add(Pressed, InputsEnum::toStr(keyDown), category, keyEvent);
-
 	return new InputListener{KEYBOARD, InputsEnum::toStr(keyDown), Pressed, category, keyEvent};
 }
 
@@ -140,22 +139,12 @@ void InputManager::updateMouseMovement(int x, int y)
 	allInputs.mouseY = y;
 
 	inputState[MOUSEMOVEMENT].DispatchActive(Unknown, "MouseMove", allInputs);
-
-	//for (auto& [key,value]: mouseMovement)
-	//{
-	//	value.Dispatch(allInputs);
-	//}
 }
 
 void InputManager::updateMouseWheel(int wheelVertically)
 {
 	allInputs.wheelVertically = wheelVertically;
 	inputState[MOUSEWHEELMOVEMENT].DispatchActive(Unknown, "MouseWheel", allInputs);
-
-	/*for (auto& [key, value] : mouseWheelMovement)
-	{
-		value.Dispatch(allInputs);
-	}*/
 }
 
 // Execute input events

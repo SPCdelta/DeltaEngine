@@ -24,8 +24,9 @@ class Button
 	void SetScale(const Vector2& scale);
 
    private:
+	InputHandler _inputListeners;
+	bool _pressed = false;
 	Vector2 _position;
 	Vector2 _scale;
-	InputHandler _inputListeners;
 };
 }  // namespace Ui

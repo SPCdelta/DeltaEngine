@@ -51,10 +51,10 @@ public:
 			{
 				LoadScene("MainMenuScene");
 			}, "UI:Back");
-		//menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
-		//	{
-		//		LoadScene("LevelEditor");
-		//	}, "UI:new Level"); // TODO Error zit hier in maar geen idee waarom voor volgende US
+		menuView.SetButtonOnLeftMouseClick(1, [this]() -> void
+			{
+				LoadScene("LevelEditor");
+			}, "UI:new Level"); // TODO Error zit hier in maar geen idee waarom voor volgende US
 	}
 
 private:

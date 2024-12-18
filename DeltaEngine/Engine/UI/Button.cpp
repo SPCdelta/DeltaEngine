@@ -5,14 +5,24 @@ using namespace Ui;
 
 void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& category)
 {
+	_inputListeners.Add(InputManager::onMouseButtonDown(
+		MouseButton::Left,
+		[this](Input& e)
+		{
+			_pressed = true;
+		},
+		category));
+
+
 	_inputListeners.Add(InputManager::onMouseButtonUp(
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
-			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			if (_pressed && func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
 			{
 				func();
 			}
+			_pressed = false;
 		},
 		category));
 }
