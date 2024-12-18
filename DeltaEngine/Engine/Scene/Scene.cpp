@@ -45,13 +45,11 @@ void Scene::Update()
 	while (!_toDeleteQueue.empty())
 	{
 		GameObject* gameObject = _toDeleteQueue.front();
-
 		auto it = std::find_if(_objects.begin(), _objects.end(),
-			[gameObject](const std::shared_ptr<GameObject>& obj)
-			{ 
-				return obj.get() == gameObject; 
-			}
-		);
+		[gameObject](const std::shared_ptr<GameObject>& obj)
+		{ 
+			return obj.get() == gameObject; 
+		});
 
 		if (it != _objects.end())
 		{
@@ -59,6 +57,7 @@ void Scene::Update()
 			_objects.erase(it);
 			_reg.DestroyEntity(toDestroy);
 		}
+
 		_toDeleteQueue.pop();  // Remove the pointer from the queue
 	}
 
