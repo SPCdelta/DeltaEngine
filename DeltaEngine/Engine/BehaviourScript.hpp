@@ -40,6 +40,6 @@ public:
 	Camera* camera = nullptr;
 
 protected:
-	std::vector<std::unique_ptr<InputListener>> registerdInputs;
+	InputHandler _inputListeners;
 };
 

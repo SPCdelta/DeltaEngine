@@ -27,17 +27,17 @@ class InputManager
 	static void deactivateCategory(const std::string& category);
 	static void activateCategory(const std::string& category);
 
-	static std::unique_ptr<InputListener> onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
-	static std::unique_ptr<InputListener> keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
-	static std::unique_ptr<InputListener> onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
+	static InputListener* onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
+	static InputListener* keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
+	static InputListener* onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
 
 	//static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent); TODO dit werkt op dit moment niet vanwege executeInputsPressedDown
-	static std::unique_ptr<InputListener> keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, const std::string& category = defaultCategory);
+	static InputListener* keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, const std::string& category = defaultCategory);
 
-	static std::unique_ptr<InputListener> onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category = defaultCategory);
-	static std::unique_ptr<InputListener> onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category = defaultCategory);
-	static std::unique_ptr<InputListener> onMouseMove(Events::EventCallback<Input&> mouseEvent, const std::string& category = defaultCategory);
-	static std::unique_ptr<InputListener> onMouseWheel(Events::EventCallback<Input&> wheelEvent, const std::string& = defaultCategory);
+	static InputListener* onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category = defaultCategory);
+	static InputListener* onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category = defaultCategory);
+	static InputListener* onMouseMove(Events::EventCallback<Input&> mouseEvent, const std::string& category = defaultCategory);
+	static InputListener* onMouseWheel(Events::EventCallback<Input&> wheelEvent, const std::string& = defaultCategory);
 
 
 	static Math::Point GetMousePosition();
@@ -65,8 +65,8 @@ class InputManager
 
 	std::map<InputType, InputEventDispatchers> inputState;
 
-	std::map<std::string, Events::EventDispatcher<Input&>> mouseMovement;
-	std::map<std::string, Events::EventDispatcher<Input&>> mouseWheelMovement;
+	/*std::map<std::string, Events::EventDispatcher<Input&>> mouseMovement;
+	std::map<std::string, Events::EventDispatcher<Input&>> mouseWheelMovement;*/
 };
 
 
@@ -109,4 +109,27 @@ private:
     std::string _input;
     std::string _category;
     Events::EventCallback<Input&> _regesterd;
+};
+
+class InputHandler
+{
+public:
+    InputHandler() {}
+
+    ~InputHandler()
+    {
+        for (InputListener* il : _inputListeners)
+        {
+            delete il;
+        }
+        _inputListeners.clear();
+    }
+
+    void Add(InputListener* il)
+    {
+        _inputListeners.push_back(il);
+    }
+
+private:
+    std::vector<InputListener*> _inputListeners{};
 };

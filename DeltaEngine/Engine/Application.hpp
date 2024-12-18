@@ -68,7 +68,7 @@ protected:
 	ecs::Registry _reg;
 
 private:
-	std::vector<std::unique_ptr<InputListener>> _inputs;
+	InputHandler _inputListeners;
 	static bool _isRunning;
 
 	Window _window;

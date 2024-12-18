@@ -26,6 +26,6 @@ class Button
    private:
 	Vector2 _position;
 	Vector2 _scale;
-	std::vector<std::unique_ptr<InputListener>> _inputLocations;
+	InputHandler _inputListeners;
 };
 }  // namespace Ui

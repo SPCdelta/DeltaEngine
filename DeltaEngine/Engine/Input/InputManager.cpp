@@ -28,76 +28,62 @@ void InputManager::activateCategory(const std::string& category)
 	}
 }
 
-std::unique_ptr<InputListener> InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
+InputListener* InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	instance_.inputState[KEYBOARD].Add(PressedDown, InputsEnum::toStr(keyDown), category, keyEvent);
-	return nullptr;
-
-	//return std::make_unique<InputListener>(KEYBOARD, InputsEnum::toStr(keyDown), PressedDown, category, keyEvent);
+	return new InputListener{KEYBOARD, InputsEnum::toStr(keyDown), PressedDown, category, keyEvent};
 }
 
-std::unique_ptr<InputListener> InputManager::keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
+InputListener* InputManager::keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	instance_.inputState[KEYBOARD].Add(Pressed, InputsEnum::toStr(keyDown), category, keyEvent);
-	return nullptr;
 
-	//return std::make_unique<InputListener>(KEYBOARD, InputsEnum::toStr(keyDown), Pressed, category, keyEvent);
+	return new InputListener{KEYBOARD, InputsEnum::toStr(keyDown), Pressed, category, keyEvent};
 }
 
-std::unique_ptr<InputListener> InputManager::onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string& category)
+InputListener* InputManager::onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	instance_.inputState[KEYBOARD].Add(Release, InputsEnum::toStr(keyUp), category, keyEvent);
-	return nullptr;
-
-
-	//return std::make_unique<InputListener>(KEYBOARD, InputsEnum::toStr(keyUp), Release, category, keyEvent);
+	return new InputListener{KEYBOARD, InputsEnum::toStr(keyUp), Release, category, keyEvent};
 }
 
-std::unique_ptr<InputListener> InputManager::keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
+InputListener* InputManager::keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	std::string allKeysDown;
 	for (const auto& key : keysDown)
 		allKeysDown += InputsEnum::toStr(key);
 
 	instance_.inputState[KEYBOARD].Add(Pressed, allKeysDown, category, keyEvent);
-	return nullptr;
-
-	//return std::make_unique<InputListener>(KEYBOARD, allKeysDown, Pressed, category, keyEvent);
+	return new InputListener{KEYBOARD, allKeysDown, Pressed, category, keyEvent};
 }
 
 // Mouse events
-std::unique_ptr<InputListener> InputManager::onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category)
+InputListener* InputManager::onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category)
 {
 	std::string strButton = std::to_string(InputsEnum::toInt(button));
 
 	instance_.inputState[MOUSEBUTTON].Add(PressedDown, strButton, category, buttonEvent);
-	return nullptr;
-
-	//return std::make_unique<InputListener>( MOUSEBUTTON, strButton, PressedDown, category, buttonEvent );
+	return new InputListener{ MOUSEBUTTON, strButton, PressedDown, category, buttonEvent };
 }
 
-std::unique_ptr<InputListener> InputManager::onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category)
+InputListener* InputManager::onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category)
 {	
 	std::string strButton = std::to_string(InputsEnum::toInt(button));
 
 	instance_.inputState[MOUSEBUTTON].Add(Release, strButton, category, buttonEvent);
-	return nullptr;
-
-	//return std::make_unique<InputListener>(MOUSEBUTTON, strButton, Release, category, buttonEvent );
+	return new InputListener{MOUSEBUTTON, strButton, Release, category, buttonEvent };
 }
 
-std::unique_ptr<InputListener> InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent, const std::string& category)
+InputListener* InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent, const std::string& category)
 {
-	instance_.mouseMovement[category].Register(mouseEvent);
-	//return std::make_unique<InputListener>(MOUSEMOVEMENT, "MouseMove", Unknown, category, mouseEvent);
-	return nullptr;
+	instance_.inputState[MOUSEMOVEMENT].Add(Unknown, "MouseMove", category, mouseEvent);
+	return new InputListener{MOUSEMOVEMENT, "MouseMove", Unknown, category, mouseEvent};
 }
 
-std::unique_ptr<InputListener> InputManager::onMouseWheel(Events::EventCallback<Input&> wheelEvent, const std::string& category)
+InputListener* InputManager::onMouseWheel(Events::EventCallback<Input&> wheelEvent, const std::string& category)
 {
-	instance_.mouseWheelMovement[category].Register(wheelEvent);
-	//return std::make_unique<InputListener>(MOUSEWHEELMOVEMENT, "MouseWheel", Unknown, category, wheelEvent);
-	return nullptr;
+	instance_.inputState[MOUSEWHEELMOVEMENT].Add(Unknown, "MouseWheel", category, wheelEvent);
+	return new InputListener{MOUSEWHEELMOVEMENT, "MouseWheel", Unknown, category, wheelEvent};
 
 }
 
@@ -152,19 +138,24 @@ void InputManager::updateMouseMovement(int x, int y)
 {
 	allInputs.mouseX = x;
 	allInputs.mouseY = y;
-	for (auto& [key,value]: mouseMovement)
-	{
-		value.Dispatch(allInputs);
-	}
+
+	inputState[MOUSEMOVEMENT].DispatchActive(Unknown, "MouseMove", allInputs);
+
+	//for (auto& [key,value]: mouseMovement)
+	//{
+	//	value.Dispatch(allInputs);
+	//}
 }
 
 void InputManager::updateMouseWheel(int wheelVertically)
 {
 	allInputs.wheelVertically = wheelVertically;
-	for (auto& [key, value] : mouseWheelMovement)
+	inputState[MOUSEWHEELMOVEMENT].DispatchActive(Unknown, "MouseWheel", allInputs);
+
+	/*for (auto& [key, value] : mouseWheelMovement)
 	{
 		value.Dispatch(allInputs);
-	}
+	}*/
 }
 
 // Execute input events
@@ -184,17 +175,5 @@ void InputManager::executeInputEvents()
 
 void InputManager::Remove(InputType type, const std::string& input, InputState state, const std::string& category, Events::EventCallback<Input&>& regesterd)
 {
-	/*if (input.find("MouseWheel") != std::string::npos)
-	{
-		mouseWheelMovement[category].Unregister(inputLoc.regesterd);
-	}
-	else if (inputLoc.inputType.find("MouseMove") != std::string::npos)
-	{
-		mouseMovement[inputLoc.category].Unregister(inputLoc.regesterd);
-	}
-	else
-	{*/
-		inputState[type].Remove(state, input, category, regesterd);
-	//}
-
+	inputState[type].Remove(state, input, category, regesterd);
 }

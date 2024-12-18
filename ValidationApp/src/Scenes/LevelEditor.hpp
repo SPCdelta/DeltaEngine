@@ -212,19 +212,19 @@ public:
     void BindCamara()
     {
         float speed = 1.0f;
-        _inputs.emplace_back(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
+        _inputListeners.Add(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
             camera->AddToPosition({ speed,0.f });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
-        _inputs.emplace_back(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
+        _inputListeners.Add(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
             camera->AddToPosition({ -speed,0.f });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
-        _inputs.emplace_back(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
+        _inputListeners.Add(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
             camera->AddToPosition({ 0.f,-speed });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
-        _inputs.emplace_back(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
+        _inputListeners.Add(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
             camera->AddToPosition({ 0.f,speed });
             _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
             }));
@@ -336,7 +336,7 @@ private:
         }
     }
 
-    std::vector<std::unique_ptr<InputListener>> _inputs;
+    InputHandler _inputListeners;
     Transform _screenPort;
 
     std::string _saveFilePath;

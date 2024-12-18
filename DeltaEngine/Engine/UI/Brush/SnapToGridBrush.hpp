@@ -19,7 +19,7 @@ public:
 		_sprite->SetLayer(Layer::EngineLayer);
 		int pxUnit = _camera->GetunitPixelSize();
 		
-		_inputLocations.emplace_back(InputManager::onMouseMove(
+		_inputListeners.Add(InputManager::onMouseMove(
 			[this, pxUnit](Input& e)
 			{
 				if (!_isActive)
@@ -32,7 +32,7 @@ public:
 			}, _category
 		));
 
-		_inputLocations.emplace_back(InputManager::onMouseButtonDown(MouseButton::Left,
+		_inputListeners.Add(InputManager::onMouseButtonDown(MouseButton::Left,
 			[this](Input& e)
 			{
 				if (!_isActive || !Math::MathUtils::IsPointWithinRect({ e.mouseX, e.mouseY }, _screenViewPort.position, _screenViewPort.scale))
@@ -44,7 +44,7 @@ public:
 			}, _category
 		));
 
-		_inputLocations.emplace_back(InputManager::onMouseButtonUp(MouseButton::Left,
+		_inputListeners.Add(InputManager::onMouseButtonUp(MouseButton::Left,
 			[this](Input& e)
 			{
 				_pressed = false;
@@ -73,7 +73,7 @@ public:
 	}
 
 	void RemoveOnKey(Key key){
-		_inputLocations.emplace_back(InputManager::onKeyPressed(key, [this](Input& e){
+		_inputListeners.Add(InputManager::onKeyPressed(key, [this](Input& e){
 				_isActive = false;
 				_sprite->SetVisible(false);
 			}, _category));
@@ -99,7 +99,7 @@ private:
 
 	}
 
-	std::vector<std::unique_ptr<InputListener>> _inputLocations;
+	InputHandler _inputListeners;
 	
 	Camera* _camera;
 	Transform& _transform;
