@@ -319,6 +319,10 @@ public:
         auto title = titleTxt->AddComponent<Ui::Text>("Level: " + _saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         title->SetBackground({ 255, 255, 255, 255 });
 
+        std::shared_ptr<GameObject> layerObj{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
+        auto layerTxt = layerObj->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        layerTxt->SetBackground({ 255, 255, 255, 255 });
+
         std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
 
         std::unordered_map<std::string, std::vector<std::string>> categorySprites;
@@ -330,24 +334,34 @@ public:
             categorySprites[category].push_back(key);
         }
 
+        for (int i = 0; i < maxOptionPerRow; i++)
+        {
+            auto& optionTile = _optionTiles.emplace_back(Instantiate({
+                        { -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2},
+                        0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
+            optionTile->AddComponent<Ui::Image>("default_texture");
+            optionTile->AddComponent<BrushSprite>("default_texture", &_brush->GetComponent<SnapToGridBrush>());
+        }
 
-        auto lambdaChangeSprite = [this, categorySprites, maxOptionPerRow](int wheelDirection) {
+        auto lambdaChangeSprite = [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) {
 
-            HiddeOptionTiles();
+            
             auto optionTilesVector = GetVisibleSprites(categorySprites, maxOptionPerRow, wheelDirection);
 
-            int index = 0;
-            for (auto& key : optionTilesVector)
+            for (size_t i = 0; i < _optionTiles.size(); i++)
             {
-                auto& optionTile = _optionTiles.emplace_back(Instantiate({
-                        { SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP },
-                        0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
-
-
-                optionTile->AddComponent<Ui::Image>(key);
-                optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
-                index++;
+                auto& optionTile = _optionTiles[i];
+                if (optionTilesVector.size() <= i)
+                {
+                    optionTile->GetComponent<Transform>().position.Set({ -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2 });
+                    continue;
+                }
+                const std::string spriteName = optionTilesVector[i];
+                optionTile->GetComponent<Transform>().position.Set({ SCALE_IN_UI_BAR * i + PADDING * i + PADDING_OUT_LEFT_UI, PADDING_TOP });
+                optionTile->GetComponent<Ui::Image>().SetSprite(spriteName);
+                optionTile->GetComponent<BrushSprite>().SetSprite(spriteName);
             }
+
         };
         lambdaChangeSprite(0);
 
@@ -357,13 +371,6 @@ public:
     }
 
 private:
-    
-    void HiddeOptionTiles(){
-        for (auto& option : _optionTiles)
-        {
-            option->transform->position.Set({ -SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR });
-        }
-    }
 
     InputHandler _inputListeners;
     Transform _screenPort;
