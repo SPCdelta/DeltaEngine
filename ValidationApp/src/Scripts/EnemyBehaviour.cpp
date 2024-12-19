@@ -24,7 +24,7 @@ void EnemyBehaviour::OnStart()
 			break;
 		case EnemyType::Boss:
 		default:
-			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position, true, 2.5f, 100, 25, 30, 5);
+			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position, true, 3.5f, 100, 25, 30, 5);
 			break;
 	}
 
