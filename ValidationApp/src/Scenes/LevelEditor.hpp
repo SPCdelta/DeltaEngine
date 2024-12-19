@@ -27,7 +27,7 @@ public:
     static constexpr float SAVE_FONT_SIZE = 20.0f;
 
     const std::string LEVEL_PATH = "Assets\\Level\\";
-    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles" , "player" };
+    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles", "wall_tiles", "player", "enemy_spawners" };
 
     // Constructor
     LevelEditor(const std::string& sceneName) : Scene(sceneName) {
@@ -137,17 +137,15 @@ public:
             if (tile->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
                 auto& tileJson = tilesJson["tiles"][tileCounter];
                 TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
+                SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
                 tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
-                tileJson["sprite"]["layer"] = tile->GetLayer();
                 tileCounter++;
 
             } else if (tile->GetTag() == SPRITE_CATEGORY[1]){ //player
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
+                SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
                 tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
-                tileJson["sprite"]["layer"] = tile->GetLayer();
             }
         }
         fileManager.Save(_saveFilePath, "json", tilesJson);
@@ -199,9 +197,7 @@ public:
             int newLayer = layerInt + wheelDirection;
 
             if (LayerHelper::InLayers(newLayer)) {
-                //InputManager::deactivateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
                 _layer = LayerHelper::GetLayer(newLayer);
-                //InputManager::activateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
 
                 layer->SetText("Layer: " + LayerHelper::GetString(_layer));
 
