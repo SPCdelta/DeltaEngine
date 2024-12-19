@@ -162,49 +162,39 @@ public:
     }
 
 
-    //Create
-    void CreateTile(const std::string& spriteName, const std::string& category, Transform transform) {
-        _tiles.emplace_back(Instantiate(transform));
-        CreateTile(spriteName, category, false);
-
-    }
-
-    void CreateTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
+    void CreateTile(const std::string& spriteName, const std::string& category)
     {
-        if (mousePos) {
-            auto mousePos = InputManager::GetMousePosition();
-            _tiles.emplace_back(Instantiate({ camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
-        }
+        auto mousePos = InputManager::GetMousePosition();
+        auto& tile = _tiles.emplace_back(Instantiate({ camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
 
-        auto& tile = _tiles.back();
         tile->SetTag(category);
 
         auto sprite = tile->AddComponent<Sprite>(spriteName);
-        sprite->SetLayer(_layer);
+        sprite->SetLayer(LAYER_MAP.at(category));
     }
 
 
     //Input Binding
     void BindLayerChangerToMouseWheel(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
     {
-        std::shared_ptr<GameObject> layerTxt{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto layer = layerTxt->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
-        layer->SetBackground({ 255, 255, 255, 255 });
+        //std::shared_ptr<GameObject> layerTxt{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
+        //auto layer = layerTxt->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        //layer->SetBackground({ 255, 255, 255, 255 });
 
-        std::shared_ptr<GameObject> worldView{ Instantiate(_screenPort) };
-        worldView->AddComponent<Ui::Scrollable>(
-            [this, layer](int wheelDirection) {
-            int layerInt = LayerHelper::GetInt(_layer);
+        //std::shared_ptr<GameObject> worldView{ Instantiate(_screenPort) };
+        //worldView->AddComponent<Ui::Scrollable>(
+        //    [this, layer](int wheelDirection) {
+        //    int layerInt = LayerHelper::GetInt(_layer);
 
-            int newLayer = layerInt + wheelDirection;
+        //    int newLayer = layerInt + wheelDirection;
 
-            if (LayerHelper::InLayers(newLayer)) {
-                _layer = LayerHelper::GetLayer(newLayer);
+        //    if (LayerHelper::InLayers(newLayer)) {
+        //        _layer = LayerHelper::GetLayer(newLayer);
 
-                layer->SetText("Layer: " + LayerHelper::GetString(_layer));
+        //        layer->SetText("Layer: " + LayerHelper::GetString(_layer));
 
-            }
-            });
+        //    }
+        //    });
     }
 
     void BindCamara()
@@ -267,6 +257,57 @@ public:
             }, "UI");
     }
 
+    int calculateSpritesInrow(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites){
+        int amout = 0;
+        if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
+            amout = static_cast<int>(categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]).size());
+
+        return amout / maxVisibleSprites;
+    }
+
+    std::vector<std::string> GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites,
+        int maxVisibleSprites,
+        int direction)
+    {
+        std::vector<std::string> result;
+
+        int maxtileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+
+        _tileIndexOptions += direction;
+
+        if (_tileIndexOptions < 0){
+            _layerIndexTopBar -= 1;
+            if (_layerIndexTopBar < 0)
+                _layerIndexTopBar = SPRITE_CATEGORY.size() -1;
+            
+            _tileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+            
+        }
+        else if (_tileIndexOptions > maxtileIndexOptions)
+        {
+            _layerIndexTopBar += 1;
+            if (_layerIndexTopBar >= SPRITE_CATEGORY.size())
+                _layerIndexTopBar = 0;
+
+            _tileIndexOptions = 0;
+        }
+
+        std::cout << _layerIndexTopBar << " " << _tileIndexOptions << "\n";
+
+        std::vector<std::string> sprites;
+        if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
+            sprites = categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]);
+
+
+        for (size_t i = maxVisibleSprites * _tileIndexOptions; i < maxVisibleSprites * (_tileIndexOptions + 1) && i < sprites.size(); i++)
+        {
+            result.push_back(sprites[i]);
+        }
+
+        return result;
+    }
+
+
     void UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
         const float imagespace = (SCALE_IN_UI_BAR + PADDING);
@@ -280,49 +321,39 @@ public:
 
         std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
 
-        int maxtileIndexOptions = static_cast<int>(sprites.size()) / maxOptionPerRow;
+        std::unordered_map<std::string, std::vector<std::string>> categorySprites;
+        
+        for (const auto& pair : sprites) {
+            const std::string& key = pair.first;
+            const std::string& category = pair.second->category;
 
-        for (auto& [key, value] : sprites)
-        {
-            auto& optionTile = _optionTiles.emplace_back(Instantiate({
-                    {-SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR},
-                    0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
-
-
-            optionTile->AddComponent<Ui::Image>(key);
-            optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
+            categorySprites[category].push_back(key);
         }
 
-        auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
+
+        auto lambdaChangeSprite = [this, categorySprites, maxOptionPerRow](int wheelDirection) {
 
             HiddeOptionTiles();
-            auto startIt = sprites.begin();
-
-            _tileIndexOptions += wheelDirection;
-            if (_tileIndexOptions < 0)
-                _tileIndexOptions = maxtileIndexOptions;
-            else if (_tileIndexOptions > maxtileIndexOptions)
-                _tileIndexOptions = 0;
-
-            std::advance(startIt, maxOptionPerRow * _tileIndexOptions);
+            auto optionTilesVector = GetVisibleSprites(categorySprites, maxOptionPerRow, wheelDirection);
 
             int index = 0;
-            for (auto& pair = startIt; pair != sprites.end() && index < maxOptionPerRow; ++pair) {
+            for (auto& key : optionTilesVector)
+            {
+                auto& optionTile = _optionTiles.emplace_back(Instantiate({
+                        { SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP },
+                        0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
 
-                auto& tileoption = _optionTiles.at(maxOptionPerRow * _tileIndexOptions + index);
 
-                tileoption->transform->position.Set({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });
-
+                optionTile->AddComponent<Ui::Image>(key);
+                optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
                 index++;
             }
-
         };
         lambdaChangeSprite(0);
 
 
         std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };
         TopBar->AddComponent<Ui::Scrollable>(lambdaChangeSprite);
-
     }
 
 private:
@@ -342,7 +373,9 @@ private:
 
     std::vector<std::shared_ptr<GameObject>> _tiles;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
+    std::map<std::string, std::vector<std::shared_ptr<GameObject>>> _tileMapOptions;
     int _tileIndexOptions = 0;
+    int _layerIndexTopBar = 0;
 
     std::shared_ptr<GameObject> _brush;
 

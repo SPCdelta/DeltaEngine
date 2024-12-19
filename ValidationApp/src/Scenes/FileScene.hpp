@@ -33,7 +33,7 @@ class FileScene : public Scene
 
 			// Wall
 			std::shared_ptr<GameObject> wallObj{ Instantiate({{ 20.0f, 10.0f }, 0.0f, { 1.0f, 1.0f }}) };
-			wallObj->AddComponent<Sprite>("stone_wall")->SetLayer(Layer::Walls);
+			wallObj->AddComponent<Sprite>("stone_wall")->SetLayer(Layer::Wall);
 			wallObj->AddComponent<BoxCollider>();
 			tiles.push_back(wallObj);
 
