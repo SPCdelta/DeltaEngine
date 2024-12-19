@@ -126,6 +126,7 @@
     <ClInclude Include="Engine\Scene\SceneHelper.hpp" />
     <ClInclude Include="Engine\UI\Brush\EraserBrush.hpp" />
     <ClInclude Include="Engine\UI\Brush\Brush.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\SpriteDTO.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

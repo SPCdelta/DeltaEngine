@@ -17,6 +17,7 @@
 // Files
 #include "Core/Files/FileManager.hpp"
 #include "Core/Files/DTO/TransformDTO.hpp"
+#include "Core/Files/DTO/SpriteDTO.hpp"
 
 // Audio
 #include "Audio/AudioManager.hpp"
