@@ -115,5 +115,6 @@ private:
 	// Data
 	void* GetUserData() { return _userData; }
 	void SetUserData(void* userData) { _userData = userData; }
+	void DeleteUserData() {delete _userData;}
 };
 

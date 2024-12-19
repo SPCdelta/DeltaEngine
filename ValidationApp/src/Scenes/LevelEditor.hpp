@@ -31,13 +31,7 @@ public:
     const std::map<std::string, Layer> LAYER_MAP = { {"floor_tiles", Layer::Floor}, {"wall_tiles", Layer::Wall}, {"player", Layer::Player}, {"enemy_spawners" , Layer::Player} };
 
     // Constructor
-    LevelEditor(const std::string& sceneName) : Scene(sceneName) {
-        _saveFileName = "level-1";
-
-        _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
-
-        auto allLayers = LayerHelper::GetAllLayer();
-    }
+    LevelEditor(const std::string& sceneName) : Scene(sceneName) {}
 
     void OnStart() override
     {
@@ -51,8 +45,12 @@ public:
         const float rightBarStart = windowWidth - RIGHT_BAR_WIDTH;
 
         _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
+        
+        std::string* result = SceneHelper::GetSceneData<std::string>(this);
+        if (result)
+            _saveFileName = *result;
 
-        InitLevelEditor(_saveFileName);
+        InitLevelEditor();
 
         UIBackButtonAndBinding(rightBarStart);
         UISaveButtonAndBinding(rightBarStart);
@@ -62,7 +60,7 @@ public:
 
 
 
-    void InitLevelEditor(const std::string& level){
+    void InitLevelEditor(){
 
         auto mousePos = InputManager::GetMousePosition();
         _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
@@ -87,13 +85,13 @@ public:
         brushComponnet->RemoveOnKey(KEY_E);
         brushComponnet->SetCanves(_screenPort);
 
-        if (level.empty()){
+        if (_saveFileName.empty()){
             MakeSaveFilePath();
             return;
         }
         FileManager fileManager;
 
-        Json::json loadTiles = fileManager.Load(LEVEL_PATH + level + ".json", "json");
+        Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName + ".json", "json");
         if (loadTiles.contains("tiles"))
         {
             for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
@@ -133,6 +131,7 @@ public:
         Json::json tilesJson;
         int tileCounter = 0;
 
+
         for (auto& tile : _tiles)
         {
             if (tile->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
@@ -149,12 +148,15 @@ public:
                 tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
             }
         }
+        MakeSaveFilePath();
         fileManager.Save(_saveFilePath, "json", tilesJson);
     }
 
     void MakeSaveFilePath(){
-        auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
-        _saveFileName = "level-" + std::to_string(fileNames.size() + 1);
+        if (_saveFileName.empty()){
+            auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
+            _saveFileName = "level-" + std::to_string(fileNames.size() + 1);
+        }
         
         _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
 
@@ -291,7 +293,7 @@ public:
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto title = titleTxt->AddComponent<Ui::Text>("Level: " + _saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        auto title = titleTxt->AddComponent<Ui::Text>(_saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         title->SetBackground({ 255, 255, 255, 255 });
 
         std::shared_ptr<GameObject> layerObj{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
