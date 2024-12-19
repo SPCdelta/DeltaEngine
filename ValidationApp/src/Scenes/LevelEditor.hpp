@@ -56,7 +56,6 @@ public:
 
         UIBackButtonAndBinding(rightBarStart);
         UISaveButtonAndBinding(rightBarStart);
-        BindLayerChangerToMouseWheel(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
         UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
         BindCamara();
     }
@@ -171,30 +170,6 @@ public:
 
         auto sprite = tile->AddComponent<Sprite>(spriteName);
         sprite->SetLayer(LAYER_MAP.at(category));
-    }
-
-
-    //Input Binding
-    void BindLayerChangerToMouseWheel(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
-    {
-        //std::shared_ptr<GameObject> layerTxt{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        //auto layer = layerTxt->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
-        //layer->SetBackground({ 255, 255, 255, 255 });
-
-        //std::shared_ptr<GameObject> worldView{ Instantiate(_screenPort) };
-        //worldView->AddComponent<Ui::Scrollable>(
-        //    [this, layer](int wheelDirection) {
-        //    int layerInt = LayerHelper::GetInt(_layer);
-
-        //    int newLayer = layerInt + wheelDirection;
-
-        //    if (LayerHelper::InLayers(newLayer)) {
-        //        _layer = LayerHelper::GetLayer(newLayer);
-
-        //        layer->SetText("Layer: " + LayerHelper::GetString(_layer));
-
-        //    }
-        //    });
     }
 
     void BindCamara()
@@ -320,11 +295,12 @@ public:
         title->SetBackground({ 255, 255, 255, 255 });
 
         std::shared_ptr<GameObject> layerObj{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto layerTxt = layerObj->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        auto layerTxt = layerObj->AddComponent<Ui::Text>(SPRITE_CATEGORY[_layerIndexTopBar], "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         layerTxt->SetBackground({ 255, 255, 255, 255 });
 
-        std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
 
+
+        std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
         std::unordered_map<std::string, std::vector<std::string>> categorySprites;
         
         for (const auto& pair : sprites) {
@@ -343,10 +319,11 @@ public:
             optionTile->AddComponent<BrushSprite>("default_texture", &_brush->GetComponent<SnapToGridBrush>());
         }
 
-        auto lambdaChangeSprite = [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) {
-
-            
+        auto lambdaChangeSprite = 
+            [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) 
+            {
             auto optionTilesVector = GetVisibleSprites(categorySprites, maxOptionPerRow, wheelDirection);
+            layerTxt->SetText(SPRITE_CATEGORY[_layerIndexTopBar]);
 
             for (size_t i = 0; i < _optionTiles.size(); i++)
             {
