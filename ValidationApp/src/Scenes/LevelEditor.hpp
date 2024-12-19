@@ -98,15 +98,16 @@ public:
         {
             for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
             {
-                auto& tile = loadTiles["tiles"][i];
+                auto& jsonTile = loadTiles["tiles"][i];
 
 
-                if (tile.contains("transform") && tile.contains("sprite") && tile.contains("tag"))
+                if (jsonTile.contains("transform") && jsonTile.contains("sprite") && jsonTile.contains("tag"))
                 {
-                    Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
-                    _layer = layer;
-                    CreateTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
-                    _tiles.back()->SetTag(SPRITE_CATEGORY[0]);
+                    auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(jsonTile)));
+                    SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(jsonTile);
+
+                    tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
+                    tile->SetTag(SPRITE_CATEGORY[0]);
                 }
             }
         }
@@ -115,11 +116,11 @@ public:
             auto& player = loadTiles[SPRITE_CATEGORY[1]];
             if (player.contains("transform") && player.contains("sprite") && player.contains("tag"))
             {
-                Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
-                _layer = layer;
-                CreateTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
-                _tiles.back()->SetTag(SPRITE_CATEGORY[1]);
-                //_tilesPerLayer[_layer].back()->GetComponent<SnapToGridBrush>().SetDraggeble(false);
+                auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(player)));
+                SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(player);
+
+                tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
+                tile->SetTag(SPRITE_CATEGORY[1]);
             }
         }
     }

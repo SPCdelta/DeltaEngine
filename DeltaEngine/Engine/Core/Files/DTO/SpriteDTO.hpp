@@ -17,7 +17,7 @@ struct SpriteDTO
 		tileJson["sprite"]["name"] = sprite.GetSprite();
 		tileJson["sprite"]["layer"] = sprite.GetLayer();
 	}
-	static SpriteDTO  JsonToTransform(Json::json& tile) {
+	static SpriteDTO  JsonToSpriteData(Json::json& tile) {
 		return
 		{
 			

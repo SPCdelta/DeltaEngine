@@ -2469,9 +2469,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_6"
+                "name": "rect_gray_0_new"
             },
-            "tag": "Sandstone",
+            "tag": "rect",
             "transform": {
                 "position": {
                     "x": -8.0,
@@ -2487,9 +2487,9 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_6"
+                "name": "rect_gray_0_new"
             },
-            "tag": "Sandstone",
+            "tag": "rect",
             "transform": {
                 "position": {
                     "x": -5.0,
@@ -3207,13 +3207,661 @@
         {
             "sprite": {
                 "layer": 3,
-                "name": "Sandstone_floor_7"
+                "name": "rect_gray_0_new"
             },
-            "tag": "Sandstone",
+            "tag": "rect",
             "transform": {
                 "position": {
                     "x": -10.0,
                     "y": -1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 2.0,
+                    "y": -5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 2.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 3.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 4.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 5.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 6.0,
+                    "y": -6.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 7.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 8.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 9.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 9.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 11.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 12.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 12.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 13.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 14.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 15.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_4"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 16.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -12.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -11.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -5.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -2.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -3.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -3.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -1.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -2.0,
+                    "y": -5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -1.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 0.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -1.0,
+                    "y": -3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -2.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": -1.0,
+                    "y": -5.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 1.0,
+                    "y": -4.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 4.0,
+                    "y": -2.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 8.0,
+                    "y": 1.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 10.0,
+                    "y": 3.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                }
+            }
+        },
+        {
+            "sprite": {
+                "layer": 3,
+                "name": "Sandstone_floor_6"
+            },
+            "tag": "Sandstone",
+            "transform": {
+                "position": {
+                    "x": 11.0,
+                    "y": 3.0
                 },
                 "rotation": 0.0,
                 "scale": {
