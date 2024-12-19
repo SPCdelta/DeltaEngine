@@ -43,7 +43,7 @@ GameScene::GameScene(const std::string& name)
 			// Walls
 			else if ((x == 0 || x == mapWidth -1 ) || (y == 0 || y == mapHeight - 1))
 			{
-				obj->AddComponent<Sprite>("stone_wall")->SetLayer(Layer::Walls);
+				obj->AddComponent<Sprite>("stone_wall")->SetLayer(Layer::Wall);
 				obj->AddComponent<BoxCollider>();
 			}
 

@@ -144,4 +144,19 @@ private:
 	std::function<void()> _onActivate;
 	std::function<void()> _onRelease;
 	std::function<void(Brush*)> _onRepeat;
+
+	void MouseToCanvase(Math::Point& mouse)
+	{
+		if (static_cast<float>(mouse.GetX()) < _screenViewPort.position.GetX())
+			mouse.SetX(static_cast<int>(_screenViewPort.position.GetX()));
+		
+		if (static_cast<float>(mouse.GetY()) < _screenViewPort.position.GetY())
+			mouse.SetY(static_cast<int>(_screenViewPort.position.GetY()));
+		
+		if (static_cast<float>(mouse.GetX()) > _screenViewPort.scale.GetX())
+			mouse.SetX(static_cast<int>(_screenViewPort.scale.GetX()));
+		
+		if (static_cast<float>(mouse.GetY()) > _screenViewPort.scale.GetY())
+			mouse.SetY(static_cast<int>(_screenViewPort.scale.GetY()));
+	}
 };

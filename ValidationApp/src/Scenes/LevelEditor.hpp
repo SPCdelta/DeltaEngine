@@ -77,36 +77,49 @@ public:
 
     void InitLevelEditor(const std::string& level)
     {
-        // Load Level
-        {
-            if (level.empty()){
-                MakeSaveFilePath();
-                return;
-            }
-            FileManager fileManager;
-            Json::json loadTiles = fileManager.Load(LEVEL_PATH + level + ".json", "json");
-            if (loadTiles.contains("tiles"))
-            {
-                auto& jsonTile = loadTiles["tiles"][i];
+		if (level.empty())
+		{
+			MakeSaveFilePath();
+			return;
+		}
+		FileManager fileManager;
 
+		Json::json loadTiles =
+			fileManager.Load(LEVEL_PATH + level + ".json", "json");
+		if (loadTiles.contains("tiles"))
+		{
+			for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+			{
+				auto& jsonTile = loadTiles["tiles"][i];
 
-                if (jsonTile.contains("transform") && jsonTile.contains("sprite") && jsonTile.contains("tag"))
-                {
-                    auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(jsonTile)));
-                    SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(jsonTile);
+				if (jsonTile.contains("transform") &&
+					jsonTile.contains("sprite") && jsonTile.contains("tag"))
+				{
+					auto& tile = _tiles.emplace_back(
+						Instantiate(TransformDTO::JsonToTransform(jsonTile)));
+					SpriteDTO spriteData =
+						SpriteDTO::JsonToSpriteData(jsonTile);
 
-                    tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
-                    tile->SetTag(SPRITE_CATEGORY[0]);
-                }
-            }
-            if (loadTiles.contains(SPRITE_CATEGORY[1]))
-            {
-                auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(player)));
-                SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(player);
+					tile->AddComponent<Sprite>(spriteData.spriteName)
+						->SetLayer(spriteData.layer);
+					tile->SetTag(SPRITE_CATEGORY[0]);
+				}
+			}
+		}
+		if (loadTiles.contains(SPRITE_CATEGORY[1]))
+		{
+			auto& player = loadTiles[SPRITE_CATEGORY[1]];
+			if (player.contains("transform") && player.contains("sprite") &&
+				player.contains("tag"))
+			{
+				auto& tile = _tiles.emplace_back(
+					Instantiate(TransformDTO::JsonToTransform(player)));
+				SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(player);
 
-                tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
-                tile->SetTag(SPRITE_CATEGORY[1]);
-            }
+				tile->AddComponent<Sprite>(spriteData.spriteName)
+					->SetLayer(spriteData.layer);
+				tile->SetTag(SPRITE_CATEGORY[1]);
+			}
 		}
     }
 

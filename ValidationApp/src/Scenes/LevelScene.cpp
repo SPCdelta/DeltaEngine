@@ -81,7 +81,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 
 				switch (layer)
 				{
-					case Layer::Walls:
+					case Layer::Wall:
 						tileObj->AddComponent<BoxCollider>();
 						break;
 					default:
