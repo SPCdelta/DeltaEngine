@@ -16,8 +16,8 @@
 
 #include "UI/Button.hpp"
 #include "UI/Scrollable.hpp"
-#include "UI/Brush/SnapToGridBrush.hpp"
-#include "UI/Brush/BrushSprite.hpp"
+//#include "UI/Brush/SnapToGridBrush.hpp"
+//#include "UI/Brush/BrushSprite.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
 
@@ -67,19 +67,19 @@ public:
 			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Scrollable>(_id, transform, std::forward<Args>(args)...));
 			return component;
 		}
-		else if constexpr (std::is_same_v<T, SnapToGridBrush>)
-		{
-			Sprite* sprite = AddComponent<Sprite>("default_texture");
-			T* component = static_cast<T*>(&_reg.EmplaceComponent<SnapToGridBrush>(_id, *transform, sprite, _camera, std::forward<Args>(args)...));
-			
-			return component;
-		}
-		else if constexpr (std::is_same_v<T, BrushSprite>)
-		{
-			T* component = static_cast<T*>(&_reg.EmplaceComponent<BrushSprite>(_id, *transform, std::forward<Args>(args)...));
+		//else if constexpr (std::is_same_v<T, SnapToGridBrush>)
+		//{
+		//	Sprite* sprite = AddComponent<Sprite>("default_texture");
+		//	T* component = static_cast<T*>(&_reg.EmplaceComponent<SnapToGridBrush>(_id, *transform, sprite, _camera, std::forward<Args>(args)...));
+		//	
+		//	return component;
+		//}
+		//else if constexpr (std::is_same_v<T, BrushSprite>)
+		//{
+		//	T* component = static_cast<T*>(&_reg.EmplaceComponent<BrushSprite>(_id, *transform, std::forward<Args>(args)...));
 
-			return component;
-		}
+		//	return component;
+		//}
 		else if constexpr (std::is_same_v<T, ParticleEmitter>)
 		{
 			T* component = static_cast<T*>(&_reg.EmplaceComponent<ParticleEmitter>(_id, this, std::forward<Args>(args)...));

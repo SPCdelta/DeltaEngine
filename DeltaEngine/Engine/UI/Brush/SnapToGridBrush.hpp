@@ -14,78 +14,18 @@ class SnapToGridBrush : public Brush
 public:
 	static constexpr auto Name = "default";
 
-	SnapToGridBrush(Transform& transform, Sprite* sprite, Camera* camera, std::function<void(Transform&, Sprite*)> func, const std::string& category = "UI") 
-		: Brush(Name),
-		_camera{camera}, _transform{transform}, _category{category}, _sprite{ sprite }, _func{ func }
+	SnapToGridBrush(GameObject* object, std::function<void(Brush*)> onRepeat, Transform& screenViewport) 
+		: Brush(Name, Key::KEY_E, object, []() {}, []() {}, onRepeat),
+		_screenViewPort{ screenViewport }
 	{
-		_sprite->SetVisible(false);
 		_sprite->SetBorder(2);
 		_sprite->SetBorderColor({ 100, 0, 0 });
-		_sprite->SetLayer(Layer::EngineLayer);
-		int pxUnit = _camera->GetunitPixelSize();
-		
-		_inputListeners.Add(InputManager::onMouseMove(
-			[this, pxUnit](Input& e)
-			{
-				if (!_isActive)
-					return;
-
-				_transform.position.Set(_camera->ToWorldGrid({ e.mouseX, e.mouseY }));
-				if (_pressed)
-					_func(_transform, _sprite);
-
-			}, _category
-		));
-
-		_inputListeners.Add(InputManager::onMouseButtonDown(MouseButton::Left,
-			[this](Input& e)
-			{
-				if (!_isActive || !Math::MathUtils::IsPointWithinRect({ e.mouseX, e.mouseY }, _screenViewPort.position, _screenViewPort.scale))
-					return;
-
-
-				_func(_transform, _sprite);
-				_pressed = true;
-			}, _category
-		));
-
-		_inputListeners.Add(InputManager::onMouseButtonUp(MouseButton::Left,
-			[this](Input& e)
-			{
-				_pressed = false;
-			}, _category
-		));
 	}
 
-	void NotifyTransform(){
-		if (!_pressed)
-			return;
-		
-		_transform.position.Set(_camera->ToWorldGrid(InputManager::GetMousePosition()));
-		_func(_transform, _sprite);
-	}
-
-	void SetSprite(const std::string& spriteName){
-		_isActive = true;
-		_transform.position.Set(_camera->ToWorldGrid(InputManager::GetMousePosition()));
-		_sprite->SetSprite(spriteName);
-		_sprite->SetVisible(true);
-	}
-
-
-	void SetCategory(const std::string& category){
-		_category = category;
-	}
-
-	void RemoveOnKey(Key key){
-		_inputListeners.Add(InputManager::onKeyPressed(key, [this](Input& e){
-				_isActive = false;
-				_sprite->SetVisible(false);
-			}, _category));
-	}
-
-	void SetCanves(Transform screenViewPort_){
-		_screenViewPort = screenViewPort_;
+protected:
+	void OnActivate() override
+	{ 
+		Repeat();
 	}
 
 private:
@@ -103,18 +43,8 @@ private:
 			mouse.SetY(static_cast<int>(_screenViewPort.scale.GetY()));
 
 	}
+	Transform& _screenViewPort;
 
-	InputHandler _inputListeners;
-	
-	Camera* _camera;
-	Transform& _transform;
-	Transform _screenViewPort;
-
-	std::string _category;
-
-	Sprite* _sprite;
 	bool _pressed = false;
 	bool _isActive = false;
-	std::function<void(Transform&, Sprite*)> _func;
-	
 };

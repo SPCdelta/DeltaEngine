@@ -33,12 +33,22 @@ public:
     const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles" , "player" };
 
     // Constructor
-    LevelEditor(const std::string& sceneName) : Scene(sceneName) {
+    LevelEditor(const std::string& sceneName) : Scene(sceneName) 
+    {
         _saveFileName = "level-1";
 
         _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
 
         auto allLayers = LayerHelper::GetAllLayer();
+    }
+
+    ~LevelEditor()
+    {
+        for (Brush* brush : _brushes)
+        {
+			delete brush;
+        }
+		_brushes.clear();
     }
 
     void OnStart() override
@@ -54,7 +64,6 @@ public:
 
         _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
 
-        CreateBrushes();
         InitLevelEditor(_saveFileName);
 
         UIBackButtonAndBinding(rightBarStart);
@@ -62,75 +71,124 @@ public:
         BindLayerChangerToMouseWheel(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
         UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
         BindCamara();
+        CreateBrushes();
+    }
+
+    void InitLevelEditor(const std::string& level)
+    {
+        // Load Level
+        {
+            if (level.empty()){
+                MakeSaveFilePath();
+                return;
+            }
+            FileManager fileManager;
+            Json::json loadTiles = fileManager.Load(LEVEL_PATH + level + ".json", "json");
+            if (loadTiles.contains("tiles"))
+            {
+                for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+                {
+                    auto& tile = loadTiles["tiles"][i];
+
+
+                    if (tile.contains("transform") && tile.contains("sprite") && tile.contains("tag"))
+                    {
+                        Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
+                        _layer = layer;
+                        CreateTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
+                        _tiles.back()->SetTag(SPRITE_CATEGORY[0]);
+                    }
+                }
+            }
+            if (loadTiles.contains(SPRITE_CATEGORY[1]))
+            {
+                auto& player = loadTiles[SPRITE_CATEGORY[1]];
+                if (player.contains("transform") && player.contains("sprite") && player.contains("tag"))
+                {
+                    Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
+                    _layer = layer;
+                    CreateTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
+                    _tiles.back()->SetTag(SPRITE_CATEGORY[1]);
+                    //_tilesPerLayer[_layer].back()->GetComponent<SnapToGridBrush>().SetDraggeble(false);
+                }
+            }
+		}
     }
 
     void CreateBrushes()
     {
 		//_brushes.push_back(new SnapToGridBrush());
-		_brushes.push_back(new EraserBrush());
-		_selectedBrush = _brushes[0];
-    }
-
-    void InitLevelEditor(const std::string& level){
-
-        auto mousePos = InputManager::GetMousePosition();
-        _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
-        auto* brushComponnet = _brush->AddComponent<SnapToGridBrush>(
-            [this](Transform& transform, Sprite* sprite)
+        EraserBrush* eraser = new EraserBrush(Instantiate().get(), 
+            [this](Brush* brush)
             {
                 auto& vector = _tiles;
-                std::string spriteName = sprite->GetSprite();
-            	
-            	auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) {
-            		if (e->transform->position == transform.position){
-            			e->GetComponent<Sprite>().SetSprite(spriteName);
-                        return true;
-            		}
-                    return false;
-            	});
+				std::string spriteName = brush->GetSprite()->GetSprite();
+				const Vector2& position = brush->GetPosition();
 
-            	if (it == vector.end())
-                    CreateTile(spriteName, sprite->GetSpriteData()->category);
-            
-            }); 
-        brushComponnet->RemoveOnKey(KEY_E);
-        brushComponnet->SetCanves(_screenPort);
+                auto it = std::find_if(vector.begin(), vector.end(), 
+                    [this, position, spriteName](std::shared_ptr<GameObject>& e)
+                    {
+            		    if (e->transform->position == position)
+                        {
+							e->Destroy(e);
+                            return true;
+            		    }
+                        return false;
+                    }
+                );
+            });
 
-        // Load Level
-        if (level.empty()){
-            MakeSaveFilePath();
-            return;
-        }
-        FileManager fileManager;
-        Json::json loadTiles = fileManager.Load(LEVEL_PATH + level + ".json", "json");
-        if (loadTiles.contains("tiles"))
-        {
-            for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
+		SnapToGridBrush* regular = new SnapToGridBrush(Instantiate().get(), 
+            [this](Brush* brush)
             {
-                auto& tile = loadTiles["tiles"][i];
+                auto& vector = _tiles;
+				std::string spriteName = brush->GetSprite()->GetSprite();
+				const Vector2& position = brush->GetPosition();
 
+                auto it = std::find_if(vector.begin(), vector.end(), 
+                    [this, position, spriteName](std::shared_ptr<GameObject>& e)
+                    {
+            		    if (e->transform->position == position)
+                        {
+            			    e->GetComponent<Sprite>().SetSprite(spriteName);
+                            return true;
+            		    }
+                        return false;
+                    }
+                );
 
-                if (tile.contains("transform") && tile.contains("sprite") && tile.contains("tag"))
-                {
-                    Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
-                    _layer = layer;
-                    CreateTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
-                    _tiles.back()->SetTag(SPRITE_CATEGORY[0]);
-                }
-            }
-        }
-        if (loadTiles.contains(SPRITE_CATEGORY[1]))
+                if (it == vector.end())
+				{
+					CreateTile(spriteName, brush->GetSprite()->GetSpriteData()->category);
+				}
+            }, _screenPort
+        );
+		_brushes.push_back(eraser);
+		_brushes.push_back(regular);
+
+        for (Brush* brush : _brushes)
         {
-            auto& player = loadTiles[SPRITE_CATEGORY[1]];
-            if (player.contains("transform") && player.contains("sprite") && player.contains("tag"))
-            {
-                Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
-                _layer = layer;
-                CreateTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
-                _tiles.back()->SetTag(SPRITE_CATEGORY[1]);
-                //_tilesPerLayer[_layer].back()->GetComponent<SnapToGridBrush>().SetDraggeble(false);
-            }
+			_inputListeners.Add(InputManager::onKeyPressed(brush->Shortcut(), 
+                [this, brush](Input& e) 
+                { 
+                    // Disable Others
+                    for (Brush* other : _brushes)
+                    {
+						if (brush == other)
+							continue;
+
+                        other->Disable();
+                    }
+
+                    // Toggle Selected
+					brush->Toggle();
+                    _selectedBrush = brush;
+                })
+            );
         }
+
+		_selectedBrush = regular;
+		_selectedBrush->Enable();
     }
    
     //File handeling
@@ -221,22 +279,34 @@ public:
     void BindCamara()
     {
         float speed = 1.0f;
-        _inputListeners.Add(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
-            camera->AddToPosition({ speed,0.f });
-            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
-            }));
-        _inputListeners.Add(InputManager::keyPressed(KEY_A, [this, speed](Input& e) {
-            camera->AddToPosition({ -speed,0.f });
-            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
-            }));
-        _inputListeners.Add(InputManager::keyPressed(KEY_S, [this, speed](Input& e) {
-            camera->AddToPosition({ 0.f,-speed });
-            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
-            }));
-        _inputListeners.Add(InputManager::keyPressed(KEY_W, [this, speed](Input& e) {
-            camera->AddToPosition({ 0.f,speed });
-            _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
-            }));
+        _inputListeners.Add(InputManager::keyPressed(KEY_D, 
+            [this, speed](Input& e) 
+            {
+                camera->AddToPosition({ speed, 0.0f });
+				_selectedBrush->NotifyTransform();
+            }
+        ));
+        _inputListeners.Add(InputManager::keyPressed(KEY_A, 
+            [this, speed](Input& e) 
+            {
+                camera->AddToPosition({ -speed, 0.0f });
+                _selectedBrush->NotifyTransform();
+            }
+        ));
+        _inputListeners.Add(InputManager::keyPressed(KEY_S, 
+            [this, speed](Input& e) 
+            {
+                camera->AddToPosition({ 0.0f, -speed });
+                _selectedBrush->NotifyTransform();
+            }
+        ));
+        _inputListeners.Add(InputManager::keyPressed(KEY_W, 
+            [this, speed](Input& e) 
+            {
+                camera->AddToPosition({ 0.0f, speed });
+                _selectedBrush->NotifyTransform();
+            }
+        ));
     }
 
 
@@ -301,7 +371,25 @@ public:
 
 
             optionTile->AddComponent<Ui::Image>(key);
-            optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
+			//Ui::Button* button = optionTile->AddComponent<Ui::Button>(optionTile->transformRef.position, optionTile->transformRef.scale);
+   //         button->SetOnLeftMouseClick(
+   //             [this, key]() 
+   //             {
+   //                 _selectedBrush->GetSprite()->SetSprite(key);
+   //             }, "level_editor"
+   //         );
+
+            _inputListeners.Add(InputManager::onMouseButtonDown(MouseButton::Left,
+			    [this, optionTile, key](Input& e)
+			    {
+				    if (!Math::MathUtils::IsVector2WithinRect({ e.mouseX, e.mouseY }, optionTile->transformRef.position, optionTile->transformRef.scale))
+					    return;
+
+				    _selectedBrush->GetSprite()->SetSprite(key);
+
+			    }, "level_editor"
+		    ));
+            //optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
         }
 
         auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
@@ -355,8 +443,7 @@ private:
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
     int _tileIndexOptions = 0;
 
-    std::shared_ptr<GameObject> _brush;
-
+    // Brushes
     Brush* _selectedBrush = nullptr;
 	std::vector<Brush*> _brushes{};
 

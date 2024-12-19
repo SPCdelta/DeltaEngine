@@ -7,9 +7,15 @@ class EraserBrush : public Brush
 public:
 	static constexpr auto Name = "eraser";
 
-	EraserBrush()
-		: Brush(Name)
+	EraserBrush(GameObject* object, std::function<void(Brush*)> onRepeat)
+		: Brush(Name, Key::KEY_Q, object, []() {}, []() {}, onRepeat)
 	{
 
+	}
+
+protected:
+	void OnActivate() override 
+	{ 
+		Repeat();
 	}
 };
