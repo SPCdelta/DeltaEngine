@@ -1,5 +1,10 @@
 #include "EnemyHitboxBehaviour.hpp"
 
+EnemyHitboxBehaviour::~EnemyHitboxBehaviour()
+{
+	enemyPosition = nullptr;
+}
+
 void EnemyHitboxBehaviour::OnStart()
 {
 

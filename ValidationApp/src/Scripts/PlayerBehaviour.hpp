@@ -8,7 +8,6 @@
 #include "../Classes/FloorBehaviour.hpp"
 #include "../Classes/PickUpBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
-
 #include "Boomerang.hpp"
 #include "../Classes/Weapons/Gun.hpp"
 #include "../Classes/Weapons/Bow.hpp"
@@ -33,6 +32,7 @@ public:
 		delete _damageBehaviour;
 		delete _pickUpBehaviour;
 		delete _weapon;
+		delete _boomerang;
 	}
 
 	void ThrowBoomerang();

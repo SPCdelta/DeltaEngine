@@ -9,6 +9,11 @@ class Skeleton : public Enemy
 	Skeleton(Math::Vector2* position, GameObject* obj, float speed = 2.5f, int health = 20, int damage = 0, int range = 50, int step = 5) 
         : Enemy(position, speed, health, damage, range, step), gameObject(obj) {} 
 
+    ~Skeleton()
+    {
+        gameObject = nullptr;
+    }
+
 	void Update(Transform& player_position, Audio::SFXSource* _sfx) override
 	{
 		if (_dead)

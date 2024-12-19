@@ -1,4 +1,3 @@
-
 #include "ValidationApp.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"

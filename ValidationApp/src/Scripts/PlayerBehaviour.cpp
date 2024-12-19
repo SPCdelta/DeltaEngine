@@ -11,12 +11,9 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-	
-	//this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 
 	//_weapon = new Gun(this);
 	_weapon = new Bow(this);
-	//onKeyPressed(Key::KEY_Z, [this](Input& e) { ThrowBoomerang(); }, "Gameplay");
 
 	onMouseMove([this](Input& e) 
 	{ 

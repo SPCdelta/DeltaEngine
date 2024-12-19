@@ -18,6 +18,6 @@ class Slime : public Enemy
 		_sfx->Play();
     }
 
-	private:
+   private:
 	bool _boss;
 };
