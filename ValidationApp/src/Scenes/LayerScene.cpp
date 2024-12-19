@@ -41,7 +41,7 @@ void LayerScene::OnStart()
 	skeletonObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	skeletonObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	skeletonObj->SetTag("skeleton");
-	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());;	
+	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());	
 
 	// Create slime boss
 	std::shared_ptr<GameObject> bossObj{ Instantiate({{3.0f, 15.0f}, 0.0f, {5.0f, 5.0f}}) };
