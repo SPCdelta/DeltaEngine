@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Brush.hpp"
+
 #include "../../Core/Math/MathUtils.hpp"
 #include "../../Rendering/Sprite.hpp"
 #include "../../Core/Events/EventDispatcher.hpp"
@@ -6,11 +9,13 @@
 
 #include <algorithm>
 
-class SnapToGridBrush
+class SnapToGridBrush : public Brush
 {
 public:
+	static constexpr auto Name = "default";
 
-	SnapToGridBrush(Transform& transform, Sprite* sprite, Camera* camera, std::function<void(Transform&, Sprite*)> func, const std::string& category = "UI") :
+	SnapToGridBrush(Transform& transform, Sprite* sprite, Camera* camera, std::function<void(Transform&, Sprite*)> func, const std::string& category = "UI") 
+		: Brush(Name),
 		_camera{camera}, _transform{transform}, _category{category}, _sprite{ sprite }, _func{ func }
 	{
 		_sprite->SetVisible(false);

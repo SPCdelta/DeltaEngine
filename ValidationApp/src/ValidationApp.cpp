@@ -44,7 +44,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelScene>("LevelScene");
 
 	// Load Desired Scene
-	LoadScene("LevelSelectScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();

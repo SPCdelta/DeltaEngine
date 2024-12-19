@@ -7,6 +7,9 @@
 #include "../Scripts/PlayerBehaviour.hpp"
 #include "../Scripts/TempBehaviour.hpp"
 
+// Brushes
+#include "Engine/UI/Brush/EraserBrush.hpp"
+
 #include <vector>
 #include <map>
 
@@ -51,6 +54,7 @@ public:
 
         _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
 
+        CreateBrushes();
         InitLevelEditor(_saveFileName);
 
         UIBackButtonAndBinding(rightBarStart);
@@ -60,7 +64,12 @@ public:
         BindCamara();
     }
 
-
+    void CreateBrushes()
+    {
+		//_brushes.push_back(new SnapToGridBrush());
+		_brushes.push_back(new EraserBrush());
+		_selectedBrush = _brushes[0];
+    }
 
     void InitLevelEditor(const std::string& level){
 
@@ -87,12 +96,12 @@ public:
         brushComponnet->RemoveOnKey(KEY_E);
         brushComponnet->SetCanves(_screenPort);
 
+        // Load Level
         if (level.empty()){
             MakeSaveFilePath();
             return;
         }
         FileManager fileManager;
-
         Json::json loadTiles = fileManager.Load(LEVEL_PATH + level + ".json", "json");
         if (loadTiles.contains("tiles"))
         {
@@ -347,6 +356,9 @@ private:
     int _tileIndexOptions = 0;
 
     std::shared_ptr<GameObject> _brush;
+
+    Brush* _selectedBrush = nullptr;
+	std::vector<Brush*> _brushes{};
 
 
     Layer _layer = Layer::Default;

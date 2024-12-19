@@ -42,7 +42,7 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	menuView.AddButtonTextPosition(1, {-20, 10});
 	menuView.AddButtonTextPosition(2, {45, 0});
 	menuView.AddButtonTextPosition(3, {40, 0});
-	menuView.SetButtonOnLeftMouseClickLoadScene(1, *this, "LevelSelectScene", "Start");
+	menuView.SetButtonOnLeftMouseClickLoadScene(0, *this, "LevelSelectScene", "Start");
 	menuView.SetButtonOnLeftMouseClickLoadScene(1, *this, "LevelEditorLevelChose", "Level Editor");
 	menuView.SetButtonOnLeftMouseClickLoadScene(2, *this, "DevScene", "Main Menu");
 	menuView.SetButtonSFX(-1, "Assets\\Audio\\SFX\\Button_1.mp3");
