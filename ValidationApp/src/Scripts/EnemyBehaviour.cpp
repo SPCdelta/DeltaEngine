@@ -22,6 +22,10 @@ void EnemyBehaviour::OnStart()
 		case EnemyType::Slime:
 			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position);
 			break;
+		case EnemyType::Boss:
+		default:
+			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position, true, 2.5f, 100, 25, 30, 5);
+			break;
 	}
 
 	sprite = &gameObject->GetComponent<Sprite>();
@@ -34,7 +38,6 @@ void EnemyBehaviour::OnStart()
 	_aiBehaviour = std::make_unique<AIBehaviour>(astar, transform, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
 
 	_damageObj = Instantiate(*transform);
-	_damageObj->AddComponent<Sprite>("skeleton")->SetVisible(false);
 	_damageObj->AddComponent<BoxCollider>();
 	_damageObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position) ;
@@ -74,7 +77,7 @@ void EnemyBehaviour::OnUpdate()
 
 			if (_enemy->GetHealth() <= 0)
 			{
-				_enemy->Die();
+				_enemy->Die(_sfx.get());
 				OnDeath();
 				return;
 			}

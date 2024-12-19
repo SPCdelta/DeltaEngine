@@ -6,7 +6,8 @@
 class Skeleton : public Enemy
 {
    public:
-	Skeleton(Math::Vector2* position, GameObject* obj) : Enemy(position, 2.5f, 20, 0, 50, 5), gameObject(obj) {} 
+	Skeleton(Math::Vector2* position, GameObject* obj, float speed = 2.5f, int health = 20, int damage = 0, int range = 50, int step = 5) 
+        : Enemy(position, speed, health, damage, range, step), gameObject(obj) {} 
 
 	void Update(Transform& player_position, Audio::SFXSource* _sfx) override
 	{
@@ -36,8 +37,13 @@ class Skeleton : public Enemy
 		arrowObj->transform->position.Set(gameObject->transform->position);
         arrowObj->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, gameObject->transform->position.DirectionTo(player_position.position)});
 		arrowObj->SetTag("skeleton_arrow");
+    }
 
-        
+    void Die(Audio::SFXSource* _sfx) override
+    {
+        _dead = true;
+		_sfx->SetClip("Assets\\Audio\\SFX\\Skeleton_death.mp3");
+		_sfx->Play();
     }
 
    private:
