@@ -42,7 +42,7 @@ public:
 		for (int i = 0; i < static_cast<int>(allLevels.size()); i++)
 		{
 			menuView.AddButtonTextPosition(i + 2, { 45, 0 });
-			menuView.SetButtonOnLeftMouseClickLoadScene(i + 2, *this, "LevelEditor", "UI:Editor");
+			menuView.SetButtonOnLeftMouseClickLoadScene(i + 2, this, "LevelEditor", "UI:Editor");
 			menuView.SetButtonText(i + 2, allLevels[i]);
 
 		}
