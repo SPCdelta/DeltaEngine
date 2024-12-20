@@ -43,7 +43,7 @@ public:
 		{
 			std::string levelName = std::string("Level-") + std::to_string(i + 1);
 			menuView.AddButtonTextPosition(i + 2, { 45, 0 });
-			menuView.SetButtonOnLeftMouseClickLoadScene(i + 2, *this, "LevelEditor", "UI:Editor", levelName);
+			menuView.SetButtonOnLeftMouseClickLoadScene(i + 2, this, "LevelEditor", "UI:Editor", levelName);
 			menuView.SetButtonText(i + 2, allLevels[i]);
 
 		}

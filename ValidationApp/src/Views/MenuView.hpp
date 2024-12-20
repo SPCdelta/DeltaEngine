@@ -22,7 +22,7 @@ public:
 	void SetButtonTextSize(int id, int textSize);
 	void SetButtonOnLeftMouseClick(int id, std::function<void()> func, const std::string& category);
 	void SetButtonSFX(int id, const std::string& sfxPath);
-	void SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const std::string& sceneName, const std::string& category, const std::string& sceneData = "");
+	void SetButtonOnLeftMouseClickLoadScene(int id, Scene* scene, const std::string& sceneName, const std::string& category, const std::string& sceneData = "");
 	void SetTitleTextPosition(const Math::Vector2& position);
 	void SetTitleTextSize(int size);
 	void SetButtonTextColor(int id, const Rendering::Color& color);
