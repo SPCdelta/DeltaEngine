@@ -176,6 +176,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Views\ListViewItem.cpp" />
+    <ClCompile Include="src\Views\ListView.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
@@ -213,8 +215,12 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
+    <ClCompile Include="src\Views\WindowView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Views\ListViewItem.hpp" />
+    <ClInclude Include="src\Views\ListView.hpp" />
+    <ClInclude Include="src\Scenes\UIScene.hpp" />
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Items\Potions\PotionType.hpp" />
     <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
@@ -241,6 +247,7 @@
     <ClInclude Include="src\Views\HUDView.hpp" />
     <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClCompile Include="src\Views\IView.cpp" />
+    <ClInclude Include="src\Views\WindowView.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
@@ -367,6 +374,10 @@
     </Image>
     <Image Include="assets\Textures\UI\Buttons\scroll3.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\UI\window_frame.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\wall_map.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>

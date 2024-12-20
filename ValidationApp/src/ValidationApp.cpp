@@ -12,6 +12,7 @@
 #include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
+#include "Scenes/UIScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -33,9 +34,10 @@ ValidationApp::ValidationApp()
 	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 	RegisterScene<SpawnerScene>("SpawnerScene");
+	RegisterScene<UIScene>("UIScene");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("UIScene");
 
 	// Start Application
 	Run();
@@ -124,6 +126,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");
 	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
 	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
+	ResourceManager::AddSprite("window_frame", "Assets\\Textures\\UI\\window_frame.png");
 
 	// HUD
 	ResourceManager::AddSprite("bar", "Assets\\Textures\\HUD\\bar.png");
