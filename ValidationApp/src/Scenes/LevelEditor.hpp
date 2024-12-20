@@ -2,8 +2,6 @@
 
 #include "Engine/Delta.hpp"
 #include "Engine/UI/Scrollable.hpp"
-
-#include "../Scripts/MouseFollowBehaviour.hpp"
 #include "../Scripts/PlayerBehaviour.hpp"
 #include "../Scripts/TempBehaviour.hpp"
 

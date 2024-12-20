@@ -9,4 +9,5 @@ class MainMenuScene : public Scene
 {
 public:
 	MainMenuScene(const std::string& sceneName);
+	void OnStart() override;
 };

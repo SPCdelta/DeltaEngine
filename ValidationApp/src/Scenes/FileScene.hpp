@@ -4,8 +4,13 @@
 
 class FileScene : public Scene
 {
-   public:
+public:
 		FileScene(const std::string& name) : Scene(name)
+		{
+			
+		}
+
+		void OnStart() override
 		{
 			FileManager fileManager;
 

@@ -32,6 +32,7 @@ class Scene
 {
    public:
 	Scene(const std::string& name);
+	virtual ~Scene() = default;
 
 	friend class Application;
 	friend class SceneHelper;

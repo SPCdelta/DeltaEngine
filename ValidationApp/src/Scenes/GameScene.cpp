@@ -3,6 +3,11 @@
 GameScene::GameScene(const std::string& name) 
 	: Scene(name) 
 {
+
+}
+
+void GameScene::OnStart() 
+{
 	// Create Player
 	std::shared_ptr<GameObject> player{ Instantiate({{3.0f, 6.0f}, 0.0f, {1.0f, 1.0f}}) };
 	player->AddComponent<Sprite>("player")->SetLayer(Layer::Player);
@@ -54,7 +59,6 @@ GameScene::GameScene(const std::string& name)
 		}
 	}
 
-	Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}})->AddComponent<MouseFollowBehaviour>();
 	std::shared_ptr<GameObject> exit = Instantiate({{5.0f, 5.0f}, 0.0f, {1.0f, 1.0f}});
 	exit->AddComponent<LevelExitBehaviour>("MainMenuScene");
 	exit->AddComponent<Sprite>("player")->SetLayer(Layer::Foreground);
