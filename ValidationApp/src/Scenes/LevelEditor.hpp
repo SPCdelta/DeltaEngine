@@ -44,10 +44,11 @@ public:
 
         _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
         
-        std::string* result = SceneHelper::GetSceneData<std::string>(this);
-        if (result)
-            _saveFileName = *result;
-
+       Json::json data = RetriveUserData();
+        if (data.contains("fileName") && !data["fileName"].empty()){
+            _saveFileName = data["fileName"];
+            DeleteUserData();
+        }
         InitLevelEditor();
 
         UIBackButtonAndBinding(rightBarStart);
@@ -266,8 +267,6 @@ public:
 
             _tileIndexOptions = 0;
         }
-
-        std::cout << _layerIndexTopBar << " " << _tileIndexOptions << "\n";
 
         std::vector<std::string> sprites;
         if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))

@@ -216,6 +216,7 @@
     <ClCompile Include="Engine\Rendering\Animator.cpp" />
     <ClCompile Include="Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
+    <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
     <ClCompile Include="Engine\UI\Brush\BrushSprite.hpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
@@ -272,7 +273,7 @@
     <ClInclude Include="Engine\Rendering\Direction.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\Particle.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.hpp" />
-    <ClInclude Include="Engine\Scene\SceneHelper.hpp" />
+    <ClInclude Include="Engine\Scene\UserDataStorage.hpp" />
     <ClInclude Include="Engine\Systems\ParticleSystem.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\Renderable.hpp" />

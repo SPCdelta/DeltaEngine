@@ -9,7 +9,6 @@
 #include "GameObject.hpp"
 #include "BehaviourScript.hpp"
 #include "Scene/Scene.hpp"
-#include "Scene/SceneHelper.hpp"
 
 // Components
 #include "Core/Despawner.hpp"

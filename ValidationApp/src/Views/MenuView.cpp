@@ -176,7 +176,7 @@ void MenuView::SetButtonOnLeftMouseClickLoadScene(int id, Scene* scene, const st
 	btn.SetOnLeftMouseClick([this, scene, sceneName, &btn, sceneData]() -> void
 		{
 			if (!sceneData.empty())
-				SceneHelper::SetSceneData<std::string>(scene, new std::string{sceneData}); //TODO dit moet netter maar wordt gefixt met een v box
+				scene->StoreUserData({{"fileName" , sceneData }});
 
 			scene->LoadScene(sceneName);
 		}, category);

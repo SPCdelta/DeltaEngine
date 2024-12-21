@@ -16,8 +16,7 @@ public:
 	{
 		if (_timer >= _switchAfter)
 		{
-			MySceneData* data = SceneHelper::GetSceneData<MySceneData>(gameObject->_scene);
-			LoadScene(_switchTo, data);
+			LoadScene(_switchTo);
 		}
 		_timer++;
 	}
@@ -49,15 +48,15 @@ public:
 			->SetSwitchTo("Scene2", "Scene1");
 
 		// Data
-		MySceneData* data = SceneHelper::GetSceneData<MySceneData>(this);
-		if (data == nullptr)
+		Json::json& data = RetriveUserData();
+
+		if (data.empty())
 		{
-			data = new MySceneData{ 5, 12, "Hello!" };
-			SceneHelper::SetSceneData<MySceneData>(this, data);
+			StoreUserData({ {"a" , 5}, {"b", 12},{"C", "Hello!" } });
 		}
 
-		MySceneData* dataAgain = SceneHelper::GetSceneData<MySceneData>(this);
-		dataAgain->Print();
+		Json::json data2 = RetriveUserData();
+		std::cout << "User data: " << data2.dump(4) << std::endl;
 	}
 };
 
@@ -74,11 +73,8 @@ public:
 			->SetSwitchTo("Scene1", "Scene2");
 
 		// Data
-		MySceneData* dataAgain = SceneHelper::GetSceneData<MySceneData>(this);
-		dataAgain->_a += 1;
-		if (dataAgain != nullptr)
-		{
-			dataAgain->Print();
-		}
+		Json::json& data = RetriveUserData();
+		data["a"] = static_cast<int>(data["a"]) +  1;
+		std::cout << "User data: " << data.dump(4) << std::endl;
 	}
 };

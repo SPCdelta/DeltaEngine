@@ -38,6 +38,7 @@
     <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
     <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Input\InputHandler.cpp" />
+    <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -124,8 +125,8 @@
     <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
     <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
     <ClInclude Include="Engine\Input\InputHandler.hpp" />
-    <ClInclude Include="Engine\Scene\SceneHelper.hpp" />
     <ClInclude Include="Engine\Core\Files\DTO\SpriteDTO.hpp" />
+    <ClInclude Include="Engine\Scene\UserDataStorage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

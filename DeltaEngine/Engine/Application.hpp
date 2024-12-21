@@ -13,6 +13,7 @@
 
 #include "Core/Events/EventDispatcher.hpp"
 #include "Scene/SceneManager.hpp"
+#include "Scene/UserDataStorage.hpp"
 
 #include "Physics/BoxCollider.hpp"
 #include "Physics/CircleCollider.hpp"
@@ -23,8 +24,6 @@
 
 #include "Core/Time.hpp"
 
-class SceneHelper;
-
 class Application
 {
 public:
@@ -32,7 +31,6 @@ public:
 	~Application();
 
 	friend class Scene;
-	friend class SceneHelper;
 
 	void Run();
 
@@ -47,7 +45,6 @@ public:
 	template<typename T>
 	void LoadScene(const std::string& sceneName, T* userData)
 	{
-		SetUserData(reinterpret_cast<void*>(userData));
 		_sceneManager.Load(sceneName);
 		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
 		currentScene->_inputfacade = &_inputFacade;
@@ -80,13 +77,20 @@ public:
 		_window.SetViewportPos(xPos, yPos);
 	}
 
+	// Data
+	Json::json& RetriveData() { return _userData.Retrive(); }
+	void StoreData(const std::string& data) { _userData.Store(data); }
+	void StoreData(Json::json& data) { _userData.Store(data); }
+	void DeleteUserData() { _userData.DeleteData(); }
+
 protected:
 	ecs::Registry _reg;
 
 private:
 	InputHandler _inputListeners;
+	
 	static bool _isRunning;
-	void* _userData = nullptr;
+	StoreUserData _userData;
 
 	Window _window;
 	Rendering::Event _windowEvent{};
@@ -111,10 +115,5 @@ private:
 	std::unique_ptr<Ui::Text> _gameSpeed;
 	void InitGameSpeed();
 	void RenderGameSpeed();
-
-	// Data
-	void* GetUserData() { return _userData; }
-	void SetUserData(void* userData) { _userData = userData; }
-	void DeleteUserData() {delete _userData;}
 };
 
