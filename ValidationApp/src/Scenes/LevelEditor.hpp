@@ -107,16 +107,16 @@ public:
                 }
             }
         }
-        if (loadTiles.contains(SPRITE_CATEGORY[1]))
+        if (loadTiles.contains(SPRITE_CATEGORY[2]))
         {
-            auto& player = loadTiles[SPRITE_CATEGORY[1]];
+            auto& player = loadTiles[SPRITE_CATEGORY[2]];
             if (player.contains("transform") && player.contains("sprite") && player.contains("tag"))
             {
                 auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(player)));
                 SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(player);
 
                 tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
-                tile->SetTag(SPRITE_CATEGORY[1]);
+                tile->SetTag(SPRITE_CATEGORY[2]);
             }
         }
     }
@@ -139,7 +139,7 @@ public:
                 tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
                 tileCounter++;
 
-            } else if (tile->GetTag() == SPRITE_CATEGORY[1]){ //player
+            } else if (tile->GetTag() == SPRITE_CATEGORY[2]){ //player
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
                 SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
