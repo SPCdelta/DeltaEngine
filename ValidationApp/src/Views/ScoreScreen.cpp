@@ -64,7 +64,7 @@ void ScoreScreen::InitQuitBtn()
 	quitBtn.SetOnLeftMouseClick([]() -> void
 		{
 			Application::Quit();
-		}, "asd");
+		}, "ScoreScreen");
 }
 
 void ScoreScreen::InitHomeBtn()
