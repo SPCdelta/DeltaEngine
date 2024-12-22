@@ -11,6 +11,11 @@
 MainMenuScene::MainMenuScene(const std::string& sceneName) 
 	: Scene(sceneName)
 {
+
+}
+
+void MainMenuScene::OnStart() 
+{
 	// Other
 	MenuView menuView { *this, "Main Menu", 4, "alucrads", {485, 50}, {300, 100}, 25, 80 };
 
@@ -42,8 +47,8 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 	menuView.AddButtonTextPosition(1, {-20, 10});
 	menuView.AddButtonTextPosition(2, {45, 0});
 	menuView.AddButtonTextPosition(3, {40, 0});
-	menuView.SetButtonOnLeftMouseClickLoadScene(1, *this, "LevelEditorLevelChose", "Level Editor");
-	menuView.SetButtonOnLeftMouseClickLoadScene(2, *this, "DevScene", "Main Menu");
+	menuView.SetButtonOnLeftMouseClickLoadScene(1, this, "LevelEditorLevelChose", "Level Editor");
+	menuView.SetButtonOnLeftMouseClickLoadScene(2, this, "DevScene", "Main Menu");
 	menuView.SetButtonSFX(-1, "Assets\\Audio\\SFX\\Button_1.mp3");
 
 	auto& sfx = menuView.GetButton(0)->GetComponent<Audio::SFXSource>();
