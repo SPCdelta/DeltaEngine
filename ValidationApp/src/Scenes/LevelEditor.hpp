@@ -91,23 +91,9 @@ public:
         FileManager fileManager;
 
         Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName + ".json", "json");
-        if (loadTiles.contains("tiles"))
-        {
-            for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
-            {
-                auto& jsonTile = loadTiles["tiles"][i];
-
-
-                if (jsonTile.contains("transform") && jsonTile.contains("sprite") && jsonTile.contains("tag"))
-                {
-                    auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(jsonTile)));
-                    SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(jsonTile);
-
-                    tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
-                    tile->SetTag(SPRITE_CATEGORY[0]);
-                }
-            }
-        }
+        
+            
+        //TODO dit moet eigenlijk een BrushSprite child worden voor elk soort tile type dat anderes gedraagd. hier door kan je het makkelijk opslaan en inladen
         if (loadTiles.contains(SPRITE_CATEGORY[2]))
         {
             auto& player = loadTiles[SPRITE_CATEGORY[2]];
@@ -118,6 +104,32 @@ public:
 
                 tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
                 tile->SetTag(SPRITE_CATEGORY[2]);
+            }
+            loadTiles.erase(SPRITE_CATEGORY[2]);
+        } 
+        for (auto& tileType : SPRITE_CATEGORY)
+        {
+            CreateTilesFromJson(loadTiles, tileType);
+        }
+    }
+
+    void CreateTilesFromJson(Json::json& loadTiles, const std::string& jsonarray)
+    {
+        if (!loadTiles.contains(jsonarray))
+            return;
+
+        for (size_t i = 0; i < loadTiles[jsonarray].size(); ++i)
+        {
+            auto& jsonTile = loadTiles[jsonarray][i];
+
+
+            if (jsonTile.contains("transform") && jsonTile.contains("sprite") && jsonTile.contains("tag"))
+            {
+                auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(jsonTile)));
+                SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(jsonTile);
+
+                tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
+                tile->SetTag(jsonarray);
             }
         }
     }
@@ -133,14 +145,15 @@ public:
 
         for (auto& tile : _tiles)
         {
-            if (tile->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
-                auto& tileJson = tilesJson["tiles"][tileCounter];
-                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
-                tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
-                tileCounter++;
+            if (tile->GetTag() == SPRITE_CATEGORY[0] || tile->GetTag() == SPRITE_CATEGORY[1]){//floor_tile || wall_tile // new Tiles need to be here
+                Json::json jsonObject;
+                TransformDTO::ToJson(jsonObject, tile->GetComponent<Transform>());
+                SpriteDTO::ToJson(jsonObject, tile->GetComponent<Sprite>());
+                jsonObject["tag"] = StringUtils::Split(jsonObject["sprite"]["name"], '_')[0];
+                tilesJson[tile->GetTag()].push_back(jsonObject);
 
-            } else if (tile->GetTag() == SPRITE_CATEGORY[2]){ //player
+            }
+            else if (tile->GetTag() == SPRITE_CATEGORY[2]) { //player
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
                 SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
