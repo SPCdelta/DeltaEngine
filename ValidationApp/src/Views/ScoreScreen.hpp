@@ -3,10 +3,10 @@
 #include "Engine/Delta.hpp"
 #include "IView.hpp"
 
-class EndScreen : public IView
+class ScoreScreen : public IView
 {
 public:
-	EndScreen(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale,
+	ScoreScreen(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale,
 		const std::string& title, const Rendering::Color& textColor, int coins);
 	const Math::Vector2& GetSize() const override;
 	void SetCenter() override;
@@ -16,7 +16,6 @@ private:
 	void InitButtons();
 	void InitQuitBtn();
 	void InitHomeBtn();
-	const Rendering::Color TITLE_COLOR = {255, 0, 0, 255};
 	const Rendering::Color BODY_TEXT_COLOR = {255, 255 ,255, 255};
 	const float TITLE_SCALE = 0.05f;
 	const float TITLE_MARGINY_SCALE = 0.15f;
