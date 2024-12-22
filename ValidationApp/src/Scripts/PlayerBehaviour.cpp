@@ -140,7 +140,7 @@ void PlayerBehaviour::OnUpdate()
 			{
 				deathElapsedTime += Time::GetDeltaTime();
 				if (deathElapsedTime >= 1.0f)
-					LoadScene("MainMenuScene"); 
+					//LoadScene("EndScene", ); 
 			}
 		}
 	}

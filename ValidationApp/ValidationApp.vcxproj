@@ -176,8 +176,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Views\ListViewItem.cpp" />
-    <ClCompile Include="src\Views\ListView.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
@@ -215,12 +213,10 @@
     <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
-    <ClCompile Include="src\Views\WindowView.cpp" />
+    <ClCompile Include="src\Views\EndScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Views\ListViewItem.hpp" />
-    <ClInclude Include="src\Views\ListView.hpp" />
-    <ClInclude Include="src\Scenes\UIScene.hpp" />
+    <ClInclude Include="src\Scenes\EndScene.hpp" />
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Items\Potions\PotionType.hpp" />
     <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
@@ -247,7 +243,7 @@
     <ClInclude Include="src\Views\HUDView.hpp" />
     <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClCompile Include="src\Views\IView.cpp" />
-    <ClInclude Include="src\Views\WindowView.hpp" />
+    <ClInclude Include="src\Views\EndScreen.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
