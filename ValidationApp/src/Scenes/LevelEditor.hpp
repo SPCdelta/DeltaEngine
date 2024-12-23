@@ -71,7 +71,10 @@ public:
             	
             	auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) {
             		if (e->transform->position == transform.position){
-            			e->GetComponent<Sprite>().SetSprite(spriteName);
+                        Sprite& sprite = e->GetComponent<Sprite>();
+                        sprite.SetSprite(spriteName);
+                        sprite.SetLayer(LAYER_MAP.at(sprite.GetSpriteData()->category));
+                        e->SetTag(sprite.GetSpriteData()->category);
                         return true;
             		}
                     return false;
