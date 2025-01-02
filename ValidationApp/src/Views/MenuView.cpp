@@ -169,13 +169,13 @@ void MenuView::SetButtonSFX(int id, const std::string& sfxPath)
 	}
 }
 
-void MenuView::SetButtonOnLeftMouseClickLoadScene(int id, Scene& scene, const std::string& sceneName, 
+void MenuView::SetButtonOnLeftMouseClickLoadScene(int id, Scene* scene, const std::string& sceneName, 
 	const std::string& category)
 {
 	auto& btn = _buttons[id]->GetComponent<Ui::Button>();
-	btn.SetOnLeftMouseClick([&scene, sceneName, &btn]() -> void
+	btn.SetOnLeftMouseClick([scene, sceneName, &btn]() -> void
 		{
-			scene.LoadScene(sceneName);
+			scene->LoadScene(sceneName);
 		}, category);
 }
 
