@@ -5,7 +5,7 @@
 class Slime : public Enemy
 {
    public:
-	Slime(Math::Vector2* position, bool boss = false, float speed = 1.0f, int health = 5, int damage = 10, int range = 10, int step = 1) 
+	Slime(Math::Vector2* position, bool boss = false, float speed = 1.0f, int health = 10, int damage = 5, int range = 10, int step = 1) 
 		: Enemy(position, speed, health, damage, range, step), _boss(boss) 
 	{}
 

@@ -24,7 +24,7 @@ void EnemyBehaviour::OnStart()
 			break;
 		case EnemyType::Boss:
 		default:
-			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position, true, 3.5f, 100, 25, 30, 5);
+			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position, true, 3.5f, 100, 20, 30, 5);
 			break;
 	}
 
@@ -42,10 +42,6 @@ void EnemyBehaviour::OnStart()
 	_damageObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position) ;
 	SetDamageBehaviour(_damageObj->GetComponent<Rigidbody>());
-
-	// TODO smaller collider
-	// TODO try and fix arrows
-	// TODO try and fix mem leaks
 }
 
 void EnemyBehaviour::OnUpdate()
@@ -56,6 +52,33 @@ void EnemyBehaviour::OnUpdate()
 	{
 		pos = _aiBehaviour->Update();
 		_enemy->Update(*playerPosition, _sfx.get());
+
+		if (!_spawnerBehaviour && Enemy::StringToType(gameObject->GetTag()) == EnemyType::Boss)
+		{
+			_spawnerBehaviour = std::make_unique<EntitySpawner>(gameObject, EntitySpawnerData
+				{
+					2.0f, 8.0f, // Spawn interval			  
+					3, 8, true, // Spawn amount | OnStart
+					2.5f // Spawn Radius
+				},
+				[this](std::shared_ptr<GameObject>& entity)
+				{
+					entity->Instantiate({{1.0f, 12.0f}, 0.0f, {1.0f, 1.0f}});;
+					std::shared_ptr<AnimationSheet> entitySheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
+					entity->AddComponent<Sprite>("slime", entitySheet);
+					entity->AddComponent<Audio::SFXSource>("", false, false);
+					entity->AddComponent<BoxCollider>()->SetTrigger(true);
+					entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+					entity->SetTag("slime");
+					entity->AddComponent<EnemyBehaviour>()->SetPlayerPosition(playerPosition);
+				});
+
+			_spawnerBehaviour->OnStart();
+		}
+		else if (_spawnerBehaviour)
+		{
+			_spawnerBehaviour->OnUpdate();
+		}
 	}
 		
 	if (pos != &gameObject->GetComponent<Transform>())
@@ -72,14 +95,14 @@ void EnemyBehaviour::OnUpdate()
 		_damageBehaviour->Update(Time::GetDeltaTime());
 		if (_damageBehaviour->GetDamage())
 		{
-			if (_enemy->GetHealth() > 0 && _sfx)
+			if (_enemy && _enemy->GetHealth() > 0 && _sfx)
 			{
 				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
 				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 				_sfx->Play();
 			}
 
-			if (_enemy->GetHealth() <= 0)
+			if (_enemy && _enemy->GetHealth() <= 0)
 			{
 				_enemy->Die(_sfx.get());
 				OnDeath();

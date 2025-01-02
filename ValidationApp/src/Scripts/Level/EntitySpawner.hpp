@@ -17,8 +17,8 @@ struct EntitySpawnerData
 class EntitySpawner : public BehaviourScript
 {
 public:
-	EntitySpawner(EntitySpawnerData data, std::function<void(std::shared_ptr<GameObject>&)> onSpawn)
-		: _data{ data }, _onSpawn{ onSpawn }
+	EntitySpawner(GameObject* owner, const EntitySpawnerData data, std::function<void(std::shared_ptr<GameObject>&)> onSpawn)
+		: _owner(owner), _data{ data }, _onSpawn{ onSpawn }
 	{
 
 	}
@@ -65,6 +65,7 @@ protected:
 	}
 
 private:
+	GameObject* _owner; 
 	EntitySpawnerData _data;
 	std::function<void(std::shared_ptr<GameObject>&)> _onSpawn;
 
@@ -72,13 +73,16 @@ private:
 
 	void DoSpawn()
 	{
+		if (!_owner)
+            throw std::runtime_error("EntitySpawner's owner GameObject is null!");
+
 		// Also add remainder
 		_spawnIn = GetSpawnInterval() + _spawnIn;
 
 		for (int i = 0; i < GetSpawnAmount(); ++i)
 		{
-			std::shared_ptr<GameObject> entity = gameObject->Instantiate();
-			entity->transform->position = gameObject->transform->position + GetPosition();
+			std::shared_ptr<GameObject> entity = _owner->Instantiate();
+			entity->transform->position = _owner->transform->position + GetPosition();
 			_onSpawn(entity);
 		}
 	}
