@@ -10,9 +10,9 @@ class HealthBarComponent : public BarComponent
 {
 public:
 	HealthBarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, 
-		const Math::Vector2& scale, Player& player);
+		const Math::Vector2& scale, Player* player);
 private:
-	void InitValues(Player& player) override;
+	void InitValues(Player* player) override;
 	static constexpr const char* SPRITE = "health_bar";
 };
 

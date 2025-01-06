@@ -17,7 +17,7 @@ class HotbarComponent : public IView
 {
 public:
 	HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, const Math::Vector2& startPos,
-		const Math::Vector2& slotScale, Player& player);
+		const Math::Vector2& slotScale, Player* player);
 	void InventoryChanged(const Item& item, int amount);
 	void InventoryIndexChanged(Uint8 index);
 	const Math::Vector2& GetSize() const override;
@@ -31,7 +31,7 @@ private:
 	void Subscribe();
 	std::vector<Slot> _hotbar;
 	Uint8 _index = 0;
-	Player& _player;
+	Player* _player;
 	const float TEXT_SCALE = 0.2f;
 	const Rendering::Color TEXT_COLOR = {255, 255, 255, 255};
 	const std::string HOTBAR_SLOT_SPRITENAME = "hotbar_slot";

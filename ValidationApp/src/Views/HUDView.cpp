@@ -1,6 +1,6 @@
 #include "HUDView.hpp"
 
-HUDView::HUDView(Scene& scene, const std::string& fontName, Player& player) : IView(scene, fontName, {}, {}),
+HUDView::HUDView(Scene& scene, const std::string& fontName, Player* player) : IView(scene, fontName, {}, {}),
 	_player(player)
 {
 	// DO NOT CHANGE INITIALISATION ORDER
