@@ -27,8 +27,8 @@ void PlayerBehaviour::OnStart()
 	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
 
 	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
-	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
+	/*onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
+	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");*/
 
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
