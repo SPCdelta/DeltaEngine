@@ -43,7 +43,6 @@ public:
 	void SavePlayer();
 
 	Player* GetPlayer() const { return _player.get(); }
-	Player& GetPlayerRef() const { return *_player; }
 
 	// Components
 	Sprite* sprite = nullptr;

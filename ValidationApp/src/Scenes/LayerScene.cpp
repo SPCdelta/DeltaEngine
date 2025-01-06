@@ -79,5 +79,5 @@ void LayerScene::OnStart()
 		coinObj->SetTag("coin");
 	}
 
-	_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayerRef());
+	_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 }
