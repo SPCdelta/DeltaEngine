@@ -53,7 +53,7 @@ void PlayerBehaviour::OnUpdate()
 	_moveDirection = _playerInput.GetDirection();
 
 	UpdateAttack(Time::GetDeltaTime());
-	if (_attacking)
+	if (_player->GetHealth() > 0 && _attacking)
 	{
 		if (_weapon)
 			_weapon->Use();

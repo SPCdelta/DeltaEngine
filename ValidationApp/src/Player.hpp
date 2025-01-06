@@ -39,6 +39,7 @@ class Player
 
 	int GetCoins() const;
 	void SetCoins(int coins);
+	void AddCoins(int coins);
 
 	void IncrementInventoryIndex();
 	void DecrementInventoryIndex();

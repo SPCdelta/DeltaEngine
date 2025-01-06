@@ -12,13 +12,21 @@ class PickUpBehaviour
 		{
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
-				if (collider.transform.gameObject->GetTag() == "item" && collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
+				if ((collider.transform.gameObject->GetTag() == "item" || collider.transform.gameObject->GetTag() == "coin") && 
+					collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 				{
 					if (collider.transform.gameObject->HasComponent<WorldItem>())
 					{
-						WorldItem& item = collider.transform.gameObject->GetComponent<WorldItem>();
-						_player.AddItemToInventory(item._item.release(), item._amount);
-
+						if (collider.transform.gameObject->GetTag() == "item")
+						{
+							WorldItem& item = collider.transform.gameObject->GetComponent<WorldItem>();
+							_player.AddItemToInventory(item._item.release(), item._amount);
+						}
+						else // Coin
+						{
+							_player.AddCoins(1);
+						}
+						
 						collider.transform.gameObject->GetComponent<Sprite>().SetVisible(false);
 						MarkForDestruction(collider.transform.gameObject);
 					}

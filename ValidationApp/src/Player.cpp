@@ -141,6 +141,15 @@ void Player::SetCoins(int coins)
 		_coins = coins;
 }
 
+void Player::AddCoins(int coins)
+{
+	if (coins <= 0)
+		return;
+
+	_coins += coins;
+	NotifyCoinsChanged(coins);
+}
+
 void Player::IncrementInventoryIndex()
 {
 	++_inventoryIndex;
