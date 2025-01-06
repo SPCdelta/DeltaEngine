@@ -14,28 +14,54 @@ class LevelSelectScene : public Scene
 {
 public:
 	LevelSelectScene(const std::string& name) : Scene(name)
+	{ }
+
+	void OnStart() override
 	{
+		// Title
 		std::shared_ptr<GameObject> title = CreateText("Select Level", "goblin", 32, Rendering::Color{ 255, 0, 0, 255 });
 		title->transformRef.position = { 100.0f, 100.0f };
 		title->transformRef.scale = { 100.0f, 100.0f };
 
-		for (int i = 0; i < _levels.size(); i++)
+		// Check files
+		const std::string levelSettingsPath = "Assets\\Settings\\levels.json";
+		const std::string levelsPath = "Assets\\Level";
+		if (!FileManager::FileExists(levelSettingsPath))
 		{
-			LevelUiData& levelUiData = _levels[i];
-			std::shared_ptr<GameObject> buttonObj = CreateButton(levelUiData.displayName, "goblin", 16, Rendering::Color{255, 0, 0, 255});
+			FileManager fileManager{};
+			Json::json levelsJson;
+
+			std::vector<std::string> directoryFiles = FileManager::filesInDirectory(levelsPath);
+			for (size_t i = 0; i < directoryFiles.size(); ++i)
+			{
+				levelsJson["levels"][i] = directoryFiles[i];
+			}
+
+			fileManager.Save(levelSettingsPath, "json", levelsJson);
+		}
+			
+		FileManager fileManager{};
+		Json::json file = fileManager.Load(levelSettingsPath, "json");
+
+		// Levels
+		for (size_t i = 0; i < file["levels"].size(); i++)
+		{
+			std::string levelName = file["levels"][i];
+			std::shared_ptr<GameObject> buttonObj = CreateButton(levelName, "goblin", 16, Rendering::Color{255, 0, 0, 255});
 			Ui::Button& button = buttonObj->GetComponent<Ui::Button>();
 			button.SetOnLeftMouseClick(
-				[this, levelUiData]() 
+				[this, levelName]()
 				{ 
-					LevelSceneData* data = new LevelSceneData{ levelUiData.sceneName };
-					LoadScene("LevelScene", data);
+					Json::json jsonLevelName;
+					jsonLevelName["levelName"] = levelName;
+					StoreUserData(jsonLevelName);
+
+					LoadScene("LevelScene");
 				},
 				"jeroen"
 			);
 			buttonObj->transformRef.position = { 100.0f, (50.0f + 10.0f) * i + 200.0f  };
 			buttonObj->transformRef.scale = { 100.0f, 50.0f };
-			//button.SetPosition(buttonObj->transformRef.position);
-			//button.SetScale(buttonObj->transformRef.scale);
 		}
 	}
 
@@ -55,24 +81,4 @@ protected:
 		buttonObj->AddComponent<Ui::Image>("scroll3");
 		return buttonObj;
 	}
-
-private:
-	std::vector<LevelUiData> _levels
-	{
-		LevelUiData
-		{
-			"The Beginning",
-			"level-1"
-		},
-		LevelUiData
-		{
-			"The Maze",
-			"level-2"
-		},
-		LevelUiData
-		{
-			"Portals?",
-			"level-3"
-		}
-	};
 };

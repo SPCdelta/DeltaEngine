@@ -2,13 +2,13 @@
 
 void LevelScene::OnStart() 
 {
-	//LevelSceneData* data = SceneHelper::GetSceneData<LevelSceneData>(this);
-	//assert(data != nullptr);
-	LevelSceneData* data = new LevelSceneData{ "level-1" };
+	// Data
+	Json::json& data = RetriveUserData();
+	std::string levelName = data["levelName"];
 
-	std::cout << data->name << std::endl;
+	std::cout << levelName << std::endl;
 
-	if (!LoadLevel(data->name))
+	if (!LoadLevel(levelName))
 	{
 		std::cerr << "Level could not be loaded" << std::endl;
 		LoadScene("LevelSelectScene");
@@ -22,7 +22,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 	{
 		// 1. Get File
 		FileManager fileManager{};
-		Json::json file = fileManager.Load("Assets\\Level\\" + levelName + ".json", "json");
+		Json::json file = fileManager.Load("Assets\\Level\\" + levelName, "json");
 
 		// 2. Load Player
 		if (!file.contains(PlayerName))

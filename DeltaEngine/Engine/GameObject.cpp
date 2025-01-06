@@ -25,11 +25,6 @@ void GameObject::LoadScene(const std::string& name)
 	_scene->LoadScene(name);
 }
 
-void GameObject::LoadScene(const std::string& name, void* userData)
-{
-	_scene->LoadScene(name, userData);
-}
-
 std::shared_ptr<GameObject> GameObject::Instantiate()
 {
 	return _scene->Instantiate();
