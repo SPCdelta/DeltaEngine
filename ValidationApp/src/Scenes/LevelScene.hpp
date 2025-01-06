@@ -12,6 +12,10 @@ struct LevelSceneData
 class LevelScene : public Scene
 {
 public:
+	static constexpr auto FloorTilesName = "floor_tiles";
+	static constexpr auto WallTilesName = "wall_tiles";
+	static constexpr auto PlayerName = "player";
+
 	LevelScene(const std::string& name) : Scene(name) {}
 
 	void OnStart() override;

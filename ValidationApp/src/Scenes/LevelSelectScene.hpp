@@ -34,8 +34,8 @@ public:
 			);
 			buttonObj->transformRef.position = { 100.0f, (50.0f + 10.0f) * i + 200.0f  };
 			buttonObj->transformRef.scale = { 100.0f, 50.0f };
-			button.SetPosition(buttonObj->transformRef.position);
-			button.SetScale(buttonObj->transformRef.scale);
+			//button.SetPosition(buttonObj->transformRef.position);
+			//button.SetScale(buttonObj->transformRef.scale);
 		}
 	}
 

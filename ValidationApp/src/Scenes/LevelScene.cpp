@@ -2,8 +2,9 @@
 
 void LevelScene::OnStart() 
 {
-	LevelSceneData* data = SceneHelper::GetSceneData<LevelSceneData>(this);
-	assert(data != nullptr);
+	//LevelSceneData* data = SceneHelper::GetSceneData<LevelSceneData>(this);
+	//assert(data != nullptr);
+	LevelSceneData* data = new LevelSceneData{ "level-1" };
 
 	std::cout << data->name << std::endl;
 
@@ -24,10 +25,10 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 		Json::json file = fileManager.Load("Assets\\Level\\" + levelName + ".json", "json");
 
 		// 2. Load Player
-		if (!file.contains("player"))
+		if (!file.contains(PlayerName))
 			return false;
 
-		auto& playerDto = file["player"];
+		auto& playerDto = file[PlayerName];
 		std::shared_ptr<GameObject> playerObject
 		{ 
 			Instantiate
@@ -50,48 +51,87 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 		playerObject->AddComponent<PlayerBehaviour>();
 		playerObject->SetTag("player");
 
-		// 3. Load Tiles
-		if (!file.contains("tiles"))
-			return false;
-
-		for (size_t i = 0; i < file["tiles"].size(); i++)
+		// 3. Load Tiles (Floor)
 		{
-			auto& tile = file["tiles"][i];
-
-			// Transform
-			if (!tile.contains("transform"))
+			if (!file.contains(FloorTilesName))
 				return false;
 
-			std::shared_ptr<GameObject> tileObj = Instantiate
-			(
-				Transform
-				{
-					{ static_cast<float>(tile["transform"]["position"]["x"]), static_cast<float>(tile["transform"]["position"]["y"]) },
-					static_cast<float>(tile["transform"]["rotation"]),
-					{ static_cast<float>(tile["transform"]["scale"]["x"]), static_cast<float>(tile["transform"]["scale"]["y"]) }
-				}
-			);
-
-			if (tile.contains("sprite"))
+			for (size_t i = 0; i < file[FloorTilesName].size(); i++)
 			{
-				Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
-				tileObj
-					->AddComponent<Sprite>(tile["sprite"]["name"])
-					->SetLayer(layer);
+				auto& tile = file[FloorTilesName][i];
 
-				switch (layer)
+				// Transform
+				if (!tile.contains("transform"))
+					return false;
+
+				std::shared_ptr<GameObject> tileObj = Instantiate
+				(
+					Transform
+					{
+						{ static_cast<float>(tile["transform"]["position"]["x"]), static_cast<float>(tile["transform"]["position"]["y"]) },
+						static_cast<float>(tile["transform"]["rotation"]),
+						{ static_cast<float>(tile["transform"]["scale"]["x"]), static_cast<float>(tile["transform"]["scale"]["y"]) }
+					}
+				);
+
+				if (tile.contains("sprite"))
 				{
-					case Layer::Wall:
-						tileObj->AddComponent<BoxCollider>();
-						break;
-					default:
-						break;
+					Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
+					tileObj
+						->AddComponent<Sprite>(tile["sprite"]["name"])
+						->SetLayer(layer);
+
+					//switch (layer)
+					//{
+					//	case Layer::Wall:
+					//		tileObj->AddComponent<BoxCollider>();
+					//		break;
+					//	default:
+					//		break;
+					//}
+				}
+
+				if (tile.contains("tag"))
+				{
+					tileObj->SetTag(tile["tag"]);
 				}
 			}
+		}
 
-			if (tile.contains("tag"))
+		// Load Tiles (Walls)
+		{
+			if (!file.contains(WallTilesName))
+				return false;
+
+			for (size_t i = 0; i < file[WallTilesName].size(); i++)
 			{
-				tileObj->SetTag(tile["tag"]);
+				auto& tile = file[WallTilesName][i];
+
+				// Transform
+				if (!tile.contains("transform"))
+					return false;
+
+				std::shared_ptr<GameObject> tileObj = Instantiate
+				(
+					Transform
+					{
+						{ static_cast<float>(tile["transform"]["position"]["x"]), static_cast<float>(tile["transform"]["position"]["y"]) },
+						static_cast<float>(tile["transform"]["rotation"]),
+						{ static_cast<float>(tile["transform"]["scale"]["x"]), static_cast<float>(tile["transform"]["scale"]["y"]) }
+					}
+				);
+
+				if (tile.contains("sprite"))
+				{
+					Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
+					tileObj->AddComponent<Sprite>(tile["sprite"]["name"])->SetLayer(layer);
+					tileObj->AddComponent<BoxCollider>();
+				}
+
+				if (tile.contains("tag"))
+				{
+					tileObj->SetTag(tile["tag"]);
+				}
 			}
 		}
 
