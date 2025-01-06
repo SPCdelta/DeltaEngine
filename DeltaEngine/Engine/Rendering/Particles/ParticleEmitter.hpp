@@ -57,6 +57,11 @@ public:
 
 	void Start()
 	{
+		if (_started)
+		{
+			Stop();
+		}
+
 		for (size_t i = 0; i < _configuration.initialSpawnAmount; i++)
 		{
 			CreateParticle();

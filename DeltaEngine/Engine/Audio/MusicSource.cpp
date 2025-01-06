@@ -1,12 +1,13 @@
 #include "MusicSource.hpp"
 #include <iostream>
 #include "AudioLoader.hpp"
+#include "../Rendering/ResourceManager.hpp"
 
 using namespace Audio;
 
-MusicSource::MusicSource(const std::string& path, bool playOnAwake, int loops)
-	: AudioSource(playOnAwake, path, loops),
-	  _clip(std::move(AudioLoader::LoadMusic(path)))
+MusicSource::MusicSource(const std::string& audioName, bool playOnAwake, int loops)
+	: AudioSource(playOnAwake, audioName, loops),
+	  _clip(std::move(AudioLoader::LoadMusic(ResourceManager::GetAudio(audioName))))
 {
 	PlayOnAwake();
 }
@@ -14,7 +15,7 @@ MusicSource::MusicSource(const std::string& path, bool playOnAwake, int loops)
 MusicSource::MusicSource() : AudioSource(false, "", 0), _clip(AudioLoader::LoadMusic("")) {}
 
 MusicSource::MusicSource(const MusicSource& other)
-	: AudioSource(other), _clip(AudioLoader::LoadMusic(other._path))
+	: AudioSource(other), _clip(AudioLoader::LoadMusic(other._audioName))
 {
 }
 
@@ -23,7 +24,7 @@ MusicSource& MusicSource::operator=(const MusicSource& other)
 	if (this != &other)
 	{
 		AudioSource::operator=(other);
-		_clip = std::move(AudioLoader::LoadMusic(other._path));
+		_clip = std::move(AudioLoader::LoadMusic(other._audioName));
 	}
 	return *this;
 }
@@ -75,10 +76,10 @@ void MusicSource::IncreaseVolume(int volume)
 	AudioManager::GetInstance().IncreaseMusicVolume(volume);
 }
 
-void MusicSource::SetClip(std::string pathToClip)
+void MusicSource::SetClip(std::string audioName)
 {
 	_clip.reset();
-	_clip = std::move(AudioLoader::LoadMusic(pathToClip));
+	_clip = std::move(AudioLoader::LoadMusic(ResourceManager::GetAudio(audioName)));
 }
 
 Mix_Music* MusicSource::GetSource() const

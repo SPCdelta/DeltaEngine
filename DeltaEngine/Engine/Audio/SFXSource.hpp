@@ -12,7 +12,7 @@ class SFXSource : public AudioSource
 {
    public:
 	SFXSource();
-	SFXSource(const std::string& path, bool playOnAwake, int loops);
+	SFXSource(const std::string& audioName, bool playOnAwake, int loops);
 	SFXSource(const SFXSource& other);
 	SFXSource& operator=(const SFXSource& other);
 	SFXSource(SFXSource&& other) noexcept;
@@ -24,7 +24,7 @@ class SFXSource : public AudioSource
 	void Stop() override;
 	void SetVolume(int volume) override;
 	void IncreaseVolume(int volume) override;
-	void SetClip(std::string pathToClip);
+	void SetClip(std::string audioName);
 	Mix_Chunk* GetSource() const;
 
    private:

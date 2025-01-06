@@ -47,7 +47,7 @@ void LayerScene::OnStart()
 	std::shared_ptr<GameObject> bossObj{ Instantiate({{3.0f, 15.0f}, 0.0f, {5.0f, 5.0f}}) };
 	std::shared_ptr<AnimationSheet> bossSheet = std::make_shared<AnimationSheet>(bossObj->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
 	bossObj->AddComponent<Sprite>("boss", bossSheet);
-	bossObj->AddComponent<Audio::MusicSource>("Assets\\Audio\\Music\\Boss_music_1.mp3", false, true)->Play();
+	bossObj->AddComponent<Audio::MusicSource>("boss_music", false, true)->Play();
 	bossObj->AddComponent<Audio::SFXSource>("", false, false);
 	bossObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	bossObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
