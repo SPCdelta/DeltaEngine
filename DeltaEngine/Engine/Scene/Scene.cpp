@@ -80,16 +80,6 @@ void Scene::Update()
 	_textRenderSystem->Update();
 }
 
-void* Scene::GetUserData()
-{
-	return _application->GetUserData();
-}
-
-void Scene::SetUserData(void* userData)
-{
-	_application->SetUserData(userData);
-}
-
 std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 {
 	// Create Entity Beforehand
@@ -118,4 +108,22 @@ std::shared_ptr<GameObject> Scene::Instantiate()
 const std::string& Scene::GetName() const
 {
 	return _name;
+}
+
+Json::json& Scene::RetriveUserData() 
+{ 
+	return _application->RetriveData(); 
+}
+void Scene::StoreUserData(const std::string& data) 
+{ 
+	_application->StoreData(data); 
+}
+
+void Scene::StoreUserData(Json::json data)
+{
+	_application->StoreData(data);
+}
+void Scene::DeleteUserData() 
+{ 
+	_application->DeleteUserData(); 
 }

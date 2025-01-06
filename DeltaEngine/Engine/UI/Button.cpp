@@ -18,7 +18,7 @@ void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& 
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
-			if (_pressed && func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			if (_pressed && func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY },_transform->position, _transform->scale))
 			{
 				func();
 			}
@@ -32,7 +32,7 @@ void Ui::Button::SetOnMouseHover(std::function<void()> func)
 	_inputListeners.Add(InputManager::onMouseMove(
 		[this, func](Input& e)
 		{
-			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _transform->position, _transform->scale))
 			{
 				func();
 			}
@@ -45,20 +45,10 @@ void Ui::Button::SetOnMousePressed(std::function<void()> func, const std::string
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
-			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _position, _scale))
+			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _transform->position, _transform->scale))
 			{
 				func();
 			}
 		},
 		category));
-}
-
-void Button::SetPosition(const Vector2& position)
-{
-	_position = position;
-}
-
-void Button::SetScale(const Vector2& scale)
-{
-	_scale = scale;
 }

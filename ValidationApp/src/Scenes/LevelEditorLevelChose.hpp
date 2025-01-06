@@ -41,8 +41,9 @@ public:
 		//menuView TODO maak h box hier van
 		for (int i = 0; i < static_cast<int>(allLevels.size()); i++)
 		{
+			std::string levelName = std::string("Level-") + std::to_string(i + 1);
 			menuView.AddButtonTextPosition(i + 2, { 45, 0 });
-			menuView.SetButtonOnLeftMouseClickLoadScene(i + 2, this, "LevelEditor", "UI:Editor");
+			menuView.SetButtonOnLeftMouseClickLoadScene(i + 2, this, "LevelEditor", "UI:Editor", levelName);
 			menuView.SetButtonText(i + 2, allLevels[i]);
 
 		}

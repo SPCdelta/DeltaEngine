@@ -15,6 +15,8 @@
 #include "../Input/InputManager.hpp"
 #include "../Input/InputFacade.hpp"
 
+#include "../Core/Files/Json.hpp"
+
 // Systems
 #include "../Ecs/Registry.hpp"
 #include "../Systems/UpdateSystem.hpp"
@@ -67,11 +69,15 @@ class Scene
 	void Start();
 	void Update();
 
-	void* GetUserData();
-	void SetUserData(void* userData);
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 	std::shared_ptr<GameObject> Instantiate();
+
+	// Data
+	Json::json& RetriveUserData();
+	void StoreUserData(const std::string& data);
+	void StoreUserData(Json::json data);
+	void DeleteUserData();
 
 protected:
 	Camera* camera;

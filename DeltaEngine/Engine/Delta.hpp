@@ -9,7 +9,6 @@
 #include "GameObject.hpp"
 #include "BehaviourScript.hpp"
 #include "Scene/Scene.hpp"
-#include "Scene/SceneHelper.hpp"
 
 // Components
 #include "Core/Despawner.hpp"
@@ -17,6 +16,7 @@
 // Files
 #include "Core/Files/FileManager.hpp"
 #include "Core/Files/DTO/TransformDTO.hpp"
+#include "Core/Files/DTO/SpriteDTO.hpp"
 
 // Audio
 #include "Audio/AudioManager.hpp"
