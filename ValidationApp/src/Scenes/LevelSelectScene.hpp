@@ -47,7 +47,9 @@ public:
 		for (size_t i = 0; i < file["levels"].size(); i++)
 		{
 			std::string levelName = file["levels"][i];
-			std::shared_ptr<GameObject> buttonObj = CreateButton(levelName, "goblin", 16, Rendering::Color{255, 0, 0, 255});
+			std::string displayName = FormatDisplayName(levelName);
+
+			std::shared_ptr<GameObject> buttonObj = CreateButton(displayName, "goblin", 16, Rendering::Color{255, 0, 0, 255});
 			Ui::Button& button = buttonObj->GetComponent<Ui::Button>();
 			button.SetOnLeftMouseClick(
 				[this, levelName]()
@@ -80,5 +82,15 @@ protected:
 		buttonObj->AddComponent<Ui::Text>(text, font, fontSize, textColor);
 		buttonObj->AddComponent<Ui::Image>("scroll3");
 		return buttonObj;
+	}
+
+private:
+	static std::string FormatDisplayName(const std::string& levelName)
+	{
+		if (levelName.length() > 16)
+		{
+			return levelName.substr(0, 13) + "...";
+		}
+		return levelName;
 	}
 };
