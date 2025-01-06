@@ -7,6 +7,7 @@ EnemyBehaviour::~EnemyBehaviour()
 	rigidbody = nullptr;
 	playerPosition = nullptr;
 	_damageBehaviour = nullptr;
+	player = nullptr;
 }
 
 void EnemyBehaviour::OnStart()
