@@ -30,7 +30,7 @@ void BarComponent::InitText(Player& player)
 
 void BarComponent::UpdateText()
 {
-	_text->GetComponent<Ui::Text>().SetText(std::to_string(_maxValue) + "/" + std::to_string(_value));
+	_text->GetComponent<Ui::Text>().SetText(std::to_string(_value) + "/" + std::to_string(_maxValue));
 }
 
 void BarComponent::InitBarBg()

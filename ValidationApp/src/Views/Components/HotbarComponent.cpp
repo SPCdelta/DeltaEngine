@@ -24,6 +24,13 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 	}
 	_hotbar[_index].slot->GetComponent<Ui::Image>().SetSprite(ACTIVE_HOTBAR_SLOT_SPRITENAME);
 	Subscribe();
+
+	{
+		float width = _hotbar.size() * _scale.GetX();
+		float height = _scale.GetY();
+		_tempScale = {  width, height };
+	}
+
 }
 
 void HotbarComponent::InventoryChanged(const Item& item, int amount)
@@ -60,9 +67,7 @@ void HotbarComponent::InventoryIndexChanged(Uint8 index)
 
 const Math::Vector2& HotbarComponent::GetSize() const
 {
-	float width = _hotbar.size() * _scale.GetX();
-	float height = _scale.GetY();
-	return { width, height };
+	return _tempScale;
 } 
 
 Uint8 HotbarComponent::GetIndex(const Item& item) const

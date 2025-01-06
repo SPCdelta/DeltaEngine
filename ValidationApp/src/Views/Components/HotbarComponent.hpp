@@ -36,5 +36,6 @@ private:
 	const Rendering::Color TEXT_COLOR = {255, 255, 255, 255};
 	const std::string HOTBAR_SLOT_SPRITENAME = "hotbar_slot";
 	const std::string ACTIVE_HOTBAR_SLOT_SPRITENAME = "active_slot";
+	Math::Vector2 _tempScale;
 };
 
