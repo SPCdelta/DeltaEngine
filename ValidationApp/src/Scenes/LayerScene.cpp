@@ -3,7 +3,7 @@
 void LayerScene::OnStart()
 {
 	// Create Player
-	std::shared_ptr<GameObject> playerObject{ Instantiate({{4.0f, 4.0f}, 0.0f, {2.5f, 2.5f}}) };
+	std::shared_ptr<GameObject> playerObject{ Instantiate({{0.0f, 0.0f}, 0.0f, {2.5f, 2.5f}}) };
 	std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 	playerSheet->AddCustomAnimation("death", 6, 21, 150);
 	playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
@@ -68,6 +68,11 @@ void LayerScene::OnStart()
 	effrvscntPotionObj2->AddComponent<BoxCollider>()->SetTrigger(true);
 	effrvscntPotionObj2->AddComponent<WorldItem>(worldItem3);
 	effrvscntPotionObj2->SetTag("item");
+
+	// Level exit
+	std::shared_ptr<GameObject> exit = Instantiate({{5.0f, 5.0f}, 0.0f, {1.0f, 1.0f}});
+	exit->AddComponent<LevelExitBehaviour>("MainMenuScene");
+	exit->AddComponent<Sprite>("player")->SetLayer(Layer::Foreground);
 
 	_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 }

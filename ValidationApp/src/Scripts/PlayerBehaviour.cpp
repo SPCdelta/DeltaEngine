@@ -12,8 +12,17 @@ void PlayerBehaviour::OnStart()
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	//_weapon = new Gun(this);
-	_weapon = new Bow(this);
+	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
+	if (loadedPlayer.contains("player"))
+	{
+		LoadPlayer();
+	}
+	else
+	{
+		// TODO weapon based on what you chose, other US
+		//_weapon = new Gun(this);
+		_weapon = new Bow(this);
+	}
 
 	onMouseMove([this](Input& e) 
 	{ 
@@ -25,10 +34,6 @@ void PlayerBehaviour::OnStart()
 	// use consumables on right mb so that left mb is reserved for maybe throwing potions and the like?
 	//onMouseButtonDown(MouseButton::Right, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // TODO: fix inputmanager. For some reason this maps to KEY_02?
 	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
-
-	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	/*onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
-	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");*/
 
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
@@ -43,6 +48,7 @@ void PlayerBehaviour::OnStart()
 		if (collider.transform.gameObject->GetTag() == "level_exit")
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
+			SavePlayer();
 			exit.Use();
 		}
 	});
@@ -278,7 +284,6 @@ void PlayerBehaviour::LoadPlayer()
 						itemData["value"]
 					).release(), itemData["amount"]);
 				}
-				// TODO weapons?
 			}
 		}
 	}
@@ -314,7 +319,6 @@ void PlayerBehaviour::SavePlayer()
 
 			itemData = JsonItemSerializer::Serialize(*inventoryItem->GetItem().Clone());
 			itemData["amount"] = inventoryItem->GetAmount();
-			// TODO weapons?
 		}
 	}
 	
