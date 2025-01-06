@@ -6,7 +6,7 @@ enum class Layer : int
 {
 	Background = 0,
 	Floor,
-	Walls,
+	Wall,
 	Default,
 	Player,
 	Projectiles,
@@ -59,7 +59,7 @@ public:
 			return "Background";
 		case Layer::Floor:
 			return "Floor";
-		case Layer::Walls:
+		case Layer::Wall:
 			return "Walls";
 		case Layer::Default:
 			return "Default";

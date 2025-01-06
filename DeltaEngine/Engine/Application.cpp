@@ -32,7 +32,7 @@ Application::Application(int unitPixelSize)
 Application::~Application()
 {
 	delete _fpsText;
-	delete _userData;
+	DeleteUserData();
 	Stop();
 }
 

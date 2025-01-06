@@ -61,15 +61,6 @@ void ValidationApp::LoadAssets()
 	{
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
-
-			{"tomb_0_old",			{scale * 0, scale * 0}, {scale*(0 + 1), scale*(0 + 1)}},
-			{"tomb_0_new",			{scale * 1, scale * 0}, {scale*(1 + 1), scale*(0 + 1)}},
-			{"tomb_1_old",			{scale * 2, scale * 0}, {scale*(2 + 1), scale*(0 + 1)}},
-			{"tomb_1_new",			{scale * 3, scale * 0}, {scale*(3 + 1), scale*(0 + 1)}},
-			{"tomb_2_old",			{scale * 4, scale * 0}, {scale*(4 + 1), scale*(0 + 1)}},
-			{"tomb_2_new",			{scale * 5, scale * 0}, {scale*(5 + 1), scale*(0 + 1)}},
-			{"tomb_3_old",			{scale * 6, scale * 0}, {scale*(6 + 1), scale*(0 + 1)}},
-			{"tomb_3_new",			{scale * 7, scale * 0}, {scale*(7 + 1), scale*(0 + 1)}},
 			{"Sandstone_floor_0",	{scale * 8, scale * 0}, {scale*(8 + 1), scale*(0 + 1)}},
 			{"Sandstone_floor_1",	{scale * 9, scale * 0}, {scale*(9 + 1), scale*(0 + 1)}},
 			{"Sandstone_floor_2",	{scale * 0, scale * 1}, {scale*(0 + 1), scale*(1 + 1)}},
@@ -80,10 +71,47 @@ void ValidationApp::LoadAssets()
 			{"Sandstone_floor_7",	{scale * 5, scale * 1}, {scale*(5 + 1), scale*(1 + 1)}},
 			{"Sandstone_floor_8",	{scale * 6, scale * 1}, {scale*(6 + 1), scale*(1 + 1)}},
 			{"Sandstone_floor_9",	{scale * 7, scale * 1}, {scale*(7 + 1), scale*(1 + 1)}},
-			{"rect_gray_0_old",		{scale * 8, scale * 1}, {scale*(8 + 1), scale*(1 + 1)}},
-			{"rect_gray_0_new",		{scale * 9, scale * 1}, {scale*(9 + 1), scale*(1 + 1)}},
+						{"1Sandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
+			{"2Sandstone_floor_1",	{scale * 9, scale * 0}, {scale * (9 + 1), scale * (0 + 1)}},
+			{"3Sandstone_floor_2",	{scale * 0, scale * 1}, {scale * (0 + 1), scale * (1 + 1)}},
+			{"4Sandstone_floor_3",	{scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
+			{"5Sandstone_floor_4",	{scale * 2, scale * 1}, {scale * (2 + 1), scale * (1 + 1)}},
+			{"6Sandstone_floor_5",	{scale * 3, scale * 1}, {scale * (3 + 1), scale * (1 + 1)}},
+			{"7Sandstone_floor_6",	{scale * 4, scale * 1}, {scale * (4 + 1), scale * (1 + 1)}},
+			{"8Sandstone_floor_7",	{scale * 5, scale * 1}, {scale * (5 + 1), scale * (1 + 1)}},
+			{"9Sandstone_floor_8",	{scale * 6, scale * 1}, {scale * (6 + 1), scale * (1 + 1)}},
+			{"0Sandstone_floor_9",	{scale * 7, scale * 1}, {scale * (7 + 1), scale * (1 + 1)}},
+						{"aSandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
+			{"dSandstone_floor_1",	{scale * 9, scale * 0}, {scale * (9 + 1), scale * (0 + 1)}},
+			{"fSandstone_floor_2",	{scale * 0, scale * 1}, {scale * (0 + 1), scale * (1 + 1)}},
+			{"gSandstone_floor_3",	{scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
+			{"hSandstone_floor_4",	{scale * 2, scale * 1}, {scale * (2 + 1), scale * (1 + 1)}},
+			{"jSandstone_floor_5",	{scale * 3, scale * 1}, {scale * (3 + 1), scale * (1 + 1)}},
+			{"kSandstone_floor_6",	{scale * 4, scale * 1}, {scale * (4 + 1), scale * (1 + 1)}},
+			{"lSandstone_floor_7",	{scale * 5, scale * 1}, {scale * (5 + 1), scale * (1 + 1)}},
+			{";Sandstone_floor_8",	{scale * 6, scale * 1}, {scale * (6 + 1), scale * (1 + 1)}},
+			{"qSandstone_floor_9",	{scale * 7, scale * 1}, {scale * (7 + 1), scale * (1 + 1)}},
 		},
 		"floor_tiles"
+	};
+
+	SpriteMap wallTiles
+	{
+		"Assets\\Textures\\Tiles\\floor.png",
+		{
+
+			{"tomb_0_old",			{scale * 0, scale * 0}, {scale * (0 + 1), scale * (0 + 1)}},
+			{"tomb_0_new",			{scale * 1, scale * 0}, {scale * (1 + 1), scale * (0 + 1)}},
+			{"tomb_1_old",			{scale * 2, scale * 0}, {scale * (2 + 1), scale * (0 + 1)}},
+			{"tomb_1_new",			{scale * 3, scale * 0}, {scale * (3 + 1), scale * (0 + 1)}},
+			{"tomb_2_old",			{scale * 4, scale * 0}, {scale * (4 + 1), scale * (0 + 1)}},
+			{"tomb_2_new",			{scale * 5, scale * 0}, {scale * (5 + 1), scale * (0 + 1)}},
+			{"tomb_3_old",			{scale * 6, scale * 0}, {scale * (6 + 1), scale * (0 + 1)}},
+			{"tomb_3_new",			{scale * 7, scale * 0}, {scale * (7 + 1), scale * (0 + 1)}},
+			{"rect_gray_0_old",		{scale * 8, scale * 1}, {scale * (8 + 1), scale * (1 + 1)}},
+			{"rect_gray_0_new",		{scale * 9, scale * 1}, {scale * (9 + 1), scale * (1 + 1)}},
+		},
+		"wall_tiles"
 	};
 
 	SpriteMap particlesMap
@@ -124,6 +152,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");
 	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
 	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
+	ResourceManager::AddSprite("window_frame", "Assets\\Textures\\UI\\window_frame.png");
 
 	// HUD
 	ResourceManager::AddSprite("bar", "Assets\\Textures\\HUD\\bar.png");

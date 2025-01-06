@@ -4,7 +4,6 @@
     <ClCompile Include="Engine\BehaviourScript.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
-    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Core\Math\Point.cpp" />
     <ClCompile Include="Engine\Core\Math\Random.cpp" />
     <ClCompile Include="Engine\Core\Math\Vector2.cpp" />
@@ -39,6 +38,7 @@
     <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
     <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Input\InputHandler.cpp" />
+    <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -125,7 +125,8 @@
     <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
     <ClInclude Include="Engine\Core\Strings\StringUtils.hpp" />
     <ClInclude Include="Engine\Input\InputHandler.hpp" />
-    <ClInclude Include="Engine\Scene\SceneHelper.hpp" />
+    <ClInclude Include="Engine\Core\Files\DTO\SpriteDTO.hpp" />
+    <ClInclude Include="Engine\Scene\UserDataStorage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

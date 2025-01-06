@@ -25,16 +25,11 @@ public:
     static constexpr float SAVE_FONT_SIZE = 20.0f;
 
     const std::string LEVEL_PATH = "Assets\\Level\\";
-    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles" , "player" };
+    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles", "wall_tiles", "player", "enemy_spawners" };
+    const std::map<std::string, Layer> LAYER_MAP = { {"floor_tiles", Layer::Floor}, {"wall_tiles", Layer::Wall}, {"player", Layer::Player}, {"enemy_spawners" , Layer::Player} };
 
     // Constructor
-    LevelEditor(const std::string& sceneName) : Scene(sceneName) {
-        _saveFileName = "level-1";
-
-        _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
-
-        auto allLayers = LayerHelper::GetAllLayer();
-    }
+    LevelEditor(const std::string& sceneName) : Scene(sceneName) {}
 
     void OnStart() override
     {
@@ -48,19 +43,23 @@ public:
         const float rightBarStart = windowWidth - RIGHT_BAR_WIDTH;
 
         _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
-
-        InitLevelEditor(_saveFileName);
+        
+       Json::json data = RetriveUserData();
+        if (data.contains("fileName") && !data["fileName"].empty()){
+            _saveFileName = data["fileName"];
+            DeleteUserData();
+        }
+        InitLevelEditor();
 
         UIBackButtonAndBinding(rightBarStart);
         UISaveButtonAndBinding(rightBarStart);
-        BindLayerChangerToMouseWheel(titleLeftPadding, topBarHeight, windowWidth, windowHeight);
         UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
         BindCamara();
     }
 
 
 
-    void InitLevelEditor(const std::string& level){
+    void InitLevelEditor(){
 
         auto mousePos = InputManager::GetMousePosition();
         _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
@@ -72,7 +71,10 @@ public:
             	
             	auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) {
             		if (e->transform->position == transform.position){
-            			e->GetComponent<Sprite>().SetSprite(spriteName);
+                        Sprite& sprite = e->GetComponent<Sprite>();
+                        sprite.SetSprite(spriteName);
+                        sprite.SetLayer(LAYER_MAP.at(sprite.GetSpriteData()->category));
+                        e->SetTag(sprite.GetSpriteData()->category);
                         return true;
             		}
                     return false;
@@ -85,39 +87,52 @@ public:
         brushComponnet->RemoveOnKey(KEY_E);
         brushComponnet->SetCanves(_screenPort);
 
-        if (level.empty()){
+        if (_saveFileName.empty()){
             MakeSaveFilePath();
             return;
         }
         FileManager fileManager;
 
-        Json::json loadTiles = fileManager.Load(LEVEL_PATH + level + ".json", "json");
-        if (loadTiles.contains("tiles"))
+        Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName + ".json", "json");
+        
+            
+        //TODO dit moet eigenlijk een BrushSprite child worden voor elk soort tile type dat anderes gedraagd. hier door kan je het makkelijk opslaan en inladen
+        if (loadTiles.contains(SPRITE_CATEGORY[2]))
         {
-            for (size_t i = 0; i < loadTiles["tiles"].size(); ++i)
-            {
-                auto& tile = loadTiles["tiles"][i];
-
-
-                if (tile.contains("transform") && tile.contains("sprite") && tile.contains("tag"))
-                {
-                    Layer layer = static_cast<Layer>(tile["sprite"]["layer"]);
-                    _layer = layer;
-                    CreateTile(tile["sprite"]["name"], tile["sprite"]["name"], TransformDTO::JsonToTransform(tile));
-                    _tiles.back()->SetTag(SPRITE_CATEGORY[0]);
-                }
-            }
-        }
-        if (loadTiles.contains(SPRITE_CATEGORY[1]))
-        {
-            auto& player = loadTiles[SPRITE_CATEGORY[1]];
+            auto& player = loadTiles[SPRITE_CATEGORY[2]];
             if (player.contains("transform") && player.contains("sprite") && player.contains("tag"))
             {
-                Layer layer = static_cast<Layer>(player["sprite"]["layer"]);
-                _layer = layer;
-                CreateTile(player["sprite"]["name"], player["sprite"]["name"], TransformDTO::JsonToTransform(player));
-                _tiles.back()->SetTag(SPRITE_CATEGORY[1]);
-                //_tilesPerLayer[_layer].back()->GetComponent<SnapToGridBrush>().SetDraggeble(false);
+                auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(player)));
+                SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(player);
+
+                tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
+                tile->SetTag(SPRITE_CATEGORY[2]);
+            }
+            loadTiles.erase(SPRITE_CATEGORY[2]);
+        } 
+        for (auto& tileType : SPRITE_CATEGORY)
+        {
+            CreateTilesFromJson(loadTiles, tileType);
+        }
+    }
+
+    void CreateTilesFromJson(Json::json& loadTiles, const std::string& jsonarray)
+    {
+        if (!loadTiles.contains(jsonarray))
+            return;
+
+        for (size_t i = 0; i < loadTiles[jsonarray].size(); ++i)
+        {
+            auto& jsonTile = loadTiles[jsonarray][i];
+
+
+            if (jsonTile.contains("transform") && jsonTile.contains("sprite") && jsonTile.contains("tag"))
+            {
+                auto& tile = _tiles.emplace_back(Instantiate(TransformDTO::JsonToTransform(jsonTile)));
+                SpriteDTO spriteData = SpriteDTO::JsonToSpriteData(jsonTile);
+
+                tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
+                tile->SetTag(jsonarray);
             }
         }
     }
@@ -130,81 +145,48 @@ public:
         Json::json tilesJson;
         int tileCounter = 0;
 
+
         for (auto& tile : _tiles)
         {
-            if (tile->GetTag() == SPRITE_CATEGORY[0]){//floor_tile
-                auto& tileJson = tilesJson["tiles"][tileCounter];
-                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
-                tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
-                tileJson["sprite"]["layer"] = tile->GetLayer();
-                tileCounter++;
+            if (tile->GetTag() == SPRITE_CATEGORY[0] || tile->GetTag() == SPRITE_CATEGORY[1]){//floor_tile || wall_tile // new Tiles need to be here
+                Json::json jsonObject;
+                TransformDTO::ToJson(jsonObject, tile->GetComponent<Transform>());
+                SpriteDTO::ToJson(jsonObject, tile->GetComponent<Sprite>());
+                jsonObject["tag"] = StringUtils::Split(jsonObject["sprite"]["name"], '_')[0];
+                tilesJson[tile->GetTag()].push_back(jsonObject);
 
-            } else if (tile->GetTag() == SPRITE_CATEGORY[1]){ //player
+            }
+            else if (tile->GetTag() == SPRITE_CATEGORY[2]) { //player
                 auto& tileJson = tilesJson["player"];
                 TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                tileJson["sprite"]["name"] = tile->GetComponent<Sprite>().GetSprite();
+                SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
                 tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
-                tileJson["sprite"]["layer"] = tile->GetLayer();
             }
         }
+        MakeSaveFilePath();
         fileManager.Save(_saveFilePath, "json", tilesJson);
     }
 
     void MakeSaveFilePath(){
-        auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
-        _saveFileName = "level-" + std::to_string(fileNames.size() + 1);
+        if (_saveFileName.empty()){
+            auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
+            _saveFileName = "level-" + std::to_string(fileNames.size() + 1);
+        }
         
         _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
 
     }
 
 
-    //Create
-    void CreateTile(const std::string& spriteName, const std::string& category, Transform transform) {
-        _tiles.emplace_back(Instantiate(transform));
-        CreateTile(spriteName, category, false);
-
-    }
-
-    void CreateTile(const std::string& spriteName, const std::string& category, bool mousePos = true)
+    void CreateTile(const std::string& spriteName, const std::string& category)
     {
-        if (mousePos) {
-            auto mousePos = InputManager::GetMousePosition();
-            _tiles.emplace_back(Instantiate({ camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
-        }
+        auto mousePos = InputManager::GetMousePosition();
+        auto& tile = _tiles.emplace_back(Instantiate({ camera->ToWorldGrid(mousePos), 0.0f, {1.0f, 1.0f} }));
 
-        auto& tile = _tiles.back();
         tile->SetTag(category);
 
         auto sprite = tile->AddComponent<Sprite>(spriteName);
-        sprite->SetLayer(_layer);
-    }
-
-
-    //Input Binding
-    void BindLayerChangerToMouseWheel(float titleLeftPadding, float topBarHeight, int windowWidth, int windowHeight)
-    {
-        std::shared_ptr<GameObject> layerTxt{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto layer = layerTxt->AddComponent<Ui::Text>("Layer: " + LayerHelper::GetString(_layer), "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
-        layer->SetBackground({ 255, 255, 255, 255 });
-
-        std::shared_ptr<GameObject> worldView{ Instantiate(_screenPort) };
-        worldView->AddComponent<Ui::Scrollable>(
-            [this, layer](int wheelDirection) {
-            int layerInt = LayerHelper::GetInt(_layer);
-
-            int newLayer = layerInt + wheelDirection;
-
-            if (LayerHelper::InLayers(newLayer)) {
-                //InputManager::deactivateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
-                _layer = LayerHelper::GetLayer(newLayer);
-                //InputManager::activateCategory("Ui:layer - " + LayerHelper::GetString(_layer));
-
-                layer->SetText("Layer: " + LayerHelper::GetString(_layer));
-
-            }
-            });
+        sprite->SetLayer(LAYER_MAP.at(category));
     }
 
     void BindCamara()
@@ -267,6 +249,55 @@ public:
             }, "UI");
     }
 
+    int calculateSpritesInrow(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites){
+        int amout = 0;
+        if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
+            amout = static_cast<int>(categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]).size());
+
+        return amout / maxVisibleSprites;
+    }
+
+    std::vector<std::string> GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites,
+        int maxVisibleSprites,
+        int direction)
+    {
+        std::vector<std::string> result;
+
+        int maxtileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+
+        _tileIndexOptions += direction;
+
+        if (_tileIndexOptions < 0){
+            _layerIndexTopBar -= 1;
+            if (_layerIndexTopBar < 0)
+                _layerIndexTopBar = SPRITE_CATEGORY.size() -1;
+            
+            _tileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+            
+        }
+        else if (_tileIndexOptions > maxtileIndexOptions)
+        {
+            _layerIndexTopBar += 1;
+            if (_layerIndexTopBar >= SPRITE_CATEGORY.size())
+                _layerIndexTopBar = 0;
+
+            _tileIndexOptions = 0;
+        }
+
+        std::vector<std::string> sprites;
+        if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
+            sprites = categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]);
+
+
+        for (size_t i = maxVisibleSprites * _tileIndexOptions; i < maxVisibleSprites * (_tileIndexOptions + 1) && i < sprites.size(); i++)
+        {
+            result.push_back(sprites[i]);
+        }
+
+        return result;
+    }
+
+
     void UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
     {
         const float imagespace = (SCALE_IN_UI_BAR + PADDING);
@@ -275,45 +306,52 @@ public:
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto title = titleTxt->AddComponent<Ui::Text>("Level: " + _saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        auto title = titleTxt->AddComponent<Ui::Text>(_saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         title->SetBackground({ 255, 255, 255, 255 });
 
+        std::shared_ptr<GameObject> layerObj{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
+        auto layerTxt = layerObj->AddComponent<Ui::Text>(SPRITE_CATEGORY[_layerIndexTopBar], "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        layerTxt->SetBackground({ 255, 255, 255, 255 });
+
+
+
         std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
+        std::unordered_map<std::string, std::vector<std::string>> categorySprites;
+        
+        for (const auto& pair : sprites) {
+            const std::string& key = pair.first;
+            const std::string& category = pair.second->category;
 
-        int maxtileIndexOptions = static_cast<int>(sprites.size()) / maxOptionPerRow;
-
-        for (auto& [key, value] : sprites)
-        {
-            auto& optionTile = _optionTiles.emplace_back(Instantiate({
-                    {-SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR},
-                    0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
-
-
-            optionTile->AddComponent<Ui::Image>(key);
-            optionTile->AddComponent<BrushSprite>(key, &_brush->GetComponent<SnapToGridBrush>());
+            categorySprites[category].push_back(key);
         }
 
-        auto lambdaChangeSprite = [this, sprites, maxOptionPerRow, maxtileIndexOptions](int wheelDirection) {
+        for (int i = 0; i < maxOptionPerRow; i++)
+        {
+            auto& optionTile = _optionTiles.emplace_back(Instantiate({
+                        { -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2},
+                        0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
+            optionTile->AddComponent<Ui::Image>("default_texture");
+            optionTile->AddComponent<BrushSprite>("default_texture", &_brush->GetComponent<SnapToGridBrush>());
+        }
 
-            HiddeOptionTiles();
-            auto startIt = sprites.begin();
+        auto lambdaChangeSprite = 
+            [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) 
+            {
+            auto optionTilesVector = GetVisibleSprites(categorySprites, maxOptionPerRow, wheelDirection);
+            layerTxt->SetText(SPRITE_CATEGORY[_layerIndexTopBar]);
 
-            _tileIndexOptions += wheelDirection;
-            if (_tileIndexOptions < 0)
-                _tileIndexOptions = maxtileIndexOptions;
-            else if (_tileIndexOptions > maxtileIndexOptions)
-                _tileIndexOptions = 0;
-
-            std::advance(startIt, maxOptionPerRow * _tileIndexOptions);
-
-            int index = 0;
-            for (auto& pair = startIt; pair != sprites.end() && index < maxOptionPerRow; ++pair) {
-
-                auto& tileoption = _optionTiles.at(maxOptionPerRow * _tileIndexOptions + index);
-
-                tileoption->transform->position.Set({ SCALE_IN_UI_BAR * index + PADDING * index + PADDING_OUT_LEFT_UI, PADDING_TOP });
-
-                index++;
+            for (size_t i = 0; i < _optionTiles.size(); i++)
+            {
+                auto& optionTile = _optionTiles[i];
+                if (optionTilesVector.size() <= i)
+                {
+                    optionTile->GetComponent<Transform>().position.Set({ -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2 });
+                    continue;
+                }
+                const std::string spriteName = optionTilesVector[i];
+                optionTile->GetComponent<Transform>().position.Set({ SCALE_IN_UI_BAR * i + PADDING * i + PADDING_OUT_LEFT_UI, PADDING_TOP });
+                optionTile->GetComponent<Ui::Image>().SetSprite(spriteName);
+                optionTile->GetComponent<BrushSprite>().SetSprite(spriteName);
             }
 
         };
@@ -322,17 +360,9 @@ public:
 
         std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };
         TopBar->AddComponent<Ui::Scrollable>(lambdaChangeSprite);
-
     }
 
 private:
-    
-    void HiddeOptionTiles(){
-        for (auto& option : _optionTiles)
-        {
-            option->transform->position.Set({ -SCALE_IN_UI_BAR, -SCALE_IN_UI_BAR });
-        }
-    }
 
     InputHandler _inputListeners;
     Transform _screenPort;
@@ -342,7 +372,9 @@ private:
 
     std::vector<std::shared_ptr<GameObject>> _tiles;
     std::vector<std::shared_ptr<GameObject>> _optionTiles;
+    std::map<std::string, std::vector<std::shared_ptr<GameObject>>> _tileMapOptions;
     int _tileIndexOptions = 0;
+    int _layerIndexTopBar = 0;
 
     std::shared_ptr<GameObject> _brush;
 

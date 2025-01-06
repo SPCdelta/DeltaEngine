@@ -15,19 +15,24 @@ public:
 	BrushSprite(Transform& transform, const std::string& spriteName, SnapToGridBrush* brush)
 	{
 		std::string _category = "";
+		_name = spriteName;
 		_inputHandler.Add(InputManager::onMouseButtonDown(MouseButton::Left,
-			[this, &transform, spriteName, brush](Input& e)
+			[this, &transform, brush](Input& e)
 			{
 				if (!Math::MathUtils::IsVector2WithinRect({ e.mouseX, e.mouseY }, transform.position, transform.scale))
 					return;
 
-				brush->SetSprite(spriteName);
+				brush->SetSprite(_name);
 
 			}, _category
 		));
 	};
 
+	void SetSprite(const std::string& name){
+		_name = name;
+	}
+
 private:
-	//InputHandler _inputListeners;
 	InputHandler _inputHandler{};
+	std::string _name;
 };

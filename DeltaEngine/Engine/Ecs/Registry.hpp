@@ -107,6 +107,11 @@ namespace ecs
 			return _registry.get<Component>(entityId);
 		}
 
+		bool Valid(ecs::EntityId entityId)
+		{
+			return _registry.valid(entityId);
+		}
+
 	private:
 		entt::registry _registry;
 	};

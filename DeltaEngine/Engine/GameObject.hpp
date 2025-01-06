@@ -59,7 +59,7 @@ public:
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
-			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Button>(_id, transform->position, transform->scale));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Button>(_id, transform));
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Ui::Scrollable>)
