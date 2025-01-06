@@ -40,6 +40,7 @@
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -108,6 +109,8 @@
     <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
     <ClInclude Include="src\Classes\MySceneData.hpp" />
     <ClInclude Include="src\Views\ScoreScreen.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

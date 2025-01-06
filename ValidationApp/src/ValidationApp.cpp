@@ -1,6 +1,7 @@
 #include "ValidationApp.hpp"
+
+// Debug Scenes
 #include "Scenes/GameScene.hpp"
-#include "Scenes/MainMenuScene.hpp"
 #include "Scenes/InputTestScene.hpp"
 #include "Scenes/FileScene.hpp"
 #include "Scenes/PhysicsScene.hpp"
@@ -12,14 +13,18 @@
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
 
+// Game Scenes
+#include "Scenes/MainMenuScene.hpp"
+#include "Scenes/LevelSelectScene.hpp"
+#include "Scenes/LevelScene.hpp"
+
 ValidationApp::ValidationApp()
 	: Application(32)
 {
 
 	LoadAssets();
 
-	// Register Scenes
-	RegisterScene<MainMenuScene>("MainMenuScene");
+	// Register Scenes (Debug)
 	RegisterScene<GameScene>("GameScene");
 	RegisterScene<InputTestScene>("InputTest");
 	RegisterScene<FileScene>("FileScene");
@@ -33,8 +38,13 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 	RegisterScene<SpawnerScene>("SpawnerScene");
 
+	// Register Scenes (Game)
+	RegisterScene<MainMenuScene>("MainMenuScene");
+	RegisterScene<LevelSelectScene>("LevelSelectScene");
+	RegisterScene<LevelScene>("LevelScene");
+
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("LevelSelectScene");
 
 	// Start Application
 	Run();

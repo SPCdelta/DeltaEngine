@@ -15,14 +15,17 @@ struct TransformDTO
 		return Transform{{posX, posY}, rotation, {scaleX, scaleY}};
 	}
 
-	static void ToJson(Json::json& tileJson, Transform transform){
+	static void ToJson(Json::json& tileJson, Transform transform)
+	{
 		tileJson["transform"]["position"]["x"] = transform.position.GetX();
 		tileJson["transform"]["position"]["y"] = transform.position.GetY();
 		tileJson["transform"]["rotation"] = transform.rotation;
 		tileJson["transform"]["scale"]["x"] = transform.scale.GetX();
 		tileJson["transform"]["scale"]["y"] = transform.scale.GetY();
 	}
-	static Transform JsonToTransform(Json::json& tile){
+
+	static Transform JsonToTransform(Json::json& tile)
+	{
 		return
 		{
 			{

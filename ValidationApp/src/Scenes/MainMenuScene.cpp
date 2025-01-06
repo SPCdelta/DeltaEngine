@@ -60,12 +60,12 @@ void MainMenuScene::OnStart()
 	menuView.SetButtonOnLeftMouseClickLoadScene(1, this, "LevelEditorLevelChose", "Level Editor");
 	menuView.SetButtonSFX(-1, "Assets\\Audio\\SFX\\Button_1.mp3");
 
-	auto& sfx = menuView.GetButton(0)->GetComponent<Audio::SFXSource>();
-	menuView.SetButtonOnLeftMouseClick(-1, [&sfx]() -> void
-		{
-			sfx.Play();
-		}, "Main Menu");
-	sfx.SetVolume(20);
+	//auto& sfx = menuView.GetButton(0)->GetComponent<Audio::SFXSource>();
+	//menuView.SetButtonOnLeftMouseClick(-1, [&sfx]() -> void
+	//	{
+	//		sfx.Play();
+	//	}, "Main Menu");
+	//sfx.SetVolume(20);
 
 	// TODO: Input blijkt deze functie nooit op te ruimen? Zie Ui::Button destructor.
 	//menuView.SetButtonOnLeftMouseClick(3, [this]() -> void
