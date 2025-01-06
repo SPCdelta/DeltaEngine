@@ -69,5 +69,15 @@ void LayerScene::OnStart()
 	effrvscntPotionObj2->AddComponent<WorldItem>(worldItem3);
 	effrvscntPotionObj2->SetTag("item");
 
+	for (int i = 0; i < 5; i++)
+	{
+		WorldItem coin = WorldItem(new Coin("coin", "coin"), 1);
+		std::shared_ptr<GameObject> coinObj{ Instantiate({{20.0f, (20.0f + i)}, 0.0f, {0.8f, 0.8f}}) };
+		coinObj->AddComponent<Sprite>("coin");
+		coinObj->AddComponent<BoxCollider>()->SetTrigger(true);
+		coinObj->AddComponent<WorldItem>(coin);
+		coinObj->SetTag("coin");
+	}
+
 	_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 }
