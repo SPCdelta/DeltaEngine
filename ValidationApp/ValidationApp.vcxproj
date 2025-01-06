@@ -214,6 +214,8 @@
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
+    <ClCompile Include="src\Scenes\WeaponSelectionScene.cpp" />
+    <ClCompile Include="src\Views\WeaponSelectionView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
@@ -243,6 +245,8 @@
     <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
     <ClCompile Include="src\Views\IView.cpp" />
     <ClInclude Include="src\Views\ScoreScreen.hpp" />
+    <ClInclude Include="src\Scenes\WeaponSelectionScene.hpp" />
+    <ClInclude Include="src\Views\WeaponSelectionView.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
