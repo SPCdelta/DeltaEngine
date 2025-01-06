@@ -65,7 +65,7 @@ void PlayerBehaviour::OnUpdate()
 	}
 
 	_onFloor = _floorBehaviour->GetOnFloor();
-	Math::Vector2 currentVelocity{ rigidbody->GetVelocity() };
+	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
 	{
@@ -78,25 +78,27 @@ void PlayerBehaviour::OnUpdate()
 			break;
 
 			case FloorType::ICE:
-			if (rigidbody->GetSpeed() < _moveSpeed)
-			{
-				rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
-			}
+				if (rigidbody->GetSpeed() < _moveSpeed)
+				{
+					rigidbody->AddForce(_moveDirection * _moveSpeed,
+										ForceMode::ACCELERATE);
+				}
 
-			currentVelocity = rigidbody->GetVelocity();
-			rigidbody->AddForce(-currentVelocity * 1.0f, ForceMode::ACCELERATE);
-			if (rigidbody->GetSpeed() <= 0.0f)
-			{
-				rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
-			}
-			break;
+				currentVelocity = rigidbody->GetVelocity();
+				rigidbody->AddForce(-currentVelocity * 1.0f,
+									ForceMode::ACCELERATE);
+				if (rigidbody->GetSpeed() <= 0.0f)
+				{
+					rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
+				}
+				break;
 
 			case FloorType::MUD:
 			{
 				rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
 			}
 			break;
-		}			
+		}
 	}
 	else
 	{
@@ -114,20 +116,21 @@ void PlayerBehaviour::OnUpdate()
 				break;
 		}
 	}
-	
+
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
 		if (_player->GetHealth() > 0)
 		{
-			_player->SetHealth(_player->GetHealth() - _damageBehaviour->TakeDamage());
+			_player->TakeDamage(_damageBehaviour->TakeDamage());
 			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
 			_sfx->Play();
 		}
-		
+
 		if (_player->GetHealth() <= 0)
 		{
-			if (!deathSoundPlayed && !sprite->GetSheet()->PlayCustomAnimation("death"))
+			if (!deathSoundPlayed &&
+				!sprite->GetSheet()->PlayCustomAnimation("death"))
 			{
 				_sfx->SetClip("Assets\\Audio\\SFX\\Death.mp3");
 				_sfx->Play();
@@ -140,7 +143,17 @@ void PlayerBehaviour::OnUpdate()
 			{
 				deathElapsedTime += Time::GetDeltaTime();
 				if (deathElapsedTime >= 1.0f)
-					LoadScene("MainMenuScene"); 
+				{
+					if (!_scoreScreen)
+					{
+						_scoreScreen = std::make_unique<ScoreScreen>(
+							*gameObject->_scene, SCORE_SCREEN_FONT,
+							Math::Vector2{0, 0}, SCORE_SCREEN_SCALE,
+							DEATH_MSG,
+							DEATH_MSG_COLOR,
+							_player->GetCoins());
+					}
+				}
 			}
 		}
 	}
@@ -149,22 +162,28 @@ void PlayerBehaviour::OnUpdate()
 	{
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT,
+										false);
 		else if (_moveDirection.GetX() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT, false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT,
+										false);
 		else if (_moveDirection.GetY() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN,
+										false);
 		else if (_moveDirection.GetY() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP,
+										false);
 
 		// Idle
 		else
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE,
+										false);
 	}
 
 	UpdateConsumables();
 
-	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
+	this->gameObject->GetCamera()->SetPosition(
+		this->gameObject->transform->position);
 }
 
 void PlayerBehaviour::UpdateAttack(float deltaTime)

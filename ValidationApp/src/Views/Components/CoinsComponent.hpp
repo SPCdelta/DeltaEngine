@@ -16,7 +16,7 @@ public:
 	const Math::Vector2& GetSize() const override;
 private:
 	std::shared_ptr<GameObject> _coinCounter;
-	size_t _coins = 0;
+	size_t _coins;
 	static constexpr const char* SPRITE = "coin";
 };
 

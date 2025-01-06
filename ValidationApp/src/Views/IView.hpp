@@ -10,7 +10,19 @@ public:
 	void SetFont(const std::string& fontName);
 	const virtual Math::Vector2& GetSize() const = 0;
 	const Math::Vector2& GetPos() const;
+	virtual void SetCenter()
+	{
+		auto vp = _scene.GetWindow()->GetViewport();
+		auto xPos = vp.width / 2 - GetSize().GetX() / 2;
+		auto yPos = vp.height / 2 - GetSize().GetY() / 2;
+		_pos = { xPos, yPos };
+	}
+	virtual void SetPosition(const Math::Vector2& pos)
+	{
+		_pos = pos;
+	}
 protected:
+	const std::string DEFAULT_FONT = "goblin";
 	std::string _fontName;
 	Scene& _scene;
 	Math::Vector2 _scale;

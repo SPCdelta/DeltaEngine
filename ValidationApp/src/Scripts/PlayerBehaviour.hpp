@@ -13,6 +13,8 @@
 #include "../Classes/Weapons/Gun.hpp"
 #include "../Classes/Weapons/Bow.hpp"
 
+#include "../Views/ScoreScreen.hpp"
+
 #include "../Items/Potions/PotionFactory.hpp"
 
 #include "Level/LevelExitBehaviour.hpp"
@@ -75,6 +77,12 @@ private:
 
 	std::unique_ptr<Player> _player;
 	std::vector<std::unique_ptr<ConsumableItem>> _activeConsumables;
+
+	std::unique_ptr<ScoreScreen> _scoreScreen;
+	const std::string DEATH_MSG = "You died";
+	const Math::Vector2 SCORE_SCREEN_SCALE = {500, 500};
+	const Rendering::Color DEATH_MSG_COLOR = {255, 0, 0, 255};
+	const std::string SCORE_SCREEN_FONT = "goblin";
 
 	void InitHotbarKeybinds();
 	void ConsumeItem();

@@ -152,6 +152,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("scroll", "Assets\\Textures\\UI\\Buttons\\scroll.png");
 	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
 	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
+	ResourceManager::AddSprite("window_frame", "Assets\\Textures\\UI\\window_frame.png");
 
 	// HUD
 	ResourceManager::AddSprite("bar", "Assets\\Textures\\HUD\\bar.png");

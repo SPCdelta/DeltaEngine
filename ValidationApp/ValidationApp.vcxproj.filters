@@ -39,6 +39,7 @@
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
+    <ClCompile Include="src\Views\ScoreScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
     <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
     <ClInclude Include="src\Classes\MySceneData.hpp" />
+    <ClInclude Include="src\Views\ScoreScreen.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -146,6 +148,7 @@
     <Image Include="Assets\Textures\Items\coin.png" />
     <Image Include="Assets\Textures\HUD\active_slot.png" />
     <Image Include="Assets\Textures\Particles\particles.png" />
+    <Image Include="Assets\Textures\UI\window_frame.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

@@ -25,7 +25,8 @@ Item* Inventory::RemoveItem(const Item& item, Uint8 amount)
 
 	for (Uint8 i = 0; i < _items.size(); i++)
 	{
-		if (_items[i].has_value() && *_items[i]->GetItem() == item)
+		const std::optional<InventoryItem>& optItem = _items[i];
+		if (optItem.has_value() && optItem->GetItem() == item)
 		{
 			if (amount < _items[i]->GetAmount())
 			{

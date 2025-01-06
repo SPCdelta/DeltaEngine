@@ -19,6 +19,7 @@ class Player
 	void SetHealth(int health);
 
 	void AddHealth(int health);
+	void TakeDamage(int damage);
 
 	int GetShield() const;
 	float GetAttackDamage() const;

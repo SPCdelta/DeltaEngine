@@ -36,14 +36,27 @@ void Player::SetHealth(int health)
 	NotifyHealthChanged();
 }
 
-void Player::AddHealth(int health) 
+void Player::AddHealth(int health)
 {
-	if (_health + health > _maxHealth)
-		_health = _maxHealth;
-	else
-		_health += health;
+	_health = std::clamp(_health + health, 0, _maxHealth);
 
 	NotifyHealthChanged();
+}
+
+void Player::TakeDamage(int damage)
+{
+	if (_shield > 0)
+	{
+		int shieldDamage = std::min(damage, _shield);
+		SetShield(_shield - shieldDamage);
+
+		damage -= shieldDamage;
+	}
+
+	if (damage > 0)
+	{
+		AddHealth(-damage);
+	}
 }
 
 int Player::GetShield() const
