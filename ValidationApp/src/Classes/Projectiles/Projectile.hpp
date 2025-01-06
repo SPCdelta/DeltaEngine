@@ -15,6 +15,11 @@ constexpr float DEFAULT_PROJECTILE_DESPAWN_TIME = 10.0f;
 class Projectile : public BehaviourScript
 {
 public:
+	~Projectile()
+	{
+		rigidbody = nullptr;
+	}
+
 	void OnStart() override;
 	void OnUpdate() override;
 

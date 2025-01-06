@@ -7,6 +7,7 @@ enum class EnemyType
 	Goblin,
 	Skeleton,
 	Slime,
+	Boss
 };
 
 class Enemy
@@ -14,6 +15,11 @@ class Enemy
    public:
 	Enemy(Math::Vector2* position, float speed, int health, int damage, int range, int step) : position_(position), speed_(speed), _health(health), _damage(damage),
 		range_(range), step_(step) {}
+
+	~Enemy()
+	{
+		position_ = nullptr;
+	}
 
 	virtual void Update(Transform& player_position, Audio::SFXSource* _sfx) = 0;
 
@@ -25,7 +31,7 @@ class Enemy
 	int GetHealth() const { return _health; }
 	void SetHealth(int health) { _health = health; }
 
-	void Die() { _dead = true; }
+	virtual void Die(Audio::SFXSource* _sfx) = 0;
 
 	int GetRange() const { return range_; }
 	int GetStep() const { return step_; }
@@ -40,8 +46,10 @@ class Enemy
 			case EnemyType::Skeleton:
 				return "skeleton";
 			case EnemyType::Slime:
-			default:
 				return "slime";
+			case EnemyType::Boss:
+			default:
+				return "boss";
 		}
 	}
 
@@ -55,9 +63,13 @@ class Enemy
 		{
 			return EnemyType::Skeleton;
 		}
-		else 
+		else if (type == "slime")
 		{
 			return EnemyType::Slime;
+		}
+		else 
+		{
+			return EnemyType::Boss;
 		}
 	}
 

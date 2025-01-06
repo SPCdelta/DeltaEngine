@@ -15,6 +15,7 @@ public:
 		sprite->SetLayer(Layer::Foreground);
 		sprite->SetColor({ 0, 255, 0 });
 		spawnerObj->AddComponent<EntitySpawner>(
+			spawnerObj.get(),
 			EntitySpawnerData
 			{
 				// Spawn interval

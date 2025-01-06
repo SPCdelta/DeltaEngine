@@ -41,7 +41,18 @@ void LayerScene::OnStart()
 	skeletonObj->AddComponent<BoxCollider>()->SetTrigger(true);
 	skeletonObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	skeletonObj->SetTag("skeleton");
-	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());;	
+	skeletonObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());	
+
+	// Create slime boss
+	std::shared_ptr<GameObject> bossObj{ Instantiate({{3.0f, 15.0f}, 0.0f, {5.0f, 5.0f}}) };
+	std::shared_ptr<AnimationSheet> bossSheet = std::make_shared<AnimationSheet>(bossObj->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
+	bossObj->AddComponent<Sprite>("boss", bossSheet);
+	bossObj->AddComponent<Audio::MusicSource>("Assets\\Audio\\Music\\Boss_music_1.mp3", false, true)->Play();
+	bossObj->AddComponent<Audio::SFXSource>("", false, false);
+	bossObj->AddComponent<BoxCollider>()->SetTrigger(true);
+	bossObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+	bossObj->SetTag("boss");
+	bossObj->AddComponent<EnemyBehaviour>()->SetPlayerPosition(&playerObject->GetComponent<Transform>());
 
 	// Create potion object to pick up
 	WorldItem worldItem1 = WorldItem(new HealingPotion(10, 10, "healingpotion", "cyanPotion"), 1);

@@ -2,6 +2,7 @@
 
 #include "Engine/Delta.hpp"
 
+#include "../Scripts/Level/EntitySpawner.hpp"
 #include "../Scripts/EnemyHitboxBehaviour.hpp"
 #include "../Classes/Enemies/Enemy.hpp"
 #include "../Classes/Enemies/Goblin.hpp"
@@ -35,6 +36,7 @@ class EnemyBehaviour : public BehaviourScript
    private:
 	std::unique_ptr<DamageBehaviour> _damageBehaviour;
 	std::unique_ptr<AIBehaviour> _aiBehaviour;
+	std::unique_ptr<EntitySpawner> _spawnerBehaviour;
 
 	std::shared_ptr<GameObject> _damageObj;
 

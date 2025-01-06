@@ -5,6 +5,8 @@
 class EnemyHitboxBehaviour : public BehaviourScript
 {
    public:
+	~EnemyHitboxBehaviour();
+
 	void OnStart() override;
 	void OnUpdate() override;
 
