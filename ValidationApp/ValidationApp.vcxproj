@@ -176,7 +176,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
@@ -217,8 +216,6 @@
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Scenes\LevelScene.hpp" />
-    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Items\Potions\PotionType.hpp" />
     <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
