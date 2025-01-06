@@ -42,7 +42,8 @@ public:
 	void LoadPlayer();
 	void SavePlayer();
 
-	Player& GetPlayer() const { return *_player; }
+	Player* GetPlayer() const { return _player.get(); }
+	Player& GetPlayerRef() const { return *_player; }
 
 	// Components
 	Sprite* sprite = nullptr;

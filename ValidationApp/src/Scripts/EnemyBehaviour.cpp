@@ -70,7 +70,7 @@ void EnemyBehaviour::OnUpdate()
 					entity->AddComponent<BoxCollider>()->SetTrigger(true);
 					entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 					entity->SetTag("slime");
-					entity->AddComponent<EnemyBehaviour>()->SetPlayerPosition(playerPosition);
+					entity->AddComponent<EnemyBehaviour>()->SetPlayer(playerPosition, player);
 				});
 
 			_spawnerBehaviour->OnStart();
@@ -104,6 +104,11 @@ void EnemyBehaviour::OnUpdate()
 
 			if (_enemy && _enemy->GetHealth() <= 0)
 			{
+				if (player && Enemy::StringToType(gameObject->GetTag()) == EnemyType::Boss)
+					player->AddCoins(1000);
+				else
+					player->AddCoins(10);
+
 				_enemy->Die(_sfx.get());
 				OnDeath();
 				return;
@@ -132,8 +137,9 @@ void EnemyBehaviour::UpdateAnimation()
 	}
 }
 
-void EnemyBehaviour::SetPlayerPosition(Transform* pos)
+void EnemyBehaviour::SetPlayer(Transform* pos, Player* play)
 {
+	player = play;
 	playerPosition = pos;
 	_aiBehaviour->SetTargetPosition(playerPosition);
 }

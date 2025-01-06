@@ -8,6 +8,7 @@
 #include "../Classes/Enemies/Goblin.hpp"
 #include "../Classes/Enemies/Skeleton.hpp"
 #include "../Classes/Enemies/Slime.hpp"
+#include "../Player.hpp"
 
 class DamageBehaviour;
 
@@ -23,8 +24,9 @@ class EnemyBehaviour : public BehaviourScript
 	Sprite* sprite = nullptr;
 	Rigidbody* rigidbody = nullptr;
 
+	Player* player = nullptr;
 	Transform* playerPosition = nullptr;
-	void SetPlayerPosition(Transform* pos);
+	void SetPlayer(Transform* pos, Player* play);
 
 	Enemy& GetEnemy() const { return *_enemy; }
 
