@@ -10,7 +10,7 @@ void LayerScene::OnStart()
 	playerObject->AddComponent<Audio::SFXSource>("", false, false);
 	playerObject->AddComponent<BoxCollider>();
 	playerObject->AddComponent<Rigidbody>();	
-	playerObject->AddComponent<PlayerBehaviour>();
+	playerObject->AddComponent<PlayerBehaviour>()->LoadPlayer();
 	playerObject->SetTag("player");
 
 	// Create goblin enemy

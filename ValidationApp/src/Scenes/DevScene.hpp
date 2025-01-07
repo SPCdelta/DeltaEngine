@@ -21,7 +21,13 @@ public:
 		menuView.SetButtonText(7, "Back");
 		menuView.AddButtonTextPosition(-1, {20, 5});
 		menuView.SetButtonOnLeftMouseClickLoadScene(0, this, "GameScene", "Dev Menu");
-		menuView.SetButtonOnLeftMouseClickLoadScene(1, this, "LayerScene", "Dev Menu");
+		menuView.GetButton(1)->GetComponent<Ui::Button>().SetOnLeftMouseClick([this]() -> void
+			{
+				Json::json jsonLevelName;
+				jsonLevelName["levelName"] = "LayerScene";
+				StoreUserData(jsonLevelName);
+				LoadScene("WeaponSelectionScene");
+			}, "Dev Menu");
 		menuView.SetButtonOnLeftMouseClickLoadScene(2, this, "PhysicsScene", "Dev Menu");
 		menuView.SetButtonOnLeftMouseClickLoadScene(7, this, "MainMenuScene", "Dev Menu");
 	}

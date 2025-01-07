@@ -2,7 +2,9 @@
 
 void WeaponSelectionScene::OnStart()
 {
+	Json::json& data = RetrieveUserData();
+	std::string levelName = data["levelName"];
 	_weaponSelectionView = std::make_unique<WeaponSelectionView>(
 		*this, "goblin", Math::Vector2{0, 0},
-		Math::Vector2{600, 600});
+		Math::Vector2{600, 600}, levelName);
 }

@@ -6,7 +6,7 @@
 class WeaponSelectionView : public IView
 {
 public:
-	WeaponSelectionView(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale);
+	WeaponSelectionView(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale, const std::string& sceneName);
 	const Math::Vector2& GetSize() const override;
 	void SetCenter() override;
 private:
@@ -45,5 +45,6 @@ private:
 	const std::string BOW_SPRITE = "bow";
 	const std::string BOOMERANG_SPRITE = "boomerang";
 	std::string _weapon;
+	std::string _sceneName;
 };
 

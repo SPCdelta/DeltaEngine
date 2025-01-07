@@ -36,8 +36,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<WeaponSelectionScene>("WeaponSelectionScene");
 
 	// Load Desired Scene
-	//LoadScene("MainMenuScene");
-	LoadScene("WeaponSelectionScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();

@@ -2,8 +2,8 @@
 #include "../Scripts/PlayerBehaviour.hpp"
 
 WeaponSelectionView::WeaponSelectionView(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, 
-	const Math::Vector2& scale) 
-	: IView(scene, fontName, startPos, scale)
+	const Math::Vector2& scale, const std::string& sceneName) 
+	: IView(scene, fontName, startPos, scale), _sceneName{sceneName}
 {
 	_window = _scene.Instantiate({ _pos, 0.0f, _scale });
 	_window->AddComponent<Ui::Image>(WINDOW_FRAME_SPRITENAME)->SetLayer(Layer::Background);
@@ -164,7 +164,7 @@ void WeaponSelectionView::InitConfirmButton()
 			playerBehaviour.SavePlayer();
 			playerObject->SetTag("player");
 
-			_scene.LoadScene("LayerScene");
+			_scene.LoadScene(_sceneName);
 		}, "ScoreScreen");
 }
 

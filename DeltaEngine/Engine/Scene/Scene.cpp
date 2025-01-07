@@ -110,7 +110,7 @@ const std::string& Scene::GetName() const
 	return _name;
 }
 
-Json::json& Scene::RetriveUserData() 
+Json::json& Scene::RetrieveUserData() 
 { 
 	return _application->RetriveData(); 
 }
