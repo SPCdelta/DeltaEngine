@@ -218,11 +218,14 @@
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\UI\BaseUIScene.hpp" />
     <ClInclude Include="src\Classes\LevelManager.hpp" />
     <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
     <ClInclude Include="src\Scenes\LevelScene.hpp" />
     <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
     <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\UI\IUIElement.hpp" />
+    <ClInclude Include="src\UI\StackPanel.hpp" />
     <ClInclude Include="src\UI\UIFactory.hpp" />
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Items\Potions\PotionType.hpp" />

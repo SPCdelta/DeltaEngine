@@ -32,7 +32,7 @@ class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 		{
 			Ui::Text& text = _view.get<Ui::Text>(entityId);
 			Transform& transform = _view.get<Transform>(entityId);
-			text.Render(_window->GetRenderer(), transform + text.GetTransform());
+			text.Render(_window->GetRenderer(), transform);
 		}
 	}
 

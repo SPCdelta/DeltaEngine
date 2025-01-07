@@ -108,13 +108,21 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 	}
 
 	Rect dstRect;
-	if (_position.IsNonZero()) 
+	dstRect = 
 	{
-		dstRect = { static_cast<int>(_position.GetX()), static_cast<int>(_position.GetY()), surface->w, surface->h };
-	} else 
-	{
-		dstRect = { static_cast<int>(transform.position.GetX()), static_cast<int>(transform.position.GetY()), surface->w, surface->h};
-	}
+		static_cast<int>(transform.position.GetX() + _position.GetX()),
+		static_cast<int>(transform.position.GetY() + _position.GetY()),
+		surface->w, surface->h
+	};
+
+	//if (_position.IsNonZero()) 
+	//{
+	//	dstRect = { static_cast<int>(_position.GetX()), static_cast<int>(_position.GetY()), surface->w, surface->h };
+	//} 
+	//else 
+	//{
+	//	dstRect = { static_cast<int>(transform.position.GetX()), static_cast<int>(transform.position.GetY()), surface->w, surface->h};
+	//}
 
 	if (_background)
 		RenderRect(renderer, dstRect, _backgroundColor);

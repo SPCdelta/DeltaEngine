@@ -116,6 +116,9 @@
     <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
     <ClInclude Include="src\UI\UIFactory.hpp" />
     <ClInclude Include="src\Classes\LevelManager.hpp" />
+    <ClInclude Include="src\UI\StackPanel.hpp" />
+    <ClInclude Include="src\UI\IUIElement.hpp" />
+    <ClInclude Include="src\UI\BaseUIScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

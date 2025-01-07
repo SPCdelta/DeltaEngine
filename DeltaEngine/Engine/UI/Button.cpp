@@ -20,6 +20,8 @@ void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& 
 		{
 			if (_pressed && func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY },_transform->position, _transform->scale))
 			{
+				if (e.consumed) return;
+				e.consumed = true;
 				func();
 			}
 			_pressed = false;
@@ -45,8 +47,11 @@ void Ui::Button::SetOnMousePressed(std::function<void()> func, const std::string
 		MouseButton::Left,
 		[this, func](Input& e)
 		{
+			//if (e.consumed) return;
+
 			if (func && Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _transform->position, _transform->scale))
 			{
+				e.consumed = true;
 				func();
 			}
 		},

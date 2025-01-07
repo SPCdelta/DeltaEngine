@@ -8,7 +8,8 @@ public:
 	static std::shared_ptr<GameObject> CreateText(Scene* scene, const std::string& text, const std::string& font, int fontSize, const Rendering::Color color)
 	{
 		std::shared_ptr<GameObject> textObj = scene->Instantiate();
-		textObj->AddComponent<Ui::Text>(text, font, fontSize, color);
+		Ui::Text* textComponent = textObj->AddComponent<Ui::Text>(text, font, fontSize, color);
+		textObj->transformRef.scale = Font::GetFontSize(textComponent->GetFont(), text);
 		return textObj;
 	}
 
@@ -16,8 +17,12 @@ public:
 	{
 		std::shared_ptr<GameObject> buttonObj = scene->Instantiate();
 		buttonObj->AddComponent<Ui::Button>(Vector2{ 100.0f, 100.0f }, Vector2{ 100.0f, 50.0f });
-		buttonObj->AddComponent<Ui::Text>(text, font, fontSize, textColor);
+		Ui::Text* textComponent = buttonObj->AddComponent<Ui::Text>(text, font, fontSize, textColor);
 		buttonObj->AddComponent<Ui::Image>("scroll3")->SetLayer(layer);
+
+		buttonObj->transformRef.scale = Font::GetFontSize(textComponent->GetFont(), text) + Math::Vector2{ 32.0f, 32.0f };
+		textComponent->SetPosition({ 8.0f, 8.0f });
+
 		return buttonObj;
 	}
 

@@ -8,6 +8,8 @@
 class MainMenuScene : public Scene
 {
 public:
+	static constexpr auto Name = "MainMenuScene";
+
 	MainMenuScene(const std::string& sceneName);
 	void OnStart() override;
 };
