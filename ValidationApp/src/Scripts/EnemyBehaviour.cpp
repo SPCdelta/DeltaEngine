@@ -32,8 +32,10 @@ void EnemyBehaviour::OnStart()
 	sprite = &gameObject->GetComponent<Sprite>();
 	rigidbody = &gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);	
-	_sfx = std::make_unique<Audio::SFXSource>(gameObject->GetComponent<Audio::SFXSource>());
 
+	if (gameObject->HasComponent<Audio::SFXSource>())
+		_sfx = std::make_unique<Audio::SFXSource>(gameObject->GetComponent<Audio::SFXSource>());
+		
 	Math::Vector2* enemyPosition = &transform->position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
 	_aiBehaviour = std::make_unique<AIBehaviour>(astar, transform, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
@@ -96,11 +98,16 @@ void EnemyBehaviour::OnUpdate()
 		_damageBehaviour->Update(Time::GetDeltaTime());
 		if (_damageBehaviour->GetDamage())
 		{
-			if (_enemy && _enemy->GetHealth() > 0 && _sfx)
+			if (_enemy && _enemy->GetHealth() > 0)
 			{
 				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
-				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
-				_sfx->Play();
+
+				if (_sfx)
+				{
+					_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+					_sfx->SetVolume(10); 
+					_sfx->Play();
+				}			
 			}
 
 			if (_enemy && _enemy->GetHealth() <= 0)

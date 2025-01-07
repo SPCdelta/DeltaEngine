@@ -12,11 +12,9 @@ AudioManager& Audio::AudioManager::GetInstance()
 
 AudioManager::AudioManager()
 {
-	if (Mix_OpenAudio(AUDIO_FREQ, AUDIO_S16SYS, CHANNEL_COUNT, CHUNK_SIZE) ==
-		AUDIO_ERROR)
+	if (Mix_OpenAudio(AUDIO_FREQ, AUDIO_S16SYS, CHANNEL_COUNT, CHUNK_SIZE) == AUDIO_ERROR)
 	{
-		std::cerr
-			<< "An error has occured: Audio device could not be opened.\n";
+		std::cerr << "An error has occured: Audio device could not be opened.\n";
 	}
 }
 

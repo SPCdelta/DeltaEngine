@@ -30,8 +30,12 @@ class Skeleton : public Enemy
                 ShootArrow(player_position);
                 _lastAttackTime = 0.0f; 
 
-                _sfx->SetClip("Assets\\Audio\\SFX\\Bow_shoot.mp3");
-				_sfx->Play();
+                if (_sfx)
+                {
+					_sfx->SetClip("Assets\\Audio\\SFX\\Bow_shoot.mp3");
+					_sfx->SetVolume(5);
+					_sfx->Play();
+                }
             }
         }
 	}
@@ -47,8 +51,13 @@ class Skeleton : public Enemy
     void Die(Audio::SFXSource* _sfx) override
     {
         _dead = true;
-		_sfx->SetClip("Assets\\Audio\\SFX\\Skeleton_death.mp3");
-		_sfx->Play();
+
+        if (_sfx)
+        {
+            _sfx->SetClip("Assets\\Audio\\SFX\\Skeleton_death.mp3");
+			_sfx->SetVolume(5);
+		    _sfx->Play();
+        }
     }
 
    private:

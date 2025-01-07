@@ -10,7 +10,9 @@ void PlayerBehaviour::OnStart()
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
-	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
+	
+	if (gameObject->HasComponent<Audio::SFXSource>())
+		_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
 	//_weapon = new Gun(this);
 	_weapon = new Bow(this);
@@ -120,17 +122,25 @@ void PlayerBehaviour::OnUpdate()
 		if (_player->GetHealth() > 0)
 		{
 			_player->TakeDamage(_damageBehaviour->TakeDamage());
-			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
-			_sfx->Play();
+
+			if (_sfx)
+			{
+				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+				_sfx->SetVolume(10);
+				_sfx->Play();
+			}	
 		}
 
 		if (_player->GetHealth() <= 0)
 		{
-			if (!deathSoundPlayed &&
-				!sprite->GetSheet()->PlayCustomAnimation("death"))
+			if (!deathSoundPlayed && !sprite->GetSheet()->PlayCustomAnimation("death"))
 			{
-				_sfx->SetClip("Assets\\Audio\\SFX\\Death.mp3");
-				_sfx->Play();
+				if (_sfx)
+				{
+					_sfx->SetClip("Assets\\Audio\\SFX\\Death.mp3");
+					_sfx->SetVolume(20);
+					_sfx->Play();
+				}
 
 				deathSoundPlayed = true;
 				deathElapsedTime = 0.0f;

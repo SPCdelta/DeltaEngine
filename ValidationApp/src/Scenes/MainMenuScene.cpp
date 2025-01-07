@@ -29,6 +29,9 @@ void MainMenuScene::OnStart()
 	menu->AddComponent<Ui::Image>("main_menu_bg");
 	menu->AddComponent<Audio::MusicSource>("Assets\\Audio\\Music\\Intro_Theme.mp3", false, true)->Play();
 
+	auto& music = menu->GetComponent<Audio::MusicSource>();
+	music.SetVolume(20);
+
 	menuView.SetTitleTextPosition({515, 50});
 	menuView.SetTitleTextColor({255, 255, 255, 255});
 

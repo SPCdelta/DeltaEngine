@@ -14,8 +14,13 @@ class Slime : public Enemy
 	void Die(Audio::SFXSource* _sfx) override
     {
         _dead = true;
-		_sfx->SetClip("Assets\\Audio\\SFX\\Slime_death.mp3");
-		_sfx->Play();
+
+		if (_sfx)
+		{
+			_sfx->SetClip("Assets\\Audio\\SFX\\Slime_death.mp3");
+			_sfx->SetVolume(5);
+			_sfx->Play();
+		}
     }
 
    private:
