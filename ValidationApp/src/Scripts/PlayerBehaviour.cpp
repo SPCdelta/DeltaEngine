@@ -257,6 +257,10 @@ void PlayerBehaviour::LoadPlayer()
 			else
 				_weapon = new Bow(this);
 		}
+		else
+		{
+			_weapon = nullptr;
+		}
 
 		_player->ResetInventory();
 		if (loadedPlayer["player"].contains("inventory"))
