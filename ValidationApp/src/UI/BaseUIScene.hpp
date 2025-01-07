@@ -26,9 +26,12 @@ public:
 		_title->transformRef.position = { SideMargin, SideMargin };
 
 		// Back
-		_backButton = UIFactory::CreateButton(this, "Back", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 }, Layer::Button).get();
-		_backButton->transformRef.position = { SideMargin, 720.0f - 50.0f - SideMargin };
-		_backButton->GetComponent<Ui::Button>().SetOnLeftMouseClick([this]() { LoadScene(_previousSceneName); }, "UI");
+		if (_previousSceneName != "None")
+		{
+			_backButton = UIFactory::CreateButton(this, "Back", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 }, Layer::Button).get();
+			_backButton->transformRef.position = { SideMargin, 720.0f - 50.0f - SideMargin };
+			_backButton->GetComponent<Ui::Button>().SetOnLeftMouseClick([this]() { LoadScene(_previousSceneName); }, "UI");
+		}
 	}
 
 	Math::Vector2 GetContentOffset()

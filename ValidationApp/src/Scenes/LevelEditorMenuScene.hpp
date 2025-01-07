@@ -15,7 +15,7 @@ class LevelEditorMenuScene : public BaseUIScene
 {
 public:
 	LevelEditorMenuScene(const std::string& name) 
-		: BaseUIScene(name, "Level Editor", "MainMenuScene") 
+		: BaseUIScene(name, "Level Editor", "MainMenuScene")
 	{
 
 	}
