@@ -105,15 +105,14 @@ private:
 	Transform _debugTextTransform { { 10.0f, 10.0f }, 0.0f, { 200.0f, 100.0f } };
 	Ui::Text* _fpsText = nullptr;
 	float _fpsTimer = 1.0f;
-	bool _renderFps = false;
+	bool _renderDebug = false;
 
 	void Debug();
 	void InitDebug();
+	void InitGameSpeed();
 
 	// Gamespeed
-	Rendering::Color _gameSpeedTextColor{ 0, 0, 0, 255 };
+	Rendering::Color _gameSpeedTextColor{ 255, 0, 0, 255 };
 	std::unique_ptr<Ui::Text> _gameSpeed;
-	void InitGameSpeed();
-	void RenderGameSpeed();
 };
 
