@@ -22,7 +22,7 @@ namespace Audio
 		AudioManager operator=(AudioManager&& other) = delete;
 		~AudioManager();
 		void PlayMusic(Mix_Music* music, int loops);
-		void PlaySFX(Mix_Chunk* sfx, int loops);
+		void PlaySFX(Mix_Chunk* sfx, int loops, int channel = 0);
 		void PauseMusic();
 		void PauseSFX();
 		void ResumeMusic();

@@ -17,7 +17,7 @@ namespace Audio
 		~AudioSource();
 		virtual void SetVolume(int volume) = 0;
 		virtual void IncreaseVolume(int volume) = 0;
-		virtual void Play() = 0;
+		virtual void Play(int channel) = 0;
 		virtual void Pause() = 0;
 		virtual void Resume() = 0;
 		virtual void Stop() = 0;

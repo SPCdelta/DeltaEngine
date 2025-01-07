@@ -31,12 +31,23 @@ void AudioManager::PlayMusic(Mix_Music* music, int loops)
 	}
 }
 
-void AudioManager::PlaySFX(Mix_Chunk* sfx, int loops)
+void AudioManager::PlaySFX(Mix_Chunk* sfx, int loops, int channel)
 {
-	if (Mix_PlayChannel(DEFAULT_CHANNEL, sfx, loops) == AUDIO_ERROR)
+	if (channel == 0)
 	{
-		std::cerr << "Chunk could not be played: No channel was avaliable.\n";
+		if (Mix_PlayChannel(DEFAULT_CHANNEL, sfx, loops) == AUDIO_ERROR)
+		{
+			std::cerr << "Chunk could not be played: No channel was avaliable.\n";
+		}
 	}
+	else
+	{
+		if (Mix_PlayChannel(channel, sfx, loops) == AUDIO_ERROR)
+		{
+			std::cerr << "Chunk could not be played: No channel was avaliable.\n";
+		}
+
+	}	
 }
 
 void AudioManager::PauseMusic()

@@ -12,8 +12,12 @@ void PlayerBehaviour::OnStart()
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	
 	if (gameObject->HasComponent<Audio::SFXSource>())
+	{
 		_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-
+		_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+		_sfx->SetVolume(10);
+	}
+		
 	//_weapon = new Gun(this);
 	_weapon = new Bow(this);
 
@@ -124,11 +128,7 @@ void PlayerBehaviour::OnUpdate()
 			_player->TakeDamage(_damageBehaviour->TakeDamage());
 
 			if (_sfx)
-			{
-				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
-				_sfx->SetVolume(10);
 				_sfx->Play();
-			}	
 		}
 
 		if (_player->GetHealth() <= 0)

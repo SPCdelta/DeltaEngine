@@ -18,7 +18,7 @@ class SFXSource : public AudioSource
 	SFXSource(SFXSource&& other) noexcept;
 	SFXSource& operator=(SFXSource&& other) noexcept;
 	~SFXSource();
-	void Play() override;
+	void Play(int channel = 0) override;
 	void Pause() override;
 	void Resume() override;
 	void Stop() override;

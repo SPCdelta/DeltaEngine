@@ -104,9 +104,11 @@ void EnemyBehaviour::OnUpdate()
 
 				if (_sfx)
 				{
+					// todo
 					_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
-					_sfx->SetVolume(10); 
-					_sfx->Play();
+					_sfx->SetVolume(5); 
+					_sfx->Play(2);
+					
 				}			
 			}
 

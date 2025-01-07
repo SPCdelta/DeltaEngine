@@ -51,9 +51,9 @@ SFXSource& SFXSource::operator=(SFXSource&& other) noexcept
 
 Audio::SFXSource::~SFXSource() {}
 
-void SFXSource::Play()
+void SFXSource::Play(int channel)
 {
-	AudioManager::GetInstance().PlaySFX(_clip.get(), _loops);
+	AudioManager::GetInstance().PlaySFX(_clip.get(), _loops, channel);
 }
 
 void SFXSource::Pause()

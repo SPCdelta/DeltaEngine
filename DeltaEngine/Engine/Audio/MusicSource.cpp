@@ -45,7 +45,7 @@ MusicSource& MusicSource::operator=(MusicSource&& other) noexcept
 
 Audio::MusicSource::~MusicSource() {}
 
-void MusicSource::Play()
+void MusicSource::Play(int channel)
 {
 	AudioManager::GetInstance().PlayMusic(_clip.get(), _loops);
 }

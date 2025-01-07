@@ -18,7 +18,7 @@ namespace Audio
 			MusicSource(MusicSource&& other) noexcept;
 			MusicSource& operator=(MusicSource&& other) noexcept;
 			~MusicSource();
-			void Play() override;
+			void Play(int channel = 0) override;
 			void Pause() override;
 			void Resume() override;
 			void Stop() override;
