@@ -18,7 +18,7 @@ public:
 
 		std::shared_ptr<GameObject> menu{ Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };
 		menu->AddComponent<Ui::Image>("main_menu_bg");
-		menu->AddComponent<Audio::MusicSource>("Assets\\Audio\\Music\\Intro_Theme.mp3", false, true)->Play();
+		menu->AddComponent<Audio::MusicSource>("intro_theme", false, true)->Play();
 
 		menuView.SetTitleTextPosition({ 515, 50 });
 		menuView.SetTitleTextColor({ 255, 255, 255, 255 });

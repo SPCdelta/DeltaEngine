@@ -27,7 +27,7 @@ namespace Audio
 		void Loop(bool loop);
 	protected:
 		bool _playOnAwake;
-		std::string _path;
+		std::string _audioName;
 		int _volume;
 		int _loops;
 	};

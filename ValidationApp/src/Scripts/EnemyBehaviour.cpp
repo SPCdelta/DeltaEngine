@@ -99,7 +99,7 @@ void EnemyBehaviour::OnUpdate()
 			if (_enemy && _enemy->GetHealth() > 0 && _sfx)
 			{
 				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
-				_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+				_sfx->SetClip("taking_damage");
 				_sfx->Play();
 			}
 
