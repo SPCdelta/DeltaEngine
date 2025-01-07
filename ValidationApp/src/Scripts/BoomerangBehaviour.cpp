@@ -64,4 +64,5 @@ void BoomerangBehaviour::Return()
 {
 	_isReturning = true;
 	rigidbody->SetVelocity({0.0f, 0.0f});
+	rigidbody->GetCollider().SetTrigger(true);
 }

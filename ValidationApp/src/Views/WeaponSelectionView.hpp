@@ -24,6 +24,7 @@ private:
 	const float TITLE_SCALE = 0.02f;
 	const float TITLE_MARGINY_SCALE = 0.15f;
 	const float BUTTON_TEXT_SCALE = 0.015f;
+	const float BODY_TEXT_SCALE = 0.03f;
 	const float HOME_BTN_MARGINX_SCALE = 0.15f;
 	const float CONFIRM_BTN_MARGINX_SCALE = 0.7f;
 	const float BTN_MARGINY_SCALE = 0.15f;

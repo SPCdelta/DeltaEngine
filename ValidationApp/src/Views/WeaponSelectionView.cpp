@@ -62,7 +62,7 @@ void WeaponSelectionView::InitGun()
 	_gun = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_gun->AddComponent<Ui::Image>(GUN_SPRITE)->SetLayer(Layer::Foreground);
 
-	auto& text = *_gun->AddComponent<Ui::Text>("Gun", _fontName, 10, TEXT_COLOR);
+	auto& text = *_gun->AddComponent<Ui::Text>("Gun", _fontName, _scale * BODY_TEXT_SCALE, TEXT_COLOR);
 	SetTextCenterBottom(*_gun.get(), text);
 
 	_gun->AddComponent<Ui::Button>();
@@ -84,7 +84,7 @@ void WeaponSelectionView::InitBoomerang()
 	_boomerang = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_boomerang->AddComponent<Ui::Image>(BOOMERANG_SPRITE)->SetLayer(Layer::Foreground);
 
-	auto& text = *_boomerang->AddComponent<Ui::Text>("Boomerang", _fontName, 10, TEXT_COLOR);
+	auto& text = *_boomerang->AddComponent<Ui::Text>("Boomerang", _fontName, _scale * BODY_TEXT_SCALE, TEXT_COLOR);
 	SetTextCenterBottom(*_boomerang.get(), text);
 
 	_boomerang->AddComponent<Ui::Button>();
@@ -105,7 +105,7 @@ void WeaponSelectionView::InitBow()
 	_bow = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_bow->AddComponent<Ui::Image>(BOW_SPRITE)->SetLayer(Layer::Foreground);
 
-	auto& text = *_bow->AddComponent<Ui::Text>("Bow", _fontName, 10, TEXT_COLOR);
+	auto& text = *_bow->AddComponent<Ui::Text>("Bow", _fontName, _scale * BODY_TEXT_SCALE, TEXT_COLOR);
 	SetTextCenterBottom(*_bow.get(), text);
 
 	_bow->AddComponent<Ui::Button>();
@@ -151,9 +151,10 @@ void WeaponSelectionView::InitConfirmButton()
 		{
 			if (_weapon.empty()) return;
 
-			std::shared_ptr<GameObject> playerObject{ _scene.Instantiate({{4.0f, 4.0f}, 0.0f, {2.5f, 2.5f}}) };
-			std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
-			playerSheet->AddCustomAnimation("death", 6, 21, 150);
+			std::shared_ptr<GameObject> playerObject{ _scene.Instantiate() };
+			// TODO: remove unnecessary components for initialising playerBehaviourScript?
+			std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 0, 0, 0, 0, 0, 0, 0);
+			playerSheet->AddCustomAnimation("death", 0, 0, 0);
 			playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
 			playerObject->AddComponent<Audio::SFXSource>("", false, false);
 			playerObject->AddComponent<BoxCollider>();
