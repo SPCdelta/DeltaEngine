@@ -177,6 +177,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Items\Coin.cpp" />
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
@@ -218,6 +219,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Items\Potions\PotionType.hpp" />
     <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
@@ -471,6 +474,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Font>
     <None Include="Assets\Files\example.json" />
+    <None Include="Assets\Files\tiles.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

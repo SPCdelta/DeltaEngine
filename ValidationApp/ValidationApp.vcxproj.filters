@@ -41,6 +41,7 @@
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
     <ClCompile Include="src\Items\Coin.cpp" />
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -110,6 +111,8 @@
     <ClInclude Include="src\Classes\MySceneData.hpp" />
     <ClInclude Include="src\Views\ScoreScreen.hpp" />
     <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -161,6 +164,7 @@
   <ItemGroup>
     <None Include="Assets\Files\example.json" />
     <Font Include="Assets\Fonts\alucrads.otf" />
+    <None Include="Assets\Files\tiles.json" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf" />

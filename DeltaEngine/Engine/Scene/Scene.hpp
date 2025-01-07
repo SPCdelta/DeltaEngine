@@ -53,7 +53,6 @@ class Scene
 	}
 
 	void LoadScene(const std::string& name);
-	void LoadScene(const std::string& name, void* userData);
 
 	virtual void OnStart(){};
 	void DestroyObject(GameObject* gameObject)
