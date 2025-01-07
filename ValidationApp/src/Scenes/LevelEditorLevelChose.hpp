@@ -17,7 +17,7 @@ public:
 		MenuView menuView{ *this, "Main Menu", buttonAmount, "alucrads", {485, 50}, {300, 100}, 25, 80 };
 
 		std::shared_ptr<GameObject> menu{ Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };
-		menu->AddComponent<Ui::Image>("main_menu_bg");
+		menu->AddComponent<Ui::Image>("main_menu_bg")->SetLayer(Layer::Background);
 		menu->AddComponent<Audio::MusicSource>("intro_theme", false, true)->Play();
 
 		menuView.SetTitleTextPosition({ 515, 50 });
@@ -56,6 +56,20 @@ public:
 			{
 				LoadScene("LevelEditor");
 			}, "UI:new Level");
+
+		auto vp = GetWindow()->GetViewport();
+
+		std::shared_ptr<GameObject> share_btn{ Instantiate({{vp.width-100.f, vp.height-100.f}, 0.0f, {75.f, 75.f}}) };
+		share_btn->AddComponent<Ui::Image>("scroll3");
+		auto& text = *share_btn->AddComponent<Ui::Text>("Share", "goblin", 10, Rendering::Color{255, 255, 255, 255});
+		text.SetPosition({vp.width-90.f, vp.height-100.f+30.f});
+		share_btn->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() -> void
+			{
+				fs::path fullPath = fs::absolute(LEVEL_PATH);
+				fs::path currentPath = fs::current_path();
+				fs::path relativePath = fs::relative(fullPath, currentPath);
+				system(std::string{"explorer " + relativePath.string()}.c_str());
+			}, "Levelchooser");
 	}
 
 private:
