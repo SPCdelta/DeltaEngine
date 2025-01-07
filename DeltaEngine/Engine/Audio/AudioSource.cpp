@@ -5,7 +5,7 @@ using namespace Audio;
 
 AudioSource::AudioSource(bool playOnAwake, const std::string& path, int loops)
 	: _loops(loops),
-	  _volume(8), // todo
+	  _volume(DEFAULT_VOLUME),
 	  _path(path),
 	  _playOnAwake(playOnAwake)
 {

@@ -10,6 +10,7 @@ namespace Audio
 	constexpr auto DEFAULT_CHANNEL = -1;
 	constexpr auto AUDIO_ERROR = -1;
 	constexpr auto CURRENT_VOLUME = -1;
+	constexpr auto DEFAULT_VOLUME = 8;
 	class AudioManager
 	{
 	public:
