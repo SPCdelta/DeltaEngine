@@ -10,6 +10,7 @@ void LayerScene::OnStart()
 	playerObject->AddComponent<Audio::SFXSource>("", false, false);
 	playerObject->AddComponent<BoxCollider>();
 	playerObject->AddComponent<Rigidbody>();	
+	// TODO: Remove LoadPlayer() after player load/save is merged
 	playerObject->AddComponent<PlayerBehaviour>()->LoadPlayer();
 	playerObject->SetTag("player");
 
