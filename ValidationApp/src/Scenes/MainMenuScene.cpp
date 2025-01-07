@@ -27,7 +27,7 @@ void MainMenuScene::OnStart()
 
 	std::shared_ptr<GameObject> menu{ Instantiate({{0.0f, 0.0f}, 0.0f, {1280.0f, 720.0f}}) };
 	menu->AddComponent<Ui::Image>("main_menu_bg");
-	menu->AddComponent<Audio::MusicSource>("Assets\\Audio\\Music\\Intro_Theme.mp3", false, true)->Play();
+	menu->AddComponent<Audio::MusicSource>("intro_theme", false, true)->Play();
 
 	auto& music = menu->GetComponent<Audio::MusicSource>();
 	music.SetVolume(20);
@@ -61,7 +61,7 @@ void MainMenuScene::OnStart()
 	menuView.SetButtonOnLeftMouseClickLoadScene(3, this, "DevScene", "Main Menu");
 #endif
 	menuView.SetButtonOnLeftMouseClickLoadScene(1, this, "LevelEditorLevelChose", "Level Editor");
-	menuView.SetButtonSFX(-1, "Assets\\Audio\\SFX\\Button_1.mp3");
+	menuView.SetButtonSFX(-1, "button_1_click");
 
 	auto& sfx = menuView.GetButton(0)->GetComponent<Audio::SFXSource>();
 	menuView.SetButtonOnLeftMouseClick(-1, [&sfx]() -> void

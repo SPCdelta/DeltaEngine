@@ -6,7 +6,7 @@ using namespace Audio;
 AudioSource::AudioSource(bool playOnAwake, const std::string& path, int loops)
 	: _loops(loops),
 	  _volume(DEFAULT_VOLUME),
-	  _path(path),
+	  _audioName(path),
 	  _playOnAwake(playOnAwake)
 {
 
@@ -15,7 +15,7 @@ AudioSource::AudioSource(bool playOnAwake, const std::string& path, int loops)
 AudioSource::AudioSource(const AudioSource& other)
 	: _loops(other._loops),
 	  _volume(other._volume),
-	  _path(other._path),
+	  _audioName(other._audioName),
 	  _playOnAwake(other._playOnAwake)
 {
 }
@@ -26,7 +26,7 @@ AudioSource& AudioSource::operator=(const AudioSource& other)
 	{
 		_loops = other._loops;
 		_volume = other._volume;
-		_path = other._path;
+		_audioName = other._audioName;
 		_playOnAwake = other._playOnAwake;
 	}
 	return *this;
@@ -35,7 +35,7 @@ AudioSource& AudioSource::operator=(const AudioSource& other)
 AudioSource::AudioSource(AudioSource&& other) noexcept
 	: _loops(other._loops),
 	  _volume(other._volume),
-	  _path(other._path),
+	  _audioName(other._audioName),
 	  _playOnAwake(other._playOnAwake)
 {
 }
@@ -46,7 +46,7 @@ AudioSource& AudioSource::operator=(AudioSource&& other) noexcept
 	{
 		_loops = other._loops;
 		_volume = other._volume;
-		_path = other._path;
+		_audioName = other._audioName;
 		_playOnAwake = other._playOnAwake;
 	}
 	return *this;

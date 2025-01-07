@@ -14,7 +14,7 @@ void PlayerBehaviour::OnStart()
 	if (gameObject->HasComponent<Audio::SFXSource>())
 	{
 		_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-		_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+		_sfx->SetClip("taking_damage");
 		_sfx->SetVolume(10);
 	}
 		
@@ -126,7 +126,7 @@ void PlayerBehaviour::OnUpdate()
 		if (_player->GetHealth() > 0)
 		{
 			_player->TakeDamage(_damageBehaviour->TakeDamage());
-
+			PlayHurtParticle();
 			if (_sfx)
 				_sfx->Play();
 		}
@@ -137,7 +137,7 @@ void PlayerBehaviour::OnUpdate()
 			{
 				if (_sfx)
 				{
-					_sfx->SetClip("Assets\\Audio\\SFX\\Death.mp3");
+					_sfx->SetClip("death");
 					_sfx->SetVolume(20);
 					_sfx->Play();
 				}
@@ -232,6 +232,34 @@ void PlayerBehaviour::UpdateConsumables()
 			_activeConsumables.erase(_activeConsumables.begin() + i);
 		}
 	}
+}
+
+void PlayerBehaviour::PlayHurtParticle() 
+{
+	if (gameObject->HasComponent<ParticleEmitter>())
+	{
+		gameObject->RemoveComponent<ParticleEmitter>();
+	}
+
+	gameObject->AddComponent<ParticleEmitter>(
+		ParticleEmitterConfiguration{
+			{"particle_big", "particle_medium_1", "particle_medium_2", "particle_small", "particle_tiny"},
+			{255, 0, 0, 255},
+			{220, 0, 0, 255},
+
+			1.0f, 25, 0.25f,
+
+			2.0f, 2.0f,
+			false,
+			0.5f, 0.75f,
+			0.5f, 0.75f,
+
+			0.0f, 360.0f, 
+			0.0f, 0.0f,
+
+			0.25f, 0.25f
+		})
+	->Start();
 }
 
 void PlayerBehaviour::ThrowBoomerang()

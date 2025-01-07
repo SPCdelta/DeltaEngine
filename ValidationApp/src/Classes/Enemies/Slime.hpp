@@ -17,7 +17,7 @@ class Slime : public Enemy
 
 		if (_sfx)
 		{
-			_sfx->SetClip("Assets\\Audio\\SFX\\Slime_death.mp3");
+			_sfx->SetClip("slime_death");
 			_sfx->SetVolume(5);
 			_sfx->Play();
 		}

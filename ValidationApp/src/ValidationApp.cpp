@@ -167,4 +167,20 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
 	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 	ResourceManager::AddFont("goblin","Assets\\Fonts\\a_goblin_appears.ttf");
+
+	// Audio
+	ResourceManager::AddAudio("taking_damage", "Assets\\Audio\\SFX\\Taking_damage.mp3");
+	ResourceManager::AddAudio("death", "Assets\\Audio\\SFX\\Death.mp3");
+	ResourceManager::AddAudio("bow_shoot", "Assets\\Audio\\SFX\\Bow_shoot.mp3");
+	ResourceManager::AddAudio("boomerang_throw", "Assets\\Audio\\SFX\\boomerang.mp3");
+
+	ResourceManager::AddAudio("goblin_death", "Assets\\Audio\\SFX\\Goblin_death_1.mp3");
+	ResourceManager::AddAudio("skeleton_death", "Assets\\Audio\\SFX\\Skeleton_death.mp3");
+	ResourceManager::AddAudio("slime_death", "Assets\\Audio\\SFX\\Slime_death.mp3");
+
+	ResourceManager::AddAudio("button_1_click", "Assets\\Audio\\SFX\\Button_1.mp3");
+
+	ResourceManager::AddAudio("boss_music", "Assets\\Audio\\Music\\Boss_music_1.mp3");
+	ResourceManager::AddAudio("intro_theme", "Assets\\Audio\\Music\\Intro_Theme.mp3");
+	ResourceManager::AddAudio("menu", "Assets\\Audio\\Music\\Menu_music.mp3");
 }

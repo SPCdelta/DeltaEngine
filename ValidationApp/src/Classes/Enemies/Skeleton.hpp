@@ -32,7 +32,7 @@ class Skeleton : public Enemy
 
                 if (_sfx)
                 {
-					_sfx->SetClip("Assets\\Audio\\SFX\\Bow_shoot.mp3");
+					_sfx->SetClip("bow_shoot");
 					_sfx->SetVolume(5);
 					_sfx->Play();
                 }
@@ -54,7 +54,7 @@ class Skeleton : public Enemy
 
         if (_sfx)
         {
-            _sfx->SetClip("Assets\\Audio\\SFX\\Skeleton_death.mp3");
+            _sfx->SetClip("skeleton_death");
 			_sfx->SetVolume(5);
 		    _sfx->Play();
         }

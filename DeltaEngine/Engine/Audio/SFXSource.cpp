@@ -1,13 +1,14 @@
 #include "AudioLoader.hpp"
 #include "SFXSource.hpp"
+#include "../Rendering/ResourceManager.hpp"
 
 using namespace Audio;
 
 Audio::SFXSource::SFXSource() : AudioSource(false, "", 0), _clip(std::move(AudioLoader::LoadChunk(""))) {}
 
-SFXSource::SFXSource(const std::string& path, bool playOnAwake, int loops = 0)
-	: AudioSource(playOnAwake, path, loops),
-	  _clip(std::move(AudioLoader::LoadChunk(path)))
+SFXSource::SFXSource(const std::string& audioName, bool playOnAwake, int loops = 0)
+	: AudioSource(playOnAwake, audioName, loops),
+	  _clip(std::move(AudioLoader::LoadChunk(ResourceManager::GetAudio(audioName))))
 {
 	if (playOnAwake)
 	{
@@ -16,7 +17,7 @@ SFXSource::SFXSource(const std::string& path, bool playOnAwake, int loops = 0)
 }
 
 SFXSource::SFXSource(const SFXSource& other)
-	: AudioSource(other), _clip(AudioLoader::LoadChunk(other._path))
+	: AudioSource(other), _clip(AudioLoader::LoadChunk(other._audioName))
 {
 	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
@@ -26,7 +27,7 @@ SFXSource& SFXSource::operator=(const SFXSource& other)
 	if (this != &other)
 	{
 		AudioSource::operator=(other);
-		_clip = std::move(AudioLoader::LoadChunk(other._path));
+		_clip = std::move(AudioLoader::LoadChunk(other._audioName));
 		AudioManager::GetInstance().SetMusicVolume(_volume);
 	}
 	return *this;
@@ -81,10 +82,10 @@ void SFXSource::IncreaseVolume(int volume)
 	AudioManager::GetInstance().IncreaseSFXVolume(_clip.get(), volume);
 }
 
-void SFXSource::SetClip(std::string pathToClip)
+void SFXSource::SetClip(std::string audioName)
 {
 	_clip.reset();
-	_clip = std::move(AudioLoader::LoadChunk(pathToClip));
+	_clip = std::move(AudioLoader::LoadChunk(ResourceManager::GetAudio(audioName)));
 }
 
 Mix_Chunk* SFXSource::GetSource() const
