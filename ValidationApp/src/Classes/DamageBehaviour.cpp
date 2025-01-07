@@ -38,7 +38,7 @@ void DamageBehaviour::Update(float deltaTime)
 		if (static_cast<int>(_invincibleTime * 10) % 2 == 0)
 			_sprite.SetColor(_ogColor);	 // Normal color
 		else
-			_sprite.SetColor(Rendering::Color(255.0f, 255.0f, 255.0f, 1.5f)); // Flash effect
+			_sprite.SetColor(Rendering::Color(255, 255, 255, 2)); // Flash effect
 	}
 	else
 	{
@@ -69,7 +69,7 @@ int DamageBehaviour::TakeDamage()
         }
 
 		StartInvincibility();
-		_sprite.SetColor(Rendering::Color(255.0f, 0.0f, 0.0f, 1.0f));	
+		_sprite.SetColor(Rendering::Color(255, 0, 0, 1));	
 	}
 	else
 	{

@@ -232,7 +232,7 @@ void PlayerBehaviour::ThrowBoomerang()
 
 	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
-	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
+	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(static_cast<float>(_mouseX), static_cast<float>(_mouseY)));
 
 	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
 

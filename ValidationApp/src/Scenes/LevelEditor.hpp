@@ -270,7 +270,7 @@ public:
         if (_tileIndexOptions < 0){
             _layerIndexTopBar -= 1;
             if (_layerIndexTopBar < 0)
-                _layerIndexTopBar = SPRITE_CATEGORY.size() -1;
+				_layerIndexTopBar = static_cast<int>(SPRITE_CATEGORY.size() - 1);
             
             _tileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
             

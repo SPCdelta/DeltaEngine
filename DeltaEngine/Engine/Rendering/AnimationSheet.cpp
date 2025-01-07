@@ -27,7 +27,7 @@ void AnimationSheet::AddCustomAnimation(const std::string& animationName, int fr
 
 bool AnimationSheet::PlayCustomAnimation(const std::string& animationName)
 {
-	Rendering::UnsignInt32 currentTime = Time::GetDeltaTime();
+	Rendering::UnsignInt32 currentTime = static_cast<Rendering::UnsignInt32>(Time::GetDeltaTime());
 	if (customAnimations.find(animationName) == customAnimations.end())
 		return false;
 	
