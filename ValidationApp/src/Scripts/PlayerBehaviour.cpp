@@ -51,7 +51,6 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	UpdateAttack(Time::GetDeltaTime());
 	if (_player->GetHealth() > 0 && _attacking)
 	{
 		if (_weapon)
@@ -176,6 +175,7 @@ void PlayerBehaviour::OnUpdate()
 	}
 
 	UpdateConsumables();
+	_weapon->Update(Time::GetDeltaTime());
 
 	this->gameObject->GetCamera()->SetPosition(
 		this->gameObject->transform->position);
