@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine/Delta.hpp>
+#include "WeaponType.hpp"
 
 class Weapon
 {
@@ -19,7 +20,11 @@ public:
 		_user = nullptr;
 	}
 
-	virtual void Use() = 0;
+	virtual void Use() {};
+	virtual WeaponType GetWeaponType() const
+	{
+		return WeaponType::Weapon;
+	}
 
 	Math::Vector2 GetAimDirection() const
 	{ 
@@ -29,8 +34,6 @@ public:
 
 protected:
 	BehaviourScript* _user;
-
-private:
 	int _mouseX = 0;
 	int _mouseY = 0;
 };

@@ -1,11 +1,11 @@
-#include "Boomerang.hpp"
+#include "BoomerangBehaviour.hpp"
 
-void Boomerang::OnStart() 
+void BoomerangBehaviour::OnStart() 
 {
 	Projectile::OnStart();
 }
 
-void Boomerang::OnUpdate() 
+void BoomerangBehaviour::OnUpdate() 
 {
 	Projectile::OnUpdate();
 	if (_finished) return;
@@ -35,7 +35,7 @@ void Boomerang::OnUpdate()
 	}
 }
 
-void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
+void BoomerangBehaviour::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
 {
 	audioSource = gameObject->AddComponent<Audio::SFXSource>("Assets\\Audio\\SFX\\boomerang.mp3", false, -1);
 
@@ -60,7 +60,7 @@ void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Ma
 	audioSource->Play();
 }
 
-void Boomerang::Return() 
+void BoomerangBehaviour::Return() 
 {
 	_isReturning = true;
 	rigidbody->SetVelocity({0.0f, 0.0f});

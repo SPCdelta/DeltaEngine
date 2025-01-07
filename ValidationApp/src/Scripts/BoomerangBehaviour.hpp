@@ -4,7 +4,7 @@
 
 #include "../Classes/Projectiles/Projectile.hpp"
 
-class Boomerang : public Projectile
+class BoomerangBehaviour : public Projectile
 {
 public:
 	void OnStart() override;
