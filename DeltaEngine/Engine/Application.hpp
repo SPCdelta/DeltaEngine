@@ -54,7 +54,6 @@ public:
 		_isRunning = false;
 
 		Rendering::Quit();
-		TTF_Quit();
 		Rendering::QuitImage();
 		Mix_Quit();
 	}

@@ -25,7 +25,7 @@ public:
 		FontManager::AddFont(fontName, fontPath);
 	}
 
-	static Font::Font* GetFont(const std::string& name, int fontSize)
+	static std::shared_ptr<FontWrapper> GetFont(const std::string& name, int fontSize)
 	{
 		return FontManager::Get(name, fontSize);
 	}

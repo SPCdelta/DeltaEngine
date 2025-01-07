@@ -19,66 +19,66 @@ Text::Text(const std::string& text, const std::string& fontName, int fontSize,
 	}
 }
 
-Text::Text(const Text& other)
-	: 
-	  _text{other._text},
-	  _font{other._font},
-	  _color{other._color},
-	_fontName{ other._fontName },
-	_fontSize{ other._fontSize },
-	_background{ other._background },
-	_backgroundColor{ other._backgroundColor },
-	_position{ other._position }
-{
-}
+//Text::Text(const Text& other)
+//	: 
+//	  _text{other._text},
+//	  _font{other._font},
+//	  _color{other._color},
+//	_fontName{ other._fontName },
+//	_fontSize{ other._fontSize },
+//	_background{ other._background },
+//	_backgroundColor{ other._backgroundColor },
+//	_position{ other._position }
+//{
+//	int bp = 0;
+//}
 
-Text& Text::operator=(const Text& other)
-{
-	if (this != &other)
-	{
-		_text = other._text;
-		_font = other._font;
-		_color = other._color;
-		_fontName = other._fontName;
-		_fontSize = other._fontSize;
-		_background =other._background;
-		_backgroundColor = other._backgroundColor;
-		_position =  other._position;
-	}
-	return *this;
-}
+//Text& Text::operator=(const Text& other)
+//{
+//	if (this != &other)
+//	{
+//		_text = other._text;
+//		_font = other._font;
+//		_color = other._color;
+//		_fontName = other._fontName;
+//		_fontSize = other._fontSize;
+//		_background =other._background;
+//		_backgroundColor = other._backgroundColor;
+//		_position =  other._position;
+//	}
+//	return *this;
+//}
 
-Text::Text(Text&& other) noexcept
-	: _text{other._text},
-	  _font{other._font},
-	  _color{other._color},
-	  _fontName{other._fontName},
-	_fontSize{other._fontSize},
-	_background{other._background },
-	_backgroundColor{other._backgroundColor},
-	_position{other._position}
+//Text::Text(Text&& other) noexcept
+//	: _text{other._text},
+//	  _font{other._font},
+//	  _color{other._color},
+//	  _fontName{other._fontName},
+//	_fontSize{other._fontSize},
+//	_background{other._background },
+//	_backgroundColor{other._backgroundColor},
+//	_position{other._position}
+//
+//{
+//	int bp = 0;
+//}
 
-{
-}
-
-Text& Text::operator=(Text&& other) noexcept
-{
-	if (this != &other)
-	{
-		_text = other._text;
-		_font = other._font;
-		_color = other._color;
-		_fontName = other._fontName;
-		_fontSize = other._fontSize;
-		_background = other._background;
-		_backgroundColor = other._backgroundColor;
-		_position = other._position;
-
-	}
-	return *this;
-}
-
-Text::~Text() {}
+//Text& Text::operator=(Text&& other) noexcept
+//{
+//	if (this != &other)
+//	{
+//		_text = other._text;
+//		_font = other._font;
+//		_color = other._color;
+//		_fontName = other._fontName;
+//		_fontSize = other._fontSize;
+//		_background = other._background;
+//		_backgroundColor = other._backgroundColor;
+//		_position = other._position;
+//
+//	}
+//	return *this;
+//}
 
 void Text::Render(Renderer* renderer, const Transform& transform)
 {
@@ -89,7 +89,7 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 		return;
 	}
 
-	Surface* surface = Font::RenderText_Solid(_font, _text.c_str(), _color);
+	Surface* surface = Font::RenderText_Solid(_font->GetFont(), _text.c_str(), _color);
 
 	if (surface == nullptr)
 	{
@@ -157,7 +157,7 @@ int Ui::Text::GetFontSize() const
 	return _fontSize;
 }
 
-Font::Font* Ui::Text::GetFont() const
+std::shared_ptr<FontWrapper> Ui::Text::GetFont() const
 {
 	return _font;
 }
