@@ -15,6 +15,7 @@
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/LevelSelectScene.hpp"
 #include "Scenes/LevelScene.hpp"
+#include "Scenes/LevelEditorMenuScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
@@ -40,9 +41,10 @@ ValidationApp::ValidationApp()
 	RegisterScene<MainMenuScene>("MainMenuScene");
 	RegisterScene<LevelSelectScene>("LevelSelectScene");
 	RegisterScene<LevelScene>("LevelScene");
+	RegisterScene<LevelEditorMenuScene>("LevelEditorMenuScene");
 
 	// Load Desired Scene
-	LoadScene("LevelSelectScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();

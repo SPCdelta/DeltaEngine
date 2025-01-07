@@ -17,7 +17,7 @@ MainMenuScene::MainMenuScene(const std::string& sceneName)
 void MainMenuScene::OnStart() 
 {
 	// Other
-	MenuView menuView { *this, "Main Menu", 
+	MenuView menuView { *this, "Main Menu",
 		#if _DEBUG
 		4, 
 		#else
@@ -45,6 +45,8 @@ void MainMenuScene::OnStart()
 	menuView.SetButtonTextSize(1, 60);
 
 	menuView.SetButtonText(0, "Start");
+	menuView.SetButtonOnLeftMouseClickLoadScene(0, this, "LevelSelectScene", "Main Menu");
+
 	menuView.SetButtonText(1, "Level Editor");
 	menuView.SetButtonText(2, "Quit");
 
@@ -57,7 +59,7 @@ void MainMenuScene::OnStart()
 	menuView.AddButtonTextPosition(3, {45, 0});
 	menuView.SetButtonOnLeftMouseClickLoadScene(3, this, "DevScene", "Main Menu");
 #endif
-	menuView.SetButtonOnLeftMouseClickLoadScene(1, this, "LevelEditorLevelChose", "Level Editor");
+	menuView.SetButtonOnLeftMouseClickLoadScene(1, this, "LevelEditorMenuScene", "Level Editor");
 	menuView.SetButtonSFX(-1, "button_1_click");
 
 	auto& sfx = menuView.GetButton(0)->GetComponent<Audio::SFXSource>();

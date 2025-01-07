@@ -111,6 +111,11 @@
     <ClInclude Include="src\Classes\MySceneData.hpp" />
     <ClInclude Include="src\Views\ScoreScreen.hpp" />
     <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
+    <ClInclude Include="src\UI\UIFactory.hpp" />
+    <ClInclude Include="src\Classes\LevelManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
