@@ -42,7 +42,7 @@ public:
 	void LoadPlayer();
 	void SavePlayer();
 
-	Player& GetPlayer() const { return *_player; }
+	Player* GetPlayer() const { return _player.get(); }
 
 	// Components
 	Sprite* sprite = nullptr;
@@ -65,6 +65,9 @@ private:
 
 	// Audio
 	Audio::SFXSource* _sfx;
+	
+	// Extra
+	ParticleEmitter* _hurtEmitter;
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
 	int _mouseX = 0;
@@ -87,6 +90,7 @@ private:
 	void InitHotbarKeybinds();
 	void ConsumeItem();
 	void UpdateConsumables();
+	void PlayHurtParticle();
 
 	bool _attacking{false};
 	float _attackTime{0.0f};

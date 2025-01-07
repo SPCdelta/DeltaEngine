@@ -12,7 +12,7 @@
 class HUDView : public IView
 {
 public:
-	HUDView(Scene& scene, const std::string& fontName, Player& player);
+	HUDView(Scene& scene, const std::string& fontName, Player* player);
 	const Math::Vector2& GetSize() const override;
 private:
 	void InitHotbar();
@@ -24,7 +24,7 @@ private:
 	std::unique_ptr<ShieldBarComponent> _shieldBar;
 	std::unique_ptr<CoinComponent> _coinCounter;
 	const Uint8 NUM_OF_COLS = 9;
-	Player& _player;
+	Player* _player;
 	const float HOTBAR_SCALE = 0.0001f;
 	const float BAR_YSCALE = 0.00003f;
 	const float BAR_MY_SCALE = 0.33f;

@@ -1,10 +1,12 @@
 #pragma once
 #include <cassert>
 
-#include "TextureManager.hpp"
-#include "../UI/FontManager.hpp"
 #include <unordered_map>
 #include <algorithm>
+
+#include "TextureManager.hpp"
+#include "../UI/FontManager.hpp"
+#include "../Audio/AudioManager.hpp"
 
 class SpriteMap;
 
@@ -71,6 +73,16 @@ public:
 		return result;
 	}
 
+	// Audio
+	static void AddAudio(const std::string& name, const std::string& path)
+	{
+		instance._audio[name] = path;
+	}
+
+	static const std::string& GetAudio(const std::string& name)
+	{
+		return instance._audio[name];
+	}
 
 	static void Cleanup() 
 	{
@@ -82,6 +94,7 @@ private:
 	static ResourceManager instance;
 	std::unordered_map<std::string, SpriteData*> _sprites;
 	std::unordered_map<std::string, Font::Font*> _fonts;
+	std::unordered_map<std::string, std::string> _audio;
 
 	ResourceManager() { }
 	~ResourceManager()

@@ -1,7 +1,7 @@
 #include "BarComponent.hpp"
 
 BarComponent::BarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale,
-	Player& player, const std::string& spriteName) : IView(scene, fontName, startPos, scale), _spriteName{spriteName}
+	Player* player, const std::string& spriteName) : IView(scene, fontName, startPos, scale), _spriteName{spriteName}
 {
 	InitBarFg(player);
 	InitBarBg();
@@ -21,7 +21,7 @@ const Math::Vector2& BarComponent::GetSize() const
 	return _scale;
 }
 
-void BarComponent::InitText(Player& player)
+void BarComponent::InitText(Player* player)
 {
 	_text = std::shared_ptr<GameObject>{ _scene.Instantiate({ _pos, 0.0f, _scale }) };
 	auto* text = _text->AddComponent<Ui::Text>("", _fontName, static_cast<int>(_scale.Magnitude() * TEXT_SCALE), DEFAULT_COLOR);
@@ -39,7 +39,7 @@ void BarComponent::InitBarBg()
 	_barBg->AddComponent<Ui::Image>(DEFAULT_BAR);
 }
 
-void BarComponent::InitBarFg(Player& player)
+void BarComponent::InitBarFg(Player* player)
 {
 	_barFg = std::shared_ptr<GameObject>{ _scene.Instantiate({ _pos, 0.0f, _scale }) };
 	_barFg->AddComponent<Ui::Image>(_spriteName);
