@@ -45,7 +45,6 @@ public:
 	Sprite* sprite = nullptr;
 	Rigidbody* rigidbody = nullptr;
 
-	void UpdateAttack(float deltaTime);
 	void SetWeapon(const std::string& weaponType);
 
 private:
@@ -90,9 +89,6 @@ private:
 	void PlayHurtParticle();
 
 	bool _attacking{false};
-	float _attackTime{0.0f};
-	const float _attackDuration = 0.4f;	
-	void StartAttack() { _attackTime = _attackDuration; }
 
 	float deathElapsedTime = 0.0f;
 	bool deathSoundPlayed = false;
