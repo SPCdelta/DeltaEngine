@@ -180,3 +180,8 @@ const Math::Vector2& Ui::Text::GetPosition() const
 {
 	return _position;
 }
+
+Transform Ui::Text::GetTransform()
+{
+	return Transform(_position, 0.0f, {}, nullptr);
+}

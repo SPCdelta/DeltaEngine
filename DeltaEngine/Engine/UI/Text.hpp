@@ -28,6 +28,7 @@ class Text : public TextRenderable
 	void SetPosition(const Math::Vector2& position);
 	void SetColor(const Rendering::Color& color);
 	const Math::Vector2& GetPosition() const;
+	Transform GetTransform();
 
    private:
 	std::string _text;

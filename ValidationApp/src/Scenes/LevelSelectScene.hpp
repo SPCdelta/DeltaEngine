@@ -20,8 +20,12 @@ public:
 	{
 		// Title
 		std::shared_ptr<GameObject> title = CreateText("Select Level", "goblin", 32, Rendering::Color{ 255, 0, 0, 255 });
-		title->transformRef.position = { 100.0f, 100.0f };
-		title->transformRef.scale = { 100.0f, 100.0f };
+		title->transformRef.position = { 100.0f, 20.0f };
+		title->transformRef.scale = { 100.0f, 80.0f };
+
+		// Background
+		std::shared_ptr<GameObject> background = CreateImage("main_menu_bg", Layer::Background);
+		background->transformRef.scale = { 1280.0f, 720.0f };
 
 		// Check files
 		const std::string levelSettingsPath = "Assets\\Settings\\levels.json";
@@ -49,8 +53,9 @@ public:
 			std::string levelName = file["levels"][i];
 			std::string displayName = FormatDisplayName(levelName);
 
-			std::shared_ptr<GameObject> buttonObj = CreateButton(displayName, "goblin", 16, Rendering::Color{255, 0, 0, 255});
+			std::shared_ptr<GameObject> buttonObj = CreateButton(displayName, "goblin", 16, Rendering::Color{255, 0, 0, 255}, Layer::Button);
 			Ui::Button& button = buttonObj->GetComponent<Ui::Button>();
+			Ui::Text& text = buttonObj->GetComponent<Ui::Text>();
 			button.SetOnLeftMouseClick(
 				[this, levelName]()
 				{ 
@@ -62,8 +67,18 @@ public:
 				},
 				"jeroen"
 			);
-			buttonObj->transformRef.position = { 100.0f, (50.0f + 10.0f) * i + 200.0f  };
-			buttonObj->transformRef.scale = { 100.0f, 50.0f };
+			buttonObj->transformRef.position = {
+				100.0f, (50.0f + 10.0f) * i +
+							(title->transformRef.position.GetY() +
+							 title->transformRef.scale.GetY() + 20.0f)};
+
+			float xSize = (Font::GetFontSize(text.GetFont(), text.GetText()).GetX() * 1.25f);
+			buttonObj->transformRef.scale = 
+			{ 
+				xSize, 
+				50.0f
+			};
+			text.SetPosition({ (buttonObj->transformRef.scale.GetX() - xSize) * 0.5f, 0.0f });
 		}
 	}
 
@@ -75,13 +90,20 @@ protected:
 		return textObj;
 	}
 
-	std::shared_ptr<GameObject> CreateButton(const std::string& text, const std::string& font, int fontSize, const Rendering::Color textColor)
+	std::shared_ptr<GameObject> CreateButton(const std::string& text, const std::string& font, int fontSize, const Rendering::Color textColor, Layer layer)
 	{
 		std::shared_ptr<GameObject> buttonObj = Instantiate();
 		buttonObj->AddComponent<Ui::Button>(Vector2{ 100.0f, 100.0f }, Vector2{ 100.0f, 50.0f });
 		buttonObj->AddComponent<Ui::Text>(text, font, fontSize, textColor);
-		buttonObj->AddComponent<Ui::Image>("scroll3");
+		buttonObj->AddComponent<Ui::Image>("scroll3")->SetLayer(layer);
 		return buttonObj;
+	}
+
+	std::shared_ptr<GameObject> CreateImage(const std::string& spriteName, Layer layer)
+	{
+		std::shared_ptr<GameObject> imageObj = Instantiate();
+		imageObj->AddComponent<Ui::Image>(spriteName)->SetLayer(layer);
+		return imageObj;
 	}
 
 private:
