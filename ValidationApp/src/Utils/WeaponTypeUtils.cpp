@@ -13,7 +13,7 @@ const std::string WeaponTypeUtils::ToString(WeaponType type)
 	{
 		return it->second;
 	}
-	throw std::invalid_argument("Unknown PotionType");
+	throw std::invalid_argument("Unknown WeaponType");
 }
 
 WeaponType WeaponTypeUtils::FromString(const std::string& type)
