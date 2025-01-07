@@ -6,7 +6,7 @@ WeaponSelectionView::WeaponSelectionView(Scene& scene, const std::string& fontNa
 	: IView(scene, fontName, startPos, scale), _sceneName{sceneName}
 {
 	_window = _scene.Instantiate({ _pos, 0.0f, _scale });
-	_window->AddComponent<Ui::Image>(WINDOW_FRAME_SPRITENAME)->SetLayer(Layer::Background);
+	_window->AddComponent<Ui::Image>(WINDOW_FRAME_SPRITENAME)->SetLayer(Layer::Default);
 	SetCenter(); // set center must be called after initializing window
 	InitTitle();
 	InitBody();

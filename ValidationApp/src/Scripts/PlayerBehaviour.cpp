@@ -255,25 +255,6 @@ void PlayerBehaviour::PlayHurtParticle()
 	->Start();
 }
 
-void PlayerBehaviour::ThrowBoomerang()
-{
-	// On Delay
-	if (_boomerang)
-		return;
-
-	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
-	_boomerang = boomerangObj->AddComponent<Boomerang>();
-	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
-
-	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
-
-	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
-	{ 
-		Destroy(boomerangObj);
-		_boomerang = nullptr;
-	});
-}
-
 void PlayerBehaviour::LoadPlayer()
 {
 	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
