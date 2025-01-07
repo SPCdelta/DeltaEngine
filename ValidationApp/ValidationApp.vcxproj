@@ -179,6 +179,7 @@
     <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
     <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
     <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
+    <ClCompile Include="src\Items\Coin.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
@@ -225,6 +226,7 @@
   <ItemGroup>
     <ClInclude Include="src\Classes\Weapons\Boomerang.hpp" />
     <ClInclude Include="src\Classes\Weapons\WeaponType.hpp" />
+    <ClInclude Include="src\Items\Coin.hpp" />
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Items\Potions\PotionType.hpp" />
     <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />

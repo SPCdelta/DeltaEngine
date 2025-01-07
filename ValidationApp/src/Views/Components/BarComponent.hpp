@@ -9,14 +9,14 @@ class BarComponent : public IView
 {
 public:
 	BarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos,
-		const Math::Vector2& scale, Player& player, const std::string& spriteName);
+		const Math::Vector2& scale, Player* player, const std::string& spriteName);
 	void ValueChanged(int value);
 	const Math::Vector2& GetSize() const override;
 protected:
 	void InitBarBg();
-	void InitBarFg(Player& player);
-	void InitText(Player& player);
-	virtual void InitValues(Player& player) = 0;
+	void InitBarFg(Player* player);
+	void InitText(Player* player);
+	virtual void InitValues(Player* player) = 0;
 	void UpdateText();
 	std::shared_ptr<GameObject> _text;
 	std::shared_ptr<GameObject> _barBg;

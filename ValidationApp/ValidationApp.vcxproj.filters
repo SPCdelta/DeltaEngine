@@ -47,6 +47,7 @@
     <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
     <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
     <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
+    <ClCompile Include="src\Items\Coin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="src\Classes\Weapons\WeaponType.hpp" />
     <ClInclude Include="src\Utils\WeaponTypeUtils.hpp" />
     <ClInclude Include="src\Classes\Weapons\Boomerang.hpp" />
+    <ClInclude Include="src\Items\Coin.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
