@@ -12,18 +12,10 @@ void PlayerBehaviour::OnStart()
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
-	if (loadedPlayer.contains("player"))
-	{
-		LoadPlayer();
-	}
-	else
-	{
-		// TODO weapon based on what you chose, other US
-		//_weapon = new Gun(this);
-		_weapon = new Bow(this);
-	}
-
+	// TODO weapon based on what you chose, other US
+	//_weapon = new Gun(this);
+	_weapon = new Bow(this);
+	
 	onMouseMove([this](Input& e) 
 	{ 
 		_mouseX = e.mouseX;
@@ -274,14 +266,16 @@ void PlayerBehaviour::LoadPlayer()
 				auto& itemData = loadedPlayer["player"]["inventory"][i];
 				if (itemData.contains("type"))
 				{
-					_player->AddItemToInventory(PotionFactory::CreatePotion
-					(
+					auto potion = PotionFactory::CreatePotion(
 						itemData["type"],
 						itemData["time"],
 						itemData["sprite"],
 						itemData["name"],
 						itemData["value"]
-					).release(), itemData["amount"]);
+					);
+
+					if (potion)
+						_player->AddItemToInventory(potion.release(), itemData["amount"]);
 				}
 			}
 		}

@@ -1,10 +1,10 @@
 {
     "player": {
-        "coins": 10,
-        "health": 65,
+        "coins": 15,
+        "health": 70,
         "inventory": [
             {
-                "amount": 1,
+                "amount": 2,
                 "name": "defensepotion",
                 "sprite": "potion_effervescent",
                 "time": 10.0,

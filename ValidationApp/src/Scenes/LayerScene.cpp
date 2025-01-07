@@ -10,7 +10,7 @@ void LayerScene::OnStart()
 	playerObject->AddComponent<Audio::SFXSource>("", false, false);
 	playerObject->AddComponent<BoxCollider>();
 	playerObject->AddComponent<Rigidbody>();	
-	playerObject->AddComponent<PlayerBehaviour>();
+	auto playerBehaviour = playerObject->AddComponent<PlayerBehaviour>();
 	playerObject->SetTag("player");
 
 	// Create goblin enemy
@@ -86,4 +86,5 @@ void LayerScene::OnStart()
 	exit->AddComponent<Sprite>("player")->SetLayer(Layer::Foreground);
 	
 	_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
+	playerBehaviour->LoadPlayer();
 }
