@@ -4,13 +4,13 @@
 void PlayerBehaviour::OnStart() 
 {
 	_player = std::make_unique<Player>();
-	sprite = &gameObject->GetComponent<Sprite>();
-	rigidbody = &gameObject->GetComponent<Rigidbody>();
+	sprite = &(transform->gameObject->GetComponent<Sprite>());
+	rigidbody = &(transform->gameObject->GetComponent<Rigidbody>());
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
-	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
+	_sfx = &(transform->gameObject->GetComponent<Audio::SFXSource>());
 
 	//_weapon = new Gun(this);
 	_weapon = new Bow(this);
@@ -145,7 +145,7 @@ void PlayerBehaviour::OnUpdate()
 					if (!_scoreScreen)
 					{
 						_scoreScreen = std::make_unique<ScoreScreen>(
-							*gameObject->_scene, SCORE_SCREEN_FONT,
+							*(transform->gameObject->_scene), SCORE_SCREEN_FONT,
 							Math::Vector2{0, 0}, SCORE_SCREEN_SCALE,
 							DEATH_MSG,
 							DEATH_MSG_COLOR,
@@ -180,8 +180,8 @@ void PlayerBehaviour::OnUpdate()
 
 	UpdateConsumables();
 
-	this->gameObject->GetCamera()->SetPosition(
-		this->gameObject->transform->position);
+	this->transform->gameObject->GetCamera()->SetPosition(
+		this->transform->position);
 }
 
 void PlayerBehaviour::UpdateAttack(float deltaTime)
@@ -227,12 +227,12 @@ void PlayerBehaviour::UpdateConsumables()
 
 void PlayerBehaviour::PlayHurtParticle() 
 {
-	if (gameObject->HasComponent<ParticleEmitter>())
+	if (transform->gameObject->HasComponent<ParticleEmitter>())
 	{
-		gameObject->RemoveComponent<ParticleEmitter>();
+		transform->gameObject->RemoveComponent<ParticleEmitter>();
 	}
 
-	gameObject->AddComponent<ParticleEmitter>(
+	transform->gameObject->AddComponent<ParticleEmitter>(
 		ParticleEmitterConfiguration{
 			{"particle_big", "particle_medium_1", "particle_medium_2", "particle_small", "particle_tiny"},
 			{255, 0, 0, 255},
@@ -259,15 +259,15 @@ void PlayerBehaviour::ThrowBoomerang()
 	if (_boomerang)
 		return;
 
-	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
+	std::shared_ptr<GameObject> boomerangObj = Instantiate();
 	_boomerang = boomerangObj->AddComponent<Boomerang>();
-	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
+	Math::Vector2 throwDirection = transform->position.DirectionTo(camera->ScreenToWorldPoint(_mouseX, _mouseY));
 
-	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
+	_boomerang->Throw(transform->gameObject, 15.0f, transform->position, throwDirection);
 
 	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
 	{ 
-		Destroy(boomerangObj);
+		boomerangObj->Destroy();
 		_boomerang = nullptr;
 	});
 }

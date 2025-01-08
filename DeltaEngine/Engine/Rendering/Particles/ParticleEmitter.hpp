@@ -182,7 +182,7 @@ private:
 	{
 		if (std::shared_ptr<GameObject> gameObject = _particles[index].gameObject.lock())
 		{
-			_gameObject->Destroy(gameObject.get());
+			gameObject->Destroy();
 			_particles.erase(_particles.begin() + index);
 		}
 		else

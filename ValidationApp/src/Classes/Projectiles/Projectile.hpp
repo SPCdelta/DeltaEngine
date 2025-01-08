@@ -27,9 +27,9 @@ public:
 
 	void SetProjectileData(ProjectileData data)
 	{
-		gameObject->SetTag("projectile");
+		transform->gameObject->SetTag("projectile");
 		_data = data;
-		Sprite* sprite = gameObject->AddComponent<Sprite>(data.sprite);
+		Sprite* sprite = transform->gameObject->AddComponent<Sprite>(data.sprite);
 		sprite->SetLayer(Layer::Projectiles);
 		transform->rotation = Math::DirectionToAngle(data.direction);
 		//rigidbody->AddForce(data.direction * data.speed, ForceMode::IMPULSE);

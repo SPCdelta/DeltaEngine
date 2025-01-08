@@ -39,7 +39,7 @@ private:
 	{
 		for (GameObject* button : _buttons)
 		{
-			DestroyObject(button);
+			button->Destroy();
 		}
 		_buttons.clear();
 

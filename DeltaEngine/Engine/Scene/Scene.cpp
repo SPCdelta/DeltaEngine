@@ -51,70 +51,6 @@ void Scene::Update()
 	// LateUpdate
 	_physicsSystem->TransformToBox2D();
 
-	// Destroy
-	while (!_toDeleteQueue.empty())
-	{
-		GameObject* gameObject = _toDeleteQueue.front();
-		_toDeleteQueue.pop();
-
-		size_t toDeleteIndex = 0;
-		bool found = false;
-		for (size_t i = 0; i < _objects.size(); ++i)
-		{
-			if (_objects[i].get() == gameObject)
-			{
-				toDeleteIndex = i;
-				found = true;
-				break;
-			}
-		}
-
-		if (found)
-		{
-			_reg.DestroyEntity(gameObject->_id);
-			_objects.erase(_objects.begin() + toDeleteIndex);
-		}
-		else
-		{
-			std::cout << "Could not fnd object to delete" << std::endl;
-		}
-	}
-
-	//while (!_toDeleteQueue.empty())
-	//{
-	//	GameObject* gameObject = _toDeleteQueue.front();
-	//	auto it = std::find_if(_objects.begin(), _objects.end(),
-	//	[gameObject](const std::shared_ptr<GameObject>& obj)
-	//	{ 
-	//		return obj.get() == gameObject; 
-	//	});
-
-	//	if (it != _objects.end())
-	//	{
-	//		{
-	//			std::shared_ptr<GameObject> foundObj = *it;
-	//			if (foundObj.use_count() > 2)
-	//			{
-	//				std::cout << "Object has more than 2 shared_ptr counts" << std::endl;
-	//			}
-	//		}
-
-	//		ecs::EntityId toDestroy = gameObject->_id;
-	//		_reg.DestroyEntity(toDestroy);
-	//		if (gameObject->HasComponent<BehaviourScript*>())
-	//		{
-	//			std::cout << "BehaviourScript was on Object after deletion" << std::endl;
-	//		}
-	//		_objects.erase(it);
-	//	}
-	//	else
-	//	{
-	//		std::cout << "Could not find object to delete" << std::endl;
-	//	}
-
-	//	_toDeleteQueue.pop();  // Remove the pointer from the queue
-	//}
-
 	// Render
 	_renderSystem->Update();
 	_imageRenderSystem->Update();
@@ -135,8 +71,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 			this, entityId, _reg, _physicsWorld, camera, transformComponent
 		) 
 	};
-	transformComponent.gameObject = obj.get();
-	_objects.push_back(obj);
+	transformComponent.gameObject = obj;
 
 	return obj;
 }

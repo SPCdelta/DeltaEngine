@@ -12,27 +12,27 @@ EnemyBehaviour::~EnemyBehaviour()
 
 void EnemyBehaviour::OnStart()
 {
-	switch (Enemy::StringToType(gameObject->GetTag()))
+	switch (Enemy::StringToType(transform->gameObject->GetTag()))
 	{
 		case EnemyType::Goblin:
-			_enemy = std::make_unique<Goblin>(&gameObject->GetComponent<Transform>().position);
+			_enemy = std::make_unique<Goblin>(&transform->gameObject->GetComponent<Transform>().position);
 			break;
 		case EnemyType::Skeleton:
-			_enemy = std::make_unique<Skeleton>(&gameObject->GetComponent<Transform>().position, gameObject);
+			_enemy = std::make_unique<Skeleton>(&transform->gameObject->GetComponent<Transform>().position, transform->gameObject->transformRef);
 			break;
 		case EnemyType::Slime:
-			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position);
+			_enemy = std::make_unique<Slime>(&transform->gameObject->GetComponent<Transform>().position);
 			break;
 		case EnemyType::Boss:
 		default:
-			_enemy = std::make_unique<Slime>(&gameObject->GetComponent<Transform>().position, true, 3.5f, 100, 20, 30, 5);
+			_enemy = std::make_unique<Slime>(&transform->gameObject->GetComponent<Transform>().position, true, 3.5f, 100, 20, 30, 5);
 			break;
 	}
 
-	sprite = &gameObject->GetComponent<Sprite>();
-	rigidbody = &gameObject->GetComponent<Rigidbody>();
+	sprite = &transform->gameObject->GetComponent<Sprite>();
+	rigidbody = &transform->gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);	
-	_sfx = std::make_unique<Audio::SFXSource>(gameObject->GetComponent<Audio::SFXSource>());
+	_sfx = std::make_unique<Audio::SFXSource>(transform->gameObject->GetComponent<Audio::SFXSource>());
 
 	Math::Vector2* enemyPosition = &transform->position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
@@ -47,16 +47,16 @@ void EnemyBehaviour::OnStart()
 
 void EnemyBehaviour::OnUpdate()
 {
-	Transform* pos = &gameObject->GetComponent<Transform>();
+	Transform* pos = &transform->gameObject->GetComponent<Transform>();
 
 	if (playerPosition)
 	{
 		pos = _aiBehaviour->Update();
 		_enemy->Update(*playerPosition, _sfx.get());
 
-		if (!_spawnerBehaviour && Enemy::StringToType(gameObject->GetTag()) == EnemyType::Boss)
+		if (!_spawnerBehaviour && Enemy::StringToType(transform->gameObject->GetTag()) == EnemyType::Boss)
 		{
-			_spawnerBehaviour = std::make_unique<EntitySpawner>(gameObject, EntitySpawnerData
+			_spawnerBehaviour = std::make_unique<EntitySpawner>(transform->gameObject, EntitySpawnerData
 				{
 					2.0f, 8.0f, // Spawn interval			  
 					3, 8, true, // Spawn amount | OnStart
@@ -82,10 +82,10 @@ void EnemyBehaviour::OnUpdate()
 		}
 	}
 		
-	if (pos != &gameObject->GetComponent<Transform>())
+	if (pos != &transform->gameObject->GetComponent<Transform>())
 	{
-		gameObject->GetComponent<Transform>().position.SetX(pos->position.GetX());
-		gameObject->GetComponent<Transform>().position.SetY(pos->position.GetY());
+		transform->gameObject->GetComponent<Transform>().position.SetX(pos->position.GetX());
+		transform->gameObject->GetComponent<Transform>().position.SetY(pos->position.GetY());
 	}
 	
 	_moveDirection = _aiBehaviour->GetDirection();
@@ -105,7 +105,7 @@ void EnemyBehaviour::OnUpdate()
 
 			if (_enemy && _enemy->GetHealth() <= 0)
 			{
-				if (player && Enemy::StringToType(gameObject->GetTag()) == EnemyType::Boss)
+				if (player && Enemy::StringToType(transform->gameObject->GetTag()) == EnemyType::Boss)
 					player->AddCoins(1000);
 				else
 					player->AddCoins(10);
@@ -152,7 +152,7 @@ void EnemyBehaviour::SetDamageBehaviour(Rigidbody& rigid)
 
 void EnemyBehaviour::OnDeath()
 {
-	Destroy(_damageObj);
-	gameObject->GetComponent<Sprite>().SetVisible(false);
-	gameObject->Destroy(gameObject);
+	_damageObj->Destroy();
+	transform->gameObject->GetComponent<Sprite>().SetVisible(false);
+	transform->gameObject->Destroy();
 }

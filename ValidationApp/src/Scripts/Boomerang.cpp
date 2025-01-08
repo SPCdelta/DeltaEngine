@@ -35,13 +35,13 @@ void Boomerang::OnUpdate()
 	}
 }
 
-void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
+void Boomerang::Throw(std::shared_ptr<GameObject> thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
 {
-	audioSource = gameObject->AddComponent<Audio::SFXSource>("boomerang_throw", false, -1);
+	audioSource = transform->gameObject->AddComponent<Audio::SFXSource>("boomerang_throw", false, -1);
 
 	_thrower = thrower;
 	_throwSpeed = speed;
-	gameObject->transform->position.Set(origin);
+	transform->gameObject->transform->position.Set(origin);
 	_targetPosition = origin + direction.GetNormalized() * _distance;
 
 	SetProjectileData({ "boomerang", 35, speed, direction.GetNormalized() });

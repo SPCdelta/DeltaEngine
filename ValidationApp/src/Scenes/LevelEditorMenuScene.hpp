@@ -190,10 +190,10 @@ private:
 
 	void DestroyLevelButton(LevelButton& levelButton)
 	{
-		DestroyObject(levelButton.deleteButton);
-		DestroyObject(levelButton.levelButton);
-		DestroyObject(levelButton.backwardsButton);
-		DestroyObject(levelButton.forwardsButton);
+		levelButton.deleteButton->Destroy();
+		levelButton.levelButton->Destroy();
+		levelButton.backwardsButton->Destroy();
+		levelButton.forwardsButton->Destroy();
 	}
 
 	void UpdateLevelButton(const std::string& levelName)

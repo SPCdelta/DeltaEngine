@@ -14,8 +14,8 @@ void EnemyHitboxBehaviour::OnUpdate()
 {
 	if (enemyPosition)
 	{
-		gameObject->GetComponent<Transform>().position.SetX(enemyPosition->GetX());
-		gameObject->GetComponent<Transform>().position.SetY(enemyPosition->GetY());
+		transform->gameObject->GetComponent<Transform>().position.SetX(enemyPosition->GetX());
+		transform->gameObject->GetComponent<Transform>().position.SetY(enemyPosition->GetY());
 	}
 }
 

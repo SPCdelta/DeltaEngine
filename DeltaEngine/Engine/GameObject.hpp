@@ -37,7 +37,6 @@ public:
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
 			T* component = _reg.AddInheritanceComponent<BehaviourScript, T>(_id, std::forward<Args>(args)...);
-			component->gameObject = this;
 			component->transform = transform;
 			component->camera = _camera;
 			component->OnStart();
@@ -153,13 +152,14 @@ public:
 	void SetTag(const std::string& tag) { _tag = tag; }
 	const std::string& GetTag() const { return _tag; }
 	void LoadScene(const std::string& name);
-	void LoadScene(const std::string& name, void* userData);
 
 	std::shared_ptr<GameObject> Instantiate();
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
-	void Destroy(GameObject* gameObject);
-	void Destroy(std::shared_ptr<GameObject> gameObject);
+	void Destroy() 
+	{ 
+		_reg.DestroyEntity(_id); 
+	}
 
 	Camera* GetCamera()
 	{ 

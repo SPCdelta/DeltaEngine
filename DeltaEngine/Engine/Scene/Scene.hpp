@@ -55,15 +55,6 @@ class Scene
 
 	virtual void OnStart(){};
 	virtual void OnUpdate(){};
-	void DestroyObject(GameObject* gameObject)
-	{
-		MarkForDestroy(gameObject);
-	}
-
-	void DestroyObject(std::shared_ptr<GameObject> gameObject)
-	{
-		DestroyObject(gameObject.get());
-	}
 
 	void Start();
 	void Update();
@@ -88,7 +79,7 @@ private:
 
 	ecs::Registry _reg;
 	std::string _name;
-	std::vector<std::shared_ptr<GameObject>> _objects{};
+	//std::vector<std::shared_ptr<GameObject>> _objects{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 
@@ -102,11 +93,4 @@ private:
 	std::shared_ptr<ParticleSystem> _particleSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
-
-	// Destroy
-	std::queue<GameObject*> _toDeleteQueue{};
-	void MarkForDestroy(GameObject* gameObject)
-	{
-		_toDeleteQueue.push(gameObject);
-	}
 };
