@@ -218,6 +218,7 @@
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\DeleteBugScene.hpp" />
     <ClInclude Include="src\UI\BaseUIScene.hpp" />
     <ClInclude Include="src\Classes\LevelManager.hpp" />
     <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />

@@ -4,6 +4,8 @@
 #include <entt/entt.hpp>
 #include <iostream>
 
+class BehaviourScript;
+
 namespace ecs
 {
 	using EntityId = entt::entity;
@@ -88,6 +90,12 @@ namespace ecs
 			return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
 		}
 
+		template<typename T, typename... Args>
+		T* AddBehaviour(ecs::EntityId entityId, Args&&... args) 
+		{
+			static_assert(std::is_base_of<BehaviourScript, T>::value, "T must inherit from BehaviourScript!");
+			return static_cast<T*>(_registry.emplace<std::unique_ptr<BehaviourScript>>(entityId, std::make_unique<T>(std::forward<Args>(args)...)).get());
+		}
 
 		template<typename Component>
 		void RemoveComponent(ecs::EntityId entityId)
@@ -112,8 +120,8 @@ namespace ecs
 			return _registry.valid(entityId);
 		}
 
-	private:
 		entt::registry _registry;
+	private:
 	};
 }
 

@@ -107,8 +107,6 @@
     <ClInclude Include="Engine\Rendering\SpriteData.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\TextureManager.hpp" />
-    <ClInclude Include="Engine\Systems\DespawnSystem.hpp" />
-    <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\TextRenderable.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\SpriteRenderable.hpp" />
     <ClInclude Include="Engine\Core\Files\DTO\TransformDTO.hpp" />

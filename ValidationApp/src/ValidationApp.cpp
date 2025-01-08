@@ -10,6 +10,7 @@
 #include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
+#include "Scenes/DeleteBugScene.hpp"
 
 // Game Scenes
 #include "Scenes/MainMenuScene.hpp"
@@ -36,6 +37,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 	RegisterScene<SpawnerScene>("SpawnerScene");
+	RegisterScene<DeleteBugScene>("DeleteBugScene");
 
 	// Register Scenes (Game)
 	RegisterScene<MainMenuScene>("MainMenuScene");
@@ -44,7 +46,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditorMenuScene>("LevelEditorMenuScene");
 
 	// Load Desired Scene
-	LoadScene("MainMenuScene");
+	LoadScene("DeleteBugScene");
 
 	// Start Application
 	Run();

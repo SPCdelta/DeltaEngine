@@ -241,7 +241,6 @@
     <ClInclude Include="Engine\Core\AI\AIBehaviour.hpp" />
     <ClInclude Include="Engine\Core\AI\IAIStrategy.hpp" />
     <ClInclude Include="Engine\Core\AI\AStarStrategy.hpp" />
-    <ClInclude Include="Engine\Core\Despawner.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
     <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
@@ -288,7 +287,6 @@
     <ClInclude Include="Engine\Systems\CollisionSystem.hpp" />
     <ClInclude Include="Engine\Scene\Scene.hpp" />
     <ClInclude Include="Engine\Scene\SceneManager.hpp" />
-    <ClInclude Include="Engine\Systems\DespawnSystem.hpp" />
     <ClInclude Include="Engine\Systems\ImageRenderSystem.hpp" />
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
     <ClInclude Include="Engine\Systems\RenderSystem.hpp" />

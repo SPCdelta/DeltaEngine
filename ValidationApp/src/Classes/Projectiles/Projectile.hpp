@@ -10,7 +10,7 @@ struct ProjectileData
 	Math::Vector2 direction;
 };
 
-constexpr float DEFAULT_PROJECTILE_DESPAWN_TIME = 10.0f;
+constexpr float DEFAULT_PROJECTILE_DESPAWN_TIME = 1.0f;
 
 class Projectile : public BehaviourScript
 {
@@ -29,14 +29,16 @@ public:
 	{
 		gameObject->SetTag("projectile");
 		_data = data;
-		Sprite* sprite = gameObject->AddComponent<Sprite>(data.sprite.c_str());
+		Sprite* sprite = gameObject->AddComponent<Sprite>(data.sprite);
 		sprite->SetLayer(Layer::Projectiles);
 		transform->rotation = Math::DirectionToAngle(data.direction);
-		rigidbody->AddForce(data.direction * data.speed, ForceMode::IMPULSE);
+		//rigidbody->AddForce(data.direction * data.speed, ForceMode::IMPULSE);
+		//rigidbody->SetVelocity(data.direction * data.speed);
 	}
 
 	Rigidbody* rigidbody = nullptr;
 
 private:
 	ProjectileData _data{};
+	float _timeAlive = DEFAULT_PROJECTILE_DESPAWN_TIME;
 };
