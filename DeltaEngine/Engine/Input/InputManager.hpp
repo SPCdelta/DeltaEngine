@@ -6,6 +6,7 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
+
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Core/Math/Point.hpp"
 #include "InputEventDispatchers.hpp"
@@ -15,14 +16,16 @@ class InputListener;
 
 class InputManager
 {
-   public:
-	static InputManager& GetInstance();
+public:
+	static InputManager& GetInstance()
+	{
+		return instance_;
+	}
+
 	InputManager(const InputManager&) = delete;
 	InputManager(InputManager&&) = delete;
 	InputManager& operator=(const InputManager&) = delete;
 	InputManager& operator=(InputManager&&) = delete;
-
-
 
 	static void deactivateCategory(const std::string& category);
 	static void activateCategory(const std::string& category);
@@ -38,9 +41,7 @@ class InputManager
 	static InputListener* onMouseMove(Events::EventCallback<Input&> mouseEvent, const std::string& category = defaultCategory);
 	static InputListener* onMouseWheel(Events::EventCallback<Input&> wheelEvent, const std::string& = defaultCategory);
 
-
 	static Math::Point GetMousePosition();
-
 
 	void updateKeyDown(Key input);
 	void updateKeyUp(Key input);
@@ -56,12 +57,11 @@ class InputManager
 
 	static constexpr const char* defaultCategory = "Default";
 
-   private:
-	InputManager();
+private:
 	static InputManager instance_;
 
+	InputManager();
+	
 	Input allInputs;
-
 	std::map<InputType, InputEventDispatchers> inputTypes;
 };
-

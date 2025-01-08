@@ -39,6 +39,29 @@
     <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Input\InputHandler.cpp" />
     <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
+    <ClCompile Include="Engine\Core\Despawner.cpp" />
+    <ClCompile Include="Engine\Ecs\Registry.cpp" />
+    <ClCompile Include="Engine\Physics\Rigidbody.cpp" />
+    <ClCompile Include="Engine\Physics\Physics.cpp" />
+    <ClCompile Include="Engine\Physics\Collider.cpp" />
+    <ClCompile Include="Engine\Physics\CircleCollider.cpp" />
+    <ClCompile Include="Engine\Physics\BoxCollider.cpp" />
+    <ClCompile Include="Engine\Rendering\Particles\ParticleEmitter.cpp" />
+    <ClCompile Include="Engine\Rendering\SpriteMap.cpp" />
+    <ClCompile Include="Engine\Rendering\SpriteData.cpp" />
+    <ClCompile Include="Engine\Rendering\Camera.cpp" />
+    <ClCompile Include="Engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="Engine\Systems\UpdateSystem.cpp" />
+    <ClCompile Include="Engine\Systems\TextRenderSystem.cpp" />
+    <ClCompile Include="Engine\Systems\RenderSystem.cpp" />
+    <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Engine\Systems\ParticleSystem.cpp" />
+    <ClCompile Include="Engine\Systems\ImageRenderSystem.cpp" />
+    <ClCompile Include="Engine\Systems\DespawnSystem.cpp" />
+    <ClCompile Include="Engine\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Engine\UI\Brush\SnapToGridBrush.cpp" />
+    <ClCompile Include="Engine\UI\Brush\BrushSprite.cpp" />
+    <ClCompile Include="Engine\UI\Scrollable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -53,7 +76,6 @@
     <ClInclude Include="Engine\Application.hpp" />
     <ClInclude Include="Engine\Core\Events\Event.hpp" />
     <ClInclude Include="Engine\Core\Events\EventDispatcher.hpp" />
-    <ClInclude Include="Engine\Core\Events\ExampleEvent.hpp" />
     <ClInclude Include="Engine\Core\Math\Point.hpp" />
     <ClInclude Include="Engine\Core\Math\Random.hpp" />
     <ClInclude Include="Engine\Core\Math\Vector2.hpp" />

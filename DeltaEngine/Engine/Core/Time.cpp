@@ -1,10 +1,17 @@
 #include "Time.hpp"
+
 #include <exception>
 
 Time Time::instance;
+
 float Time::deltaTime = 0.0f;
 float Time::multiplier = 1.f;
 float Time::increment = 0.25f;
+
+Time::Time()
+{
+
+}
 
 float Time::GetDeltaTime()
 {

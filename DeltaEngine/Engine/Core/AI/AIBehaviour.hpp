@@ -9,7 +9,7 @@
 
 class AIBehaviour
 {
-   public:
+public:
 	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed);
 	~AIBehaviour();
 
@@ -25,7 +25,9 @@ class AIBehaviour
 	float GetSpeed();
 	Math::Vector2 GetDirection();
 
-   private:
+private:
+	const float NEXT_NODE_DISTANCE = 0.3f;
+
 	std::shared_ptr<IAIStrategy> strategy_;
 	std::vector<Math::Vector2> path_;
 

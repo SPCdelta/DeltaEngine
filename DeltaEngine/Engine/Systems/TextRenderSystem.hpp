@@ -1,42 +1,22 @@
 #pragma once
 
 #include "../Ecs/Registry.hpp"
-
 #include "../UI/Text.hpp"
 #include "../Window.hpp"
 #include "../Transform.hpp"
 
 class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 {
-   public:
-	TextRenderSystem(ecs::View<Transform, Ui::Text> view) : ecs::System<Transform, Ui::Text>(view), _window(nullptr),
-		  _viewportData(nullptr) {}
+public:
+	TextRenderSystem(ecs::View<Transform, Ui::Text> view);
 
-	void SetWindow(Window* window) { _window = window; }
+	void SetWindow(Window* window);
+	void SetViewportData(ViewportData* viewportData);
 
-	void SetViewportData(ViewportData* viewportData) { _viewportData = viewportData; }
+	void OnStart();
+	void Update();
 
-	void OnStart()
-	{
-		for (ecs::EntityId entityId : _view)
-		{
-			Ui::Text& text = _view.get<Ui::Text>(entityId);
-			Transform& transform = _view.get<Transform>(entityId);
-			text.Render(_window->GetRenderer(), transform);
-		}
-	}
-
-	void Update()
-	{
-		for (ecs::EntityId entityId : _view)
-		{
-			Ui::Text& text = _view.get<Ui::Text>(entityId);
-			Transform& transform = _view.get<Transform>(entityId);
-			text.Render(_window->GetRenderer(), transform);
-		}
-	}
-
-   private:
+private:
 	Window* _window;
 	ViewportData* _viewportData;
 };

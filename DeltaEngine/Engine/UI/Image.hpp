@@ -4,10 +4,11 @@
 
 namespace Ui
 {
-class Image : public SpriteRenderable
+	class Image : public SpriteRenderable
 	{
 	public:
-		Image(const std::string& spriteName) : SpriteRenderable(spriteName) {}
+		Image(const std::string& spriteName);
+
 		void Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Transform& transform);
 	};
 }

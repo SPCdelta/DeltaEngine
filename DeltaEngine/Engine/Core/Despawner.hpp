@@ -8,9 +8,7 @@ class DespawnSystem;
 class Despawner
 {
 public:
-	Despawner(float despawnAfter)
-		: _timer{ despawnAfter }
-	{ }
+	Despawner(float despawnAfter);
 
 	friend class DespawnSystem;
 

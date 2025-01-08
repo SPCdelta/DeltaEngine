@@ -85,7 +85,7 @@ public:
             
             }); 
         brushComponnet->RemoveOnKey(KEY_E);
-        brushComponnet->SetCanves(_screenPort);
+        brushComponnet->SetCanvas(_screenPort);
 
         if (_saveFileName.empty()){
             MakeSaveFilePath();

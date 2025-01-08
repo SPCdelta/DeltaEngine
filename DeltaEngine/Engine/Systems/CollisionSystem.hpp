@@ -7,37 +7,15 @@
 
 namespace Physics
 {
+	// TODO keep this comment?
 	// This will NOT work due to BoxCollider and CircleCollider their inheritance not
 	// being of the same base type for the ecs, do the same as done for behaviourscript to make it work
 	class CollisionSystem : public ecs::System<Collider*>
 	{
 	public:
-		CollisionSystem(ecs::View<Collider*> view)
-			: ecs::System<Collider*>(view)
-		{
+		CollisionSystem(ecs::View<Collider*> view);
+		~CollisionSystem();
 
-		}
-
-		~CollisionSystem()
-		{
-			for (ecs::EntityId entityId : _view)
-			{
-				delete _view.get<Collider*>(entityId);
-			}
-		}
-
-		Collider* GetCollider(EnginePhysics::PhysicsId id)
-		{
-			for (ecs::EntityId entityId : _view)
-			{
-				Collider* collider{ _view.get<Collider*>(entityId) };
-				if (EnginePhysics::AreEqual(collider->_shape.id, id))
-				{
-					return collider;
-				}
-			}
-
-			return nullptr;
-		}
+		Collider* GetCollider(EnginePhysics::PhysicsId id);
 	};
 }

@@ -10,38 +10,29 @@ namespace Physics
 	class Rigidbody
 	{
 	public:
-		Rigidbody(Collider& collider)
-			: _collider{ collider }
-		{
-			EnginePhysics::SetBodyType(_collider._bodyId, RigidbodyType::DYNAMIC_BODY);
-			EnginePhysics::EnableSleep(collider._bodyId, false);
-		}
+		Rigidbody(Collider& collider);
 
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
 		Events::EventDispatcher<Collider&> onTriggerExit{};
 		Events::EventDispatcher<Collider&> onCollisionEnter{};
 		Events::EventDispatcher<Collider&> onCollisionExit{};
 
-		const EnginePhysics::PhysicsShape& GetShape() const { return _collider._shape; }
+		const EnginePhysics::PhysicsShape& GetShape() const;
 
-		void SetType(RigidbodyType type) { EnginePhysics::SetBodyType(_collider._bodyId, type); }
-		RigidbodyType GetType() const { return EnginePhysics::GetBodyType(_collider._bodyId); }
+		void SetType(RigidbodyType type);
+		RigidbodyType GetType() const;
 
-		Collider& GetCollider() const { return _collider; }
+		Collider& GetCollider() const;
 
-		void AddForce(Math::Vector2 force, ForceMode forceMode) { EnginePhysics::AddForce(_collider._bodyId, force, forceMode); }
+		void AddForce(Math::Vector2 force, ForceMode forceMode);
 
-		void SetVelocity(Math::Vector2 velocity) { EnginePhysics::SetVelocity(_collider._bodyId, velocity); }
-		const Math::Vector2 GetVelocity() const { return EnginePhysics::GetVelocity(_collider._bodyId); }
+		void SetVelocity(Math::Vector2 velocity);
+		const Math::Vector2 GetVelocity() const;
 
-		void SetGravityScale(float gravityScale) { EnginePhysics::SetGravityScale(_collider._bodyId, gravityScale); }
-		float GetGravityScale() const { return EnginePhysics::GetGravityScale(_collider._bodyId); }
+		void SetGravityScale(float gravityScale);
+		float GetGravityScale() const;
 
-		float GetSpeed() const 
-		{
-			Math::Vector2 velocity = GetVelocity();
-			return std::abs(velocity.GetX()) + std::abs(velocity.GetY());
-		}
+		float GetSpeed() const;
 
 	private:
 		Collider& _collider;

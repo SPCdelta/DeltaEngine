@@ -1,3 +1,6 @@
 #include "TextRenderable.hpp"
 
-TextRenderable::TextRenderable() {}
+TextRenderable::TextRenderable() 
+{
+
+}

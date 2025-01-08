@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+
 #include "../Application.hpp"
 
 Scene::Scene(const std::string& name)
@@ -87,13 +88,7 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	Transform& transformComponent = _reg.AddComponent<Transform>(entityId, transform);
 
 	// Use entityId for obj
-	std::shared_ptr<GameObject> obj
-	{ 
-		std::make_shared<GameObject>
-		(
-			this, entityId, _reg, _physicsWorld, camera, transformComponent
-		) 
-	};
+	std::shared_ptr<GameObject> obj{std::make_shared<GameObject>(this, entityId, _reg, _physicsWorld, camera, transformComponent)};
 	transformComponent.gameObject = obj.get();
 	_objects.push_back(obj);
 
@@ -114,6 +109,7 @@ Json::json& Scene::RetriveUserData()
 { 
 	return _application->RetriveData(); 
 }
+
 void Scene::StoreUserData(const std::string& data) 
 { 
 	_application->StoreData(data); 
@@ -123,7 +119,38 @@ void Scene::StoreUserData(Json::json data)
 {
 	_application->StoreData(data);
 }
+
 void Scene::DeleteUserData() 
 { 
 	_application->DeleteUserData(); 
+}
+
+Window* Scene::GetWindow()
+{
+	return _renderSystem->GetWindow();
+}
+
+void Scene::SetWindow(Window& window)
+{
+	_renderSystem->SetWindow(&window);
+	_renderSystem->SetViewportData(&window.GetViewport());
+	_imageRenderSystem->SetWindow(&window);
+	_imageRenderSystem->SetViewportData(&window.GetViewport());
+	_textRenderSystem->SetWindow(&window);
+	camera->SetViewportData(&window.GetViewport());
+}
+
+void Scene::DestroyObject(GameObject* gameObject)
+{
+	MarkForDestroy(gameObject);
+}
+
+void Scene::DestroyObject(std::shared_ptr<GameObject> gameObject)
+{
+	DestroyObject(gameObject.get());
+}
+
+void Scene::MarkForDestroy(GameObject* gameObject)
+{
+	_toDeleteQueue.push(gameObject);
 }

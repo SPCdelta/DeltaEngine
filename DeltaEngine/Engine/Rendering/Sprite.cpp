@@ -1,5 +1,17 @@
 #include "Sprite.hpp"
 
+Sprite::Sprite(const std::string& spriteName) 
+	: SpriteRenderable(spriteName) 
+{
+
+}
+
+Sprite::Sprite(const std::string& spriteName, std::shared_ptr<AnimationSheet> sheet) 
+	: SpriteRenderable(spriteName, sheet)
+{ 
+
+}
+
 void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportData, const Camera* camera, const Transform& transform)
 {
 	// Get Texture
@@ -36,13 +48,12 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 		Rendering::Rect srcRect = _sheet->GetSrcRect();
 		Rendering::RenderCopyEx(
 			renderer, _spriteData->texture, &srcRect, &destRect, transform.rotation, 0,
-			Rendering::GetFlip(
-				((_sheet->GetFacingDirection() == Direction::RIGHT &&
-				  _sheet->GetRowRight() == 0) ||
-				 (_sheet->GetFacingDirection() == Direction::LEFT &&
-				  _sheet->GetRowLeft() == 0) ||
-				 (flipX)),
-				flipY));
+			Rendering::GetFlip((
+				(_sheet->GetFacingDirection() == Direction::RIGHT && _sheet->GetRowRight() == 0) ||
+				(_sheet->GetFacingDirection() == Direction::LEFT && _sheet->GetRowLeft() == 0) ||
+				(flipX)), flipY
+			)
+		);
 	}
 	else
 	{
@@ -52,8 +63,6 @@ void Sprite::Render(Rendering::Renderer* renderer, const ViewportData& viewportD
 		srcRect.w = static_cast<int>(_spriteData->spriteEnd.GetX() - _spriteData->spriteStart.GetX());
 		srcRect.h = static_cast<int>(_spriteData->spriteEnd.GetY() - _spriteData->spriteStart.GetY());
 
-		Rendering::RenderCopyEx(renderer, _spriteData->texture, &srcRect, &destRect,
-								transform.rotation, 0,
-								Rendering::GetFlip(flipX, flipY));
+		Rendering::RenderCopyEx(renderer, _spriteData->texture, &srcRect, &destRect, transform.rotation, 0, Rendering::GetFlip(flipX, flipY));
 	}
 }

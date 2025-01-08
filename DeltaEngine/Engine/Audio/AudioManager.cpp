@@ -1,14 +1,10 @@
 #include "AudioManager.hpp"
+
 #include <iostream>
 
 using namespace Audio;
 
 AudioManager AudioManager::_instance;
-
-AudioManager& Audio::AudioManager::GetInstance()
-{
-	return _instance;
-}
 
 AudioManager::AudioManager()
 {
@@ -33,21 +29,10 @@ void AudioManager::PlayMusic(Mix_Music* music, int loops)
 
 void AudioManager::PlaySFX(Mix_Chunk* sfx, int loops, int channel)
 {
-	if (channel == 0)
+	if (Mix_PlayChannel(channel, sfx, loops) == AUDIO_ERROR)
 	{
-		if (Mix_PlayChannel(DEFAULT_CHANNEL, sfx, loops) == AUDIO_ERROR)
-		{
-			std::cerr << "Chunk could not be played: No channel was avaliable.\n";
-		}
+		std::cerr << "Chunk could not be played: No channel was avaliable.\n";
 	}
-	else
-	{
-		if (Mix_PlayChannel(channel, sfx, loops) == AUDIO_ERROR)
-		{
-			std::cerr << "Chunk could not be played: No channel was avaliable.\n";
-		}
-
-	}	
 }
 
 void AudioManager::PauseMusic()

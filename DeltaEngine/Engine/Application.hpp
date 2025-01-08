@@ -59,34 +59,23 @@ public:
 		_isRunning = false;
 	}
 
-	void Stop()
-	{
-		ResourceManager::Cleanup();
-		_window.Close();
-		_isRunning = false;
+	void Stop();
 
-		Rendering::Quit();
-		TTF_Quit();
-		Rendering::QuitImage();
-		Mix_Quit();
-	}
-
-	void SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos)
-	{
-		_window.SetViewportSize(sizeWidth, sizeHeight);
-		_window.SetViewportPos(xPos, yPos);
-	}
+	void SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos);
 
 	// Data
-	Json::json& RetriveData() { return _userData.Retrive(); }
-	void StoreData(const std::string& data) { _userData.Store(data); }
-	void StoreData(Json::json& data) { _userData.Store(data); }
-	void DeleteUserData() { _userData.DeleteData(); }
+	Json::json& RetriveData();
+	void StoreData(const std::string& data);
+	void StoreData(Json::json& data);
+	void DeleteUserData();
 
 protected:
 	ecs::Registry _reg;
 
 private:
+	const int BASE_WINDOW_W = 1280;
+	const int BASE_WINDOW_H = 720;
+
 	InputHandler _inputListeners;
 	
 	static bool _isRunning;
@@ -115,4 +104,3 @@ private:
 	Rendering::Color _gameSpeedTextColor{ 255, 0, 0, 255 };
 	std::unique_ptr<Ui::Text> _gameSpeed;
 };
-

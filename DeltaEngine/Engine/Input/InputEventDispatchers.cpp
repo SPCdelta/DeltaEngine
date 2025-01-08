@@ -1,5 +1,7 @@
 #include "InputEventDispatchers.hpp"
+
 #include "InputHandler.hpp"
+
 #include <algorithm>
 
 void InputEventDispatchers::Add(InputListener* input)
@@ -21,8 +23,7 @@ bool InputEventDispatchers::DeactivateCategory(const std::string& category)
 	return activeCategories.erase(category) == 1;
 }
 
-bool InputEventDispatchers::DeactivateCategories(
-	std::set<std::string> categories)
+bool InputEventDispatchers::DeactivateCategories(std::set<std::string> categories)
 {
 	int countDeactivated = 0;
 	for (auto& category : categories)
@@ -113,6 +114,7 @@ void InputEventDispatchers::ExecuteInputsPressed(Input allInputs, std::vector<st
 	}
 }
 
-void InputEventDispatchers::Remove(InputListener* input) {
+void InputEventDispatchers::Remove(InputListener* input) 
+{
 	inputBindings[input->GetState()][input->GetInput()].Unregister(input->GetRegistered());
 }

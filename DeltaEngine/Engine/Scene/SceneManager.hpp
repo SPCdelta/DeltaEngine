@@ -14,23 +14,15 @@ public:
 	template<typename T>
 	void RegisterScene(const std::string& sceneName)
 	{
-		_factories[sceneName] = 
-			[](const std::string& sceneName)
+		_factories[sceneName] = [](const std::string& sceneName)
 		{
 			return std::make_shared<T>(sceneName);
 		};
 	}
 
-	std::shared_ptr<Scene> GetCurrent() const { return _currentScene; }
+	std::shared_ptr<Scene> GetCurrent() const;
 
-	void Load(const std::string& sceneName)
-	{
-		auto it = _factories.find(sceneName);
-		if (it != _factories.end())
-		{
-			_currentScene = it->second(sceneName);
-		}
-	}
+	void Load(const std::string& sceneName);
 
 private:
 	std::unordered_map<std::string, std::function<std::shared_ptr<Scene>(const std::string&)>> _factories;

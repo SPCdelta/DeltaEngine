@@ -18,7 +18,4 @@ public:
 	void MoveRight(std::shared_ptr<AnimationSheet> sheet);
 
 	void StandIdle(Rendering::UnsignInt32 currentTime, std::shared_ptr<AnimationSheet> sheet);
-
-private:
-
 };

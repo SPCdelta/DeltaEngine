@@ -1,14 +1,12 @@
 #include "InputManager.hpp"
+
 #include "InputHandler.hpp"
 
 InputManager InputManager::instance_;
 
-
-InputManager::InputManager() {}
-
-InputManager& InputManager::GetInstance()
+InputManager::InputManager() 
 {
-	return instance_;
+
 }
 
 void InputManager::deactivateCategory(const std::string& category)
@@ -30,7 +28,6 @@ void InputManager::activateCategory(const std::string& category)
 InputListener* InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	InputListener* inputListener = new InputListener{ KEYBOARD, InputsEnum::toStr(keyDown), PressedDown, category, keyEvent };
-
 	instance_.inputTypes[KEYBOARD].Add(inputListener);
 	return inputListener;
 }
@@ -54,6 +51,7 @@ InputListener* InputManager::keyPressed(std::set<Key> keysDown, Events::EventCal
 	std::string allKeysDown;
 	for (const auto& key : keysDown)
 		allKeysDown += InputsEnum::toStr(key);
+
 	InputListener* inputListener = new InputListener{ KEYBOARD, allKeysDown, Pressed, category, keyEvent };
 	instance_.inputTypes[KEYBOARD].Add(inputListener);
 	return inputListener;
@@ -87,7 +85,6 @@ InputListener* InputManager::onMouseWheel(Events::EventCallback<Input&> wheelEve
 	InputListener* inputListener = new InputListener{ MOUSEWHEELMOVEMENT, "MouseWheel", Unknown, category, wheelEvent };
 	instance_.inputTypes[MOUSEWHEELMOVEMENT].Add(inputListener);
 	return inputListener;
-
 }
 
 Math::Point InputManager::GetMousePosition()
@@ -104,15 +101,14 @@ void InputManager::updateKeyDown(Key input)
 		std::vector<std::string> strKeys;
 		for (auto& key : allInputs.keys)
 			strKeys.push_back(InputsEnum::toStr(key));
-		inputTypes[KEYBOARD].ExecuteInputsPressedDown(allInputs, strKeys, InputsEnum::toStr(input));
 
+		inputTypes[KEYBOARD].ExecuteInputsPressedDown(allInputs, strKeys, InputsEnum::toStr(input));
 	}
 }
 
 void InputManager::updateKeyUp(Key input)
 {
 	allInputs.keys.erase(input);
-
 	inputTypes[KEYBOARD].DispatchActive(Release, InputsEnum::toStr(input), allInputs);
 }
 
@@ -125,6 +121,7 @@ void InputManager::updateMouseButtonDown(MouseButton button)
 		std::vector<std::string> strButtons;
 		for (auto& button : allInputs.buttons)
 			strButtons.push_back(std::to_string(InputsEnum::toInt(button)));
+
 		inputTypes[MOUSEBUTTON].ExecuteInputsPressedDown(allInputs, strButtons, std::to_string(InputsEnum::toInt(button)));
 	}
 }
@@ -132,7 +129,6 @@ void InputManager::updateMouseButtonDown(MouseButton button)
 void InputManager::updateMouseButtonUp(MouseButton input)
 {
 	allInputs.buttons.erase(input);
-
 	inputTypes[MOUSEBUTTON].DispatchActive(Release, std::to_string(InputsEnum::toInt(input)), allInputs);
 }
 
@@ -140,7 +136,6 @@ void InputManager::updateMouseMovement(Math::Point pos)
 {
 	allInputs.mouseX = pos.GetX();
 	allInputs.mouseY = pos.GetY();
-
 	inputTypes[MOUSEMOVEMENT].DispatchActive(Unknown, "MouseMove", allInputs);
 }
 

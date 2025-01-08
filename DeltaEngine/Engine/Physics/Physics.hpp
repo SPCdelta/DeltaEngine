@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdint.h>
-
 #include <box2d/box2d.h>
 
 #include "../Core/Math/Vector2.hpp"
@@ -9,10 +8,8 @@
 #include "../Core/Time.hpp"
 #include "../Transform.hpp"
 
-
 namespace Physics
 {
-
 	enum class RigidbodyType
 	{
 		STATIC_BODY = 0,
@@ -37,8 +34,15 @@ namespace EnginePhysics
 		uint16_t world0;
 		uint16_t revision;
 
-		operator b2BodyId() const { return b2BodyId{ index1, world0, revision }; }
-		operator b2ShapeId() const { return b2ShapeId{ index1, world0, revision }; }
+		operator b2BodyId() const 
+		{ 
+			return b2BodyId{ index1, world0, revision }; 
+		}
+
+		operator b2ShapeId() const 
+		{ 
+			return b2ShapeId{ index1, world0, revision }; 
+		}
 	};
 
 	using World = b2WorldDef;
@@ -80,10 +84,7 @@ namespace EnginePhysics
 
 	inline bool AreEqual(const PhysicsId id1, const PhysicsId id2)
 	{
-		return
-			id1.index1 == id2.index1 &&
-			id1.revision == id2.revision &&
-			id1.world0 == id2.world0;
+		return id1.index1 == id2.index1 && id1.revision == id2.revision && id1.world0 == id2.world0;
 	}
 
 	static WorldId ToWorldId(b2WorldId worldId)
@@ -101,11 +102,11 @@ namespace EnginePhysics
 		return {shapeId.index1, shapeId.world0, shapeId.revision};
 	}
 
-	//
 	inline Shape DefaultShape()
 	{
 		return b2DefaultShapeDef();
 	}
+
 	inline PhysicsBody DefaultBody()
 	{
 		return b2DefaultBodyDef();
@@ -143,6 +144,7 @@ namespace EnginePhysics
 	{
 		b2Body_SetType(bodyId, static_cast<b2BodyType>(Physics::RigidbodyType::DYNAMIC_BODY));
 	}
+
 	inline Physics::RigidbodyType GetBodyType(PhysicsId bodyId)
 	{
 		return static_cast<Physics::RigidbodyType>(b2Body_GetType(bodyId));
@@ -153,6 +155,7 @@ namespace EnginePhysics
 		b2Vec2 b2Velocity(velocity.GetX(), velocity.GetY());
 		b2Body_SetLinearVelocity(bodyId, b2Velocity);
 	}
+
 	inline Math::Vector2 GetVelocity(PhysicsId bodyId)
 	{
 		b2Vec2 b2Velocity = b2Body_GetLinearVelocity(bodyId);
@@ -163,6 +166,7 @@ namespace EnginePhysics
 	{
 		b2Body_SetGravityScale(bodyId, gravityScale);
 	}
+
 	inline float GetGravityScale(const PhysicsId bodyId)
 	{
 		return b2Body_GetGravityScale(bodyId);
@@ -171,12 +175,12 @@ namespace EnginePhysics
 	inline void AddForce(PhysicsId bodyId, const Math::Vector2& force, Physics::ForceMode forceMode)
 	{
 		b2Vec2 b2Force(force.GetX(), force.GetY());
-
 		switch (forceMode)
 		{
 			case Physics::ForceMode::ACCELERATE:
 				b2Body_ApplyForceToCenter(bodyId, b2Force, true);
 				break;
+
 			case Physics::ForceMode::IMPULSE:
 				b2Body_ApplyLinearImpulseToCenter(bodyId, b2Force, true);
 				break;
@@ -188,6 +192,7 @@ namespace EnginePhysics
 		b2Vec2 b2Pos = b2Body_GetPosition(bodyId);
 		return Math::Vector2(b2Pos.x, b2Pos.y);
 	}
+
 	inline void SetPosition(PhysicsId bodyId, Math::Vector2 position)
 	{
 		b2Vec2 b2Pos { position.GetX(), position.GetY() };
@@ -226,26 +231,12 @@ namespace EnginePhysics
 
 	namespace Event
 	{
-		//class CollisionEventData : public Events::Event
-		//{
-		//public:
-		//	CollisionEventData()
-		//	{
-
-		//	}
-		//};
-
 		class SensorEventData : public Events::Event
 		{
 		public:
-			SensorEventData(PhysicsShape shape)
-				: _shape{ shape }
-			{ }
+			SensorEventData(PhysicsShape shape);
 
-			PhysicsShape GetShape() const
-			{
-				return _shape;
-			}
+			PhysicsShape GetShape() const;
 
 		private:
 			PhysicsShape _shape;

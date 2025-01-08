@@ -11,28 +11,41 @@ namespace Audio
 	constexpr auto AUDIO_ERROR = -1;
 	constexpr auto CURRENT_VOLUME = -1;
 	constexpr auto DEFAULT_VOLUME = 8;
+
 	class AudioManager
 	{
 	public:
-		static AudioManager& GetInstance();
+		static AudioManager& GetInstance()
+		{
+			return _instance;
+		}
+
 		AudioManager();
+		~AudioManager();
+
 		AudioManager(const AudioManager& other) = delete;
 		AudioManager& operator=(const AudioManager&& other) = delete;
 		AudioManager(AudioManager&& other) = delete;
 		AudioManager operator=(AudioManager&& other) = delete;
-		~AudioManager();
+
 		void PlayMusic(Mix_Music* music, int loops);
-		void PlaySFX(Mix_Chunk* sfx, int loops, int channel = 0);
+		void PlaySFX(Mix_Chunk* sfx, int loops, int channel = DEFAULT_CHANNEL);
+
 		void PauseMusic();
 		void PauseSFX();
+
 		void ResumeMusic();
 		void ResumeSFX();
+
 		void StopMusic();
 		void StopSFX();
+
 		void SetMusicVolume(int volume);
 		void SetSFXVolume(Mix_Chunk* sfx, int volume);
+
 		void IncreaseMusicVolume(int volume);
 		void IncreaseSFXVolume(Mix_Chunk* sfx, int volume);
+
 	private:
 		static AudioManager _instance;
 	};

@@ -9,7 +9,11 @@
 class FontManager
 {
 public:
-	static FontManager& get_instance() { return instance; }
+	static FontManager& get_instance() 
+	{ 
+		return instance; 
+	}
+
 	FontManager(const FontManager&) = delete;
 	FontManager(FontManager&&) = delete;
 	FontManager& operator=(const FontManager&) = delete;
@@ -63,11 +67,10 @@ private:
 		return fontFontSizes[size];
 	}
 
-
 	static bool HasFontSize(const std::unordered_map<int, Font::Font*>& fontFontSizes, int size)
 	{
 		return (fontFontSizes.find(size) != fontFontSizes.end());
 	}
 
-	FontManager() {  }
+	FontManager();
 };

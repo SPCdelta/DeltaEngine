@@ -1,7 +1,14 @@
 #include "Button.hpp"
+
 #include "../Core/Math/MathUtils.hpp"
 
 using namespace Ui;
+
+Button::Button(Transform* transform) 
+	: _transform{transform} 
+{
+
+}
 
 void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& category)
 {
@@ -11,8 +18,8 @@ void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& 
 		{
 			_pressed = true;
 		},
-		category));
-
+		category
+	));
 
 	_inputListeners.Add(InputManager::onMouseButtonUp(
 		MouseButton::Left,
@@ -24,7 +31,8 @@ void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& 
 			}
 			_pressed = false;
 		},
-		category));
+		category
+	));
 }
 
 void Ui::Button::SetOnMouseHover(std::function<void()> func)
@@ -36,7 +44,8 @@ void Ui::Button::SetOnMouseHover(std::function<void()> func)
 			{
 				func();
 			}
-		}));
+		}
+	));
 }
 
 void Ui::Button::SetOnMousePressed(std::function<void()> func, const std::string& category)
@@ -50,5 +59,6 @@ void Ui::Button::SetOnMousePressed(std::function<void()> func, const std::string
 				func();
 			}
 		},
-		category));
+		category
+	));
 }

@@ -18,12 +18,13 @@ namespace Events
 		void Unregister(Events::EventCallback<T> callback)
 		{
 			auto it = std::find_if(m_Callbacks.begin(), m_Callbacks.end(),
-				[&callback](const Events::EventCallback<T>& cb) 
-				{
-					return callback.target<void(T&)>() == cb.target<void(T&)>();
-				});
+			[&callback](const Events::EventCallback<T>& cb) 
+			{
+				return callback.target<void(T&)>() == cb.target<void(T&)>();
+			});
 
-			if (it != m_Callbacks.end()) {
+			if (it != m_Callbacks.end()) 
+			{
 				m_Callbacks.erase(it);
 			}
 		}

@@ -31,9 +31,9 @@ struct Vector2Hash
 
 class IAIStrategy
 {
-   public:
-		virtual ~IAIStrategy() = default;
+public:
+	virtual ~IAIStrategy() = default;
 
-		// Range is amount of units in each direction, with step being 1 node per step amount of units
-		virtual std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range, int step) = 0; 
+	// Range is amount of units in each direction, with step being 1 node per step amount of units
+	virtual std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range, int step) = 0; 
 };

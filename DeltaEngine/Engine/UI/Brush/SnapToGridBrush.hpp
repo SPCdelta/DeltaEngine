@@ -79,7 +79,7 @@ public:
 			}, _category));
 	}
 
-	void SetCanves(Transform screenViewPort_){
+	void SetCanvas(Transform screenViewPort_){
 		_screenViewPort = screenViewPort_;
 	}
 

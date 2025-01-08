@@ -6,7 +6,7 @@
 
 class IFileHandler
 {
-   public:
+public:
 	virtual ~IFileHandler() = default;
 
 	// Json file management

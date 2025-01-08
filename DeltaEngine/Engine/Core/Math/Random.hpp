@@ -1,4 +1,5 @@
 #pragma once
+
 #include <random>
 
 namespace Math
@@ -6,7 +7,11 @@ namespace Math
 	class Random
 	{
 	public:
-		static Random& get_instance() { return instance; }
+		static Random& get_instance() 
+		{ 
+			return instance; 
+		}
+
 		Random(const Random&) = delete;
 		Random(Random&&) = delete;
 		Random& operator=(const Random&) = delete;
@@ -23,7 +28,7 @@ namespace Math
 	private:
 		static Random instance;
 		static std::random_device rnd;
-		Random() {}
+
+		Random();
 	};
 }
-

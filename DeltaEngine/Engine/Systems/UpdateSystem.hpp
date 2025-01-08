@@ -7,25 +7,8 @@
 class UpdateSystem : public ecs::System<Transform, BehaviourScript*>
 {
 public:
-	UpdateSystem(ecs::View<Transform, BehaviourScript*> view)
-		: ecs::System<Transform, BehaviourScript*>(view)
-	{
+	UpdateSystem(ecs::View<Transform, BehaviourScript*> view);
+	~UpdateSystem();
 
-	}
-
-	~UpdateSystem()
-	{
-		for (ecs::EntityId entityId : _view)
-		{
-			delete _view.get<BehaviourScript*>(entityId);
-		}
-	}
-
-	void Update()
-	{
-		for (ecs::EntityId entityId : _view)
-		{
-			_view.get<BehaviourScript*>(entityId)->OnUpdate();
-		}
-	}
+	void Update();
 };

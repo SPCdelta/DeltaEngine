@@ -7,8 +7,12 @@
 
 class TextureManager
 {
-   public:
-	static TextureManager& get_instance() { return instance; }
+public:
+	static TextureManager& get_instance() 
+	{ 
+		return instance; 
+	}
+
 	TextureManager(const TextureManager&) = delete;
 	TextureManager(TextureManager&&) = delete;
 	TextureManager& operator=(const TextureManager&) = delete;
@@ -26,6 +30,7 @@ class TextureManager
 			Rendering::Texture* texture = Rendering::LoadTexture(instance._renderer, spritePath.c_str());
 			if (texture == nullptr)
 				throw new std::exception("Asset das not exist");
+
 			instance._textures.emplace(spritePath, texture);
 			return texture;
 		}
@@ -47,10 +52,10 @@ class TextureManager
 		}
 	}
 
-   private:
+private:
 	static TextureManager instance;
 	Rendering::Renderer* _renderer = nullptr;
 	std::unordered_map<std::string, Rendering::Texture*> _textures;
 
-	TextureManager() {};
+	TextureManager();
 };

@@ -41,34 +41,22 @@ class Scene
 
 	const std::string& GetName() const;
 
-	Window* GetWindow() { return _renderSystem->GetWindow(); }
-	void SetWindow(Window& window)
-	{
-		_renderSystem->SetWindow(&window);
-		_renderSystem->SetViewportData(&window.GetViewport());
-		_imageRenderSystem->SetWindow(&window);
-		_imageRenderSystem->SetViewportData(&window.GetViewport());
-		_textRenderSystem->SetWindow(&window);
-		camera->SetViewportData(&window.GetViewport());
-	}
+	Window* GetWindow();
+	void SetWindow(Window& window);
 
 	void LoadScene(const std::string& name);
 	void LoadScene(const std::string& name, void* userData);
 
-	virtual void OnStart(){};
-	void DestroyObject(GameObject* gameObject)
+	virtual void OnStart()
 	{
-		MarkForDestroy(gameObject);
-	}
 
-	void DestroyObject(std::shared_ptr<GameObject> gameObject)
-	{
-		DestroyObject(gameObject.get());
-	}
+	};
+
+	void DestroyObject(GameObject* gameObject);
+	void DestroyObject(std::shared_ptr<GameObject> gameObject);
 
 	void Start();
 	void Update();
-
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 	std::shared_ptr<GameObject> Instantiate();
@@ -106,8 +94,5 @@ private:
 
 	// Destroy
 	std::queue<GameObject*> _toDeleteQueue{};
-	void MarkForDestroy(GameObject* gameObject)
-	{
-		_toDeleteQueue.push(gameObject);
-	}
+	void MarkForDestroy(GameObject* gameObject);
 };

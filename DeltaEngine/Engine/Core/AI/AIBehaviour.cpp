@@ -1,7 +1,15 @@
 #include "AIBehaviour.hpp"
 
-AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed = 1.0f) : 
-		strategy_(strategy), position_(pos), _targetPosition(targetPos), _moveSpeed(speed), range_(range), step_(step) {}
+AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed = 1.0f) 
+	: strategy_(strategy), 
+	  position_(pos), 
+	  _targetPosition(targetPos), 
+	  _moveSpeed(speed), 
+	  range_(range), 
+	  step_(step) 
+{
+
+}
 
 AIBehaviour::~AIBehaviour()
 {
@@ -63,7 +71,7 @@ Transform* AIBehaviour::Update()
 	_direction = path_.front() - position_->position;
 	float distance = _direction.Magnitude();
 
-    if (distance < 0.3f)  // Reached the next 'node'
+    if (distance < NEXT_NODE_DISTANCE)	// Reached the next 'node'
     {
 		if (path_.size() == 1 && path_.front() == _targetPosition->position)
 		{

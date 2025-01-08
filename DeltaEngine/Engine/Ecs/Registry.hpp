@@ -8,6 +8,7 @@ namespace ecs
 {
 	using EntityId = entt::entity;
 
+	// TODO is this still temp?
 	// Temporary until solution for below
 	template <typename... Components>
 	using View = entt::basic_view<entt::get_t<entt::storage_type_t<Components>...>, entt::exclude_t<>>;
@@ -25,6 +26,8 @@ namespace ecs
 	protected:
 		ecs::View<Components...> _view;
 	};
+
+	// TODO can this go? \/
 
 	//class ecs::Registry;
 
@@ -45,7 +48,6 @@ namespace ecs
 	class Registry
 	{
 	public:
-		//friend class ecs::View;
 		template<typename... Components>
 		ecs::EntityId CreateEntity()
 		{
@@ -88,7 +90,6 @@ namespace ecs
 			return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
 		}
 
-
 		template<typename Component>
 		void RemoveComponent(ecs::EntityId entityId)
 		{
@@ -107,14 +108,9 @@ namespace ecs
 			return _registry.get<Component>(entityId);
 		}
 
-		bool Valid(ecs::EntityId entityId)
-		{
-			return _registry.valid(entityId);
-		}
+		bool Valid(ecs::EntityId entityId);
 
 	private:
 		entt::registry _registry;
 	};
 }
-
-

@@ -1,9 +1,13 @@
-#include <cmath>
 #include "Point.hpp"
+
+#include <cmath>
 
 using namespace Math;
 
-Point::Point(int x, int y) : _x{ x }, _y{ y } {}
+Point::Point(int x, int y) : _x{ x }, _y{ y } 
+{
+
+}
 
 int Point::GetX() const
 {

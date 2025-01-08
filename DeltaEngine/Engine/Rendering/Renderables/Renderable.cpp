@@ -1,7 +1,7 @@
 #include "Renderable.hpp"
 
-Renderable::Renderable(const Renderable& other) : 
-	  color(other.color),
+Renderable::Renderable(const Renderable& other) 
+	: color(other.color),
 	  flipX(other.flipX),
 	  flipY(other.flipY)
 {
@@ -16,7 +16,6 @@ Renderable& Renderable::operator=(const Renderable& other)
 		flipX = other.flipX;
 		flipY = other.flipY;
 	}
-
 	return *this;
 }
 
@@ -25,6 +24,7 @@ Renderable::Renderable(Renderable&& other) noexcept
 	  flipX(other.flipX),
 	  flipY(other.flipY)
 {
+
 }
 
 Renderable& Renderable::operator=(Renderable&& other) noexcept
@@ -36,7 +36,6 @@ Renderable& Renderable::operator=(Renderable&& other) noexcept
 		flipY = other.flipY;
 
 	}
-
 	return *this;
 }
 
@@ -50,9 +49,45 @@ void Renderable::SetColor(Rendering::Color newColor)
 	color = newColor;
 }
 
-void Renderable::RenderBorder(Rendering::Renderer* renderer, Rendering::Rect& borderRect)
+void Renderable::SetFlipX(bool flip)
 {
-	if (borderThickness > 0) {
+	flipX = flip;
+}
+
+void Renderable::SetFlipY(bool flip)
+{
+	flipY = flip;
+}
+
+Layer Renderable::GetLayer() const
+{
+	return _layer;
+}
+
+void Renderable::SetLayer(Layer layer)
+{
+	_layer = layer;
+}
+
+void Renderable::SetBorder(uint16_t borderThickness_)
+{
+	borderThickness = borderThickness_;
+}
+
+void Renderable::SetBorderColor(Rendering::Color borderColor_)
+{
+	borderColor = borderColor_;
+}
+
+void Renderable::RemoveBorder()
+{
+	borderThickness = 0;
+}
+
+void Renderable::RenderBorder(Rendering::Renderer* renderer, Rendering::Rect& borderRect) const
+{
+	if (borderThickness > 0) 
+	{
 		Rendering::SetRenderDrawColor(renderer, borderColor.r, borderColor.g, borderColor.b, borderColor.a);
 		Rendering::RenderFillRect(renderer, &borderRect);
 		
