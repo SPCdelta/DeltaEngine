@@ -13,7 +13,7 @@ Scene::Scene(const std::string& name)
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(camera);
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
-	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
+	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_physicsWorld);
 }
 
 void Scene::LoadScene(const std::string& name)

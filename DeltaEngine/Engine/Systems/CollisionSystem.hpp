@@ -2,7 +2,7 @@
 
 #include <optional>
 
-#include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
 #include "../Physics/Collider.hpp"
 
 namespace Physics
@@ -12,14 +12,16 @@ namespace Physics
 	class CollisionSystem : public ecs::System<std::unique_ptr<Collider>>
 	{
 	public:
-		CollisionSystem(ecs::View<std::unique_ptr<Collider>> view)
-			: ecs::System<std::unique_ptr<Collider>>(view)
+		CollisionSystem(ecs::Registry& reg)
+			: ecs::System<std::unique_ptr<Collider>>(reg)
 		{
 
 		}
 
 		Collider* GetCollider(EnginePhysics::PhysicsId id)
 		{
+			RefreshView();
+
 			for (ecs::EntityId entityId : _view)
 			{
 				std::unique_ptr<Collider>& collider = _view.get<std::unique_ptr<Collider>>(entityId);

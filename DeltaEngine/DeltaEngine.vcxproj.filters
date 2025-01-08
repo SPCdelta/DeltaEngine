@@ -126,6 +126,9 @@
     <ClInclude Include="Engine\Core\Files\DTO\SpriteDTO.hpp" />
     <ClInclude Include="Engine\Scene\UserDataStorage.hpp" />
     <ClInclude Include="Engine\UI\FontWrapper.hpp" />
+    <ClInclude Include="Engine\Ecs\System.hpp" />
+    <ClInclude Include="Engine\Ecs\Types.hpp" />
+    <ClInclude Include="Engine\Ecs\Include.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

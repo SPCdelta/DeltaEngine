@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
 
 #include "../Window.hpp"
 #include "../Rendering/Sprite.hpp"
@@ -8,8 +8,8 @@
 class RenderSystem : public ecs::System<Transform, Sprite>
 {
 public:
-	RenderSystem(ecs::View<Transform, Sprite> view, Camera* camera) 
-		: ecs::System<Transform, Sprite>(view), _window(nullptr), _viewportData(nullptr), _camera{ camera }
+	RenderSystem(ecs::Registry& reg, Camera* camera) 
+		: ecs::System<Transform, Sprite>(reg), _window(nullptr), _viewportData(nullptr), _camera{ camera }
 	{
 		
 	}
@@ -30,6 +30,7 @@ public:
 
 	void Update()
 	{
+		RefreshView();
 		//_window->RenderViewport(255, 255, 255, 255);
 
 		// Collect entities and sort by layer

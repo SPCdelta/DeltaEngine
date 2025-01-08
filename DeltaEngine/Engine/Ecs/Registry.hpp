@@ -1,53 +1,19 @@
 #pragma once
 
 #include <memory>
-#include <entt/entt.hpp>
-#include <iostream>
+
+#include "Types.hpp"
 
 class BehaviourScript;
 
 namespace ecs
 {
-	using EntityId = entt::entity;
-
-	// Temporary until solution for below
 	template <typename... Components>
-	using View = entt::basic_view<entt::get_t<entt::storage_type_t<Components>...>, entt::exclude_t<>>;
-
-	template<typename... Components>
-	class System
-	{
-	public:
-		System(ecs::View<Components...> view)
-			: _view(view)
-		{
-
-		}
-
-	protected:
-		ecs::View<Components...> _view;
-	};
-
-	//class ecs::Registry;
-
-	//template<typename... Components>
-	//class System
-	//{
-	//public:
-	//	System(const ecs::Registry* reg)
-	//		: _view(reg)
-	//	{
-
-	//	}
-
-	//protected:
-	//	ecs::View<Components...> _view;
-	//};
+	class System;
 
 	class Registry
 	{
 	public:
-		//friend class ecs::View;
 		template<typename... Components>
 		ecs::EntityId CreateEntity()
 		{
@@ -62,10 +28,15 @@ namespace ecs
 		template<typename T, typename... Components, typename... Args>
 		std::shared_ptr<T> CreateSystem(Args&&... args)
 		{
-			std::shared_ptr<T> system{ std::make_shared<T>(_registry.view<Components...>(), std::forward<Args>(args)...) };
+			std::shared_ptr<T> system{ std::make_shared<T>(*this, std::forward<Args>(args)...) };
 			return system;
 		}
 
+		template<typename... Components>
+		ecs::View<Components...> GetView()
+		{
+			return _registry.view<Components...>();
+		}
 
 		template<typename Component>
 		Component& AddComponent(ecs::EntityId entityId, Component component)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
 #include "../Transform.hpp"
 #include "../BehaviourScript.hpp"
 
@@ -33,14 +33,15 @@
 class BehaviourSystem : public ecs::System<std::unique_ptr<BehaviourScript>>
 {
 public:
-	BehaviourSystem(ecs::View<std::unique_ptr<BehaviourScript>> view)
-		: ecs::System<std::unique_ptr<BehaviourScript>>(view)
+	BehaviourSystem(ecs::Registry& reg)
+		: ecs::System<std::unique_ptr<BehaviourScript>>(reg)
 	{
 
 	}
 
 	void Update()
 	{
+		RefreshView();
 		for (ecs::EntityId entityId : _view)
 		{
 			_view.get<std::unique_ptr<BehaviourScript>>(entityId)->OnUpdate();

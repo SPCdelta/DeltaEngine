@@ -10,14 +10,15 @@ namespace Physics
 	class PhysicsSystem : public ecs::System<Transform, Rigidbody>
 	{
 	public:
-		PhysicsSystem(ecs::View<Transform, Rigidbody> view, ecs::Registry& reg, PhysicsWorld& physicsWorld)
-			: ecs::System<Transform, Rigidbody>(view), _physicsWorld{ physicsWorld }
+		PhysicsSystem(ecs::Registry& reg, PhysicsWorld& physicsWorld)
+			: ecs::System<Transform, Rigidbody>(reg), _physicsWorld{ physicsWorld }
 		{
 			_collisionSystem = reg.CreateSystem<CollisionSystem, std::unique_ptr<Collider>>();
 		}
 
 		void TransformToBox2D()
 		{
+			RefreshView();
 			for (ecs::EntityId entityId : _view)
 			{
 				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
@@ -28,6 +29,7 @@ namespace Physics
 
 		void Box2DToTransform()
 		{
+			RefreshView();
 			for (ecs::EntityId entityId : _view)
 			{
 				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
@@ -39,11 +41,13 @@ namespace Physics
 
 		void ApplyPhysics()
 		{ 
+			RefreshView();
 			_physicsWorld.Update();
 		}
 
 		void PhysicsEvents()
 		{
+			RefreshView();
 			std::vector<CollisionData>& triggers{ _physicsWorld.GetCurrentTriggers() };
 			std::vector<CollisionData>& collisions{ _physicsWorld.GetCurrentCollisions() };
 
