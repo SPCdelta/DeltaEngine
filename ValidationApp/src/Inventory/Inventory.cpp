@@ -1,6 +1,9 @@
 #include "Inventory.hpp"
 
-Inventory::Inventory() {}
+Inventory::Inventory() 
+{
+
+}
 
 void Inventory::AddItem(Item* item, Uint8 amount)
 {
@@ -10,6 +13,7 @@ void Inventory::AddItem(Item* item, Uint8 amount)
 		++_size;
 		return;
 	}
+
 	if (!IncreaseAmount(*item, amount))
 	{
 		Insert(item, amount);
@@ -19,9 +23,7 @@ void Inventory::AddItem(Item* item, Uint8 amount)
 Item* Inventory::RemoveItem(const Item& item, Uint8 amount)
 {
 	if (_items.size() <= 0)
-	{
 		return nullptr;
-	}
 
 	for (Uint8 i = 0; i < _items.size(); i++)
 	{

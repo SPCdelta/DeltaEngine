@@ -8,14 +8,12 @@
 #include "../Classes/FloorBehaviour.hpp"
 #include "../Classes/PickUpBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
-#include "Boomerang.hpp"
 #include "../Classes/Weapons/Gun.hpp"
 #include "../Classes/Weapons/Bow.hpp"
+#include "Boomerang.hpp"
 
 #include "../Views/ScoreScreen.hpp"
-
 #include "../Items/Potions/PotionFactory.hpp"
-
 #include "Level/LevelExitBehaviour.hpp"
 
 class PlayerBehaviour : public BehaviourScript
@@ -24,25 +22,14 @@ public:
 	void OnStart() override;
 	void OnUpdate() override;
 
-	~PlayerBehaviour()
-	{
-		sprite = nullptr;
-		rigidbody = nullptr;
-		_sfx = nullptr;
-
-		delete _floorBehaviour;
-		delete _damageBehaviour;
-		delete _pickUpBehaviour;
-		delete _weapon;
-		delete _boomerang;
-	}
+	~PlayerBehaviour();
 
 	void ThrowBoomerang();
 
 	void LoadPlayer();
 	void SavePlayer();
 
-	Player* GetPlayer() const { return _player.get(); }
+	Player* GetPlayer() const;
 
 	// Components
 	Sprite* sprite = nullptr;

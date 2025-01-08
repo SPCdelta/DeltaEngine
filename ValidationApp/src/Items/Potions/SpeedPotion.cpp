@@ -1,33 +1,36 @@
 #include "SpeedPotion.hpp"
 
+SpeedPotion::SpeedPotion(float time, float value, std::string name, std::string sprite)
+	: Potion(time, value, name, sprite)
+{
+
+}
+
 PotionType SpeedPotion::GetPotionType() const
 {
 	return PotionType::Speed;
 }
 
-void SpeedPotion::Use(Player& player) {
+void SpeedPotion::Use(Player& player) 
+{
 	if (IsActive)
-	{
-		std::cout << "Potion already active!" << std::endl;
 		return;
-	}	
 	
-	// huidige speed opslaan
+	// Save current speed
 	_affectedPlayer = &player;
 	_originalSpeed = player.GetSpeed(); 
 
-	// speed met meer of minder dan 50% versnellen 
+	// Speed including more or less than 50% acceleration 
 	float newSpeed = _originalSpeed * _value;
-
 	player.SetSpeed(newSpeed);
 	
 	IsActive = true;
 	_elapsedTime = 0.0f;
 	_potionDuration = _time;
-
 }
 
-bool SpeedPotion::Update() {
+bool SpeedPotion::Update() 
+{
 	if (!IsActive)
 		return true;
 
@@ -37,16 +40,14 @@ bool SpeedPotion::Update() {
 	if (_elapsedTime < _potionDuration)
 	{
 		float remainingTime = _potionDuration - _elapsedTime;
-		std::cout << "Potion effect active: " << remainingTime
-				  << " seconds remaining" << std::endl;
 	}
 	else
 	{
 		_affectedPlayer->SetSpeed(_originalSpeed);
 		IsActive = false;
 		_affectedPlayer = nullptr;
-		std::cout << "Potion effect worn off" << std::endl;
 	}
+
 	return false;
 }
 

@@ -8,8 +8,6 @@ namespace ecs
 {
 	using EntityId = entt::entity;
 
-	// TODO is this still temp?
-	// Temporary until solution for below
 	template <typename... Components>
 	using View = entt::basic_view<entt::get_t<entt::storage_type_t<Components>...>, entt::exclude_t<>>;
 
@@ -17,6 +15,7 @@ namespace ecs
 	class System
 	{
 	public:
+		// todo
 		System(ecs::View<Components...> view)
 			: _view(view)
 		{
@@ -27,24 +26,6 @@ namespace ecs
 		ecs::View<Components...> _view;
 	};
 
-	// TODO can this go? \/
-
-	//class ecs::Registry;
-
-	//template<typename... Components>
-	//class System
-	//{
-	//public:
-	//	System(const ecs::Registry* reg)
-	//		: _view(reg)
-	//	{
-
-	//	}
-
-	//protected:
-	//	ecs::View<Components...> _view;
-	//};
-
 	class Registry
 	{
 	public:
@@ -54,6 +35,7 @@ namespace ecs
 			return _registry.create();
 		}
 
+		// TODO
 		void DestroyEntity(ecs::EntityId entityId)
 		{
 			_registry.destroy(entityId);

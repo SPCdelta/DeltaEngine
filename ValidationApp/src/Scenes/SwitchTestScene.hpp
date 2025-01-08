@@ -2,30 +2,13 @@
 
 #include <Engine/Delta.hpp>
 
-#include "../Classes/MySceneData.hpp"
-
 class SceneSwitchBehaviour : public BehaviourScript
 {
 public:
-	void OnStart() override
-	{
-		std::cout << "OnStart: " << _current << std::endl;
-	}
+	void OnStart() override;
+	void OnUpdate() override;
 
-	void OnUpdate() override
-	{
-		if (_timer >= _switchAfter)
-		{
-			LoadScene(_switchTo);
-		}
-		_timer++;
-	}
-
-	void SetSwitchTo(const std::string& to, const std::string& current)
-	{
-		_switchTo = to;
-		_current = current;
-	}
+	void SetSwitchTo(const std::string& to, const std::string& current);
 
 private:
 	std::string _switchTo{};
@@ -38,43 +21,15 @@ private:
 class Scene1 : public Scene
 {
 public:
-	Scene1(const std::string& name) : Scene(name)
-	{ }
+	Scene1(const std::string& name);
 
-	void OnStart() override
-	{
-		Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}})
-			->AddComponent<SceneSwitchBehaviour>()
-			->SetSwitchTo("Scene2", "Scene1");
-
-		// Data
-		Json::json& data = RetriveUserData();
-
-		if (data.empty())
-		{
-			StoreUserData({ {"a" , 5}, {"b", 12},{"C", "Hello!" } });
-		}
-
-		Json::json data2 = RetriveUserData();
-		std::cout << "User data: " << data2.dump(4) << std::endl;
-	}
+	void OnStart() override;
 };
 
 class Scene2 : public Scene
 {
 public:
-	Scene2(const std::string& name) : Scene(name) 
-	{ }
+	Scene2(const std::string& name);
 
-	void OnStart() override
-	{
-		Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}})
-			->AddComponent<SceneSwitchBehaviour>()
-			->SetSwitchTo("Scene1", "Scene2");
-
-		// Data
-		Json::json& data = RetriveUserData();
-		data["a"] = static_cast<int>(data["a"]) +  1;
-		std::cout << "User data: " << data.dump(4) << std::endl;
-	}
+	void OnStart() override;
 };

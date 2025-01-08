@@ -1,6 +1,11 @@
 #include "InventoryItem.hpp"
 
-InventoryItem::InventoryItem(Item* item, Uint8 amount) : _item{item}, _amount{amount} {}
+InventoryItem::InventoryItem(Item* item, Uint8 amount) 
+    : _item{item}, 
+      _amount{amount} 
+{
+
+}
 
 void InventoryItem::AddAmount(Uint8 amount)
 {
@@ -31,8 +36,10 @@ const Item& InventoryItem::GetItem() const
 }
 
 InventoryItem::InventoryItem(const InventoryItem& other)
-    : _item(other._item->Clone()), _amount(other._amount)
+    : _item(other._item->Clone()), 
+      _amount(other._amount)
 {
+
 }
 
 InventoryItem& InventoryItem::operator=(const InventoryItem& other)
@@ -46,7 +53,8 @@ InventoryItem& InventoryItem::operator=(const InventoryItem& other)
 }
 
 InventoryItem::InventoryItem(InventoryItem&& other) noexcept
-    : _item(std::move(other._item)), _amount(other._amount)
+    : _item(std::move(other._item)), 
+      _amount(other._amount)
 {
     other._amount = 0;
 }

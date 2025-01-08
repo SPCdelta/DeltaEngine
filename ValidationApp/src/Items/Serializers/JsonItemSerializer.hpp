@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IItemSerializer.hpp"
+
 #include "Engine/Delta.hpp"
 
 class JsonItemSerializer : public IItemSerializer<JsonItemSerializer, Json::json>

@@ -5,22 +5,17 @@
 class LevelExitBehaviour : public BehaviourScript
 {
 public:
-	LevelExitBehaviour(const std::string& exitName) 
-		: _exitName{ exitName }
-	{
+	LevelExitBehaviour(const std::string& exitName);
 
-	}
+	void OnStart() override;
 
-	void OnStart() override
+	void SetExit(const std::string& exitName);
+	const std::string& GetExit() const;
+
+	virtual void Use() 
 	{ 
-		BoxCollider* collider = gameObject->AddComponent<BoxCollider>();
-		collider->SetTrigger(true);
-		gameObject->SetTag("level_exit");
+		LoadScene(_exitName); 
 	}
-
-	void SetExit(const std::string& exitName) { _exitName = exitName; }
-	const std::string& GetExit() const { return _exitName; }
-	virtual void Use() { LoadScene(_exitName); }
 
 private:
 	std::string _exitName = "";

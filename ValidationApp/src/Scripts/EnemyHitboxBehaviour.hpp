@@ -4,7 +4,7 @@
 
 class EnemyHitboxBehaviour : public BehaviourScript
 {
-   public:
+public:
 	~EnemyHitboxBehaviour();
 
 	void OnStart() override;
@@ -12,6 +12,6 @@ class EnemyHitboxBehaviour : public BehaviourScript
 
 	void SetEnemyPosition(Math::Vector2* position);
 	
-   private:
+private:
 	Math::Vector2* enemyPosition;
 };

@@ -28,7 +28,8 @@ public:
 		));
 	};
 
-	void SetSprite(const std::string& name){
+	void SetSprite(const std::string& name)
+	{
 		_name = name;
 	}
 

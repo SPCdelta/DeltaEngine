@@ -1,7 +1,8 @@
 #include "BarComponent.hpp"
 
-BarComponent::BarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale,
-	Player* player, const std::string& spriteName) : IView(scene, fontName, startPos, scale), _spriteName{spriteName}
+BarComponent::BarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale, Player* player, const std::string& spriteName) 
+	: IView(scene, fontName, startPos, scale), 
+	  _spriteName{spriteName}
 {
 	InitBarFg(player);
 	InitBarBg();

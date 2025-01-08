@@ -116,15 +116,9 @@ public:
 		return _reg.HasComponent<T>(_id);
 	}
 
-	ecs::EntityId GetId() const
-	{ 
-		return _id;
-	}
+	ecs::EntityId GetId() const;
 
-	GameObject(Scene* scene, ecs::EntityId id,
-				ecs::Registry& reg,
-				Physics::PhysicsWorld& physicsWorld,
-				Camera* camera, Transform& transform_);
+	GameObject(Scene* scene, ecs::EntityId id, ecs::Registry& reg, Physics::PhysicsWorld& physicsWorld, Camera* camera, Transform& transform_);
 	~GameObject();
 
 	friend class Scene;
@@ -133,24 +127,15 @@ public:
 	Transform& transformRef;
 	Transform* transform = nullptr;
 
-	bool IsActive() const { return _active; }
-	void SetActive(bool active) { _active = active; }
+	bool IsActive() const;
+	void SetActive(bool active);
 
-	Layer GetLayer() const 
-	{  
-		if (_reg.HasComponent<Sprite>(_id))
-			return _reg.GetComponent<Sprite>(_id).GetLayer();
-		return Layer::Default;
-	}
-
-	void SetLayer(Layer layer) 
-	{ 
-		if (_reg.HasComponent<Sprite>(_id))
-			_reg.GetComponent<Sprite>(_id).SetLayer(layer);
-	}
+	Layer GetLayer() const;
+	void SetLayer(Layer layer);
 	
-	void SetTag(const std::string& tag) { _tag = tag; }
-	const std::string& GetTag() const { return _tag; }
+	void SetTag(const std::string& tag);
+	const std::string& GetTag() const;
+
 	void LoadScene(const std::string& name);
 	void LoadScene(const std::string& name, void* userData);
 
@@ -160,10 +145,7 @@ public:
 	void Destroy(GameObject* gameObject);
 	void Destroy(std::shared_ptr<GameObject> gameObject);
 
-	Camera* GetCamera()
-	{ 
-		return _camera;
-	}
+	Camera* GetCamera();
 
 private:
 	bool _active{ true };
@@ -171,7 +153,9 @@ private:
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
+
 	Camera* _camera = nullptr;
+
 	std::string _tag;
 
 	template<typename T>

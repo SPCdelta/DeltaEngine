@@ -1,4 +1,5 @@
 #include "EnemyBehaviour.hpp"
+
 #include "../Classes/DamageBehaviour.hpp"
 
 EnemyBehaviour::~EnemyBehaviour()
@@ -43,14 +44,13 @@ void EnemyBehaviour::OnStart()
 	_damageObj = Instantiate(*transform);
 	_damageObj->AddComponent<BoxCollider>();
 	_damageObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position) ;
+	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position);
 	SetDamageBehaviour(_damageObj->GetComponent<Rigidbody>());
 }
 
 void EnemyBehaviour::OnUpdate()
 {
 	Transform* pos = &gameObject->GetComponent<Transform>();
-
 	if (playerPosition)
 	{
 		pos = _aiBehaviour->Update();
@@ -59,22 +59,22 @@ void EnemyBehaviour::OnUpdate()
 		if (!_spawnerBehaviour && Enemy::StringToType(gameObject->GetTag()) == EnemyType::Boss)
 		{
 			_spawnerBehaviour = std::make_unique<EntitySpawner>(gameObject, EntitySpawnerData
-				{
-					2.0f, 8.0f, // Spawn interval			  
-					3, 8, true, // Spawn amount | OnStart
-					2.5f // Spawn Radius
-				},
-				[this](std::shared_ptr<GameObject>& entity)
-				{
-					entity->Instantiate({{1.0f, 12.0f}, 0.0f, {1.0f, 1.0f}});;
-					std::shared_ptr<AnimationSheet> entitySheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
-					entity->AddComponent<Sprite>("slime", entitySheet);
-					entity->AddComponent<Audio::SFXSource>("", false, false);
-					entity->AddComponent<BoxCollider>()->SetTrigger(true);
-					entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-					entity->SetTag("slime");
-					entity->AddComponent<EnemyBehaviour>()->SetPlayer(playerPosition, player);
-				});
+			{
+				2.0f, 8.0f, // Spawn interval			  
+				3, 8, true, // Spawn amount | OnStart
+				2.5f		// Spawn Radius
+			},
+			[this](std::shared_ptr<GameObject>& entity)
+			{
+				entity->Instantiate({{1.0f, 12.0f}, 0.0f, {1.0f, 1.0f}});;
+				std::shared_ptr<AnimationSheet> entitySheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
+				entity->AddComponent<Sprite>("slime", entitySheet);
+				entity->AddComponent<Audio::SFXSource>("", false, false);
+				entity->AddComponent<BoxCollider>()->SetTrigger(true);
+				entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+				entity->SetTag("slime");
+				entity->AddComponent<EnemyBehaviour>()->SetPlayer(playerPosition, player);
+			});
 
 			_spawnerBehaviour->OnStart();
 		}
@@ -104,7 +104,6 @@ void EnemyBehaviour::OnUpdate()
 
 				if (_sfx)
 				{
-					// todo
 					_sfx->SetClip("taking_damage");
 					_sfx->SetVolume(5); 
 					_sfx->Play(2);					
@@ -139,9 +138,7 @@ void EnemyBehaviour::UpdateAnimation()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, false);
 		else if (_moveDirection.GetY() > 0.0f)
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, false);
-
-		// Idle
-		else
+		else // Idle
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
 }
@@ -163,4 +160,9 @@ void EnemyBehaviour::OnDeath()
 	Destroy(_damageObj);
 	gameObject->GetComponent<Sprite>().SetVisible(false);
 	gameObject->Destroy(gameObject);
+}
+
+Enemy& EnemyBehaviour::GetEnemy() const
+{
+	return *_enemy;
 }

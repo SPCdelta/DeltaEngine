@@ -1,5 +1,24 @@
 #include "PlayerBehaviour.hpp"
+
 #include "../Items/Serializers/JsonItemSerializer.hpp"
+
+PlayerBehaviour::~PlayerBehaviour()
+{
+	sprite = nullptr;
+	rigidbody = nullptr;
+	_sfx = nullptr;
+
+	delete _floorBehaviour;
+	delete _damageBehaviour;
+	delete _pickUpBehaviour;
+	delete _weapon;
+	delete _boomerang;
+}
+
+Player* PlayerBehaviour::GetPlayer() const
+{
+	return _player.get();
+}
 
 void PlayerBehaviour::OnStart() 
 {
@@ -17,9 +36,6 @@ void PlayerBehaviour::OnStart()
 		_sfx->SetClip("taking_damage");
 		_sfx->SetVolume(10);
 	}
-		
-	//_weapon = new Gun(this);
-	_weapon = new Bow(this);
 
 	onMouseMove([this](Input& e) 
 	{ 
@@ -28,14 +44,8 @@ void PlayerBehaviour::OnStart()
 	});
 
 	InitHotbarKeybinds();
-	// use consumables on right mb so that left mb is reserved for maybe throwing potions and the like?
-	//onMouseButtonDown(MouseButton::Right, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // TODO: fix inputmanager. For some reason this maps to KEY_02?
-	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
 
-	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
-	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
-
+	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); 
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
 		_attacking = true;
@@ -45,7 +55,6 @@ void PlayerBehaviour::OnStart()
 	// Physics Events
 	rigidbody->onTriggerEnter.Register([this](Collider& collider)
 	{ 
-		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
 		if (collider.transform.gameObject->GetTag() == "level_exit")
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
@@ -75,16 +84,13 @@ void PlayerBehaviour::OnUpdate()
 		switch (_onFloor)
 		{
 			case FloorType::NORMAL:
-			{
 				rigidbody->SetVelocity(_moveDirection * _moveSpeed);
-			}
-			break;
+				break;
 
 			case FloorType::ICE:
 				if (rigidbody->GetSpeed() < _moveSpeed)
 				{
-					rigidbody->AddForce(_moveDirection * _moveSpeed,
-										ForceMode::ACCELERATE);
+					rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
 				}
 
 				currentVelocity = rigidbody->GetVelocity();
@@ -94,13 +100,12 @@ void PlayerBehaviour::OnUpdate()
 				{
 					rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
 				}
+
 				break;
 
-			case FloorType::MUD:
-			{
+			case FloorType::MUD:			
 				rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
-			}
-			break;
+				break;
 		}
 	}
 	else
@@ -110,10 +115,11 @@ void PlayerBehaviour::OnUpdate()
 			case FloorType::NORMAL:
 				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
+
 			case FloorType::ICE:
-				rigidbody->AddForce(-currentVelocity * 1.0f,
-									ForceMode::ACCELERATE);
+				rigidbody->AddForce(-currentVelocity * 1.0f, ForceMode::ACCELERATE);
 				break;
+
 			case FloorType::MUD:
 				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
@@ -153,12 +159,16 @@ void PlayerBehaviour::OnUpdate()
 				{
 					if (!_scoreScreen)
 					{
-						_scoreScreen = std::make_unique<ScoreScreen>(
-							*gameObject->_scene, SCORE_SCREEN_FONT,
-							Math::Vector2{0, 0}, SCORE_SCREEN_SCALE,
+						_scoreScreen = std::make_unique<ScoreScreen>
+						(
+							*gameObject->_scene, 
+							SCORE_SCREEN_FONT,
+							Math::Vector2{0, 0}, 
+							SCORE_SCREEN_SCALE,
 							DEATH_MSG,
 							DEATH_MSG_COLOR,
-							_player->GetCoins());
+							_player->GetCoins()
+						);
 					}
 				}
 			}
@@ -169,28 +179,19 @@ void PlayerBehaviour::OnUpdate()
 	{
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, false);
 		else if (_moveDirection.GetX() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT, false);
 		else if (_moveDirection.GetY() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, false);
 		else if (_moveDirection.GetY() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP,
-										false);
-
-		// Idle
-		else
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, false);
+		else // Idle
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
 
 	UpdateConsumables();
-
-	this->gameObject->GetCamera()->SetPosition(
-		this->gameObject->transform->position);
+	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
 }
 
 void PlayerBehaviour::UpdateAttack(float deltaTime)
@@ -204,9 +205,7 @@ void PlayerBehaviour::UpdateAttack(float deltaTime)
 void PlayerBehaviour::InitHotbarKeybinds()
 {
 	for (Uint8 i = 1; i <= 9; ++i)
-	{
 		onKeyPressed(InputsEnum::toKey(std::to_string(i)), [this, i](Input& e) { _player->SetInventoryIndex(i-1); }, "Gameplay");
-	}
 }
 
 void PlayerBehaviour::ConsumeItem()
@@ -228,21 +227,19 @@ void PlayerBehaviour::UpdateConsumables()
 	for (size_t i = 0; i < _activeConsumables.size(); ++i)
 	{
 		if (_activeConsumables[i]->Update())
-		{
 			_activeConsumables.erase(_activeConsumables.begin() + i);
-		}
 	}
 }
 
 void PlayerBehaviour::PlayHurtParticle() 
 {
 	if (gameObject->HasComponent<ParticleEmitter>())
-	{
 		gameObject->RemoveComponent<ParticleEmitter>();
-	}
 
-	gameObject->AddComponent<ParticleEmitter>(
-		ParticleEmitterConfiguration{
+	gameObject->AddComponent<ParticleEmitter>
+	(
+		ParticleEmitterConfiguration
+		{
 			{"particle_big", "particle_medium_1", "particle_medium_2", "particle_small", "particle_tiny"},
 			{255, 0, 0, 255},
 			{220, 0, 0, 255},
@@ -258,8 +255,8 @@ void PlayerBehaviour::PlayHurtParticle()
 			0.0f, 0.0f,
 
 			0.25f, 0.25f
-		})
-	->Start();
+		}
+	)->Start();
 }
 
 void PlayerBehaviour::ThrowBoomerang()
@@ -273,7 +270,6 @@ void PlayerBehaviour::ThrowBoomerang()
 	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(static_cast<float>(_mouseX), static_cast<float>(_mouseY)));
 
 	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
-
 	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
 	{ 
 		Destroy(boomerangObj);
@@ -316,7 +312,6 @@ void PlayerBehaviour::LoadPlayer()
 						itemData["value"]
 					).release(), itemData["amount"]);
 				}
-				// TODO weapons?
 			}
 		}
 	}
@@ -352,7 +347,6 @@ void PlayerBehaviour::SavePlayer()
 
 			itemData = JsonItemSerializer::Serialize(*inventoryItem->GetItem().Clone());
 			itemData["amount"] = inventoryItem->GetAmount();
-			// TODO weapons?
 		}
 	}
 	

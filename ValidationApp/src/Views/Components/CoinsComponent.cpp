@@ -1,7 +1,8 @@
 #include "CoinsComponent.hpp"
 
-CoinComponent::CoinComponent(Scene& scene, const std::string& fontName, const Math::Vector2& pos, 
-	const Math::Vector2& scale, Player* player) : IView(scene, fontName, pos, scale), _coins(player->GetCoins())
+CoinComponent::CoinComponent(Scene& scene, const std::string& fontName, const Math::Vector2& pos, const Math::Vector2& scale, Player* player) 
+	: IView(scene, fontName, pos, scale), 
+	  _coins(player->GetCoins())
 {
 	_coinCounter = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, scale }) };
 	_coinCounter->AddComponent<Ui::Image>(SPRITE);

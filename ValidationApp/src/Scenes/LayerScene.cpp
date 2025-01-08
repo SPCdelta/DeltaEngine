@@ -1,5 +1,11 @@
 #include "LayerScene.hpp"
 
+LayerScene::LayerScene(const std::string& sceneName) 
+	: Scene(sceneName)
+{
+
+}
+
 void LayerScene::OnStart()
 {
 	// Create Player

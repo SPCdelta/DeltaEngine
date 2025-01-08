@@ -18,14 +18,11 @@ void Boomerang::OnUpdate()
 	{
 		// 1.0f is the distance when the boomerang says, sure I reached my target
 		if (transform->position.DistanceTo(_targetPosition) < 1.0f)
-		{
 			Return();
-		}
 	}
 	else
 	{
 		transform->position = Vector2::MoveTowards(transform->position, _thrower->transform->position, _throwSpeed * Time::GetDeltaTime());
-
 		if (transform->position.DistanceTo(_thrower->transform->position) < 0.1f)
 		{
 			_finished = true;
@@ -46,7 +43,8 @@ void Boomerang::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Ma
 
 	SetProjectileData({ "boomerang", 35, speed, direction.GetNormalized() });
 
-	rigidbody->onTriggerEnter.Register(
+	rigidbody->onTriggerEnter.Register
+	(
 		[this](Collider& collider)
 		{ 
 			if (collider.transform.gameObject->GetTag() != "player")

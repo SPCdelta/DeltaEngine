@@ -100,3 +100,23 @@ void Window::RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g, Re
 	Rendering::RenderFillRect(_renderer, &viewportRect);
 	Rendering::SetRenderDrawColor(_renderer, 10, 10, 10, 255);
 }
+
+Rendering::Renderer* Window::GetRenderer()
+{
+	return _renderer;
+}
+
+Window::operator Rendering::Window*() const
+{
+	return _window;
+}
+
+void Window::SetUnitPixelSize(int unitPixelSize)
+{
+	_viewportData.unitPixelSize = unitPixelSize;
+}
+
+ViewportData& Window::GetViewport()
+{
+	return _viewportData;
+}

@@ -1,5 +1,11 @@
 #include "AttackUpPotion.hpp"
 
+AttackUpPotion::AttackUpPotion(float time, float value, std::string name, std::string sprite) 
+	: Potion(time, value, name, sprite)
+{
+
+}
+
 PotionType AttackUpPotion::GetPotionType() const
 {
 	return PotionType::AttackUp;
@@ -8,10 +14,7 @@ PotionType AttackUpPotion::GetPotionType() const
 void AttackUpPotion::Use(Player& player)
 {
 	if (IsActive)
-	{
-		std::cout << "Potion already active!" << std::endl;
 		return;
-	}
 
 	_affectedPlayer = &player;
 	_originalDamage = player.GetAttackDamage();
@@ -23,7 +26,6 @@ void AttackUpPotion::Use(Player& player)
 	IsActive = true;
 	_elapsedTime = 0.0f;
 	_potionDuration = _time;
-
 }
 
 bool AttackUpPotion::Update()
@@ -37,16 +39,14 @@ bool AttackUpPotion::Update()
 	if (_elapsedTime < _potionDuration)
 	{
 		float remainingTime = _potionDuration - _elapsedTime;
-		std::cout << "Potion effect active: " << remainingTime
-				  << " seconds remaining" << std::endl;
 	}
 	else
 	{
 		_affectedPlayer->SetAttackDamage(_originalDamage);
 		IsActive = false;
 		_affectedPlayer = nullptr;
-		std::cout << "Potion effect worn off" << std::endl;
 	}
+
 	return false;
 }
 

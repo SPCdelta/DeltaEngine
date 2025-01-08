@@ -50,4 +50,3 @@ protected:
 	std::shared_ptr<GameObject> Instantiate();
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 };
-

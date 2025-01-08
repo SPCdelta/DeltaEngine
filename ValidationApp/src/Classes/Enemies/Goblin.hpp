@@ -4,21 +4,9 @@
 
 class Goblin : public Enemy
 {
-   public:
-	Goblin(Math::Vector2* position, float speed = 2.0f, int health = 25, int damage = 10, int range = 20, int step = 5) 
-		: Enemy(position, speed, health, damage, range, step) {}
+public:
+	Goblin(Math::Vector2* position, float speed = 2.0f, int health = 25, int damage = 10, int range = 20, int step = 5);
 
-	void Update(Transform& player_position, Audio::SFXSource* _sfx) override {}
-
-	void Die(Audio::SFXSource* _sfx) override
-    {
-        _dead = true;
-
-		if (_sfx)
-		{
-			_sfx->SetClip("goblin_death");
-			_sfx->SetVolume(3);
-			_sfx->Play();
-		}
-    }
+	void Update(Transform& player_position, Audio::SFXSource* _sfx) override;
+	void Die(Audio::SFXSource* _sfx) override;
 };

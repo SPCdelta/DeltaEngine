@@ -1,4 +1,5 @@
 #include "ValidationApp.hpp"
+
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/InputTestScene.hpp"
@@ -9,13 +10,11 @@
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
 #include "Scenes/ParticleScene.hpp"
-#include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
 
 ValidationApp::ValidationApp()
 	: Application(32)
 {
-
 	LoadAssets();
 
 	// Register Scenes
@@ -30,7 +29,6 @@ ValidationApp::ValidationApp()
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
 	RegisterScene<ParticleScene>("ParticleScene");
-	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 	RegisterScene<SpawnerScene>("SpawnerScene");
 
 	// Load Desired Scene
@@ -46,7 +44,8 @@ void ValidationApp::LoadAssets()
 	// Maps
 	float scale = 32.0f;
 
-	SpriteMap gamefloormap{
+	SpriteMap gamefloormap
+	{
 		"Assets\\Textures\\floor_map.png",
 		{
 
@@ -71,7 +70,7 @@ void ValidationApp::LoadAssets()
 			{"Sandstone_floor_7",	{scale * 5, scale * 1}, {scale*(5 + 1), scale*(1 + 1)}},
 			{"Sandstone_floor_8",	{scale * 6, scale * 1}, {scale*(6 + 1), scale*(1 + 1)}},
 			{"Sandstone_floor_9",	{scale * 7, scale * 1}, {scale*(7 + 1), scale*(1 + 1)}},
-						{"1Sandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
+			{"1Sandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
 			{"2Sandstone_floor_1",	{scale * 9, scale * 0}, {scale * (9 + 1), scale * (0 + 1)}},
 			{"3Sandstone_floor_2",	{scale * 0, scale * 1}, {scale * (0 + 1), scale * (1 + 1)}},
 			{"4Sandstone_floor_3",	{scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
@@ -81,7 +80,7 @@ void ValidationApp::LoadAssets()
 			{"8Sandstone_floor_7",	{scale * 5, scale * 1}, {scale * (5 + 1), scale * (1 + 1)}},
 			{"9Sandstone_floor_8",	{scale * 6, scale * 1}, {scale * (6 + 1), scale * (1 + 1)}},
 			{"0Sandstone_floor_9",	{scale * 7, scale * 1}, {scale * (7 + 1), scale * (1 + 1)}},
-						{"aSandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
+			{"aSandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
 			{"dSandstone_floor_1",	{scale * 9, scale * 0}, {scale * (9 + 1), scale * (0 + 1)}},
 			{"fSandstone_floor_2",	{scale * 0, scale * 1}, {scale * (0 + 1), scale * (1 + 1)}},
 			{"gSandstone_floor_3",	{scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},

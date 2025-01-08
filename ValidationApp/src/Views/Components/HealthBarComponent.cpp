@@ -1,7 +1,7 @@
 #include "HealthBarComponent.hpp"
 
-HealthBarComponent::HealthBarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, 
-	const Math::Vector2& scale, Player* player) : BarComponent(scene, fontName, startPos, scale, player, SPRITE)
+HealthBarComponent::HealthBarComponent(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale, Player* player) 
+	: BarComponent(scene, fontName, startPos, scale, player, SPRITE)
 {
 	InitValues(player);
 }
@@ -16,5 +16,3 @@ void HealthBarComponent::InitValues(Player* player)
 	_barFg->transform->scale.SetX(_value * _unit);
 	UpdateText();
 }
-
-

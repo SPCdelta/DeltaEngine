@@ -1,12 +1,17 @@
 #include "WorldItem.hpp"
 
-WorldItem::WorldItem(Item* item, int amount) : _item{item}, _amount{amount}
+WorldItem::WorldItem(Item* item, int amount) 
+    : _item{item}, 
+      _amount{amount}
 {
+
 }
 
 WorldItem::WorldItem(const WorldItem& other)
-    : _amount(other._amount), _item(other._item->Clone())
+    : _amount(other._amount), 
+      _item(other._item->Clone())
 {
+
 }
 
 WorldItem& WorldItem::operator=(const WorldItem& other)
@@ -20,7 +25,8 @@ WorldItem& WorldItem::operator=(const WorldItem& other)
 }
 
 WorldItem::WorldItem(WorldItem&& other) noexcept
-    : _amount(other._amount), _item(std::move(other._item))
+    : _amount(other._amount), 
+      _item(std::move(other._item))
 {
     other._amount = 0;
 }
