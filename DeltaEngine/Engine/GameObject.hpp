@@ -36,13 +36,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			//T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T(std::forward<Args>(args)...)));
-			//component->gameObject = this;
-			//component->transform = transform;
-			//component->camera = _camera;
-			//component->OnStart();
-			//return component;
-			T* component = _reg.AddBehaviour<T>(_id, std::forward<Args>(args)...);
+			T* component = _reg.AddInheritanceComponent<BehaviourScript, T>(_id, std::forward<Args>(args)...);
 			component->gameObject = this;
 			component->transform = transform;
 			component->camera = _camera;
@@ -51,7 +45,7 @@ public:
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
 		{
-			T* component = static_cast<T*>(_reg.EmplacePointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
+			T* component = _reg.AddInheritanceComponent<Physics::Collider, T>(_id, _physicsWorld, *transform, std::forward<Args>(args)...);
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
@@ -61,7 +55,8 @@ public:
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			return static_cast<T*>(&_reg.AddPointerComponent<Physics::Rigidbody>(_id, *_reg.GetComponent<Physics::Collider*>(_id)));
+			Physics::Collider* collider = _reg.GetComponent<std::shared_ptr<Physics::Collider>>(_id).get();
+			return static_cast<Physics::Rigidbody*>(&_reg.EmplaceComponent<Physics::Rigidbody>(_id, *collider));
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{

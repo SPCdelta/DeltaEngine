@@ -13,7 +13,7 @@ namespace Physics
 		PhysicsSystem(ecs::View<Transform, Rigidbody> view, ecs::Registry& reg, PhysicsWorld& physicsWorld)
 			: ecs::System<Transform, Rigidbody>(view), _physicsWorld{ physicsWorld }
 		{
-			_collisionSystem = reg.CreateSystem<CollisionSystem, Collider*>();
+			_collisionSystem = reg.CreateSystem<CollisionSystem, std::unique_ptr<Collider>>();
 		}
 
 		void TransformToBox2D()

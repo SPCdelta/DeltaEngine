@@ -66,11 +66,6 @@ namespace ecs
 			return system;
 		}
 
-		template <typename Component>
-		Component& AddPointerComponent(ecs::EntityId entityId, Component component)
-		{
-			return _registry.emplace<Component>(entityId, component);
-		}
 
 		template<typename Component>
 		Component& AddComponent(ecs::EntityId entityId, Component component)
@@ -79,22 +74,16 @@ namespace ecs
 		}
 
 		template<typename Component, typename... Args>
-		Component& EmplacePointerComponent(ecs::EntityId entityId, Args&&... args)
-		{
-			return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
-		}
-
-		template<typename Component, typename... Args>
 		Component& EmplaceComponent(ecs::EntityId entityId, Args&&... args)
 		{
 			return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
 		}
 
-		template<typename T, typename... Args>
-		T* AddBehaviour(ecs::EntityId entityId, Args&&... args) 
+		template<typename TBase, typename TInherit, typename... Args>
+		TInherit* AddInheritanceComponent(ecs::EntityId entityId, Args&&... args) 
 		{
-			static_assert(std::is_base_of<BehaviourScript, T>::value, "T must inherit from BehaviourScript!");
-			return static_cast<T*>(_registry.emplace<std::unique_ptr<BehaviourScript>>(entityId, std::make_unique<T>(std::forward<Args>(args)...)).get());
+			static_assert(std::is_base_of<TBase, TInherit>::value, "TInherit must inherit from TBase!");
+			return static_cast<TInherit*>(_registry.emplace<std::unique_ptr<TBase>>(entityId, std::make_unique<TInherit>(std::forward<Args>(args)...)).get());
 		}
 
 		template<typename Component>
