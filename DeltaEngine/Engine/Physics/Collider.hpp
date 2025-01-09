@@ -39,6 +39,11 @@ namespace Physics
 			_shape.id = EnginePhysics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
 		}
 
+		~Collider()
+		{
+			EnginePhysics::DestroyCollider(_bodyId, _physicsWorld.GetWorldId());
+		}
+
 		friend class CollisionSystem;
 		friend class PhysicsSystem;
 		friend class Rigidbody;
@@ -46,6 +51,7 @@ namespace Physics
 		void SetTrigger(bool trigger)
 		{
 			if (_isTrigger == trigger) return;
+			_isTrigger = trigger;
 
 			b2DestroyBody(_bodyId);
 			_physicsBody = EnginePhysics::DefaultBody();
@@ -53,9 +59,9 @@ namespace Physics
 			_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &_physicsBody);
 
 			_shape.shape = EnginePhysics::DefaultShape();
-			_shape.shape.isSensor = trigger;
-			_shape.shape.enableContactEvents = trigger;
-			_shape.shape.enableSensorEvents = trigger;
+			_shape.shape.isSensor = _isTrigger;
+			_shape.shape.enableContactEvents = _isTrigger;
+			_shape.shape.enableSensorEvents = _isTrigger;
 			switch (_shapeType)
 			{
 				case Physics::ShapeType::CIRCLE:
@@ -70,6 +76,33 @@ namespace Physics
 			_shape.id = EnginePhysics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
 
 			CallOnShapeChanged();
+		}
+
+		void ReCreate()
+		{
+			EnginePhysics::DestroyCollider(_bodyId, _physicsWorld.GetWorldId());
+
+			_physicsBody = EnginePhysics::DefaultBody();
+			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
+			_physicsBody.linearVelocity = EnginePhysics::ToVec2(EnginePhysics::GetVelocity(_bodyId));
+			_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &_physicsBody);
+
+			_shape.shape = EnginePhysics::DefaultShape();
+			_shape.shape.isSensor = _isTrigger;
+			_shape.shape.enableContactEvents = _isTrigger;
+			_shape.shape.enableSensorEvents = _isTrigger;
+			switch (_shapeType)
+			{
+				case Physics::ShapeType::CIRCLE:
+					_polygon = EnginePhysics::CreateCircle(transform.scale);
+					break;
+
+				case Physics::ShapeType::BOX:
+				default:
+					_polygon = EnginePhysics::CreateBox(transform.scale);
+					break;
+			}
+			_shape.id = EnginePhysics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
 		}
 
 		bool IsTrigger() const

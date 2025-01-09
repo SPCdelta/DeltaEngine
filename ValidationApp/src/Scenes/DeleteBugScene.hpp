@@ -30,7 +30,15 @@ public:
 
 	void OnStart() override
 	{
-
+		std::shared_ptr<GameObject> collider = Instantiate();
+		collider->transformRef.scale = { 3.0f, 3.0f };
+		collider->transformRef.position = { 4.0f, -1.5f };
+		collider->AddComponent<Sprite>("player");
+		collider->AddComponent<BoxCollider>();
+		Rigidbody* rb = collider->AddComponent<Rigidbody>();
+		rb->SetGravityScale(0.0f);
+		rb->onTriggerEnter.Register([this](Collider& collider)
+									{ _collisions++; });
 	}
 
 	void OnUpdate() override
@@ -56,9 +64,11 @@ public:
 		if (_spawnCount % 100 == 0)
 		{
 			std::cout << "Arrow" << _spawnCount << std::endl;
+			std::cout << "Collisions: " << _collisions << std::endl;
 		}
 	}
 
 private:
-	int _spawnCount{ 0 };
+	int _spawnCount{0};
+	int _collisions{0};
 };

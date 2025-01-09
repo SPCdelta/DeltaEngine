@@ -22,7 +22,8 @@ namespace Physics
 			for (ecs::EntityId entityId : _view)
 			{
 				Rigidbody& rb = _view.get<Rigidbody>(entityId);
-				EnginePhysics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
+				rb.GetCollider().ReCreate();
+				//EnginePhysics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
 			}
 		}
 
@@ -31,7 +32,7 @@ namespace Physics
 			RefreshView();
 			for (ecs::EntityId entityId : _view)
 			{
-				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
+				Rigidbody& rb = _view.get<Rigidbody>(entityId);
 
 				Math::Vector2 position = EnginePhysics::GetPosition(rb.GetCollider()._bodyId);
 				rb.GetCollider().transform.position.Set(position);
@@ -40,7 +41,6 @@ namespace Physics
 
 		void ApplyPhysics()
 		{ 
-			RefreshView();
 			_physicsWorld.Update();
 		}
 

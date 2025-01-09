@@ -17,6 +17,11 @@ namespace Physics
 			EnginePhysics::EnableSleep(collider._bodyId, false);
 		}
 
+		~Rigidbody()
+		{
+			EnginePhysics::DestroyRigidbody();
+		}
+
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
 		Events::EventDispatcher<Collider&> onTriggerExit{};
 		Events::EventDispatcher<Collider&> onCollisionEnter{};

@@ -34,8 +34,6 @@ void Scene::Start()
 void Scene::Update()
 {
 	// Physics
-	_physicsSystem->ApplyPhysics();
-	_physicsSystem->Box2DToTransform();
 	_physicsSystem->PhysicsEvents();
 
 	// Input
@@ -50,11 +48,14 @@ void Scene::Update()
 	_particleSystem->Update();
 
 	// LateUpdate
+	// Physics
 	_physicsSystem->TransformToBox2D();
+	_physicsSystem->ApplyPhysics();
+	_physicsSystem->Box2DToTransform();
 
 	_reg._registry.view<Transform, Velocity>().each([&](auto entity, Transform& transform, Velocity& velocity) 
 		{
-			transform.position += Vector2{ velocity.dx, velocity.dy } * Time::GetDeltaTime();
+			transform.position += velocity.velocity * Time::GetDeltaTime();
 		}
 	);
 

@@ -101,6 +101,14 @@ namespace EnginePhysics
 		return {shapeId.index1, shapeId.world0, shapeId.revision};
 	}
 
+	static b2Vec2 ToVec2(Math::Vector2 vector)
+	{
+		return b2Vec2
+		{
+			vector.GetX(), vector.GetY()
+		};
+	}
+
 	//
 	inline Shape DefaultShape()
 	{
@@ -137,6 +145,20 @@ namespace EnginePhysics
 	inline PhysicsId CreatePolygonShape(PhysicsId bodyId, const PhysicsShape* shape, const PhysicsPolygon* polygon)
 	{
 		return EnginePhysics::ToPhysicsId(b2CreatePolygonShape(bodyId, &shape->shape, polygon));
+	}
+
+	// Destroy
+	inline void DestroyCollider(PhysicsId bodyId, WorldId worldId)
+	{
+		if (!b2World_IsValid(worldId))
+			return;
+
+		b2DestroyBody(bodyId);
+	}
+
+	inline void DestroyRigidbody()
+	{
+
 	}
 
 	inline void SetBodyType(PhysicsId bodyId, Physics::RigidbodyType type)
@@ -188,11 +210,11 @@ namespace EnginePhysics
 		b2Vec2 b2Pos = b2Body_GetPosition(bodyId);
 		return Math::Vector2(b2Pos.x, b2Pos.y);
 	}
-	inline void SetPosition(PhysicsId bodyId, Math::Vector2 position)
-	{
-		b2Vec2 b2Pos { position.GetX(), position.GetY() };
-		b2Body_SetTransform(bodyId, b2Pos, b2Body_GetRotation(bodyId));
-	}
+	//inline void SetPosition(PhysicsId bodyId, Math::Vector2 position)
+	//{
+	//	b2Vec2 b2Pos { position.GetX(), position.GetY() };
+	//	b2Body_SetTransform(bodyId, b2Pos, b2Body_GetRotation(bodyId));
+	//}
 
 	inline void DestroyShape(PhysicsId shapeId)
 	{

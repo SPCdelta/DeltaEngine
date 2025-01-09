@@ -29,8 +29,7 @@
 
 struct Velocity
 {
-	float dx;
-	float dy;
+	Vector2 velocity;
 };
 
 class Application;

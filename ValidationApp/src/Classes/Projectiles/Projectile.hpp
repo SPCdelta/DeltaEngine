@@ -35,6 +35,7 @@ public:
 
 		rigidbody->AddForce(data.direction * data.speed, ForceMode::IMPULSE);
 		rigidbody->SetVelocity(data.direction * data.speed);
+		//transform->gameObject->AddComponent<Velocity>();
 	}
 
 	Rigidbody* rigidbody = nullptr;
