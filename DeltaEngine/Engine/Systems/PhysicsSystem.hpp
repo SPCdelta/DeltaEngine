@@ -34,13 +34,21 @@ namespace Physics
 				Rigidbody& rb = _view.get<Rigidbody>(entityId);
 
 				Math::Vector2 position = EnginePhysics::GetPosition(rb.GetCollider()._bodyId);
-				rb.GetCollider().transform.position.Set(position);
+				rb.GetCollider().transform.position = position;
 			}
 		}
 
 		void ApplyPhysics()
 		{ 
 			_physicsWorld.Update();
+
+			RefreshView();
+			for (ecs::EntityId entityId : _view)
+			{
+				Rigidbody& rb = _view.get<Rigidbody>(entityId);
+				std::cout << (int)entityId << ": v" << rb.GetVelocity().GetX()
+						  << " | p" << EnginePhysics::GetPosition(rb.GetCollider()._bodyId).GetX() << std::endl;
+			}
 		}
 
 		void PhysicsEvents()

@@ -306,10 +306,7 @@
     <ClInclude Include="Engine\UI\Scrollable.hpp" />
     <ClInclude Include="Engine\UI\Brush\SnapToGridBrush.hpp" />
     <ClInclude Include="Engine\UI\FontManager.hpp" />
-    <ClInclude Include="Engine\UI\Image.hpp">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClInclude>
+    <ClInclude Include="Engine\UI\Image.hpp" />
     <ClInclude Include="Engine\UI\Panel.hpp" />
     <ClInclude Include="Engine\Window.hpp" />
     <ClInclude Include="Engine\Ecs\Registry.hpp" />
