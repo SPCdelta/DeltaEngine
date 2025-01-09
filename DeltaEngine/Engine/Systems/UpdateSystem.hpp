@@ -41,7 +41,7 @@ public:
 
 	void Update()
 	{
-		RefreshView();
+		//RefreshView();
 		for (ecs::EntityId entityId : _view)
 		{
 			_view.get<std::unique_ptr<BehaviourScript>>(entityId)->OnUpdate();

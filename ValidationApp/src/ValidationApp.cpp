@@ -46,7 +46,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditorMenuScene>("LevelEditorMenuScene");
 
 	// Load Desired Scene
-	LoadScene("DeleteBugScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();
