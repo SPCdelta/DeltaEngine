@@ -47,6 +47,9 @@ public:
 			myObject->transformRef.rotation = Math::Random::NextFloat(0.0f, 360.0f);
 
 			//myObject->AddComponent<Sprite>("arrow");
+
+			//myObject->AddComponent<Lifetime>(2.0f);
+			//myObject->AddComponent<Velocity>(3.0f, 0.0f);
 			_spawnCount++;
 		}
 

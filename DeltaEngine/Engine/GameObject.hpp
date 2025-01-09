@@ -49,12 +49,12 @@ public:
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
 		{
-			if (!_reg.HasComponent<Physics::Collider*>(_id))
+			if (!_reg.HasComponent<std::unique_ptr<Physics::Collider>>(_id))
 			{
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			Physics::Collider* collider = _reg.GetComponent<std::shared_ptr<Physics::Collider>>(_id).get();
+			Physics::Collider* collider = _reg.GetComponent<std::unique_ptr<Physics::Collider>>(_id).get();
 			return static_cast<Physics::Rigidbody*>(&_reg.EmplaceComponent<Physics::Rigidbody>(_id, *collider));
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)

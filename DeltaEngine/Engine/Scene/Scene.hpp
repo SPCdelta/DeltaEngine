@@ -25,6 +25,13 @@
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/ImageRenderSystem.hpp"
 #include "../Systems/TextRenderSystem.hpp"
+#include "../Systems/LifetimeSystem.hpp"
+
+struct Velocity
+{
+	float dx;
+	float dy;
+};
 
 class Application;
 class SceneHelper;
@@ -93,4 +100,5 @@ private:
 	std::shared_ptr<ParticleSystem> _particleSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
+	std::shared_ptr<LifetimeSystem> _lifetimeSystem;
 };

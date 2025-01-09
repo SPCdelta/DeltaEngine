@@ -276,6 +276,7 @@
     <ClInclude Include="Engine\Rendering\Particles\Particle.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.hpp" />
     <ClInclude Include="Engine\Scene\UserDataStorage.hpp" />
+    <ClInclude Include="Engine\Systems\LifetimeSystem.hpp" />
     <ClInclude Include="Engine\Systems\ParticleSystem.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />
     <ClInclude Include="Engine\Rendering\Renderables\Renderable.hpp" />

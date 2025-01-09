@@ -14,6 +14,7 @@ Scene::Scene(const std::string& name)
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_physicsWorld);
+	_lifetimeSystem = _reg.CreateSystem<LifetimeSystem, Transform, Lifetime>();
 }
 
 void Scene::LoadScene(const std::string& name)
@@ -50,6 +51,25 @@ void Scene::Update()
 
 	// LateUpdate
 	_physicsSystem->TransformToBox2D();
+
+	_reg._registry.view<Transform, Velocity>().each([&](auto entity, Transform& transform, Velocity& velocity) 
+		{
+			transform.position += Vector2{ velocity.dx, velocity.dy } * Time::GetDeltaTime();
+		}
+	);
+
+	_lifetimeSystem->Update();
+	// Update lifetimes and destroy expired bullets
+	//auto view = _reg._registry.view<Lifetime>();
+	//for (auto entity : view)
+	//{
+	//	auto& life = view.get<Lifetime>(entity);
+	//	life.remaining -= Time::GetDeltaTime();
+	//	if (life.remaining <= 0)
+	//	{
+	//		_reg._registry.destroy(entity);
+	//	}
+	//}
 
 	// Render
 	_renderSystem->Update();

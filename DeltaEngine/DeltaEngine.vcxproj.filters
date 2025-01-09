@@ -129,6 +129,7 @@
     <ClInclude Include="Engine\Ecs\System.hpp" />
     <ClInclude Include="Engine\Ecs\Types.hpp" />
     <ClInclude Include="Engine\Ecs\Include.hpp" />
+    <ClInclude Include="Engine\Systems\LifetimeSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />
