@@ -3,6 +3,7 @@
 
 Boomerang::Boomerang(BehaviourScript* user) : Weapon{user}
 {
+
 }
 
 void Boomerang::Use()
