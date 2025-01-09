@@ -31,10 +31,8 @@ public:
 		_data = data;
 		Sprite* sprite = transform->gameObject->AddComponent<Sprite>(data.sprite);
 		sprite->SetLayer(Layer::Projectiles);
-		//transform->rotation = Math::DirectionToAngle(data.direction);
-
-		rigidbody->SetVelocity(data.direction * data.speed);
-		//transform->gameObject->AddComponent<Velocity>();
+		transform->rotation = Math::DirectionToAngle(data.direction);
+		transform->gameObject->AddComponent<Velocity>(Math::Vector2{3.0f, 0.0f});
 	}
 
 	Rigidbody* rigidbody = nullptr;

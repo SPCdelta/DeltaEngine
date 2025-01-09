@@ -102,7 +102,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			return *static_cast<T*>(_reg.GetComponent<BehaviourScript*>(_id));
+			return *static_cast<T*>(_reg.GetComponent<std::unique_ptr<BehaviourScript>>(_id).get());
 		}
 		else
 		{

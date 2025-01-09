@@ -29,6 +29,8 @@ public:
 		
 	}
 
+	std::vector<std::shared_ptr<Collider>> currentColliders;
+
 	void OnStart() override
 	{
 		std::shared_ptr<GameObject> collider = Instantiate();
@@ -38,61 +40,72 @@ public:
 		collider->AddComponent<BoxCollider>();
 		Rigidbody* rb = collider->AddComponent<Rigidbody>();
 		rb->SetGravityScale(0.0f);
-		rb->onTriggerEnter.Register([this](Collider& collider) { _collisions++; });
+		rb->onTriggerEnter.Register([this](Collider& collider)			
+		{ 
+			if (IsColliding(collider))
+				return;
+
+			_collisions++; 
+			currentColliders.push_back(std::make_shared<Collider>(collider));
+		});
+	}
+
+	bool IsColliding(Collider& collider)
+	{
+		for (auto& col : currentColliders)
+		{
+			if (EnginePhysics::AreEqual(col->GetId(), collider.GetId()))
+				return true;
+		}
+		return false;
 	}
 
 	void OnUpdate() override
 	{
-		if (_timer <= 0.0f)
+		_spawnTime -= Time::GetDeltaTime();
+
+		if (CanSpawn())
 		{
-			_timer = 0.5f;
-			std::cout << "Spawns: " << _spawnCount << " | Collisions: " << _collisions << std::endl;
 			for (size_t i = 0; i < 1; i++)
 			{
-				//std::shared_ptr<GameObject> myObject = Instantiate
-				//(
-				//	{
-				//		{
-				//			Math::Random::NextFloat(-1.0f, 1.0f),
-				//			Math::Random::NextFloat(-1.0f, 1.0f)
-				//		}, 
-				//		Math::Random::NextFloat(0.0f, 360.0f),
-				//		{ 1.0f, 1.0f }
-				//	}
-				//);
-				std::shared_ptr<GameObject> myObject = Instantiate
-				(
-					{
-						{
-							0.0f,
-							0.0f
-						}, 
-						0.0f,
-						{ 1.0f, 1.0f }
-					}
-				);
+				std::shared_ptr<GameObject> myObject = Instantiate();
 				myObject->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, { 1.0f, 0.0f }});
-				//myObject->AddComponent<Sprite>("arrow");
-
-				//myObject->AddComponent<Lifetime>(2.0f);
-				//myObject->AddComponent<Velocity>(3.0f, 0.0f);
+				myObject->AddComponent<Lifetime>(2.0f);
+				myObject->transformRef.position = 
+				{
+					Math::Random::NextFloat(-1.0f, 1.0f),
+					Math::Random::NextFloat(-1.0f, 1.0f)
+				};
+				
 				_spawnCount++;
 			}
-		}
-		else
-		{
-			_timer -= Time::GetDeltaTime();
+
+			if (_spawnCount % 10 == 0)
+			{
+				std::cout << "Arrow" << _spawnCount << std::endl;
+				std::cout << "Collisions: " << _collisions << std::endl;
+			}
+
+			StartSpawn();
 		}
 
-		//if (_spawnCount % 100 == 0)
-		//{
-		//	std::cout << "Arrow" << _spawnCount << std::endl;
-		//	std::cout << "Collisions: " << _collisions << std::endl;
-		//}
+		
 	}
 
 private:
 	int _spawnCount{0};
 	int _collisions{0};
-	float _timer{0.0f};
+
+	float _spawnTime{0.0f};
+	float _spawnDuration{1.0f};
+
+	void StartSpawn()
+	{
+		_spawnTime = _spawnDuration / Time::GetMultiplier();
+	}
+
+	bool CanSpawn() const
+	{
+		return _spawnTime <= 0.0f;
+	}
 };

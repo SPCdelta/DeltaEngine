@@ -12,7 +12,7 @@ class PickUpBehaviour
 		{
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
-				if ((collider.transform.gameObject->GetTag() == "item" || collider.transform.gameObject->GetTag() == "coin") && 
+				if (collider.transform.gameObject && (collider.transform.gameObject->GetTag() == "item" || collider.transform.gameObject->GetTag() == "coin") && 
 					collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 				{
 					if (collider.transform.gameObject->HasComponent<WorldItem>())

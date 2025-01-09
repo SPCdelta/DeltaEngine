@@ -19,7 +19,7 @@
 #include "Scenes/LevelEditorMenuScene.hpp"
 
 ValidationApp::ValidationApp()
-	: Application(64)
+	: Application(32)
 {
 
 	LoadAssets();

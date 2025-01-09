@@ -22,7 +22,7 @@ namespace Physics
 			for (ecs::EntityId entityId : _view)
 			{
 				Rigidbody& rb = _view.get<Rigidbody>(entityId);
-				//EnginePhysics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
+				EnginePhysics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
 			}
 		}
 

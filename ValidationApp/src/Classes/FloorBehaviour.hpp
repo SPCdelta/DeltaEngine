@@ -18,6 +18,9 @@ public:
 		_rigidbody.onTriggerEnter.Register(
 			[this](Collider& collider)
 			{ 
+				if (!collider.transform.gameObject)
+					return;
+
 				const std::string& tag{collider.transform.gameObject->GetTag()};
 				if (tag == "ice")
 				{
@@ -33,6 +36,9 @@ public:
 		rigidbody.onTriggerExit.Register(
 			[this](Collider& collider)
 			{
+				if (!collider.transform.gameObject)
+					return;
+
 				const std::string& tag{collider.transform.gameObject->GetTag()};
 				if (tag == "ice")
 				{

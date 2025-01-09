@@ -20,8 +20,6 @@ namespace Physics
 		Collider(const PhysicsWorld& world, Transform& transform, ShapeType type)
 			: transform{ transform }, _physicsWorld{ world }, _shapeType{ type }
 		{
-			std::cout << "NewPos: " << transform.position.GetX() << " : " << transform.position.GetY() << std::endl;
-
 			EnginePhysics::PhysicsBody physicsBody = EnginePhysics::DefaultBody();
 			physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
 			_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &physicsBody);
@@ -40,11 +38,6 @@ namespace Physics
 					break;
 			}
 			_shape.id = EnginePhysics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
-		}
-
-		~Collider()
-		{
-			EnginePhysics::DestroyCollider(_bodyId, _physicsWorld.GetWorldId());
 		}
 
 		friend class CollisionSystem;
@@ -87,6 +80,11 @@ namespace Physics
 		}
 
 		Transform& transform;
+
+		EnginePhysics::PhysicsId GetId() const
+		{
+			return _bodyId;
+		}
 	private:
 		EnginePhysics::PhysicsId _bodyId;		   // _b2bodyId
 		EnginePhysics::PhysicsPolygon _polygon;		// _b2polygon

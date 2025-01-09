@@ -210,11 +210,11 @@ namespace EnginePhysics
 		b2Vec2 b2Pos = b2Body_GetPosition(bodyId);
 		return Math::Vector2(b2Pos.x, b2Pos.y);
 	}
-	//inline void SetPosition(PhysicsId bodyId, Math::Vector2 position)
-	//{
-	//	b2Vec2 b2Pos { position.GetX(), position.GetY() };
-	//	b2Body_SetTransform(bodyId, b2Pos, b2Body_GetRotation(bodyId));
-	//}
+	inline void SetPosition(PhysicsId bodyId, Math::Vector2 position)
+	{
+		b2Vec2 b2Pos { position.GetX(), position.GetY() };
+		b2Body_SetTransform(bodyId, b2Pos, b2Body_GetRotation(bodyId));
+	}
 
 	inline void DestroyShape(PhysicsId shapeId)
 	{

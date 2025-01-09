@@ -40,7 +40,7 @@ void PlayerBehaviour::OnStart()
 	rigidbody->onTriggerEnter.Register([this](Collider& collider)
 	{ 
 		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
-		if (collider.transform.gameObject->GetTag() == "level_exit")
+		if (collider.transform.gameObject && collider.transform.gameObject->GetTag() == "level_exit")
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
 			exit.Use();
@@ -61,7 +61,11 @@ void PlayerBehaviour::OnUpdate()
 			ThrowBoomerang();
 	}
 
-	_onFloor = _floorBehaviour->GetOnFloor();
+	if (_floorBehaviour)
+		_onFloor = _floorBehaviour->GetOnFloor();
+	else
+		_onFloor = FloorType::NORMAL;
+	
 	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)

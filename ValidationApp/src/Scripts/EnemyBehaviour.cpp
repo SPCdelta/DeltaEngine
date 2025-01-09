@@ -47,6 +47,9 @@ void EnemyBehaviour::OnStart()
 
 void EnemyBehaviour::OnUpdate()
 {
+	if (!transform || !transform->gameObject || !transform->gameObject->HasComponent<Transform>())
+		return ;
+
 	Transform* pos = &transform->gameObject->GetComponent<Transform>();
 
 	if (playerPosition)

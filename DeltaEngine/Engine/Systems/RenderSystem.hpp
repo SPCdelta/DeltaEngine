@@ -46,7 +46,6 @@ public:
 		{
 			Transform& transform = _view.get<Transform>(entityId);
 			Sprite& sprite = _view.get<Sprite>(entityId);
-			std::cout << "Renderer: " << transform.position.GetX() << " : " << transform.position.GetY() << std::endl;
 
 			// Render the sprite associated with this entity
 			if (sprite.GetVisible())
