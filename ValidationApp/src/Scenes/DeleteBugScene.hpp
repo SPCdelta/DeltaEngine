@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine/Delta.hpp>
+#include "../Classes/Projectiles/Projectile.hpp"
 
 class DeleteBugBehaviour : public BehaviourScript
 {
@@ -37,38 +38,61 @@ public:
 		collider->AddComponent<BoxCollider>();
 		Rigidbody* rb = collider->AddComponent<Rigidbody>();
 		rb->SetGravityScale(0.0f);
-		rb->onTriggerEnter.Register([this](Collider& collider)
-									{ _collisions++; });
+		rb->onTriggerEnter.Register([this](Collider& collider) { _collisions++; });
 	}
 
 	void OnUpdate() override
 	{
-		for (size_t i = 0; i < 1; i++)
+		if (_timer <= 0.0f)
 		{
-			std::shared_ptr<GameObject> myObject = Instantiate();
-			myObject->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, { 1.0f, 0.0f }});
-			myObject->transformRef.position = 
+			_timer = 0.5f;
+			std::cout << "Spawns: " << _spawnCount << " | Collisions: " << _collisions << std::endl;
+			for (size_t i = 0; i < 1; i++)
 			{
-				Math::Random::NextFloat(-1.0f, 1.0f),
-				Math::Random::NextFloat(-1.0f, 1.0f)
-			};
-			myObject->transformRef.rotation = Math::Random::NextFloat(0.0f, 360.0f);
+				//std::shared_ptr<GameObject> myObject = Instantiate
+				//(
+				//	{
+				//		{
+				//			Math::Random::NextFloat(-1.0f, 1.0f),
+				//			Math::Random::NextFloat(-1.0f, 1.0f)
+				//		}, 
+				//		Math::Random::NextFloat(0.0f, 360.0f),
+				//		{ 1.0f, 1.0f }
+				//	}
+				//);
+				std::shared_ptr<GameObject> myObject = Instantiate
+				(
+					{
+						{
+							0.0f,
+							0.0f
+						}, 
+						0.0f,
+						{ 1.0f, 1.0f }
+					}
+				);
+				myObject->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, { 1.0f, 0.0f }});
+				//myObject->AddComponent<Sprite>("arrow");
 
-			//myObject->AddComponent<Sprite>("arrow");
-
-			//myObject->AddComponent<Lifetime>(2.0f);
-			//myObject->AddComponent<Velocity>(3.0f, 0.0f);
-			_spawnCount++;
+				//myObject->AddComponent<Lifetime>(2.0f);
+				//myObject->AddComponent<Velocity>(3.0f, 0.0f);
+				_spawnCount++;
+			}
 		}
-
-		if (_spawnCount % 100 == 0)
+		else
 		{
-			std::cout << "Arrow" << _spawnCount << std::endl;
-			std::cout << "Collisions: " << _collisions << std::endl;
+			_timer -= Time::GetDeltaTime();
 		}
+
+		//if (_spawnCount % 100 == 0)
+		//{
+		//	std::cout << "Arrow" << _spawnCount << std::endl;
+		//	std::cout << "Collisions: " << _collisions << std::endl;
+		//}
 	}
 
 private:
 	int _spawnCount{0};
 	int _collisions{0};
+	float _timer{0.0f};
 };

@@ -10,13 +10,5 @@ void Projectile::OnStart()
 
 void Projectile::OnUpdate()
 {
-	//transform->position += { (1.0f * Time::GetDeltaTime()), 0.0f};
-	//if (_timeAlive <= 0.0f)
-	//{
-	//	transform->gameObject->Destroy();
-	//}
-	//else
-	//{
-	//	_timeAlive -= Time::GetDeltaTime();
-	//}
+
 }

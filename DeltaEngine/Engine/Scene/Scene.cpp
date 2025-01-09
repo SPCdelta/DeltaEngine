@@ -49,7 +49,7 @@ void Scene::Update()
 
 	// LateUpdate
 	// Physics
-	_physicsSystem->TransformToBox2D();
+	//_physicsSystem->TransformToBox2D();
 	_physicsSystem->ApplyPhysics();
 	_physicsSystem->Box2DToTransform();
 
@@ -60,17 +60,6 @@ void Scene::Update()
 	);
 
 	_lifetimeSystem->Update();
-	// Update lifetimes and destroy expired bullets
-	//auto view = _reg._registry.view<Lifetime>();
-	//for (auto entity : view)
-	//{
-	//	auto& life = view.get<Lifetime>(entity);
-	//	life.remaining -= Time::GetDeltaTime();
-	//	if (life.remaining <= 0)
-	//	{
-	//		_reg._registry.destroy(entity);
-	//	}
-	//}
 
 	// Render
 	_renderSystem->Update();
