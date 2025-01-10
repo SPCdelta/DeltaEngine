@@ -1,8 +1,8 @@
 {
     "player": {
         "coins": 0,
-        "health": 95,
-        "shield": 25,
-        "weapon": "boomerang"
+        "health": 100,
+        "shield": 0,
+        "weapon": "bow"
     }
 }
