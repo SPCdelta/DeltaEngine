@@ -44,7 +44,7 @@ public:
 
         _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
         
-       Json::json data = RetriveUserData();
+       Json::json data = RetrieveUserData();
         if (data.contains("fileName") && !data["fileName"].empty()){
             _saveFileName = data["fileName"];
             DeleteUserData();
