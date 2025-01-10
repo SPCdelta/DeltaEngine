@@ -7,6 +7,7 @@ enum class Layer : int
 	Background = 0,
 	Button,
 	Floor,
+	Items,
 	Wall,
 	Default,
 	Player,

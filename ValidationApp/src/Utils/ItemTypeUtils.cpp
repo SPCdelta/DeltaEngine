@@ -21,5 +21,5 @@ const std::string ItemTypeUtils::GetBody(const std::string& type)
         return type.substr(colonPos + 1);
     }
 
-    return "";
+    return type;
 }

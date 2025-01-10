@@ -11,6 +11,7 @@ class DefensePotion : public Potion
 	Player* _affectedPlayer = nullptr;
 	int _originalShield = 0;
 	PotionType GetPotionType() const override;
+	const float MAX_SHIELD = 100.f;
 
    public:
 	DefensePotion(float time, float value, std::string name, std::string sprite) : Potion(time, value, name, sprite) {}

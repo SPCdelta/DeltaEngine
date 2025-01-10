@@ -25,8 +25,9 @@ public:
     static constexpr float SAVE_FONT_SIZE = 20.0f;
 
     const std::string LEVEL_PATH = "Assets\\Level\\";
-    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles", "wall_tiles", "player", "enemy_spawners" , "level_exit" };
-    const std::map<std::string, Layer> LAYER_MAP = { {"floor_tiles", Layer::Floor}, {"wall_tiles", Layer::Wall}, {"player", Layer::Player}, {"enemy_spawners" , Layer::Player}, {"level_exit", Layer::Foreground} };
+    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles", "wall_tiles", "player", "enemy_spawners" , "level_exit", "potions" };
+    const std::map<std::string, Layer> LAYER_MAP = { {"floor_tiles", Layer::Floor}, {"wall_tiles", Layer::Wall}, 
+        {"player", Layer::Player}, {"enemy_spawners" , Layer::Player}, {"level_exit", Layer::Foreground}, {"potions", Layer::Items} };
 
     // Constructor
     LevelEditor(const std::string& sceneName) : Scene(sceneName) {}

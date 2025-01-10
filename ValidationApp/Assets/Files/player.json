@@ -1,8 +1,40 @@
 {
     "player": {
-        "coins": 0,
+        "coins": 10,
         "health": 100,
+        "inventory": [
+            {
+                "amount": 4,
+                "name": "Defense",
+                "sprite": "Defense",
+                "time": 10.0,
+                "type": "potion:defense",
+                "value": 50.0
+            },
+            {
+                "amount": 4,
+                "name": "Healing",
+                "sprite": "Healing",
+                "time": 10.0,
+                "type": "potion:healing",
+                "value": 50.0
+            },
+            {
+                "amount": 4,
+                "name": "Speed",
+                "sprite": "Speed",
+                "time": 10.0,
+                "type": "potion:speed",
+                "value": 50.0
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
         "shield": 0,
-        "weapon": "bow"
+        "weapon": "gun"
     }
 }
