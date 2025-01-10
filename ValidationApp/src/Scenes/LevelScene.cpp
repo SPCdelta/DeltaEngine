@@ -169,8 +169,8 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 							tileObj, EntitySpawnerData
 							{
 								// Spawn interval
-								8.0f,
-								10.0f,
+								60.0f,
+								70.0f,
 
 								// Spawn amount | OnStart
 								2, 3, true,
