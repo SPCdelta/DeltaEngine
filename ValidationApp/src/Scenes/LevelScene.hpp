@@ -3,6 +3,7 @@
 #include <Engine/Delta.hpp>
 
 #include "../Scripts/PlayerBehaviour.hpp"
+#include "../Views/HUDView.hpp"
 
 struct LevelSceneData
 {
@@ -22,4 +23,6 @@ public:
 
 private:
 	bool LoadLevel(const std::string& levelName);
+
+	std::unique_ptr<HUDView> _hud;
 };

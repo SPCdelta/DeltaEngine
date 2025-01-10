@@ -163,7 +163,8 @@ void WeaponSelectionView::InitConfirmButton()
 			playerObject->AddComponent<Audio::SFXSource>("", false, false);
 			playerObject->AddComponent<BoxCollider>();
 			playerObject->AddComponent<Rigidbody>();
-			auto& playerBehaviour = *playerObject->AddComponent<PlayerBehaviour>();
+			auto& playerBehaviour = *playerObject->AddComponent<PlayerBehaviour>();			
+			playerBehaviour.LoadPlayer();
 			playerBehaviour.SetWeapon(_weapon);
 			playerBehaviour.SavePlayer();
 			playerObject->SetTag("player");

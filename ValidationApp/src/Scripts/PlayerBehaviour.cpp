@@ -25,10 +25,6 @@ void PlayerBehaviour::OnStart()
 	//onMouseButtonDown(MouseButton::Right, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // TODO: fix inputmanager. For some reason this maps to KEY_02?
 	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
 
-	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
-	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
-
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
 		_attacking = true;
@@ -38,9 +34,10 @@ void PlayerBehaviour::OnStart()
 	rigidbody->onTriggerEnter.Register([this](Collider& collider)
 	{ 
 		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
-		if (collider.transform.gameObject->GetTag() == "level_exit")
+		if (collider.transform.gameObject->GetTag() == "level_exit" && _player->GetHealth() > 0)
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
+			SavePlayer();
 			exit.Use();
 		}
 	});
@@ -265,25 +262,27 @@ void PlayerBehaviour::LoadPlayer()
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
 		_player->SetShield(loadedPlayer["player"]["shield"]);
-		_player->ResetInventory();
-		_weapon = WeaponFactory::CreateWeapon(loadedPlayer["player"]["weapon"], this).release();
 
-		_player->ResetInventory();
+		_weapon = WeaponFactory::CreateWeapon(loadedPlayer["player"]["weapon"], this).release();
+	
 		if (loadedPlayer["player"].contains("inventory"))
 		{
+			_player->ResetInventory();
 			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
 			{
 				auto& itemData = loadedPlayer["player"]["inventory"][i];
 				if (itemData.contains("type"))
 				{
-					_player->AddItemToInventory(PotionFactory::CreatePotion
-					(
+					auto potion = PotionFactory::CreatePotion(
 						itemData["type"],
 						itemData["time"],
 						itemData["sprite"],
 						itemData["name"],
 						itemData["value"]
-					).release(), itemData["amount"]);
+					);
+
+					if (potion)
+						_player->AddItemToInventory(potion.release(), itemData["amount"]);
 				}
 			}
 		}
@@ -297,14 +296,11 @@ void PlayerBehaviour::SavePlayer()
 	playerFile["player"]["health"] = _player->GetHealth();
 	playerFile["player"]["shield"] = _player->GetShield();
 	playerFile["player"]["coins"] = _player->GetCoins();
-	if (_weapon)
-	{
-		playerFile["player"]["weapon"] = WeaponTypeUtils::ToString(_weapon->GetWeaponType());
-	}		
+	playerFile["player"]["weapon"] = WeaponTypeUtils::ToString(_weapon->GetWeaponType());
 
 	if (_player->GetInventorySize() > 0)
 	{
-		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
+		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventoryCapacity()); ++i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
 			const std::optional<InventoryItem>& inventoryItem = _player->GetInventoryItem(i);

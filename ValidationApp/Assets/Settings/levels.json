@@ -1,10 +1,7 @@
 {
     "levels": [
-        "level-6.json",
-        "0123456789abcdefghijklmnop.json",
-        "level-1.json",
         "level-2.json",
-        "Level-3.json",
-        "level-5.json"
+        "level-1.json",
+        "Level-3.json"
     ]
 }
