@@ -40,6 +40,7 @@
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Scenes\WeaponSelectionScene.cpp" />
     <ClCompile Include="src\Views\WeaponSelectionView.cpp" />
     <ClCompile Include="src\Classes\Weapons\WeaponFactory.cpp" />
@@ -123,6 +124,14 @@
     <ClInclude Include="src\Utils\WeaponTypeUtils.hpp" />
     <ClInclude Include="src\Classes\Weapons\Boomerang.hpp" />
     <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
+    <ClInclude Include="src\UI\UIFactory.hpp" />
+    <ClInclude Include="src\Classes\LevelManager.hpp" />
+    <ClInclude Include="src\UI\StackPanel.hpp" />
+    <ClInclude Include="src\UI\IUIElement.hpp" />
+    <ClInclude Include="src\UI\BaseUIScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -164,6 +173,7 @@
     <Image Include="Assets\Textures\HUD\active_slot.png" />
     <Image Include="Assets\Textures\Particles\particles.png" />
     <Image Include="Assets\Textures\UI\window_frame.png" />
+    <Image Include="Assets\Textures\Tiles\doors.png" />
     <Image Include="Assets\Textures\Weapons\bow.png" />
     <Image Include="Assets\Textures\Weapons\gun.png" />
     <Image Include="Assets\Textures\UI\weapon_frame.png" />
@@ -177,6 +187,7 @@
   <ItemGroup>
     <None Include="Assets\Files\example.json" />
     <Font Include="Assets\Fonts\alucrads.otf" />
+    <None Include="Assets\Files\tiles.json" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\knight_warrior.otf" />

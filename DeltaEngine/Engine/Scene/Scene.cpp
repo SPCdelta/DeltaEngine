@@ -21,11 +21,6 @@ void Scene::LoadScene(const std::string& name)
 	_application->LoadScene(name);
 }
 
-void Scene::LoadScene(const std::string& name, void* userData)
-{
-	_application->LoadScene<void>(name, userData);
-}
-
 void Scene::Start()
 { 
 	_renderSystem->OnStart();

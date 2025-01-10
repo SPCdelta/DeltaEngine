@@ -176,6 +176,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
     <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
     <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
@@ -224,9 +225,17 @@
     <ClCompile Include="src\Utils\WeaponTypeUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\UI\BaseUIScene.hpp" />
+    <ClInclude Include="src\Classes\LevelManager.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
     <ClInclude Include="src\Classes\Weapons\Boomerang.hpp" />
     <ClInclude Include="src\Classes\Weapons\WeaponType.hpp" />
     <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\UI\IUIElement.hpp" />
+    <ClInclude Include="src\UI\StackPanel.hpp" />
+    <ClInclude Include="src\UI\UIFactory.hpp" />
     <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
     <ClInclude Include="src\Items\Potions\PotionType.hpp" />
     <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
@@ -371,6 +380,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
     <Image Include="Assets\Textures\square.png" />
+    <Image Include="Assets\Textures\Tiles\doors.png" />
     <Image Include="Assets\Textures\UI\Background\main_menu_bg.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
@@ -496,6 +506,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Font>
     <None Include="Assets\Files\example.json" />
+    <None Include="Assets\Files\tiles.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

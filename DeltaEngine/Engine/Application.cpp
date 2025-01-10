@@ -1,6 +1,6 @@
 #include "Application.hpp"
 #include "Core/Strings/StringUtils.hpp"
-#include "UI/Font.hpp"
+#include "UI/FontWrapper.hpp"
 
 bool Application::_isRunning = true;
 

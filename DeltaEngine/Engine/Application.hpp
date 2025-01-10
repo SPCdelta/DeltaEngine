@@ -42,18 +42,6 @@ public:
 
 	void LoadScene(const std::string& sceneName);
 
-	template<typename T>
-	void LoadScene(const std::string& sceneName, T* userData)
-	{
-		_sceneManager.Load(sceneName);
-		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-		currentScene->_inputfacade = &_inputFacade;
-		currentScene->_windowEvent = &_windowEvent;
-		currentScene->_application = this;
-		currentScene->SetWindow(_window);
-		currentScene->Start();
-	}
-
 	static void Quit()
 	{
 		_isRunning = false;
@@ -66,7 +54,6 @@ public:
 		_isRunning = false;
 
 		Rendering::Quit();
-		TTF_Quit();
 		Rendering::QuitImage();
 		Mix_Quit();
 	}

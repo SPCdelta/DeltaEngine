@@ -26,13 +26,14 @@ public:
 
 	void Update()
 	{
+		// Collect entities and sort by layer
 		std::vector<ecs::EntityId> entities(_view.begin(), _view.end());
-		std::sort(entities.begin(), entities.end(), [this](ecs::EntityId a, ecs::EntityId b)
-			{
-				int layerA = static_cast<int>(_view.get<Ui::Image>(a).GetLayer());
-				int layerB = static_cast<int>(_view.get<Ui::Image>(b).GetLayer());
-				return layerA < layerB; // Lower layers render first
-			});
+		std::sort(entities.begin(), entities.end(), [this](ecs::EntityId a, ecs::EntityId b) 
+		{
+			int layerA = static_cast<int>(_view.get<Ui::Image>(a).GetLayer());
+			int layerB = static_cast<int>(_view.get<Ui::Image>(b).GetLayer());
+			return layerA < layerB; // Lower layers render first
+		});
 
 		for (ecs::EntityId entityId : entities)
 		{
