@@ -3,7 +3,7 @@
 void LevelScene::OnStart() 
 {
 	// Data
-	Json::json& data = RetriveUserData();
+	Json::json& data = RetrieveUserData();
 	std::string levelName = data["levelName"];
 
 	std::cout << levelName << std::endl;
