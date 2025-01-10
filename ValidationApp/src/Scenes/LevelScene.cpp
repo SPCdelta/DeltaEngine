@@ -152,7 +152,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				{
 					std::string spriteName = tile["sprite"]["name"];
 					std::string enemyName = GetEnemyName(spriteName);
-					Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
+					Layer layer = Layer::Floor;
 					Sprite* sprite = tileObj->AddComponent<Sprite>(tile["sprite"]["name"]);
 					sprite->SetLayer(layer);
 					tileObj->AddComponent<EntitySpawner>(
@@ -183,7 +183,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 								{
 									sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 9, 64, 64, 1, 3, 2, 4);
 								}
-								entity->AddComponent<Sprite>(enemyName, sheet);
+								entity->AddComponent<Sprite>(enemyName, sheet)->SetLayer(Layer::Player);
 								entity->AddComponent<Audio::SFXSource>("", false, false);
 								entity->AddComponent<BoxCollider>()->SetTrigger(true);
 								entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);

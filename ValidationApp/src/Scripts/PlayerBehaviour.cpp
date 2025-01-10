@@ -38,7 +38,20 @@ void PlayerBehaviour::OnStart()
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
 			SavePlayer();
-			exit.Use();
+
+			if (!_scoreScreen)
+			{
+				_scoreScreen = std::make_unique<ScoreScreen>
+				(
+					*(transform->gameObject->_scene), 
+					SCORE_SCREEN_FONT,
+					Math::Vector2{0, 0}, 
+					SCORE_SCREEN_SCALE, 
+					"YOU WIN",
+					WIN_MSG_COLOR, 
+					_player->GetCoins()
+				);
+			}
 		}
 	});
 }
@@ -47,7 +60,7 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	if (_player->GetHealth() > 0 && _attacking)
+	if (_player->GetHealth() > 0 && _attacking && !_scoreScreen)
 	{
 		if (_weapon)
 			_weapon->Use();
@@ -63,7 +76,7 @@ void PlayerBehaviour::OnUpdate()
 	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
 #pragma region Floor Behaviour
-	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
+	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0 && !_scoreScreen)
 	{
 		switch (_onFloor)
 		{
@@ -116,7 +129,7 @@ void PlayerBehaviour::OnUpdate()
 
 #pragma region Damage Behaviour
 	_damageBehaviour->Update(Time::GetDeltaTime());
-	if (_damageBehaviour->GetDamage())
+	if (_damageBehaviour->GetDamage() && !_scoreScreen)
 	{
 		if (_player->GetHealth() > 0)
 		{
@@ -159,7 +172,7 @@ void PlayerBehaviour::OnUpdate()
 #pragma endregion
 
 #pragma region Sprite Animation
-	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
+	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0 && !_scoreScreen)
 	{
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
@@ -183,7 +196,7 @@ void PlayerBehaviour::OnUpdate()
 #pragma endregion
 
 	UpdateConsumables();
-	if (_weapon) 
+	if (_weapon && !_scoreScreen) 
 	{
 		_weapon->Update(Time::GetDeltaTime());
 	}
