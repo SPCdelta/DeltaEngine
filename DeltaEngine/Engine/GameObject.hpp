@@ -145,7 +145,7 @@ public:
 
 	Camera* GetCamera();
 
-	void GetWalkableTiles(std::vector<Transform*>& tiles);
+	void GetWalkableTiles(std::vector<Transform*>& tiles, std::vector<Transform*>& walls);
 
 private:
 	bool _active{ true };

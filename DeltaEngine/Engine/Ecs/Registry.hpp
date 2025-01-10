@@ -75,6 +75,5 @@ namespace ecs
 		bool Valid(ecs::EntityId entityId);
 
 		entt::registry _registry;
-	private:
 	};
 }

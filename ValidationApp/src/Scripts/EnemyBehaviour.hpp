@@ -37,8 +37,6 @@ public:
 private:
 	std::unique_ptr<DamageBehaviour> _damageBehaviour;
 	std::unique_ptr<AIBehaviour> _aiBehaviour;
-	//std::unique_ptr<EntitySpawner> _spawnerBehaviour;
-
 	std::shared_ptr<GameObject> _damageObj;
 
 	// Audio

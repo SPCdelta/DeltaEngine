@@ -43,4 +43,5 @@ public:
 
 	// Range is amount of units in each direction, with step being 1 node per step amount of units
 	virtual std::vector<Math::Vector2> CalculatePath(Transform* start, Math::Vector2& end, int range, int step) = 0; 
+	virtual bool IsWalkable(const Math::Vector2& position) = 0;
 };

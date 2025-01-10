@@ -137,7 +137,7 @@ void Scene::SetWindow(Window& window)
 	camera->SetViewportData(&window.GetViewport());
 }
 
-void Scene::GetWalkableTiles(std::vector<Transform*>& tiles)
+void Scene::GetWalkableTiles(std::vector<Transform*>& tiles, std::vector<Transform*>& walls)
 {
-	_aStarSystem->GetWalkableTiles(tiles);
+	_aStarSystem->GetWalkableTiles(tiles, walls);
 }

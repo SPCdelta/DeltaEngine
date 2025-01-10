@@ -74,7 +74,7 @@ class Scene
 	void StoreUserData(Json::json data);
 	void DeleteUserData();
 
-	void GetWalkableTiles(std::vector<Transform*>& tiles);
+	void GetWalkableTiles(std::vector<Transform*>& tiles, std::vector<Transform*>& walls);
 
 protected:
 	Camera* camera;
@@ -86,14 +86,12 @@ private:
 
 	ecs::Registry _reg;
 	std::string _name;
-	//std::vector<std::shared_ptr<GameObject>> _objects{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 
 	Physics::PhysicsWorld _physicsWorld{};
 
 	// Systems
-	//std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<BehaviourSystem> _behaviourSystem;
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 	std::shared_ptr<TextRenderSystem> _textRenderSystem;

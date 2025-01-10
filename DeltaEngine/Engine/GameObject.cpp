@@ -82,7 +82,7 @@ Camera* GameObject::GetCamera()
 	return _camera;
 }
 
-void GameObject::GetWalkableTiles(std::vector<Transform*>& tiles)
+void GameObject::GetWalkableTiles(std::vector<Transform*>& tiles, std::vector<Transform*>& walls)
 {
-	_scene->GetWalkableTiles(tiles);
+	_scene->GetWalkableTiles(tiles, walls);
 }

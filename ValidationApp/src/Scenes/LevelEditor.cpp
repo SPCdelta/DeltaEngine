@@ -247,7 +247,7 @@ void LevelEditor::UISaveButtonAndBinding(const float rightBarStart)
 
 int LevelEditor::CalculateSpritesInrow(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites)
 {
-     int amount = 0;
+    int amount = 0;
     if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
         amount = static_cast<int>(categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]).size());
     return amount / maxVisibleSprites;
@@ -256,39 +256,35 @@ int LevelEditor::CalculateSpritesInrow(std::unordered_map<std::string, std::vect
 std::vector<std::string> LevelEditor::GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites, int direction)
 {
     std::vector<std::string> result;
+    int maxtileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
 
-        int maxtileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
-
-        _tileIndexOptions += direction;
-
-        if (_tileIndexOptions < 0){
-            _layerIndexTopBar -= 1;
-            if (_layerIndexTopBar < 0)
-                _layerIndexTopBar = SPRITE_CATEGORY.size() -1;
+    _tileIndexOptions += direction;
+    if (_tileIndexOptions < 0)
+    {
+        _layerIndexTopBar -= 1;
+        if (_layerIndexTopBar < 0)
+            _layerIndexTopBar = SPRITE_CATEGORY.size() -1;
+  
+        _tileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
             
-            _tileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
-            
-        }
-        else if (_tileIndexOptions > maxtileIndexOptions)
-        {
-            _layerIndexTopBar += 1;
-            if (_layerIndexTopBar >= SPRITE_CATEGORY.size())
-                _layerIndexTopBar = 0;
+    }
+    else if (_tileIndexOptions > maxtileIndexOptions)
+    {
+        _layerIndexTopBar += 1;
+        if (_layerIndexTopBar >= SPRITE_CATEGORY.size())
+            _layerIndexTopBar = 0;
 
-            _tileIndexOptions = 0;
-        }
+        _tileIndexOptions = 0;
+    }
 
-        std::vector<std::string> sprites;
-        if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
-            sprites = categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]);
+    std::vector<std::string> sprites;
+    if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
+        sprites = categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]);
 
+    for (size_t i = maxVisibleSprites * _tileIndexOptions; i < maxVisibleSprites * (_tileIndexOptions + 1) && i < sprites.size(); i++)
+        result.push_back(sprites[i]);
 
-        for (size_t i = maxVisibleSprites * _tileIndexOptions; i < maxVisibleSprites * (_tileIndexOptions + 1) && i < sprites.size(); i++)
-        {
-            result.push_back(sprites[i]);
-        }
-
-        return result;
+    return result;
 }
 
 void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
@@ -305,12 +301,11 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
     auto layerTxt = layerObj->AddComponent<Ui::Text>(SPRITE_CATEGORY[_layerIndexTopBar], "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
     layerTxt->SetBackground({ 255, 255, 255, 255 });
 
-
-
     std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
     std::unordered_map<std::string, std::vector<std::string>> categorySprites;
     
-    for (const auto& pair : sprites) {
+    for (const auto& pair : sprites) 
+    {
         const std::string& key = pair.first;
         const std::string& category = pair.second->category;
 
@@ -319,16 +314,19 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
 
     for (int i = 0; i < maxOptionPerRow; i++)
     {
-        auto& optionTile = _optionTiles.emplace_back(Instantiate({
-                    { -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2},
-                    0.0f, {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} }));
+        auto& optionTile = _optionTiles.emplace_back(Instantiate(
+        {
+            { -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2},
+            0.0f, 
+            {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} 
+        }));
+
         optionTile->AddComponent<Ui::Image>("default_texture");
         optionTile->AddComponent<BrushSprite>("default_texture", &_brush->GetComponent<SnapToGridBrush>());
     }
 
-    auto lambdaChangeSprite = 
-        [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) 
-        {
+    auto lambdaChangeSprite = [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) 
+    {
         auto optionTilesVector = GetVisibleSprites(categorySprites, maxOptionPerRow, wheelDirection);
         layerTxt->SetText(SPRITE_CATEGORY[_layerIndexTopBar]);
 
@@ -340,6 +338,7 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
                 optionTile->GetComponent<Transform>().position.Set({ -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2 });
                 continue;
             }
+
             const std::string spriteName = optionTilesVector[i];
             optionTile->GetComponent<Transform>().position.Set({ SCALE_IN_UI_BAR * i + PADDING * i + PADDING_OUT_LEFT_UI, PADDING_TOP });
             optionTile->GetComponent<Ui::Image>().SetSprite(spriteName);
@@ -348,7 +347,6 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
 
     };
     lambdaChangeSprite(0);
-
 
     std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };
     TopBar->AddComponent<Ui::Scrollable>(lambdaChangeSprite);

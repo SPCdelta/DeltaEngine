@@ -1,5 +1,11 @@
 #include "LevelScene.hpp"
 
+LevelScene::LevelScene(const std::string& name) 
+	: Scene(name) 
+{
+
+}
+
 void LevelScene::OnStart() 
 {
 	// Data
@@ -23,6 +29,26 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 		// 1. Get File
 		FileManager fileManager{};
 		Json::json file = fileManager.Load("Assets\\Level\\" + levelName, "json");
+
+		// Variables to track map bounds
+		float minX = std::numeric_limits<float>::max();
+		float minY = std::numeric_limits<float>::max();
+		float maxX = std::numeric_limits<float>::lowest();
+		float maxY = std::numeric_limits<float>::lowest();
+
+		auto updateBounds = [&](const Transform& transform)
+		{
+			float x = transform.position.GetX();
+			float y = transform.position.GetY();
+			float width = transform.scale.GetX();
+			float height = transform.scale.GetY();
+
+			// Update bounds
+			minX = std::min(minX, x);
+			minY = std::min(minY, y);
+			maxX = std::max(maxX, x + width);
+			maxY = std::max(maxY, y + height);
+		};
 
 		// 2. Load Player
 		if (!file.contains(PlayerName))
@@ -72,13 +98,13 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 						static_cast<float>(tile["transform"]["rotation"]),
 						{ static_cast<float>(tile["transform"]["scale"]["x"]), static_cast<float>(tile["transform"]["scale"]["y"]) }
 					}
+
 				);
 
 				if (tile.contains("sprite"))
 				{
 					Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
-					tileObj->AddComponent<Sprite>(tile["sprite"]["name"])
-						->SetLayer(layer);
+					tileObj->AddComponent<Sprite>(tile["sprite"]["name"])->SetLayer(layer);
 				}
 
 				if (tile.contains("tag"))
@@ -86,7 +112,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 					tileObj->SetTag(tile["tag"]);
 				}
 
-				tileObj->AddComponent<AStarWalkable>(true);
+				tileObj->AddComponent<AStarWalkable>(true, tileObj->GetComponent<Transform>().position);
 			}
 		}
 
@@ -125,7 +151,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 					tileObj->SetTag(tile["tag"]);
 				}
 
-				tileObj->AddComponent<AStarWalkable>(false);
+				tileObj->AddComponent<AStarWalkable>(false, tileObj->GetComponent<Transform>().position);
 			}
 		}
 
@@ -159,47 +185,43 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 					Layer layer = Layer::Floor;
 					Sprite* sprite = tileObj->AddComponent<Sprite>(tile["sprite"]["name"]);
 					sprite->SetLayer(layer);
-					tileObj->AddComponent<EntitySpawner>(
-							tileObj, EntitySpawnerData
-							{
-								// Spawn interval
-								8.0f,
-								10.0f,
+					tileObj->AddComponent<EntitySpawner>
+					(
+						tileObj, 
+						EntitySpawnerData
+						{
+							// Spawn interval
+							8.0f,
+							10.0f,
 
-								// Spawn amount | OnStart
-								2, 3, true,
+							// Spawn amount | OnStart
+							2, 3, true,
 
-								// Spawn Radius
-								2.5f
-							},
-							[this, playerObject, enemyName](std::shared_ptr<GameObject>& entity)
-							{ 
-								std::shared_ptr<AnimationSheet> sheet;
-								if (enemyName == "slime")
-								{
-									sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
-								}
-								else if (enemyName == "goblin")
-								{
-									sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
-								}
-								else if (enemyName == "skeleton")
-								{
-									sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 9, 64, 64, 1, 3, 2, 4);
-								}
-								entity->AddComponent<Sprite>(enemyName, sheet)->SetLayer(Layer::Player);
-								entity->AddComponent<Audio::SFXSource>("", false, false);
-								entity->AddComponent<BoxCollider>()->SetTrigger(true);
-								entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-								entity->SetTag(enemyName);
-								entity
-									->AddComponent<EnemyBehaviour>()
-									->SetPlayer
-									(
-										&playerObject->GetComponent<Transform>(), 
-										playerObject->GetComponent<PlayerBehaviour>().GetPlayer()
-									);
-							});
+							// Spawn Radius
+							2.5f
+						},
+						[this, playerObject, enemyName](std::shared_ptr<GameObject>& entity)
+						{ 
+							std::shared_ptr<AnimationSheet> sheet;
+							if (enemyName == "slime")
+								sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
+							else if (enemyName == "goblin")
+								sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
+							else if (enemyName == "skeleton")
+								sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 9, 64, 64, 1, 3, 2, 4);
+
+							entity->AddComponent<Sprite>(enemyName, sheet)->SetLayer(Layer::Player);
+							entity->AddComponent<Audio::SFXSource>("", false, false);
+							entity->AddComponent<BoxCollider>()->SetTrigger(true);
+							entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+							entity->SetTag(enemyName);
+							entity->AddComponent<EnemyBehaviour>()->SetPlayer
+							(
+								&playerObject->GetComponent<Transform>(), 
+								playerObject->GetComponent<PlayerBehaviour>().GetPlayer()
+							);
+						}
+					);
 				}
 
 				if (tile.contains("tag"))
@@ -235,9 +257,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				if (tile.contains("sprite"))
 				{
 					Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
-					tileObj
-						->AddComponent<Sprite>(tile["sprite"]["name"])
-						->SetLayer(layer);
+					tileObj->AddComponent<Sprite>(tile["sprite"]["name"])->SetLayer(layer);
 
 					tileObj->AddComponent<LevelExitBehaviour>("LevelSelectScene");
 					tileObj->SetTag("level_exit");
@@ -260,7 +280,6 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 std::string LevelScene::GetEnemyName(const std::string& spawnerName)
 {
 	std::string delimiter = "_";
-
 	std::size_t pos = spawnerName.find(delimiter);
 	if (pos != std::string::npos)
 	{
