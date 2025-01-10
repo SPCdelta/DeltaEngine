@@ -32,7 +32,7 @@ public:
     InputHandler() {}
     ~InputHandler();
 
-    void Add(InputListener* il);
+    void Add(InputListener& il);
 
 private:
     std::vector<InputListener*> _inputListeners{};

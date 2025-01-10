@@ -31,21 +31,21 @@ InputListener* InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Inp
 {
 	InputListener* inputListener = new InputListener{ KEYBOARD, InputsEnum::toStr(keyDown), PressedDown, category, keyEvent };
 
-	instance_.inputTypes[KEYBOARD].Add(inputListener);
+	instance_.inputTypes[KEYBOARD].Add(*inputListener);
 	return inputListener;
 }
 
 InputListener* InputManager::keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	InputListener* inputListener = new InputListener{ KEYBOARD, InputsEnum::toStr(keyDown), Pressed, category, keyEvent };
-	instance_.inputTypes[KEYBOARD].Add(inputListener);
+	instance_.inputTypes[KEYBOARD].Add(*inputListener);
 	return inputListener;
 }
 
 InputListener* InputManager::onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {
 	InputListener* inputListener = new InputListener{ KEYBOARD, InputsEnum::toStr(keyUp), Release, category, keyEvent };
-	instance_.inputTypes[KEYBOARD].Add(inputListener);
+	instance_.inputTypes[KEYBOARD].Add(*inputListener);
 	return inputListener;
 }
 
@@ -55,7 +55,7 @@ InputListener* InputManager::keyPressed(std::set<Key> keysDown, Events::EventCal
 	for (const auto& key : keysDown)
 		allKeysDown += InputsEnum::toStr(key);
 	InputListener* inputListener = new InputListener{ KEYBOARD, allKeysDown, Pressed, category, keyEvent };
-	instance_.inputTypes[KEYBOARD].Add(inputListener);
+	instance_.inputTypes[KEYBOARD].Add(*inputListener);
 	return inputListener;
 }
 
@@ -63,7 +63,7 @@ InputListener* InputManager::onMouseButtonDown(MouseButton button, Events::Event
 {
 	std::string strButton = std::to_string(InputsEnum::toInt(button));
 	InputListener* inputListener = new InputListener{ MOUSEBUTTON, strButton, PressedDown, category, buttonEvent };
-	instance_.inputTypes[MOUSEBUTTON].Add(inputListener);
+	instance_.inputTypes[MOUSEBUTTON].Add(*inputListener);
 	return inputListener;
 }
 
@@ -71,21 +71,21 @@ InputListener* InputManager::onMouseButtonUp(MouseButton button, Events::EventCa
 {	
 	std::string strButton = std::to_string(InputsEnum::toInt(button));
 	InputListener* inputListener = new InputListener{ MOUSEBUTTON, strButton, Release, category, buttonEvent };
-	instance_.inputTypes[MOUSEBUTTON].Add(inputListener);
+	instance_.inputTypes[MOUSEBUTTON].Add(*inputListener);
 	return inputListener;
 }
 
 InputListener* InputManager::onMouseMove(Events::EventCallback<Input&> mouseEvent, const std::string& category)
 {
 	InputListener* inputListener = new InputListener{ MOUSEMOVEMENT, "MouseMove", Unknown, category, mouseEvent };
-	instance_.inputTypes[MOUSEMOVEMENT].Add(inputListener);
+	instance_.inputTypes[MOUSEMOVEMENT].Add(*inputListener);
 	return inputListener;
 }
 
 InputListener* InputManager::onMouseWheel(Events::EventCallback<Input&> wheelEvent, const std::string& category)
 {
 	InputListener* inputListener = new InputListener{ MOUSEWHEELMOVEMENT, "MouseWheel", Unknown, category, wheelEvent };
-	instance_.inputTypes[MOUSEWHEELMOVEMENT].Add(inputListener);
+	instance_.inputTypes[MOUSEWHEELMOVEMENT].Add(*inputListener);
 	return inputListener;
 
 }
@@ -162,7 +162,6 @@ void InputManager::executeInputEvents()
 	for (auto& [type, input] : inputTypes)
 		input.ExecuteInputsPressed(allInputs, strKeys);
 }
-
 
 void InputManager::Remove(InputListener* input)
 {

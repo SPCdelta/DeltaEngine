@@ -2,18 +2,19 @@
 #include "InputHandler.hpp"
 #include <algorithm>
 
-void InputEventDispatchers::Add(InputListener* input)
+void InputEventDispatchers::Add(const InputListener& input)
 {
-	if (allCategories.find(input->GetCategory()) == allCategories.end())
-		activeCategories.insert(input->GetCategory());
+	// Insert if not exists
+	if (allCategories.find(input.GetCategory()) == allCategories.end())
+		activeCategories.insert(input.GetCategory());
 
-	allCategories.insert(input->GetCategory());
-	inputBindingCategory[input->GetInput()] = input->GetCategory();
+	allCategories.insert(input.GetCategory());
+	inputBindingCategory[input.GetInput()] = input.GetCategory();
 
-	if (!Find(input->GetState(), input->GetInput()))
-		inputBindings[input->GetState()][input->GetInput()] = Events::EventDispatcher<Input&>();
+	if (!Find(input.GetState(), input.GetInput()))
+		inputBindings[input.GetState()][input.GetInput()] = Events::EventDispatcher<Input&>();
 
-	inputBindings[input->GetState()][input->GetInput()].Register(input->GetRegistered());
+	inputBindings[input.GetState()][input.GetInput()].Register(input.GetRegistered());
 }
 
 bool InputEventDispatchers::DeactivateCategory(const std::string& category)
