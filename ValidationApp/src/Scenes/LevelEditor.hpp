@@ -169,8 +169,8 @@ public:
 
     void MakeSaveFilePath(){
         if (_saveFileName.empty()){
-            auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
-            _saveFileName = "level-" + std::to_string(fileNames.size() + 1) + ".json";
+            int level = Random::NextInt(0, INT16_MAX);
+            _saveFileName = "level-" + std::to_string(level) + ".json";
         }
         
         _saveFilePath = LEVEL_PATH + _saveFileName;

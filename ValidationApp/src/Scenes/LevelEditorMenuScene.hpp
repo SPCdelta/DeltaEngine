@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Delta.hpp"
 #include "../UI/BaseUIScene.hpp"
 
 struct LevelButton
@@ -46,6 +47,7 @@ public:
 		}
 
 		DestroyLevelButton(it->second);
+		FileManager::removeFile(LEVEL_PATH + level);
 		_order.erase(std::remove(_order.begin(), _order.end(), level), _order.end());
 		if (_buttons.contains(level))
 		{
@@ -134,6 +136,7 @@ private:
 	static constexpr float Margin = 10.0f;
 
 	std::unordered_map<std::string, LevelButton> _buttons{};
+	std::vector<LevelButton> _buttonsPool{};
 	std::vector<std::string> _order{};
 
 	void CreateCRUDButtons()
@@ -142,6 +145,10 @@ private:
 			this, "Create new level", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 },
 			Layer::Button);
 		createLevelButton->transformRef.position += Math::Vector2{50, 150} + Math::Vector2{ 0.0f, 75.0f * 0.0f };
+		createLevelButton->GetComponent<Ui::Button>().SetOnLeftMouseClick([this]() -> void
+			{
+				LoadScene("LevelEditor");
+			}, "UI");
 
 		std::shared_ptr<GameObject> shareLevelButton = UIFactory::CreateButton(
 			this, "Share levels", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 },
@@ -211,10 +218,12 @@ private:
 
 	void DestroyLevelButton(LevelButton& levelButton)
 	{
-		DestroyObject(levelButton.deleteButton);
-		DestroyObject(levelButton.levelButton);
-		DestroyObject(levelButton.backwardsButton);
-		DestroyObject(levelButton.forwardsButton);
+		_buttonsPool.push_back(std::move(levelButton));
+
+		levelButton.deleteButton->transformRef.position.SetY(-levelButton.deleteButton->transformRef.scale.GetY() * 2.0);
+		levelButton.levelButton->transformRef.position.SetY(-levelButton.levelButton->transformRef.scale.GetY() * 2.0);
+		levelButton.backwardsButton->transformRef.position.SetY(-levelButton.backwardsButton->transformRef.scale.GetY() * 2.0);
+		levelButton.forwardsButton->transformRef.position.SetY(-levelButton.forwardsButton->transformRef.scale.GetY() * 2.0);
 	}
 
 	void UpdateLevelButton(const std::string& levelName)
