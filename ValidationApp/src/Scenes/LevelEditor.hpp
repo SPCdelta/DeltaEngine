@@ -45,8 +45,8 @@ public:
         _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
         
        Json::json data = RetrieveUserData();
-        if (data.contains("levelName") && !data["levelName"].empty()){
-            _saveFileName = data["levelName"];
+        if (data.contains("fileName") && !data["fileName"].empty()){
+            _saveFileName = data["fileName"];
             DeleteUserData();
         }
         InitLevelEditor();
@@ -93,7 +93,7 @@ public:
         }
         FileManager fileManager;
 
-        Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName, "json");
+        Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName + ".json", "json");
         
             
         //TODO dit moet eigenlijk een BrushSprite child worden voor elk soort tile type dat anderes gedraagd. hier door kan je het makkelijk opslaan en inladen
@@ -170,10 +170,11 @@ public:
     void MakeSaveFilePath(){
         if (_saveFileName.empty()){
             auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
-            _saveFileName = "level-" + std::to_string(fileNames.size() + 1) + ".json";
+            _saveFileName = "level-" + std::to_string(fileNames.size() + 1);
         }
         
-        _saveFilePath = LEVEL_PATH + _saveFileName;
+        _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
+
     }
 
 

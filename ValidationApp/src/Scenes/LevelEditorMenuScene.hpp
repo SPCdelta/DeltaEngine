@@ -23,17 +23,6 @@ public:
 	void OnStart() override
 	{ 
 		BaseUIScene::OnStart();
-
-		// create Level
-		std::shared_ptr<GameObject> createButton = UIFactory::CreateButton(this, "Create New Level", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 }, Layer::Button);
-		createButton->transformRef.position = GetBarOffset();
-		createButton->GetComponent<Ui::Button>().SetOnLeftMouseClick(
-			[this]()
-			{
-				LoadScene("LevelEditor");
-			},
-			"jeroen"
-		);
 		CreateLevelButtons();
 	}
 
