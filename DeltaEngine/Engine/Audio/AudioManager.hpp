@@ -15,10 +15,7 @@ namespace Audio
 	class AudioManager
 	{
 	public:
-		static AudioManager& GetInstance()
-		{
-			return _instance;
-		}
+		static AudioManager& GetInstance();
 
 		AudioManager();
 		~AudioManager();

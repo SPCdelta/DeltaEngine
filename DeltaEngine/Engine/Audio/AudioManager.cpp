@@ -6,6 +6,11 @@ using namespace Audio;
 
 AudioManager AudioManager::_instance;
 
+AudioManager& AudioManager::GetInstance()
+{
+	return _instance;
+}
+
 AudioManager::AudioManager()
 {
 	if (Mix_OpenAudio(AUDIO_FREQ, AUDIO_S16SYS, CHANNEL_COUNT, CHUNK_SIZE) == AUDIO_ERROR)

@@ -13,7 +13,12 @@ struct Node
 
     Node* parent;
 
-    Node(const Math::Vector2& pos, Node* p = nullptr) : position(pos), parent(p) {}
+    Node(const Math::Vector2& pos, Node* p = nullptr) 
+		: position(pos), 
+		  parent(p) 
+	{
+
+	}
 };
 
 struct Vector2Hash
