@@ -83,6 +83,11 @@ public:
 		_screenViewPort = screenViewPort_;
 	}
 
+	void SetLayer(Layer layer)
+	{
+		_sprite->SetLayer(layer);
+	}
+
 private:
 	void MouseToCanvase(Math::Point& mouse){
 		if (static_cast<float>(mouse.GetX()) < _screenViewPort.position.GetX())

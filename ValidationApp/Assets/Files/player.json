@@ -18,7 +18,14 @@
                 "time": 10.0,
                 "type": "potion:healing",
                 "value": 10.0
-            }
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
         ],
         "shield": 0,
         "weapon": "bow"

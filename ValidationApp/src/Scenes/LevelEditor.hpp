@@ -27,6 +27,7 @@ public:
     const std::string LEVEL_PATH = "Assets\\Level\\";
     const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles", "wall_tiles", "player", "enemy_spawners" , "level_exit" };
     const std::map<std::string, Layer> LAYER_MAP = { {"floor_tiles", Layer::Floor}, {"wall_tiles", Layer::Wall}, {"player", Layer::Player}, {"enemy_spawners" , Layer::Player}, {"level_exit", Layer::Foreground} };
+    const std::vector<Layer> SPRITE_WITH_BACKGROUNDLAYER = {Layer::Player};
 
     // Constructor
     LevelEditor(const std::string& sceneName) : Scene(sceneName) {}
@@ -58,6 +59,11 @@ public:
     }
 
 
+    bool find(Layer layer)
+    {
+        return std::find(SPRITE_WITH_BACKGROUNDLAYER.begin(), SPRITE_WITH_BACKGROUNDLAYER.end(), layer) != SPRITE_WITH_BACKGROUNDLAYER.end();
+    }
+
 
     void InitLevelEditor(){
 
@@ -70,8 +76,9 @@ public:
                 std::string spriteName = sprite->GetSprite();
             	
             	auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) {
-            		if (e->transform->position == transform.position){
-                        Sprite& sprite = e->GetComponent<Sprite>();
+                    Sprite& sprite = e->GetComponent<Sprite>();
+
+            		if (!find(sprite.GetLayer()) && e->transform->position == transform.position){
                         sprite.SetSprite(spriteName);
                         sprite.SetLayer(LAYER_MAP.at(sprite.GetSpriteData()->category));
                         e->SetTag(sprite.GetSpriteData()->category);
