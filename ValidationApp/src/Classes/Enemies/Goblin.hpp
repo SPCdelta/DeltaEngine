@@ -13,7 +13,7 @@ class Goblin : public Enemy
 	void Die(Audio::SFXSource* _sfx) override
     {
         _dead = true;
-		_sfx->SetClip("Assets\\Audio\\SFX\\Goblin_death_1.mp3");
+		_sfx->SetClip("goblin_death");
 		_sfx->Play();
     }
 };

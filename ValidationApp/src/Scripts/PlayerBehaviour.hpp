@@ -8,7 +8,7 @@
 #include "../Classes/FloorBehaviour.hpp"
 #include "../Classes/PickUpBehaviour.hpp"
 #include "../Classes/PlayerInput.hpp"
-#include "Boomerang.hpp"
+#include "BoomerangBehaviour.hpp"
 #include "../Classes/Weapons/Gun.hpp"
 #include "../Classes/Weapons/Bow.hpp"
 
@@ -34,10 +34,7 @@ public:
 		delete _damageBehaviour;
 		delete _pickUpBehaviour;
 		delete _weapon;
-		delete _boomerang;
 	}
-
-	void ThrowBoomerang();
 
 	void LoadPlayer();
 	void SavePlayer();
@@ -48,7 +45,7 @@ public:
 	Sprite* sprite = nullptr;
 	Rigidbody* rigidbody = nullptr;
 
-	void UpdateAttack(float deltaTime);
+	void SetWeapon(const std::string& weaponType);
 
 private:
 	FloorBehaviour* _floorBehaviour{nullptr};
@@ -60,11 +57,13 @@ private:
 	FileManager _fileManager;
 
 	// Weapons
-	Boomerang* _boomerang = nullptr;
 	Weapon* _weapon = nullptr;
 
 	// Audio
 	Audio::SFXSource* _sfx;
+	
+	// Extra
+	ParticleEmitter* _hurtEmitter;
 
 	Math::Vector2 _moveDirection{ 0.0f, 0.0f };
 	int _mouseX = 0;
@@ -87,11 +86,9 @@ private:
 	void InitHotbarKeybinds();
 	void ConsumeItem();
 	void UpdateConsumables();
+	void PlayHurtParticle();
 
 	bool _attacking{false};
-	float _attackTime{0.0f};
-	const float _attackDuration = 0.4f;	
-	void StartAttack() { _attackTime = _attackDuration; }
 
 	float deathElapsedTime = 0.0f;
 	bool deathSoundPlayed = false;

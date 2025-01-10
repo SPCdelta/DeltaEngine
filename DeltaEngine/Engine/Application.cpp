@@ -1,6 +1,6 @@
 #include "Application.hpp"
 #include "Core/Strings/StringUtils.hpp"
-#include "UI/Font.hpp"
+#include "UI/FontWrapper.hpp"
 
 bool Application::_isRunning = true;
 
@@ -75,7 +75,6 @@ void Application::Run()
 			currentScene->Update();
 
 			Debug();
-			RenderGameSpeed();
 
 			// Render all
 			Rendering::RenderPresent(_window.GetRenderer());
@@ -108,8 +107,9 @@ void Application::InitDebug()
 {
 	_fpsText = new Ui::Text("FPS: ", "knight", 48, _debugTextColor);
 
-	_inputListeners.Add(InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderFps = !_renderFps; }));
+	_inputListeners.Add(InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderDebug = !_renderDebug; }));
 }
+
 void Application::Debug()
 {
 	if (_fpsTimer >= 1.0f)
@@ -123,9 +123,14 @@ void Application::Debug()
 		_fpsTimer += Time::deltaTime;
 	}
 
-	if (_renderFps)
+	if (_renderDebug)
 	{
 		_fpsText->Render(_window.GetRenderer(), _debugTextTransform);
+
+		Math::Vector2 scale = Font::GetFontSize(_gameSpeed->GetFont(), _gameSpeed->GetText());
+		Math::Vector2 pos = {static_cast<float>(_window.GetViewport().width) - scale.GetX(), 0.f + scale.GetY()};
+		Transform _gameSpeedTextTransform{ pos, 0.0f, scale };
+		_gameSpeed->Render(_window.GetRenderer(), _gameSpeedTextTransform);
 	}
 }
 
@@ -152,12 +157,4 @@ void Application::InitGameSpeed()
 			Time::SetMultiplier(1);
 			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
 		}, "Application"));
-}
-
-void Application::RenderGameSpeed()
-{
-	Math::Vector2 scale = Font::GetFontSize(_gameSpeed->GetFont(), _gameSpeed->GetText());
-	Math::Vector2 pos = {static_cast<float>(_window.GetViewport().width) - scale.GetX(), 0.f + scale.GetY()};
-	Transform _gameSpeedTextTransform{ pos, 0.0f, scale };
-	_gameSpeed->Render(_window.GetRenderer(), _gameSpeedTextTransform);
 }

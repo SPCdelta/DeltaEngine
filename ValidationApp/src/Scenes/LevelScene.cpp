@@ -80,15 +80,6 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 					tileObj
 						->AddComponent<Sprite>(tile["sprite"]["name"])
 						->SetLayer(layer);
-
-					//switch (layer)
-					//{
-					//	case Layer::Wall:
-					//		tileObj->AddComponent<BoxCollider>();
-					//		break;
-					//	default:
-					//		break;
-					//}
 				}
 
 				if (tile.contains("tag"))

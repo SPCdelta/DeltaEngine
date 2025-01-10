@@ -12,7 +12,7 @@ namespace Audio
 	{
 		public:
 			MusicSource();
-			MusicSource(const std::string& path, bool playOnAwake, int loops);
+			MusicSource(const std::string& audioName, bool playOnAwake, int loops);
 			MusicSource(const MusicSource& other);
 			MusicSource& operator=(const MusicSource& other);
 			MusicSource(MusicSource&& other) noexcept;
@@ -24,7 +24,7 @@ namespace Audio
 			void Stop() override;
 			void SetVolume(int volume) override;
 			void IncreaseVolume(int volume) override;
-			void SetClip(std::string pathToClip);
+			void SetClip(std::string audioName);
 			Mix_Music* GetSource() const;
 		private:
 			std::unique_ptr < Mix_Music, void (*)(Mix_Music*)> _clip;

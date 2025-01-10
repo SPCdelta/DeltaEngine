@@ -1,96 +1,82 @@
 #pragma once
 
-#include <Engine/Delta.hpp>
+#include "../UI/BaseUIScene.hpp"
 
+#include "../Classes/LevelManager.hpp"
 #include "LevelScene.hpp"
+#include "../UI/UIFactory.hpp"
 
-struct LevelUiData
-{
-	std::string displayName;
-	std::string sceneName;
-};
-
-class LevelSelectScene : public Scene
+class LevelSelectScene : public BaseUIScene
 {
 public:
-	LevelSelectScene(const std::string& name) : Scene(name)
+	LevelSelectScene(const std::string& name) 
+		: BaseUIScene(name, "Start", "MainMenuScene")
 	{ }
 
 	void OnStart() override
 	{
-		// Title
-		std::shared_ptr<GameObject> title = CreateText("Select Level", "goblin", 32, Rendering::Color{ 255, 0, 0, 255 });
-		title->transformRef.position = { 100.0f, 100.0f };
-		title->transformRef.scale = { 100.0f, 100.0f };
-
-		// Check files
-		const std::string levelSettingsPath = "Assets\\Settings\\levels.json";
-		const std::string levelsPath = "Assets\\Level";
-		if (!FileManager::FileExists(levelSettingsPath))
-		{
-			FileManager fileManager{};
-			Json::json levelsJson;
-
-			std::vector<std::string> directoryFiles = FileManager::filesInDirectory(levelsPath);
-			for (size_t i = 0; i < directoryFiles.size(); ++i)
+		BaseUIScene::OnStart();
+		// Refresh
+		std::shared_ptr<GameObject> refreshButton = UIFactory::CreateButton(this, "Refresh", "goblin", 24, Rendering::Color{ 255, 255, 255, 255}, Layer::Button);
+		refreshButton->transformRef.position = GetBarOffset();
+		refreshButton->GetComponent<Ui::Button>().SetOnLeftMouseClick(
+			[this]() 
 			{
-				levelsJson["levels"][i] = directoryFiles[i];
-			}
+				std::cout << "Meow!" << std::endl;
+				Refresh();
+			},
+			"jeroen"
+		);
 
-			fileManager.Save(levelSettingsPath, "json", levelsJson);
-		}
-			
-		FileManager fileManager{};
-		Json::json file = fileManager.Load(levelSettingsPath, "json");
-
-		// Levels
-		for (size_t i = 0; i < file["levels"].size(); i++)
-		{
-			std::string levelName = file["levels"][i];
-			std::string displayName = FormatDisplayName(levelName);
-
-			std::shared_ptr<GameObject> buttonObj = CreateButton(displayName, "goblin", 16, Rendering::Color{255, 0, 0, 255});
-			Ui::Button& button = buttonObj->GetComponent<Ui::Button>();
-			button.SetOnLeftMouseClick(
-				[this, levelName]()
-				{ 
-					Json::json jsonLevelName;
-					jsonLevelName["levelName"] = levelName;
-					StoreUserData(jsonLevelName);
-
-					LoadScene("LevelScene");
-				},
-				"jeroen"
-			);
-			buttonObj->transformRef.position = { 100.0f, (50.0f + 10.0f) * i + 200.0f  };
-			buttonObj->transformRef.scale = { 100.0f, 50.0f };
-		}
-	}
-
-protected:
-	std::shared_ptr<GameObject> CreateText(const std::string& text, const std::string& font, int fontSize, const Rendering::Color color)
-	{
-		std::shared_ptr<GameObject> textObj = Instantiate();
-		textObj->AddComponent<Ui::Text>(text, font, fontSize, color);
-		return textObj;
-	}
-
-	std::shared_ptr<GameObject> CreateButton(const std::string& text, const std::string& font, int fontSize, const Rendering::Color textColor)
-	{
-		std::shared_ptr<GameObject> buttonObj = Instantiate();
-		buttonObj->AddComponent<Ui::Button>(Vector2{ 100.0f, 100.0f }, Vector2{ 100.0f, 50.0f });
-		buttonObj->AddComponent<Ui::Text>(text, font, fontSize, textColor);
-		buttonObj->AddComponent<Ui::Image>("scroll3");
-		return buttonObj;
+		CreateLevelsList();
 	}
 
 private:
-	static std::string FormatDisplayName(const std::string& levelName)
+	std::vector<GameObject*> _buttons;
+
+	void Refresh() 
 	{
-		if (levelName.length() > 16)
+		for (GameObject* button : _buttons)
 		{
-			return levelName.substr(0, 13) + "...";
+			DestroyObject(button);
 		}
-		return levelName;
+		_buttons.clear();
+
+		CreateLevelsList();
+	}
+
+	void CreateLevelsList()
+	{
+		std::vector<std::string> levels{};
+		LevelManager::GetLevels(levels, true);
+
+		for (size_t i = 0; i < levels.size(); i++)
+		{
+			CreateLevelButton(i, levels[i]);
+		}
+	}
+
+	void CreateLevelButton(size_t index, std::string levelName)
+	{
+		std::string displayName = LevelManager::FormatDisplayName(levelName);
+
+		std::shared_ptr<GameObject> buttonObj = UIFactory::CreateButton(this, displayName, "goblin", 16, Rendering::Color{255, 255, 255, 255}, Layer::Button);
+		Ui::Button& button = buttonObj->GetComponent<Ui::Button>();
+		Ui::Text& text = buttonObj->GetComponent<Ui::Text>();
+		button.SetOnLeftMouseClick(
+			[this, levelName]()
+			{ 
+				Json::json jsonLevelName;
+				jsonLevelName["levelName"] = levelName;
+				StoreUserData(jsonLevelName);
+
+				LoadScene("LevelScene");
+			},
+			"jeroen"
+		);
+		buttonObj->transformRef.position = Math::Vector2{ 100.0f, (50.0f + 10.0f) * index } + GetContentOffset();
+
+		float xSize = (Font::GetFontSize(text.GetFont(), text.GetText()).GetX() * 1.25f);
+		_buttons.push_back(buttonObj.get());
 	}
 };

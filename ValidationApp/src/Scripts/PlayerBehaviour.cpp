@@ -1,7 +1,9 @@
 #include "PlayerBehaviour.hpp"
 #include "../Items/Serializers/JsonItemSerializer.hpp"
+#include "../Classes/Weapons/WeaponFactory.hpp"
+#include "../Utils/WeaponTypeUtils.hpp"
 
-void PlayerBehaviour::OnStart() 
+void PlayerBehaviour::OnStart()
 {
 	_player = std::make_unique<Player>();
 	sprite = &gameObject->GetComponent<Sprite>();
@@ -12,10 +14,6 @@ void PlayerBehaviour::OnStart()
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
 
-	// TODO weapon based on what you chose, other US
-	//_weapon = new Gun(this);
-	_weapon = new Bow(this);
-	
 	onMouseMove([this](Input& e) 
 	{ 
 		_mouseX = e.mouseX;
@@ -30,7 +28,6 @@ void PlayerBehaviour::OnStart()
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
 		_attacking = true;
-		StartAttack();
 	});
 
 	// Physics Events
@@ -50,18 +47,18 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	UpdateAttack(Time::GetDeltaTime());
 	if (_player->GetHealth() > 0 && _attacking)
 	{
 		if (_weapon)
 			_weapon->Use();
-		else
-			ThrowBoomerang();
+
+		_attacking = false;
 	}
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
+#pragma region Floor Behaviour
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
 	{
 		switch (_onFloor)
@@ -111,14 +108,17 @@ void PlayerBehaviour::OnUpdate()
 				break;
 		}
 	}
+#pragma endregion
 
+#pragma region Damage Behaviour
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
 		if (_player->GetHealth() > 0)
 		{
 			_player->TakeDamage(_damageBehaviour->TakeDamage());
-			_sfx->SetClip("Assets\\Audio\\SFX\\Taking_damage.mp3");
+			_sfx->SetClip("taking_damage");
+			PlayHurtParticle();
 			_sfx->Play();
 		}
 
@@ -127,7 +127,7 @@ void PlayerBehaviour::OnUpdate()
 			if (!deathSoundPlayed &&
 				!sprite->GetSheet()->PlayCustomAnimation("death"))
 			{
-				_sfx->SetClip("Assets\\Audio\\SFX\\Death.mp3");
+				_sfx->SetClip("death");
 				_sfx->Play();
 
 				deathSoundPlayed = true;
@@ -152,7 +152,9 @@ void PlayerBehaviour::OnUpdate()
 			}
 		}
 	}
+#pragma endregion
 
+#pragma region Sprite Animation
 	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
 	{
 		// Walking
@@ -174,19 +176,18 @@ void PlayerBehaviour::OnUpdate()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE,
 										false);
 	}
+#pragma endregion
 
 	UpdateConsumables();
+	_weapon->Update(Time::GetDeltaTime());
 
 	this->gameObject->GetCamera()->SetPosition(
 		this->gameObject->transform->position);
 }
 
-void PlayerBehaviour::UpdateAttack(float deltaTime)
+void PlayerBehaviour::SetWeapon(const std::string& weaponType)
 {
-	if (_attackTime > 0.0f)
-		_attackTime -= deltaTime;
-	else
-		_attacking = false;
+	_weapon = WeaponFactory::CreateWeapon(weaponType, this).release();
 }
 
 void PlayerBehaviour::InitHotbarKeybinds()
@@ -222,23 +223,32 @@ void PlayerBehaviour::UpdateConsumables()
 	}
 }
 
-void PlayerBehaviour::ThrowBoomerang()
+void PlayerBehaviour::PlayHurtParticle() 
 {
-	// On Delay
-	if (_boomerang)
-		return;
+	if (gameObject->HasComponent<ParticleEmitter>())
+	{
+		gameObject->RemoveComponent<ParticleEmitter>();
+	}
 
-	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
-	_boomerang = boomerangObj->AddComponent<Boomerang>();
-	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
+	gameObject->AddComponent<ParticleEmitter>(
+		ParticleEmitterConfiguration{
+			{"particle_big", "particle_medium_1", "particle_medium_2", "particle_small", "particle_tiny"},
+			{255, 0, 0, 255},
+			{220, 0, 0, 255},
 
-	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
+			1.0f, 25, 0.25f,
 
-	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
-	{ 
-		Destroy(boomerangObj);
-		_boomerang = nullptr;
-	});
+			2.0f, 2.0f,
+			false,
+			0.5f, 0.75f,
+			0.5f, 0.75f,
+
+			0.0f, 360.0f, 
+			0.0f, 0.0f,
+
+			0.25f, 0.25f
+		})
+	->Start();
 }
 
 void PlayerBehaviour::LoadPlayer()
@@ -249,18 +259,9 @@ void PlayerBehaviour::LoadPlayer()
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
 		_player->SetShield(loadedPlayer["player"]["shield"]);
-
-		if (!loadedPlayer["player"]["weapon"].contains("boomerang"))
-		{
-			if (loadedPlayer["player"]["weapon"].contains("gun"))
-				_weapon = new Gun(this);
-			else
-				_weapon = new Bow(this);
-		}
-		else
-		{
-			_weapon = nullptr;
-		}
+		
+		_player->ResetInventory();
+		_weapon = WeaponFactory::CreateWeapon(loadedPlayer["player"]["weapon"], this).release();
 
 		_player->ResetInventory();
 		if (loadedPlayer["player"].contains("inventory"))
@@ -296,15 +297,8 @@ void PlayerBehaviour::SavePlayer()
 
 	if (_weapon)
 	{
-		if (auto gun = dynamic_cast<Gun*>(_weapon))
-			playerFile["player"]["weapon"] = "gun";
-		else
-			playerFile["player"]["weapon"] = "bow";
+		playerFile["player"]["weapon"] = WeaponTypeUtils::ToString(_weapon->GetWeaponType());
 	}		
-	else
-	{
-		playerFile["player"]["weapon"] = "boomerang";
-	}
 
 	if (_player->GetInventorySize() > 0)
 	{

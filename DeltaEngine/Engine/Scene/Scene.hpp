@@ -73,7 +73,7 @@ class Scene
 	std::shared_ptr<GameObject> Instantiate();
 
 	// Data
-	Json::json& RetriveUserData();
+	Json::json& RetrieveUserData();
 	void StoreUserData(const std::string& data);
 	void StoreUserData(Json::json data);
 	void DeleteUserData();

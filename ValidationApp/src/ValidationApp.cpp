@@ -10,14 +10,16 @@
 #include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
+#include "Scenes/WeaponSelectionScene.hpp"
 
 // Game Scenes
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/LevelSelectScene.hpp"
 #include "Scenes/LevelScene.hpp"
+#include "Scenes/LevelEditorMenuScene.hpp"
 
 ValidationApp::ValidationApp()
-	: Application(32)
+	: Application(64)
 {
 
 	LoadAssets();
@@ -33,16 +35,17 @@ ValidationApp::ValidationApp()
 	RegisterScene<LayerScene>("LayerScene");
 	RegisterScene<LevelEditor>("LevelEditor");
 	RegisterScene<ParticleScene>("ParticleScene");
-	RegisterScene<LevelEditorLevelChose>("LevelEditorLevelChose");
 	RegisterScene<SpawnerScene>("SpawnerScene");
+	RegisterScene<WeaponSelectionScene>("WeaponSelectionScene");
 
 	// Register Scenes (Game)
 	RegisterScene<MainMenuScene>("MainMenuScene");
 	RegisterScene<LevelSelectScene>("LevelSelectScene");
 	RegisterScene<LevelScene>("LevelScene");
+	RegisterScene<LevelEditorMenuScene>("LevelEditorMenuScene");
 
 	// Load Desired Scene
-	LoadScene("LevelSelectScene");
+	LoadScene("MainMenuScene");
 
 	// Start Application
 	Run();
@@ -79,26 +82,6 @@ void ValidationApp::LoadAssets()
 			{"Sandstone_floor_7",	{scale * 5, scale * 1}, {scale*(5 + 1), scale*(1 + 1)}},
 			{"Sandstone_floor_8",	{scale * 6, scale * 1}, {scale*(6 + 1), scale*(1 + 1)}},
 			{"Sandstone_floor_9",	{scale * 7, scale * 1}, {scale*(7 + 1), scale*(1 + 1)}},
-						{"1Sandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
-			{"2Sandstone_floor_1",	{scale * 9, scale * 0}, {scale * (9 + 1), scale * (0 + 1)}},
-			{"3Sandstone_floor_2",	{scale * 0, scale * 1}, {scale * (0 + 1), scale * (1 + 1)}},
-			{"4Sandstone_floor_3",	{scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
-			{"5Sandstone_floor_4",	{scale * 2, scale * 1}, {scale * (2 + 1), scale * (1 + 1)}},
-			{"6Sandstone_floor_5",	{scale * 3, scale * 1}, {scale * (3 + 1), scale * (1 + 1)}},
-			{"7Sandstone_floor_6",	{scale * 4, scale * 1}, {scale * (4 + 1), scale * (1 + 1)}},
-			{"8Sandstone_floor_7",	{scale * 5, scale * 1}, {scale * (5 + 1), scale * (1 + 1)}},
-			{"9Sandstone_floor_8",	{scale * 6, scale * 1}, {scale * (6 + 1), scale * (1 + 1)}},
-			{"0Sandstone_floor_9",	{scale * 7, scale * 1}, {scale * (7 + 1), scale * (1 + 1)}},
-						{"aSandstone_floor_0",	{scale * 8, scale * 0}, {scale * (8 + 1), scale * (0 + 1)}},
-			{"dSandstone_floor_1",	{scale * 9, scale * 0}, {scale * (9 + 1), scale * (0 + 1)}},
-			{"fSandstone_floor_2",	{scale * 0, scale * 1}, {scale * (0 + 1), scale * (1 + 1)}},
-			{"gSandstone_floor_3",	{scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
-			{"hSandstone_floor_4",	{scale * 2, scale * 1}, {scale * (2 + 1), scale * (1 + 1)}},
-			{"jSandstone_floor_5",	{scale * 3, scale * 1}, {scale * (3 + 1), scale * (1 + 1)}},
-			{"kSandstone_floor_6",	{scale * 4, scale * 1}, {scale * (4 + 1), scale * (1 + 1)}},
-			{"lSandstone_floor_7",	{scale * 5, scale * 1}, {scale * (5 + 1), scale * (1 + 1)}},
-			{";Sandstone_floor_8",	{scale * 6, scale * 1}, {scale * (6 + 1), scale * (1 + 1)}},
-			{"qSandstone_floor_9",	{scale * 7, scale * 1}, {scale * (7 + 1), scale * (1 + 1)}},
 		},
 		"floor_tiles"
 	};
@@ -135,6 +118,24 @@ void ValidationApp::LoadAssets()
 		"particles_map", 
 	};
 
+	SpriteMap exit
+	{
+		"Assets\\Textures\\Tiles\\doors.png",
+		{
+			{ "level_exit", {scale * 2, scale * 5}, {scale * (2 + 1), scale * (5 + 1)}},
+		},
+		"level_exit",
+	};
+
+	SpriteMap spawners
+	{
+		"Assets\\Textures\\Tiles\\Walls\\wall.png",
+		{
+			{ "spawner_1", {scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
+		},
+		"enemy_spawners",
+	};
+
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
 	ResourceManager::AddSprite("gray_rect", "Assets\\Textures\\Rect.png");
@@ -145,9 +146,13 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png", "enemy");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
+
+	// Weapons
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
+	ResourceManager::AddSprite("gun", "Assets\\Textures\\Weapons\\gun.png");
 	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
+	ResourceManager::AddSprite("bow", "Assets\\Textures\\Weapons\\bow.png");
 
 	// Enemies
 	ResourceManager::AddSprite("goblin", "Assets\\Textures\\Enemies\\goblin_attacking.png");
@@ -161,6 +166,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
 	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
 	ResourceManager::AddSprite("window_frame", "Assets\\Textures\\UI\\window_frame.png");
+	ResourceManager::AddSprite("weapon_frame", "Assets\\Textures\\UI\\weapon_frame.png");
 
 	// HUD
 	ResourceManager::AddSprite("bar", "Assets\\Textures\\HUD\\bar.png");
@@ -175,4 +181,20 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddFont("alucrads","Assets\\Fonts\\alucrads.otf");
 	ResourceManager::AddFont("knight","Assets\\Fonts\\knight_warrior.otf");
 	ResourceManager::AddFont("goblin","Assets\\Fonts\\a_goblin_appears.ttf");
+
+	// Audio
+	ResourceManager::AddAudio("taking_damage", "Assets\\Audio\\SFX\\Taking_damage.mp3");
+	ResourceManager::AddAudio("death", "Assets\\Audio\\SFX\\Death.mp3");
+	ResourceManager::AddAudio("bow_shoot", "Assets\\Audio\\SFX\\Bow_shoot.mp3");
+	ResourceManager::AddAudio("boomerang_throw", "Assets\\Audio\\SFX\\boomerang.mp3");
+
+	ResourceManager::AddAudio("goblin_death", "Assets\\Audio\\SFX\\Goblin_death_1.mp3");
+	ResourceManager::AddAudio("skeleton_death", "Assets\\Audio\\SFX\\Skeleton_death.mp3");
+	ResourceManager::AddAudio("slime_death", "Assets\\Audio\\SFX\\Slime_death.mp3");
+
+	ResourceManager::AddAudio("button_1_click", "Assets\\Audio\\SFX\\Button_1.mp3");
+
+	ResourceManager::AddAudio("boss_music", "Assets\\Audio\\Music\\Boss_music_1.mp3");
+	ResourceManager::AddAudio("intro_theme", "Assets\\Audio\\Music\\Intro_Theme.mp3");
+	ResourceManager::AddAudio("menu", "Assets\\Audio\\Music\\Menu_music.mp3");
 }
