@@ -30,11 +30,20 @@ void MainMenuScene::OnStart()
 	levelEditorButton->transformRef.position += (GetContentOffset() + Math::Vector2{ 0.0f, 75.0f * 1.0f });
 	levelEditorButton->GetComponent<Ui::Button>().SetOnLeftMouseClick([this](){ LoadScene("LevelEditorMenuScene"); }, "UI");
 
+	std::shared_ptr<GameObject> quitButton = UIFactory::CreateButton(
+		this, "Quit", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 },
+		Layer::Button);
+	quitButton->transformRef.position += (GetContentOffset() + Math::Vector2{ 0.0f, 75.0f * 2.0f });
+	quitButton->GetComponent<Ui::Button>().SetOnLeftMouseClick([this]() 
+		{ 
+			Application::Quit(); 
+		}, "UI");
+
 #ifdef _DEBUG
 	std::shared_ptr<GameObject> devButton = UIFactory::CreateButton(
 		this, "Dev", "goblin", 24, Rendering::Color{255, 255, 255, 255},
 		Layer::Button);
-	devButton->transformRef.position += (GetContentOffset() + Math::Vector2{ 0.0f, 75.0f * 2.0f });
+	devButton->transformRef.position += (GetContentOffset() + Math::Vector2{ 0.0f, 75.0f * 3.0f });
 	devButton->GetComponent<Ui::Button>().SetOnLeftMouseClick([this](){ LoadScene("DevScene"); }, "UI");
 #endif
 }

@@ -20,6 +20,7 @@ public:
 		std::shared_ptr<GameObject> background = UIFactory::CreateImage(this, "main_menu_bg", Layer::Background);
 		background->transformRef.scale = {1280.0f, 720.0f};
 		background->transformRef.position = { 0.0f, 0.0f };
+		background->AddComponent<Audio::MusicSource>("intro_theme", false, -1)->Play();
 
 		// Title
 		_title = UIFactory::CreateText(this, _titleText, "goblin", 32, Rendering::Color{ 255, 255, 255, 255 }).get();
