@@ -129,9 +129,11 @@ void ValidationApp::LoadAssets()
 
 	SpriteMap spawners
 	{
-		"Assets\\Textures\\Tiles\\Walls\\wall.png",
+		"Assets\\Textures\\Tiles\\spawners.png",
 		{
-			{ "spawner_1", {scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
+			{ "spawner_slime", {scale * 0, scale * 0}, {scale * 1, scale}},
+			{ "spawner_goblin", {scale * 1, scale * 0}, {scale * 2, scale}},
+			{ "spawner_skeleton", {scale * 2, scale * 0}, {scale * 3, scale}},
 		},
 		"enemy_spawners",
 	};
