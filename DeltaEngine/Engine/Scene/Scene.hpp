@@ -25,7 +25,12 @@
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/ImageRenderSystem.hpp"
 #include "../Systems/TextRenderSystem.hpp"
-#include "../Systems/DespawnSystem.hpp"
+#include "../Systems/LifetimeSystem.hpp"
+
+struct Velocity
+{
+	Vector2 velocity;
+};
 
 class Application;
 class SceneHelper;
@@ -55,15 +60,7 @@ class Scene
 	void LoadScene(const std::string& name);
 
 	virtual void OnStart(){};
-	void DestroyObject(GameObject* gameObject)
-	{
-		MarkForDestroy(gameObject);
-	}
-
-	void DestroyObject(std::shared_ptr<GameObject> gameObject)
-	{
-		DestroyObject(gameObject.get());
-	}
+	virtual void OnUpdate(){};
 
 	void Start();
 	void Update();
@@ -88,25 +85,19 @@ private:
 
 	ecs::Registry _reg;
 	std::string _name;
-	std::vector<std::shared_ptr<GameObject>> _objects{};
+	//std::vector<std::shared_ptr<GameObject>> _objects{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 
 	Physics::PhysicsWorld _physicsWorld{};
 
 	// Systems
+	//std::shared_ptr<UpdateSystem> _updateSystem;
+	std::shared_ptr<BehaviourSystem> _behaviourSystem;
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 	std::shared_ptr<TextRenderSystem> _textRenderSystem;
-	std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<ParticleSystem> _particleSystem;
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
-	std::shared_ptr<DespawnSystem> _despawnSystem;
-
-	// Destroy
-	std::queue<GameObject*> _toDeleteQueue{};
-	void MarkForDestroy(GameObject* gameObject)
-	{
-		_toDeleteQueue.push(gameObject);
-	}
+	std::shared_ptr<LifetimeSystem> _lifetimeSystem;
 };

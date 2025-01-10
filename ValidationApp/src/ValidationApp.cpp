@@ -10,6 +10,7 @@
 #include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
+#include "Scenes/DeleteBugScene.hpp"
 #include "Scenes/WeaponSelectionScene.hpp"
 
 // Game Scenes
@@ -19,7 +20,7 @@
 #include "Scenes/LevelEditorMenuScene.hpp"
 
 ValidationApp::ValidationApp()
-	: Application(64)
+	: Application(32)
 {
 
 	LoadAssets();
@@ -36,6 +37,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<SpawnerScene>("SpawnerScene");
+	RegisterScene<DeleteBugScene>("DeleteBugScene");
 	RegisterScene<WeaponSelectionScene>("WeaponSelectionScene");
 
 	// Register Scenes (Game)

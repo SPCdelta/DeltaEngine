@@ -5,21 +5,16 @@
 
 class Skeleton : public Enemy
 {
-   public:
-	Skeleton(Math::Vector2* position, GameObject* obj, float speed = 2.5f, int health = 20, int damage = 0, int range = 50, int step = 5) 
-        : Enemy(position, speed, health, damage, range, step), gameObject(obj) {} 
-
-    ~Skeleton()
-    {
-        gameObject = nullptr;
-    }
+public:
+	Skeleton(Math::Vector2* position, Transform& transform, float speed = 2.5f, int health = 20, int damage = 0, int range = 50, int step = 5) 
+        : Enemy(position, speed, health, damage, range, step), transform(transform) { }
 
 	void Update(Transform& player_position, Audio::SFXSource* _sfx) override
 	{
 		if (_dead)
 			return;
 
-        Math::Vector2 distanceToPlayer = gameObject->transform->position - player_position.position;
+        Math::Vector2 distanceToPlayer = transform.position - player_position.position;
         if (distanceToPlayer.Magnitude() <= _attackRange)
         {
             float deltaTime = Time::GetDeltaTime();
@@ -38,9 +33,12 @@ class Skeleton : public Enemy
 
     void ShootArrow(Transform& player_position)
     {
-        std::shared_ptr<GameObject> arrowObj = gameObject->Instantiate();
-		arrowObj->transform->position.Set(gameObject->transform->position);
-        arrowObj->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, gameObject->transform->position.DirectionTo(player_position.position)});
+        std::shared_ptr<GameObject> arrowObj = transform.gameObject->Instantiate();
+		arrowObj->AddComponent<CircleCollider>()->SetTrigger(true);
+		arrowObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+		arrowObj->AddComponent<Lifetime>(DEFAULT_LIFETIME);
+		arrowObj->transform->position.Set(transform.position);
+        arrowObj->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, transform.position.DirectionTo(player_position.position)});
 		arrowObj->SetTag("skeleton_arrow");
     }
 
@@ -51,8 +49,8 @@ class Skeleton : public Enemy
 		_sfx->Play();
     }
 
-   private:
-	GameObject* gameObject {nullptr};
+private:
+	Transform& transform;
 
 	float _attackRange {20.0f};
 	float _attackCooldown {2.0f};

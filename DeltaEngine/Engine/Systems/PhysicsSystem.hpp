@@ -10,27 +10,28 @@ namespace Physics
 	class PhysicsSystem : public ecs::System<Transform, Rigidbody>
 	{
 	public:
-		PhysicsSystem(ecs::View<Transform, Rigidbody> view, ecs::Registry& reg, PhysicsWorld& physicsWorld)
-			: ecs::System<Transform, Rigidbody>(view), _physicsWorld{ physicsWorld }
+		PhysicsSystem(ecs::Registry& reg, PhysicsWorld& physicsWorld)
+			: ecs::System<Transform, Rigidbody>(reg), _physicsWorld{ physicsWorld }
 		{
-			_collisionSystem = reg.CreateSystem<CollisionSystem, Collider*>();
+			_collisionSystem = reg.CreateSystem<CollisionSystem, std::unique_ptr<Collider>>();
 		}
 
 		void TransformToBox2D()
 		{
+			RefreshView();
 			for (ecs::EntityId entityId : _view)
 			{
-				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
-
+				Rigidbody& rb = _view.get<Rigidbody>(entityId);
 				EnginePhysics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
 			}
 		}
 
 		void Box2DToTransform()
 		{
+			RefreshView();
 			for (ecs::EntityId entityId : _view)
 			{
-				Rigidbody& rb{_view.get<Rigidbody>(entityId)};
+				Rigidbody& rb = _view.get<Rigidbody>(entityId);
 
 				Math::Vector2 position = EnginePhysics::GetPosition(rb.GetCollider()._bodyId);
 				rb.GetCollider().transform.position.Set(position);
@@ -44,6 +45,7 @@ namespace Physics
 
 		void PhysicsEvents()
 		{
+			RefreshView();
 			std::vector<CollisionData>& triggers{ _physicsWorld.GetCurrentTriggers() };
 			std::vector<CollisionData>& collisions{ _physicsWorld.GetCurrentCollisions() };
 

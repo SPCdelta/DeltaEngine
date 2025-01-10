@@ -11,7 +11,7 @@ class TempAudio : public BehaviourScript
    public:
 	void OnStart() override
 	{
-		auto& music = gameObject->GetComponent<Audio::MusicSource>();
+		auto& music = transform->gameObject->GetComponent<Audio::MusicSource>();
 		//auto& sfx = gameObject->GetComponent<Audio::SFXSource>();
 		music.SetClip("menu");
 		music.Play();
