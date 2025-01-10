@@ -3,6 +3,6 @@
         "coins": 0,
         "health": 100,
         "shield": 0,
-        "weapon": "gun"
+        "weapon": "bow"
     }
 }
