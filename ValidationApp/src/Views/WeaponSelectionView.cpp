@@ -163,7 +163,7 @@ void WeaponSelectionView::InitConfirmButton()
 			playerBehaviour.SavePlayer();
 			playerObject->SetTag("player");
 
-			_scene.LoadScene(_sceneName);
+			_scene.LoadScene("LevelScene");
 		}, "ScoreScreen");
 }
 

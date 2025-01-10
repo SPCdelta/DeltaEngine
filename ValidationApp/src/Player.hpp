@@ -9,7 +9,7 @@
 class Player
 {
    public:
-	Player(int shield = 0, float damage = 10, float speed = 10, int health = 1, Uint8 _inventoryIndex = 0)
+	Player(int shield = 0, float damage = 10, float speed = 10, int health = 100, Uint8 _inventoryIndex = 0)
 		: _shield{shield}, _attackDamage{damage}, 
 		_speed{speed}, _health{health}, _coins{0}, _inventoryIndex{0} {}
 
