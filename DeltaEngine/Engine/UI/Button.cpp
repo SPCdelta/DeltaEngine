@@ -52,7 +52,8 @@ void Ui::Button::SetOnMouseHover(std::function<void()> func)
 
 void Ui::Button::SetOnMousePressed(std::function<void()> func, const std::string& category)
 {
-	_inputListeners.Add(InputManager::onMouseButtonDown(
+	_inputListeners.Add(InputManager::onMouseButtonDown
+	(
 		MouseButton::Left,
 		[this, func](Input& e)
 		{

@@ -70,6 +70,7 @@
     <ClCompile Include="src\Scripts\Level\LevelExitBehaviour.cpp" />
     <ClCompile Include="src\Scripts\DummyBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PhysicsBehaviour.cpp" />
+    <ClCompile Include="src\UI\BaseUIScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scenes\InputTestScene.hpp" />

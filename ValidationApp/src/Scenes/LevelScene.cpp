@@ -136,6 +136,6 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 	}
 	catch (const std::exception&)
 	{
-
+		return false;
 	}
 }

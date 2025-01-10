@@ -201,6 +201,7 @@
     <ClCompile Include="src\Scripts\Level\EntitySpawner.cpp" />
     <ClCompile Include="src\Scripts\Level\LevelExitBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PhysicsBehaviour.cpp" />
+    <ClCompile Include="src\UI\BaseUIScene.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
