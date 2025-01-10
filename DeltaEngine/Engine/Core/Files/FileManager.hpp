@@ -50,4 +50,10 @@ class FileManager
 		{
 			return std::filesystem::exists(path);
 		}
+
+		static void removeFile(const std::string& path)
+		{
+			if (FileExists(path))
+				std::filesystem::remove(path);
+		}
 };
