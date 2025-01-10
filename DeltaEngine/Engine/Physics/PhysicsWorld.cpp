@@ -7,7 +7,7 @@ Physics::PhysicsWorld::PhysicsWorld()
 
 Physics::PhysicsWorld::~PhysicsWorld()
 {
-	EnginePhysics::DestroyWorld(_data.id);
+	EnginePhysics::DestroyWorld(_data.id); 
 }
 
 const EnginePhysics::WorldId& Physics::PhysicsWorld::GetWorldId() const

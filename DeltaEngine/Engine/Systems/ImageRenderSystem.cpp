@@ -1,9 +1,9 @@
 #include "ImageRenderSystem.hpp"
 
-ImageRenderSystem::ImageRenderSystem(ecs::View<Transform, Ui::Image> view)
-	: ecs::System<Transform, Ui::Image>(view),
-	  _window(nullptr),
-	  _viewportData(nullptr)
+ImageRenderSystem::ImageRenderSystem(ecs::Registry& reg)
+	 : ecs::System<Transform, Ui::Image>(reg),
+	   _window(nullptr),
+	   _viewportData(nullptr)
 {
 
 }
@@ -20,6 +20,8 @@ void ImageRenderSystem::SetViewportData(ViewportData* viewportData)
 
 void ImageRenderSystem::Update()
 {
+	RefreshView();
+
 	// Collect entities and sort by layer
 	std::vector<ecs::EntityId> entities(_view.begin(), _view.end());
 	std::sort(entities.begin(), entities.end(), [this](ecs::EntityId a, ecs::EntityId b) 

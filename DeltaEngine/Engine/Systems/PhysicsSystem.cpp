@@ -1,26 +1,28 @@
 #include "PhysicsSystem.hpp"
 
-Physics::PhysicsSystem::PhysicsSystem(ecs::View<Transform, Rigidbody> view, ecs::Registry& reg, PhysicsWorld& physicsWorld)
-	: ecs::System<Transform, Rigidbody>(view), 
+Physics::PhysicsSystem::PhysicsSystem(ecs::Registry& reg, PhysicsWorld& physicsWorld)
+	: ecs::System<Transform, Rigidbody>(reg), 
 	  _physicsWorld{ physicsWorld }
 {
-	_collisionSystem = reg.CreateSystem<CollisionSystem, Collider*>();
+	_collisionSystem = reg.CreateSystem<CollisionSystem, std::unique_ptr<Collider>>();
 }
 
 void Physics::PhysicsSystem::TransformToBox2D()
 {
+	RefreshView();
 	for (ecs::EntityId entityId : _view)
 	{
-		Rigidbody& rb{_view.get<Rigidbody>(entityId)};
+		Rigidbody& rb = _view.get<Rigidbody>(entityId);
 		EnginePhysics::SetPosition(rb.GetShape().id, rb.GetCollider().transform.position);
 	}
 }
 
 void Physics::PhysicsSystem::Box2DToTransform()
 {
+	RefreshView();
 	for (ecs::EntityId entityId : _view)
 	{
-		Rigidbody& rb{_view.get<Rigidbody>(entityId)};
+		Rigidbody& rb = _view.get<Rigidbody>(entityId);
 		Math::Vector2 position = EnginePhysics::GetPosition(rb.GetCollider()._bodyId);
 		rb.GetCollider().transform.position.Set(position);
 	}
@@ -33,6 +35,7 @@ void Physics::PhysicsSystem::ApplyPhysics()
 
 void Physics::PhysicsSystem::PhysicsEvents()
 {
+	RefreshView();
 	std::vector<CollisionData>& triggers{ _physicsWorld.GetCurrentTriggers() };
 	std::vector<CollisionData>& collisions{ _physicsWorld.GetCurrentCollisions() };
 
@@ -40,6 +43,8 @@ void Physics::PhysicsSystem::PhysicsEvents()
 	{
 		// Check for Trigger collision
 		Rigidbody& rb{ _view.get<Rigidbody>(entityId) };
+		
+		// Check for Trigger Collision
 		for (CollisionData& trigger : triggers)
 		{
 			// Check if Trigger has our Collider
@@ -71,7 +76,7 @@ void Physics::PhysicsSystem::PhysicsEvents()
 				otherId = collision.shape2;
 			else if (EnginePhysics::AreEqual(rb.GetShape().id, collision.shape2))
 				otherId = collision.shape1;
-			else // If not this Rb doesnt have it
+			else // If not this Rb doesnt have it	
 				continue;
 
 			// Find Collider with ShapeId of other Collider

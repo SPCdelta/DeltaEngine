@@ -1,12 +1,12 @@
 #include "RenderSystem.hpp"
 
-RenderSystem::RenderSystem(ecs::View<Transform, Sprite> view, Camera* camera)
-	: ecs::System<Transform, Sprite>(view),
-	  _window(nullptr),
-	  _viewportData(nullptr),
-	  _camera{camera}
+RenderSystem::RenderSystem(ecs::Registry& reg, Camera* camera) 
+	: ecs::System<Transform, Sprite>(reg), 
+	  _window(nullptr), 
+	  _viewportData(nullptr), 
+	  _camera{ camera }
 {
-
+	
 }
 
 Window* RenderSystem::GetWindow()
@@ -35,14 +35,15 @@ void RenderSystem::OnStart()
 
 void RenderSystem::Update()
 {
+	RefreshView();
+
 	// Collect entities and sort by layer
 	std::vector<ecs::EntityId> entities(_view.begin(), _view.end());
-	std::sort(entities.begin(), entities.end(),
-	[this](ecs::EntityId a, ecs::EntityId b)
+	std::sort(entities.begin(), entities.end(), [this](ecs::EntityId a, ecs::EntityId b) 
 	{
 		int layerA = static_cast<int>(_view.get<Sprite>(a).GetLayer());
 		int layerB = static_cast<int>(_view.get<Sprite>(b).GetLayer());
-		return layerA < layerB;	 // Lower layers render first
+		return layerA < layerB; // Lower layers render first
 	});
 
 	for (ecs::EntityId entityId : entities)

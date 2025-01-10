@@ -74,7 +74,7 @@ void ParticleEmitter::Destroy(size_t index)
 {
 	if (std::shared_ptr<GameObject> gameObject = _particles[index].gameObject.lock())
 	{
-		_gameObject->Destroy(gameObject.get());
+		gameObject->Destroy();
 		_particles.erase(_particles.begin() + index);
 	}
 	else
@@ -107,19 +107,14 @@ void ParticleEmitter::Update()
 	if (!_configuration.loop && _playingFor >= _configuration.playTime)
 	{
 		_started = false;
-
 		for (size_t i = _particles.size(); i-- > 0;)
-		{
 			Destroy(i);
-		}
 	}
 
 	for (size_t i = _particles.size(); i-- > 0;)
 	{
 		if (_particles[i].aliveFor <= 0.0f)
-		{
 			Destroy(i);
-		}
 	}
 
 	// Spawn New Particles
@@ -131,7 +126,7 @@ void ParticleEmitter::Update()
 		if (std::shared_ptr<GameObject> gameObject = particle.gameObject.lock())
 		{
 			gameObject->transformRef.position += (particle.direction * particle.speed * Time::GetDeltaTime());
-			gameObject->transformRef.rotation += ((FULL_ROTATION / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
+			gameObject->transformRef.rotation += ((360.0f / 1.0f * particle.rotationSpeed) * Time::GetDeltaTime()); // Rotations per second
 			particle.aliveFor -= Time::GetDeltaTime();
 		}
 	}

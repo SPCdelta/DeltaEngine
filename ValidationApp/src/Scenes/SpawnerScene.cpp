@@ -7,10 +7,10 @@ SpawnerScene::SpawnerScene(const std::string& name)
 	Sprite* sprite = spawnerObj->AddComponent<Sprite>("player");
 	sprite->SetLayer(Layer::Foreground);
 	sprite->SetColor({ 0, 255, 0 });
-
+	
 	spawnerObj->AddComponent<EntitySpawner>
 	(
-		spawnerObj.get(),
+		spawnerObj,
 		EntitySpawnerData
 		{
 			// Spawn interval

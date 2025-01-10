@@ -1,11 +1,11 @@
 #include "TextRenderSystem.hpp"
 
-TextRenderSystem::TextRenderSystem(ecs::View<Transform, Ui::Text> view) 
-	: ecs::System<Transform, Ui::Text>(view), 
+TextRenderSystem::TextRenderSystem(ecs::Registry& reg) 
+	: ecs::System<Transform, Ui::Text>(reg), 
 	  _window(nullptr),
 	  _viewportData(nullptr) 
 {
-
+	
 }
 
 void TextRenderSystem::SetWindow(Window* window) 
@@ -20,6 +20,7 @@ void TextRenderSystem::SetViewportData(ViewportData* viewportData)
 
 void TextRenderSystem::OnStart()
 {
+	RefreshView();
 	for (ecs::EntityId entityId : _view)
 	{
 		Ui::Text& text = _view.get<Ui::Text>(entityId);
@@ -30,6 +31,7 @@ void TextRenderSystem::OnStart()
 
 void TextRenderSystem::Update()
 {
+	RefreshView();
 	for (ecs::EntityId entityId : _view)
 	{
 		Ui::Text& text = _view.get<Ui::Text>(entityId);

@@ -1,23 +1,15 @@
 #include "UpdateSystem.hpp"
 
-UpdateSystem::UpdateSystem(ecs::View<Transform, BehaviourScript*> view)
-	: ecs::System<Transform, BehaviourScript*>(view)
+BehaviourSystem::BehaviourSystem(ecs::Registry& reg) 
+	: ecs::System<std::unique_ptr<BehaviourScript>>(reg)
 {
 
 }
 
-UpdateSystem::~UpdateSystem()
+void BehaviourSystem::Update()
 {
 	for (ecs::EntityId entityId : _view)
 	{
-		delete _view.get<BehaviourScript*>(entityId);
-	}
-}
-
-void UpdateSystem::Update()
-{
-	for (ecs::EntityId entityId : _view)
-	{
-		_view.get<BehaviourScript*>(entityId)->OnUpdate();
+		_view.get<std::unique_ptr<BehaviourScript>>(entityId)->OnUpdate();
 	}
 }

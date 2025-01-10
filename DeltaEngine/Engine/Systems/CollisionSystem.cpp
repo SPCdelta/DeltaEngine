@@ -1,28 +1,20 @@
 #include "CollisionSystem.hpp"
 
-Physics::CollisionSystem::CollisionSystem(ecs::View<Collider*> view)
-	: ecs::System<Collider*>(view)
+Physics::CollisionSystem::CollisionSystem(ecs::Registry& reg)
+	: ecs::System<std::unique_ptr<Collider>>(reg)
 {
 
-}
-
-Physics::CollisionSystem::~CollisionSystem()
-{
-	for (ecs::EntityId entityId : _view)
-	{
-		delete _view.get<Collider*>(entityId);
-	}
 }
 
 Physics::Collider* Physics::CollisionSystem::GetCollider(EnginePhysics::PhysicsId id)
 {
+	RefreshView();
+
 	for (ecs::EntityId entityId : _view)
 	{
-		Collider* collider{ _view.get<Collider*>(entityId) };
+		std::unique_ptr<Collider>& collider = _view.get<std::unique_ptr<Collider>>(entityId);
 		if (EnginePhysics::AreEqual(collider->_shape.id, id))
-		{
-			return collider;
-		}
+			return collider.get();
 	}
 
 	return nullptr;

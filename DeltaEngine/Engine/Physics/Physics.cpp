@@ -10,3 +10,11 @@ EnginePhysics::PhysicsShape EnginePhysics::Event::SensorEventData::GetShape() co
 {
 	return _shape;
 }
+
+b2Vec2 EnginePhysics::ToVec2(Math::Vector2 vector)
+{
+	return b2Vec2
+	{
+		vector.GetX(), vector.GetY()
+	};
+}

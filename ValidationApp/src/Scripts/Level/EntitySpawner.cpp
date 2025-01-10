@@ -1,6 +1,6 @@
 #include "EntitySpawner.hpp"
 
-EntitySpawner::EntitySpawner(GameObject* owner, const EntitySpawnerData data, std::function<void(std::shared_ptr<GameObject>&)> onSpawn)
+EntitySpawner::EntitySpawner(std::shared_ptr<GameObject> owner, const EntitySpawnerData data, std::function<void(std::shared_ptr<GameObject>&)> onSpawn)
 	: _owner(owner), 
 	  _data{ data }, 
 	  _onSpawn{ onSpawn }

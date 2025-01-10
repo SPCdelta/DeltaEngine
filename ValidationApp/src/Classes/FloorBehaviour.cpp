@@ -3,25 +3,35 @@
 FloorBehaviour::FloorBehaviour(Rigidbody& rigidbody) 
 	: _rigidbody{rigidbody}
 {
-	_rigidbody.onTriggerEnter.Register(
-	[this](Collider& collider)
-	{
-		const std::string& tag{collider.transform.gameObject->GetTag()};
-		if (tag == "ice")
-			_iceCount++;
-		else if (tag == "mud")
-			_mudCount++;
-	});
+	_rigidbody.onTriggerEnter.Register
+	(
+		[this](Collider& collider)
+		{ 
+			if (!collider.transform.gameObject)
+				return;
 
-	rigidbody.onTriggerExit.Register(
-	[this](Collider& collider)
-	{
-		const std::string& tag{collider.transform.gameObject->GetTag()};
-		if (tag == "ice")
-			_iceCount--;
-		else if (tag == "mud")
-			_mudCount--;
-	});
+			const std::string& tag{collider.transform.gameObject->GetTag()};
+			if (tag == "ice")
+				_iceCount++;
+			else if (tag == "mud")
+				_mudCount++;
+		}
+	);
+
+	rigidbody.onTriggerExit.Register
+	(
+		[this](Collider& collider)
+		{
+			if (!collider.transform.gameObject)
+				return;
+
+			const std::string& tag{collider.transform.gameObject->GetTag()};
+			if (tag == "ice")
+				_iceCount--;
+			else if (tag == "mud")
+				_mudCount--;
+		}
+	);
 }
 
 FloorBehaviour::~FloorBehaviour()

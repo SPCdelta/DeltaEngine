@@ -55,3 +55,8 @@ float Enemy::GetSpeed() const
 {
 	return speed_;
 }
+
+bool Enemy::IsDead() const
+{
+	return _dead;
+}

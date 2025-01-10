@@ -14,34 +14,33 @@ void FileManager::Save(const std::string& path, const std::string& extension, co
 
 std::vector<std::string> FileManager::filesInDirectory(const std::string& directoryPath)
 {
-	if (!fs::exists(directoryPath))
+	if (!fs::exists(directoryPath)) 
 	{
-		if (!fs::create_directory(directoryPath))
-		{
+		if (!fs::create_directory(directoryPath)) 
 			std::cerr << "error with making: " + directoryPath + "\n";
-		}
 	}
-
 	std::vector<std::string> result;
-	try
+	try 
 	{
-		for (const auto& entry : fs::directory_iterator(directoryPath))
+		for (const auto& entry : fs::directory_iterator(directoryPath)) 
 		{
-			if (fs::is_regular_file(entry.status()))
-			{
+			if (fs::is_regular_file(entry.status())) 
 				result.push_back(entry.path().filename().string());
-			}
 		}
-	}
-	catch (const fs::filesystem_error& e)
-	{
+	} catch (const fs::filesystem_error& e) 
+	{ 
 		std::cerr << "Error: " << e.what() << std::endl;
 	}
-
 	return result;
 }
 
 bool FileManager::FileExists(const std::string& path)
 {
 	return std::filesystem::exists(path);
+}
+
+void FileManager::RemoveFile(const std::string& path)
+{
+	if (FileExists(path))
+		std::filesystem::remove(path);
 }

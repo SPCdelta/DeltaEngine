@@ -2,8 +2,8 @@
 
 void PhysicsBehaviour::OnStart()
 {
-	rigidbody = &gameObject->GetComponent<Physics::Rigidbody>();
-
+	rigidbody = &transform->gameObject->GetComponent<Physics::Rigidbody>();
+	
 	rigidbody->onTriggerEnter.Register(
 	[this](Collider& collider) 
 	{

@@ -2,7 +2,7 @@
 
 void BehaviourScript::LoadScene(const std::string& name)
 {
-	gameObject->LoadScene(name);
+	transform->gameObject->LoadScene(name); 
 }
 
 void BehaviourScript::Destroy(std::shared_ptr<GameObject> gameObject)
@@ -57,10 +57,10 @@ void BehaviourScript::onMouseWheel(Events::EventCallback<Input&> wheelEvent)
 
 std::shared_ptr<GameObject> BehaviourScript::Instantiate()
 {
-	return gameObject->Instantiate();
+	return transform->gameObject->Instantiate();
 }
 
 std::shared_ptr<GameObject> BehaviourScript::Instantiate(Transform transform)
 {
-	return gameObject->Instantiate(transform);
+	return transform->gameObject->Instantiate(transformComponent);
 }

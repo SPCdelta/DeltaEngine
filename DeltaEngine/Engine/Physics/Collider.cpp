@@ -5,11 +5,13 @@ Physics::Collider::Collider(const PhysicsWorld& world, Transform& transform, Sha
 	_physicsWorld{ world }, 
 	_shapeType{ type }
 {
-	_physicsBody = EnginePhysics::DefaultBody();
-	_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
-	_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &_physicsBody);
+	EnginePhysics::PhysicsBody physicsBody = EnginePhysics::DefaultBody();
+	physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
+	_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &physicsBody);
 
 	_shape.shape = EnginePhysics::DefaultShape();
+	_shape.shape.density = 1.0f;
+
 	switch (_shapeType)
 	{
 		case Physics::ShapeType::CIRCLE:
@@ -27,18 +29,18 @@ Physics::Collider::Collider(const PhysicsWorld& world, Transform& transform, Sha
 
 void Physics::Collider::SetTrigger(bool trigger)
 {
-	if (_isTrigger == trigger)
-		return;
+	if (_isTrigger == trigger) return;
+		_isTrigger = trigger;
 
 	b2DestroyBody(_bodyId);
-	_physicsBody = EnginePhysics::DefaultBody();
-	_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
-	_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &_physicsBody);
+	EnginePhysics::PhysicsBody physicsBody = EnginePhysics::DefaultBody();
+	physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
+	_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &physicsBody);
 
 	_shape.shape = EnginePhysics::DefaultShape();
-	_shape.shape.isSensor = trigger;
-	_shape.shape.enableContactEvents = trigger;
-	_shape.shape.enableSensorEvents = trigger;
+	_shape.shape.isSensor = _isTrigger;
+	_shape.shape.enableContactEvents = _isTrigger;
+	_shape.shape.enableSensorEvents = _isTrigger;
 
 	switch (_shapeType)
 	{
@@ -53,7 +55,6 @@ void Physics::Collider::SetTrigger(bool trigger)
 	}
 
 	_shape.id = EnginePhysics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
-
 	CallOnShapeChanged();
 }
 
@@ -65,4 +66,9 @@ bool Physics::Collider::IsTrigger() const
 void Physics::Collider::CallOnShapeChanged()
 {
 	_onShapeChanged.Dispatch(_shape);
+}
+
+EnginePhysics::PhysicsId Physics::Collider::GetId() const
+{
+	return _bodyId;
 }
