@@ -54,6 +54,11 @@ public:
 			_buttons.erase(level);
 		}
 
+		for (size_t i = 0; i < _order.size(); i++)
+		{
+			_buttons[_order[i]].index = i;
+			UpdateLevelButton(_order[i]);
+		}
 		LevelManager::SaveLevelSettings(_order);
 	}
 
