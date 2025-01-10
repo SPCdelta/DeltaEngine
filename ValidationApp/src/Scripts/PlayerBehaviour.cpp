@@ -259,8 +259,7 @@ void PlayerBehaviour::LoadPlayer()
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
 		_player->SetShield(loadedPlayer["player"]["shield"]);
-		
-		_player->ResetInventory();
+
 		_weapon = WeaponFactory::CreateWeapon(loadedPlayer["player"]["weapon"], this).release();
 
 		_player->ResetInventory();
@@ -294,11 +293,7 @@ void PlayerBehaviour::SavePlayer()
 	playerFile["player"]["health"] = _player->GetHealth();
 	playerFile["player"]["shield"] = _player->GetShield();
 	playerFile["player"]["coins"] = _player->GetCoins();
-
-	if (_weapon)
-	{
-		playerFile["player"]["weapon"] = WeaponTypeUtils::ToString(_weapon->GetWeaponType());
-	}		
+	playerFile["player"]["weapon"] = WeaponTypeUtils::ToString(_weapon->GetWeaponType());
 
 	if (_player->GetInventorySize() > 0)
 	{

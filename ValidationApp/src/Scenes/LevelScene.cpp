@@ -3,7 +3,7 @@
 void LevelScene::OnStart() 
 {
 	// Data
-	Json::json& data = RetriveUserData();
+	Json::json& data = RetrieveUserData();
 	std::string levelName = data["levelName"];
 
 	std::cout << levelName << std::endl;
@@ -77,8 +77,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				if (tile.contains("sprite"))
 				{
 					Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
-					tileObj
-						->AddComponent<Sprite>(tile["sprite"]["name"])
+					tileObj->AddComponent<Sprite>(tile["sprite"]["name"])
 						->SetLayer(layer);
 				}
 
