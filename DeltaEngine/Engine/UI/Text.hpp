@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Font.hpp"
+#include "FontWrapper.hpp"
 #include "../Core/Math/Point.hpp"
 #include "../Rendering/Renderables/TextRenderable.hpp"
 
@@ -30,7 +31,7 @@ namespace Ui
 		void SetBackground(Rendering::Color color);
 		void SetColor(const Rendering::Color& color);
 
-		Font::Font* GetFont() const;
+		std::shared_ptr<FontWrapper> GetFont() const;
 		void SetFont(const std::string& fontName);
 
 		void SetFontSize(int size);
@@ -40,10 +41,12 @@ namespace Ui
 		void SetPosition(const Math::Vector2& position);	
 		const Math::Vector2& GetPosition() const;
 
+		Transform GetTransform();
+
 	private:
 		std::string _text;
 		std::string _fontName;
-		Font::Font* _font;
+		std::shared_ptr<FontWrapper> _font;
 		int _fontSize;
 
 		Rendering::Color _color;

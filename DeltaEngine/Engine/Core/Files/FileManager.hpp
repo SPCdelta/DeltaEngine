@@ -54,4 +54,9 @@ public:
 
 		return result;
 	}
+	
+	static bool FileExists(const std::string& path)
+	{
+		return std::filesystem::exists(path);
+	}
 };

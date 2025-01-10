@@ -31,7 +31,7 @@ public:
 		FontManager::AddFont(fontName, fontPath);
 	}
 
-	static Font::Font* GetFont(const std::string& name, int fontSize)
+	static std::shared_ptr<FontWrapper> GetFont(const std::string& name, int fontSize)
 	{
 		return FontManager::Get(name, fontSize);
 	}
@@ -61,7 +61,7 @@ public:
 	static SpriteData* Get(const std::string& name)
 	{
 		if (!instance._sprites.contains(name))
-			assert(std::string{"Sprite das not exist!!"}.empty());
+			assert(std::string{"Sprite does not exist!!"}.empty());
 
 		return instance._sprites[name];
 	}

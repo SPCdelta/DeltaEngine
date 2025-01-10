@@ -33,7 +33,8 @@ public:
         "floor_tiles", 
         "wall_tiles", 
         "player", 
-        "enemy_spawners" 
+        "enemy_spawners", 
+        "level_exit" 
     };
 
     const std::map<std::string, Layer> LAYER_MAP = 
@@ -41,7 +42,8 @@ public:
         {"floor_tiles", Layer::Floor}, 
         {"wall_tiles", Layer::Wall}, 
         {"player", Layer::Player}, 
-        {"enemy_spawners" , Layer::Player} 
+        {"enemy_spawners" , Layer::Player}, 
+        {"level_exit", Layer::Foreground} 
     };
 
     // Constructor

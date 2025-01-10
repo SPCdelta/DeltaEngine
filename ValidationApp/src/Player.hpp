@@ -11,7 +11,7 @@
 class Player
 {
 public:
-	Player(int shield = 25, float damage = 10, float speed = 10, int health = 95, Uint8 _inventoryIndex = 0);
+	Player(int shield = 0, float damage = 10, float speed = 10, int health = 100, Uint8 _inventoryIndex = 0);
 
 	void SetShield(int shield);
 	void SetAttackDamage(float damage);
@@ -32,6 +32,7 @@ public:
 	void RemoveItemFromInventory(const Item& item, Uint8 amount);
 	void ResetInventory();
 
+	Uint8 GetInventoryCapacity() const;
 	Uint8 GetInventorySize() const;
 	const std::optional<InventoryItem>& GetInventoryItem(Uint8 index) const;
 	std::optional<InventoryItem>& GetInventoryItem(Uint8 index);

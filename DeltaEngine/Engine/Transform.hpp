@@ -12,4 +12,13 @@ struct Transform
 	float rotation{ 0.0f };
 	Math::Vector2 scale{ 0.0f, 0.0f };
 	GameObject* gameObject;
+
+	Transform operator+(const Transform& other) const 
+	{
+		Transform result = *this;
+		result.position = this->position + other.position;
+		result.rotation = this->rotation + other.rotation;
+		result.scale = this->scale + other.scale;
+		return result;
+	}
 };

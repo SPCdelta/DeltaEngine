@@ -22,11 +22,6 @@ void Scene::LoadScene(const std::string& name)
 	_application->LoadScene(name);
 }
 
-void Scene::LoadScene(const std::string& name, void* userData)
-{
-	_application->LoadScene<void>(name, userData);
-}
-
 void Scene::Start()
 { 
 	_renderSystem->OnStart();
@@ -105,7 +100,7 @@ const std::string& Scene::GetName() const
 	return _name;
 }
 
-Json::json& Scene::RetriveUserData() 
+Json::json& Scene::RetrieveUserData() 
 { 
 	return _application->RetriveData(); 
 }

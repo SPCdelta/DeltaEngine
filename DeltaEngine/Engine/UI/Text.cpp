@@ -90,7 +90,7 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 		return;
 	}
 
-	Surface* surface = Font::RenderText_Solid(_font, _text.c_str(), _color);
+	Surface* surface = Font::RenderText_Solid(_font->GetFont(), _text.c_str(), _color);
 	if (surface == nullptr)
 	{
 		std::cerr << "Error creating surface: " << GetError() << '\n';
@@ -107,15 +107,13 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 	}
 
 	Rect dstRect;
-	if (_position.IsNonZero()) 
+	dstRect = 
 	{
-		dstRect = { static_cast<int>(_position.GetX()), static_cast<int>(_position.GetY()), surface->w, surface->h };
-	} 
-	else 
-	{
-		dstRect = { static_cast<int>(transform.position.GetX()), static_cast<int>(transform.position.GetY()), surface->w, surface->h};
-	}
-
+		static_cast<int>(transform.position.GetX() + _position.GetX()),
+		static_cast<int>(transform.position.GetY() + _position.GetY()),
+		surface->w, surface->h
+	};
+	
 	if (_background)
 		RenderRect(renderer, dstRect, _backgroundColor);
 
@@ -156,7 +154,7 @@ int Ui::Text::GetFontSize() const
 	return _fontSize;
 }
 
-Font::Font* Ui::Text::GetFont() const
+std::shared_ptr<FontWrapper> Ui::Text::GetFont() const
 {
 	return _font;
 }
@@ -180,4 +178,9 @@ void Text::SetColor(const Rendering::Color& color)
 const Math::Vector2& Ui::Text::GetPosition() const
 {
 	return _position;
+}
+
+Transform Ui::Text::GetTransform()
+{
+	return Transform(_position, 0.0f, {}, nullptr);
 }

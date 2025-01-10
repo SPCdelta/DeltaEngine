@@ -5,6 +5,7 @@
 enum class Layer : int
 {
 	Background = 0,
+	Button,
 	Floor,
 	Wall,
 	Default,
@@ -62,6 +63,8 @@ public:
 		{
 			case Layer::Background:
 				return "Background";
+			case Layer::Button:
+				return "Button";
 			case Layer::Floor:
 				return "Floor";
 			case Layer::Wall:

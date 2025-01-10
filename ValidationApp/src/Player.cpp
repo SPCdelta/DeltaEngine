@@ -103,6 +103,11 @@ Uint8 Player::GetInventorySize() const
 	return _inventory.GetSize();
 }
 
+Uint8 Player::GetInventoryCapacity() const
+{
+	return _inventory.GetCapacity();
+}
+
 const std::optional<InventoryItem>& Player::GetInventoryItem(Uint8 index) const
 {
 	return _inventory.GetInventoryItem(index);

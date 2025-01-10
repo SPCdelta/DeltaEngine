@@ -28,8 +28,8 @@ void ScoreScreen::SetCenter()
 void ScoreScreen::InitTitle(const std::string& title, const Rendering::Color& textColor)
 {
 	auto& text = *_window->AddComponent<Ui::Text>(title, _fontName, static_cast<int>(_scale.Magnitude() * TITLE_SCALE), textColor);
-	auto xPos = (_pos.GetX() + _scale.GetX() / 2) - (Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2);
-	auto yPos = _pos.GetY();
+	auto xPos = _scale.GetX() / 2 - Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2;
+	auto yPos = 0.f;
 	yPos += _scale.GetY() * TITLE_MARGINY_SCALE;
 	text.SetPosition({ xPos, yPos });
 }
@@ -37,11 +37,10 @@ void ScoreScreen::InitTitle(const std::string& title, const Rendering::Color& te
 void ScoreScreen::InitBody(int coins)
 {
 	auto& score = *_scene.Instantiate({ _pos, 0.0f, _scale });
-	auto& text = *score.AddComponent<Ui::Text>(std::string{ "Your score was: " + std::to_string(coins) }, _fontName, static_cast<int>(_scale.Magnitude() * BODY_TEXT_SCALE), 
-		BODY_TEXT_COLOR);
-
-	auto xPos = (_pos.GetX() + _scale.GetX() / 2) - (Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2);
-	auto yPos = _pos.GetY() + _scale.GetY() / 2;
+	auto& text = *score.AddComponent<Ui::Text>(std::string{ "Your score was: " + std::to_string(coins) }, 
+		_fontName, static_cast<int>(_scale.Magnitude() * BODY_TEXT_SCALE), BODY_TEXT_COLOR);
+	auto xPos = _scale.GetX() / 2 - Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2;
+	auto yPos = _scale.GetY() / 2;
 	text.SetPosition({xPos, yPos});
 
 	InitButtons();

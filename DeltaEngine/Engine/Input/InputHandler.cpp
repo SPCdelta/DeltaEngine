@@ -9,6 +9,11 @@ InputHandler::~InputHandler()
 {
     for (InputListener* il : _inputListeners)
     {
+        if (il->GetType() == -572662307)
+        {
+            // TODO: JeroenYurian
+			continue;
+        }
         delete il;
     }
     _inputListeners.clear();

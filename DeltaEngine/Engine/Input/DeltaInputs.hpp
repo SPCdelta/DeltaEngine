@@ -160,6 +160,7 @@ struct Input
 	int mouseY;
 	int mouseX;
 	int wheelVertically;
+	bool consumed = false;
 };
 
 class InputsEnum
