@@ -25,8 +25,8 @@ public:
     static constexpr float SAVE_FONT_SIZE = 20.0f;
 
     const std::string LEVEL_PATH = "Assets\\Level\\";
-    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles", "wall_tiles", "player", "enemy_spawners" };
-    const std::map<std::string, Layer> LAYER_MAP = { {"floor_tiles", Layer::Floor}, {"wall_tiles", Layer::Wall}, {"player", Layer::Player}, {"enemy_spawners" , Layer::Player} };
+    const std::vector<std::string> SPRITE_CATEGORY = { "floor_tiles", "wall_tiles", "player", "enemy_spawners" , "level_exit" };
+    const std::map<std::string, Layer> LAYER_MAP = { {"floor_tiles", Layer::Floor}, {"wall_tiles", Layer::Wall}, {"player", Layer::Player}, {"enemy_spawners" , Layer::Player}, {"level_exit", Layer::Foreground} };
 
     // Constructor
     LevelEditor(const std::string& sceneName) : Scene(sceneName) {}
@@ -148,19 +148,19 @@ public:
 
         for (auto& tile : _tiles)
         {
-            if (tile->GetTag() == SPRITE_CATEGORY[0] || tile->GetTag() == SPRITE_CATEGORY[1]){//floor_tile || wall_tile // new Tiles need to be here
+             if (tile->GetTag() == SPRITE_CATEGORY[2]) { //player
+                auto& tileJson = tilesJson["player"];
+                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
+                SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
+                tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
+            }
+            else {//de rest
                 Json::json jsonObject;
                 TransformDTO::ToJson(jsonObject, tile->GetComponent<Transform>());
                 SpriteDTO::ToJson(jsonObject, tile->GetComponent<Sprite>());
                 jsonObject["tag"] = StringUtils::Split(jsonObject["sprite"]["name"], '_')[0];
                 tilesJson[tile->GetTag()].push_back(jsonObject);
 
-            }
-            else if (tile->GetTag() == SPRITE_CATEGORY[2]) { //player
-                auto& tileJson = tilesJson["player"];
-                TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-                SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
-                tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
             }
         }
         MakeSaveFilePath();
@@ -223,7 +223,7 @@ public:
         auto* button = backButton->AddComponent<Ui::Button>();
         button->SetOnLeftMouseClick([this]() {
             SaveLevel();
-            LoadScene("LevelEditorLevelChose");
+            LoadScene("LevelEditorMenuScene");
             }, "UI");
         button->SetOnMousePressed([text](){
             text->SetColor({80,80 ,80 });
