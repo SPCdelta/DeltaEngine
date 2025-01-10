@@ -2,16 +2,15 @@
 
 #include <optional>
 
-#include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
 #include "../Physics/Collider.hpp"
 
 namespace Physics
 {
-	class CollisionSystem : public ecs::System<Collider*>
+	class CollisionSystem : public ecs::System<std::unique_ptr<Collider>>
 	{
 	public:
-		CollisionSystem(ecs::View<Collider*> view);
-		~CollisionSystem();
+		CollisionSystem(ecs::Registry& reg);
 
 		Collider* GetCollider(EnginePhysics::PhysicsId id);
 	};

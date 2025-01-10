@@ -9,7 +9,7 @@ namespace Physics
 	class PhysicsSystem : public ecs::System<Transform, Rigidbody>
 	{
 	public:
-		PhysicsSystem(ecs::View<Transform, Rigidbody> view, ecs::Registry& reg, PhysicsWorld& physicsWorld);
+		PhysicsSystem(ecs::Registry& reg, PhysicsWorld& physicsWorld);
 
 		void TransformToBox2D();
 		void Box2DToTransform();

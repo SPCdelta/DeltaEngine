@@ -1,13 +1,15 @@
 #pragma once
 
 #include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
+
 #include "../Window.hpp"
 #include "../Rendering/Sprite.hpp"
 
 class RenderSystem : public ecs::System<Transform, Sprite>
 {
 public:
-	RenderSystem(ecs::View<Transform, Sprite> view, Camera* camera);
+	RenderSystem(ecs::Registry& reg, Camera* camera); 
 
 	Window* GetWindow();
 	void SetWindow(Window* window);

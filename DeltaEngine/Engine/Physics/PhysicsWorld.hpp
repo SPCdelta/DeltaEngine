@@ -4,6 +4,7 @@
 
 #include "Physics.hpp"
 #include "../Ecs/Registry.hpp"
+#include <iostream>
 
 namespace Physics
 {

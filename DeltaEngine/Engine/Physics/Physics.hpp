@@ -102,6 +102,8 @@ namespace EnginePhysics
 		return {shapeId.index1, shapeId.world0, shapeId.revision};
 	}
 
+	static b2Vec2 ToVec2(Math::Vector2 vector);
+
 	inline Shape DefaultShape()
 	{
 		return b2DefaultShapeDef();
@@ -138,6 +140,20 @@ namespace EnginePhysics
 	inline PhysicsId CreatePolygonShape(PhysicsId bodyId, const PhysicsShape* shape, const PhysicsPolygon* polygon)
 	{
 		return EnginePhysics::ToPhysicsId(b2CreatePolygonShape(bodyId, &shape->shape, polygon));
+	}
+
+	// Destroy
+	inline void DestroyCollider(PhysicsId bodyId, WorldId worldId)
+	{
+		if (!b2World_IsValid(worldId))
+			return;
+
+		b2DestroyBody(bodyId);
+	}
+
+	inline void DestroyRigidbody()
+	{
+
 	}
 
 	inline void SetBodyType(PhysicsId bodyId, Physics::RigidbodyType type)

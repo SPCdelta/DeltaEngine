@@ -1,29 +1,15 @@
 #pragma once
 
 #include <memory>
-#include <entt/entt.hpp>
-#include <iostream>
+
+#include "Types.hpp"
+
+class BehaviourScript;
 
 namespace ecs
 {
-	using EntityId = entt::entity;
-
 	template <typename... Components>
-	using View = entt::basic_view<entt::get_t<entt::storage_type_t<Components>...>, entt::exclude_t<>>;
-
-	template<typename... Components>
-	class System
-	{
-	public:
-		System(ecs::View<Components...> view)
-			: _view(view)
-		{
-
-		}
-
-	protected:
-		ecs::View<Components...> _view;
-	};
+	class System;
 
 	class Registry
 	{
@@ -39,14 +25,14 @@ namespace ecs
 		template<typename T, typename... Components, typename... Args>
 		std::shared_ptr<T> CreateSystem(Args&&... args)
 		{
-			std::shared_ptr<T> system{ std::make_shared<T>(_registry.view<Components...>(), std::forward<Args>(args)...) };
+			std::shared_ptr<T> system{ std::make_shared<T>(*this, std::forward<Args>(args)...) };
 			return system;
 		}
 
-		template <typename Component>
-		Component& AddPointerComponent(ecs::EntityId entityId, Component component)
+		template<typename... Components>
+		ecs::View<Components...> GetView()
 		{
-			return _registry.emplace<Component>(entityId, component);
+			return _registry.view<Components...>();
 		}
 
 		template<typename Component>
@@ -56,15 +42,16 @@ namespace ecs
 		}
 
 		template<typename Component, typename... Args>
-		Component& EmplacePointerComponent(ecs::EntityId entityId, Args&&... args)
+		Component& EmplaceComponent(ecs::EntityId entityId, Args&&... args)
 		{
 			return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
 		}
 
-		template<typename Component, typename... Args>
-		Component& EmplaceComponent(ecs::EntityId entityId, Args&&... args)
+		template<typename TBase, typename TInherit, typename... Args>
+		TInherit* AddInheritanceComponent(ecs::EntityId entityId, Args&&... args) 
 		{
-			return _registry.emplace<Component>(entityId, std::forward<Args>(args)...);
+			static_assert(std::is_base_of<TBase, TInherit>::value, "TInherit must inherit from TBase!");
+			return static_cast<TInherit*>(_registry.emplace<std::unique_ptr<TBase>>(entityId, std::make_unique<TInherit>(std::forward<Args>(args)...)).get());
 		}
 
 		template<typename Component>
@@ -87,7 +74,7 @@ namespace ecs
 
 		bool Valid(ecs::EntityId entityId);
 
-	private:
 		entt::registry _registry;
+	private:
 	};
 }

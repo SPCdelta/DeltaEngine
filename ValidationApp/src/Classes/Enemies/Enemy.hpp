@@ -68,6 +68,8 @@ public:
 		}
 	}
 
+	bool IsDead() const;
+
 private:
 	int _health;
 	int _damage;

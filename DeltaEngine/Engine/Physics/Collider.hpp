@@ -26,10 +26,11 @@ namespace Physics
 		void SetTrigger(bool trigger);
 		bool IsTrigger() const;
 
+		EnginePhysics::PhysicsId GetId();
+
 		Transform& transform;
 
 	private:
-		EnginePhysics::PhysicsBody _physicsBody;	// _b2bodyDef
 		EnginePhysics::PhysicsId _bodyId;			// _b2bodyId
 		EnginePhysics::PhysicsPolygon _polygon;		// _b2polygon
 		EnginePhysics::PhysicsShape _shape;

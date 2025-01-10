@@ -6,7 +6,7 @@
 class Skeleton : public Enemy
 {
 public:
-	Skeleton(Math::Vector2* position, GameObject* obj, float speed = 2.5f, int health = 20, int damage = 0, int range = 50, int step = 5);
+	Skeleton(Math::Vector2* position, Transform& transform, float speed = 2.5f, int health = 20, int damage = 0, int range = 50, int step = 5);
     ~Skeleton();
 
 	void Update(Transform& player_position, Audio::SFXSource* _sfx) override;
@@ -15,7 +15,7 @@ public:
     void ShootArrow(Transform& player_position);
 
 private:
-	GameObject* gameObject {nullptr};
+	Transform& transform;
 
 	float _attackRange {20.0f};
 	float _attackCooldown {2.0f};

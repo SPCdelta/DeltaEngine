@@ -18,7 +18,7 @@ private:
 	Sprite& _sprite;
 	Player& _player;
 
-	std::vector<GameObject*> destructionQueue;
+	std::vector<std::shared_ptr<GameObject>> destructionQueue;
 
-	void MarkForDestruction(GameObject* obj);
+	void MarkForDestruction(std::shared_ptr<GameObject> obj);
 };

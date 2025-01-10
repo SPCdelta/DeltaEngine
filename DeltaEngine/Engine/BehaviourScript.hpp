@@ -39,7 +39,6 @@ public:
 	void onMouseMove(Events::EventCallback<Input&> mouseEvent);
 	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
-	GameObject* gameObject = nullptr;
 	Transform* transform = nullptr;
 	Camera* camera = nullptr;
 

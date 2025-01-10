@@ -17,7 +17,7 @@ struct EntitySpawnerData
 class EntitySpawner : public BehaviourScript
 {
 public:
-	EntitySpawner(GameObject* owner, const EntitySpawnerData data, std::function<void(std::shared_ptr<GameObject>&)> onSpawn);
+	EntitySpawner(std::shared_ptr<GameObject> owner, const EntitySpawnerData data, std::function<void(std::shared_ptr<GameObject>&)> onSpawn);
 
 	void OnStart();
 	void OnUpdate();
@@ -43,7 +43,7 @@ protected:
 	}
 
 private:
-	GameObject* _owner; 
+	std::shared_ptr<GameObject> _owner; 
 	EntitySpawnerData _data;
 	std::function<void(std::shared_ptr<GameObject>&)> _onSpawn;
 

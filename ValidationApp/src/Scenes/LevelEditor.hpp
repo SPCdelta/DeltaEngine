@@ -59,7 +59,7 @@ public:
 
     void CreateTile(const std::string& spriteName, const std::string& category);
 
-    void BindCamara();
+    void BindCamera();
 
     //UI Input Binding
 	void UIBackButtonAndBinding(const float rightBarStart);

@@ -8,13 +8,14 @@ Scene::Scene(const std::string& name)
 	_cameraObj = Instantiate({{0.0f, 0.0f}, 0.0f, {0.0f, 0.0f}});
 	camera = _cameraObj->AddComponent<Camera>(_cameraObj->GetComponent<Transform>());
 
-	_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	//_updateSystem =_reg.CreateSystem<UpdateSystem, Transform, BehaviourScript*>();
+	_behaviourSystem = _reg.CreateSystem<BehaviourSystem, std::unique_ptr<BehaviourScript>>();
 	_particleSystem = _reg.CreateSystem<ParticleSystem, Transform, ParticleEmitter>();
 	_renderSystem = _reg.CreateSystem<RenderSystem, Transform, Sprite>(camera);
 	_imageRenderSystem = _reg.CreateSystem<ImageRenderSystem, Transform, Ui::Image>();
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
-	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_reg, _physicsWorld);
-	_despawnSystem = _reg.CreateSystem<DespawnSystem, Transform, Despawner>();
+	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_physicsWorld);
+	_lifetimeSystem = _reg.CreateSystem<LifetimeSystem, Transform, Lifetime>();
 }
 
 void Scene::LoadScene(const std::string& name)
@@ -34,8 +35,6 @@ void Scene::Start()
 void Scene::Update()
 {
 	// Physics
-	_physicsSystem->ApplyPhysics();
-	_physicsSystem->Box2DToTransform();
 	_physicsSystem->PhysicsEvents();
 
 	// Input
@@ -43,32 +42,24 @@ void Scene::Update()
 	InputManager::GetInstance().executeInputEvents();
 
 	// Update
-	_updateSystem->Update();
+	OnUpdate();
+	//_updateSystem->Update();
+	_behaviourSystem->Update();
+
 	_particleSystem->Update();
 
-	// LateUpdate
+	// LateUpdate Physics
 	_physicsSystem->TransformToBox2D();
+	_physicsSystem->ApplyPhysics();
+	_physicsSystem->Box2DToTransform();
 
-	// Destroy
-	_despawnSystem->Update();
-	while (!_toDeleteQueue.empty())
-	{
-		GameObject* gameObject = _toDeleteQueue.front();
-		auto it = std::find_if(_objects.begin(), _objects.end(),
-		[gameObject](const std::shared_ptr<GameObject>& obj)
-		{ 
-			return obj.get() == gameObject; 
-		});
-
-		if (it != _objects.end())
+	_reg._registry.view<Transform, Velocity>().each([&](auto entity, Transform& transform, Velocity& velocity) 
 		{
-			ecs::EntityId toDestroy = gameObject->_id;
-			_objects.erase(it);
-			_reg.DestroyEntity(toDestroy);
+			transform.position += velocity.velocity * Time::GetDeltaTime();
 		}
+	);
 
-		_toDeleteQueue.pop();  // Remove the pointer from the queue
-	}
+	_lifetimeSystem->Update();
 
 	// Render
 	_renderSystem->Update();
@@ -83,10 +74,20 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	Transform& transformComponent = _reg.AddComponent<Transform>(entityId, transform);
 
 	// Use entityId for obj
-	std::shared_ptr<GameObject> obj{std::make_shared<GameObject>(this, entityId, _reg, _physicsWorld, camera, transformComponent)};
-	transformComponent.gameObject = obj.get();
-	_objects.push_back(obj);
-
+	std::shared_ptr<GameObject> obj
+	{ 
+		std::make_shared<GameObject>
+		(
+			this, 
+			entityId, 
+			_reg, 
+			_physicsWorld, 
+			camera, 
+			transformComponent
+		) 
+	};
+	
+	transformComponent.gameObject = obj;
 	return obj;
 }
 

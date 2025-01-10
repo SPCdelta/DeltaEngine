@@ -34,14 +34,14 @@ void BoomerangBehaviour::OnUpdate()
 	}
 }
 
-void BoomerangBehaviour::Throw(GameObject* thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
+void BoomerangBehaviour::Throw(std::shared_ptr<GameObject> thrower, float speed, Math::Vector2 origin, Math::Vector2 direction)
 {
 	std::cout << this << std::endl;
-	audioSource = gameObject->AddComponent<Audio::SFXSource>("boomerang_throw", false, -1);
+	audioSource = transform->gameObject->AddComponent<Audio::SFXSource>("boomerang_throw", false, -1);
 
 	_thrower = thrower;
 	_throwSpeed = speed;
-	gameObject->transform->position.Set(origin);
+	transform->position.Set(origin);
 
 	_originPosition = origin;
 	_targetPosition = origin + direction.GetNormalized() * _distance;

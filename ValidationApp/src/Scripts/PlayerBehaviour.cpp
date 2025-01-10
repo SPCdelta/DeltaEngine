@@ -24,8 +24,8 @@ Player* PlayerBehaviour::GetPlayer() const
 void PlayerBehaviour::OnStart() 
 {
 	_player = std::make_unique<Player>();
-	sprite = &gameObject->GetComponent<Sprite>();
-	rigidbody = &gameObject->GetComponent<Rigidbody>();
+	sprite = &(transform->gameObject->GetComponent<Sprite>());
+	rigidbody = &(transform->gameObject->GetComponent<Rigidbody>());
 	rigidbody->SetGravityScale(0.0f);
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
@@ -33,7 +33,7 @@ void PlayerBehaviour::OnStart()
 	
 	if (gameObject->HasComponent<Audio::SFXSource>())
 	{
-		_sfx = &gameObject->GetComponent<Audio::SFXSource>();
+		_sfx = &(transform->gameObject->GetComponent<Audio::SFXSource>());
 		_sfx->SetClip("taking_damage");
 		_sfx->SetVolume(10);
 	}
@@ -55,12 +55,25 @@ void PlayerBehaviour::OnStart()
 	// Physics Events
 	rigidbody->onTriggerEnter.Register([this](Collider& collider)
 	{ 
-		if (collider.transform.gameObject->GetTag() == "level_exit" && _player->GetHealth() > 0)
+		if (collider.transform.gameObject && collider.transform.gameObject->GetTag() == "level_exit" && _player->GetHealth() > 0)
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
 			SavePlayer();
 			_pickUpBehaviour->ProcessDestructionQueue();
-			exit.Use();
+
+			if (!_scoreScreen)
+			{
+				_scoreScreen = std::make_unique<ScoreScreen>
+				(
+					*(transform->gameObject->_scene), 
+					SCORE_SCREEN_FONT,
+					Math::Vector2{0, 0}, 
+					SCORE_SCREEN_SCALE, 
+					"YOU WIN",
+					WIN_MSG_COLOR, 
+					_player->GetCoins()
+				);
+			}
 		}
 	});
 }
@@ -69,7 +82,7 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	if (_player->GetHealth() > 0 && _attacking)
+	if (_player->GetHealth() > 0 && _attacking && !_scoreScreen)
 	{
 		if (_weapon)
 			_weapon->Use();
@@ -77,11 +90,15 @@ void PlayerBehaviour::OnUpdate()
 		_attacking = false;
 	}
 
-	_onFloor = _floorBehaviour->GetOnFloor();
+	if (_floorBehaviour)
+		_onFloor = _floorBehaviour->GetOnFloor();
+	else
+		_onFloor = FloorType::NORMAL;
+	
 	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
 #pragma region Floor Behaviour
-	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
+	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0 && !_scoreScreen)
 	{
 		switch (_onFloor)
 		{
@@ -131,7 +148,7 @@ void PlayerBehaviour::OnUpdate()
 
 #pragma region Damage Behaviour
 	_damageBehaviour->Update(Time::GetDeltaTime());
-	if (_damageBehaviour->GetDamage())
+	if (_damageBehaviour->GetDamage() && !_scoreScreen)
 	{
 		if (_player->GetHealth() > 0)
 		{
@@ -165,7 +182,7 @@ void PlayerBehaviour::OnUpdate()
 					{
 						_scoreScreen = std::make_unique<ScoreScreen>
 						(
-							*gameObject->_scene, 
+							*(transform->gameObject->_scene), 
 							SCORE_SCREEN_FONT,
 							Math::Vector2{0, 0}, 
 							SCORE_SCREEN_SCALE,
@@ -181,7 +198,7 @@ void PlayerBehaviour::OnUpdate()
 #pragma endregion
 
 #pragma region Sprite Animation
-	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
+	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0 && !_scoreScreen)
 	{
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
@@ -198,10 +215,10 @@ void PlayerBehaviour::OnUpdate()
 #pragma endregion
 
 	UpdateConsumables();
-	if (_weapon) 
+	if (_weapon && !_scoreScreen) 
 		_weapon->Update(Time::GetDeltaTime());
 
-	this->gameObject->GetCamera()->SetPosition(this->gameObject->transform->position);
+	this->transform->gameObject->GetCamera()->SetPosition(this->transform->position);
 }
 
 void PlayerBehaviour::SetWeapon(const std::string& weaponType)
@@ -240,10 +257,10 @@ void PlayerBehaviour::UpdateConsumables()
 
 void PlayerBehaviour::PlayHurtParticle() 
 {
-	if (gameObject->HasComponent<ParticleEmitter>())
-		gameObject->RemoveComponent<ParticleEmitter>();
-
-	gameObject->AddComponent<ParticleEmitter>
+	if (transform->gameObject->HasComponent<ParticleEmitter>())
+		transform->gameObject->RemoveComponent<ParticleEmitter>();
+	
+	transform->gameObject->AddComponent<ParticleEmitter>
 	(
 		ParticleEmitterConfiguration
 		{

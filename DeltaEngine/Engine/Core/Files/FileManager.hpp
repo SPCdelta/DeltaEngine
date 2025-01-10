@@ -19,5 +19,7 @@ public:
 	void Save(const std::string& path, const std::string& extension, const Json::json& data);
 
 	static std::vector<std::string> filesInDirectory(const std::string& directoryPath);
+	
 	static bool FileExists(const std::string& path);
+	static void RemoveFile(const std::string& path);
 };

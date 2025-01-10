@@ -12,6 +12,11 @@ namespace Physics
 	public:
 		Rigidbody(Collider& collider);
 
+		~Rigidbody()
+		{
+			EnginePhysics::DestroyRigidbody();
+		}
+
 		Events::EventDispatcher<Collider&> onTriggerEnter{};
 		Events::EventDispatcher<Collider&> onTriggerExit{};
 		Events::EventDispatcher<Collider&> onCollisionEnter{};

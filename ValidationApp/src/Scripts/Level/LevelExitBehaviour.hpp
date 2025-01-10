@@ -12,9 +12,11 @@ public:
 	void SetExit(const std::string& exitName);
 	const std::string& GetExit() const;
 
-	virtual void Use() 
+	virtual void Use()  // TODO?
 	{ 
-		LoadScene(_exitName); 
+		BoxCollider* collider = transform->gameObject->AddComponent<BoxCollider>();
+		collider->SetTrigger(true);
+		transform->gameObject->SetTag("level_exit");
 	}
 
 private:

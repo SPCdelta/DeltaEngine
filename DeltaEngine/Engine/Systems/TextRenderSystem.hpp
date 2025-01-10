@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
+
 #include "../UI/Text.hpp"
 #include "../Window.hpp"
 #include "../Transform.hpp"
@@ -8,7 +10,7 @@
 class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 {
 public:
-	TextRenderSystem(ecs::View<Transform, Ui::Text> view);
+	TextRenderSystem(ecs::Registry& reg);
 
 	void SetWindow(Window* window);
 	void SetViewportData(ViewportData* viewportData);

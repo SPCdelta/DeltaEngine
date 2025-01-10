@@ -7,10 +7,7 @@ Projectile::~Projectile()
 
 void Projectile::OnStart() 
 {
-	gameObject->AddComponent<Despawner>(DEFAULT_PROJECTILE_DESPAWN_TIME);
-	gameObject->AddComponent<CircleCollider>()->SetTrigger(true);
-	rigidbody = gameObject->AddComponent<Rigidbody>();
-	rigidbody->SetGravityScale(0.0f);
+
 }
 
 void Projectile::OnUpdate()
@@ -25,10 +22,10 @@ const ProjectileData& Projectile::GetProjectileData() const
 
 void Projectile::SetProjectileData(ProjectileData data)
 {
-	gameObject->SetTag("projectile");
+	transform->gameObject->SetTag("projectile");
 	_data = data;
-	Sprite* sprite = gameObject->AddComponent<Sprite>(data.sprite.c_str());
+	Sprite* sprite = transform->gameObject->AddComponent<Sprite>(data.sprite);
 	sprite->SetLayer(Layer::Projectiles);
 	transform->rotation = Math::DirectionToAngle(data.direction);
-	rigidbody->AddForce(data.direction * data.speed, ForceMode::IMPULSE);
+	transform->gameObject->AddComponent<Velocity>(data.direction * data.speed);
 }

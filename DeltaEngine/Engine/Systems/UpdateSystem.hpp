@@ -1,14 +1,13 @@
 #pragma once
 
-#include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
 #include "../Transform.hpp"
 #include "../BehaviourScript.hpp"
 
-class UpdateSystem : public ecs::System<Transform, BehaviourScript*>
+class BehaviourSystem : public ecs::System<std::unique_ptr<BehaviourScript>>
 {
 public:
-	UpdateSystem(ecs::View<Transform, BehaviourScript*> view);
-	~UpdateSystem();
+	BehaviourSystem(ecs::Registry& reg);
 
 	void Update();
 };
