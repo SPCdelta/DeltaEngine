@@ -11,6 +11,8 @@ public:
 	PickUpBehaviour(Rigidbody& rigidbody, Sprite& sprite, Player& player);
 	~PickUpBehaviour();
 
+	void ProcessDestructionQueue();
+
 private:
 	Rigidbody& _rigidbody;
 	Sprite& _sprite;
@@ -19,7 +21,4 @@ private:
 	std::vector<GameObject*> destructionQueue;
 
 	void MarkForDestruction(GameObject* obj);
-
-	// TODO call upon this when leaving the scene
-	void ProcessDestructionQueue();
 };

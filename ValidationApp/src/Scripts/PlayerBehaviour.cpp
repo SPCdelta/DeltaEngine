@@ -59,6 +59,7 @@ void PlayerBehaviour::OnStart()
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
 			SavePlayer();
+			_pickUpBehaviour->ProcessDestructionQueue();
 			exit.Use();
 		}
 	});
@@ -260,7 +261,7 @@ void PlayerBehaviour::PlayHurtParticle()
 			0.0f, 360.0f, 
 			0.0f, 0.0f,
 
-			0.25f, 0.25f
+			0.05f, 0.05f
 		}
 	)->Start();
 }

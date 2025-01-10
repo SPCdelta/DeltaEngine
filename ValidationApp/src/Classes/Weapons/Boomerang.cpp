@@ -1,4 +1,5 @@
 #include "Boomerang.hpp"
+
 #include "../../Scripts/BoomerangBehaviour.hpp"
 
 Boomerang::Boomerang(BehaviourScript* user) 
