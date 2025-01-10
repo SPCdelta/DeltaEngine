@@ -81,8 +81,7 @@ private:
 
 		for (int i = 0; i < GetSpawnAmount(); ++i)
 		{
-			std::shared_ptr<GameObject> entity = _owner->Instantiate();
-			entity->transform->position = _owner->transform->position + GetPosition();
+			std::shared_ptr<GameObject> entity = _owner->Instantiate({ _owner->transform->position + GetPosition(), 0.0f, { 1.0f, 1.0f}  });
 			_onSpawn(entity);
 		}
 	}
