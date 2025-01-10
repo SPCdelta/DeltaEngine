@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
 
 #include "../Window.hpp"
 #include "../UI/Image.hpp"
@@ -9,8 +9,8 @@
 class ImageRenderSystem : public ecs::System<Transform, Ui::Image>
 {
 public:
-	ImageRenderSystem(ecs::View<Transform, Ui::Image> view)
-	 : ecs::System<Transform, Ui::Image>(view),
+	ImageRenderSystem(ecs::Registry& reg)
+	 : ecs::System<Transform, Ui::Image>(reg),
 		  _window(nullptr),
 		  _viewportData(nullptr)
 	{
@@ -26,6 +26,7 @@ public:
 
 	void Update()
 	{
+		RefreshView();
 		// Collect entities and sort by layer
 		std::vector<ecs::EntityId> entities(_view.begin(), _view.end());
 		std::sort(entities.begin(), entities.end(), [this](ecs::EntityId a, ecs::EntityId b) 

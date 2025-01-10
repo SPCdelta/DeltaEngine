@@ -20,11 +20,12 @@ namespace Physics
 		Collider(const PhysicsWorld& world, Transform& transform, ShapeType type)
 			: transform{ transform }, _physicsWorld{ world }, _shapeType{ type }
 		{
-			_physicsBody = EnginePhysics::DefaultBody();
-			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
-			_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &_physicsBody);
+			EnginePhysics::PhysicsBody physicsBody = EnginePhysics::DefaultBody();
+			physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
+			_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &physicsBody);
 
 			_shape.shape = EnginePhysics::DefaultShape();
+			_shape.shape.density = 1.0f;
 			switch (_shapeType)
 			{
 				case Physics::ShapeType::CIRCLE:
@@ -46,16 +47,17 @@ namespace Physics
 		void SetTrigger(bool trigger)
 		{
 			if (_isTrigger == trigger) return;
+			_isTrigger = trigger;
 
 			b2DestroyBody(_bodyId);
-			_physicsBody = EnginePhysics::DefaultBody();
-			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
-			_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &_physicsBody);
+			EnginePhysics::PhysicsBody physicsBody = EnginePhysics::DefaultBody();
+			physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
+			_bodyId = EnginePhysics::CreateBody(_physicsWorld.GetWorldId(), &physicsBody);
 
 			_shape.shape = EnginePhysics::DefaultShape();
-			_shape.shape.isSensor = trigger;
-			_shape.shape.enableContactEvents = trigger;
-			_shape.shape.enableSensorEvents = trigger;
+			_shape.shape.isSensor = _isTrigger;
+			_shape.shape.enableContactEvents = _isTrigger;
+			_shape.shape.enableSensorEvents = _isTrigger;
 			switch (_shapeType)
 			{
 				case Physics::ShapeType::CIRCLE:
@@ -78,8 +80,12 @@ namespace Physics
 		}
 
 		Transform& transform;
+
+		EnginePhysics::PhysicsId GetId() const
+		{
+			return _bodyId;
+		}
 	private:
-		EnginePhysics::PhysicsBody _physicsBody;	// _b2bodyDef
 		EnginePhysics::PhysicsId _bodyId;		   // _b2bodyId
 		EnginePhysics::PhysicsPolygon _polygon;		// _b2polygon
 		EnginePhysics::PhysicsShape _shape;

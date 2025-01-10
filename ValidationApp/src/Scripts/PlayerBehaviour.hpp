@@ -81,6 +81,7 @@ private:
 	const std::string DEATH_MSG = "You died";
 	const Math::Vector2 SCORE_SCREEN_SCALE = {500, 500};
 	const Rendering::Color DEATH_MSG_COLOR = {255, 0, 0, 255};
+	const Rendering::Color WIN_MSG_COLOR = {0, 255, 0, 255};
 	const std::string SCORE_SCREEN_FONT = "goblin";
 
 	void InitHotbarKeybinds();

@@ -12,7 +12,7 @@ class PickUpBehaviour
 		{
 			_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 			{ 
-				if ((collider.transform.gameObject->GetTag() == "item" || collider.transform.gameObject->GetTag() == "coin") && 
+				if (collider.transform.gameObject && (collider.transform.gameObject->GetTag() == "item" || collider.transform.gameObject->GetTag() == "coin") && 
 					collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 				{
 					if (collider.transform.gameObject->HasComponent<WorldItem>())
@@ -44,9 +44,9 @@ class PickUpBehaviour
 		Sprite& _sprite;
 		Player& _player;
 
-		std::vector<GameObject*> destructionQueue;
+		std::vector<std::shared_ptr<GameObject>> destructionQueue;
 
-		void MarkForDestruction(GameObject* obj)
+		void MarkForDestruction(std::shared_ptr<GameObject> obj)
 		{
 			destructionQueue.push_back(obj);
 		}
@@ -55,7 +55,7 @@ class PickUpBehaviour
 		void ProcessDestructionQueue()
 		{
 			for (auto& obj : destructionQueue)
-				obj->Destroy(obj);
+				obj->Destroy();
 
 			destructionQueue.clear();
 		}

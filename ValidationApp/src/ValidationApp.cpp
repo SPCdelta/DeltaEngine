@@ -10,6 +10,7 @@
 #include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
+#include "Scenes/DeleteBugScene.hpp"
 #include "Scenes/WeaponSelectionScene.hpp"
 
 // Game Scenes
@@ -19,7 +20,7 @@
 #include "Scenes/LevelEditorMenuScene.hpp"
 
 ValidationApp::ValidationApp()
-	: Application(64)
+	: Application(32)
 {
 
 	LoadAssets();
@@ -36,6 +37,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<SpawnerScene>("SpawnerScene");
+	RegisterScene<DeleteBugScene>("DeleteBugScene");
 	RegisterScene<WeaponSelectionScene>("WeaponSelectionScene");
 
 	// Register Scenes (Game)
@@ -86,6 +88,24 @@ void ValidationApp::LoadAssets()
 		"floor_tiles"
 	};
 
+	SpriteMap iceFloorTile
+	{
+		"Assets\\Textures\\Tiles\\ice_tile.png",
+		{
+			{"Ice_floor_0",	{0, 0}, {32, 32}},
+		},
+		"floor_tiles"
+	};
+
+	SpriteMap mudFloorTile
+	{
+		"Assets\\Textures\\Tiles\\mud_tile.png",
+		{
+			{"Mud_floor_0",	{0, 0}, {32, 32}},
+		},
+		"floor_tiles"
+	};
+
 	SpriteMap wallTiles
 	{
 		"Assets\\Textures\\Tiles\\floor.png",
@@ -129,9 +149,11 @@ void ValidationApp::LoadAssets()
 
 	SpriteMap spawners
 	{
-		"Assets\\Textures\\Tiles\\Walls\\wall.png",
+		"Assets\\Textures\\Tiles\\spawners.png",
 		{
-			{ "spawner_1", {scale * 1, scale * 1}, {scale * (1 + 1), scale * (1 + 1)}},
+			{ "spawner_slime", {scale * 0, scale * 0}, {scale * 1, scale}},
+			{ "spawner_goblin", {scale * 1, scale * 0}, {scale * 2, scale}},
+			{ "spawner_skeleton", {scale * 2, scale * 0}, {scale * 3, scale}},
 		},
 		"enemy_spawners",
 	};

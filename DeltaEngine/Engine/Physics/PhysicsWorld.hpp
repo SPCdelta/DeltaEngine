@@ -4,6 +4,7 @@
 
 #include "Physics.hpp"
 #include "../Ecs/Registry.hpp"
+#include <iostream>
 
 namespace Physics
 {
@@ -30,7 +31,10 @@ namespace Physics
 			_data = EnginePhysics::CreateWorld();
 		}
 
-		~PhysicsWorld() { EnginePhysics::DestroyWorld(_data.id); }
+		~PhysicsWorld() 
+		{ 
+			EnginePhysics::DestroyWorld(_data.id); 
+		}
 
 		friend class Rigidbody;
 

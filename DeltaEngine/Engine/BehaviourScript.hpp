@@ -14,9 +14,7 @@ public:
 	virtual void OnStart() { };
 	virtual void OnUpdate() { };
 
-	void LoadScene(const std::string& name) { gameObject->LoadScene(name); }
-	void Destroy(std::shared_ptr<GameObject> gameObject) { gameObject->Destroy(gameObject.get()); }
-	void Destroy(GameObject* gameObject) { gameObject->Destroy(gameObject); }
+	void LoadScene(const std::string& name) { transform->gameObject->LoadScene(name); }
 
 	virtual ~BehaviourScript() = default;
 
@@ -34,8 +32,6 @@ public:
 	void onMouseMove(Events::EventCallback<Input&> mouseEvent);
 	void onMouseWheel(Events::EventCallback<Input&> wheelEvent);
 
-
-	GameObject* gameObject = nullptr;
 	Transform* transform = nullptr;
 	Camera* camera = nullptr;
 
@@ -44,12 +40,12 @@ protected:
 
 	std::shared_ptr<GameObject> Instantiate()
 	{
-		return gameObject->Instantiate();
+		return transform->gameObject->Instantiate();
 	}
 
-	std::shared_ptr<GameObject> Instantiate(Transform transform)
+	std::shared_ptr<GameObject> Instantiate(Transform transformComponent)
 	{
-		return gameObject->Instantiate(transform);
+		return transform->gameObject->Instantiate(transformComponent);
 	}
 };
 

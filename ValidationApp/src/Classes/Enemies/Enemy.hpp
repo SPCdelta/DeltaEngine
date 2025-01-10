@@ -73,6 +73,11 @@ class Enemy
 		}
 	}
 
+	bool IsDead() const
+	{
+		return _dead;
+	}
+
    private:
 	int _health;
 	int _damage;

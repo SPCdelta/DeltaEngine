@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ecs/Registry.hpp"
+#include "../Ecs/Include.hpp"
 #include "../Transform.hpp"
 
 #include "../Rendering/Particles/ParticleEmitter.hpp"
@@ -8,14 +8,15 @@
 class ParticleSystem : public ecs::System<Transform, ParticleEmitter>
 {
 public:
-	ParticleSystem(ecs::View<Transform, ParticleEmitter> view)
-		: ecs::System<Transform, ParticleEmitter>(view)
+	ParticleSystem(ecs::Registry& reg)
+		: ecs::System<Transform, ParticleEmitter>(reg)
 	{
 
 	}
 
 	void Update()
 	{
+		RefreshView();
 		for (ecs::EntityId entityId : _view)
 		{
 			ParticleEmitter& emitter = _view.get<ParticleEmitter>(entityId);

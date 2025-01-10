@@ -115,7 +115,7 @@ void HotbarComponent::DeleteItem(const Item& item)
 	auto& slot = _hotbar[index];
 	slot.amount = 0;
 	slot.itemName = "";
-	_scene.DestroyObject(slot.itemIcon.get());
+	slot.itemIcon->Destroy();
 }
 
 Uint8 HotbarComponent::GetAvailableIndex() const

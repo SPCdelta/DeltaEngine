@@ -132,6 +132,7 @@
     <ClInclude Include="src\UI\StackPanel.hpp" />
     <ClInclude Include="src\UI\IUIElement.hpp" />
     <ClInclude Include="src\UI\BaseUIScene.hpp" />
+    <ClInclude Include="src\Scenes\DeleteBugScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />
@@ -177,6 +178,9 @@
     <Image Include="Assets\Textures\Weapons\bow.png" />
     <Image Include="Assets\Textures\Weapons\gun.png" />
     <Image Include="Assets\Textures\UI\weapon_frame.png" />
+    <Image Include="Assets\Textures\Tiles\ice.png" />
+    <Image Include="Assets\Textures\Tiles\ice_tile.png" />
+    <Image Include="Assets\Textures\Tiles\mud_tile.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

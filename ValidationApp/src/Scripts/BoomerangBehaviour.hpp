@@ -10,13 +10,13 @@ public:
 	void OnStart() override;
 	void OnUpdate() override;
 
-	void Throw(GameObject* thrower, float speed, Math::Vector2 origin, Math::Vector2 direction);
+	void Throw(std::shared_ptr<GameObject> thrower, float speed, Math::Vector2 origin, Math::Vector2 direction);
 	void Return();
 
 	Events::EventDispatcher<Events::Event> onFinish{};
 
 private:
-	GameObject* _thrower = nullptr;
+	std::shared_ptr<GameObject> _thrower;
 	Audio::SFXSource* audioSource = nullptr;
 
 	// State

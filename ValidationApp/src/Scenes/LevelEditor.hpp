@@ -55,7 +55,7 @@ public:
         UIBackButtonAndBinding(rightBarStart);
         UISaveButtonAndBinding(rightBarStart);
         UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
-        BindCamara();
+        BindCamera();
     }
 
 
@@ -195,7 +195,7 @@ public:
         sprite->SetLayer(LAYER_MAP.at(category));
     }
 
-    void BindCamara()
+    void BindCamera()
     {
         float speed = 1.0f;
         _inputListeners.Add(InputManager::keyPressed(KEY_D, [this, speed](Input& e) {
@@ -223,7 +223,7 @@ public:
         std::shared_ptr<GameObject> backButton{
             Instantiate({ { rightBarStart - 20.0f, PADDING_TOP }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
         };
-        auto* text = backButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 }); 
+        auto* text = backButton->AddComponent<Ui::Text>("Back", "goblin", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 }); 
         text->SetBackground({ 255, 255, 255, 255 });
         
         auto* button = backButton->AddComponent<Ui::Button>();
@@ -241,7 +241,7 @@ public:
         std::shared_ptr<GameObject> saveButton{
             Instantiate({ { rightBarStart - 20.0f, PADDING_TOP * 1.7f }, 0.0f,{ 160.0f, SAVE_FONT_SIZE } })
         };
-        auto* text = saveButton->AddComponent<Ui::Text>("Save Level", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        auto* text = saveButton->AddComponent<Ui::Text>("Save Level", "goblin", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         text->SetBackground({ 255, 255, 255, 255 });
 
         auto* button = saveButton->AddComponent<Ui::Button>();
@@ -255,7 +255,7 @@ public:
             }, "UI");
     }
 
-    int calculateSpritesInrow(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites){
+    int CalculateSpritesInrow(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites){
         int amout = 0;
         if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
             amout = static_cast<int>(categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]).size());
@@ -269,7 +269,7 @@ public:
     {
         std::vector<std::string> result;
 
-        int maxtileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+        int maxtileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
 
         _tileIndexOptions += direction;
 
@@ -278,7 +278,7 @@ public:
             if (_layerIndexTopBar < 0)
                 _layerIndexTopBar = SPRITE_CATEGORY.size() -1;
             
-            _tileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+            _tileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
             
         }
         else if (_tileIndexOptions > maxtileIndexOptions)
@@ -312,11 +312,11 @@ public:
         const float topBarLength = imagespace * maxOptionPerRow;
         
         std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto title = titleTxt->AddComponent<Ui::Text>(_saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        auto title = titleTxt->AddComponent<Ui::Text>(_saveFileName, "goblin", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         title->SetBackground({ 255, 255, 255, 255 });
 
         std::shared_ptr<GameObject> layerObj{ Instantiate({{titleLeftPadding + 160.0f, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
-        auto layerTxt = layerObj->AddComponent<Ui::Text>(SPRITE_CATEGORY[_layerIndexTopBar], "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
+        auto layerTxt = layerObj->AddComponent<Ui::Text>(SPRITE_CATEGORY[_layerIndexTopBar], "goblin", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
         layerTxt->SetBackground({ 255, 255, 255, 255 });
 
 

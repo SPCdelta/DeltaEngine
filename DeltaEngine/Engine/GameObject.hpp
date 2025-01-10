@@ -36,8 +36,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.EmplacePointerComponent<BehaviourScript*>(_id, new T(std::forward<Args>(args)...)));
-			component->gameObject = this;
+			T* component = _reg.AddInheritanceComponent<BehaviourScript, T>(_id, std::forward<Args>(args)...);
 			component->transform = transform;
 			component->camera = _camera;
 			component->OnStart();
@@ -45,17 +44,18 @@ public:
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
 		{
-			T* component = static_cast<T*>(_reg.EmplacePointerComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
+			T* component = _reg.AddInheritanceComponent<Physics::Collider, T>(_id, _physicsWorld, *transform, std::forward<Args>(args)...);
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
 		{
-			if (!_reg.HasComponent<Physics::Collider*>(_id))
+			if (!_reg.HasComponent<std::unique_ptr<Physics::Collider>>(_id))
 			{
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			return static_cast<T*>(&_reg.AddPointerComponent<Physics::Rigidbody>(_id, *_reg.GetComponent<Physics::Collider*>(_id)));
+			Physics::Collider* collider = _reg.GetComponent<std::unique_ptr<Physics::Collider>>(_id).get();
+			return static_cast<Physics::Rigidbody*>(&_reg.EmplaceComponent<Physics::Rigidbody>(_id, *collider));
 		}
 		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
@@ -102,7 +102,7 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			return *static_cast<T*>(_reg.GetComponent<BehaviourScript*>(_id));
+			return *static_cast<T*>(_reg.GetComponent<std::unique_ptr<BehaviourScript>>(_id).get());
 		}
 		else
 		{
@@ -152,13 +152,14 @@ public:
 	void SetTag(const std::string& tag) { _tag = tag; }
 	const std::string& GetTag() const { return _tag; }
 	void LoadScene(const std::string& name);
-	void LoadScene(const std::string& name, void* userData);
 
 	std::shared_ptr<GameObject> Instantiate();
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
-	void Destroy(GameObject* gameObject);
-	void Destroy(std::shared_ptr<GameObject> gameObject);
+	void Destroy() 
+	{ 
+		_reg.DestroyEntity(_id); 
+	}
 
 	Camera* GetCamera()
 	{ 

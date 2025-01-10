@@ -225,6 +225,7 @@
     <ClCompile Include="src\Utils\WeaponTypeUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\DeleteBugScene.hpp" />
     <ClInclude Include="src\UI\BaseUIScene.hpp" />
     <ClInclude Include="src\Classes\LevelManager.hpp" />
     <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
@@ -381,6 +382,18 @@
     </Image>
     <Image Include="Assets\Textures\square.png" />
     <Image Include="Assets\Textures\Tiles\doors.png" />
+    <Image Include="Assets\Textures\Tiles\ice.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Tiles\ice_tile.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Tiles\mud_tile.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
     <Image Include="Assets\Textures\UI\Background\main_menu_bg.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
