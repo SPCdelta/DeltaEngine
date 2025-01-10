@@ -261,10 +261,10 @@ void PlayerBehaviour::LoadPlayer()
 		_player->SetShield(loadedPlayer["player"]["shield"]);
 
 		_weapon = WeaponFactory::CreateWeapon(loadedPlayer["player"]["weapon"], this).release();
-
-		_player->ResetInventory();
+	
 		if (loadedPlayer["player"].contains("inventory"))
 		{
+			_player->ResetInventory();
 			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
 			{
 				auto& itemData = loadedPlayer["player"]["inventory"][i];
@@ -297,7 +297,7 @@ void PlayerBehaviour::SavePlayer()
 
 	if (_player->GetInventorySize() > 0)
 	{
-		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
+		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventoryCapacity()); ++i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
 			const std::optional<InventoryItem>& inventoryItem = _player->GetInventoryItem(i);

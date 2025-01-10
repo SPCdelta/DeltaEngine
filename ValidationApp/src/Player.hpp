@@ -32,6 +32,7 @@ class Player
 	void RemoveItemFromInventory(const Item& item, Uint8 amount);
 	void ResetInventory();
 
+	Uint8 GetInventoryCapacity() const;
 	Uint8 GetInventorySize() const;
 	const std::optional<InventoryItem>& GetInventoryItem(Uint8 index) const;
 	std::optional<InventoryItem>& GetInventoryItem(Uint8 index);
