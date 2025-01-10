@@ -21,8 +21,7 @@ void InputTest::OnStart()
 	onKeyPressed(
 		KEY_P, [](Input& key) { std::cout << "P test" << std::endl; }, "test");
 
-	InputManager::deactivateCategory("test");
-	InputManager::activateCategory("test");
+	
 	keyPressed({KEY_I, KEY_W},
 			   [](Input& key)
 			   {

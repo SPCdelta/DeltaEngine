@@ -9,7 +9,10 @@ void Button::SetOnLeftMouseClick(std::function<void()> func, const std::string& 
 		MouseButton::Left,
 		[this](Input& e)
 		{
-			_pressed = true;
+			if (Math::MathUtils::IsPointWithinRect(Point{ e.mouseX, e.mouseY }, _transform->position, _transform->scale))
+			{
+				_pressed = true;
+			}
 		},
 		category));
 

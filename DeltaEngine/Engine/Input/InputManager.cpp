@@ -11,21 +11,21 @@ InputManager& InputManager::GetInstance()
 	return instance_;
 }
 
-void InputManager::deactivateCategory(const std::string& category)
-{
-	for (auto& input : instance_.inputTypes)
-	{
-		input.second.DeactivateCategory(category);
-	}
-}
-
-void InputManager::activateCategory(const std::string& category)
-{
-	for (auto& input : instance_.inputTypes)
-	{
-		input.second.ActivateCategory(category);
-	}
-}
+//void InputManager::deactivateCategory(const std::string& category)
+//{
+//	for (auto& input : instance_.inputTypes)
+//	{
+//		input.second.DeactivateCategory(category);
+//	}
+//}
+//
+//void InputManager::activateCategory(const std::string& category)
+//{
+//	for (auto& input : instance_.inputTypes)
+//	{
+//		input.second.ActivateCategory(category);
+//	}
+//}
 
 InputListener* InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
 {

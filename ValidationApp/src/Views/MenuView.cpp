@@ -5,7 +5,6 @@ MenuView::MenuView(Scene& scene, const std::string& title, Uint8 numOfButtons, c
 	const Math::Vector2& startPos, const Math::Vector2& scale, int margin, int fontSize) :
 	IView{ scene, pathToFont, startPos, scale }, _buttons{}
 {
-	InputManager::activateCategory(title);
 	InitTitle(title, fontSize, startPos);
 	InitButtons(numOfButtons, startPos, scale, margin, fontSize);
 }

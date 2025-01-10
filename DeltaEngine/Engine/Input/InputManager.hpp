@@ -24,9 +24,6 @@ class InputManager
 
 
 
-	static void deactivateCategory(const std::string& category);
-	static void activateCategory(const std::string& category);
-
 	static InputListener* onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
 	static InputListener* keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
 	static InputListener* onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
