@@ -84,6 +84,16 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				if (tile.contains("tag"))
 				{
 					tileObj->SetTag(tile["tag"]);
+					if (tile["tag"] == "Ice")
+					{
+						tileObj->SetTag("ice");
+						tileObj->AddComponent<BoxCollider>()->SetTrigger(true);
+					}
+					else if (tile["tag"] == "Mud")
+					{
+						tileObj->SetTag("mud");
+						tileObj->AddComponent<BoxCollider>()->SetTrigger(true);
+					}
 				}
 			}
 		}

@@ -2,17 +2,6 @@
     "player": {
         "coins": 0,
         "health": 100,
-        "inventory": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
         "shield": 0,
         "weapon": "bow"
     }
