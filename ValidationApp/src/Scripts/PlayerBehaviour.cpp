@@ -179,7 +179,10 @@ void PlayerBehaviour::OnUpdate()
 #pragma endregion
 
 	UpdateConsumables();
-	_weapon->Update(Time::GetDeltaTime());
+	if (_weapon) 
+	{
+		_weapon->Update(Time::GetDeltaTime());
+	}
 
 	this->gameObject->GetCamera()->SetPosition(
 		this->gameObject->transform->position);

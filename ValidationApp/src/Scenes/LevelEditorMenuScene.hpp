@@ -23,17 +23,7 @@ public:
 	void OnStart() override
 	{ 
 		BaseUIScene::OnStart();
-
-		// create Level
-		std::shared_ptr<GameObject> createButton = UIFactory::CreateButton(this, "Create New Level", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 }, Layer::Button);
-		createButton->transformRef.position = GetBarOffset();
-		createButton->GetComponent<Ui::Button>().SetOnLeftMouseClick(
-			[this]()
-			{
-				LoadScene("LevelEditor");
-			},
-			"jeroen"
-		);
+		CreateCRUDButtons();
 		CreateLevelButtons();
 	}
 
@@ -146,6 +136,26 @@ private:
 	std::unordered_map<std::string, LevelButton> _buttons{};
 	std::vector<std::string> _order{};
 
+	void CreateCRUDButtons()
+	{
+		std::shared_ptr<GameObject> createLevelButton = UIFactory::CreateButton(
+			this, "Create new level", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 },
+			Layer::Button);
+		createLevelButton->transformRef.position += Math::Vector2{50, 150} + Math::Vector2{ 0.0f, 75.0f * 0.0f };
+
+		std::shared_ptr<GameObject> shareLevelButton = UIFactory::CreateButton(
+			this, "Share levels", "goblin", 24, Rendering::Color{ 255, 255, 255, 255 },
+			Layer::Button);
+		shareLevelButton->transformRef.position += Math::Vector2{ 50, 150 } + Math::Vector2{ 0.0f, 75.0f * 1.0f };
+		shareLevelButton->GetComponent<Ui::Button>().SetOnLeftMouseClick([this]() -> void
+			{
+				fs::path fullPath = fs::absolute(LEVEL_PATH);
+				fs::path currentPath = fs::current_path();
+				fs::path relativePath = fs::relative(fullPath, currentPath);
+				system(std::string{ "explorer " + relativePath.string() }.c_str());
+			}, "UI");
+	}
+
 	void CreateLevelButtons()
 	{
 		std::vector<std::string> levels{};
@@ -217,4 +227,6 @@ private:
 		levelButton.backwardsButton->transformRef.position.SetY(newY);
 		levelButton.forwardsButton->transformRef.position.SetY(newY);
 	}
+
+	const std::string LEVEL_PATH = "Assets\\Level\\";
 };
