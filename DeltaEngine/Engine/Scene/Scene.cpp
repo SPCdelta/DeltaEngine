@@ -16,6 +16,7 @@ Scene::Scene(const std::string& name)
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_physicsWorld);
 	_lifetimeSystem = _reg.CreateSystem<LifetimeSystem, Transform, Lifetime>();
+	_aStarSystem = _reg.CreateSystem<AStarSystem, Transform, AStarWalkable>();
 }
 
 void Scene::LoadScene(const std::string& name)
@@ -136,17 +137,7 @@ void Scene::SetWindow(Window& window)
 	camera->SetViewportData(&window.GetViewport());
 }
 
-void Scene::DestroyObject(GameObject* gameObject)
+void Scene::GetWalkableTiles(std::vector<Transform*>& tiles)
 {
-	MarkForDestroy(gameObject);
-}
-
-void Scene::DestroyObject(std::shared_ptr<GameObject> gameObject)
-{
-	DestroyObject(gameObject.get());
-}
-
-void Scene::MarkForDestroy(GameObject* gameObject)
-{
-	_toDeleteQueue.push(gameObject);
+	_aStarSystem->GetWalkableTiles(tiles);
 }

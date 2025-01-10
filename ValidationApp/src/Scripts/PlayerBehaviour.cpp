@@ -31,7 +31,7 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	
-	if (gameObject->HasComponent<Audio::SFXSource>())
+	if (transform->gameObject->HasComponent<Audio::SFXSource>())
 	{
 		_sfx = &(transform->gameObject->GetComponent<Audio::SFXSource>());
 		_sfx->SetClip("taking_damage");

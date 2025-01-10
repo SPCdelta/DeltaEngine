@@ -26,7 +26,7 @@ namespace Physics
 		void SetTrigger(bool trigger);
 		bool IsTrigger() const;
 
-		EnginePhysics::PhysicsId GetId();
+		EnginePhysics::PhysicsId GetId() const;
 
 		Transform& transform;
 

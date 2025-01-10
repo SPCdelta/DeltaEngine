@@ -85,6 +85,8 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				{
 					tileObj->SetTag(tile["tag"]);
 				}
+
+				tileObj->AddComponent<AStarWalkable>(true);
 			}
 		}
 
@@ -122,6 +124,8 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				{
 					tileObj->SetTag(tile["tag"]);
 				}
+
+				tileObj->AddComponent<AStarWalkable>(false);
 			}
 		}
 

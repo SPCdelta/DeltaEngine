@@ -8,9 +8,9 @@ LevelExitBehaviour::LevelExitBehaviour(const std::string& exitName)
 
 void LevelExitBehaviour::OnStart()
 {
-	BoxCollider* collider = gameObject->AddComponent<BoxCollider>();
+	BoxCollider* collider = transform->gameObject->AddComponent<BoxCollider>();
 	collider->SetTrigger(true);
-	gameObject->SetTag("level_exit");
+	transform->gameObject->SetTag("level_exit");
 }
 
 void LevelExitBehaviour::SetExit(const std::string& exitName)

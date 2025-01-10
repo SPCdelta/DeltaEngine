@@ -46,6 +46,7 @@ void EnemyBehaviour::OnStart()
 	_damageObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
 	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position);
 	SetDamageBehaviour(_damageObj->GetComponent<Rigidbody>());
+
 }
 
 void EnemyBehaviour::OnUpdate()

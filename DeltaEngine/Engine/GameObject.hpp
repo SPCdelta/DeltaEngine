@@ -141,12 +141,11 @@ public:
 	std::shared_ptr<GameObject> Instantiate();
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 
-	void Destroy() 
-	{ 
-		_reg.DestroyEntity(_id); 
-	}
+	void Destroy();
 
 	Camera* GetCamera();
+
+	void GetWalkableTiles(std::vector<Transform*>& tiles);
 
 private:
 	bool _active{ true };

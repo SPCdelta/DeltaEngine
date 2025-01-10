@@ -1,6 +1,6 @@
 #include "Skeleton.hpp"
 
-Skeleton::Skeleton(Math::Vector2* position, GameObject* obj, float speed, int health, int damage, int range, int step)
+Skeleton::Skeleton(Math::Vector2* position, Transform& transform, float speed, int health, int damage, int range, int step)
 	: Enemy(position, speed, health, damage, range, step), 
 	  transform(transform)
 {
@@ -9,7 +9,7 @@ Skeleton::Skeleton(Math::Vector2* position, GameObject* obj, float speed, int he
 
 Skeleton::~Skeleton()
 {
-	gameObject = nullptr;
+	
 }
 
 void Skeleton::Update(Transform& player_position, Audio::SFXSource* _sfx)

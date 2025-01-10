@@ -26,6 +26,7 @@
 #include "../Systems/ImageRenderSystem.hpp"
 #include "../Systems/TextRenderSystem.hpp"
 #include "../Systems/LifetimeSystem.hpp"
+#include "../Systems/AStarSystem.hpp"
 
 struct Velocity
 {
@@ -73,6 +74,8 @@ class Scene
 	void StoreUserData(Json::json data);
 	void DeleteUserData();
 
+	void GetWalkableTiles(std::vector<Transform*>& tiles);
+
 protected:
 	Camera* camera;
 
@@ -98,4 +101,5 @@ private:
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
 	std::shared_ptr<LifetimeSystem> _lifetimeSystem;
+	std::shared_ptr<AStarSystem> _aStarSystem;
 };

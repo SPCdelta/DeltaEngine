@@ -39,7 +39,6 @@
     <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Input\InputHandler.cpp" />
     <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
-    <ClCompile Include="Engine\Core\Despawner.cpp" />
     <ClCompile Include="Engine\Ecs\Registry.cpp" />
     <ClCompile Include="Engine\Physics\Rigidbody.cpp" />
     <ClCompile Include="Engine\Physics\Physics.cpp" />
@@ -57,7 +56,6 @@
     <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Engine\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Engine\Systems\ImageRenderSystem.cpp" />
-    <ClCompile Include="Engine\Systems\DespawnSystem.cpp" />
     <ClCompile Include="Engine\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Engine\UI\Brush\SnapToGridBrush.cpp" />
     <ClCompile Include="Engine\UI\Brush\BrushSprite.cpp" />
@@ -155,6 +153,7 @@
     <ClInclude Include="Engine\Ecs\Types.hpp" />
     <ClInclude Include="Engine\Ecs\Include.hpp" />
     <ClInclude Include="Engine\Systems\LifetimeSystem.hpp" />
+    <ClInclude Include="Engine\Systems\AStarSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

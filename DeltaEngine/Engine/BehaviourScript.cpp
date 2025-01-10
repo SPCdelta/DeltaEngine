@@ -7,12 +7,12 @@ void BehaviourScript::LoadScene(const std::string& name)
 
 void BehaviourScript::Destroy(std::shared_ptr<GameObject> gameObject)
 {
-	gameObject->Destroy(gameObject.get());
+	gameObject->Destroy();
 }
 
 void BehaviourScript::Destroy(GameObject* gameObject)
 {
-	gameObject->Destroy(gameObject);
+	gameObject->Destroy();
 }
 
 void BehaviourScript::keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category)
@@ -62,5 +62,5 @@ std::shared_ptr<GameObject> BehaviourScript::Instantiate()
 
 std::shared_ptr<GameObject> BehaviourScript::Instantiate(Transform transform)
 {
-	return transform->gameObject->Instantiate(transformComponent);
+	return transform.gameObject->Instantiate(transform);
 }

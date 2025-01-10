@@ -200,7 +200,6 @@
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
     <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
-    <ClCompile Include="Engine\Core\Despawner.cpp" />
     <ClCompile Include="Engine\Core\Files\FileHandlerFactory.cpp" />
     <ClCompile Include="Engine\Core\Files\FileManager.cpp" />
     <ClCompile Include="Engine\Core\Files\JSONFileHandler.cpp" />
@@ -233,7 +232,6 @@
     <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
     <ClCompile Include="Engine\Systems\CollisionSystem.cpp" />
-    <ClCompile Include="Engine\Systems\DespawnSystem.cpp" />
     <ClCompile Include="Engine\Systems\ImageRenderSystem.cpp" />
     <ClCompile Include="Engine\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
@@ -301,6 +299,7 @@
     <ClInclude Include="Engine\Rendering\Particles\Particle.hpp" />
     <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.hpp" />
     <ClInclude Include="Engine\Scene\UserDataStorage.hpp" />
+    <ClInclude Include="Engine\Systems\AStarSystem.hpp" />
     <ClInclude Include="Engine\Systems\LifetimeSystem.hpp" />
     <ClInclude Include="Engine\Systems\ParticleSystem.hpp" />
     <ClInclude Include="Engine\Rendering\ResourceManager.hpp" />

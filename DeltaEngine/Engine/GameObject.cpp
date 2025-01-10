@@ -34,14 +34,9 @@ std::shared_ptr<GameObject> GameObject::Instantiate(Transform transform)
 	return _scene->Instantiate(transform);
 }
 
-void GameObject::Destroy(GameObject* toDestroy)
+void GameObject::Destroy()
 {
-	_scene->DestroyObject(toDestroy);
-}
-
-void GameObject::Destroy(std::shared_ptr<GameObject> toDestroy)
-{
-	_scene->DestroyObject(toDestroy);
+	_reg.DestroyEntity(_id);
 }
 
 ecs::EntityId GameObject::GetId() const
@@ -85,4 +80,9 @@ const std::string& GameObject::GetTag() const
 Camera* GameObject::GetCamera()
 {
 	return _camera;
+}
+
+void GameObject::GetWalkableTiles(std::vector<Transform*>& tiles)
+{
+	_scene->GetWalkableTiles(tiles);
 }

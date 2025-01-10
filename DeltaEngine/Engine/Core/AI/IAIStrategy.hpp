@@ -5,6 +5,8 @@
 
 #include "../Math/Point.hpp"
 #include "../Math/Vector2.hpp"
+#include "../../Transform.hpp"
+#include "../../GameObject.hpp"
 
 struct Node 
 {
@@ -40,5 +42,5 @@ public:
 	virtual ~IAIStrategy() = default;
 
 	// Range is amount of units in each direction, with step being 1 node per step amount of units
-	virtual std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range, int step) = 0; 
+	virtual std::vector<Math::Vector2> CalculatePath(Transform* start, Math::Vector2& end, int range, int step) = 0; 
 };

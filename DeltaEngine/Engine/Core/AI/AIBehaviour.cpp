@@ -96,7 +96,7 @@ void AIBehaviour::CalculateNewPath()
 {
 	if (strategy_) 
 	{
-		auto newPath = strategy_->CalculatePath(position_->position, _targetPosition->position, range_, step_);
+		auto newPath = strategy_->CalculatePath(position_, _targetPosition->position, range_, step_);
 		if (!newPath.empty() && ((_targetPosition->position - newPath.front()).Magnitude() < (_targetPosition->position - position_->position).Magnitude())) 
 			path_ = std::move(newPath);
 	}

@@ -34,7 +34,7 @@ PickUpBehaviour::~PickUpBehaviour()
 	// TODO unregister events
 }
 
-void PickUpBehaviour::MarkForDestruction(GameObject* obj)
+void PickUpBehaviour::MarkForDestruction(std::shared_ptr<GameObject> obj)
 {
 	destructionQueue.push_back(obj);
 }
@@ -42,7 +42,7 @@ void PickUpBehaviour::MarkForDestruction(GameObject* obj)
 void PickUpBehaviour::ProcessDestructionQueue()
 {
 	for (auto& obj : destructionQueue)
-		obj->Destroy(obj);
+		obj->Destroy();
 
 	destructionQueue.clear();
 }

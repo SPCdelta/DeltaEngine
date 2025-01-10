@@ -31,7 +31,7 @@ void LevelEditor::OnStart()
     UIBackButtonAndBinding(rightBarStart);
     UISaveButtonAndBinding(rightBarStart);
     UITopBarAndBinding(windowWidth, titleLeftPadding, topBarHeight);
-    BindCamara();
+    BindCamera();
 }
 
 void LevelEditor::InitLevelEditor()
@@ -168,7 +168,7 @@ void LevelEditor::CreateTile(const std::string& spriteName, const std::string& c
     sprite->SetLayer(LAYER_MAP.at(category));
 }
 
-void LevelEditor::BindCamara()
+void LevelEditor::BindCamera()
 {
     float speed = 1.0f;
 
@@ -253,11 +253,11 @@ int LevelEditor::CalculateSpritesInrow(std::unordered_map<std::string, std::vect
     return amount / maxVisibleSprites;
 }
 
- std::vector<std::string> GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites, int direction)
+std::vector<std::string> LevelEditor::GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites, int direction)
 {
     std::vector<std::string> result;
 
-        int maxtileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+        int maxtileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
 
         _tileIndexOptions += direction;
 
@@ -266,7 +266,7 @@ int LevelEditor::CalculateSpritesInrow(std::unordered_map<std::string, std::vect
             if (_layerIndexTopBar < 0)
                 _layerIndexTopBar = SPRITE_CATEGORY.size() -1;
             
-            _tileIndexOptions = calculateSpritesInrow(categorySprites, maxVisibleSprites);
+            _tileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
             
         }
         else if (_tileIndexOptions > maxtileIndexOptions)

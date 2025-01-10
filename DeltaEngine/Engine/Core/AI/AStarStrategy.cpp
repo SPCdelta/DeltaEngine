@@ -1,6 +1,6 @@
 #include "AStarStrategy.hpp"
 
-std::vector<Math::Vector2> AStarStrategy::CalculatePath(Math::Vector2& start, Math::Vector2& end, int range, int step)
+std::vector<Math::Vector2> AStarStrategy::CalculatePath(Transform* start, Math::Vector2& end, int range, int step)
 {
 	std::unordered_map<Math::Vector2, Node*, Vector2Hash> nodeMap;
 	InitializeNodesAround(start, range, step, nodeMap);
@@ -14,7 +14,7 @@ std::vector<Math::Vector2> AStarStrategy::CalculatePath(Math::Vector2& start, Ma
         return std::abs(a.GetX() - b.GetX()) + std::abs(a.GetY() - b.GetY()); // Manhattan distance
     };
       
-    Node* startNode = CreateNode(start);
+    Node* startNode = CreateNode(start->position);
 	g_costs[startNode] = 0.0;
 	pq.push({0.0, startNode});
 
@@ -98,13 +98,15 @@ Node* AStarStrategy::CreateNode(const Math::Vector2& position, Node* parent)
     return newNode;
 }
 
-void AStarStrategy::InitializeNodesAround(Math::Vector2 center, int range, int step, std::unordered_map<Math::Vector2, Node*, Vector2Hash>& nodeMap) 
+void AStarStrategy::InitializeNodesAround(Transform* center, int range, int step, std::unordered_map<Math::Vector2, Node*, Vector2Hash>& nodeMap) 
 {
+    center->gameObject->GetWalkableTiles(tiles);
+
     for (int x = -range; x <= range; x += step) 
     {
         for (int y = -range; y <= range; y += step) 
         {
-            Math::Vector2 position = center + Math::Vector2(x, y);
+			Math::Vector2 position = center->position + Math::Vector2(x, y);
             if (IsWalkable(position) && nodeMap.find(position) == nodeMap.end()) 
             {
                 Node* newNode = CreateNode(position);
@@ -116,27 +118,13 @@ void AStarStrategy::InitializeNodesAround(Math::Vector2 center, int range, int s
 
 bool AStarStrategy::IsWalkable(const Math::Vector2& position) // TODO when we have walls
 {
-	bool isWalkable = true;	
 
-	//_rigidbody.onTriggerEnter.Register(
-	//	[&](Collider& collider)
-	//	{
-	//		// Check if the collider is something that blocks movement, like a wall or obstacle
-	//		if (collider.transform.gameObject->GetTag() == "Wall")	
-	//		{
-	//			isWalkable = false;	
-	//		}
-	//	});
-
-	//_rigidbody.onTriggerExit.Register(
-	//	[&](Collider& collider)
-	//	{
-	//		if (collider.transform.gameObject->GetTag() == "Wall")	 
-	//		{
-	//			isWalkable = true; 
-	//		}
-	//	});
+    for (auto& tile : tiles)
+    {
+		if (tile->position == position)
+			return true;
+    }
 
 	// If collision with a wall, return false (not walkable)
-	return isWalkable;
+	return false;
 }

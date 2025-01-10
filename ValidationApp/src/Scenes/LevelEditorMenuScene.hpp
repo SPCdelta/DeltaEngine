@@ -47,7 +47,7 @@ public:
 		}
 
 		DestroyLevelButton(it->second);
-		FileManager::removeFile(LEVEL_PATH + level);
+		FileManager::RemoveFile(LEVEL_PATH + level);
 		_order.erase(std::remove(_order.begin(), _order.end(), level), _order.end());
 		if (_buttons.contains(level))
 		{

@@ -6,6 +6,7 @@
 #include "IAIStrategy.hpp"
 #include "../Time.hpp"
 #include "../../Transform.hpp"
+#include "../../GameObject.hpp"
 
 class AIBehaviour
 {
