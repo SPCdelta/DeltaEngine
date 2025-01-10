@@ -34,7 +34,7 @@ void PlayerBehaviour::OnStart()
 	rigidbody->onTriggerEnter.Register([this](Collider& collider)
 	{ 
 		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
-		if (collider.transform.gameObject->GetTag() == "level_exit")
+		if (collider.transform.gameObject->GetTag() == "level_exit" && _player->GetHealth() > 0)
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
 			SavePlayer();
