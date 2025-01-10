@@ -9,5 +9,6 @@ public:
 	Bow(BehaviourScript* user);
 
 	void Use() override;
+	void Update(float deltaTime) override;
 	WeaponType GetWeaponType() const override;
 };

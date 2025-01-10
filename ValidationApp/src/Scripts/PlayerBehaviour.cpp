@@ -32,7 +32,6 @@ void PlayerBehaviour::OnStart()
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
 		_attacking = true;
-		StartAttack();
 	});
 
 	// Physics Events
@@ -51,16 +50,18 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	UpdateAttack(Time::GetDeltaTime());
 	if (_player->GetHealth() > 0 && _attacking)
 	{
 		if (_weapon)
 			_weapon->Use();
+
+		_attacking = false;
 	}
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
+#pragma region Floor Behaviour
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
 	{
 		switch (_onFloor)
@@ -110,7 +111,9 @@ void PlayerBehaviour::OnUpdate()
 				break;
 		}
 	}
+#pragma endregion
 
+#pragma region Damage Behaviour
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
@@ -152,7 +155,9 @@ void PlayerBehaviour::OnUpdate()
 			}
 		}
 	}
+#pragma endregion
 
+#pragma region Sprite Animation
 	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
 	{
 		// Walking
@@ -174,19 +179,13 @@ void PlayerBehaviour::OnUpdate()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE,
 										false);
 	}
+#pragma endregion
 
 	UpdateConsumables();
+	_weapon->Update(Time::GetDeltaTime());
 
 	this->gameObject->GetCamera()->SetPosition(
 		this->gameObject->transform->position);
-}
-
-void PlayerBehaviour::UpdateAttack(float deltaTime)
-{
-	if (_attackTime > 0.0f)
-		_attackTime -= deltaTime;
-	else
-		_attacking = false;
 }
 
 void PlayerBehaviour::SetWeapon(const std::string& weaponType)
