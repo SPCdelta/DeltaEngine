@@ -88,6 +88,24 @@ void ValidationApp::LoadAssets()
 		"floor_tiles"
 	};
 
+	SpriteMap iceFloorTile
+	{
+		"Assets\\Textures\\Tiles\\ice_tile.png",
+		{
+			{"Ice_floor_0",	{0, 0}, {32, 32}},
+		},
+		"floor_tiles"
+	};
+
+	SpriteMap mudFloorTile
+	{
+		"Assets\\Textures\\Tiles\\mud_tile.png",
+		{
+			{"Mud_floor_0",	{0, 0}, {32, 32}},
+		},
+		"floor_tiles"
+	};
+
 	SpriteMap wallTiles
 	{
 		"Assets\\Textures\\Tiles\\floor.png",
