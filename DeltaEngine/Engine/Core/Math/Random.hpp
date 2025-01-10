@@ -7,10 +7,7 @@ namespace Math
 	class Random
 	{
 	public:
-		static Random& get_instance() 
-		{ 
-			return instance; 
-		}
+		static Random& get_instance();
 
 		Random(const Random&) = delete;
 		Random(Random&&) = delete;

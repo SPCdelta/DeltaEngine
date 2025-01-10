@@ -5,6 +5,11 @@ using namespace Math;
 Random Random::instance;
 std::random_device Random::rnd;
 
+Random& Random::get_instance()
+{
+	return instance;
+}
+
 Random::Random()
 {
 

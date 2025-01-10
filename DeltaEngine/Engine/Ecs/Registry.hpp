@@ -15,7 +15,6 @@ namespace ecs
 	class System
 	{
 	public:
-		// todo
 		System(ecs::View<Components...> view)
 			: _view(view)
 		{
@@ -35,11 +34,7 @@ namespace ecs
 			return _registry.create();
 		}
 
-		// TODO
-		void DestroyEntity(ecs::EntityId entityId)
-		{
-			_registry.destroy(entityId);
-		}
+		void DestroyEntity(ecs::EntityId entityId);
 
 		template<typename T, typename... Components, typename... Args>
 		std::shared_ptr<T> CreateSystem(Args&&... args)
