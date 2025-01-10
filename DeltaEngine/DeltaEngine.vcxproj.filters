@@ -39,6 +39,8 @@
     <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Input\InputHandler.cpp" />
     <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
+    <ClCompile Include="Engine\Input\JInputLifetime.cpp" />
+    <ClCompile Include="Engine\Input\JInputEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
@@ -128,8 +130,10 @@
     <ClInclude Include="Engine\Core\Files\DTO\SpriteDTO.hpp" />
     <ClInclude Include="Engine\Scene\UserDataStorage.hpp" />
     <ClInclude Include="Engine\UI\FontWrapper.hpp" />
-    <ClInclude Include="Engine\Input\InputEntry.hpp" />
-    <ClInclude Include="Engine\Input\InputHelper.hpp" />
+    <ClInclude Include="Engine\Input\JInputEntry.hpp" />
+    <ClInclude Include="Engine\Input\JInputRegistry.hpp" />
+    <ClInclude Include="Engine\Input\JLifetimeManager.hpp" />
+    <ClInclude Include="Engine\Input\JInputLifetime.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\spritesheet.png" />

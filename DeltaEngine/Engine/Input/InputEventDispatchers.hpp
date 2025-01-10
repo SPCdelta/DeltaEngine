@@ -13,7 +13,7 @@ class InputListener;
 class InputEventDispatchers
 {
    public:
-	void Add(const InputListener& input);
+	void Add(InputListener* input);
 	void Remove(InputListener* input);
 
 	bool Find(InputState state, const std::string& input);

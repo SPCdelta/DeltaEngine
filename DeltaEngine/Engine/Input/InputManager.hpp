@@ -5,11 +5,14 @@
 #include <set>
 #include <string>
 #include <unordered_set>
+#include <unordered_map>
 #include <vector>
 #include "../Core/Events/EventDispatcher.hpp"
 #include "../Core/Math/Point.hpp"
 #include "InputEventDispatchers.hpp"
 #include "DeltaInputs.hpp"
+
+#include "JInputRegistry.hpp"
 
 class InputListener;
 
@@ -21,8 +24,6 @@ class InputManager
 	InputManager(InputManager&&) = delete;
 	InputManager& operator=(const InputManager&) = delete;
 	InputManager& operator=(InputManager&&) = delete;
-
-
 
 	static void deactivateCategory(const std::string& category);
 	static void activateCategory(const std::string& category);
@@ -56,6 +57,22 @@ class InputManager
 
 	static constexpr const char* defaultCategory = "Default";
 
+	// Jeroen
+	static JInputLifetime* AddJInput(Key key, const std::string& category, JInputFunction function)
+	{ 
+		return instance_._inputRegistry.Add(key, category, function);
+	}
+
+	static JInputLifetime* AddJInput(MouseButton key, const std::string& category, JInputFunction function)
+	{
+		return instance_._inputRegistry.Add(key, category, function);
+	}
+
+	static void RemoveJInput(InputType type, int key, size_t id)
+	{ 
+		instance_._inputRegistry.Remove(type, key, id);
+	}
+
    private:
 	InputManager();
 	static InputManager instance_;
@@ -63,5 +80,10 @@ class InputManager
 	Input allInputs;
 
 	std::map<InputType, InputEventDispatchers> inputTypes;
+
+	// Jeroen
+	// If you add an input here, the method will be called
+	// how do we delete this?
+	JInputRegistry _inputRegistry;
 };
 

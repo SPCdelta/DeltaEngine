@@ -132,6 +132,7 @@
     <ClInclude Include="src\UI\StackPanel.hpp" />
     <ClInclude Include="src\UI\IUIElement.hpp" />
     <ClInclude Include="src\UI\BaseUIScene.hpp" />
+    <ClInclude Include="src\Scenes\JInputScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\SFX\eating.mp3" />

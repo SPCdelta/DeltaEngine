@@ -11,6 +11,7 @@
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
 #include "Scenes/WeaponSelectionScene.hpp"
+#include "Scenes/JInputScene.hpp"
 
 // Game Scenes
 #include "Scenes/MainMenuScene.hpp"
@@ -37,6 +38,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<SpawnerScene>("SpawnerScene");
 	RegisterScene<WeaponSelectionScene>("WeaponSelectionScene");
+	RegisterScene<JInputScene>("JInputScene");
 
 	// Register Scenes (Game)
 	RegisterScene<MainMenuScene>("MainMenuScene");

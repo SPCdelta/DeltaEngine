@@ -205,6 +205,8 @@
     <ClCompile Include="Engine\Input\InputEventDispatchers.cpp" />
     <ClCompile Include="Engine\Input\InputFacade.cpp" />
     <ClCompile Include="Engine\Input\InputManager.cpp" />
+    <ClCompile Include="Engine\Input\JInputEntry.cpp" />
+    <ClCompile Include="Engine\Input\JInputLifetime.cpp" />
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="Engine\Rendering\ResourceManager.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\Renderable.cpp" />
@@ -258,11 +260,13 @@
     <ClInclude Include="Engine\Delta.hpp" />
     <ClInclude Include="Engine\Ecs\View.hpp" />
     <ClInclude Include="Engine\Input\DeltaInputs.hpp" />
-    <ClInclude Include="Engine\Input\InputEntry.hpp" />
+    <ClInclude Include="Engine\Input\JInputEntry.hpp" />
     <ClInclude Include="Engine\Input\InputEventDispatchers.hpp" />
     <ClInclude Include="Engine\Input\InputFacade.hpp" />
-    <ClInclude Include="Engine\Input\InputHelper.hpp" />
     <ClInclude Include="Engine\Input\InputManager.hpp" />
+    <ClInclude Include="Engine\Input\JInputLifetime.hpp" />
+    <ClInclude Include="Engine\Input\JInputRegistry.hpp" />
+    <ClInclude Include="Engine\Input\JLifetimeManager.hpp" />
     <ClInclude Include="Engine\MemLeakDetection\MemLeakDetection.hpp" />
     <ClInclude Include="Engine\Physics\BoxCollider.hpp" />
     <ClInclude Include="Engine\Physics\CircleCollider.hpp" />
