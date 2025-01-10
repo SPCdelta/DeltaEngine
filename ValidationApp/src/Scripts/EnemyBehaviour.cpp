@@ -57,7 +57,8 @@ void EnemyBehaviour::OnUpdate()
 		pos = _aiBehaviour->Update();
 		_enemy->Update(*playerPosition, _sfx.get());
 
-		if (!_spawnerBehaviour && Enemy::StringToType(transform->gameObject->GetTag()) == EnemyType::Boss)
+		// TODO
+		/*if (!_spawnerBehaviour && Enemy::StringToType(transform->gameObject->GetTag()) == EnemyType::Boss)
 		{
 			_spawnerBehaviour = std::make_unique<EntitySpawner>(transform->gameObject, EntitySpawnerData
 				{
@@ -82,7 +83,7 @@ void EnemyBehaviour::OnUpdate()
 		else if (_spawnerBehaviour)
 		{
 			_spawnerBehaviour->OnUpdate();
-		}
+		}*/
 	}
 		
 	if (pos != &transform->gameObject->GetComponent<Transform>())

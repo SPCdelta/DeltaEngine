@@ -32,7 +32,7 @@ public:
 		Sprite* sprite = transform->gameObject->AddComponent<Sprite>(data.sprite);
 		sprite->SetLayer(Layer::Projectiles);
 		transform->rotation = Math::DirectionToAngle(data.direction);
-		transform->gameObject->AddComponent<Velocity>(Math::Vector2{3.0f, 0.0f});
+		transform->gameObject->AddComponent<Velocity>(data.direction * data.speed);
 	}
 
 	Rigidbody* rigidbody = nullptr;
