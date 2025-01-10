@@ -44,7 +44,7 @@ void WeaponSelectionView::InitBody()
 {
 	// don't change order!
 	InitGun();
-	InitBoomerang();
+	//InitBoomerang();
 	InitBow();
 	ToggleVisibilityWeapons(false);
 	InitButtons();
@@ -96,7 +96,7 @@ void WeaponSelectionView::InitBoomerang()
 
 void WeaponSelectionView::InitBow()
 {
-	auto xPos = _boomerang->transform->position.GetX() + _boomerang->transform->scale.GetX() / 2 + _scale.Magnitude() * MARGINX_SCALE;
+	auto xPos = _gun->transform->position.GetX() + _gun->transform->scale.GetX() / 2 + _scale.Magnitude() * MARGINX_SCALE;
 	auto yPos = _scale.GetY() / 2;
 
 	_bowFrame = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
@@ -131,7 +131,7 @@ void WeaponSelectionView::SetTextCenterBottom(const GameObject& gameObject, Ui::
 
 void WeaponSelectionView::ToggleVisibilityWeapons(bool visible)
 {
-	_boomerangFrame->GetComponent<Ui::Image>().SetVisible(visible);
+	//_boomerangFrame->GetComponent<Ui::Image>().SetVisible(visible);
 	_bowFrame->GetComponent<Ui::Image>().SetVisible(visible);
 	_gunFrame->GetComponent<Ui::Image>().SetVisible(visible);
 }
