@@ -56,33 +56,6 @@ void EnemyBehaviour::OnUpdate()
 	{
 		pos = _aiBehaviour->Update();
 		_enemy->Update(*playerPosition, _sfx.get());
-
-		//if (!_spawnerBehaviour && Enemy::StringToType(transform->gameObject->GetTag()) == EnemyType::Boss)
-		//{
-		//	_spawnerBehaviour = std::make_unique<EntitySpawner>(transform->gameObject, EntitySpawnerData
-		//		{
-		//			2.0f, 6.0f, // Spawn interval			  
-		//			3, 5, true, // Spawn amount | OnStart
-		//			2.5f // Spawn Radius
-		//		},
-		//		[this](std::shared_ptr<GameObject>& entity)
-		//		{
-		//			entity->Instantiate({transform->position, transform->rotation, {1.0f, 1.0f}});;
-		//			std::shared_ptr<AnimationSheet> entitySheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
-		//			entity->AddComponent<Sprite>("slime", entitySheet);
-		//			entity->AddComponent<Audio::SFXSource>("", false, false);
-		//			entity->AddComponent<BoxCollider>()->SetTrigger(true);
-		//			entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-		//			entity->SetTag("slime");
-		//			entity->AddComponent<EnemyBehaviour>()->SetPlayer(playerPosition, player);
-		//		});
-
-		//	_spawnerBehaviour->OnStart();
-		//}
-		//else if (_spawnerBehaviour)
-		//{
-		//	_spawnerBehaviour->OnUpdate();
-		//}
 	}
 		
 	if (pos != &transform->gameObject->GetComponent<Transform>())

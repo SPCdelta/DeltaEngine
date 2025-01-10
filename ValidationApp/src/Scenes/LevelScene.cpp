@@ -156,7 +156,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 					Sprite* sprite = tileObj->AddComponent<Sprite>(tile["sprite"]["name"]);
 					sprite->SetLayer(layer);
 					tileObj->AddComponent<EntitySpawner>(
-							tileObj.get(), EntitySpawnerData
+							tileObj, EntitySpawnerData
 							{
 								// Spawn interval
 								8.0f,
