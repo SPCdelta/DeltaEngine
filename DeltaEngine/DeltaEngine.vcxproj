@@ -201,6 +201,9 @@
     <ClCompile Include="Engine\Core\AI\AIBehaviour.cpp" />
     <ClCompile Include="Engine\Core\AI\AStarStrategy.cpp" />
     <ClCompile Include="Engine\Core\Despawner.cpp" />
+    <ClCompile Include="Engine\Core\Files\FileHandlerFactory.cpp" />
+    <ClCompile Include="Engine\Core\Files\FileManager.cpp" />
+    <ClCompile Include="Engine\Core\Files\JSONFileHandler.cpp" />
     <ClCompile Include="Engine\Core\Time.cpp" />
     <ClCompile Include="Engine\Ecs\Registry.cpp" />
     <ClCompile Include="Engine\Input\DeltaInputs.cpp" />

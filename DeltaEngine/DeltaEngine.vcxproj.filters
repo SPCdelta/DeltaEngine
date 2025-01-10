@@ -62,6 +62,9 @@
     <ClCompile Include="Engine\UI\Brush\SnapToGridBrush.cpp" />
     <ClCompile Include="Engine\UI\Brush\BrushSprite.cpp" />
     <ClCompile Include="Engine\UI\Scrollable.cpp" />
+    <ClCompile Include="Engine\Core\Files\FileHandlerFactory.cpp" />
+    <ClCompile Include="Engine\Core\Files\FileManager.cpp" />
+    <ClCompile Include="Engine\Core\Files\JSONFileHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />
