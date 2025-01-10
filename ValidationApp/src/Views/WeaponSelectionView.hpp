@@ -10,6 +10,7 @@ public:
 	const Math::Vector2& GetSize() const override;
 	void SetCenter() override;
 private:
+	bool IsJsonScene();
 	void InitTitle();
 	void InitBody();
 	void InitGun();

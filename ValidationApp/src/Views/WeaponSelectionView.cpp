@@ -26,6 +26,11 @@ void WeaponSelectionView::SetCenter()
 	_window->transform->position = _pos;
 }
 
+bool WeaponSelectionView::IsJsonScene()
+{
+	return _sceneName.ends_with(".json");
+}
+
 void WeaponSelectionView::InitTitle()
 {
 	auto& text = *_window->AddComponent<Ui::Text>(TITLE, _fontName, static_cast<int>(_scale.Magnitude() *
@@ -163,7 +168,14 @@ void WeaponSelectionView::InitConfirmButton()
 			playerBehaviour.SavePlayer();
 			playerObject->SetTag("player");
 
-			_scene.LoadScene("LevelScene");
+			if (IsJsonScene())
+			{
+				_scene.LoadScene("LevelScene");
+			}
+			else
+			{
+				_scene.LoadScene(_sceneName);
+			}
 		}, "ScoreScreen");
 }
 
