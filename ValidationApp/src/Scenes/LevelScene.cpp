@@ -170,8 +170,20 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 							},
 							[this, playerObject, enemyName](std::shared_ptr<GameObject>& entity)
 							{ 
-								std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
-								entity->AddComponent<Sprite>(enemyName, goblinSheet);
+								std::shared_ptr<AnimationSheet> sheet;
+								if (enemyName == "slime")
+								{
+									sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
+								}
+								else if (enemyName == "goblin")
+								{
+									sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
+								}
+								else if (enemyName == "skeleton")
+								{
+									sheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 9, 64, 64, 1, 3, 2, 4);
+								}
+								entity->AddComponent<Sprite>(enemyName, sheet);
 								entity->AddComponent<Audio::SFXSource>("", false, false);
 								entity->AddComponent<BoxCollider>()->SetTrigger(true);
 								entity->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
@@ -223,12 +235,8 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 						->AddComponent<Sprite>(tile["sprite"]["name"])
 						->SetLayer(layer);
 
-					tileObj->AddComponent<LevelExitBehaviour>("MainMenuScene");
-				}
-
-				if (tile.contains("tag"))
-				{
-					tileObj->SetTag(tile["tag"]);
+					tileObj->AddComponent<LevelExitBehaviour>("LevelSelectScene");
+					tileObj->SetTag("level_exit");
 				}
 			}
 		}

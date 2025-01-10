@@ -3,6 +3,9 @@
 #include <Engine/Delta.hpp>
 
 #include "../Scripts/PlayerBehaviour.hpp"
+#include "../Scripts/EnemyBehaviour.hpp"
+#include "../Scripts/Level/LevelExitBehaviour.hpp"
+#include "../Scripts/Level/EntitySpawner.hpp"
 #include "../Views/HUDView.hpp"
 
 struct LevelSceneData
@@ -25,6 +28,7 @@ public:
 
 private:
 	bool LoadLevel(const std::string& levelName);
+ std::string GetEnemyName(const std::string& spawnerName);
 
 	std::unique_ptr<HUDView> _hud;
 };
