@@ -158,7 +158,6 @@ void Application::Stop()
 	_isRunning = false;
 
 	Rendering::Quit();
-	//TTF_Quit(); TODO form merge?
 	Rendering::QuitImage();
 	Mix_Quit();
 }

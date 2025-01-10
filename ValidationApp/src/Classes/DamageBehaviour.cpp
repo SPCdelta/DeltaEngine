@@ -57,7 +57,8 @@ bool DamageBehaviour::GetDamage() const
 int DamageBehaviour::TakeDamage()
 {
 	int damage = 0;
-	if (_currentCollider && _currentCollider->transform.gameObject  && _currentCollider->transform.gameObject->GetComponent<Sprite>().GetVisible())
+	if (_currentCollider && _currentCollider->transform.gameObject && _currentCollider->transform.gameObject->HasComponent<Sprite>() 
+		&& _currentCollider->transform.gameObject->GetComponent<Sprite>().GetVisible())
 	{	
 		if (_currentCollider->transform.gameObject->GetTag() == "projectile" || _currentCollider->transform.gameObject->GetTag() == "skeleton_arrow") 
 		{

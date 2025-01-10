@@ -1,4 +1,5 @@
 #include "HotbarComponent.hpp"
+
 #include <algorithm>
 
 HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& slotScale, Player* player) 
@@ -15,20 +16,11 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 		auto itemIcon = std::shared_ptr<GameObject>{};
 		std::string itemName = "";
 
-		/*auto& item = player->GetInventoryItem(i);
-		if (item.has_value())
-		{
-			itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, slotScale }) };
-			itemIcon->AddComponent<Ui::Image>(item->GetItem()->GetSprite());
-			itemName = item->GetItem()->GetName();
-		}*/ // TODO from merge?
-
 		_hotbar.emplace_back(slot, itemIcon, itemName);
 		pos.AddX(slotScale.GetX());
 	}
 	_hotbar[_index].slot->GetComponent<Ui::Image>().SetSprite(ACTIVE_HOTBAR_SLOT_SPRITENAME);
 
-	// TODO from merge \/ ??
 	for (int i = 0; i < player->GetInventorySize(); i ++)
 	{
 		auto& item = player->GetInventoryItem(i);
