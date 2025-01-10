@@ -4,7 +4,7 @@
 
 #include "../Classes/Projectiles/Projectile.hpp"
 
-class Boomerang : public Projectile
+class BoomerangBehaviour : public Projectile
 {
 public:
 	void OnStart() override;
@@ -19,11 +19,16 @@ private:
 	std::shared_ptr<GameObject> _thrower;
 	Audio::SFXSource* audioSource = nullptr;
 
-	float _distance = 10.0f;
-	float _rotationsPerSecond = 3.0f;
-
-	float _throwSpeed = 0.0f;
-	Vector2 _targetPosition{};
+	// State
 	bool _isReturning = false; 
 	bool _finished = false;
+
+	// Animation
+	float _rotationsPerSecond = 3.0f;
+
+	// Variables
+	float _distance = 10.0f;
+	float _throwSpeed = 0.0f;
+	Vector2 _originPosition{};
+	Vector2 _targetPosition{};
 };

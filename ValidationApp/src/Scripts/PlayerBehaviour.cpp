@@ -1,7 +1,9 @@
 #include "PlayerBehaviour.hpp"
 #include "../Items/Serializers/JsonItemSerializer.hpp"
+#include "../Classes/Weapons/WeaponFactory.hpp"
+#include "../Utils/WeaponTypeUtils.hpp"
 
-void PlayerBehaviour::OnStart() 
+void PlayerBehaviour::OnStart()
 {
 	_player = std::make_unique<Player>();
 	sprite = &(transform->gameObject->GetComponent<Sprite>());
@@ -11,9 +13,6 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &(transform->gameObject->GetComponent<Audio::SFXSource>());
-
-	//_weapon = new Gun(this);
-	_weapon = new Bow(this);
 
 	onMouseMove([this](Input& e) 
 	{ 
@@ -26,23 +25,19 @@ void PlayerBehaviour::OnStart()
 	//onMouseButtonDown(MouseButton::Right, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // TODO: fix inputmanager. For some reason this maps to KEY_02?
 	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
 
-	// Dit is voor testen van inventory en het opslaan/inladen van de inventory
-	onKeyPressed(KEY_P, [this](Input& e) { LoadPlayer(); }, "Gameplay");
-	onKeyPressed(KEY_O, [this](Input& e) { SavePlayer(); }, "Gameplay");
-
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
 		_attacking = true;
-		StartAttack();
 	});
 
 	// Physics Events
 	rigidbody->onTriggerEnter.Register([this](Collider& collider)
 	{ 
 		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
-		if (collider.transform.gameObject && collider.transform.gameObject->GetTag() == "level_exit")
+		if (collider.transform.gameObject && collider.transform.gameObject->GetTag() == "level_exit" && _player->GetHealth() > 0)
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
+			SavePlayer();
 			exit.Use();
 		}
 	});
@@ -52,13 +47,12 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	UpdateAttack(Time::GetDeltaTime());
 	if (_player->GetHealth() > 0 && _attacking)
 	{
 		if (_weapon)
 			_weapon->Use();
-		else
-			ThrowBoomerang();
+
+		_attacking = false;
 	}
 
 	if (_floorBehaviour)
@@ -68,6 +62,7 @@ void PlayerBehaviour::OnUpdate()
 	
 	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
+#pragma region Floor Behaviour
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
 	{
 		switch (_onFloor)
@@ -117,7 +112,9 @@ void PlayerBehaviour::OnUpdate()
 				break;
 		}
 	}
+#pragma endregion
 
+#pragma region Damage Behaviour
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
@@ -159,7 +156,9 @@ void PlayerBehaviour::OnUpdate()
 			}
 		}
 	}
+#pragma endregion
 
+#pragma region Sprite Animation
 	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
 	{
 		// Walking
@@ -181,19 +180,21 @@ void PlayerBehaviour::OnUpdate()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE,
 										false);
 	}
+#pragma endregion
 
 	UpdateConsumables();
+	if (_weapon) 
+	{
+		_weapon->Update(Time::GetDeltaTime());
+	}
 
 	this->transform->gameObject->GetCamera()->SetPosition(
 		this->transform->position);
 }
 
-void PlayerBehaviour::UpdateAttack(float deltaTime)
+void PlayerBehaviour::SetWeapon(const std::string& weaponType)
 {
-	if (_attackTime > 0.0f)
-		_attackTime -= deltaTime;
-	else
-		_attacking = false;
+	_weapon = WeaponFactory::CreateWeapon(weaponType, this).release();
 }
 
 void PlayerBehaviour::InitHotbarKeybinds()
@@ -257,25 +258,6 @@ void PlayerBehaviour::PlayHurtParticle()
 	->Start();
 }
 
-void PlayerBehaviour::ThrowBoomerang()
-{
-	// On Delay
-	if (_boomerang)
-		return;
-
-	std::shared_ptr<GameObject> boomerangObj = Instantiate();
-	_boomerang = boomerangObj->AddComponent<Boomerang>();
-	Math::Vector2 throwDirection = transform->position.DirectionTo(camera->ScreenToWorldPoint(_mouseX, _mouseY));
-
-	_boomerang->Throw(transform->gameObject, 15.0f, transform->position, throwDirection);
-
-	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
-	{ 
-		boomerangObj->Destroy();
-		_boomerang = nullptr;
-	});
-}
-
 void PlayerBehaviour::LoadPlayer()
 {
 	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
@@ -284,34 +266,28 @@ void PlayerBehaviour::LoadPlayer()
 		_player->SetHealth(loadedPlayer["player"]["health"]);
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
 		_player->SetShield(loadedPlayer["player"]["shield"]);
-		_player->ResetInventory();
 
-		if (!loadedPlayer["player"]["weapon"].contains("boomerang"))
-		{
-			if (loadedPlayer["player"]["weapon"].contains("gun"))
-				_weapon = new Gun(this);
-			else
-				_weapon = new Bow(this);
-		}
-
-		_player->ResetInventory();
+		_weapon = WeaponFactory::CreateWeapon(loadedPlayer["player"]["weapon"], this).release();
+	
 		if (loadedPlayer["player"].contains("inventory"))
 		{
+			_player->ResetInventory();
 			for (size_t i = 0; i < loadedPlayer["player"]["inventory"].size(); ++i)
 			{
 				auto& itemData = loadedPlayer["player"]["inventory"][i];
 				if (itemData.contains("type"))
 				{
-					_player->AddItemToInventory(PotionFactory::CreatePotion
-					(
+					auto potion = PotionFactory::CreatePotion(
 						itemData["type"],
 						itemData["time"],
 						itemData["sprite"],
 						itemData["name"],
 						itemData["value"]
-					).release(), itemData["amount"]);
+					);
+
+					if (potion)
+						_player->AddItemToInventory(potion.release(), itemData["amount"]);
 				}
-				// TODO weapons?
 			}
 		}
 	}
@@ -324,21 +300,11 @@ void PlayerBehaviour::SavePlayer()
 	playerFile["player"]["health"] = _player->GetHealth();
 	playerFile["player"]["shield"] = _player->GetShield();
 	playerFile["player"]["coins"] = _player->GetCoins();
-	if (_weapon)
-	{
-		if (auto gun = dynamic_cast<Gun*>(_weapon))
-			playerFile["player"]["weapon"] = "gun";
-		else
-			playerFile["player"]["weapon"] = "bow";
-	}		
-	else
-	{
-		playerFile["player"]["weapon"] = "boomerang";
-	}
+	playerFile["player"]["weapon"] = WeaponTypeUtils::ToString(_weapon->GetWeaponType());
 
 	if (_player->GetInventorySize() > 0)
 	{
-		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventorySize()); ++i)
+		for (Uint8 i = 0; i < static_cast<int>(_player->GetInventoryCapacity()); ++i)
 		{
 			auto& itemData = playerFile["player"]["inventory"][i];
 			const std::optional<InventoryItem>& inventoryItem = _player->GetInventoryItem(i);
@@ -347,7 +313,6 @@ void PlayerBehaviour::SavePlayer()
 
 			itemData = JsonItemSerializer::Serialize(*inventoryItem->GetItem().Clone());
 			itemData["amount"] = inventoryItem->GetAmount();
-			// TODO weapons?
 		}
 	}
 	

@@ -19,67 +19,6 @@ Text::Text(const std::string& text, const std::string& fontName, int fontSize,
 	}
 }
 
-//Text::Text(const Text& other)
-//	: 
-//	  _text{other._text},
-//	  _font{other._font},
-//	  _color{other._color},
-//	_fontName{ other._fontName },
-//	_fontSize{ other._fontSize },
-//	_background{ other._background },
-//	_backgroundColor{ other._backgroundColor },
-//	_position{ other._position }
-//{
-//	int bp = 0;
-//}
-
-//Text& Text::operator=(const Text& other)
-//{
-//	if (this != &other)
-//	{
-//		_text = other._text;
-//		_font = other._font;
-//		_color = other._color;
-//		_fontName = other._fontName;
-//		_fontSize = other._fontSize;
-//		_background =other._background;
-//		_backgroundColor = other._backgroundColor;
-//		_position =  other._position;
-//	}
-//	return *this;
-//}
-
-//Text::Text(Text&& other) noexcept
-//	: _text{other._text},
-//	  _font{other._font},
-//	  _color{other._color},
-//	  _fontName{other._fontName},
-//	_fontSize{other._fontSize},
-//	_background{other._background },
-//	_backgroundColor{other._backgroundColor},
-//	_position{other._position}
-//
-//{
-//	int bp = 0;
-//}
-
-//Text& Text::operator=(Text&& other) noexcept
-//{
-//	if (this != &other)
-//	{
-//		_text = other._text;
-//		_font = other._font;
-//		_color = other._color;
-//		_fontName = other._fontName;
-//		_fontSize = other._fontSize;
-//		_background = other._background;
-//		_backgroundColor = other._backgroundColor;
-//		_position = other._position;
-//
-//	}
-//	return *this;
-//}
-
 void Text::Render(Renderer* renderer, const Transform& transform)
 {
 
@@ -114,15 +53,6 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 		static_cast<int>(transform.position.GetY() + _position.GetY()),
 		surface->w, surface->h
 	};
-
-	//if (_position.IsNonZero()) 
-	//{
-	//	dstRect = { static_cast<int>(_position.GetX()), static_cast<int>(_position.GetY()), surface->w, surface->h };
-	//} 
-	//else 
-	//{
-	//	dstRect = { static_cast<int>(transform.position.GetX()), static_cast<int>(transform.position.GetY()), surface->w, surface->h};
-	//}
 
 	if (_background)
 		RenderRect(renderer, dstRect, _backgroundColor);

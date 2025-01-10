@@ -48,14 +48,14 @@ public:
 			->SetSwitchTo("Scene2", "Scene1");
 
 		// Data
-		Json::json& data = RetriveUserData();
+		Json::json& data = RetrieveUserData();
 
 		if (data.empty())
 		{
 			StoreUserData({ {"a" , 5}, {"b", 12},{"C", "Hello!" } });
 		}
 
-		Json::json data2 = RetriveUserData();
+		Json::json data2 = RetrieveUserData();
 		std::cout << "User data: " << data2.dump(4) << std::endl;
 	}
 };
@@ -73,7 +73,7 @@ public:
 			->SetSwitchTo("Scene1", "Scene2");
 
 		// Data
-		Json::json& data = RetriveUserData();
+		Json::json& data = RetrieveUserData();
 		data["a"] = static_cast<int>(data["a"]) +  1;
 		std::cout << "User data: " << data.dump(4) << std::endl;
 	}

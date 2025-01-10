@@ -12,25 +12,24 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 		slot->AddComponent<Ui::Button>()->SetOnLeftMouseClick([i, &player]() -> void { player->SetInventoryIndex(i); }, "Hotbar");
 		auto itemIcon = std::shared_ptr<GameObject>{};
 		std::string itemName = "";
-		auto& item = player->GetInventoryItem(i);
-		if (item.has_value())
-		{
-			itemIcon = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, slotScale }) };
-			itemIcon->AddComponent<Ui::Image>(item->GetItem()->GetSprite());
-			itemName = item->GetItem()->GetName();
-		}
+
 		_hotbar.emplace_back(slot, itemIcon, itemName);
 		pos.AddX(slotScale.GetX());
 	}
 	_hotbar[_index].slot->GetComponent<Ui::Image>().SetSprite(ACTIVE_HOTBAR_SLOT_SPRITENAME);
-	Subscribe();
 
+	for (int i = 0; i < player->GetInventorySize(); i ++)
+	{
+		auto& item = player->GetInventoryItem(i);
+		AddItem(*item->GetItem(), player->GetInventoryItem(i)->GetAmount());
+	}
+
+	Subscribe();
 	{
 		float width = _hotbar.size() * _scale.GetX();
 		float height = _scale.GetY();
 		_tempScale = {  width, height };
 	}
-
 }
 
 void HotbarComponent::InventoryChanged(const Item& item, int amount)

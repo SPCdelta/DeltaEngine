@@ -12,10 +12,6 @@ class Text : public TextRenderable
    public:
 	Text(const std::string& text, const std::string& fontName, int fontSize, const Rendering::Color& color);
 
-	//Text(const Text& other);
-	//Text& operator=(const Text& other);
-	//Text(Text&& other) noexcept;
-	//Text& operator=(Text&& other) noexcept;
 	void Render(Rendering::Renderer* renderer, const Transform& transform);
 	void SetText(const std::string& text);
 	void SetBackground(Rendering::Color color);

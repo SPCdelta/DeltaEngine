@@ -1,7 +1,26 @@
 {
     "player": {
-        "coins": 0,
+        "coins": 15,
         "health": 95,
+        "inventory": [
+            {
+                "amount": 2,
+                "name": "defensepotion",
+                "sprite": "potion_effervescent",
+                "time": 10.0,
+                "type": "potion:defense",
+                "value": 1.0
+            },
+            {
+                "amount": 1,
+                "name": "healingpotion",
+                "sprite": "cyanPotion",
+                "time": 10.0,
+                "type": "potion:healing",
+                "value": 10.0
+            }
+        ],
+        "shield": 0,
         "weapon": "bow"
     }
 }
