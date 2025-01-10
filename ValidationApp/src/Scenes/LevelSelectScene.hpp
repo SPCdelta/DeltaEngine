@@ -25,7 +25,7 @@ public:
 				std::cout << "Meow!" << std::endl;
 				Refresh();
 			},
-			"jeroen"
+			"LevelSelect"
 		);
 
 		CreateLevelsList();
@@ -70,9 +70,9 @@ private:
 				jsonLevelName["levelName"] = levelName;
 				StoreUserData(jsonLevelName);
 
-				LoadScene("LevelScene");
+				LoadScene("WeaponSelectionScene");
 			},
-			"jeroen"
+			"LevelSelect"
 		);
 		buttonObj->transformRef.position = Math::Vector2{ 100.0f, (50.0f + 10.0f) * index } + GetContentOffset();
 

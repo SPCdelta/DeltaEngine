@@ -26,14 +26,18 @@ void WeaponSelectionView::SetCenter()
 	_window->transform->position = _pos;
 }
 
+bool WeaponSelectionView::IsJsonScene()
+{
+	return _sceneName.ends_with(".json");
+}
+
 void WeaponSelectionView::InitTitle()
 {
 	auto& text = *_window->AddComponent<Ui::Text>(TITLE, _fontName, static_cast<int>(_scale.Magnitude() *
 		TITLE_SCALE), TEXT_COLOR);
-	auto xPos = (_pos.GetX() + _scale.GetX() / 2) - (Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2);
 	auto yPos = _pos.GetY();
 	yPos += _scale.GetY() * TITLE_MARGINY_SCALE;
-	text.SetPosition({ xPos, yPos });
+	text.SetPosition({ 0.f+Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2, yPos });
 }
 
 void WeaponSelectionView::InitBody()
@@ -113,8 +117,8 @@ void WeaponSelectionView::InitBow()
 
 void WeaponSelectionView::SetTextCenterBottom(const GameObject& gameObject, Ui::Text& text)
 {
-	auto xPos = gameObject.transform->position.GetX();
-	auto yPos = gameObject.transform->position.GetY();
+	auto xPos = 0.f;
+	auto yPos = 0.f;
 
 	auto xScale = gameObject.transform->scale.GetX();
 	auto yScale = gameObject.transform->scale.GetY();
@@ -159,12 +163,20 @@ void WeaponSelectionView::InitConfirmButton()
 			playerObject->AddComponent<Audio::SFXSource>("", false, false);
 			playerObject->AddComponent<BoxCollider>();
 			playerObject->AddComponent<Rigidbody>();
-			auto& playerBehaviour = *playerObject->AddComponent<PlayerBehaviour>();
+			auto& playerBehaviour = *playerObject->AddComponent<PlayerBehaviour>();			
+			playerBehaviour.LoadPlayer();
 			playerBehaviour.SetWeapon(_weapon);
 			playerBehaviour.SavePlayer();
 			playerObject->SetTag("player");
 
-			_scene.LoadScene(_sceneName);
+			if (IsJsonScene())
+			{
+				_scene.LoadScene("LevelScene");
+			}
+			else
+			{
+				_scene.LoadScene(_sceneName);
+			}
 		}, "ScoreScreen");
 }
 

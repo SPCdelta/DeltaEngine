@@ -48,7 +48,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 		playerObject->AddComponent<Audio::SFXSource>("", false, false);
 		playerObject->AddComponent<BoxCollider>();
 		playerObject->AddComponent<Rigidbody>();	
-		playerObject->AddComponent<PlayerBehaviour>();
+		auto playerBehaviour = playerObject->AddComponent<PlayerBehaviour>();
 		playerObject->SetTag("player");
 
 		// Load Tiles (Floor)
@@ -77,8 +77,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				if (tile.contains("sprite"))
 				{
 					Layer layer = static_cast<Layer>(static_cast<int>(tile["sprite"]["layer"]));
-					tileObj
-						->AddComponent<Sprite>(tile["sprite"]["name"])
+					tileObj->AddComponent<Sprite>(tile["sprite"]["name"])
 						->SetLayer(layer);
 				}
 
@@ -233,6 +232,9 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				}
 			}
 		}
+
+		_hud = std::make_unique<HUDView>(*this, "goblin", playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
+		playerBehaviour->LoadPlayer();
 
 		// Success!
 		return true;
