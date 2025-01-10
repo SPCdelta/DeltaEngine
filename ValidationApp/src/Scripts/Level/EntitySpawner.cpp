@@ -26,15 +26,14 @@ void EntitySpawner::OnUpdate()
 void EntitySpawner::DoSpawn()
 {
 	if (!_owner)
-        throw std::runtime_error("EntitySpawner's owner GameObject is null!");
+		throw std::runtime_error("EntitySpawner's owner GameObject is null!");
 
 	// Also add remainder
 	_spawnIn = GetSpawnInterval() + _spawnIn;
 
 	for (int i = 0; i < GetSpawnAmount(); ++i)
 	{
-		std::shared_ptr<GameObject> entity = _owner->Instantiate();
-		entity->transform->position = _owner->transform->position + GetPosition();
+		std::shared_ptr<GameObject> entity = _owner->Instantiate({_owner->transform->position + GetPosition(), 0.0f, {1.0f, 1.0f}});
 		_onSpawn(entity);
 	}
 }
