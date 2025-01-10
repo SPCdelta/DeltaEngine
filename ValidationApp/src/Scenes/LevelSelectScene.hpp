@@ -16,18 +16,6 @@ public:
 	void OnStart() override
 	{
 		BaseUIScene::OnStart();
-		// Refresh
-		std::shared_ptr<GameObject> refreshButton = UIFactory::CreateButton(this, "Refresh", "goblin", 24, Rendering::Color{ 255, 255, 255, 255}, Layer::Button);
-		refreshButton->transformRef.position = GetBarOffset();
-		refreshButton->GetComponent<Ui::Button>().SetOnLeftMouseClick(
-			[this]() 
-			{
-				std::cout << "Meow!" << std::endl;
-				Refresh();
-			},
-			"LevelSelect"
-		);
-
 		CreateLevelsList();
 	}
 
