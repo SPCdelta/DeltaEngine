@@ -47,7 +47,7 @@ void EnemyBehaviour::OnStart()
 
 void EnemyBehaviour::OnUpdate()
 {
-	if (!transform || !transform->gameObject || !transform->gameObject->HasComponent<Transform>())
+	if (!transform || !transform->gameObject || !transform->gameObject->HasComponent<Transform>() || _enemy->IsDead())
 		return ;
 
 	Transform* pos = &transform->gameObject->GetComponent<Transform>();
@@ -57,18 +57,17 @@ void EnemyBehaviour::OnUpdate()
 		pos = _aiBehaviour->Update();
 		_enemy->Update(*playerPosition, _sfx.get());
 
-		// TODO
-		/*if (!_spawnerBehaviour && Enemy::StringToType(transform->gameObject->GetTag()) == EnemyType::Boss)
+		if (!_spawnerBehaviour && Enemy::StringToType(transform->gameObject->GetTag()) == EnemyType::Boss)
 		{
 			_spawnerBehaviour = std::make_unique<EntitySpawner>(transform->gameObject, EntitySpawnerData
 				{
-					2.0f, 8.0f, // Spawn interval			  
-					3, 8, true, // Spawn amount | OnStart
+					2.0f, 6.0f, // Spawn interval			  
+					3, 5, true, // Spawn amount | OnStart
 					2.5f // Spawn Radius
 				},
 				[this](std::shared_ptr<GameObject>& entity)
 				{
-					entity->Instantiate({{1.0f, 12.0f}, 0.0f, {1.0f, 1.0f}});;
+					entity->Instantiate({transform->position, transform->rotation, {1.0f, 1.0f}});;
 					std::shared_ptr<AnimationSheet> entitySheet = std::make_shared<AnimationSheet>(entity->GetComponent<Transform>(), 3, 24, 24, 1, 3, 0, 2);
 					entity->AddComponent<Sprite>("slime", entitySheet);
 					entity->AddComponent<Audio::SFXSource>("", false, false);
@@ -83,7 +82,7 @@ void EnemyBehaviour::OnUpdate()
 		else if (_spawnerBehaviour)
 		{
 			_spawnerBehaviour->OnUpdate();
-		}*/
+		}
 	}
 		
 	if (pos != &transform->gameObject->GetComponent<Transform>())
@@ -156,7 +155,9 @@ void EnemyBehaviour::SetDamageBehaviour(Rigidbody& rigid)
 
 void EnemyBehaviour::OnDeath()
 {
-	_damageObj->Destroy();
-	transform->gameObject->GetComponent<Sprite>().SetVisible(false);
+	if (_damageObj)
+		_damageObj->Destroy();
+	if (transform->gameObject && transform->gameObject->HasComponent<Sprite>())
+		transform->gameObject->GetComponent<Sprite>().SetVisible(false);
 	transform->gameObject->Destroy();
 }

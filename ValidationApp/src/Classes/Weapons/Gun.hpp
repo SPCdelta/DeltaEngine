@@ -11,6 +11,9 @@ public:
 	void Use() override
 	{
 		std::shared_ptr<GameObject> bullet = _user->transform->gameObject->Instantiate();
+		bullet->AddComponent<CircleCollider>()->SetTrigger(true);
+		bullet->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+		bullet->AddComponent<Lifetime>(DEFAULT_LIFETIME);
 		bullet->transform->position.Set(_user->transform->position);
 		bullet->transform->scale.Set({0.5f, 0.5f});
 		bullet->AddComponent<Projectile>()->SetProjectileData({"bullet", 15, 5.0f, GetAimDirection()});

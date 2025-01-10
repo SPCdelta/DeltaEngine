@@ -10,7 +10,7 @@ struct ProjectileData
 	Math::Vector2 direction;
 };
 
-constexpr float DEFAULT_PROJECTILE_DESPAWN_TIME = 1.0f;
+constexpr float DEFAULT_LIFETIME = 2.0f;
 
 class Projectile : public BehaviourScript
 {
@@ -39,5 +39,4 @@ public:
 
 private:
 	ProjectileData _data{};
-	float _timeAlive = DEFAULT_PROJECTILE_DESPAWN_TIME;
 };

@@ -34,6 +34,9 @@ public:
     void ShootArrow(Transform& player_position)
     {
         std::shared_ptr<GameObject> arrowObj = transform.gameObject->Instantiate();
+		arrowObj->AddComponent<CircleCollider>()->SetTrigger(true);
+		arrowObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
+		arrowObj->AddComponent<Lifetime>(DEFAULT_LIFETIME);
 		arrowObj->transform->position.Set(transform.position);
         arrowObj->AddComponent<Projectile>()->SetProjectileData({"arrow", 5, 5.0f, transform.position.DirectionTo(player_position.position)});
 		arrowObj->SetTag("skeleton_arrow");
