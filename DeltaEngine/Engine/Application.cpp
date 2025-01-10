@@ -55,7 +55,7 @@ void Application::Run()
 			previousTime = currentTime;
 
 			Rendering::RenderClear(_window.GetRenderer());
-			_window.RenderViewport(255, 255, 255, 255);
+			_window.RenderViewport(0, 0, 0, 255);
 			Rendering::PollEvent(_windowEvent);
 
 			if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
@@ -158,7 +158,7 @@ void Application::Stop()
 	_isRunning = false;
 
 	Rendering::Quit();
-	TTF_Quit();
+	//TTF_Quit(); TODO form merge?
 	Rendering::QuitImage();
 	Mix_Quit();
 }

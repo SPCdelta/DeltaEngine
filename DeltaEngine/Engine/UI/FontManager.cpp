@@ -6,3 +6,9 @@ FontManager::FontManager()
 {
 
 }
+
+FontManager::~FontManager()
+{ 
+    _fonts.clear();
+    TTF_Quit();
+}

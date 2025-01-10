@@ -30,7 +30,7 @@ public:
 
 protected:
 	const std::string DEFAULT_FONT = "goblin";
-	const Rendering::Color DEFAULT_COLOR{0, 0, 0, 255};
+	const Rendering::Color DEFAULT_COLOR{255, 255, 255, 255};
 
 	std::string _fontName;
 

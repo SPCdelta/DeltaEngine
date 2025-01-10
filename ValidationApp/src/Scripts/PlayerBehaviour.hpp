@@ -11,7 +11,6 @@
 #include "BoomerangBehaviour.hpp"
 #include "../Classes/Weapons/Gun.hpp"
 #include "../Classes/Weapons/Bow.hpp"
-#include "Boomerang.hpp"
 
 #include "../Views/ScoreScreen.hpp"
 #include "../Items/Potions/PotionFactory.hpp"

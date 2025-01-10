@@ -17,14 +17,15 @@ void LevelEditor::OnStart()
 
     const float rightBarStart = windowWidth - RIGHT_BAR_WIDTH;
 
-    _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
+     _screenPort = { {0.0f, topBarHeight}, 0.0f, {static_cast<float>(windowWidth), windowHeight - topBarHeight} };
         
-    Json::json data = RetriveUserData();
-    if (data.contains("fileName") && !data["fileName"].empty())
+    Json::json data = RetrieveUserData();
+    if (data.contains("levelName") && !data["levelName"].empty())
     {
-        _saveFileName = data["fileName"];
+        _saveFileName = data["levelName"];
         DeleteUserData();
     }
+    
     InitLevelEditor();
 
     UIBackButtonAndBinding(rightBarStart);
@@ -37,28 +38,31 @@ void LevelEditor::InitLevelEditor()
 {
     auto mousePos = InputManager::GetMousePosition();
     _brush = Instantiate({ {mousePos.GetX(), mousePos.GetY()}, 0.0f, {1.0f, 1.0f} });
-    auto* brushComponnet = _brush->AddComponent<SnapToGridBrush>(
-    [this](Transform& transform, Sprite* sprite)
-    {
-        auto& vector = _tiles;
-        std::string spriteName = sprite->GetSprite();
-            	
-        auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) 
+    auto* brushComponnet = _brush->AddComponent<SnapToGridBrush>
+    (
+        [this](Transform& transform, Sprite* sprite)
         {
-            if (e->transform->position == transform.position)
+            auto& vector = _tiles;
+            std::string spriteName = sprite->GetSprite();
+            
+            auto it = std::find_if(vector.begin(), vector.end(), [this, transform, spriteName](std::shared_ptr<GameObject>& e) 
             {
-                Sprite& sprite = e->GetComponent<Sprite>();
-                sprite.SetSprite(spriteName);
-                sprite.SetLayer(LAYER_MAP.at(sprite.GetSpriteData()->category));
-                e->SetTag(sprite.GetSpriteData()->category);
-                return true;
-            }
-            return false;
-        });
+                if (e->transform->position == transform.position)
+                {
+                    Sprite& sprite = e->GetComponent<Sprite>();
+                    sprite.SetSprite(spriteName);
+                    sprite.SetLayer(LAYER_MAP.at(sprite.GetSpriteData()->category));
+                    e->SetTag(sprite.GetSpriteData()->category);
+                    return true;
+                }
+                return false;
+            });
 
-        if (it == vector.end())
-            CreateTile(spriteName, sprite->GetSpriteData()->category);
-    }); 
+            if (it == vector.end())
+                CreateTile(spriteName, sprite->GetSpriteData()->category);
+        }
+    ); 
+
     brushComponnet->RemoveOnKey(KEY_E);
     brushComponnet->SetCanvas(_screenPort);
 
@@ -69,7 +73,7 @@ void LevelEditor::InitLevelEditor()
     }
 
     FileManager fileManager;
-    Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName + ".json", "json"); 
+    Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName, "json"); 
             
     //TODO dit moet eigenlijk een BrushSprite child worden voor elk soort tile type dat anderes gedraagd. hier door kan je het makkelijk opslaan en inladen
     if (loadTiles.contains(SPRITE_CATEGORY[2]))
@@ -83,8 +87,10 @@ void LevelEditor::InitLevelEditor()
             tile->AddComponent<Sprite>(spriteData.spriteName)->SetLayer(spriteData.layer);
             tile->SetTag(SPRITE_CATEGORY[2]);
         }
+
         loadTiles.erase(SPRITE_CATEGORY[2]);
     } 
+
     for (auto& tileType : SPRITE_CATEGORY)
     {
         CreateTilesFromJson(loadTiles, tileType);
@@ -118,21 +124,20 @@ void LevelEditor::SaveLevel()
 
     for (auto& tile : _tiles)
     {
-        if (tile->GetTag() == SPRITE_CATEGORY[0] || tile->GetTag() == SPRITE_CATEGORY[1]) //floor_tile || wall_tile // new Tiles need to be here
+        if (tile->GetTag() == SPRITE_CATEGORY[2]) // Player
+        { 
+            auto& tileJson = tilesJson["player"];
+            TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
+            SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
+            tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
+        }
+        else // Other
         {
             Json::json jsonObject;
             TransformDTO::ToJson(jsonObject, tile->GetComponent<Transform>());
             SpriteDTO::ToJson(jsonObject, tile->GetComponent<Sprite>());
             jsonObject["tag"] = StringUtils::Split(jsonObject["sprite"]["name"], '_')[0];
             tilesJson[tile->GetTag()].push_back(jsonObject);
-
-        }
-        else if (tile->GetTag() == SPRITE_CATEGORY[2]) //player
-        { 
-            auto& tileJson = tilesJson["player"];
-            TransformDTO::ToJson(tileJson, tile->GetComponent<Transform>());
-            SpriteDTO::ToJson(tileJson, tile->GetComponent<Sprite>());
-            tileJson["tag"] = StringUtils::Split(tileJson["sprite"]["name"], '_')[0];
         }
     }
 
@@ -145,10 +150,10 @@ void LevelEditor::MakeSaveFilePath()
     if (_saveFileName.empty())
     {
         auto fileNames = FileManager::filesInDirectory(LEVEL_PATH);
-        _saveFileName = "level-" + std::to_string(fileNames.size() + 1);
+        _saveFileName = "level-" + std::to_string(fileNames.size() + 1) + ".json";
     }
         
-    _saveFilePath = LEVEL_PATH + _saveFileName + ".json";
+    _saveFilePath = LEVEL_PATH + _saveFileName;
 }
 
 
@@ -169,25 +174,25 @@ void LevelEditor::BindCamara()
 
     _inputListeners.Add(InputManager::keyPressed(KEY_D, [this, speed](Input& e) 
     {
-        camera->AddToPosition({ speed,0.f });
+        camera->AddToPosition({ speed, 0.f });
         _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
     }));
 
     _inputListeners.Add(InputManager::keyPressed(KEY_A, [this, speed](Input& e) 
     {
-        camera->AddToPosition({ -speed,0.f });
+        camera->AddToPosition({ -speed, 0.f });
         _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
     }));
 
     _inputListeners.Add(InputManager::keyPressed(KEY_S, [this, speed](Input& e) 
     {
-        camera->AddToPosition({ 0.f,-speed });
+        camera->AddToPosition({ 0.f, -speed });
         _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
     }));
 
     _inputListeners.Add(InputManager::keyPressed(KEY_W, [this, speed](Input& e) 
     {
-        camera->AddToPosition({ 0.f,speed });
+        camera->AddToPosition({ 0.f, speed });
         _brush->GetComponent<SnapToGridBrush>().NotifyTransform();
     }));
 }
@@ -201,13 +206,15 @@ void LevelEditor::UIBackButtonAndBinding(const float rightBarStart)
 
     auto* text = backButton->AddComponent<Ui::Text>("Back", "knight", SAVE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 }); 
     text->SetBackground({ 255, 255, 255, 255 });
-        
+    
     auto* button = backButton->AddComponent<Ui::Button>();
+
     button->SetOnLeftMouseClick([this]() 
     {
         SaveLevel();
-        LoadScene("LevelEditorLevelChose");
+        LoadScene("LevelEditorMenuScene");
     }, "UI");
+
     button->SetOnMousePressed([text]()
     {
         text->SetColor({80,80 ,80 });
@@ -225,11 +232,13 @@ void LevelEditor::UISaveButtonAndBinding(const float rightBarStart)
     text->SetBackground({ 255, 255, 255, 255 });
 
     auto* button = saveButton->AddComponent<Ui::Button>();
+
     button->SetOnLeftMouseClick([this, text]() 
     {
         SaveLevel();
         text->SetColor({ 0,0 ,0 });
     }, "UI");
+
     button->SetOnMousePressed([text]() 
     {
         text->SetColor({ 80,80 ,80 });
@@ -238,25 +247,25 @@ void LevelEditor::UISaveButtonAndBinding(const float rightBarStart)
 
 int LevelEditor::CalculateSpritesInrow(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites)
 {
-    int amout = 0;
+     int amount = 0;
     if (categorySprites.contains(SPRITE_CATEGORY[_layerIndexTopBar]))
-        amout = static_cast<int>(categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]).size());
-    return amout / maxVisibleSprites;
+        amount = static_cast<int>(categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]).size());
+    return amount / maxVisibleSprites;
 }
 
 std::vector<std::string> LevelEditor::GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites, int direction)
 {
     std::vector<std::string> result;
     int maxtileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
-
     _tileIndexOptions += direction;
+
     if (_tileIndexOptions < 0)
     {
         _layerIndexTopBar -= 1;
         if (_layerIndexTopBar < 0)
-			_layerIndexTopBar = static_cast<int>(SPRITE_CATEGORY.size() - 1);  
+            _layerIndexTopBar = SPRITE_CATEGORY.size() -1; 
         _tileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
-            
+        
     }
     else if (_tileIndexOptions > maxtileIndexOptions)
     {
@@ -271,20 +280,17 @@ std::vector<std::string> LevelEditor::GetVisibleSprites(std::unordered_map<std::
         sprites = categorySprites.at(SPRITE_CATEGORY[_layerIndexTopBar]);
 
     for (size_t i = maxVisibleSprites * _tileIndexOptions; i < maxVisibleSprites * (_tileIndexOptions + 1) && i < sprites.size(); i++)
-    {
         result.push_back(sprites[i]);
-    }
 
     return result;
 }
 
 void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, float topBarHeight)
 {
-    const float imagespace = (SCALE_IN_UI_BAR + PADDING);
-        
+    const float imagespace = (SCALE_IN_UI_BAR + PADDING);      
     const int maxOptionPerRow = static_cast<int>((static_cast<float>(windowWidth) - PADDING_OUT_LEFT_UI * 2 - RIGHT_BAR_WIDTH) / imagespace);
     const float topBarLength = imagespace * maxOptionPerRow;
-        
+    
     std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
     auto title = titleTxt->AddComponent<Ui::Text>(_saveFileName, "knight", TITLE_FONT_SIZE, Rendering::Color{ 0, 0, 0, 255 });
     title->SetBackground({ 255, 255, 255, 255 });
@@ -295,28 +301,29 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
 
     std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
     std::unordered_map<std::string, std::vector<std::string>> categorySprites;
-        
+    
     for (const auto& pair : sprites) 
     {
         const std::string& key = pair.first;
         const std::string& category = pair.second->category;
-
         categorySprites[category].push_back(key);
     }
 
     for (int i = 0; i < maxOptionPerRow; i++)
     {
         auto& optionTile = _optionTiles.emplace_back(Instantiate(
-        { 
-            { -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2}, 
+        {
+            { -SCALE_IN_UI_BAR * 2, -SCALE_IN_UI_BAR * 2},
             0.0f, 
             {SCALE_IN_UI_BAR, SCALE_IN_UI_BAR} 
         }));
+
         optionTile->AddComponent<Ui::Image>("default_texture");
         optionTile->AddComponent<BrushSprite>("default_texture", &_brush->GetComponent<SnapToGridBrush>());
     }
 
-    auto lambdaChangeSprite = [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) 
+    auto lambdaChangeSprite = 
+    [this, categorySprites, maxOptionPerRow, layerTxt](int wheelDirection) 
     {
         auto optionTilesVector = GetVisibleSprites(categorySprites, maxOptionPerRow, wheelDirection);
         layerTxt->SetText(SPRITE_CATEGORY[_layerIndexTopBar]);
@@ -335,10 +342,16 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
             optionTile->GetComponent<Ui::Image>().SetSprite(spriteName);
             optionTile->GetComponent<BrushSprite>().SetSprite(spriteName);
         }
-
     };
+
     lambdaChangeSprite(0);
 
-    std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };
+    std::shared_ptr<GameObject> TopBar{ Instantiate(
+    {
+        {0.0f, 0.0f}, 
+        0.0f, 
+        {static_cast<float>(windowWidth), topBarHeight}
+    })};
+
     TopBar->AddComponent<Ui::Scrollable>(lambdaChangeSprite);
 }

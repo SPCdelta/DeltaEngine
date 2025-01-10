@@ -21,7 +21,6 @@ public:
 	}
 
 	void LoadScene(const std::string& name);
-	//void LoadScene(const std::string& name, void* userData); TODO from merge?
 
 	void Destroy(std::shared_ptr<GameObject> gameObject);
 	void Destroy(GameObject* gameObject);

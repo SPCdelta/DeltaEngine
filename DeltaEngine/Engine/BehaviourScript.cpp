@@ -5,11 +5,6 @@ void BehaviourScript::LoadScene(const std::string& name)
 	gameObject->LoadScene(name);
 }
 
-void BehaviourScript::LoadScene(const std::string& name, void* userData)
-{
-	gameObject->LoadScene(name, userData);
-}
-
 void BehaviourScript::Destroy(std::shared_ptr<GameObject> gameObject)
 {
 	gameObject->Destroy(gameObject.get());

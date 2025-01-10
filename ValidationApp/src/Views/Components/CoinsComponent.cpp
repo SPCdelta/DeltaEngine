@@ -6,7 +6,8 @@ CoinComponent::CoinComponent(Scene& scene, const std::string& fontName, const Ma
 {
 	_coinCounter = std::shared_ptr<GameObject>{ _scene.Instantiate({ pos, 0.0f, scale }) };
 	_coinCounter->AddComponent<Ui::Image>(SPRITE);
-	_coinCounter->AddComponent<Ui::Text>(std::to_string(_coins), fontName, 10, DEFAULT_COLOR);
+	_coinCounter->AddComponent<Ui::Text>(std::to_string(_coins), fontName, 10, DEFAULT_COLOR)
+		->SetPosition(_coinCounter->GetComponent<Ui::Text>().GetPosition() + Math::Vector2{0.0f, -10.0f});
 	player->AddCoinObserver([this](int coins) { this->CoinsChanged(coins); });
 }
 
