@@ -9,7 +9,7 @@ void LayerScene::OnStart()
 	playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
 	playerObject->AddComponent<Audio::SFXSource>("", false, false);
 	playerObject->AddComponent<BoxCollider>();
-	playerObject->AddComponent<Rigidbody>();	
+	playerObject->AddComponent<Rigidbody>();
 	auto playerBehaviour = playerObject->AddComponent<PlayerBehaviour>();
 	playerObject->SetTag("player");
 
