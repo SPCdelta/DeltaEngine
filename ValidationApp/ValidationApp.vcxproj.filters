@@ -16,7 +16,7 @@
     <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
     <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\Scripts\Boomerang.cpp" />
+    <ClCompile Include="src\Scripts\BoomerangBehaviour.cpp" />
     <ClCompile Include="src\Views\IView.cpp" />
     <ClCompile Include="src\Views\MenuView.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
@@ -41,6 +41,13 @@
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
     <ClCompile Include="src\Scenes\LevelScene.cpp" />
+    <ClCompile Include="src\Scenes\WeaponSelectionScene.cpp" />
+    <ClCompile Include="src\Views\WeaponSelectionView.cpp" />
+    <ClCompile Include="src\Classes\Weapons\WeaponFactory.cpp" />
+    <ClCompile Include="src\Utils\WeaponTypeUtils.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
     <ClCompile Include="src\Items\Coin.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -71,7 +78,7 @@
     <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
     <ClInclude Include="src\Classes\PlayerInput.hpp" />
     <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
-    <ClInclude Include="src\Scripts\Boomerang.hpp" />
+    <ClInclude Include="src\Scripts\BoomerangBehaviour.hpp" />
     <ClInclude Include="src\Views\IView.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
@@ -110,6 +117,12 @@
     <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
     <ClInclude Include="src\Classes\MySceneData.hpp" />
     <ClInclude Include="src\Views\ScoreScreen.hpp" />
+    <ClInclude Include="src\Scenes\WeaponSelectionScene.hpp" />
+    <ClInclude Include="src\Views\WeaponSelectionView.hpp" />
+    <ClInclude Include="src\Classes\Weapons\WeaponFactory.hpp" />
+    <ClInclude Include="src\Classes\Weapons\WeaponType.hpp" />
+    <ClInclude Include="src\Utils\WeaponTypeUtils.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Boomerang.hpp" />
     <ClInclude Include="src\Items\Coin.hpp" />
     <ClInclude Include="src\Scenes\LevelScene.hpp" />
     <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
@@ -161,6 +174,9 @@
     <Image Include="Assets\Textures\Particles\particles.png" />
     <Image Include="Assets\Textures\UI\window_frame.png" />
     <Image Include="Assets\Textures\Tiles\doors.png" />
+    <Image Include="Assets\Textures\Weapons\bow.png" />
+    <Image Include="Assets\Textures\Weapons\gun.png" />
+    <Image Include="Assets\Textures\UI\weapon_frame.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

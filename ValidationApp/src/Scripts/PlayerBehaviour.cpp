@@ -1,7 +1,9 @@
 #include "PlayerBehaviour.hpp"
 #include "../Items/Serializers/JsonItemSerializer.hpp"
+#include "../Classes/Weapons/WeaponFactory.hpp"
+#include "../Utils/WeaponTypeUtils.hpp"
 
-void PlayerBehaviour::OnStart() 
+void PlayerBehaviour::OnStart()
 {
 	_player = std::make_unique<Player>();
 	sprite = &gameObject->GetComponent<Sprite>();
@@ -11,9 +13,6 @@ void PlayerBehaviour::OnStart()
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
 	_sfx = &gameObject->GetComponent<Audio::SFXSource>();
-
-	//_weapon = new Gun(this);
-	_weapon = new Bow(this);
 
 	onMouseMove([this](Input& e) 
 	{ 
@@ -33,7 +32,6 @@ void PlayerBehaviour::OnStart()
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
 		_attacking = true;
-		StartAttack();
 	});
 
 	// Physics Events
@@ -52,18 +50,18 @@ void PlayerBehaviour::OnUpdate()
 {
 	_moveDirection = _playerInput.GetDirection();
 
-	UpdateAttack(Time::GetDeltaTime());
 	if (_player->GetHealth() > 0 && _attacking)
 	{
 		if (_weapon)
 			_weapon->Use();
-		else
-			ThrowBoomerang();
+
+		_attacking = false;
 	}
 
 	_onFloor = _floorBehaviour->GetOnFloor();
 	Math::Vector2 currentVelocity{rigidbody->GetVelocity()};
 
+#pragma region Floor Behaviour
 	if (_moveDirection != Math::Vector2{0.0f, 0.0f} && _player->GetHealth() > 0)
 	{
 		switch (_onFloor)
@@ -113,7 +111,9 @@ void PlayerBehaviour::OnUpdate()
 				break;
 		}
 	}
+#pragma endregion
 
+#pragma region Damage Behaviour
 	_damageBehaviour->Update(Time::GetDeltaTime());
 	if (_damageBehaviour->GetDamage())
 	{
@@ -155,7 +155,9 @@ void PlayerBehaviour::OnUpdate()
 			}
 		}
 	}
+#pragma endregion
 
+#pragma region Sprite Animation
 	if (sprite && sprite->GetAnimator() && _player->GetHealth() > 0)
 	{
 		// Walking
@@ -177,19 +179,18 @@ void PlayerBehaviour::OnUpdate()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE,
 										false);
 	}
+#pragma endregion
 
 	UpdateConsumables();
+	_weapon->Update(Time::GetDeltaTime());
 
 	this->gameObject->GetCamera()->SetPosition(
 		this->gameObject->transform->position);
 }
 
-void PlayerBehaviour::UpdateAttack(float deltaTime)
+void PlayerBehaviour::SetWeapon(const std::string& weaponType)
 {
-	if (_attackTime > 0.0f)
-		_attackTime -= deltaTime;
-	else
-		_attacking = false;
+	_weapon = WeaponFactory::CreateWeapon(weaponType, this).release();
 }
 
 void PlayerBehaviour::InitHotbarKeybinds()
@@ -253,25 +254,6 @@ void PlayerBehaviour::PlayHurtParticle()
 	->Start();
 }
 
-void PlayerBehaviour::ThrowBoomerang()
-{
-	// On Delay
-	if (_boomerang)
-		return;
-
-	std::shared_ptr<GameObject> boomerangObj = gameObject->Instantiate();
-	_boomerang = boomerangObj->AddComponent<Boomerang>();
-	Math::Vector2 throwDirection = transform->position.DirectionTo(gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
-
-	_boomerang->Throw(gameObject, 15.0f, gameObject->transform->position, throwDirection);
-
-	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
-	{ 
-		Destroy(boomerangObj);
-		_boomerang = nullptr;
-	});
-}
-
 void PlayerBehaviour::LoadPlayer()
 {
 	Json::json loadedPlayer = _fileManager.Load("Assets\\Files\\player.json", "json");
@@ -281,14 +263,7 @@ void PlayerBehaviour::LoadPlayer()
 		_player->SetCoins(loadedPlayer["player"]["coins"]);
 		_player->SetShield(loadedPlayer["player"]["shield"]);
 		_player->ResetInventory();
-
-		if (!loadedPlayer["player"]["weapon"].contains("boomerang"))
-		{
-			if (loadedPlayer["player"]["weapon"].contains("gun"))
-				_weapon = new Gun(this);
-			else
-				_weapon = new Bow(this);
-		}
+		_weapon = WeaponFactory::CreateWeapon(loadedPlayer["player"]["weapon"], this).release();
 
 		_player->ResetInventory();
 		if (loadedPlayer["player"].contains("inventory"))
@@ -307,7 +282,6 @@ void PlayerBehaviour::LoadPlayer()
 						itemData["value"]
 					).release(), itemData["amount"]);
 				}
-				// TODO weapons?
 			}
 		}
 	}
@@ -322,15 +296,8 @@ void PlayerBehaviour::SavePlayer()
 	playerFile["player"]["coins"] = _player->GetCoins();
 	if (_weapon)
 	{
-		if (auto gun = dynamic_cast<Gun*>(_weapon))
-			playerFile["player"]["weapon"] = "gun";
-		else
-			playerFile["player"]["weapon"] = "bow";
+		playerFile["player"]["weapon"] = WeaponTypeUtils::ToString(_weapon->GetWeaponType());
 	}		
-	else
-	{
-		playerFile["player"]["weapon"] = "boomerang";
-	}
 
 	if (_player->GetInventorySize() > 0)
 	{
@@ -343,7 +310,6 @@ void PlayerBehaviour::SavePlayer()
 
 			itemData = JsonItemSerializer::Serialize(*inventoryItem->GetItem().Clone());
 			itemData["amount"] = inventoryItem->GetAmount();
-			// TODO weapons?
 		}
 	}
 	

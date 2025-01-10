@@ -10,6 +10,7 @@
 #include "Scenes/ParticleScene.hpp"
 #include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
+#include "Scenes/WeaponSelectionScene.hpp"
 
 // Game Scenes
 #include "Scenes/MainMenuScene.hpp"
@@ -35,6 +36,7 @@ ValidationApp::ValidationApp()
 	RegisterScene<LevelEditor>("LevelEditor");
 	RegisterScene<ParticleScene>("ParticleScene");
 	RegisterScene<SpawnerScene>("SpawnerScene");
+	RegisterScene<WeaponSelectionScene>("WeaponSelectionScene");
 
 	// Register Scenes (Game)
 	RegisterScene<MainMenuScene>("MainMenuScene");
@@ -144,9 +146,13 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("spritesheet3", "Assets\\Textures\\spritesheet3.png");
 	ResourceManager::AddSprite("square", "Assets\\Textures\\square.png", "enemy");
 	ResourceManager::AddSprite("default_texture", "Assets\\Textures\\default_texture.png");
+
+	// Weapons
 	ResourceManager::AddSprite("boomerang", "Assets\\Textures\\Weapons\\boomerang.png");
 	ResourceManager::AddSprite("bullet", "Assets\\Textures\\Weapons\\bullet.png");
+	ResourceManager::AddSprite("gun", "Assets\\Textures\\Weapons\\gun.png");
 	ResourceManager::AddSprite("arrow", "Assets\\Textures\\Weapons\\arrow.png");
+	ResourceManager::AddSprite("bow", "Assets\\Textures\\Weapons\\bow.png");
 
 	// Enemies
 	ResourceManager::AddSprite("goblin", "Assets\\Textures\\Enemies\\goblin_attacking.png");
@@ -160,6 +166,7 @@ void ValidationApp::LoadAssets()
 	ResourceManager::AddSprite("scroll2", "Assets\\Textures\\UI\\Buttons\\scroll2.png");
 	ResourceManager::AddSprite("scroll3", "Assets\\Textures\\UI\\Buttons\\scroll3.png");
 	ResourceManager::AddSprite("window_frame", "Assets\\Textures\\UI\\window_frame.png");
+	ResourceManager::AddSprite("weapon_frame", "Assets\\Textures\\UI\\weapon_frame.png");
 
 	// HUD
 	ResourceManager::AddSprite("bar", "Assets\\Textures\\HUD\\bar.png");
