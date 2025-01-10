@@ -9,7 +9,7 @@ void LayerScene::OnStart()
 	playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
 	playerObject->AddComponent<Audio::SFXSource>("", false, false);
 	playerObject->AddComponent<BoxCollider>();
-	playerObject->AddComponent<Rigidbody>();	
+	playerObject->AddComponent<Rigidbody>();
 	// TODO: Remove LoadPlayer() after player load/save is merged
 	playerObject->AddComponent<PlayerBehaviour>()->LoadPlayer();
 	playerObject->SetTag("player");
