@@ -17,7 +17,8 @@ void Boomerang::Use()
 	std::shared_ptr<GameObject> boomerangObj = _user->transform->gameObject->Instantiate();
 	_boomerang = boomerangObj->AddComponent<BoomerangBehaviour>();
 
-	Math::Vector2 throwDirection = _user->transform->position.DirectionTo(_user->transform->gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
+	Math::Vector2 throwDirection = _user->transform->position.DirectionTo(_user->transform->gameObject->GetCamera()
+		->ScreenToWorldPoint(static_cast<float>(_mouseX), static_cast<float>(_mouseY)));
 
 	_boomerang->Throw(_user->transform->gameObject, 15.0f, _user->transform->gameObject->transform->position, throwDirection);
 	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)

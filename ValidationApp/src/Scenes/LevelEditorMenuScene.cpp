@@ -188,10 +188,10 @@ void LevelEditorMenuScene::CreateLevelButton(size_t index, const std::string& na
 void LevelEditorMenuScene::DestroyLevelButton(LevelButton& levelButton)
 {
 	_buttonsPool.push_back(std::move(levelButton));
-	levelButton.deleteButton->transformRef.position.SetY(-levelButton.deleteButton->transformRef.scale.GetY() * 2.0);
-	levelButton.levelButton->transformRef.position.SetY(-levelButton.levelButton->transformRef.scale.GetY() * 2.0);
-	levelButton.backwardsButton->transformRef.position.SetY(-levelButton.backwardsButton->transformRef.scale.GetY() * 2.0);
-	levelButton.forwardsButton->transformRef.position.SetY(-levelButton.forwardsButton->transformRef.scale.GetY() * 2.0);
+	levelButton.deleteButton->transformRef.position.SetY(static_cast<float>(-levelButton.deleteButton->transformRef.scale.GetY() * 2.0));
+	levelButton.levelButton->transformRef.position.SetY(static_cast<float>(-levelButton.levelButton->transformRef.scale.GetY() * 2.0));
+	levelButton.backwardsButton->transformRef.position.SetY(static_cast<float>(-levelButton.backwardsButton->transformRef.scale.GetY() * 2.0));
+	levelButton.forwardsButton->transformRef.position.SetY(static_cast<float>(-levelButton.forwardsButton->transformRef.scale.GetY() * 2.0));
 }
 
 void LevelEditorMenuScene::UpdateLevelButton(const std::string& levelName)

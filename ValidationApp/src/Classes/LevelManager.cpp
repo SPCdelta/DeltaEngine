@@ -1,6 +1,6 @@
 #include "LevelManager.hpp"
 
-void LevelManager::GetLevels(std::vector<std::string>& levels, bool save = true)
+void LevelManager::GetLevels(std::vector<std::string>& levels, bool save)
 {
 	EnsureSettingsFile();
 

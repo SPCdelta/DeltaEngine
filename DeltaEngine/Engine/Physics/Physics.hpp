@@ -87,9 +87,21 @@ namespace EnginePhysics
 		return id1.index1 == id2.index1 && id1.revision == id2.revision && id1.world0 == id2.world0;
 	}
 
-	static WorldId ToWorldId(b2WorldId worldId);
-	static PhysicsId ToPhysicsId(b2BodyId bodyId);
-	static PhysicsId ToPhysicsId(b2ShapeId shapeId);
+	static WorldId ToWorldId(b2WorldId worldId)
+	{
+		return {worldId.index1, worldId.revision};
+	}
+
+	static PhysicsId ToPhysicsId(b2BodyId bodyId)
+	{
+		return {bodyId.index1, bodyId.world0, bodyId.revision};
+	}
+
+	static PhysicsId ToPhysicsId(b2ShapeId shapeId)
+	{
+		return {shapeId.index1, shapeId.world0, shapeId.revision};
+	}
+	
 	static b2Vec2 ToVec2(Math::Vector2 vector);
 
 	inline Shape DefaultShape()

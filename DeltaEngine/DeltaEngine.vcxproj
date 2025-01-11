@@ -216,6 +216,7 @@
     <ClCompile Include="Engine\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="Engine\Physics\Rigidbody.cpp" />
     <ClCompile Include="Engine\Rendering\Camera.cpp" />
+    <ClCompile Include="Engine\Rendering\Layer.cpp" />
     <ClCompile Include="Engine\Rendering\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="Engine\Rendering\ResourceManager.cpp" />
     <ClCompile Include="Engine\Rendering\Renderables\Renderable.cpp" />
@@ -231,8 +232,10 @@
     <ClCompile Include="Engine\Rendering\AnimationSheet.cpp" />
     <ClCompile Include="Engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Engine\Scene\UserDataStorage.cpp" />
+    <ClCompile Include="Engine\Systems\AStarSystem.cpp" />
     <ClCompile Include="Engine\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Engine\Systems\ImageRenderSystem.cpp" />
+    <ClCompile Include="Engine\Systems\LifetimeSystem.cpp" />
     <ClCompile Include="Engine\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Engine\Systems\RenderSystem.cpp" />
@@ -243,6 +246,7 @@
     <ClCompile Include="Engine\UI\Brush\SnapToGridBrush.cpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />
     <ClCompile Include="Engine\UI\FontManager.cpp" />
+    <ClCompile Include="Engine\UI\FontWrapper.cpp" />
     <ClCompile Include="Engine\UI\Image.cpp" />
     <ClCompile Include="Engine\UI\Scrollable.cpp" />
     <ClCompile Include="Engine\Window.cpp" />

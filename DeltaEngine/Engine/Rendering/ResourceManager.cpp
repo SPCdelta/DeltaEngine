@@ -29,7 +29,7 @@ std::shared_ptr<FontWrapper> ResourceManager::GetFont(const std::string& name, i
 	return FontManager::Get(name, fontSize);
 }
 
-void ResourceManager::AddSprite(const std::string& name, const std::string& spritePath, const std::string& category = "")
+void ResourceManager::AddSprite(const std::string& name, const std::string& spritePath, const std::string& category)
 {
 	Rendering::Texture* texture = TextureManager::Add(spritePath);
 

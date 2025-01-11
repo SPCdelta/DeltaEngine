@@ -182,15 +182,15 @@ void AStarStrategy::InitializeGrid(Transform* start)
 	// Fill the grid
 	for (auto& tile : walkableTiles)
 	{
-		int normalizedX = tile->position.GetX() - minX;
-		int normalizedY = tile->position.GetY() - minY;
+		int normalizedX = static_cast<int>(tile->position.GetX()) - minX;
+		int normalizedY = static_cast<int>(tile->position.GetY()) - minY;
 		tempGrid[normalizedY][normalizedX] = {true, tile->position};
 	}
 
 	for (auto& tile : wallTiles)
 	{
-		int normalizedX = tile->position.GetX() - minX;
-		int normalizedY = tile->position.GetY() - minY;
+		int normalizedX = static_cast<int>(tile->position.GetX()) - minX;
+		int normalizedY = static_cast<int>(tile->position.GetY()) - minY;
 		tempGrid[normalizedY][normalizedX] = {false, tile->position};
 	}
 

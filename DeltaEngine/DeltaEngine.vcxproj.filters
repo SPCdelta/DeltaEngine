@@ -63,6 +63,10 @@
     <ClCompile Include="Engine\Core\Files\FileHandlerFactory.cpp" />
     <ClCompile Include="Engine\Core\Files\FileManager.cpp" />
     <ClCompile Include="Engine\Core\Files\JSONFileHandler.cpp" />
+    <ClCompile Include="Engine\UI\FontWrapper.cpp" />
+    <ClCompile Include="Engine\Systems\LifetimeSystem.cpp" />
+    <ClCompile Include="Engine\Systems\AStarSystem.cpp" />
+    <ClCompile Include="Engine\Rendering\Layer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Systems\PhysicsSystem.hpp" />

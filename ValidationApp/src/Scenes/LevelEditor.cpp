@@ -259,7 +259,7 @@ int LevelEditor::CalculateSpritesInrow(std::unordered_map<std::string, std::vect
     {
         _layerIndexTopBar -= 1;
         if (_layerIndexTopBar < 0)
-            _layerIndexTopBar = SPRITE_CATEGORY.size() -1;      
+			_layerIndexTopBar = static_cast<int>(SPRITE_CATEGORY.size() - 1);      
         _tileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);         
     }
     else if (_tileIndexOptions > maxtileIndexOptions)
