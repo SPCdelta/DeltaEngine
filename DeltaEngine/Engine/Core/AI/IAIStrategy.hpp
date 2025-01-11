@@ -13,9 +13,9 @@ struct Node
     Math::Vector2 position;
 	std::string tag;
 
-    Node* parent;
+    std::shared_ptr<Node> parent;
 
-    Node(const Math::Vector2& pos, Node* p = nullptr) 
+    Node(const Math::Vector2& pos, std::shared_ptr<Node> p = nullptr) 
 		: position(pos), 
 		  parent(p) 
 	{

@@ -313,7 +313,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 					tileObj->AddComponent<LevelExitBehaviour>("LevelSelectScene");
 					tileObj->SetTag("level_exit");
 
-					tileObj->AddComponent<AStarWalkable>(false, tileObj->GetComponent<Transform>().position);
+					tileObj->AddComponent<AStarWalkable>(true, tileObj->GetComponent<Transform>().position);
 				}
 			}
 		}
@@ -327,6 +327,7 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 	catch (const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
+		return false;
 	}
 }
 

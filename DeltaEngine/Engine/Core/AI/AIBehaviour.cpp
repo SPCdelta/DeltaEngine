@@ -50,11 +50,9 @@ Transform* AIBehaviour::Update()
 	}
 
 	isWandering = false;
-		 
-	float pathRecalculationCooldown = 1.0f;	 // Seconds
+		 	
 	static float timeSinceLastPathCalculation = 0.0f;
 	timeSinceLastPathCalculation += Time::GetDeltaTime();
-	float targetChangeThreshold = 2.0f; 
 
 	if (start || ((_targetPosition->position - _lastKnownTargetPosition.position).Magnitude() > targetChangeThreshold && 
 		timeSinceLastPathCalculation > pathRecalculationCooldown)) 
@@ -70,7 +68,7 @@ Transform* AIBehaviour::Update()
 	}
 
 	if (path_.empty())
-		return position_;
+		return position_; // No path to follow
 
 	_direction = path_.front() - position_->position;
 	float distance = _direction.Magnitude();

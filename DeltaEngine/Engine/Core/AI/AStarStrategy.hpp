@@ -18,7 +18,7 @@ public:
 	bool IsWalkable(const Math::Vector2& position) override;
 
 private:
-    Node* CreateNode(const Math::Vector2& position, Node* parent = nullptr);
+    std::shared_ptr<Node> CreateNode(const Math::Vector2& position, std::shared_ptr<Node> parent = nullptr);
 	Math::Vector2 FindClosestWalkableNode(const Math::Vector2& position);
 
 	bool IsWithinBounds(const Math::Vector2& position) const;

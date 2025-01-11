@@ -49,4 +49,7 @@ private:
 	float wanderCooldown {1.0f};
 	float timeSinceLastWander {0.0f};
 	Math::Vector2 wanderDirection;
+
+	float pathRecalculationCooldown = 0.5f;	 // Seconds
+	float targetChangeThreshold = 1.0f;
 };
