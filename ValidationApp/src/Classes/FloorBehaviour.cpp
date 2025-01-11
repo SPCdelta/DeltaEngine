@@ -36,7 +36,7 @@ FloorBehaviour::FloorBehaviour(Rigidbody& rigidbody)
 
 FloorBehaviour::~FloorBehaviour()
 {
-	// TODO: Unregister Events
+	
 }
 
 FloorType FloorBehaviour::GetOnFloor() const
