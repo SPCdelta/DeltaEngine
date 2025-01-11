@@ -74,8 +74,7 @@ void LevelEditor::InitLevelEditor()
 
     FileManager fileManager;
     Json::json loadTiles = fileManager.Load(LEVEL_PATH + _saveFileName, "json");
-          
-    //TODO dit moet eigenlijk een BrushSprite child worden voor elk soort tile type dat anderes gedraagd. hier door kan je het makkelijk opslaan en inladen
+
     if (loadTiles.contains(SPRITE_CATEGORY[2]))
     {
         auto& player = loadTiles[SPRITE_CATEGORY[2]];

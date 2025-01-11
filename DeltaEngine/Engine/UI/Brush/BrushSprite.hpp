@@ -16,14 +16,14 @@ public:
 	{
 		std::string _category = "";
 		_name = spriteName;
-		_inputHandler.Add(InputManager::onMouseButtonDown(MouseButton::Left,
+		_inputHandler.Add(InputManager::onMouseButtonDown
+		(
+			MouseButton::Left,
 			[this, &transform, brush](Input& e)
 			{
 				if (!Math::MathUtils::IsVector2WithinRect({ e.mouseX, e.mouseY }, transform.position, transform.scale))
 					return;
-
 				brush->SetSprite(_name);
-
 			}, _category
 		));
 	};

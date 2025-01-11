@@ -65,7 +65,7 @@ int DamageBehaviour::TakeDamage()
 		{
 			auto& projectile = _currentCollider->transform.gameObject->GetComponent<Projectile>();
 			damage = projectile.GetProjectileData().damage;
-			// TODO despawn arrow??
+			// TODO despawn arrow on hit??
         } 
 		else if (_currentCollider->transform.gameObject->GetTag() == "goblin" || _currentCollider->transform.gameObject->GetTag() == "slime" || 
 			_currentCollider->transform.gameObject->GetTag() == "boss") 

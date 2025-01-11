@@ -241,7 +241,6 @@
     <ClCompile Include="Engine\Systems\RenderSystem.cpp" />
     <ClCompile Include="Engine\Systems\TextRenderSystem.cpp" />
     <ClCompile Include="Engine\Systems\UpdateSystem.cpp" />
-    <ClCompile Include="Engine\UI\Brush\BrushSprite.cpp" />
     <ClCompile Include="Engine\UI\Brush\BrushSprite.hpp" />
     <ClCompile Include="Engine\UI\Brush\SnapToGridBrush.cpp" />
     <ClCompile Include="Engine\UI\Button.cpp" />

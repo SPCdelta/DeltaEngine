@@ -58,7 +58,6 @@
     <ClCompile Include="Engine\Systems\ImageRenderSystem.cpp" />
     <ClCompile Include="Engine\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Engine\UI\Brush\SnapToGridBrush.cpp" />
-    <ClCompile Include="Engine\UI\Brush\BrushSprite.cpp" />
     <ClCompile Include="Engine\UI\Scrollable.cpp" />
     <ClCompile Include="Engine\Core\Files\FileHandlerFactory.cpp" />
     <ClCompile Include="Engine\Core\Files\FileManager.cpp" />
