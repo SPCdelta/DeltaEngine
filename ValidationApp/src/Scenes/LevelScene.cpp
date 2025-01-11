@@ -77,6 +77,8 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 		auto playerBehaviour = playerObject->AddComponent<PlayerBehaviour>();
 		playerObject->SetTag("player");
 
+		playerObject->AddComponent<AStarWalkable>(true, playerObject->GetComponent<Transform>().position);
+
 		// Load Tiles (Floor)
 		{
 			if (!file.contains(FloorTilesName))
@@ -228,6 +230,8 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				{
 					tileObj->SetTag(tile["tag"]);
 				}
+
+				tileObj->AddComponent<AStarWalkable>(true, tileObj->GetComponent<Transform>().position);
 			}
 		}
 
@@ -261,6 +265,8 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 
 					tileObj->AddComponent<LevelExitBehaviour>("LevelSelectScene");
 					tileObj->SetTag("level_exit");
+
+					tileObj->AddComponent<AStarWalkable>(false, tileObj->GetComponent<Transform>().position);
 				}
 			}
 		}

@@ -6,7 +6,7 @@
 class Skeleton : public Enemy
 {
 public:
-	Skeleton(Math::Vector2* position, Transform& transform, float speed = 2.5f, int health = 20, int damage = 0, int range = 50, int step = 5);
+	Skeleton(Math::Vector2* position, Transform& transform, float speed = 1.5f, int health = 20, int damage = 0, int range = 10, int step = 5);
     ~Skeleton();
 
 	void Update(Transform& player_position, Audio::SFXSource* _sfx) override;
@@ -17,7 +17,7 @@ public:
 private:
 	Transform& transform;
 
-	float _attackRange {20.0f};
+	float _attackRange {8.0f};
 	float _attackCooldown {2.0f};
 	float _lastAttackTime {0.0f};
 };

@@ -19,6 +19,9 @@ public:
 
 private:
     Node* CreateNode(const Math::Vector2& position, Node* parent = nullptr);
+	Math::Vector2 FindClosestWalkableNode(const Math::Vector2& position);
+
+	bool IsWithinBounds(const Math::Vector2& position);
 
     using Grid = std::vector<std::vector<AStarWalkable>>;
 	Grid grid;	
