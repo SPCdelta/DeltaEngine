@@ -112,6 +112,16 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 				if (tile.contains("tag"))
 				{
 					tileObj->SetTag(tile["tag"]);
+					if (tile["tag"] == "Ice")
+					{
+						tileObj->SetTag("ice");
+						tileObj->AddComponent<BoxCollider>()->SetTrigger(true);
+					}
+					else if (tile["tag"] == "Mud")
+					{
+						tileObj->SetTag("mud");
+						tileObj->AddComponent<BoxCollider>()->SetTrigger(true);
+					}
 				}
 
 				tileObj->AddComponent<AStarWalkable>(true, tileObj->GetComponent<Transform>().position);
@@ -189,12 +199,11 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 					sprite->SetLayer(layer);
 					tileObj->AddComponent<EntitySpawner>
 					(
-						tileObj, 
-						EntitySpawnerData
+						tileObj, EntitySpawnerData
 						{
 							// Spawn interval
-							8.0f,
-							10.0f,
+							60.0f,
+							70.0f,
 
 							// Spawn amount | OnStart
 							2, 3, true,
