@@ -199,14 +199,16 @@ void AStarStrategy::InitializeGrid(Transform* start)
 	{
 		int normalizedX = static_cast<int>(tile->position.GetX()) - minX;
 		int normalizedY = gridYSize - 1 - (static_cast<int>(tile->position.GetY()) - minY);
-		tempGrid[normalizedY][normalizedX] = {true, tile->position};
+		if (normalizedX >= 0 && normalizedY >= 0 && normalizedX < gridXSize && normalizedY < gridYSize)
+			tempGrid[normalizedY][normalizedX] = {true, tile->position};
 	}
 
 	for (auto& tile : wallTiles)
 	{
 		int normalizedX = static_cast<int>(tile->position.GetX()) - minX;
 		int normalizedY = gridYSize - 1 - (static_cast<int>(tile->position.GetY()) - minY);
-		tempGrid[normalizedY][normalizedX] = {false, tile->position};
+		if (normalizedX >= 0 && normalizedY >= 0 && normalizedX < gridXSize && normalizedY < gridYSize)
+			tempGrid[normalizedY][normalizedX] = {false, tile->position};
 	}
 
 	grid = tempGrid;
