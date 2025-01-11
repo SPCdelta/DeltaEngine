@@ -17,10 +17,7 @@ class InputListener;
 class InputManager
 {
 public:
-	static InputManager& GetInstance()
-	{
-		return instance_;
-	}
+	static InputManager& GetInstance();
 
 	InputManager(const InputManager&) = delete;
 	InputManager(InputManager&&) = delete;

@@ -44,10 +44,7 @@ int Math::Random::NextInt(int min, int max)
 double Random::NextDouble(int min, int max) const
 {
 	if (min > max)
-	{
 		throw std::invalid_argument("Min should not be greater than max.");
-	}
-
 	std::uniform_real_distribution<double> dist(min, max);
 	return dist(rnd);
 }

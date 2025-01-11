@@ -1,8 +1,8 @@
 #include "MenuView.hpp"
 
 
-MenuView::MenuView(Scene& scene, const std::string& title, Uint8 numOfButtons, const std::string& pathToFont, const Math::Vector2& startPos, const Math::Vector2& scale, 
-	int margin, int fontSize) 
+MenuView::MenuView(Scene& scene, const std::string& title, Uint8 numOfButtons, const std::string& pathToFont, const Math::Vector2& startPos, 
+	const Math::Vector2& scale, int margin, int fontSize) 
 	: IView{ scene, pathToFont, startPos, scale }, 
 	  _buttons{}
 {
@@ -159,7 +159,6 @@ void MenuView::SetButtonOnLeftMouseClickLoadScene(int id, Scene* scene, const st
 	{
 		if (!sceneData.empty())
 			scene->StoreUserData({{"fileName" , sceneData }});
-
 		scene->LoadScene(sceneName);
 	}, category);
 }
@@ -204,7 +203,6 @@ void MenuView::SetButtonTexture(int id, const std::string& textureName)
 		_buttons[id]->GetComponent<Ui::Image>().SetSprite(textureName);
 	}
 }
-
 
 std::shared_ptr<GameObject>& MenuView::GetButton(Uint8 id)
 {

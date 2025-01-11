@@ -15,7 +15,7 @@
 class Renderable
 {
 public:
-	Renderable(){};
+	Renderable();
 
 	Renderable(const Renderable& other);
 	Renderable& operator=(const Renderable& other);

@@ -11,7 +11,7 @@
 class AIBehaviour
 {
 public:
-	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed);
+	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed = 1.0f);
 	~AIBehaviour();
 
 	Transform* Update();

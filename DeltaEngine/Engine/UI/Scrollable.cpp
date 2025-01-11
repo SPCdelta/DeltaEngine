@@ -9,8 +9,7 @@ Ui::Scrollable::Scrollable(Transform* transform, std::function<void(int)> func)
 
 		int wheelDirection = 1;
 		if (e.wheelVertically < 0)
-			wheelDirection = -1;
-			
+			wheelDirection = -1;		
 		func(wheelDirection);
 	}));
 }

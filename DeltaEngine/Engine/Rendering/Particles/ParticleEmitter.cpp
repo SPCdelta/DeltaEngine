@@ -10,14 +10,11 @@ ParticleEmitter::ParticleEmitter(GameObject* gameObject, ParticleEmitterConfigur
 void ParticleEmitter::Start()
 {
 	if (_started)
-	{
 		Stop();
-	}
 
 	for (size_t i = 0; i < _configuration.initialSpawnAmount; i++)
-	{
 		CreateParticle();
-	}
+
 	_started = true;
 }
 
@@ -28,9 +25,7 @@ void ParticleEmitter::Stop()
 	_spawnParticleIn = 0.0f;
 
 	for (size_t i = _particles.size(); i-- > 0;)
-	{
 		Destroy(i);
-	}
 	_particles.clear();
 }
 

@@ -96,9 +96,7 @@ Vector2 Vector2::MoveTowards(const Vector2& current, const Vector2& target, floa
 
 	float distance = direction.Magnitude();
 	if (distance <= maxDistanceDelta)
-	{
 		return target;
-	}
 
 	direction = direction.GetNormalized() * maxDistanceDelta;
 	return current + direction;
@@ -122,9 +120,7 @@ Vector2 Vector2::GetNormalized() const
 {
 	float len = Magnitude();
 	if (len != 0)
-	{
 		return Vector2(_x / len, _y / len);
-	}
 	return *this;
 }
 

@@ -71,3 +71,8 @@ void InputTest::OnStart()
 		std::cout << mouse.mouseX << " - " << mouse.wheelVertically << " : \n";
 	});
 }
+
+void InputTest::OnUpdate()
+{
+
+}

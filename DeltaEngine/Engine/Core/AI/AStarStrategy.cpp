@@ -7,9 +7,7 @@ std::vector<Math::Vector2> AStarStrategy::CalculatePath(Transform* start, Math::
 	InitializeGrid(start);  // Ensure grid is initialized
 
 	if (!IsWalkable(end))
-	{
 		end = FindClosestWalkableNode(end);
-	}
 		
 	std::unordered_map<Node*, double> g_costs;
 	std::unordered_map<Node*, Node*> predecessors;
@@ -75,9 +73,7 @@ std::vector<Math::Vector2> AStarStrategy::CalculatePath(Transform* start, Math::
 		return {};
 
 	for (Node* at = endNode; at; at = predecessors[at])
-	{
 		path.push_back(at->position);
-	}
 
 	std::reverse(path.begin(), path.end());
 	return path;

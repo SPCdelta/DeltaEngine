@@ -55,10 +55,9 @@ void Scene::Update()
 	_physicsSystem->Box2DToTransform();
 
 	_reg._registry.view<Transform, Velocity>().each([&](auto entity, Transform& transform, Velocity& velocity) 
-		{
-			transform.position += velocity.velocity * Time::GetDeltaTime();
-		}
-	);
+	{
+		transform.position += velocity.velocity * Time::GetDeltaTime();
+	});
 
 	_lifetimeSystem->Update();
 

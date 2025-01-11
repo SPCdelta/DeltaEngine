@@ -30,7 +30,8 @@ void Physics::PhysicsWorld::Update()
 	for (int i = 0; i < contactEvents.beginCount; ++i)
 	{
 		EnginePhysics::CollisionTouchStartEvent* touch = contactEvents.beginEvents + i;
-		_currentCollisions.push_back(
+		_currentCollisions.push_back
+		(
 			{
 				EnginePhysics::ToPhysicsId(touch->shapeIdA),
 				EnginePhysics::ToPhysicsId(touch->shapeIdB),
@@ -43,7 +44,8 @@ void Physics::PhysicsWorld::Update()
 	for (int i = 0; i < contactEvents.endCount; ++i)
 	{
 		EnginePhysics::CollisionTouchEndEvent* touch = contactEvents.endEvents + i;
-		_currentTriggers.push_back(
+		_currentTriggers.push_back
+		(
 			{ 
 				EnginePhysics::ToPhysicsId(touch->shapeIdA),
 				EnginePhysics::ToPhysicsId(touch->shapeIdB),
@@ -57,7 +59,8 @@ void Physics::PhysicsWorld::Update()
 	for (int i = 0; i < triggerEvents.beginCount; ++i)
 	{
 		EnginePhysics::TriggerTouchStartEvent* touch = triggerEvents.beginEvents + i;
-		_currentTriggers.push_back(
+		_currentTriggers.push_back
+		(
 			{
 				EnginePhysics::ToPhysicsId(touch->visitorShapeId),
 				EnginePhysics::ToPhysicsId(touch->sensorShapeId),
@@ -70,7 +73,8 @@ void Physics::PhysicsWorld::Update()
 	for (int i = 0; i < triggerEvents.endCount; ++i)
 	{
 		EnginePhysics::TriggerTouchEndEvent* touch = triggerEvents.endEvents + i;
-		_currentTriggers.push_back(
+		_currentTriggers.push_back
+		(
 			{ 
 				EnginePhysics::ToPhysicsId(touch->visitorShapeId), 
 				EnginePhysics::ToPhysicsId(touch->sensorShapeId),

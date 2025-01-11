@@ -31,18 +31,14 @@ void Time::SetDeltaTime(float deltaTime)
 void Time::SetMultiplier(float value)
 {
 	if (value > 1 || value <= 0)
-	{
 		throw std::exception{ "Multiplier value cannot be greater than 1." };
-	}
 	instance.multiplier = value;
 }
 
 void Time::SetIncrement(float value)
 {
 	if (value <= 0)
-	{
 		throw std::exception{"Increment value cannot be equal or lower than 0."};
-	}
 	instance.increment = value;
 }
 

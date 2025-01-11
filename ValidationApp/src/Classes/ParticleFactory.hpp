@@ -5,8 +5,5 @@
 class ParticleFactory
 {
 public:
-	static ParticleEmitterConfiguration Create(const std::string& name)
-	{
-		
-	}
+	static ParticleEmitterConfiguration Create(const std::string& name);
 };

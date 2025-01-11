@@ -43,13 +43,9 @@ ParticleScene::ParticleScene(const std::string& name)
 	[particleEmitter](Input& e)
 	{ 
 		if (particleEmitter->IsPlaying())
-		{
 			particleEmitter->Start();
-		}
 		else
-		{
 			particleEmitter->Stop();
-		}
 	});
 
 	particleEmitter->Start();

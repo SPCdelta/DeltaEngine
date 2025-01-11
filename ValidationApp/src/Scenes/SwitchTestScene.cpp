@@ -8,9 +8,7 @@ void SceneSwitchBehaviour::OnStart()
 void SceneSwitchBehaviour::OnUpdate()
 {
 	if (_timer >= _switchAfter)
-	{
 		LoadScene(_switchTo);
-	}
 	_timer++;
 }
 

@@ -2,7 +2,8 @@
 
 #include <algorithm>
 
-HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& slotScale, Player* player) 
+HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& slotScale, 
+	Player* player) 
 	: IView(scene, fontName, startPos, slotScale), 
 	  _player{player}
 {

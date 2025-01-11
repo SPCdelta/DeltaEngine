@@ -297,11 +297,7 @@ std::string LevelScene::GetEnemyName(const std::string& spawnerName)
 	std::string delimiter = "_";
 	std::size_t pos = spawnerName.find(delimiter);
 	if (pos != std::string::npos)
-	{
 		return spawnerName.substr(pos + 1);
-	}
 	else
-	{
 		return "";
-	}
 }

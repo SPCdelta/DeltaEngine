@@ -42,11 +42,7 @@ public:
 
 	void LoadScene(const std::string& sceneName);
 
-	static void Quit()
-	{
-		_isRunning = false;
-	}
-
+	static void Quit();
 	void Stop();
 
 	void SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos);

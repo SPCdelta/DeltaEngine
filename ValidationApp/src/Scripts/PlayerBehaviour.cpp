@@ -108,17 +108,13 @@ void PlayerBehaviour::OnUpdate()
 
 			case FloorType::ICE:
 				if (rigidbody->GetSpeed() < _moveSpeed)
-				{
 					rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
-				}
 
 				currentVelocity = rigidbody->GetVelocity();
 				rigidbody->AddForce(-currentVelocity * 1.0f,
 									ForceMode::ACCELERATE);
 				if (rigidbody->GetSpeed() <= 0.0f)
-				{
 					rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
-				}
 
 				break;
 
@@ -302,7 +298,8 @@ void PlayerBehaviour::LoadPlayer()
 				auto& itemData = loadedPlayer["player"]["inventory"][i];
 				if (itemData.contains("type"))
 				{
-					auto potion = PotionFactory::CreatePotion(
+					auto potion = PotionFactory::CreatePotion
+					(
 						itemData["type"],
 						itemData["time"],
 						itemData["sprite"],

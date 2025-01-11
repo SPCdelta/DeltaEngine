@@ -10,21 +10,15 @@ Application::Application(int unitPixelSize)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
-	{
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
-	}
 
 	// Init SDL2 image 
 	if (!(Rendering::InitializeImage(Rendering::INIT_PNG) & Rendering::INIT_PNG))
-	{
 		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
-	}
 
 	// Init SDL2_ttf
 	if (TTF_Init() < 0)
-	{
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
-	}
 
 	_window.SetUnitPixelSize(unitPixelSize);
 }
@@ -38,11 +32,10 @@ Application::~Application()
 
 void Application::Run()
 {
-	#ifndef _DEBUG
-		try
-		{
-	#endif	// _DEBUG
-	
+#ifndef _DEBUG
+	try
+	{
+#endif	// _DEBUG
 		InitDebug();
 		InitGameSpeed();
 		Uint32 previousTime = Rendering::GetTicks();
@@ -76,13 +69,13 @@ void Application::Run()
 			// Framerate
 			Rendering::Delay(1000 / 60);
 		}
-	#ifndef _DEBUG
-		}
-		catch (const std::exception& e)
-		{
-			std::cerr << e.what();
-		}
-	#endif	// _DEBUG
+#ifndef _DEBUG
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what();
+	}
+#endif	// _DEBUG
 }
 
 void Application::LoadScene(const std::string& sceneName)
@@ -129,7 +122,6 @@ void Application::Debug()
 void Application::InitGameSpeed()
 {
 	_gameSpeed = std::make_unique<Ui::Text>(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x", "goblin", 48, _gameSpeedTextColor);
-	
 	Time::SetIncrement(0.25f);
 
 	_inputListeners.Add(InputManager::onKeyPressed(KEY_PAGEUP, [this](Input& e)
@@ -160,6 +152,11 @@ void Application::Stop()
 	Rendering::Quit();
 	Rendering::QuitImage();
 	Mix_Quit();
+}
+
+void Application::Quit()
+{
+	_isRunning = false;
 }
 
 void Application::SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos)

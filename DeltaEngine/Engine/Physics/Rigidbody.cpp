@@ -7,6 +7,11 @@ Physics::Rigidbody::Rigidbody(Collider& collider)
 	EnginePhysics::EnableSleep(collider._bodyId, false);
 }
 
+Physics::Rigidbody::~Rigidbody()
+{
+	EnginePhysics::DestroyRigidbody();
+}
+
 const EnginePhysics::PhysicsShape& Physics::Rigidbody::GetShape() const
 {
 	return _collider._shape;

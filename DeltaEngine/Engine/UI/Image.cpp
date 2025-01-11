@@ -14,15 +14,11 @@ void Image::Render(Rendering::Renderer* renderer, const ViewportData& viewportDa
 	if (!_spriteData)
 	{
 		if (_spriteName.empty())
-		{
 			throw std::exception("Sprite not set on Sprite Component");
-		}
 
 		_spriteData = ResourceManager::Get(_spriteName);
 		if (!_spriteData)
-		{
 			throw std::exception("Sprite not found");
-		}
 	}
 
 	Rendering::Rect srcRect;

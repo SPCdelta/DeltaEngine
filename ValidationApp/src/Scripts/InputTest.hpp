@@ -8,5 +8,5 @@ class InputTest : public BehaviourScript
 {
 public:
 	void OnStart() override;
-	void OnUpdate() override{};
+	void OnUpdate() override;
 };

@@ -27,9 +27,7 @@ bool InputEventDispatchers::DeactivateCategories(std::set<std::string> categorie
 {
 	int countDeactivated = 0;
 	for (auto& category : categories)
-	{
 		countDeactivated += static_cast<int>(activeCategories.erase(category));
-	}
 	return countDeactivated == categories.size();
 }
 
@@ -95,13 +93,10 @@ void InputEventDispatchers::ExecuteInputsPressed(Input allInputs, std::vector<st
 		for (int j = 0; j < n; ++j)
 		{
 			if (i & (1 << j))
-			{
 				combinedInput += strInputs[j];
-			}
 		}
 
-		if (Find(Pressed, combinedInput) &&
-			processedInputs.find(combinedInput) == processedInputs.end())
+		if (Find(Pressed, combinedInput) && processedInputs.find(combinedInput) == processedInputs.end())
 		{
 			results.push_back(combinedInput);
 			processedInputs.insert(combinedInput);
@@ -109,9 +104,7 @@ void InputEventDispatchers::ExecuteInputsPressed(Input allInputs, std::vector<st
 	}
 
 	for (const auto& input : results)
-	{
 		DispatchActive(Pressed, input, allInputs);
-	}
 }
 
 void InputEventDispatchers::Remove(InputListener* input) 

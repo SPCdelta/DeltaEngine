@@ -31,7 +31,7 @@ struct TransformDTO
 				static_cast<float>(tile["transform"]["position"]["x"]),
 				static_cast<float>(tile["transform"]["position"]["y"])
 			},
-				static_cast<float>(tile["transform"]["rotation"]),
+			static_cast<float>(tile["transform"]["rotation"]),
 			{
 				static_cast<float>(tile["transform"]["scale"]["x"]),
 				static_cast<float>(tile["transform"]["scale"]["y"])

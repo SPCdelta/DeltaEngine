@@ -12,9 +12,7 @@ Text::Text(const std::string& text, const std::string& fontName, int fontSize, c
 	  _backgroundColor{0,0,0,0}
 {
 	if (_font == nullptr)
-	{
 		std::cerr << "Error loading font: " << Font::GetError() << std::endl;
-	}
 }
 
 Text::Text(const Text& other)

@@ -20,7 +20,6 @@ void Boomerang::Use()
 	Math::Vector2 throwDirection = _user->transform->position.DirectionTo(_user->transform->gameObject->GetCamera()->ScreenToWorldPoint(_mouseX, _mouseY));
 
 	_boomerang->Throw(_user->transform->gameObject, 15.0f, _user->transform->gameObject->transform->position, throwDirection);
-
 	_boomerang->onFinish.Register([this, boomerangObj](Events::Event e)
 	{
 		_user->transform->gameObject->Destroy();

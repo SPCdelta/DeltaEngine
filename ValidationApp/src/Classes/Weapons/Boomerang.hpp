@@ -12,6 +12,7 @@ public:
 
 	void Use() override;
 	WeaponType GetWeaponType() const override;
+
 private:
 	BoomerangBehaviour* _boomerang;
 };

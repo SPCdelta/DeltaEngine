@@ -13,7 +13,8 @@ SnapToGridBrush::SnapToGridBrush(Transform& transform, Sprite* sprite, Camera* c
 	_sprite->SetLayer(Layer::EngineLayer);
 	int pxUnit = _camera->GetunitPixelSize();
 		
-	_inputListeners.Add(InputManager::onMouseMove(
+	_inputListeners.Add(InputManager::onMouseMove
+	(
 		[this, pxUnit](Input& e)
 		{
 			if (!_isActive)
@@ -26,7 +27,9 @@ SnapToGridBrush::SnapToGridBrush(Transform& transform, Sprite* sprite, Camera* c
 		}, _category
 	));
 
-	_inputListeners.Add(InputManager::onMouseButtonDown(MouseButton::Left,
+	_inputListeners.Add(InputManager::onMouseButtonDown
+	(
+		MouseButton::Left,
 		[this](Input& e)
 		{
 			if (!_isActive || !Math::MathUtils::IsPointWithinRect({ e.mouseX, e.mouseY }, _screenViewPort.position, _screenViewPort.scale))

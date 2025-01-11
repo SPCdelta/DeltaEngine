@@ -15,9 +15,7 @@ void Inventory::AddItem(Item* item, Uint8 amount)
 	}
 
 	if (!IncreaseAmount(*item, amount))
-	{
 		Insert(item, amount);
-	}
 }
 
 Item* Inventory::RemoveItem(const Item& item, Uint8 amount)

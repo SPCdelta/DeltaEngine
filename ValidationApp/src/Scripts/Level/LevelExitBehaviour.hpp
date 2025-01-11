@@ -12,7 +12,7 @@ public:
 	void SetExit(const std::string& exitName);
 	const std::string& GetExit() const;
 
-	virtual void Use()  // TODO?
+	virtual void Use()
 	{ 
 		BoxCollider* collider = transform->gameObject->AddComponent<BoxCollider>();
 		collider->SetTrigger(true);

@@ -1,6 +1,6 @@
 #include "AIBehaviour.hpp"
 
-AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed = 1.0f) 
+AIBehaviour::AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed) 
 	: strategy_(strategy), 
 	  position_(pos), 
 	  _targetPosition(targetPos), 

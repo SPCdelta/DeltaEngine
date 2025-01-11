@@ -19,6 +19,7 @@ std::vector<std::string> FileManager::filesInDirectory(const std::string& direct
 		if (!fs::create_directory(directoryPath)) 
 			std::cerr << "error with making: " + directoryPath + "\n";
 	}
+
 	std::vector<std::string> result;
 	try 
 	{
@@ -27,7 +28,8 @@ std::vector<std::string> FileManager::filesInDirectory(const std::string& direct
 			if (fs::is_regular_file(entry.status())) 
 				result.push_back(entry.path().filename().string());
 		}
-	} catch (const fs::filesystem_error& e) 
+	} 
+	catch (const fs::filesystem_error& e) 
 	{ 
 		std::cerr << "Error: " << e.what() << std::endl;
 	}

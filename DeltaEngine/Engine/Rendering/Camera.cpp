@@ -52,7 +52,8 @@ Math::Vector2 Camera::ScreenToWorldPoint(float screenX, float screenY)
 	return 
 	{
 		(screenX - (static_cast<float>(_viewportData->width) / 2.0f)) / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetX(),
-		static_cast<float>(static_cast<float>(_viewportData->height / 2.0f) - (screenY)) / static_cast<float>(_viewportData->unitPixelSize) + transform.position.GetY()
+		static_cast<float>(static_cast<float>(_viewportData->height / 2.0f) - (screenY)) / static_cast<float>(_viewportData->unitPixelSize) + 
+			transform.position.GetY()
 	};
 }
 

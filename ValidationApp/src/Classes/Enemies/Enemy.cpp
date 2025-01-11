@@ -60,3 +60,31 @@ bool Enemy::IsDead() const
 {
 	return _dead;
 }
+
+std::string Enemy::TypeToString(EnemyType type)
+{
+	switch (type)
+	{
+		case EnemyType::Goblin:
+			return "goblin";
+		case EnemyType::Skeleton:
+			return "skeleton";
+		case EnemyType::Slime:
+			return "slime";
+		case EnemyType::Boss:
+		default:
+			return "boss";
+	}
+}
+
+EnemyType Enemy::StringToType(std::string type)
+{
+	if (type == "goblin")
+		return EnemyType::Goblin;
+	else if (type == "skeleton")
+		return EnemyType::Skeleton;
+	else if (type == "slime")
+		return EnemyType::Slime;
+	else
+		return EnemyType::Boss;
+}

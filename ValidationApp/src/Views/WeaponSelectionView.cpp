@@ -2,7 +2,8 @@
 
 #include "../Scripts/PlayerBehaviour.hpp"
 
-WeaponSelectionView::WeaponSelectionView(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale, const std::string& sceneName) 
+WeaponSelectionView::WeaponSelectionView(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale, 
+	const std::string& sceneName) 
 	: IView(scene, fontName, startPos, scale), 
 	  _sceneName{sceneName}
 {

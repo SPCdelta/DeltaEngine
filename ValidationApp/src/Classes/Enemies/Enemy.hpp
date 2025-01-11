@@ -32,41 +32,8 @@ public:
 	int GetStep() const;
 	float GetSpeed() const;
 
-	static std::string TypeToString(EnemyType type)
-	{
-		switch (type)
-		{
-			case EnemyType::Goblin:
-				return "goblin";
-			case EnemyType::Skeleton:
-				return "skeleton";
-			case EnemyType::Slime:
-				return "slime";
-			case EnemyType::Boss:
-			default:
-				return "boss";
-		}
-	}
-
-	static EnemyType StringToType(std::string type)
-	{
-		if (type == "goblin") 
-		{
-			return EnemyType::Goblin;
-		}
-		else if (type == "skeleton")
-		{
-			return EnemyType::Skeleton;
-		}
-		else if (type == "slime")
-		{
-			return EnemyType::Slime;
-		}
-		else 
-		{
-			return EnemyType::Boss;
-		}
-	}
+	static std::string TypeToString(EnemyType type);
+	static EnemyType StringToType(std::string type);
 
 	bool IsDead() const;
 

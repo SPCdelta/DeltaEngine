@@ -1,5 +1,10 @@
 #include "Renderable.hpp"
 
+Renderable::Renderable()
+{
+
+}
+
 Renderable::Renderable(const Renderable& other) 
 	: color(other.color),
 	  flipX(other.flipX),

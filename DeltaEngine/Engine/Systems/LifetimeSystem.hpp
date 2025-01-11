@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Ecs/Include.hpp"
+#include "../Core/Time.hpp"
 
 struct Lifetime
 {
@@ -10,23 +11,7 @@ struct Lifetime
 class LifetimeSystem : ecs::System<Lifetime>
 {
 public:
-	LifetimeSystem(ecs::Registry& reg) 
-		: ecs::System<Lifetime>(reg)
-	{
+	LifetimeSystem(ecs::Registry& reg);
 
-	}
-
-	void Update() 
-	{ 
-		RefreshView();
-		for (ecs::EntityId entityId : _view)
-		{
-			auto& life = _view.get<Lifetime>(entityId);
-			life.remaining -= Time::GetDeltaTime();
-			if (life.remaining <= 0)
-			{
-				_reg._registry.destroy(entityId);
-			}
-		}
-	}
+	void Update();
 };

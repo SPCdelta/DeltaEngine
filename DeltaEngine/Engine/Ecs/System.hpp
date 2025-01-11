@@ -1,12 +1,9 @@
 #pragma once
 
-//#include "Types.hpp"
 #include "Registry.hpp"
 
 namespace ecs
 {
-	//class Registry;
-
 	template<typename... Components>
 	class System
 	{

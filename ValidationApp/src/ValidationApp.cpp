@@ -110,7 +110,6 @@ void ValidationApp::LoadAssets()
 	{
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
-
 			{"tomb_0_old",			{scale * 0, scale * 0}, {scale * (0 + 1), scale * (0 + 1)}},
 			{"tomb_0_new",			{scale * 1, scale * 0}, {scale * (1 + 1), scale * (0 + 1)}},
 			{"tomb_1_old",			{scale * 2, scale * 0}, {scale * (2 + 1), scale * (0 + 1)}},

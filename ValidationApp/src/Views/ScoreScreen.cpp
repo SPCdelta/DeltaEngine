@@ -39,6 +39,7 @@ void ScoreScreen::InitBody(int coins)
 	auto& score = *_scene.Instantiate({ _pos, 0.0f, _scale });
 	auto& text = *score.AddComponent<Ui::Text>(std::string{ "Your score was: " + std::to_string(coins) }, 
 		_fontName, static_cast<int>(_scale.Magnitude() * BODY_TEXT_SCALE), BODY_TEXT_COLOR);
+
 	auto xPos = _scale.GetX() / 2 - Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2;
 	auto yPos = _scale.GetY() / 2;
 	text.SetPosition({xPos, yPos});
@@ -71,8 +72,8 @@ void ScoreScreen::InitQuitBtn()
 void ScoreScreen::InitHomeBtn()
 {
 	auto xPos = _pos.GetX() + (_scale.GetX() * HOME_BTN_MARGINX_SCALE);
-
 	auto yPos = _pos.GetY() + _scale.GetY() - _scale.Magnitude() * BTN_MARGINY_SCALE;
+
 	auto& home = *_scene.Instantiate({ {xPos, yPos}, 0.0f, {0, 0} });
 	auto& homeText = *home.AddComponent<Ui::Text>("Return to menu", _fontName, static_cast<int>(_scale.Magnitude() * BUTTON_TEXT_SCALE), BODY_TEXT_COLOR);
 	home.transform->scale = Font::GetFontSize(homeText.GetFont(), homeText.GetText());

@@ -11,7 +11,6 @@ InputHandler::~InputHandler()
     {
         if (il->GetType() == -572662307)
 			continue;
-        
         delete il;
     }
     _inputListeners.clear();

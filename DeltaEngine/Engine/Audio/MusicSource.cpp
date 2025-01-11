@@ -16,14 +16,14 @@ MusicSource::MusicSource(const std::string& audioName, bool playOnAwake, int loo
 
 MusicSource::MusicSource() 
 	: AudioSource(false, "", 0), 
-	_clip(AudioLoader::LoadMusic("")) 
+	  _clip(AudioLoader::LoadMusic("")) 
 {
 
 }
 
 MusicSource::MusicSource(const MusicSource& other)
 	: AudioSource(other), 
-	_clip(AudioLoader::LoadMusic(other._audioName))
+	  _clip(AudioLoader::LoadMusic(other._audioName))
 {
 
 }
@@ -40,7 +40,7 @@ MusicSource& MusicSource::operator=(const MusicSource& other)
 
 MusicSource::MusicSource(MusicSource&& other) noexcept
 	: AudioSource(other), 
-	_clip(std::move(other._clip))
+	  _clip(std::move(other._clip))
 {
 
 }

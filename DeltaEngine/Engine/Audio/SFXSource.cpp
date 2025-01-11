@@ -17,14 +17,12 @@ SFXSource::SFXSource(const std::string& audioName, bool playOnAwake, int loops =
 	  _clip(std::move(AudioLoader::LoadChunk(ResourceManager::GetAudio(audioName))))
 {
 	if (playOnAwake)
-	{
 		Play();
-	}
 }
 
 SFXSource::SFXSource(const SFXSource& other)
 	: AudioSource(other), 
-	_clip(AudioLoader::LoadChunk(other._audioName))
+	  _clip(AudioLoader::LoadChunk(other._audioName))
 {
 	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
@@ -42,7 +40,7 @@ SFXSource& SFXSource::operator=(const SFXSource& other)
 
 SFXSource::SFXSource(SFXSource&& other) noexcept
 	: AudioSource(other), 
-	_clip(std::move(other._clip))
+	  _clip(std::move(other._clip))
 {
 	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
@@ -58,7 +56,10 @@ SFXSource& SFXSource::operator=(SFXSource&& other) noexcept
 	return *this;
 }
 
-Audio::SFXSource::~SFXSource() {}
+Audio::SFXSource::~SFXSource() 
+{
+
+}
 
 void SFXSource::Play(int channel)
 {

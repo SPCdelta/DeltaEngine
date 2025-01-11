@@ -24,17 +24,13 @@ namespace Events
 			});
 
 			if (it != m_Callbacks.end()) 
-			{
 				m_Callbacks.erase(it);
-			}
 		}
 
 		void Dispatch(T& event)
 		{
 			for (size_t i = 0; i < m_Callbacks.size(); ++i)
-			{
 				m_Callbacks[i](event);
-			}
 		}
 
 	private:

@@ -38,7 +38,7 @@ class SceneHelper;
 
 class Scene
 {
-   public:
+public:
 	Scene(const std::string& name);
 	virtual ~Scene() = default;
 

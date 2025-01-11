@@ -64,7 +64,7 @@ void LevelEditor::InitLevelEditor()
         }
     ); 
     brushComponnet->RemoveOnKey(KEY_E);
-    brushComponnet->SetCanves(_screenPort);
+    brushComponnet->SetCanvas(_screenPort);
 
     if (_saveFileName.empty())
     {
@@ -248,7 +248,8 @@ int LevelEditor::CalculateSpritesInrow(std::unordered_map<std::string, std::vect
     return amount / maxVisibleSprites;
 }
 
- std::vector<std::string> GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites, int direction)
+ std::vector<std::string> LevelEditor::GetVisibleSprites(std::unordered_map<std::string, std::vector<std::string>> categorySprites, int maxVisibleSprites, 
+     int direction)
 {
     std::vector<std::string> result;
     int maxtileIndexOptions = CalculateSpritesInrow(categorySprites, maxVisibleSprites);
@@ -336,7 +337,6 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
             optionTile->GetComponent<BrushSprite>().SetSprite(spriteName);
         }
     };
-
     lambdaChangeSprite(0);
 
     std::shared_ptr<GameObject> TopBar{ Instantiate({{0.0f, 0.0f}, 0.0f, {static_cast<float>(windowWidth), topBarHeight}}) };

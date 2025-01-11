@@ -9,5 +9,6 @@ class GameScene : public Scene
 {
 public:
 	GameScene(const std::string& name);
+
 	void OnStart() override;
 };

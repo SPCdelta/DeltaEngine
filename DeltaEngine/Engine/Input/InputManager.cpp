@@ -4,6 +4,11 @@
 
 InputManager InputManager::instance_;
 
+InputManager& InputManager::GetInstance()
+{
+	return instance_;
+}
+
 InputManager::InputManager() 
 {
 
@@ -12,17 +17,13 @@ InputManager::InputManager()
 void InputManager::deactivateCategory(const std::string& category)
 {
 	for (auto& input : instance_.inputTypes)
-	{
 		input.second.DeactivateCategory(category);
-	}
 }
 
 void InputManager::activateCategory(const std::string& category)
 {
 	for (auto& input : instance_.inputTypes)
-	{
 		input.second.ActivateCategory(category);
-	}
 }
 
 InputListener* InputManager::onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string& category)
@@ -157,7 +158,6 @@ void InputManager::executeInputEvents()
 	for (auto& [type, input] : inputTypes)
 		input.ExecuteInputsPressed(allInputs, strKeys);
 }
-
 
 void InputManager::Remove(InputListener* input)
 {

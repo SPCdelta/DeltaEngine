@@ -17,6 +17,7 @@ public:
 
 	virtual void Update(float deltaTime) 
 	{
+
 	}
 
 	virtual WeaponType GetWeaponType() const
