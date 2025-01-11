@@ -12,7 +12,6 @@ HotbarComponent::HotbarComponent(Scene& scene, Uint8 capacity, const std::string
 	{
 		auto slot = std::shared_ptr<GameObject>{ _scene.Instantiate({pos, 0.0f, slotScale }) };
 		slot->AddComponent<Ui::Image>(HOTBAR_SLOT_SPRITENAME);
-		slot->AddComponent<Ui::Button>()->SetOnLeftMouseClick([i, &player]() -> void { player->SetInventoryIndex(i); }, "Hotbar");
 
 		auto itemIcon = std::shared_ptr<GameObject>{};
 		std::string itemName = "";
