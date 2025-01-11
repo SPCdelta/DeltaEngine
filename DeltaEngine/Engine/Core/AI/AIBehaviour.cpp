@@ -40,12 +40,16 @@ Transform* AIBehaviour::Update()
 			timeSinceLastWander = 0.0f;
 		}
 
-		_direction = wanderDirection;
-		position_->position += _direction * _moveSpeed * Time::GetDeltaTime();
-		return position_;
+		Math::Vector2 targetPos = position_->position + wanderDirection * _moveSpeed * Time::GetDeltaTime();
+		if (IsWalkable(targetPos))
+		{
+			_direction = wanderDirection;
+			position_->position += _direction * _moveSpeed * Time::GetDeltaTime();		
+		}
+		return position_;		
 	}
 
-	 isWandering = false;
+	isWandering = false;
 		 
 	float pathRecalculationCooldown = 1.0f;	 // Seconds
 	static float timeSinceLastPathCalculation = 0.0f;
@@ -122,12 +126,17 @@ void AIBehaviour::SetTargetPosition(Transform* position)
 	_targetPosition = position;
 }
 
-float AIBehaviour::GetSpeed()
+float AIBehaviour::GetSpeed() const
 {
 	return _moveSpeed;
 }
 
-Math::Vector2 AIBehaviour::GetDirection()
+Math::Vector2 AIBehaviour::GetDirection() const
 {
 	return _direction;
+}
+
+bool AIBehaviour::IsWalkable(const Math::Vector2& position)
+{
+	return strategy_->IsWalkable(position);
 }

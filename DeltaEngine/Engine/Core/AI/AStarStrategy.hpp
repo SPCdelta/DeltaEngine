@@ -21,7 +21,7 @@ private:
     Node* CreateNode(const Math::Vector2& position, Node* parent = nullptr);
 	Math::Vector2 FindClosestWalkableNode(const Math::Vector2& position);
 
-	bool IsWithinBounds(const Math::Vector2& position);
+	bool IsWithinBounds(const Math::Vector2& position) const;
 
     using Grid = std::vector<std::vector<AStarWalkable>>;
 	Grid grid;	
@@ -29,4 +29,11 @@ private:
 
 	std::vector<Transform*> walkableTiles;
 	std::vector<Transform*> wallTiles;
+
+	// N, E, S, W and diagonals
+    const std::vector<Math::Vector2> directions = 
+    {
+        {1, 0}, {-1, 0}, {0, 1}, {0, -1},  
+        {1, 1}, {-1, -1}, {1, -1}, {-1, 1} 
+    };
 };

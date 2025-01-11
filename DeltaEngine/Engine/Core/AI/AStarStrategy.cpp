@@ -35,13 +35,6 @@ std::vector<Math::Vector2> AStarStrategy::CalculatePath(Transform* start, Math::
 
         if (current_node->position == end) 
             break;
-
-        // N, E, S, W and diagonals
-        const std::vector<Math::Vector2> directions = 
-        {
-			{1, 0}, {-1, 0},  {0, 1},  {0, -1},	
-			{1, 1}, {-1, -1}, {1, -1}, {-1, 1}	 
-		};
             
         for (auto& dir : directions) 
         {
@@ -95,13 +88,6 @@ Math::Vector2 AStarStrategy::FindClosestWalkableNode(const Math::Vector2& positi
         if (IsWalkable(current)) 
             return current;  // Found the closest walkable node
 
-        // N, E, S, W and diagonals
-        const std::vector<Math::Vector2> directions = 
-        {
-            {1, 0}, {-1, 0}, {0, 1}, {0, -1},  
-            {1, 1}, {-1, -1}, {1, -1}, {-1, 1} 
-        };
-
         for (auto& dir : directions) 
         {
             Math::Vector2 neighbor = current + dir;
@@ -117,13 +103,12 @@ Math::Vector2 AStarStrategy::FindClosestWalkableNode(const Math::Vector2& positi
     return position;  // Fallback: return the original position if no walkable node is found
 }
 
-bool AStarStrategy::IsWithinBounds(const Math::Vector2& position)
+bool AStarStrategy::IsWithinBounds(const Math::Vector2& position) const
 {
     int normalizedX = static_cast<int>(std::round(position.GetX() - gridMinX));
     int normalizedY = static_cast<int>(std::round(position.GetY() - gridMinY));
     return normalizedX >= 0 && normalizedY >= 0 && normalizedX < gridXSize && normalizedY < gridYSize;
 }
-
 
 Node* AStarStrategy::CreateNode(const Math::Vector2& position, Node* parent)
 {
@@ -194,6 +179,5 @@ void AStarStrategy::InitializeGrid(Transform* start)
 		tempGrid[normalizedY][normalizedX] = {false, tile->position};
 	}
 
-	int bp = 0;
 	grid = tempGrid;
 }

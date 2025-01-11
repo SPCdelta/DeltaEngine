@@ -23,8 +23,10 @@ public:
 	Transform* GetTargetPosition() const;
 	void SetTargetPosition(Transform* position);
 
-	float GetSpeed();
-	Math::Vector2 GetDirection();
+	float GetSpeed() const;
+	Math::Vector2 GetDirection() const;
+
+	bool IsWalkable(const Math::Vector2& position);
 
 private:
 	const float NEXT_NODE_DISTANCE = 0.3f;
