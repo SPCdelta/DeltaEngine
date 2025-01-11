@@ -157,6 +157,33 @@ void ValidationApp::LoadAssets()
 		"enemy_spawners",
 	};
 
+	SpriteMap healthPotion
+	{
+		"Assets\\Textures\\Items\\potions\\cyan.png",
+		{
+			{ "Healing", {0, 0}, {32, 32}},
+		},
+		"potions",
+	};
+
+	SpriteMap shieldPotion
+	{
+		"Assets\\Textures\\Items\\potions\\potion_effervescent.png",
+		{
+			{ "Defense", {0, 0}, {32, 32}},
+		},
+		"potions",
+	};
+
+	SpriteMap speedPotion
+	{
+		"Assets\\Textures\\Items\\potions\\potion_golden.png",
+		{
+			{ "Speed", {0, 0}, {32, 32}},
+		},
+		"potions",
+	};
+
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");
 	ResourceManager::AddSprite("player", "Assets\\Textures\\player.png");
 	ResourceManager::AddSprite("gray_rect", "Assets\\Textures\\Rect.png");

@@ -31,7 +31,7 @@ PickUpBehaviour::PickUpBehaviour(Rigidbody& rigidbody, Sprite& sprite, Player& p
 
 PickUpBehaviour::~PickUpBehaviour()
 {
-	ProcessDestructionQueue();
+	
 }
 
 void PickUpBehaviour::MarkForDestruction(std::shared_ptr<GameObject> obj)

@@ -201,6 +201,7 @@
     <Image Include="Assets\Textures\Tiles\ice.png" />
     <Image Include="Assets\Textures\Tiles\ice_tile.png" />
     <Image Include="Assets\Textures\Tiles\mud_tile.png" />
+    <Image Include="Assets\Textures\Items\potions\potion_golden.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />

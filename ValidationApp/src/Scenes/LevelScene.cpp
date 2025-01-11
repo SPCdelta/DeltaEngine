@@ -244,6 +244,44 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 			}
 		}
 
+		// Load Potions
+		{
+			if (!file.contains(PotionName))
+				return false;
+
+			for (size_t i = 0; i < file[PotionName].size(); i++)
+			{
+				auto& potion = file[PotionName][i];
+
+				// Transform
+				if (!potion.contains("transform"))
+					return false;
+
+				std::shared_ptr<GameObject> potionObj = Instantiate
+				(
+					Transform
+					{
+						{ static_cast<float>(potion["transform"]["position"]["x"]), static_cast<float>(potion["transform"]["position"]["y"]) },
+						static_cast<float>(potion["transform"]["rotation"]),
+						{ static_cast<float>(potion["transform"]["scale"]["x"]), static_cast<float>(potion["transform"]["scale"]["y"]) }
+					}
+				);
+
+				if (potion.contains("sprite"))
+				{
+					Layer layer = static_cast<Layer>(static_cast<int>(potion["sprite"]["layer"]));
+					potionObj->AddComponent<Sprite>(potion["sprite"]["name"])->SetLayer(layer);
+
+					WorldItem potionItem = WorldItem(PotionFactory::CreatePotion(StringUtils::ToLower(std::string{potion["tag"]}), 
+						10.f, potion["sprite"]["name"], potion["sprite"]["name"], 50.f).release(), 1);
+					potionObj->AddComponent<BoxCollider>()->SetTrigger(true);
+					potionObj->AddComponent<WorldItem>(potionItem);
+					potionObj->SetTag("item");
+					potionObj->AddComponent<AStarWalkable>(true, potionObj->GetComponent<Transform>().position);
+				}
+			}
+		}
+
 		// Load Level Exits
 		{
 			if (!file.contains(LevelExitName))
@@ -286,9 +324,9 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 		// Success!
 		return true;
 	}
-	catch (const std::exception&)
+	catch (const std::exception& e)
 	{
-		return false;
+		std::cerr << e.what() << '\n';
 	}
 }
 

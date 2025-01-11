@@ -13,5 +13,5 @@ const std::string ItemTypeUtils::GetBody(const std::string& type)
     size_t colonPos = type.find(':');
     if (colonPos != std::string::npos)
         return type.substr(colonPos + 1);
-    return "";
+	return type;
 }

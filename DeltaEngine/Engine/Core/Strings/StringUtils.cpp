@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <algorithm>
 
 const std::string StringUtils::FloatToString(float value, int precision)
 {
@@ -25,4 +26,11 @@ std::vector<std::string> StringUtils::Split(const std::string& str, char splitVa
 	parts.push_back(str.substr(pos));
 
 	return parts;
+}
+
+const std::string StringUtils::ToLower(const std::string& str)
+{
+	std::string result = str;
+	std::transform(result.begin(), result.end(), result.begin(), [](unsigned char c) { return std::tolower(c); });
+	return result;
 }

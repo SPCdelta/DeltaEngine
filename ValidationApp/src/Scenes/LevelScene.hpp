@@ -21,6 +21,7 @@ public:
 	static constexpr auto PlayerName = "player";
 	static constexpr auto EnemySpawnersName = "enemy_spawners";
 	static constexpr auto LevelExitName = "level_exit";
+	static constexpr auto PotionName = "potions";
 
 	LevelScene(const std::string& name);
 
