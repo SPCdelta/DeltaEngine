@@ -1,9 +1,25 @@
-#include <cmath>
 #include "Vector2.hpp"
+
+#include <cmath>
 
 using namespace Math;
 
-Vector2::Vector2(float x, float y) : _x{x}, _y{y} {}
+const Vector2 Vector2::up(0.0f, 1.0f);
+const Vector2 Vector2::right(1.0f, 0.0f);
+
+Vector2::Vector2(float x, float y) 
+	: _x{x}, 
+	  _y{y} 
+{
+
+}
+
+Vector2::Vector2(int x, int y) 
+	: _x{ static_cast<float>(x) }, 
+	  _y{ static_cast<float>(y) } 
+{
+
+}
 
 float Vector2::GetX() const
 {
@@ -37,6 +53,26 @@ void Vector2::Set(const Vector2& position)
 	_y = position.GetY();
 }
 
+void Vector2::AddX(float x)
+{
+	_x += x;
+}
+
+void Vector2::AddY(float y)
+{
+	_y += y;
+}
+
+Vector2 Vector2::AddX(float x) const
+{
+	return Vector2{ _x + x, _y };
+}
+
+Vector2 Vector2::AddY(float y) const
+{
+	return Vector2{_x, _y + y};
+}
+
 float Vector2::Magnitude() const
 {
 	return std::sqrt(_x * _x + _y * _y);
@@ -49,14 +85,19 @@ float Vector2::DistanceTo(const Vector2& other) const
 	return std::sqrt(dx * dx + dy * dy);
 }
 
+Math::Vector2 Math::Vector2::DirectionTo(const Vector2& other) const
+{
+	return (other - *this).GetNormalized();
+}
+
 Vector2 Vector2::MoveTowards(const Vector2& current, const Vector2& target, float maxDistanceDelta)
 {
 	Vector2 direction = target - current;
+
 	float distance = direction.Magnitude();
 	if (distance <= maxDistanceDelta)
-	{
 		return target;
-	}
+
 	direction = direction.GetNormalized() * maxDistanceDelta;
 	return current + direction;
 }
@@ -79,9 +120,7 @@ Vector2 Vector2::GetNormalized() const
 {
 	float len = Magnitude();
 	if (len != 0)
-	{
 		return Vector2(_x / len, _y / len);
-	}
 	return *this;
 }
 
@@ -95,9 +134,26 @@ Vector2 Vector2::operator-(const Vector2& other) const
 	return Vector2(_x - other._x, _y - other._y);
 }
 
+Vector2 Vector2::operator-(float other) const
+{
+	return Vector2(_x - other, _y - other);
+}
+
+Vector2 Math::Vector2::operator-() const
+{
+	return Vector2(-_x, -_y);
+}
+
 Vector2 Vector2::operator*(float scalar) const
 {
 	return Vector2(_x * scalar, _y * scalar);
+}
+
+Vector2& Vector2::operator+=(const Vector2& other)
+{
+	_x += other._x;
+	_y += other._y;
+	return *this;
 }
 
 bool Vector2::operator==(const Vector2& other) const
@@ -108,4 +164,9 @@ bool Vector2::operator==(const Vector2& other) const
 bool Vector2::operator!=(const Vector2& other) const
 {
 	return !(*this == other);
+}
+
+bool Vector2::IsNonZero() const
+{
+	return _x != 0 && _y != 0;
 }

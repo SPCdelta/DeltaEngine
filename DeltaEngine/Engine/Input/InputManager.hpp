@@ -6,60 +6,59 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
+
 #include "../Core/Events/EventDispatcher.hpp"
+#include "../Core/Math/Point.hpp"
 #include "InputEventDispatchers.hpp"
 #include "DeltaInputs.hpp"
 
+class InputListener;
+
 class InputManager
 {
-   public:
-	// Singleton
-	InputManager();
+public:
 	static InputManager& GetInstance();
-	~InputManager();
+
 	InputManager(const InputManager&) = delete;
 	InputManager(InputManager&&) = delete;
 	InputManager& operator=(const InputManager&) = delete;
 	InputManager& operator=(InputManager&&) = delete;
 
-	static void deactivateCategory(std::string category);
-	static void activateCategory(std::string category);
+	static void deactivateCategory(const std::string& category);
+	static void activateCategory(const std::string& category);
 
-	static InputLocation onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
-	static InputLocation keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
-	static InputLocation onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
+	static InputListener* onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
+	static InputListener* keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
+	static InputListener* onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, const std::string & = defaultCategory);
 
-	//static void onKeyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent); TODO dit werkt op dit moment niet vanwege executeInputsPressedDown
-	static InputLocation keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, std::string category = defaultCategory);
+	static InputListener* keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, const std::string& category = defaultCategory);
 
-	static InputLocation onMouseButtonDown(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
-	static InputLocation onMouseButtonUp(Button button, Events::EventCallback<Input&> buttonEvent, std::string category = defaultCategory);
-	static InputLocation onMouseMove(Events::EventCallback<Input&> mouseEvent);
-	static InputLocation onMouseWheel(Events::EventCallback<Input&> wheelEvent);
+	static InputListener* onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category = defaultCategory);
+	static InputListener* onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, const std::string& category = defaultCategory);
+	static InputListener* onMouseMove(Events::EventCallback<Input&> mouseEvent, const std::string& category = defaultCategory);
+	static InputListener* onMouseWheel(Events::EventCallback<Input&> wheelEvent, const std::string& = defaultCategory);
 
+	static Math::Point GetMousePosition();
 
 	void updateKeyDown(Key input);
 	void updateKeyUp(Key input);
 
-	void updateMouseButtonDown(Button button);
-	void updateMouseButtonUp(Button button);
-	void updateMouseMovement(int x, int y);
+	void updateMouseButtonDown(MouseButton button);
+	void updateMouseButtonUp(MouseButton button);
+	void updateMouseMovement(Math::Point pos);
 	void updateMouseWheel(int wheelVertically);
 
 	void executeInputEvents();
 
-	void remove(InputLocation inputLoc);
+	void Remove(InputListener* input);
 
 	static constexpr const char* defaultCategory = "Default";
 
-   private:
+private:
 	static InputManager instance_;
 
-
+	InputManager();
+	
 	Input allInputs;
-
-	std::map<InputState, InputEventDispatchers> inputState;
-
-	Events::EventDispatcher<Input&> mouseMovement;
-	Events::EventDispatcher<Input&> mouseWheelMovement;
+	std::map<InputType, InputEventDispatchers> inputTypes;
 };

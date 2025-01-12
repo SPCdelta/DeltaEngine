@@ -5,16 +5,13 @@ Window::Window(const char* title, int width, int height)
 	// Create Window
 	_window = Rendering::CreateWindow(title, Rendering::WINDOWPOS_CENTERED, Rendering::WINDOWPOS_CENTERED, width, height, 0);
 	if (!_window)
-	{
 		std::cerr << "Failed to create window" << std::endl;
-	}
 
 	// Create renderer
 	_renderer = Rendering::CreateRenderer(_window, -1, Rendering::RENDERER_ACCELERATED | Rendering::RENDERER_PRESENTVSYNC);
 	if (!_renderer)
-	{
 		std::cerr << "Failed to create renderer: " << Rendering::GetError() << std::endl;
-	}
+	TextureManager::SetRenderer(_renderer);
 
 	// Set the initial viewport to match the window size
 	_viewportData.width = width;
@@ -91,11 +88,30 @@ void Window::RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g, Re
 	Rendering::GetWindowSize(_window, &windowWidth, &windowHeight);
 
 	// Define viewport rectangle
-	Rendering::Rect viewportRect = {_viewportData.x, (windowHeight - (_viewportData.y + _viewportData.height)), 
-		_viewportData.width, _viewportData.height};
+	Rendering::Rect viewportRect = {_viewportData.x, (windowHeight - (_viewportData.y + _viewportData.height)), _viewportData.width, _viewportData.height};
 
 	// Set color and render the viewport
 	Rendering::SetRenderDrawColor(_renderer, r, g, b, a); 
 	Rendering::RenderFillRect(_renderer, &viewportRect);
 	Rendering::SetRenderDrawColor(_renderer, 10, 10, 10, 255);
+}
+
+Rendering::Renderer* Window::GetRenderer()
+{
+	return _renderer;
+}
+
+Window::operator Rendering::Window*() const
+{
+	return _window;
+}
+
+void Window::SetUnitPixelSize(int unitPixelSize)
+{
+	_viewportData.unitPixelSize = unitPixelSize;
+}
+
+ViewportData& Window::GetViewport()
+{
+	return _viewportData;
 }

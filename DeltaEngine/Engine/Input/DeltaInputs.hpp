@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <unordered_map>
 #include <set>
@@ -126,7 +127,7 @@ enum Key
 	KEY_UNKNOWN
 };
 
-enum class Button
+enum class MouseButton
 {
 	Left,		  // Left mouse button
 	Middle,		  // Middle mouse button (usually the scroll wheel button)
@@ -144,29 +145,37 @@ enum InputState
 	Unknown
 };
 
+enum InputType
+{
+	KEYBOARD,
+	MOUSEBUTTON,
+	MOUSEMOVEMENT,
+	MOUSEWHEELMOVEMENT
+};
+
 struct Input
 {
 	std::set<Key> keys;
-	std::set<Button> buttons;
+	std::set<MouseButton> buttons;
 	int mouseY;
 	int mouseX;
 	int wheelVertically;
+	bool consumed = false;
 };
-
 
 class InputsEnum
 {
-   public:
+public:
 	static const std::unordered_map<Key, std::string>& getKeyMap();
-
+	static const Key toKey(const std::string& key);
 	static const std::string& toStr(Key key);
 
-	static const std::vector<Button>& getButtonVector();
+	static const std::vector<MouseButton>& getButtonVector();
 
-	static const Button toButton(int button);
-	static const int toInt(Button button);
+	static const MouseButton toButton(int button);
+	static const int toInt(MouseButton button);
 
-   private:
+private:
 	static const std::unordered_map<Key, std::string> keyMap;
-	static const std::vector<Button> buttonVector;
+	static const std::vector<MouseButton> buttonVector;
 };

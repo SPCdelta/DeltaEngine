@@ -1,61 +1,64 @@
 #include "AudioSource.hpp"
+
 #include <SDL_mixer.h>
 
 using namespace Audio;
 
-AudioSource::AudioSource(bool playOnAwake, AudioFacade& audioFacade, std::string path, bool loop)
-	: _loop(loop),
-	  _volume(MIX_MAX_VOLUME),
-	  _audioFacade(audioFacade),
-	  _path(path),
+AudioSource::AudioSource(bool playOnAwake, const std::string& path, int loops)
+	: _loops(loops),
+	  _volume(DEFAULT_VOLUME),
+	  _audioName(path),
 	  _playOnAwake(playOnAwake)
 {
 
 }
 
 AudioSource::AudioSource(const AudioSource& other)
-	: _loop(other._loop),
+	: _loops(other._loops),
 	  _volume(other._volume),
-	  _audioFacade(other._audioFacade),
-	  _path(other._path),
+	  _audioName(other._audioName),
 	  _playOnAwake(other._playOnAwake)
 {
+
 }
 
 AudioSource& AudioSource::operator=(const AudioSource& other)
 {
 	if (this != &other)
 	{
-		_loop = other._loop;
+		_loops = other._loops;
 		_volume = other._volume;
-		_path = other._path;
+		_audioName = other._audioName;
 		_playOnAwake = other._playOnAwake;
 	}
 	return *this;
 }
 
 AudioSource::AudioSource(AudioSource&& other) noexcept
-	: _loop(other._loop),
+	: _loops(other._loops),
 	  _volume(other._volume),
-	  _audioFacade(other._audioFacade),
-	  _path(other._path),
+	  _audioName(other._audioName),
 	  _playOnAwake(other._playOnAwake)
 {
+
 }
 
 AudioSource& AudioSource::operator=(AudioSource&& other) noexcept
 {
 	if (this != &other)
 	{
-		_loop = other._loop;
+		_loops = other._loops;
 		_volume = other._volume;
-		_path = other._path;
+		_audioName = other._audioName;
 		_playOnAwake = other._playOnAwake;
 	}
 	return *this;
 }
 
-AudioSource::~AudioSource() {}
+AudioSource::~AudioSource() 
+{
+
+}
 
 int AudioSource::GetVolume() const
 {
@@ -69,10 +72,10 @@ bool AudioSource::PlayOnAwake() const
 
 bool AudioSource::Loop() const
 {
-	return _loop;
+	return _loops;
 }
 
 void AudioSource::Loop(bool loop) 
 {
-	_loop = loop;
+	_loops = loop;
 }

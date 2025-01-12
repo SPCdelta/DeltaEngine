@@ -5,41 +5,34 @@
 #include <set>
 #include <unordered_set>
 #include <string>
+
 #include "../Core/Events/EventDispatcher.hpp"
 #include "DeltaInputs.hpp"
 
-struct InputLocation
-{
-	std::string input;
-	InputState state;
-	std::string category;
-	Events::EventCallback<Input&> regesterd;
-};
-
+class InputListener;
 
 class InputEventDispatchers
 {
-   public:
-	void add(const std::string& inputBinding, const std::string& category, Events::EventCallback<Input&> Inputevent);
+public:
+	void Add(InputListener* input);
+	void Remove(InputListener* input);
 
-	bool find(const std::string& input);
-	void dispatchActive(const std::string& input, Input inputEvent);
+	bool Find(InputState state, const std::string& input);
+	void DispatchActive(InputState state, const std::string& input, Input inputEvent);
 
+	bool DeactivateCategory(const std::string& category);
+	bool DeactivateCategories(std::set<std::string> categories);
 
-	bool deactivateCategory(const std::string& category);
-	bool deactivateCategories(std::set<std::string> categories);
-	bool activateCategory(const std::string& category);
-	bool activateCategories(std::set<std::string> categories);
+	bool ActivateCategory(const std::string& category);
+	bool ActivateCategories(std::set<std::string> categories);
 
-	void executeInputsPressedDown(Input allInputs, std::vector<std::string> strInputs, const std::string& strPressedDown);
-	void executeInputsPressed(Input allInputs, std::vector<std::string> strInputs);
-   
-	void remove(InputLocation inputLoc);
+	void ExecuteInputsPressedDown(Input allInputs, std::vector<std::string>& strInputs, const std::string& strPressedDown);
+	void ExecuteInputsPressed(Input allInputs, std::vector<std::string>& strInputs);
 
 private:
 	std::set<std::string> allCategories;
 	std::set<std::string> activeCategories;
 
 	std::map<std::string, std::string> inputBindingCategory;
-	std::map<std::string, Events::EventDispatcher<Input&>> inputBindings;
+	std::map<InputState, std::map<std::string, Events::EventDispatcher<Input&>>> inputBindings;
 };

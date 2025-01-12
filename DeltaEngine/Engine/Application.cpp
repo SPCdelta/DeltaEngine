@@ -1,104 +1,186 @@
 #include "Application.hpp"
 
+#include "Core/Strings/StringUtils.hpp"
+#include "UI/FontWrapper.hpp"
+
 bool Application::_isRunning = true;
 
 Application::Application(int unitPixelSize)
-	: _window("Meow!", 1280, 720)
+	: _window("Delta Engine - Validation App", BASE_WINDOW_W, BASE_WINDOW_H)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
-	{
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
-	}
 
 	// Init SDL2 image 
 	if (!(Rendering::InitializeImage(Rendering::INIT_PNG) & Rendering::INIT_PNG))
-	{
 		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
-	}
 
 	// Init SDL2_ttf
 	if (TTF_Init() < 0)
-	{
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
-	}
 
-	ChangeScene.Register([this](const std::string& sceneName) 
-		{ 
-			LoadScene(sceneName); 
-		});
-
-	//_window.SetViewportSize(400, 400);
-	//_window.SetViewportPos(100, 50);
 	_window.SetUnitPixelSize(unitPixelSize);
 }
 
 Application::~Application()
 {
+	delete _fpsText;
+	DeleteUserData();
 	Stop();
 }
 
 void Application::Run()
 {
-	while (!_window.ShouldWindowClose())
+#ifndef _DEBUG
+	try
 	{
-		Rendering::PollEvent(_windowEvent);
-
-		if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
+#endif	// _DEBUG
+		InitDebug();
+		InitGameSpeed();
+		Uint32 previousTime = Rendering::GetTicks();
+	
+		while (!_window.ShouldWindowClose())
 		{
-			Stop();
-			break;
+			// DeltaTIme
+			Uint32 currentTime = Rendering::GetTicks();
+			Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.f));
+			previousTime = currentTime;
+
+			Rendering::RenderClear(_window.GetRenderer());
+			_window.RenderViewport(0, 0, 0, 255);
+			Rendering::PollEvent(_windowEvent);
+
+			if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
+				return;
+
+			// Update Window
+			_window.Update();
+
+			// Scene UpdateLoop
+			std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
+			currentScene->Update();
+
+			Debug();
+
+			// Render all
+			Rendering::RenderPresent(_window.GetRenderer());
+
+			// Framerate
+			Rendering::Delay(1000 / 60);
 		}
-
-		_inputFacade.onInputEvent(_windowEvent);
-		InputManager::GetInstance().executeInputEvents();
-
-		GetDeltaTime();
-
-		// Update Window
-		_window.Update();
-
-		// Input
-		Input(_dt);
-
-		// Scene UpdateLoop
-		std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-		currentScene->Update();
-
-		ShowFpsInWindowTitleBar();
-
-		// Framerate
-		Rendering::Delay(1000 / 60);
+#ifndef _DEBUG
 	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what();
+	}
+#endif	// _DEBUG
 }
 
 void Application::LoadScene(const std::string& sceneName)
 {
 	_sceneManager.Load(sceneName);
 	std::shared_ptr<Scene> currentScene = _sceneManager.GetCurrent();
-	currentScene->_changeSceneEvent.Register([this](const std::string& name) { ChangeScene.Dispatch(name); });
+	currentScene->_inputfacade = &_inputFacade;
+	currentScene->_windowEvent = &_windowEvent;
+	currentScene->_application = this;
 	currentScene->SetWindow(_window);
 	currentScene->Start();
 }
 
-//Texture* Application::LoadTexture(const char* path)
-//{
-//	SDL_Texture* texture{ IMG_LoadTexture(_window.GetRenderer(), path) };
-//	return texture;
-//}
-//
-//Font* Application::LoadFont(const char* path, int fontSize)
-//{
-//	TTF_Font* font = TTF_OpenFont(path, fontSize);
-//	return font;
-//}
-
-void Application::GetDeltaTime()
+void Application::InitDebug()
 {
-
+	_fpsText = new Ui::Text("FPS: ", "knight", 48, _debugTextColor);
+	_inputListeners.Add(InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderDebug = !_renderDebug; }));
 }
 
-void Application::ShowFpsInWindowTitleBar()
+void Application::Debug()
 {
+	if (_fpsTimer >= 1.0f)
+	{
+		std::string fps = "FPS: " + std::to_string(static_cast<int>((1.0f / Time::deltaTime)));
+		_fpsText->SetText(fps);
+		_fpsTimer = 0.0f;
+	}
+	else
+	{
+		_fpsTimer += Time::deltaTime;
+	}
 
+	if (_renderDebug)
+	{
+		_fpsText->Render(_window.GetRenderer(), _debugTextTransform);
+
+		Math::Vector2 scale = Font::GetFontSize(_gameSpeed->GetFont(), _gameSpeed->GetText());
+		Math::Vector2 pos = {static_cast<float>(_window.GetViewport().width) - scale.GetX(), 0.f + scale.GetY()};
+		Transform _gameSpeedTextTransform{ pos, 0.0f, scale };
+		_gameSpeed->Render(_window.GetRenderer(), _gameSpeedTextTransform);
+	}
+}
+
+void Application::InitGameSpeed()
+{
+	_gameSpeed = std::make_unique<Ui::Text>(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x", "goblin", 48, _gameSpeedTextColor);
+	Time::SetIncrement(0.25f);
+
+	_inputListeners.Add(InputManager::onKeyPressed(KEY_PAGEUP, [this](Input& e)
+	{
+		Time::IncreaseMultiplier();
+		_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+	}, "Application"));
+
+	_inputListeners.Add(InputManager::onKeyPressed(KEY_PAGEDOWN, [this](Input& e)
+	{
+		Time::DecreaseMultiplier();
+		_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+	}, "Application"));
+
+	_inputListeners.Add(InputManager::onKeyPressed(KEY_HOME, [this](Input& e)
+	{
+		Time::SetMultiplier(1);
+		_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+	}, "Application"));
+}
+
+void Application::Stop()
+{
+	ResourceManager::Cleanup();
+	_window.Close();
+	_isRunning = false;
+
+	Rendering::Quit();
+	Rendering::QuitImage();
+	Mix_Quit();
+}
+
+void Application::Quit()
+{
+	_isRunning = false;
+}
+
+void Application::SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos)
+{
+	_window.SetViewportSize(sizeWidth, sizeHeight);
+	_window.SetViewportPos(xPos, yPos);
+}
+
+Json::json& Application::RetriveData()
+{
+	return _userData.Retrieve();
+}
+
+void Application::StoreData(const std::string& data)
+{
+	_userData.Store(data);
+}
+
+void Application::StoreData(Json::json& data)
+{
+	_userData.Store(data);
+}
+
+void Application::DeleteUserData()
+{
+	_userData.DeleteData();
 }

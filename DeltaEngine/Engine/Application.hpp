@@ -12,9 +12,8 @@
 #include "Window.hpp"
 
 #include "Core/Events/EventDispatcher.hpp"
-#include "Input/InputManager.hpp"
-#include "Input/InputFacade.hpp"
 #include "Scene/SceneManager.hpp"
+#include "Scene/UserDataStorage.hpp"
 
 #include "Physics/BoxCollider.hpp"
 #include "Physics/CircleCollider.hpp"
@@ -23,15 +22,17 @@
 #include "GameObject.hpp"
 #include "UI/Text.hpp"
 
+#include "Core/Time.hpp"
+
 class Application
 {
 public:
 	Application(int unitPixelSize);
 	~Application();
 
-	void Run();
+	friend class Scene;
 
-	Events::EventDispatcher<const std::string&> ChangeScene{};
+	void Run();
 
 	template<typename T>
 	void RegisterScene(const std::string& sceneName)
@@ -41,53 +42,49 @@ public:
 
 	void LoadScene(const std::string& sceneName);
 
-	static void Quit()
-	{
-		_isRunning = false;
-	}
+	static void Quit();
+	void Stop();
 
-	void Stop()
-	{
-		_window.Close();
-		_isRunning = false;
+	void SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos);
 
-		Rendering::Quit();
-		TTF_Quit();
-		Rendering::QuitImage();
-		Mix_Quit();
-	}
-
-	virtual void Input(float dt) { }
+	// Data
+	Json::json& RetriveData();
+	void StoreData(const std::string& data);
+	void StoreData(Json::json& data);
+	void DeleteUserData();
 
 protected:
 	ecs::Registry _reg;
-	//ecs::EntityId camera;
-	//Camera* _cameraComponent = nullptr;
 
+private:
+	const int BASE_WINDOW_W = 1280;
+	const int BASE_WINDOW_H = 720;
 
-   private:
+	InputHandler _inputListeners;
+	
 	static bool _isRunning;
-
-	float _dt{ 0.0f };
-
-	float _currentFrame{ 0.0f };
-	float _lastFrame{ 0.0f };
-
-	float _lastTime{ 0.0f };
-	float _nbFrames{ 0.0f };
+	StoreUserData _userData;
 
 	Window _window;
 	Rendering::Event _windowEvent{};
 	InputFacade _inputFacade;
 
-
 	SceneManager _sceneManager{}; // Never ever pass this variable!
 
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 
-	void GetDeltaTime();
-	void ShowFpsInWindowTitleBar();
+	// Debug
+	Rendering::Color _debugTextColor{ 255, 0, 0, 255 };
+	Transform _debugTextTransform { { 10.0f, 10.0f }, 0.0f, { 200.0f, 100.0f } };
+	Ui::Text* _fpsText = nullptr;
+	float _fpsTimer = 1.0f;
+	bool _renderDebug = false;
 
+	void Debug();
+	void InitDebug();
+	void InitGameSpeed();
 
+	// Gamespeed
+	Rendering::Color _gameSpeedTextColor{ 255, 0, 0, 255 };
+	std::unique_ptr<Ui::Text> _gameSpeed;
 };
-

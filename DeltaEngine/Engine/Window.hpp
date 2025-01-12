@@ -4,6 +4,7 @@
 
 #include "Rendering/Rendering.hpp"
 #include "Rendering/Viewport.hpp"
+#include "Rendering/ResourceManager.hpp"
 
 class Window
 {
@@ -13,21 +14,22 @@ public:
 
 	void Close();
 	bool ShouldWindowClose();
+
 	void Update();
 
 	void SetTitle(const char* title);
 	const char* GetTitle() const;
 
-	Rendering::Renderer* GetRenderer() { return _renderer; }
-	operator Rendering::Window*() const { return _window; }
+	Rendering::Renderer* GetRenderer();
+	operator Rendering::Window*() const;
 
 	void SetViewportSize(int width, int height);
 	void SetViewportPos(int x, int y);
-	void SetUnitPixelSize(int unitPixelSize) { _viewportData.unitPixelSize = unitPixelSize; }
-	ViewportData& GetViewport() { return _viewportData; }
+	void SetUnitPixelSize(int unitPixelSize);
+	ViewportData& GetViewport();
 	void RenderViewport(Rendering::UnsignInt8 r, Rendering::UnsignInt8 g, Rendering::UnsignInt8 b, Rendering::UnsignInt8 a);
 
-   private:
+private:
 	Rendering::Window* _window;
 	Rendering::Renderer* _renderer;
 

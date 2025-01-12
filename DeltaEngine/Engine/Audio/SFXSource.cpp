@@ -1,23 +1,30 @@
-#include "AudioLoader.hpp"
 #include "SFXSource.hpp"
+
+#include "AudioLoader.hpp"
+#include "../Rendering/ResourceManager.hpp"
 
 using namespace Audio;
 
-SFXSource::SFXSource(const std::string& path, bool playOnAwake,
-					 AudioFacade& audioFacade, bool loop)
-	: AudioSource(playOnAwake, audioFacade, path, loop),
-	  _clip(std::move(AudioLoader::LoadChunk(path)))
+Audio::SFXSource::SFXSource() 
+	: AudioSource(false, "", 0), 
+	_clip(std::move(AudioLoader::LoadChunk(""))) 
+{
+
+}
+
+SFXSource::SFXSource(const std::string& audioName, bool playOnAwake, int loops = 0)
+	: AudioSource(playOnAwake, audioName, loops),
+	  _clip(std::move(AudioLoader::LoadChunk(ResourceManager::GetAudio(audioName))))
 {
 	if (playOnAwake)
-	{
 		Play();
-	}
 }
 
 SFXSource::SFXSource(const SFXSource& other)
-	: AudioSource(other), _clip(AudioLoader::LoadChunk(other._path))
+	: AudioSource(other), 
+	  _clip(AudioLoader::LoadChunk(other._audioName))
 {
-	_audioFacade.SetMusicVolume(_volume);
+	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
 
 SFXSource& SFXSource::operator=(const SFXSource& other)
@@ -25,16 +32,17 @@ SFXSource& SFXSource::operator=(const SFXSource& other)
 	if (this != &other)
 	{
 		AudioSource::operator=(other);
-		_clip = std::move(AudioLoader::LoadChunk(other._path));
-		_audioFacade.SetMusicVolume(_volume);
+		_clip = std::move(AudioLoader::LoadChunk(other._audioName));
+		AudioManager::GetInstance().SetMusicVolume(_volume);
 	}
 	return *this;
 }
 
 SFXSource::SFXSource(SFXSource&& other) noexcept
-	: AudioSource(other), _clip(std::move(other._clip))
+	: AudioSource(other), 
+	  _clip(std::move(other._clip))
 {
-	_audioFacade.SetMusicVolume(_volume);
+	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
 
 SFXSource& SFXSource::operator=(SFXSource&& other) noexcept
@@ -43,47 +51,50 @@ SFXSource& SFXSource::operator=(SFXSource&& other) noexcept
 	{
 		AudioSource::operator=(other);
 		_clip = std::move(other._clip);
-		_audioFacade.SetMusicVolume(_volume);
+		AudioManager::GetInstance().SetMusicVolume(_volume);
 	}
 	return *this;
 }
 
-Audio::SFXSource::~SFXSource() {}
-
-void SFXSource::Play()
+Audio::SFXSource::~SFXSource() 
 {
-	_audioFacade.PlaySFX(_clip.get(), _loop);
+
+}
+
+void SFXSource::Play(int channel)
+{
+	AudioManager::GetInstance().PlaySFX(_clip.get(), _loops, channel);
 }
 
 void SFXSource::Pause()
 {
-	_audioFacade.PauseSFX();
+	AudioManager::GetInstance().PauseSFX();
 }
 
 void SFXSource::Resume()
 {
-	_audioFacade.ResumeSFX();
+	AudioManager::GetInstance().ResumeSFX();
 }
 
 void SFXSource::Stop()
 {
-	_audioFacade.StopSFX();
+	AudioManager::GetInstance().StopSFX();
 }
 
 void SFXSource::SetVolume(int volume)
 {
-	_audioFacade.SetSFXVolume(_clip.get(), volume);
+	AudioManager::GetInstance().SetSFXVolume(_clip.get(), volume);
 }
 
 void SFXSource::IncreaseVolume(int volume)
 {
-	_audioFacade.IncreaseSFXVolume(_clip.get(), volume);
+	AudioManager::GetInstance().IncreaseSFXVolume(_clip.get(), volume);
 }
 
-void SFXSource::SetClip(std::string pathToClip)
+void SFXSource::SetClip(std::string audioName)
 {
 	_clip.reset();
-	_clip = std::move(AudioLoader::LoadChunk(pathToClip));
+	_clip = std::move(AudioLoader::LoadChunk(ResourceManager::GetAudio(audioName)));
 }
 
 Mix_Chunk* SFXSource::GetSource() const

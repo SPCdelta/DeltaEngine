@@ -29,26 +29,6 @@ namespace Rendering
 	constexpr auto RENDERER_ACCELERATED = SDL_RENDERER_ACCELERATED;
 	constexpr auto RENDERER_PRESENTVSYNC = SDL_RENDERER_PRESENTVSYNC;
 
-	// Mouse/Key event constants
-	constexpr auto KEYDOWN = SDL_KEYDOWN;
-	constexpr auto KEYUP = SDL_KEYUP;
-	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN;
-	constexpr auto MOUSEBUTTONUP = SDL_MOUSEBUTTONUP;
-	constexpr auto MOUSEMOTION = SDL_MOUSEMOTION;
-	constexpr auto BUTTON_LEFT = SDL_BUTTON_LEFT;
-	constexpr auto BUTTON_RIGHT = SDL_BUTTON_RIGHT;
-	constexpr auto SCANCODE_W = SDL_SCANCODE_W;
-	constexpr auto SCANCODE_A = SDL_SCANCODE_A;
-	constexpr auto SCANCODE_S = SDL_SCANCODE_S;
-	constexpr auto SCANCODE_D = SDL_SCANCODE_D;
-	constexpr auto KEYCODE_LEFT = SDLK_LEFT;
-	constexpr auto KEYCODE_RIGHT = SDLK_RIGHT;
-	constexpr auto SCANCODE_LEFT = SDL_SCANCODE_LEFT;
-	constexpr auto SCANCODE_RIGHT = SDL_SCANCODE_RIGHT;
-	constexpr auto SCANCODE_UP = SDL_SCANCODE_UP;
-	constexpr auto SCANCODE_DOWN = SDL_SCANCODE_DOWN;
-	constexpr auto SCANCODE_SPACE = SDL_SCANCODE_SPACE;
-
 	// Flip/Rotation constants
 	constexpr auto FLIP_HORIZONTAL = SDL_FLIP_HORIZONTAL;
 	constexpr auto FLIP_VERTICAL = SDL_FLIP_VERTICAL;
@@ -142,6 +122,12 @@ namespace Rendering
 	inline int RenderClear(SDL_Renderer* renderer)
 	{
 		return SDL_RenderClear(renderer);
+	}
+
+	inline void RenderRect(Renderer* renderer, Rect rect, Color color)
+	{
+		SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+		SDL_RenderFillRect(renderer, &rect);
 	}
 
 	// Present the renderer
@@ -241,8 +227,13 @@ namespace Rendering
 		IMG_Quit();
 	}
 
+	inline void ModifyColor(Rendering::Texture* texture, Rendering::Color& color)
+	{
+		SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+	}
+
 	// Extra
-	inline Rendering::RendererFlip GetFlip(bool flipX, bool flipY)
+	inline RendererFlip GetFlip(bool flipX, bool flipY)
 	{
 		Rendering::RendererFlip flip = Rendering::FLIP_NONE;
 		if (flipX && flipY)

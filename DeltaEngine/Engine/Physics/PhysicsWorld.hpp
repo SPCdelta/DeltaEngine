@@ -4,6 +4,7 @@
 
 #include "Physics.hpp"
 #include "../Ecs/Registry.hpp"
+#include <iostream>
 
 namespace Physics
 {
@@ -17,35 +18,31 @@ namespace Physics
 
 	struct CollisionData
 	{
-		PhysicsId rbShapeId;
-		PhysicsId colliderShapeId;
+		EnginePhysics::PhysicsId shape1;
+		EnginePhysics::PhysicsId shape2;
 		CollisionState state;
 	};
 
 	class PhysicsWorld
 	{
 	public:
-		PhysicsWorld()
-		{
-			_data = Physics::CreateWorld();
-		}
-
-		~PhysicsWorld() { Physics::DestroyWorld(_data.id); }
+		PhysicsWorld();
+		~PhysicsWorld();
 
 		friend class Rigidbody;
 
-		const WorldId& GetWorldId() const { return _data.id; }
+		const EnginePhysics::WorldId& GetWorldId() const;
 
 		void Update();
 
-		std::vector<CollisionData>& GetCurrentTriggers() { return _currentTriggers; }
-		const std::vector<CollisionData>& GetCurrentTriggers() const { return _currentTriggers; }
+		std::vector<CollisionData>& GetCurrentTriggers();
+		const std::vector<CollisionData>& GetCurrentTriggers() const;
 		
-		std::vector<CollisionData>& GetCurrentCollisions() { return _currentCollisions; }
-		const std::vector<CollisionData>& GetCurrentCollisions() const{ return _currentCollisions; }
+		std::vector<CollisionData>& GetCurrentCollisions();
+		const std::vector<CollisionData>& GetCurrentCollisions() const;
 
 	private:
-		WorldData _data;
+		EnginePhysics::WorldData _data;
 
 		std::vector<CollisionData> _currentTriggers;
 		std::vector<CollisionData> _currentCollisions;

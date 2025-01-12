@@ -1,24 +1,40 @@
 #include "PhysicsWorld.hpp"
 
+Physics::PhysicsWorld::PhysicsWorld()
+{
+	_data = EnginePhysics::CreateWorld();
+}
+
+Physics::PhysicsWorld::~PhysicsWorld()
+{
+	EnginePhysics::DestroyWorld(_data.id); 
+}
+
+const EnginePhysics::WorldId& Physics::PhysicsWorld::GetWorldId() const
+{
+	return _data.id;
+}
+
 void Physics::PhysicsWorld::Update()
 {
 	_currentCollisions.clear();
 	_currentTriggers.clear();
 
-	Physics::AdvancePhysics(_data.id, Physics::TIME_STEP, Physics::SUB_STEP_COUNT);
+	EnginePhysics::AdvancePhysics(_data.id, Time::GetDeltaTime(), EnginePhysics::SUB_STEP_COUNT);
 
-	CollisionEvents contactEvents = Physics::GetCollisionEvents(_data.id);
-	TriggerEvents triggerEvents = Physics::GetTriggerEvents(_data.id);
+	EnginePhysics::CollisionEvents contactEvents = EnginePhysics::GetCollisionEvents(_data.id);
+	EnginePhysics::TriggerEvents triggerEvents = EnginePhysics::GetTriggerEvents(_data.id);
 
 	// # Collision Event
 	// Enters
 	for (int i = 0; i < contactEvents.beginCount; ++i)
 	{
-		CollisionTouchStartEvent* touch = contactEvents.beginEvents + i;
-		_currentCollisions.push_back(
+		EnginePhysics::CollisionTouchStartEvent* touch = contactEvents.beginEvents + i;
+		_currentCollisions.push_back
+		(
 			{
-				Physics::ToPhysicsId(touch->shapeIdA),
-				Physics::ToPhysicsId(touch->shapeIdB),
+				EnginePhysics::ToPhysicsId(touch->shapeIdA),
+				EnginePhysics::ToPhysicsId(touch->shapeIdB),
 				CollisionState::ENTER
 			}
 		);
@@ -27,11 +43,12 @@ void Physics::PhysicsWorld::Update()
 	// Exits
 	for (int i = 0; i < contactEvents.endCount; ++i)
 	{
-		CollisionTouchEndEvent* touch = contactEvents.endEvents + i;
-		_currentTriggers.push_back(
+		EnginePhysics::CollisionTouchEndEvent* touch = contactEvents.endEvents + i;
+		_currentTriggers.push_back
+		(
 			{ 
-				Physics::ToPhysicsId(touch->shapeIdA),
-				Physics::ToPhysicsId(touch->shapeIdB),
+				EnginePhysics::ToPhysicsId(touch->shapeIdA),
+				EnginePhysics::ToPhysicsId(touch->shapeIdB),
 				CollisionState::EXIT
 			}
 		);
@@ -41,11 +58,12 @@ void Physics::PhysicsWorld::Update()
 	// Enters
 	for (int i = 0; i < triggerEvents.beginCount; ++i)
 	{
-		TriggerTouchStartEvent* touch = triggerEvents.beginEvents + i;
-		_currentTriggers.push_back(
+		EnginePhysics::TriggerTouchStartEvent* touch = triggerEvents.beginEvents + i;
+		_currentTriggers.push_back
+		(
 			{
-				Physics::ToPhysicsId(touch->visitorShapeId),
-				Physics::ToPhysicsId(touch->sensorShapeId),
+				EnginePhysics::ToPhysicsId(touch->visitorShapeId),
+				EnginePhysics::ToPhysicsId(touch->sensorShapeId),
 				CollisionState::ENTER
 			}
 		);
@@ -54,13 +72,34 @@ void Physics::PhysicsWorld::Update()
 	// Exits
 	for (int i = 0; i < triggerEvents.endCount; ++i)
 	{
-		TriggerTouchEndEvent* touch = triggerEvents.endEvents + i;
-		_currentTriggers.push_back(
+		EnginePhysics::TriggerTouchEndEvent* touch = triggerEvents.endEvents + i;
+		_currentTriggers.push_back
+		(
 			{ 
-				Physics::ToPhysicsId(touch->visitorShapeId), 
-				Physics::ToPhysicsId(touch->sensorShapeId),
+				EnginePhysics::ToPhysicsId(touch->visitorShapeId), 
+				EnginePhysics::ToPhysicsId(touch->sensorShapeId),
 				CollisionState::EXIT
 			}
 		);
 	}
+}
+
+std::vector<Physics::CollisionData>& Physics::PhysicsWorld::GetCurrentTriggers()
+{
+	return _currentTriggers;
+}
+
+const std::vector<Physics::CollisionData>& Physics::PhysicsWorld::GetCurrentTriggers() const
+{
+	return _currentTriggers;
+}
+
+std::vector<Physics::CollisionData>& Physics::PhysicsWorld::GetCurrentCollisions()
+{
+	return _currentCollisions;
+}
+
+const std::vector<Physics::CollisionData>& Physics::PhysicsWorld::GetCurrentCollisions() const
+{
+	return _currentCollisions;
 }

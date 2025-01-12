@@ -172,30 +172,164 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>DeltaEngine.lib;SDL2.lib;box2d.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\DLLs;..\Libraries\box2d-3.0.0\build\src\Debug;..\Libraries\SDL2-2.30.7\lib\x64;..\Libraries\SDL2_image-2.8.2\lib\x64;..\Libraries\SDL2_mixer-2.8.0\lib\x64;..\Libraries\SDL2_ttf-2.22.0\lib\x64;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\x64\$(Configuration)\DLLs;..\Libraries\box2d-3.0.0\build\src\Release;..\Libraries\SDL2-2.30.7\lib\x64;..\Libraries\SDL2_image-2.8.2\lib\x64;..\Libraries\SDL2_mixer-2.8.0\lib\x64;..\Libraries\SDL2_ttf-2.22.0\lib\x64;%(AdditionalLibraryDirectories);..\bin\DeltaEngine\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Scripts\InputTest.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Enemy.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Goblin.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Skeleton.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Slime.cpp" />
+    <ClCompile Include="src\Classes\FloorBehaviour.cpp" />
+    <ClCompile Include="src\Classes\LevelManager.cpp" />
+    <ClCompile Include="src\Classes\PickUpBehaviour.cpp" />
+    <ClCompile Include="src\Classes\PlayerInput.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Weapon.cpp" />
+    <ClCompile Include="src\Scenes\DeleteBugScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelEditorMenuScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
+    <ClCompile Include="src\Items\Coin.cpp" />
+    <ClCompile Include="src\Scenes\DevScene.cpp" />
+    <ClCompile Include="src\Scenes\FileScene.cpp" />
+    <ClCompile Include="src\Scenes\InputTestScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelEditor.cpp" />
+    <ClCompile Include="src\Scenes\LevelSelectScene.cpp" />
+    <ClCompile Include="src\Scenes\ParticleScene.cpp" />
+    <ClCompile Include="src\Scenes\PhysicsScene.cpp" />
+    <ClCompile Include="src\Scenes\SpawnerScene.cpp" />
+    <ClCompile Include="src\Scenes\SwitchTestScene.cpp" />
+    <ClCompile Include="src\Scripts\DummyBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\Level\EntitySpawner.cpp" />
+    <ClCompile Include="src\Scripts\Level\LevelExitBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\PhysicsBehaviour.cpp" />
+    <ClCompile Include="src\UI\BaseUIScene.cpp" />
+    <ClCompile Include="src\UI\UIFactory.cpp" />
+    <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
+    <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
+    <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
+    <ClCompile Include="src\Utils\PotionTypeUtils.cpp" />
+    <ClCompile Include="src\Items\ConsumableItem.cpp" />
+    <ClCompile Include="src\Items\Potions\Potion.cpp" />
+    <ClCompile Include="src\Items\WorldItem.cpp" />
+    <ClCompile Include="src\Classes\DamageBehaviour.cpp" />
+    <ClCompile Include="src\Scenes\LayerScene.cpp" />
+    <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
+    <ClCompile Include="src\Views\Components\BarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
+    <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\HotbarComponent.cpp" />
+    <ClCompile Include="src\Views\HUDView.cpp" />
+    <ClCompile Include="src\Views\MenuView.cpp" />
+    <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
+    <ClCompile Include="src\Items\Potions\HealingPotion.cpp" />
+    <ClCompile Include="src\Inventory\InventoryItem.cpp" />
+    <ClCompile Include="src\Inventory\Inventory.cpp" />
+    <ClCompile Include="src\Items\Item.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scenes\GameScene.cpp" />
     <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
-    <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\BoomerangBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\InputTest.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
+    <ClCompile Include="src\Views\ScoreScreen.cpp" />
+    <ClCompile Include="src\Scenes\WeaponSelectionScene.cpp" />
+    <ClCompile Include="src\Views\WeaponSelectionView.cpp" />
+    <ClCompile Include="src\Classes\Weapons\WeaponFactory.cpp" />
+    <ClCompile Include="src\Utils\WeaponTypeUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
-    <ClInclude Include="src\Scripts\InputTest.hpp" />
+    <ClInclude Include="src\Scenes\DeleteBugScene.hpp" />
+    <ClInclude Include="src\UI\BaseUIScene.hpp" />
+    <ClInclude Include="src\Classes\LevelManager.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Boomerang.hpp" />
+    <ClInclude Include="src\Classes\Weapons\WeaponType.hpp" />
+    <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\UI\IUIElement.hpp" />
+    <ClInclude Include="src\UI\StackPanel.hpp" />
+    <ClInclude Include="src\UI\UIFactory.hpp" />
+    <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
+    <ClInclude Include="src\Items\Potions\PotionType.hpp" />
+    <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
+    <ClInclude Include="src\Items\Serializers\IItemSerializer.hpp" />
+    <ClInclude Include="src\Utils\PotionTypeUtils.hpp" />
+    <ClInclude Include="src\Classes\IPrototype.hpp" />
+    <ClInclude Include="src\Items\ConsumableItem.hpp" />
+    <ClInclude Include="src\Classes\ParticleFactory.hpp" />
+    <ClInclude Include="src\Scenes\ParticleScene.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
+    <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
+    <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
+    <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
+    <ClInclude Include="src\Views\Components\BarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
+    <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
+    <ClInclude Include="src\Views\HUDView.hpp" />
+    <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
+    <ClCompile Include="src\Views\IView.cpp" />
+    <ClInclude Include="src\Views\ScoreScreen.hpp" />
+    <ClInclude Include="src\Scenes\WeaponSelectionScene.hpp" />
+    <ClInclude Include="src\Views\WeaponSelectionView.hpp" />
+    <ClInclude Include="src\Classes\Weapons\WeaponFactory.hpp" />
+    <ClInclude Include="src\Utils\WeaponTypeUtils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
+    <ClInclude Include="src\Scenes\DevScene.hpp" />
+    <ClInclude Include="src\Views\MenuView.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Bow.hpp" />
+    <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\DefensePotion.hpp" />
+    <ClInclude Include="src\Items\Potions\HealingPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\Potion.hpp" />
+    <ClInclude Include="src\Inventory\InventoryItem.hpp" />
+    <ClInclude Include="src\Inventory\Inventory.hpp" />
+    <ClInclude Include="src\Items\Item.hpp" />
+    <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Gun.hpp" />
+    <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Weapon.hpp" />
+    <ClInclude Include="src\Scenes\FileScene.hpp" />
+    <ClInclude Include="src\Scenes\LayerScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditor.hpp" />
+    <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
     <ClInclude Include="src\Scenes\GameScene.hpp" />
+    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
     <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
     <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
-    <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
+    <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\BoomerangBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\InputTest.hpp" />
     <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
-    <ClInclude Include="src\Scripts\TempAudio.hpp" />
-    <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
+    <ClInclude Include="src\Views\IView.hpp" />
+    <ClInclude Include="src\Items\WorldItem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeltaEngine\DeltaEngine.vcxproj">
@@ -203,9 +337,58 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Textures\default_texture.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\floor_map.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\active_slot.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\bar_frame.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\health_bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\hotbar_slot.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\HUD\shield_bar.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Items\coin.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Items\potions\cyan.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Items\potions\potion_effervescent.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Items\potions\potion_golden.png" />
+    <Image Include="Assets\Textures\Particles\particles.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
     <Image Include="Assets\Textures\player.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <Image Include="Assets\Textures\Rect.png" />
     <Image Include="Assets\Textures\spritesheet - Copy.png" />
     <Image Include="Assets\Textures\spritesheet.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
@@ -215,6 +398,65 @@
     </Image>
     <Image Include="Assets\Textures\spritesheet3.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\square.png" />
+    <Image Include="Assets\Textures\Tiles\doors.png" />
+    <Image Include="Assets\Textures\Tiles\ice.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Tiles\ice_tile.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Tiles\mud_tile.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\UI\Background\main_menu_bg.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="assets\Textures\UI\Buttons\scroll.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="assets\Textures\UI\Buttons\scroll2.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="assets\Textures\UI\Buttons\scroll3.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\UI\weapon_frame.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\UI\window_frame.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\wall_map.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Weapons\arrow.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Weapons\boomerang.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Weapons\bow.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Weapons\bullet.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\Textures\Weapons\gun.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -252,21 +494,51 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Audio\Music\theme1.mp3">
+    <Media Include="Assets\Audio\Music\Intro_Theme.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\Button_1.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\Button_2.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3">
+    <Media Include="Assets\Audio\SFX\Button_3.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\eating.mp3">
+    <Media Include="Assets\Audio\SFX\boomerang.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Media>
+    <Media Include="Assets\Audio\SFX\Explosion.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\take_damage1.mp3">
+    <Media Include="Assets\Audio\SFX\Eating.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
-    <Media Include="Assets\Audio\SFX\villager1.mp3">
+    <Media Include="Assets\Audio\SFX\Death.mp3">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Media>
+    <Media Include="Assets\Audio\SFX\NPC.mp3">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\alucrads.otf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Font>
+    <Font Include="Assets\Fonts\a_goblin_appears.ttf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Font>
+    <Font Include="assets\Fonts\knight_warrior.otf">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Font>
+    <None Include="Assets\Files\example.json" />
+    <None Include="Assets\Files\tiles.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

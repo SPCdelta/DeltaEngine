@@ -1,103 +1,207 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="src\Scripts\InputTest.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Scenes\GameScene.cpp" />
+    <ClCompile Include="src\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
+    <ClCompile Include="src\ValidationApp.cpp" />
+    <ClCompile Include="src\Items\Item.cpp" />
+    <ClCompile Include="src\Inventory\Inventory.cpp" />
+    <ClCompile Include="src\Inventory\InventoryItem.cpp" />
+    <ClCompile Include="src\Items\Potions\HealingPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\DefensePotion.cpp" />
+    <ClCompile Include="src\Items\Potions\AttackUpPotion.cpp" />
+    <ClCompile Include="src\Items\Potions\SpeedPotion.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Scripts\BoomerangBehaviour.cpp" />
+    <ClCompile Include="src\Views\IView.cpp" />
+    <ClCompile Include="src\Views\MenuView.cpp" />
+    <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
+    <ClCompile Include="src\Classes\Projectiles\Projectile.cpp" />
+    <ClCompile Include="src\Views\HUDView.cpp" />
+    <ClCompile Include="src\Views\Components\HotbarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\CoinsComponent.cpp" />
+    <ClCompile Include="src\Views\Components\HealthBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\ShieldBarComponent.cpp" />
+    <ClCompile Include="src\Views\Components\BarComponent.cpp" />
+    <ClCompile Include="src\Items\ConsumableItem.cpp" />
+    <ClCompile Include="src\Items\Potions\Potion.cpp" />
+    <ClCompile Include="src\Items\WorldItem.cpp" />
+    <ClCompile Include="src\Scripts\EnemyHitboxBehaviour.cpp" />
+    <ClCompile Include="src\Scenes\LayerScene.cpp" />
+    <ClCompile Include="src\Classes\DamageBehaviour.cpp" />
+    <ClCompile Include="src\Utils\PotionTypeUtils.cpp" />
+    <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
+    <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
+    <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
+    <ClCompile Include="src\Views\ScoreScreen.cpp" />
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
+    <ClCompile Include="src\Scenes\WeaponSelectionScene.cpp" />
+    <ClCompile Include="src\Views\WeaponSelectionView.cpp" />
+    <ClCompile Include="src\Classes\Weapons\WeaponFactory.cpp" />
+    <ClCompile Include="src\Utils\WeaponTypeUtils.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
+    <ClCompile Include="src\Items\Coin.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Enemy.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Slime.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Skeleton.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Goblin.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Weapon.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
+    <ClCompile Include="src\Classes\PlayerInput.cpp" />
+    <ClCompile Include="src\Classes\PickUpBehaviour.cpp" />
+    <ClCompile Include="src\Classes\FloorBehaviour.cpp" />
+    <ClCompile Include="src\Scenes\DevScene.cpp" />
+    <ClCompile Include="src\Scenes\FileScene.cpp" />
+    <ClCompile Include="src\Scenes\InputTestScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelEditor.cpp" />
+    <ClCompile Include="src\Scenes\ParticleScene.cpp" />
+    <ClCompile Include="src\Scenes\PhysicsScene.cpp" />
+    <ClCompile Include="src\Scenes\SpawnerScene.cpp" />
+    <ClCompile Include="src\Scenes\SwitchTestScene.cpp" />
+    <ClCompile Include="src\Scripts\Level\EntitySpawner.cpp" />
+    <ClCompile Include="src\Scripts\Level\LevelExitBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\DummyBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\PhysicsBehaviour.cpp" />
+    <ClCompile Include="src\UI\BaseUIScene.cpp" />
+    <ClCompile Include="src\UI\UIFactory.cpp" />
+    <ClCompile Include="src\Scenes\LevelSelectScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelEditorMenuScene.cpp" />
+    <ClCompile Include="src\Scenes\DeleteBugScene.cpp" />
+    <ClCompile Include="src\Classes\LevelManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ValidationApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scripts\PlayerBehaviour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scenes\GameScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scenes\MainMenuScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripts\MainMenuBehaviour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scripts\InputTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="src\Scenes\InputTestScene.hpp" />
+    <ClInclude Include="src\Scripts\InputTest.hpp" />
+    <ClInclude Include="src\Scenes\GameScene.hpp" />
+    <ClInclude Include="src\Scenes\MainMenuScene.hpp" />
+    <ClInclude Include="src\Scenes\PhysicsScene.hpp" />
+    <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
+    <ClInclude Include="src\ValidationApp.hpp" />
+    <ClInclude Include="src\Items\Item.hpp" />
+    <ClInclude Include="src\Items\WorldItem.hpp" />
+    <ClInclude Include="src\Inventory\Inventory.hpp" />
+    <ClInclude Include="src\Inventory\InventoryItem.hpp" />
+    <ClInclude Include="src\Items\Potions\Potion.hpp" />
+    <ClInclude Include="src\Items\Potions\HealingPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\DefensePotion.hpp" />
+    <ClInclude Include="src\Items\Potions\AttackUpPotion.hpp" />
+    <ClInclude Include="src\Items\Potions\SpeedPotion.hpp" />
+    <ClInclude Include="src\Scenes\FileScene.hpp" />
+    <ClInclude Include="src\Scenes\SwitchTestScene.hpp" />
+    <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\Scenes\LayerScene.hpp" />
+    <ClInclude Include="src\Classes\FloorBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PlayerInput.hpp" />
+    <ClInclude Include="src\Classes\DamageBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\BoomerangBehaviour.hpp" />
+    <ClInclude Include="src\Views\IView.hpp" />
+    <ClInclude Include="src\Views\MenuView.hpp" />
+    <ClInclude Include="src\Scenes\DevScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditor.hpp" />
+    <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
+    <ClInclude Include="src\Classes\PickUpBehaviour.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Gun.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Bow.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Weapon.hpp" />
+    <ClInclude Include="src\Classes\Projectiles\Projectile.hpp" />
+    <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
+    <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
+    <ClInclude Include="src\Views\HUDView.hpp" />
+    <ClInclude Include="src\Views\Components\HotbarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\CoinsComponent.hpp" />
+    <ClInclude Include="src\Views\Components\HealthBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\ShieldBarComponent.hpp" />
+    <ClInclude Include="src\Views\Components\BarComponent.hpp" />
+    <ClInclude Include="src\Items\ConsumableItem.hpp" />
+    <ClInclude Include="src\Scenes\ParticleScene.hpp" />
+    <ClInclude Include="src\Classes\ParticleFactory.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Goblin.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Skeleton.hpp" />
+    <ClInclude Include="src\Classes\Enemies\Slime.hpp" />
+    <ClInclude Include="src\Scripts\EnemyHitboxBehaviour.hpp" />
+    <ClInclude Include="src\Classes\IPrototype.hpp" />
+    <ClInclude Include="src\Utils\PotionTypeUtils.hpp" />
+    <ClInclude Include="src\Items\Serializers\IItemSerializer.hpp" />
+    <ClInclude Include="src\Items\Serializers\JsonItemSerializer.hpp" />
+    <ClInclude Include="src\Items\Potions\PotionType.hpp" />
+    <ClInclude Include="src\Utils\ItemTypeUtils.hpp" />
+    <ClInclude Include="src\Scripts\Level\LevelExitBehaviour.hpp" />
+    <ClInclude Include="src\Scripts\Level\EntitySpawner.hpp" />
+    <ClInclude Include="src\Scenes\SpawnerScene.hpp" />
+    <ClInclude Include="src\Views\ScoreScreen.hpp" />
+    <ClInclude Include="src\Scenes\WeaponSelectionScene.hpp" />
+    <ClInclude Include="src\Views\WeaponSelectionView.hpp" />
+    <ClInclude Include="src\Classes\Weapons\WeaponFactory.hpp" />
+    <ClInclude Include="src\Classes\Weapons\WeaponType.hpp" />
+    <ClInclude Include="src\Utils\WeaponTypeUtils.hpp" />
+    <ClInclude Include="src\Classes\Weapons\Boomerang.hpp" />
+    <ClInclude Include="src\Items\Coin.hpp" />
+    <ClInclude Include="src\Scenes\LevelScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelSelectScene.hpp" />
+    <ClInclude Include="src\Scenes\LevelEditorMenuScene.hpp" />
+    <ClInclude Include="src\UI\UIFactory.hpp" />
+    <ClInclude Include="src\Classes\LevelManager.hpp" />
+    <ClInclude Include="src\UI\StackPanel.hpp" />
+    <ClInclude Include="src\UI\IUIElement.hpp" />
+    <ClInclude Include="src\UI\BaseUIScene.hpp" />
+    <ClInclude Include="src\Scenes\DeleteBugScene.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ValidationApp.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scripts\PlayerBehaviour.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scenes\GameScene.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scenes\MainMenuScene.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scripts\TempBehaviour.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scripts\InputTest.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scenes\InputTestScene.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Media Include="Assets\Audio\SFX\eating.mp3" />
+    <Media Include="Assets\Audio\SFX\Explosion.mp3" />
+    <Media Include="Assets\Audio\SFX\Death.mp3" />
+    <Media Include="Assets\Audio\SFX\NPC.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_1.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_2.mp3" />
+    <Media Include="Assets\Audio\SFX\Button_3.mp3" />
+    <Media Include="Assets\Audio\SFX\boomerang.mp3" />
+    <Media Include="Assets\Audio\Music\Intro_Theme.mp3" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Textures\spritesheet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\spritesheet2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\spritesheet3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <ClInclude Include="src\Scripts\TempAudio.hpp">
-      <Filter>Header Files</Filter>
-    <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scenes\PhysicsScene.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Textures\spritesheet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\spritesheet2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\spritesheet3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\player.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\spritesheet - Copy.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <Image Include="Assets\Textures\player.png" />
+    <Image Include="Assets\Textures\spritesheet - Copy.png" />
+    <Image Include="Assets\Textures\spritesheet.png" />
+    <Image Include="Assets\Textures\spritesheet2.png" />
+    <Image Include="Assets\Textures\spritesheet3.png" />
+    <Image Include="Assets\Textures\square.png" />
+    <Image Include="Assets\Textures\default_texture.png" />
+    <Image Include="Assets\Textures\floor_map.png" />
+    <Image Include="Assets\Textures\wall_map.png" />
+    <Image Include="Assets\Textures\Weapons\boomerang.png" />
+    <Image Include="Assets\Textures\Rect.png" />
+    <Image Include="Assets\Textures\UI\Background\main_menu_bg.png" />
+    <Image Include="Assets\Textures\UI\Buttons\scroll.png" />
+    <Image Include="Assets\Textures\UI\Buttons\scroll2.png" />
+    <Image Include="Assets\Textures\UI\Buttons\scroll3.png" />
+    <Image Include="Assets\Textures\Weapons\bullet.png" />
+    <Image Include="Assets\Textures\Weapons\arrow.png" />
+    <Image Include="Assets\Textures\HUD\health_bar.png" />
+    <Image Include="Assets\Textures\HUD\bar.png" />
+    <Image Include="Assets\Textures\HUD\bar_frame.png" />
+    <Image Include="Assets\Textures\HUD\hotbar_slot.png" />
+    <Image Include="Assets\Textures\Items\potions\potion_effervescent.png" />
+    <Image Include="Assets\Textures\Items\potions\cyan.png" />
+    <Image Include="Assets\Textures\HUD\shield_bar.png" />
+    <Image Include="Assets\Textures\Items\coin.png" />
+    <Image Include="Assets\Textures\HUD\active_slot.png" />
+    <Image Include="Assets\Textures\Particles\particles.png" />
+    <Image Include="Assets\Textures\UI\window_frame.png" />
+    <Image Include="Assets\Textures\Tiles\doors.png" />
+    <Image Include="Assets\Textures\Weapons\bow.png" />
+    <Image Include="Assets\Textures\Weapons\gun.png" />
+    <Image Include="Assets\Textures\UI\weapon_frame.png" />
+    <Image Include="Assets\Textures\Tiles\ice.png" />
+    <Image Include="Assets\Textures\Tiles\ice_tile.png" />
+    <Image Include="Assets\Textures\Tiles\mud_tile.png" />
+    <Image Include="Assets\Textures\Items\potions\potion_golden.png" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="DLLs\SDL2.dll" />
@@ -106,10 +210,12 @@
     <CopyFileToFolders Include="DLLs\SDL2_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Audio\SFX\villager1.mp3" />
-    <Media Include="Assets\Audio\SFX\creeper_explosion.mp3" />
-    <Media Include="Assets\Audio\SFX\eating.mp3" />
-    <Media Include="Assets\Audio\SFX\take_damage1.mp3" />
-    <Media Include="Assets\Audio\Music\theme1.mp3" />
+    <None Include="Assets\Files\example.json" />
+    <Font Include="Assets\Fonts\alucrads.otf" />
+    <None Include="Assets\Files\tiles.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\knight_warrior.otf" />
+    <Font Include="Assets\Fonts\a_goblin_appears.ttf" />
   </ItemGroup>
 </Project>

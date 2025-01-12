@@ -1,62 +1,184 @@
 #include "Text.hpp"
 
-ui::Text::Text(std::string text, std::string path, int size, int x, int y, Rendering::Color color, Rendering::Renderer* renderer)
-	: _text{text}, _size{size}, _x{x}, _y{y}, _color{color}, _renderer{renderer}
+using namespace Ui;
+using namespace Rendering;
+
+Text::Text(const std::string& text, const std::string& fontName, int fontSize, const Rendering::Color& color)
+	: _fontName{fontName},
+	  _fontSize{fontSize},
+	  _text{text},
+	  _color{color},
+	  _font{ResourceManager::GetFont(fontName, fontSize)},
+	  _backgroundColor{0,0,0,0}
 {
-	_font = Font::OpenFont(path.c_str(), size);
-
 	if (_font == nullptr)
-	{
 		std::cerr << "Error loading font: " << Font::GetError() << std::endl;
+}
+
+Text::Text(const Text& other)
+	: _text{other._text},
+	  _font{other._font},
+	  _color{other._color},
+	  _fontName{ other._fontName },
+	  _fontSize{ other._fontSize },
+	  _background{ other._background },
+	  _backgroundColor{ other._backgroundColor },
+	  _position{ other._position }
+{
+
+}
+
+Text& Text::operator=(const Text& other)
+{
+	if (this != &other)
+	{
+		_text = other._text;
+		_font = other._font;
+		_color = other._color;
+		_fontName = other._fontName;
+		_fontSize = other._fontSize;
+		_background =other._background;
+		_backgroundColor = other._backgroundColor;
+		_position =  other._position;
 	}
+	return *this;
 }
 
-ui::Text::~Text() {
-	unloadText();
+Text::Text(Text&& other) noexcept
+	: _text{other._text},
+	  _font{other._font},
+	  _color{other._color},
+	  _fontName{other._fontName},
+	  _fontSize{other._fontSize},
+	  _background{other._background },
+	  _backgroundColor{other._backgroundColor},
+	  _position{other._position}
+
+{
+
 }
 
-void ui::Text::renderText() {
-	
+Text& Text::operator=(Text&& other) noexcept
+{
+	if (this != &other)
+	{
+		_text = other._text;
+		_font = other._font;
+		_color = other._color;
+		_fontName = other._fontName;
+		_fontSize = other._fontSize;
+		_background = other._background;
+		_backgroundColor = other._backgroundColor;
+		_position = other._position;
+
+	}
+	return *this;
+}
+
+Text::~Text() 
+{
+
+}
+
+void Text::Render(Renderer* renderer, const Transform& transform)
+{
 	if (_font == nullptr)
 	{
-		std::cerr << "Font not loaded" << std::endl;
-		//Font::QuitTTF();
+		std::cerr << "Font not loaded" << '\n';
 		return;
 	}
 
-	Rendering::Surface* surface = Font::RenderText_Solid(_font, _text.c_str(), _color);
-
-	if (surface == nullptr) {
-		std::cerr << "Error creating surface: " << Rendering::GetError() << std::endl;
-
-		Font::CloseFont(_font);
-		//Font::QuitTTF();
+	Surface* surface = Font::RenderText_Solid(_font->GetFont(), _text.c_str(), _color);
+	if (surface == nullptr)
+	{
+		std::cerr << "Error creating surface: " << GetError() << '\n';
 		return;
 	}
 
-	Rendering::Texture* texture = Rendering::CreateTextureFromSurface(_renderer, surface);
-
-	if (texture == nullptr) {
-		std::cerr << "Error creating texture: " << Rendering::GetError() << std::endl;
-		Rendering::FreeSurface(surface);
-		Rendering::DestroyTexture(texture);
+	Texture* texture = CreateTextureFromSurface(renderer, surface);
+	if (texture == nullptr)
+	{
+		std::cerr << "Error creating texture: " << GetError() << '\n';
+		FreeSurface(surface);
+		DestroyTexture(texture);
 		return;
 	}
 
-	Rendering::Rect dstRect = {_x, _y , surface->w, surface->h};
+	Rect dstRect;
+	dstRect = 
+	{
+		static_cast<int>(transform.position.GetX() + _position.GetX()),
+		static_cast<int>(transform.position.GetY() + _position.GetY()),
+		surface->w, surface->h
+	};
+	
+	if (_background)
+		RenderRect(renderer, dstRect, _backgroundColor);
 
-	Rendering::RenderCopy(_renderer, texture, nullptr, &dstRect);
-
-
-	//Rendering::FreeSurface(surface);
-	//Rendering::DestroyTexture(texture);
-
+	RenderCopy(renderer, texture, nullptr, &dstRect);
+	FreeSurface(surface);
+	DestroyTexture(texture);
 }
 
-void ui::Text::unloadText() {
-	if (_font != nullptr) {
-		Font::CloseFont(_font);
-		_font == nullptr;
-		//Font::QuitTTF();
-	}
+void Text::AddPosition(const Math::Vector2& position)
+{
+	_position += position;
+}
+
+void Text::SetText(const std::string& text)
+{
+	_text = text;
+}
+
+void Text::SetFont(const std::string& fontName)
+{
+	_fontName = fontName;
+	_font = ResourceManager::GetFont(_fontName, _fontSize);
+}
+
+const std::string& Ui::Text::GetText() const
+{
+	return _text;
+}
+
+void Text::SetFontSize(int size)
+{
+	_fontSize = size;
+	_font = ResourceManager::GetFont(_fontName, _fontSize);
+}
+
+int Ui::Text::GetFontSize() const
+{
+	return _fontSize;
+}
+
+std::shared_ptr<FontWrapper> Ui::Text::GetFont() const
+{
+	return _font;
+}
+
+void Text::SetPosition(const Math::Vector2& position)
+{
+	_position = position;
+}
+
+void Text::SetBackground(Rendering::Color color) 
+{
+	_background = true;
+	_backgroundColor = color;
+}
+
+void Text::SetColor(const Rendering::Color& color)
+{
+	_color = color;
+}
+
+const Math::Vector2& Ui::Text::GetPosition() const
+{
+	return _position;
+}
+
+Transform Ui::Text::GetTransform()
+{
+	return Transform(_position, 0.0f, {}, nullptr);
 }

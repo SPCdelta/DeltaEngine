@@ -17,62 +17,30 @@ namespace Physics
 	class Collider
 	{
 	public:
-		Collider(const PhysicsWorld& world, Transform& transform, ShapeType type)
-			: _transform{ transform }
-		{
-			_physicsBody = Physics::DefaultBody();
-			_physicsBody.position = { transform.position.GetX(), transform.position.GetY() };
-			_bodyId = Physics::CreateBody(world.GetWorldId(), &_physicsBody);
-
-			_shape.shape = Physics::DefaultShape();
-			switch (type)
-			{
-				case Physics::ShapeType::CIRCLE:
-					_polygon = Physics::CreateCircle(transform.scale);
-					break;
-
-				case Physics::ShapeType::BOX:
-				default:
-					_polygon = Physics::CreateBox(transform.scale);
-					break;
-			}
-			_shape.id = Physics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
-		}
+		Collider(const PhysicsWorld& world, Transform& transform, ShapeType type);
 
 		friend class CollisionSystem;
 		friend class PhysicsSystem;
 		friend class Rigidbody;
 
-		void SetTrigger(bool trigger)
-		{
-			if (_isTrigger == trigger) return;
+		void SetTrigger(bool trigger);
+		bool IsTrigger() const;
 
-			Physics::DestroyShape(_shape.id);
-			_shape.shape.isSensor = trigger;
-			_shape.shape.enableSensorEvents = trigger;
-			_shape.id = Physics::CreatePolygonShape(_bodyId, &_shape, &_polygon);
-			_isTrigger = trigger;
+		EnginePhysics::PhysicsId GetId() const;
 
-			CallOnShapeChanged();
-		}
-
-		bool IsTrigger() const
-		{
-			return _isTrigger;
-		}
+		Transform& transform;
 
 	private:
-		PhysicsBody _physicsBody; // _b2bodyDef
-		PhysicsId _bodyId; // _b2bodyId
-		PhysicsPolygon _polygon; // _b2polygon
-		PhysicsShape _shape;
-		Events::EventDispatcher<const PhysicsShape&> _onShapeChanged{};
-		bool _isTrigger{ false };
-		Transform& _transform;
+		EnginePhysics::PhysicsId _bodyId;			// _b2bodyId
+		EnginePhysics::PhysicsPolygon _polygon;		// _b2polygon
+		EnginePhysics::PhysicsShape _shape;
 
-		void CallOnShapeChanged()
-		{
-			_onShapeChanged.Dispatch(_shape);
-		}
+		Events::EventDispatcher<const EnginePhysics::PhysicsShape&> _onShapeChanged{};
+		bool _isTrigger{false};
+
+		const Physics::PhysicsWorld& _physicsWorld;
+		ShapeType _shapeType;
+
+		void CallOnShapeChanged();
 	};
 }

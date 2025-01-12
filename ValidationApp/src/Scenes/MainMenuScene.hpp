@@ -1,11 +1,13 @@
 #pragma once
 
-#include "Engine/Delta.hpp"
+#include "../UI/BaseUIScene.hpp"
 
-#include "../Scripts/MainMenuBehaviour.hpp"
+#include "../Views/MenuView.hpp"
 
-class MainMenuScene : public Scene
+class MainMenuScene : public BaseUIScene
 {
 public:
 	MainMenuScene(const std::string& sceneName);
+
+	void OnStart() override;
 };

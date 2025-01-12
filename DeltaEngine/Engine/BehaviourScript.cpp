@@ -1,67 +1,66 @@
 #include "BehaviourScript.hpp"
 
-
-BehaviourScript::~BehaviourScript() {
-	unregisterInputs();
-}
-
-void BehaviourScript::keyPressed(Key keyDown,
-								 Events::EventCallback<Input&> keyEvent,
-								 std::string category)
+void BehaviourScript::LoadScene(const std::string& name)
 {
-	registerdInputs.push_back(InputManager::keyPressed(keyDown, keyEvent, category));
+	transform->gameObject->LoadScene(name); 
 }
 
-void BehaviourScript::keyPressed(std::set<Key> keysDown,
-								 Events::EventCallback<Input&> keyEvent, std::string category)
+void BehaviourScript::Destroy(std::shared_ptr<GameObject> gameObject)
 {
-	registerdInputs.push_back(
-		InputManager::keyPressed(keysDown, keyEvent, category));
+	gameObject->Destroy();
 }
 
-void BehaviourScript::onKeyPressed(Key keyDown,
-								   Events::EventCallback<Input&> keyEvent,
-								   std::string category)
+void BehaviourScript::Destroy(GameObject* gameObject)
 {
-	registerdInputs.push_back(
-		InputManager::onKeyPressed(keyDown, keyEvent, category));
+	gameObject->Destroy();
 }
 
-void BehaviourScript::onKeyReleased(Key keyUp,
-									Events::EventCallback<Input&> keyEvent,
-									std::string category)
+void BehaviourScript::keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category)
 {
-	registerdInputs.push_back(
-		InputManager::onKeyReleased(keyUp, keyEvent, category));
+	_inputListeners.Add(InputManager::keyPressed(keyDown, keyEvent, category));
 }
 
-void BehaviourScript::onMouseButtonDown(
-	Button button, Events::EventCallback<Input&> buttonEvent,
-	std::string category)
+void BehaviourScript::keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, std::string category)
 {
-	registerdInputs.push_back(
-		InputManager::onMouseButtonDown(button, buttonEvent, category));
+	_inputListeners.Add(InputManager::keyPressed(keysDown, keyEvent, category));
 }
 
-void BehaviourScript::onMouseButtonUp(Button button,
-									  Events::EventCallback<Input&> buttonEvent,
-									  std::string category)
+void BehaviourScript::onKeyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category)
 {
-	registerdInputs.push_back(
-		InputManager::onMouseButtonUp(button, buttonEvent, category));
+	_inputListeners.Add(InputManager::onKeyPressed(keyDown, keyEvent, category));
 }
 
-void BehaviourScript::onMouseMove(Events::EventCallback<Input&> mouseEvent) {
-	registerdInputs.push_back(InputManager::onMouseMove(mouseEvent));
+void BehaviourScript::onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, std::string category)
+{
+	_inputListeners.Add(InputManager::onKeyReleased(keyUp, keyEvent, category));
 }
 
-void BehaviourScript::onMouseWheel(Events::EventCallback<Input&> wheelEvent) {
-	registerdInputs.push_back(InputManager::onMouseWheel(wheelEvent));
+void BehaviourScript::onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category)
+{
+	_inputListeners.Add(InputManager::onMouseButtonDown(button, buttonEvent, category));
 }
 
-void BehaviourScript::unregisterInputs() {
-	for (auto& input : registerdInputs)
-	{
-		InputManager::GetInstance().remove(input);
-	}
+void BehaviourScript::onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category)
+{
+	_inputListeners.Add(InputManager::onMouseButtonUp(button, buttonEvent, category));
+}
+
+void BehaviourScript::onMouseMove(Events::EventCallback<Input&> mouseEvent) 
+{
+	_inputListeners.Add(InputManager::onMouseMove(mouseEvent));
+}
+
+void BehaviourScript::onMouseWheel(Events::EventCallback<Input&> wheelEvent) 
+{
+	_inputListeners.Add(InputManager::onMouseWheel(wheelEvent));
+}
+
+std::shared_ptr<GameObject> BehaviourScript::Instantiate()
+{
+	return transform->gameObject->Instantiate();
+}
+
+std::shared_ptr<GameObject> BehaviourScript::Instantiate(Transform transform)
+{
+	return transform.gameObject->Instantiate(transform);
 }

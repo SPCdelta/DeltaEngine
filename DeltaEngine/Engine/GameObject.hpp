@@ -6,17 +6,24 @@
 #include "Ecs/Registry.hpp"
 #include "Transform.hpp"
 #include "Rendering/Camera.hpp"
+#include "Rendering/Sprite.hpp"
+#include "Rendering/Layer.hpp"
 
-#include "Audio/AudioFacade.hpp"
+#include "Audio/AudioManager.hpp"
 #include "Audio/AudioSource.hpp"
 #include "Audio/MusicSource.hpp"
 #include "Audio/SFXSource.hpp"
 
+#include "UI/Button.hpp"
+#include "UI/Scrollable.hpp"
+#include "UI/Brush/SnapToGridBrush.hpp"
+#include "UI/Brush/BrushSprite.hpp"
+
 #include "Core/Events/EventDispatcher.hpp"
 
-//#include "BehaviourScript.hpp"
+class Scene;
 class BehaviourScript;
-
+class ParticleEmitter;
 
 #include "Physics/Collider.hpp"
 #include "Physics/Rigidbody.hpp"
@@ -29,33 +36,58 @@ public:
 	{
 		if constexpr (std::is_base_of_v<BehaviourScript, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddComponent<BehaviourScript*>(_id, new T()));
-			component->gameObject = this;
+			T* component = _reg.AddInheritanceComponent<BehaviourScript, T>(_id, std::forward<Args>(args)...);
+			component->transform = transform;
 			component->camera = _camera;
+			component->OnStart();
 			return component;
 		}
 		else if constexpr (std::is_base_of_v<Physics::Collider, T>)
 		{
-			T* component = static_cast<T*>(_reg.AddComponent<Physics::Collider*>(_id, new T(_physicsWorld, *transform)));
+			T* component = _reg.AddInheritanceComponent<Physics::Collider, T>(_id, _physicsWorld, *transform, std::forward<Args>(args)...);
 			return component;
 		}
 		else if constexpr (std::is_same_v<T, Physics::Rigidbody>)
 		{
-			if (!_reg.HasComponent<Physics::Collider*>(_id))
+			if (!_reg.HasComponent<std::unique_ptr<Physics::Collider>>(_id))
 			{
 				throw std::exception("Rigidbody must have a Collider!");
 			}
 
-			return static_cast<T*>(_AddComponent<Physics::Rigidbody>(Physics::Rigidbody(*_reg.GetComponent<Physics::Collider*>(_id))));
+			Physics::Collider* collider = _reg.GetComponent<std::unique_ptr<Physics::Collider>>(_id).get();
+			return static_cast<Physics::Rigidbody*>(&_reg.EmplaceComponent<Physics::Rigidbody>(_id, *collider));
 		}
-		else if constexpr (std::is_same_v<T, Audio::MusicSource>)
+		else if constexpr (std::is_same_v<T, Ui::Button>)
 		{
-			T* component = static_cast<T*>(_AddComponent<Audio::MusicSource>(Audio::MusicSource("", false, _audioFacade, false)));
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Button>(_id, transform));
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, Ui::Scrollable>)
+		{
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<Ui::Scrollable>(_id, transform, std::forward<Args>(args)...));
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, SnapToGridBrush>)
+		{
+			Sprite* sprite = AddComponent<Sprite>("default_texture");
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<SnapToGridBrush>(_id, *transform, sprite, _camera, std::forward<Args>(args)...));
+			
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, BrushSprite>)
+		{
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<BrushSprite>(_id, *transform, std::forward<Args>(args)...));
+
+			return component;
+		}
+		else if constexpr (std::is_same_v<T, ParticleEmitter>)
+		{
+			T* component = static_cast<T*>(&_reg.EmplaceComponent<ParticleEmitter>(_id, this, std::forward<Args>(args)...));
 			return component;
 		}
 		else
 		{
-			return static_cast<T*>(_AddComponent<T>(T(std::forward<Args>(args)...)));
+			return static_cast<T*>(&_reg.EmplaceComponent<T>(_id, std::forward<Args>(args)...));
 		}
 	}
 
@@ -68,30 +100,52 @@ public:
 	template<typename T>
 	T& GetComponent()
 	{
-		return _reg.GetComponent<T>(_id);
+		if constexpr (std::is_base_of_v<BehaviourScript, T>)
+		{
+			return *static_cast<T*>(_reg.GetComponent<std::unique_ptr<BehaviourScript>>(_id).get());
+		}
+		else
+		{
+			return _reg.GetComponent<T>(_id);
+		}
 	}
 
-	Audio::AudioFacade& GetAudioFacade() const { return _audioFacade; }
-
-	ecs::EntityId GetId() const
-	{ 
-		return _id;
+	template<typename T>
+	bool HasComponent()
+	{
+		return _reg.HasComponent<T>(_id);
 	}
 
-	GameObject(ecs::Registry& reg, Audio::AudioFacade& audioFacade,
-			   Physics::PhysicsWorld& physicsWorld,
-			   Events::EventDispatcher<const std::string&>& changeScene,
-			   Camera* camera, 
-			   Transform newTransform = {{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}});
+	ecs::EntityId GetId() const;
+
+	GameObject(Scene* scene, ecs::EntityId id, ecs::Registry& reg, Physics::PhysicsWorld& physicsWorld, Camera* camera, Transform& transform_);
 	~GameObject();
 
+	friend class Scene;
+
+	Scene* _scene;
+	Transform& transformRef;
 	Transform* transform = nullptr;
 
-	bool IsActive() const { return _active; }
-	bool SetActive(bool active) { _active = active; }
+	bool IsActive() const;
+	void SetActive(bool active);
 
-	// Scene
-	void LoadScene(const std::string& name) { _changeScene.Dispatch(name); }
+	Layer GetLayer() const;
+	void SetLayer(Layer layer);
+	
+	void SetTag(const std::string& tag);
+	const std::string& GetTag() const;
+
+	void LoadScene(const std::string& name);
+
+	std::shared_ptr<GameObject> Instantiate();
+	std::shared_ptr<GameObject> Instantiate(Transform transform);
+
+	void Destroy();
+
+	Camera* GetCamera();
+
+	void GetWalkableTiles(std::vector<Transform*>& tiles, std::vector<Transform*>& walls);
 
 private:
 	bool _active{ true };
@@ -99,10 +153,10 @@ private:
 	ecs::EntityId _id;
 	ecs::Registry& _reg;
 	Physics::PhysicsWorld& _physicsWorld;
-	Events::EventDispatcher<const std::string&>& _changeScene;
+
 	Camera* _camera = nullptr;
 
-	Audio::AudioFacade& _audioFacade;
+	std::string _tag;
 
 	template<typename T>
 	T* _AddComponent(T component)
@@ -110,4 +164,3 @@ private:
 		return &_reg.AddComponent<T>(_id, std::move(component)); 
 	}
 };
-
