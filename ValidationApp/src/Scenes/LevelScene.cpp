@@ -71,6 +71,11 @@ bool LevelScene::LoadLevel(const std::string& levelName)
 		playerSheet->AddCustomAnimation("death", 6, 21, 150);
 
 		playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
+		playerObject->AddComponent<Audio::MusicSource>("boss_music", true, -1);
+		auto& music = playerObject->GetComponent<Audio::MusicSource>();
+		music.SetVolume(10);
+		music.Play();
+
 		playerObject->AddComponent<Audio::SFXSource>("", false, false);
 		playerObject->AddComponent<BoxCollider>();
 		playerObject->AddComponent<Rigidbody>();	

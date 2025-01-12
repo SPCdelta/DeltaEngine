@@ -223,7 +223,6 @@ void LevelEditor::UISaveButtonAndBinding(const float rightBarStart)
     };
 
     auto* text = saveButton->AddComponent<Ui::Text>("Save", "goblin", SAVE_FONT_SIZE, Rendering::Color{ 255, 255, 255, 255 });
-    //text->SetBackground({ 255, 255, 255, 255 });
 
     auto* button = saveButton->AddComponent<Ui::Button>();
     button->SetOnLeftMouseClick([this, text]() 
