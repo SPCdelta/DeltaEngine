@@ -103,23 +103,22 @@ void PlayerBehaviour::OnUpdate()
 		switch (_onFloor)
 		{
 			case FloorType::NORMAL:
-				rigidbody->SetVelocity(_moveDirection * _moveSpeed);
+				rigidbody->SetVelocity(_moveDirection * _player->GetSpeed());
 				break;
 
 			case FloorType::ICE:
-				if (rigidbody->GetSpeed() < _moveSpeed)
-					rigidbody->AddForce(_moveDirection * _moveSpeed, ForceMode::ACCELERATE);
+				if (rigidbody->GetSpeed() < _player->GetSpeed())
+					rigidbody->AddForce(_moveDirection * _player->GetSpeed(), ForceMode::ACCELERATE);
 
 				currentVelocity = rigidbody->GetVelocity();
 				rigidbody->AddForce(-currentVelocity * 1.0f,
 									ForceMode::ACCELERATE);
 				if (rigidbody->GetSpeed() <= 0.0f)
 					rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
-
 				break;
 
 			case FloorType::MUD:			
-				rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
+				rigidbody->SetVelocity(_moveDirection * (_player->GetSpeed() * 0.5f));
 				break;
 		}
 	}
