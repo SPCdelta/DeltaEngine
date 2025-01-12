@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
+
 #include "../ConsumableItem.hpp"
 #include "../../Player.hpp"
 #include "../../Utils/PotionTypeUtils.hpp"
@@ -12,10 +13,17 @@ public:
 	Potion(float time, float value, const std::string& name, const std::string& spriteName);
 
 	virtual void Use(Player& player) = 0;
-	virtual bool Update() { return true; };
+
+	virtual bool Update() 
+	{ 
+		return true; 
+	};
+
 	virtual std::unique_ptr<Item> Clone() const = 0;
-	float GetTime() const { return _time; }
-	float GetValue() const { return _value; }
+
+	float GetTime() const;
+	float GetValue() const;
+
 	virtual const std::string GetType() const
 	{
 		return std::string{TYPE + ':' + PotionTypeUtils::ToString(GetPotionType())};

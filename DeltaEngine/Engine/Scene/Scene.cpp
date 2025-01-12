@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+
 #include "../Application.hpp"
 
 Scene::Scene(const std::string& name)
@@ -15,6 +16,7 @@ Scene::Scene(const std::string& name)
 	_textRenderSystem = _reg.CreateSystem<TextRenderSystem, Transform, Ui::Text>();
 	_physicsSystem = _reg.CreateSystem<Physics::PhysicsSystem, Transform, Physics::Rigidbody>(_physicsWorld);
 	_lifetimeSystem = _reg.CreateSystem<LifetimeSystem, Transform, Lifetime>();
+	_aStarSystem = _reg.CreateSystem<AStarSystem, Transform, AStarWalkable>();
 }
 
 void Scene::LoadScene(const std::string& name)
@@ -47,16 +49,15 @@ void Scene::Update()
 
 	_particleSystem->Update();
 
-	// LateUpdate Physics
+	// LateUpdate (Physics)
 	_physicsSystem->TransformToBox2D();
 	_physicsSystem->ApplyPhysics();
 	_physicsSystem->Box2DToTransform();
 
 	_reg._registry.view<Transform, Velocity>().each([&](auto entity, Transform& transform, Velocity& velocity) 
-		{
-			transform.position += velocity.velocity * Time::GetDeltaTime();
-		}
-	);
+	{
+		transform.position += velocity.velocity * Time::GetDeltaTime();
+	});
 
 	_lifetimeSystem->Update();
 
@@ -77,11 +78,16 @@ std::shared_ptr<GameObject> Scene::Instantiate(Transform transform)
 	{ 
 		std::make_shared<GameObject>
 		(
-			this, entityId, _reg, _physicsWorld, camera, transformComponent
+			this, 
+			entityId, 
+			_reg, 
+			_physicsWorld, 
+			camera, 
+			transformComponent
 		) 
 	};
+	
 	transformComponent.gameObject = obj;
-
 	return obj;
 }
 
@@ -99,6 +105,7 @@ Json::json& Scene::RetrieveUserData()
 { 
 	return _application->RetriveData(); 
 }
+
 void Scene::StoreUserData(const std::string& data) 
 { 
 	_application->StoreData(data); 
@@ -108,7 +115,28 @@ void Scene::StoreUserData(Json::json data)
 {
 	_application->StoreData(data);
 }
+
 void Scene::DeleteUserData() 
 { 
 	_application->DeleteUserData(); 
+}
+
+Window* Scene::GetWindow()
+{
+	return _renderSystem->GetWindow();
+}
+
+void Scene::SetWindow(Window& window)
+{
+	_renderSystem->SetWindow(&window);
+	_renderSystem->SetViewportData(&window.GetViewport());
+	_imageRenderSystem->SetWindow(&window);
+	_imageRenderSystem->SetViewportData(&window.GetViewport());
+	_textRenderSystem->SetWindow(&window);
+	camera->SetViewportData(&window.GetViewport());
+}
+
+void Scene::GetWalkableTiles(std::vector<Transform*>& tiles, std::vector<Transform*>& walls)
+{
+	_aStarSystem->GetWalkableTiles(tiles, walls);
 }

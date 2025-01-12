@@ -1,7 +1,10 @@
 #include "IView.hpp"
 
 IView::IView(Scene& scene, const std::string& fontName, const Math::Vector2& pos, const Math::Vector2& scale) 
-	: _fontName{ fontName }, _scene(scene), _scale{scale}, _pos{pos}
+	: _fontName{ fontName }, 
+	  _scene(scene), 
+	  _scale{scale}, 
+	  _pos{pos}
 {
 
 }

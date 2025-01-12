@@ -5,15 +5,22 @@
 
 #include "../Math/Point.hpp"
 #include "../Math/Vector2.hpp"
+#include "../../Transform.hpp"
+#include "../../GameObject.hpp"
 
 struct Node 
 {
     Math::Vector2 position;
 	std::string tag;
 
-    Node* parent;
+    std::shared_ptr<Node> parent;
 
-    Node(const Math::Vector2& pos, Node* p = nullptr) : position(pos), parent(p) {}
+    Node(const Math::Vector2& pos, std::shared_ptr<Node> p = nullptr) 
+		: position(pos), 
+		  parent(p) 
+	{
+
+	}
 };
 
 struct Vector2Hash
@@ -31,9 +38,10 @@ struct Vector2Hash
 
 class IAIStrategy
 {
-   public:
-		virtual ~IAIStrategy() = default;
+public:
+	virtual ~IAIStrategy() = default;
 
-		// Range is amount of units in each direction, with step being 1 node per step amount of units
-		virtual std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range, int step) = 0; 
+	// Range is amount of units in each direction, with step being 1 node per step amount of units
+	virtual std::vector<Math::Vector2> CalculatePath(Transform* start, Math::Vector2& end, int range, int step) = 0; 
+	virtual bool IsWalkable(const Math::Vector2& position) = 0;
 };

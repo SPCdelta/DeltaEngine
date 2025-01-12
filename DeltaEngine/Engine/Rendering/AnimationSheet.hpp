@@ -18,55 +18,54 @@ struct AnimationData
 class AnimationSheet
 {
 public:
-	AnimationSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = 0, int rowDown = 0, 
-		int rowLeft = 0, int rowRight = 0);
+	AnimationSheet(Transform& transform, int framesInRow, int frameW, int frameH, int rowUp = 0, int rowDown = 0, int rowLeft = 0, int rowRight = 0);
 	~AnimationSheet() = default;
 
     void AddCustomAnimation(const std::string& animationName, int frameCount, int row, Rendering::UnsignInt32 animSpeed);
 	bool PlayCustomAnimation(const std::string& animationName);
 
-	int GetCurrentFrame() const { return currentFrame; }
-	void SetCurrentFrame(int newFrame) { currentFrame = newFrame; }
+	int GetCurrentFrame() const;
+	void SetCurrentFrame(int newFrame);
 
-	int GetFrameCount() const { return frameCount; }
-	float GetMovementSpeed() const { return movementSpeed; }
-	int GetAnimationSpeed() const { return animationSpeed; }
+	int GetFrameCount() const;
+	float GetMovementSpeed() const;
+	int GetAnimationSpeed() const;
 
-	int GetFrameWidth() const { return frameWidth; }
-	int GetFrameHeight() const { return frameHeight; }
+	int GetFrameWidth() const;
+	int GetFrameHeight() const;
 
-	int GetRowUp() const { return frameRowUp; }
-	int GetRowDown() const { return frameRowDown; }
-	int GetRowLeft() const { return frameRowLeft; }
-	int GetRowRight() const { return frameRowRight; }
+	int GetRowUp() const;
+	int GetRowDown() const;
+	int GetRowLeft() const;
+	int GetRowRight() const;
 
-	Rendering::Rect GetSrcRect() const { return srcRect; }
-	void SetSrcRect(Rendering::Rect src) { srcRect = src; }
+	Rendering::Rect GetSrcRect() const;
+	void SetSrcRect(Rendering::Rect src);
 
-	Rendering::Rect GetDestRect() const { return destRect; }
-	void SetDestRect(Rendering::Rect dest) { destRect = dest; }
+	Rendering::Rect GetDestRect() const;
+	void SetDestRect(Rendering::Rect dest);
 
-	Rendering::Rect GetPrevDestRect() const { return prevDestRect; }
-	void SetPrevDestRect(Rendering::Rect prev) { prevDestRect = prev; }
+	Rendering::Rect GetPrevDestRect() const;
+	void SetPrevDestRect(Rendering::Rect prev);
 
-	Rendering::UnsignInt32 GetLastMoveTime() const { return lastMoveTime; }
-	void SetLastMoveTime(Rendering::UnsignInt32 time) { lastMoveTime = time; }
+	Rendering::UnsignInt32 GetLastMoveTime() const;
+	void SetLastMoveTime(Rendering::UnsignInt32 time);
 
-	Rendering::UnsignInt32 GetLastFrameTime() const { return lastFrameTime; }
-	void SetLastFrameTime(Rendering::UnsignInt32 time) { lastFrameTime = time; }
+	Rendering::UnsignInt32 GetLastFrameTime() const;
+	void SetLastFrameTime(Rendering::UnsignInt32 time);
 
-	Rendering::UnsignInt32 GetMoveInterval() const { return moveInterval; }
+	Rendering::UnsignInt32 GetMoveInterval() const;
 
 	void AddIdleAnimation(int frameCount, int row, Rendering::UnsignInt32 idleAnimSpeed);
-	int GetIdleFrameCount() const { return idleFrameCount; }
-	Rendering::UnsignInt32 GetIdleAnimSpeed() const { return idleAnimationSpeed; }
-	int GetIdleRow() const { return idleRow; }
+	int GetIdleFrameCount() const;
+	Rendering::UnsignInt32 GetIdleAnimSpeed() const;
+	int GetIdleRow() const;
 
-	int GetIdleCurrentFrame() const { return idleCurrentFrame; }
-	void SetIdleCurrentFrame(int newFrame) { idleCurrentFrame = newFrame; }
+	int GetIdleCurrentFrame() const;
+	void SetIdleCurrentFrame(int newFrame);
 
-	Direction GetFacingDirection() const { return facingDirection; }
-	void SetFacingDirection(Direction direction) { facingDirection = direction; }
+	Direction GetFacingDirection() const;
+	void SetFacingDirection(Direction direction);
 
 private:
 	int currentFrame{0};

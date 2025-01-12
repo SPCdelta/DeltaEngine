@@ -26,27 +26,20 @@ namespace Physics
 	class PhysicsWorld
 	{
 	public:
-		PhysicsWorld()
-		{
-			_data = EnginePhysics::CreateWorld();
-		}
-
-		~PhysicsWorld() 
-		{ 
-			EnginePhysics::DestroyWorld(_data.id); 
-		}
+		PhysicsWorld();
+		~PhysicsWorld();
 
 		friend class Rigidbody;
 
-		const EnginePhysics::WorldId& GetWorldId() const { return _data.id; }
+		const EnginePhysics::WorldId& GetWorldId() const;
 
 		void Update();
 
-		std::vector<CollisionData>& GetCurrentTriggers() { return _currentTriggers; }
-		const std::vector<CollisionData>& GetCurrentTriggers() const { return _currentTriggers; }
+		std::vector<CollisionData>& GetCurrentTriggers();
+		const std::vector<CollisionData>& GetCurrentTriggers() const;
 		
-		std::vector<CollisionData>& GetCurrentCollisions() { return _currentCollisions; }
-		const std::vector<CollisionData>& GetCurrentCollisions() const{ return _currentCollisions; }
+		std::vector<CollisionData>& GetCurrentCollisions();
+		const std::vector<CollisionData>& GetCurrentCollisions() const;
 
 	private:
 		EnginePhysics::WorldData _data;

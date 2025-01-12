@@ -1,9 +1,15 @@
 #include "LayerScene.hpp"
 
+LayerScene::LayerScene(const std::string& sceneName) 
+	: Scene(sceneName)
+{
+
+}
+
 void LayerScene::OnStart()
 {
 	// Create Player
-	std::shared_ptr<GameObject> playerObject{ Instantiate({{0.0f, 0.0f}, 0.0f, {2.5f, 2.5f}}) };
+	std::shared_ptr<GameObject> playerObject{ Instantiate({{0.0f, 0.0f}, 0.0f, {1.0f, 1.0f}}) };
 	std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 9, 64, 64, 9, 11, 10, 12);
 	playerSheet->AddCustomAnimation("death", 6, 21, 150);
 	playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
@@ -14,7 +20,7 @@ void LayerScene::OnStart()
 	playerObject->SetTag("player");
 
 	// Create goblin enemy
-	std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {2.5f, 2.5f}}) };
+	std::shared_ptr<GameObject> goblinObj{ Instantiate({{10.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
 	std::shared_ptr<AnimationSheet> goblinSheet = std::make_shared<AnimationSheet>(goblinObj->GetComponent<Transform>(), 6, 64, 64, 3, 1, 4, 2);
 	goblinObj->AddComponent<Sprite>("goblin", goblinSheet);
 	goblinObj->AddComponent<Audio::SFXSource>("", false, false);
@@ -34,7 +40,7 @@ void LayerScene::OnStart()
 	slimeObj->AddComponent<EnemyBehaviour>()->SetPlayer(&playerObject->GetComponent<Transform>(), playerObject->GetComponent<PlayerBehaviour>().GetPlayer());
 
 	// Create skeleton enemy
-	std::shared_ptr<GameObject> skeletonObj{ Instantiate({{-10.0f, 10.0f}, 0.0f, {2.5f, 2.5f}}) };
+	std::shared_ptr<GameObject> skeletonObj{ Instantiate({{-10.0f, 10.0f}, 0.0f, {1.0f, 1.0f}}) };
 	std::shared_ptr<AnimationSheet> skeletonSheet = std::make_shared<AnimationSheet>(skeletonObj->GetComponent<Transform>(), 9, 64, 64, 1, 3, 2, 4);
 	skeletonObj->AddComponent<Sprite>("skeleton", skeletonSheet);
 	skeletonObj->AddComponent<Audio::SFXSource>("", false, false);

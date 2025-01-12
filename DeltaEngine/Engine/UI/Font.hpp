@@ -1,6 +1,8 @@
 #pragma once
+
 #include <iostream>
 #include <SDL_ttf.h>
+
 #include "../Rendering/Rendering.hpp"
 #include "../Core/Math/Vector2.hpp"
 
@@ -38,4 +40,3 @@ namespace Font
 		TTF_Quit();
 	}
 }
-

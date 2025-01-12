@@ -1,4 +1,5 @@
 #include "EnemyBehaviour.hpp"
+
 #include "../Classes/DamageBehaviour.hpp"
 
 EnemyBehaviour::~EnemyBehaviour()
@@ -32,8 +33,10 @@ void EnemyBehaviour::OnStart()
 	sprite = &transform->gameObject->GetComponent<Sprite>();
 	rigidbody = &transform->gameObject->GetComponent<Rigidbody>();
 	rigidbody->SetGravityScale(0.0f);	
-	_sfx = std::make_unique<Audio::SFXSource>(transform->gameObject->GetComponent<Audio::SFXSource>());
 
+	if (transform->gameObject->HasComponent<Audio::SFXSource>())
+		_sfx = std::make_unique<Audio::SFXSource>(transform->gameObject->GetComponent<Audio::SFXSource>());
+		
 	Math::Vector2* enemyPosition = &transform->position;
 	std::shared_ptr<AStarStrategy> astar = std::make_shared<AStarStrategy>();
 	_aiBehaviour = std::make_unique<AIBehaviour>(astar, transform, playerPosition, _enemy->GetRange(), _enemy->GetStep(), _enemy->GetSpeed()); 
@@ -41,7 +44,7 @@ void EnemyBehaviour::OnStart()
 	_damageObj = Instantiate(*transform);
 	_damageObj->AddComponent<BoxCollider>();
 	_damageObj->AddComponent<Rigidbody>()->SetGravityScale(0.0f);
-	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position) ;
+	_damageObj->AddComponent<EnemyHitboxBehaviour>()->SetEnemyPosition(&transform->position);
 	SetDamageBehaviour(_damageObj->GetComponent<Rigidbody>());
 }
 
@@ -54,7 +57,7 @@ void EnemyBehaviour::OnUpdate()
 
 	if (playerPosition)
 	{
-		pos = _aiBehaviour->Update();
+		pos = _aiBehaviour->Update();			
 		_enemy->Update(*playerPosition, _sfx.get());
 	}
 		
@@ -72,11 +75,16 @@ void EnemyBehaviour::OnUpdate()
 		_damageBehaviour->Update(Time::GetDeltaTime());
 		if (_damageBehaviour->GetDamage())
 		{
-			if (_enemy && _enemy->GetHealth() > 0 && _sfx)
+			if (_enemy && _enemy->GetHealth() > 0)
 			{
 				_enemy->SetHealth(_enemy->GetHealth() - _damageBehaviour->TakeDamage());
-				_sfx->SetClip("taking_damage");
-				_sfx->Play();
+
+				if (_sfx)
+				{
+					_sfx->SetClip("taking_damage");
+					_sfx->SetVolume(5); 
+					_sfx->Play(2);					
+				}			
 			}
 
 			if (_enemy && _enemy->GetHealth() <= 0)
@@ -107,9 +115,7 @@ void EnemyBehaviour::UpdateAnimation()
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, false);
 		else if (_moveDirection.GetY() > 0.0f)
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, false);
-
-		// Idle
-		else
+		else // Idle
 			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
 }
@@ -133,4 +139,9 @@ void EnemyBehaviour::OnDeath()
 	if (transform->gameObject && transform->gameObject->HasComponent<Sprite>())
 		transform->gameObject->GetComponent<Sprite>().SetVisible(false);
 	transform->gameObject->Destroy();
+}
+
+Enemy& EnemyBehaviour::GetEnemy() const
+{
+	return *_enemy;
 }

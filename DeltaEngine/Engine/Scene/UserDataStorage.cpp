@@ -12,7 +12,7 @@ void StoreUserData::Store(const Json::json& jsonObject)
 	_userData[DATA_NAME] = jsonObject;
 }
 
-Json::json& StoreUserData::Retrive()
+Json::json& StoreUserData::Retrieve()
 {
 	return _userData[DATA_NAME];
 }

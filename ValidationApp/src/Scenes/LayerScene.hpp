@@ -14,7 +14,7 @@
 class LayerScene : public Scene
 {
 public:
-	LayerScene(const std::string& sceneName) : Scene(sceneName) {};
+	LayerScene(const std::string& sceneName);
 
 	void OnStart() override;
 

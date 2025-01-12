@@ -1,7 +1,9 @@
 #include "Bow.hpp"
 
-Bow::Bow(BehaviourScript* user) : Weapon{user}
+Bow::Bow(BehaviourScript* user) 
+	: Weapon{user} 
 {
+	_attackCooldown = 0.3f;
 }
 
 void Bow::Use()

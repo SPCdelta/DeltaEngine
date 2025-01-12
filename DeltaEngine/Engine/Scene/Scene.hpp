@@ -26,6 +26,7 @@
 #include "../Systems/ImageRenderSystem.hpp"
 #include "../Systems/TextRenderSystem.hpp"
 #include "../Systems/LifetimeSystem.hpp"
+#include "../Systems/AStarSystem.hpp"
 
 struct Velocity
 {
@@ -37,7 +38,7 @@ class SceneHelper;
 
 class Scene
 {
-   public:
+public:
 	Scene(const std::string& name);
 	virtual ~Scene() = default;
 
@@ -46,25 +47,23 @@ class Scene
 
 	const std::string& GetName() const;
 
-	Window* GetWindow() { return _renderSystem->GetWindow(); }
-	void SetWindow(Window& window)
-	{
-		_renderSystem->SetWindow(&window);
-		_renderSystem->SetViewportData(&window.GetViewport());
-		_imageRenderSystem->SetWindow(&window);
-		_imageRenderSystem->SetViewportData(&window.GetViewport());
-		_textRenderSystem->SetWindow(&window);
-		camera->SetViewportData(&window.GetViewport());
-	}
+	Window* GetWindow();
+	void SetWindow(Window& window);
 
 	void LoadScene(const std::string& name);
 
-	virtual void OnStart(){};
-	virtual void OnUpdate(){};
+	virtual void OnStart()
+	{
+
+	};
+
+	virtual void OnUpdate()
+	{
+		
+	};
 
 	void Start();
 	void Update();
-
 
 	std::shared_ptr<GameObject> Instantiate(Transform transform);
 	std::shared_ptr<GameObject> Instantiate();
@@ -74,6 +73,8 @@ class Scene
 	void StoreUserData(const std::string& data);
 	void StoreUserData(Json::json data);
 	void DeleteUserData();
+
+	void GetWalkableTiles(std::vector<Transform*>& tiles, std::vector<Transform*>& walls);
 
 protected:
 	Camera* camera;
@@ -85,14 +86,12 @@ private:
 
 	ecs::Registry _reg;
 	std::string _name;
-	//std::vector<std::shared_ptr<GameObject>> _objects{};
 
 	std::shared_ptr<GameObject> _cameraObj;
 
 	Physics::PhysicsWorld _physicsWorld{};
 
 	// Systems
-	//std::shared_ptr<UpdateSystem> _updateSystem;
 	std::shared_ptr<BehaviourSystem> _behaviourSystem;
 	std::shared_ptr<Physics::PhysicsSystem> _physicsSystem;
 	std::shared_ptr<TextRenderSystem> _textRenderSystem;
@@ -100,4 +99,5 @@ private:
 	std::shared_ptr<RenderSystem> _renderSystem;
 	std::shared_ptr<ImageRenderSystem> _imageRenderSystem;
 	std::shared_ptr<LifetimeSystem> _lifetimeSystem;
+	std::shared_ptr<AStarSystem> _aStarSystem;
 };

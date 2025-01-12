@@ -3,25 +3,85 @@
 using namespace Ui;
 using namespace Rendering;
 
-Text::Text(const std::string& text, const std::string& fontName, int fontSize,
-		   const Rendering::Color& color)
-	: 
-	  _fontName{ fontName },
-	  _fontSize{ fontSize },
+Text::Text(const std::string& text, const std::string& fontName, int fontSize, const Rendering::Color& color)
+	: _fontName{fontName},
+	  _fontSize{fontSize},
 	  _text{text},
 	  _color{color},
-	  _font{ ResourceManager::GetFont(fontName, fontSize)},
+	  _font{ResourceManager::GetFont(fontName, fontSize)},
 	  _backgroundColor{0,0,0,0}
 {
 	if (_font == nullptr)
-	{
 		std::cerr << "Error loading font: " << Font::GetError() << std::endl;
+}
+
+Text::Text(const Text& other)
+	: _text{other._text},
+	  _font{other._font},
+	  _color{other._color},
+	  _fontName{ other._fontName },
+	  _fontSize{ other._fontSize },
+	  _background{ other._background },
+	  _backgroundColor{ other._backgroundColor },
+	  _position{ other._position }
+{
+
+}
+
+Text& Text::operator=(const Text& other)
+{
+	if (this != &other)
+	{
+		_text = other._text;
+		_font = other._font;
+		_color = other._color;
+		_fontName = other._fontName;
+		_fontSize = other._fontSize;
+		_background =other._background;
+		_backgroundColor = other._backgroundColor;
+		_position =  other._position;
 	}
+	return *this;
+}
+
+Text::Text(Text&& other) noexcept
+	: _text{other._text},
+	  _font{other._font},
+	  _color{other._color},
+	  _fontName{other._fontName},
+	  _fontSize{other._fontSize},
+	  _background{other._background },
+	  _backgroundColor{other._backgroundColor},
+	  _position{other._position}
+
+{
+
+}
+
+Text& Text::operator=(Text&& other) noexcept
+{
+	if (this != &other)
+	{
+		_text = other._text;
+		_font = other._font;
+		_color = other._color;
+		_fontName = other._fontName;
+		_fontSize = other._fontSize;
+		_background = other._background;
+		_backgroundColor = other._backgroundColor;
+		_position = other._position;
+
+	}
+	return *this;
+}
+
+Text::~Text() 
+{
+
 }
 
 void Text::Render(Renderer* renderer, const Transform& transform)
 {
-
 	if (_font == nullptr)
 	{
 		std::cerr << "Font not loaded" << '\n';
@@ -29,7 +89,6 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 	}
 
 	Surface* surface = Font::RenderText_Solid(_font->GetFont(), _text.c_str(), _color);
-
 	if (surface == nullptr)
 	{
 		std::cerr << "Error creating surface: " << GetError() << '\n';
@@ -37,7 +96,6 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 	}
 
 	Texture* texture = CreateTextureFromSurface(renderer, surface);
-
 	if (texture == nullptr)
 	{
 		std::cerr << "Error creating texture: " << GetError() << '\n';
@@ -53,12 +111,11 @@ void Text::Render(Renderer* renderer, const Transform& transform)
 		static_cast<int>(transform.position.GetY() + _position.GetY()),
 		surface->w, surface->h
 	};
-
+	
 	if (_background)
 		RenderRect(renderer, dstRect, _backgroundColor);
 
 	RenderCopy(renderer, texture, nullptr, &dstRect);
-
 	FreeSurface(surface);
 	DestroyTexture(texture);
 }
@@ -105,10 +162,12 @@ void Text::SetPosition(const Math::Vector2& position)
 	_position = position;
 }
 
-void Text::SetBackground(Rendering::Color color) {
+void Text::SetBackground(Rendering::Color color) 
+{
 	_background = true;
 	_backgroundColor = color;
 }
+
 void Text::SetColor(const Rendering::Color& color)
 {
 	_color = color;

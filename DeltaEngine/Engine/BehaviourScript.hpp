@@ -1,31 +1,38 @@
 #pragma once
-#include "Input/InputManager.hpp"
 
+#include "Input/InputManager.hpp"
+#include "GameObject.hpp"
 
 #include <string>
-
-#include "GameObject.hpp"
 
 class BehaviourScript
 {
 public:
 	friend class GameObject;
 
-	virtual void OnStart() { };
-	virtual void OnUpdate() { };
+	virtual void OnStart() 
+	{ 
 
-	void LoadScene(const std::string& name) { transform->gameObject->LoadScene(name); }
+	}
+
+	virtual void OnUpdate() 
+	{ 
+
+	}
+
+	void LoadScene(const std::string& name);
+
+	void Destroy(std::shared_ptr<GameObject> gameObject);
+	void Destroy(GameObject* gameObject);
 
 	virtual ~BehaviourScript() = default;
 
 	//Inputs
-
 	void keyPressed(Key keyDown, Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
 	void keyPressed(std::set<Key> keysDown, Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
 	
 	void onKeyPressed(Key keyDown,Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
 	void onKeyReleased(Key keyUp, Events::EventCallback<Input&> keyEvent, std::string category = InputManager::defaultCategory);
-
 
 	void onMouseButtonDown(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = InputManager::defaultCategory);
 	void onMouseButtonUp(MouseButton button, Events::EventCallback<Input&> buttonEvent, std::string category = InputManager::defaultCategory);
@@ -38,14 +45,6 @@ public:
 protected:
 	InputHandler _inputListeners;
 
-	std::shared_ptr<GameObject> Instantiate()
-	{
-		return transform->gameObject->Instantiate();
-	}
-
-	std::shared_ptr<GameObject> Instantiate(Transform transformComponent)
-	{
-		return transform->gameObject->Instantiate(transformComponent);
-	}
+	std::shared_ptr<GameObject> Instantiate();
+	std::shared_ptr<GameObject> Instantiate(Transform transform);
 };
-

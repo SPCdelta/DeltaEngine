@@ -21,14 +21,16 @@ public:
 	static constexpr auto PlayerName = "player";
 	static constexpr auto EnemySpawnersName = "enemy_spawners";
 	static constexpr auto LevelExitName = "level_exit";
+	static constexpr auto PotionName = "potions";
 
-	LevelScene(const std::string& name) : Scene(name) {}
+	LevelScene(const std::string& name);
 
 	void OnStart() override;
 
 private:
 	bool LoadLevel(const std::string& levelName);
- std::string GetEnemyName(const std::string& spawnerName);
+
+	std::string GetEnemyName(const std::string& spawnerName);
 
 	std::unique_ptr<HUDView> _hud;
 };

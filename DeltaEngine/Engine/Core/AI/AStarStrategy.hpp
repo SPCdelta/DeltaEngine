@@ -5,17 +5,35 @@
 #include <unordered_map>
 
 #include "IAIStrategy.hpp"
+#include "../../Systems/AStarSystem.hpp"
 
 class AStarStrategy : public IAIStrategy
 {
-   public:
+public:
 	AStarStrategy() = default;
 
-	std::vector<Math::Vector2> CalculatePath(Math::Vector2& start, Math::Vector2& end, int range, int step) override;
+	std::vector<Math::Vector2> CalculatePath(Transform* start, Math::Vector2& end, int range, int step) override;
 
-   private:
-        Node* CreateNode(const Math::Vector2& position, Node* parent = nullptr);
-        void InitializeNodesAround(Math::Vector2 center, int range, int step, std::unordered_map<Math::Vector2, Node*, Vector2Hash>& nodeMap);
+	void InitializeGrid(Transform* start);
+	bool IsWalkable(const Math::Vector2& position) override;
 
-        bool IsWalkable(const Math::Vector2& position);
+private:
+    std::shared_ptr<Node> CreateNode(const Math::Vector2& position, std::shared_ptr<Node> parent = nullptr);
+	Math::Vector2 FindClosestWalkableNode(const Math::Vector2& position);
+
+	bool IsWithinBounds(const Math::Vector2& position) const;
+
+    using Grid = std::vector<std::vector<AStarWalkable>>;
+	Grid grid;	
+	int gridMinX, gridMinY, gridXSize, gridYSize {0};
+
+	std::vector<Transform*> walkableTiles;
+	std::vector<Transform*> wallTiles;
+
+	// N, E, S, W and diagonals
+    const std::vector<Math::Vector2> directions = 
+    {
+        {1, 0}, {-1, 0}, {0, 1}, {0, -1},  
+        {1, 1}, {-1, -1}, {1, -1}, {-1, 1} 
+    };
 };

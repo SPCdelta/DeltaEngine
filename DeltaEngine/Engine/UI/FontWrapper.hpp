@@ -5,21 +5,10 @@
 class FontWrapper
 {
 public:
-	FontWrapper(Font::Font* font)
-		: _font{ font }
-	{
+	FontWrapper(Font::Font* font);
+	~FontWrapper();
 
-	}
-
-	~FontWrapper()
-	{
-		Font::CloseFont(_font);
-	}
-
-	Font::Font* GetFont() const
-	{
-		return _font;
-	}
+	Font::Font* GetFont() const;
 
 private:
 	Font::Font* _font;

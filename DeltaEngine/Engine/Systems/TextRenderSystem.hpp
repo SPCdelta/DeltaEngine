@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Ecs/Registry.hpp"
 #include "../Ecs/Include.hpp"
 
 #include "../UI/Text.hpp"
@@ -8,38 +9,16 @@
 
 class TextRenderSystem : public ecs::System<Transform, Ui::Text>
 {
-   public:
-	TextRenderSystem(ecs::Registry& reg) 
-		: ecs::System<Transform, Ui::Text>(reg), _window(nullptr),
-		  _viewportData(nullptr) {}
+public:
+	TextRenderSystem(ecs::Registry& reg);
 
-	void SetWindow(Window* window) { _window = window; }
+	void SetWindow(Window* window);
+	void SetViewportData(ViewportData* viewportData);
 
-	void SetViewportData(ViewportData* viewportData) { _viewportData = viewportData; }
+	void OnStart();
+	void Update();
 
-	void OnStart()
-	{
-		RefreshView();
-		for (ecs::EntityId entityId : _view)
-		{
-			Ui::Text& text = _view.get<Ui::Text>(entityId);
-			Transform& transform = _view.get<Transform>(entityId);
-			text.Render(_window->GetRenderer(), transform);
-		}
-	}
-
-	void Update()
-	{
-		RefreshView();
-		for (ecs::EntityId entityId : _view)
-		{
-			Ui::Text& text = _view.get<Ui::Text>(entityId);
-			Transform& transform = _view.get<Transform>(entityId);
-			text.Render(_window->GetRenderer(), transform);
-		}
-	}
-
-   private:
+private:
 	Window* _window;
 	ViewportData* _viewportData;
 };

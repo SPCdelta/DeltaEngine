@@ -1,12 +1,14 @@
 #pragma once
-#include <vector>
 
+#include <vector>
+#include <string>
 
 enum class Layer : int
 {
 	Background = 0,
 	Button,
 	Floor,
+	Items,
 	Wall,
 	Default,
 	Player,
@@ -19,66 +21,13 @@ enum class Layer : int
 class LayerHelper
 {
 public:
-	static Layer GetLowest(){
-		return Layer::Background;
-	}
+	static Layer GetLowest();
+	static Layer GetHighest();
+	static bool InLayers(int layer);
 
-	static Layer GetHighest() {
-		return Layer::Foreground;
-	}
+	static int GetInt(Layer layer);
+	static std::string GetString(Layer layer);
 
-	static bool InLayers(int layer){
-		int lowests = static_cast<int>(GetLowest());
-		int heights = static_cast<int>(GetHighest());
-
-		return (lowests <= layer && layer <= heights);
-	}
-
-	static int GetInt(Layer layer){
-		return static_cast<int>(layer);
-	}
-
-	static Layer GetLayer(int layer) {
-		return static_cast<Layer>(layer);
-	}
-
-	static std::vector<Layer> GetAllLayer() {
-		std::vector<Layer> result;
-
-		for (int i = GetInt(GetLowest()); i <= GetInt(GetHighest()); i++)
-		{
-			result.push_back(GetLayer(i));
-		}
-
-		return result;
-	}
-
-	static std::string GetString(Layer layer) {
-		switch (layer)
-		{
-		case Layer::Background:
-			return "Background";
-		case Layer::Button:
-			return "Button";
-		case Layer::Floor:
-			return "Floor";
-		case Layer::Wall:
-			return "Walls";
-		case Layer::Default:
-			return "Default";
-		case Layer::Player:
-			return "Player";
-		case Layer::Projectiles:
-			return "Projectiles";
-		case Layer::Foreground:
-			return "Foreground";
-		case Layer::EngineLayer:
-			return "EngineLayer";
-		default:
-			return "UNKNOWN";
-		}
-	}
-
-private:
-
+	static Layer GetLayer(int layer);
+	static std::vector<Layer> GetAllLayer();
 };

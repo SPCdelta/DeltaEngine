@@ -3,7 +3,6 @@
 #include "../../../Transform.hpp"
 #include "../Json.hpp"
 
-
 struct TransformDTO
 {
 	float posX, posY;
@@ -24,14 +23,15 @@ struct TransformDTO
 		tileJson["transform"]["scale"]["y"] = transform.scale.GetY();
 	}
 
-	static Transform JsonToTransform(Json::json& tile){
+	static Transform JsonToTransform(Json::json& tile)
+	{
 		return
 		{
 			{
 				static_cast<float>(tile["transform"]["position"]["x"]),
 				static_cast<float>(tile["transform"]["position"]["y"])
 			},
-				static_cast<float>(tile["transform"]["rotation"]),
+			static_cast<float>(tile["transform"]["rotation"]),
 			{
 				static_cast<float>(tile["transform"]["scale"]["x"]),
 				static_cast<float>(tile["transform"]["scale"]["y"])

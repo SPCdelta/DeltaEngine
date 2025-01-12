@@ -1,5 +1,7 @@
 #include "MusicSource.hpp"
+
 #include <iostream>
+
 #include "AudioLoader.hpp"
 #include "../Rendering/ResourceManager.hpp"
 
@@ -12,11 +14,18 @@ MusicSource::MusicSource(const std::string& audioName, bool playOnAwake, int loo
 	PlayOnAwake();
 }
 
-MusicSource::MusicSource() : AudioSource(false, "", 0), _clip(AudioLoader::LoadMusic("")) {}
+MusicSource::MusicSource() 
+	: AudioSource(false, "", 0), 
+	  _clip(AudioLoader::LoadMusic("")) 
+{
+
+}
 
 MusicSource::MusicSource(const MusicSource& other)
-	: AudioSource(other), _clip(AudioLoader::LoadMusic(other._audioName))
+	: AudioSource(other), 
+	  _clip(AudioLoader::LoadMusic(other._audioName))
 {
+
 }
 
 MusicSource& MusicSource::operator=(const MusicSource& other)
@@ -30,8 +39,10 @@ MusicSource& MusicSource::operator=(const MusicSource& other)
 }
 
 MusicSource::MusicSource(MusicSource&& other) noexcept
-	: AudioSource(other), _clip(std::move(other._clip))
+	: AudioSource(other), 
+	  _clip(std::move(other._clip))
 {
+
 }
 
 MusicSource& MusicSource::operator=(MusicSource&& other) noexcept
@@ -44,9 +55,12 @@ MusicSource& MusicSource::operator=(MusicSource&& other) noexcept
 	return *this;
 }
 
-Audio::MusicSource::~MusicSource() {}
+Audio::MusicSource::~MusicSource() 
+{
 
-void MusicSource::Play()
+}
+
+void MusicSource::Play(int channel)
 {
 	AudioManager::GetInstance().PlayMusic(_clip.get(), _loops);
 }

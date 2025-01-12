@@ -1,33 +1,27 @@
 #include "Application.hpp"
+
 #include "Core/Strings/StringUtils.hpp"
 #include "UI/FontWrapper.hpp"
 
 bool Application::_isRunning = true;
 
 Application::Application(int unitPixelSize)
-	: _window("Meow!", 1280, 720)
+	: _window("Delta Engine - Validation App", BASE_WINDOW_W, BASE_WINDOW_H)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
-	{
 		std::cerr << "Failed to initialize the SDL2 library" << std::endl;
-	}
 
 	// Init SDL2 image 
 	if (!(Rendering::InitializeImage(Rendering::INIT_PNG) & Rendering::INIT_PNG))
-	{
 		std::cerr << "Failed to initialize the SDL2_image library" << std::endl;
-	}
 
 	// Init SDL2_ttf
 	if (TTF_Init() < 0)
-	{
 		std::cerr << "Failed to initialize the SDL2_ttf library" << std::endl;
-	}
 
 	_window.SetUnitPixelSize(unitPixelSize);
 }
-
 
 Application::~Application()
 {
@@ -38,13 +32,10 @@ Application::~Application()
 
 void Application::Run()
 {
-
 #ifndef _DEBUG
-
 	try
 	{
 #endif	// _DEBUG
-	
 		InitDebug();
 		InitGameSpeed();
 		Uint32 previousTime = Rendering::GetTicks();
@@ -56,16 +47,12 @@ void Application::Run()
 			Time::SetDeltaTime((static_cast<float>(currentTime - previousTime) / 1000.f));
 			previousTime = currentTime;
 
-			// 
 			Rendering::RenderClear(_window.GetRenderer());
-			_window.RenderViewport(255, 255, 255, 255);
-
+			_window.RenderViewport(0, 0, 0, 255);
 			Rendering::PollEvent(_windowEvent);
 
 			if (!Application::_isRunning || _windowEvent.type == Rendering::QUIT)
 				return;
-
-
 
 			// Update Window
 			_window.Update();
@@ -89,7 +76,6 @@ void Application::Run()
 		std::cerr << e.what();
 	}
 #endif	// _DEBUG
-
 }
 
 void Application::LoadScene(const std::string& sceneName)
@@ -106,7 +92,6 @@ void Application::LoadScene(const std::string& sceneName)
 void Application::InitDebug()
 {
 	_fpsText = new Ui::Text("FPS: ", "knight", 48, _debugTextColor);
-
 	_inputListeners.Add(InputManager::onKeyPressed(Key::KEY_L, [this](Input& e) { _renderDebug = !_renderDebug; }));
 }
 
@@ -137,24 +122,65 @@ void Application::Debug()
 void Application::InitGameSpeed()
 {
 	_gameSpeed = std::make_unique<Ui::Text>(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x", "goblin", 48, _gameSpeedTextColor);
-	
 	Time::SetIncrement(0.25f);
 
 	_inputListeners.Add(InputManager::onKeyPressed(KEY_PAGEUP, [this](Input& e)
-		{
-			Time::IncreaseMultiplier();
-			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
-		}, "Application"));
+	{
+		Time::IncreaseMultiplier();
+		_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+	}, "Application"));
 
 	_inputListeners.Add(InputManager::onKeyPressed(KEY_PAGEDOWN, [this](Input& e)
-		{
-			Time::DecreaseMultiplier();
-			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
-		}, "Application"));
+	{
+		Time::DecreaseMultiplier();
+		_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+	}, "Application"));
 
 	_inputListeners.Add(InputManager::onKeyPressed(KEY_HOME, [this](Input& e)
-		{
-			Time::SetMultiplier(1);
-			_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
-		}, "Application"));
+	{
+		Time::SetMultiplier(1);
+		_gameSpeed->SetText(StringUtils::FloatToString(Time::GetMultiplier(), 2) + "x");
+	}, "Application"));
+}
+
+void Application::Stop()
+{
+	ResourceManager::Cleanup();
+	_window.Close();
+	_isRunning = false;
+
+	Rendering::Quit();
+	Rendering::QuitImage();
+	Mix_Quit();
+}
+
+void Application::Quit()
+{
+	_isRunning = false;
+}
+
+void Application::SetViewport(int sizeWidth, int sizeHeight, int xPos, int yPos)
+{
+	_window.SetViewportSize(sizeWidth, sizeHeight);
+	_window.SetViewportPos(xPos, yPos);
+}
+
+Json::json& Application::RetriveData()
+{
+	return _userData.Retrieve();
+}
+
+void Application::StoreData(const std::string& data)
+{
+	_userData.Store(data);
+}
+
+void Application::StoreData(Json::json& data)
+{
+	_userData.Store(data);
+}
+
+void Application::DeleteUserData()
+{
+	_userData.DeleteData();
 }

@@ -1,7 +1,9 @@
 #include "Coin.hpp"
 
-Coin::Coin(const std::string& name, const std::string& spriteName) : Item{name, spriteName}
+Coin::Coin(const std::string& name, const std::string& spriteName) 
+	: Item{name, spriteName}
 {
+
 }
 
 std::unique_ptr<Item> Coin::Clone() const

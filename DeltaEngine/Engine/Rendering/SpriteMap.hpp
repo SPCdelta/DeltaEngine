@@ -15,34 +15,9 @@ struct SpriteMapEntry // DTO
 };
 
 class SpriteMap
-	{
-	public:
-		SpriteMap(const std::string& spritePath, std::vector<SpriteMapEntry> sprites, const std::string& category = "")
-		{
-			// Convert SpritemapEntry DTO into SpriteData
-			
-			std::string spriteCategory = category;
-			for (SpriteMapEntry& entry : sprites)
-			{
-				TextureManager::Add(spritePath);
+{
+public:
+	SpriteMap(const std::string& spritePath, std::vector<SpriteMapEntry> sprites, const std::string& category = "");
 
-				if (category.empty())
-					spriteCategory = entry.spriteName;
-
-				SpriteData* spriteData = new SpriteData
-				(
-					TextureManager::Get(spritePath),
-					entry.spriteStart,
-					entry.spriteEnd,
-					spriteCategory
-				);
-				ResourceManager::AddSprite(entry.spriteName, spriteData);
-			}
-		}
-
-		SpriteData* Get(const std::string& spriteName)
-		{
-			return ResourceManager::Get(spriteName);
-		}
-
-	};
+	SpriteData* Get(const std::string& spriteName);
+};

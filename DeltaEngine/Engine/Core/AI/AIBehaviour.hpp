@@ -6,11 +6,12 @@
 #include "IAIStrategy.hpp"
 #include "../Time.hpp"
 #include "../../Transform.hpp"
+#include "../../GameObject.hpp"
 
 class AIBehaviour
 {
-   public:
-	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed);
+public:
+	AIBehaviour(std::shared_ptr<IAIStrategy> strategy, Transform* pos, Transform* targetPos, int range, int step, float speed = 1.0f);
 	~AIBehaviour();
 
 	Transform* Update();
@@ -22,10 +23,16 @@ class AIBehaviour
 	Transform* GetTargetPosition() const;
 	void SetTargetPosition(Transform* position);
 
-	float GetSpeed();
-	Math::Vector2 GetDirection();
+	float GetSpeed() const;
+	Math::Vector2 GetDirection() const;
 
-   private:
+	bool IsWalkable(const Math::Vector2& position);
+
+	Transform* NewCalculation();
+
+private:
+	const float NEXT_NODE_DISTANCE = 0.3f;
+
 	std::shared_ptr<IAIStrategy> strategy_;
 	std::vector<Math::Vector2> path_;
 
@@ -44,4 +51,7 @@ class AIBehaviour
 	float wanderCooldown {1.0f};
 	float timeSinceLastWander {0.0f};
 	Math::Vector2 wanderDirection;
+
+	float pathRecalculationCooldown = 0.5f;	 // Seconds
+	float targetChangeThreshold = 1.0f;
 };

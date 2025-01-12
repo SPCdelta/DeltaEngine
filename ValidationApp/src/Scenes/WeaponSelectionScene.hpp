@@ -6,7 +6,7 @@
 class WeaponSelectionScene : public Scene
 {
 public:
-	WeaponSelectionScene(const std::string& sceneName) : Scene(sceneName) {};
+	WeaponSelectionScene(const std::string& sceneName);
 
 	void OnStart() override;
 

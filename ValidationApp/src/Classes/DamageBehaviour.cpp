@@ -1,14 +1,19 @@
 #include "DamageBehaviour.hpp"
+
 #include "../Scripts/EnemyBehaviour.hpp"
 
-DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::initializer_list<std::string> damageSourceTags) : 
-	_rigidbody{ rigidbody }, _sprite{ sprite }, _damageSourceTags{damageSourceTags}, _currentCollider{nullptr}
+DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::initializer_list<std::string> damageSourceTags) 
+	: _rigidbody{ rigidbody }, 
+	  _sprite{ sprite }, 
+	  _damageSourceTags{damageSourceTags}, 
+	  _currentCollider{nullptr}
 {
 	_ogColor = sprite.GetColor();
 
 	_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 	{ 
-		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
+		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && 
+			collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 		{
 			_damageCount = 1; 
 			_currentCollider = std::make_shared<Collider>(collider);
@@ -17,7 +22,8 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::ini
 
 	_rigidbody.onTriggerExit.Register([this](Collider& collider)
 	{
-		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
+		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && 
+			collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 		{
 			_damageCount = 0;
 			_currentCollider = nullptr; 
@@ -38,7 +44,7 @@ void DamageBehaviour::Update(float deltaTime)
 		if (static_cast<int>(_invincibleTime * 10) % 2 == 0)
 			_sprite.SetColor(_ogColor);	 // Normal color
 		else
-			_sprite.SetColor(Rendering::Color(255.0f, 255.0f, 255.0f, 1.5f)); // Flash effect
+			_sprite.SetColor(Rendering::Color(255, 255, 255, 2)); // Flash effect
 	}
 	else
 	{
@@ -61,7 +67,6 @@ int DamageBehaviour::TakeDamage()
 		{
 			auto& projectile = _currentCollider->transform.gameObject->GetComponent<Projectile>();
 			damage = projectile.GetProjectileData().damage;
-			// TODO despawn arrow??
         } 
 		else if (_currentCollider->transform.gameObject->GetTag() == "goblin" || _currentCollider->transform.gameObject->GetTag() == "slime" || 
 			_currentCollider->transform.gameObject->GetTag() == "boss") 
@@ -71,7 +76,7 @@ int DamageBehaviour::TakeDamage()
         }
 
 		StartInvincibility();
-		_sprite.SetColor(Rendering::Color(255.0f, 0.0f, 0.0f, 1.0f));	
+		_sprite.SetColor(Rendering::Color(255, 0, 0, 1));	
 	}
 	else
 	{

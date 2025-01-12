@@ -29,28 +29,6 @@ namespace Rendering
 	constexpr auto RENDERER_ACCELERATED = SDL_RENDERER_ACCELERATED;
 	constexpr auto RENDERER_PRESENTVSYNC = SDL_RENDERER_PRESENTVSYNC;
 
-	// Mouse/Key event constants
-	// TODO: alles hiervan eruit (staat in de InputManager)
-	constexpr auto KEYDOWN = SDL_KEYDOWN;
-	constexpr auto KEYUP = SDL_KEYUP;
-	constexpr auto MOUSEBUTTONDOWN = SDL_MOUSEBUTTONDOWN;
-	constexpr auto MOUSEBUTTONUP = SDL_MOUSEBUTTONUP;
-	constexpr auto MOUSEMOTION = SDL_MOUSEMOTION;
-	constexpr auto BUTTON_LEFT = SDL_BUTTON_LEFT;
-	constexpr auto BUTTON_RIGHT = SDL_BUTTON_RIGHT;
-	constexpr auto SCANCODE_W = SDL_SCANCODE_W;
-	constexpr auto SCANCODE_A = SDL_SCANCODE_A;
-	constexpr auto SCANCODE_S = SDL_SCANCODE_S;
-	constexpr auto SCANCODE_D = SDL_SCANCODE_D;
-	constexpr auto KEYCODE_LEFT = SDLK_LEFT;
-	constexpr auto KEYCODE_RIGHT = SDLK_RIGHT;
-	constexpr auto SCANCODE_LEFT = SDL_SCANCODE_LEFT;
-	constexpr auto SCANCODE_RIGHT = SDL_SCANCODE_RIGHT;
-	constexpr auto SCANCODE_UP = SDL_SCANCODE_UP;
-	constexpr auto SCANCODE_DOWN = SDL_SCANCODE_DOWN;
-	constexpr auto SCANCODE_SPACE = SDL_SCANCODE_SPACE;
-	// TODO: TOT HIER EN NIET VERDER
-
 	// Flip/Rotation constants
 	constexpr auto FLIP_HORIZONTAL = SDL_FLIP_HORIZONTAL;
 	constexpr auto FLIP_VERTICAL = SDL_FLIP_VERTICAL;
@@ -105,7 +83,7 @@ namespace Rendering
 	}
 
 	// Get window size
-	inline void GetWindowSize(SDL_Window* window, int* w, int* h) //TODO deze SDL wordt in de code gebruikt volgensmij moet hier de window gebruikt worden en dan window hier omgezet worden naar de sdl
+	inline void GetWindowSize(SDL_Window* window, int* w, int* h)
 	{
 		SDL_GetWindowSize(window, w, h);
 	}

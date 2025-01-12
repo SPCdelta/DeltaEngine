@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Delta.hpp"
+
 #include "Weapon.hpp"
 #include "../../Scripts/BoomerangBehaviour.hpp"
 
@@ -11,6 +12,7 @@ public:
 
 	void Use() override;
 	WeaponType GetWeaponType() const override;
+
 private:
 	BoomerangBehaviour* _boomerang;
 };

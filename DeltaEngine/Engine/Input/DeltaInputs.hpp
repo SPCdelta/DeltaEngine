@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <unordered_map>
 #include <set>
@@ -144,7 +145,8 @@ enum InputState
 	Unknown
 };
 
-enum InputType{
+enum InputType
+{
 	KEYBOARD,
 	MOUSEBUTTON,
 	MOUSEMOVEMENT,
@@ -163,7 +165,7 @@ struct Input
 
 class InputsEnum
 {
-   public:
+public:
 	static const std::unordered_map<Key, std::string>& getKeyMap();
 	static const Key toKey(const std::string& key);
 	static const std::string& toStr(Key key);
@@ -173,7 +175,7 @@ class InputsEnum
 	static const MouseButton toButton(int button);
 	static const int toInt(MouseButton button);
 
-   private:
+private:
 	static const std::unordered_map<Key, std::string> keyMap;
 	static const std::vector<MouseButton> buttonVector;
 };

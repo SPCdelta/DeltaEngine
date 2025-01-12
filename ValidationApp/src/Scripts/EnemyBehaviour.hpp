@@ -14,7 +14,7 @@ class DamageBehaviour;
 
 class EnemyBehaviour : public BehaviourScript
 {
-   public:
+public:
 	~EnemyBehaviour();
 
 	void OnStart() override;
@@ -28,18 +28,15 @@ class EnemyBehaviour : public BehaviourScript
 	Transform* playerPosition = nullptr;
 	void SetPlayer(Transform* pos, Player* play);
 
-	Enemy& GetEnemy() const { return *_enemy; }
+	Enemy& GetEnemy() const;
 
 	void SetDamageBehaviour(Rigidbody& rigid);
 
 	void OnDeath();
 
-
-   private:
+private:
 	std::unique_ptr<DamageBehaviour> _damageBehaviour;
 	std::unique_ptr<AIBehaviour> _aiBehaviour;
-	//std::unique_ptr<EntitySpawner> _spawnerBehaviour;
-
 	std::shared_ptr<GameObject> _damageObj;
 
 	// Audio

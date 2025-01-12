@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Item.hpp"
+
 #include "Engine/Delta.hpp"
 
 template<typename Derived, typename T>
@@ -11,6 +12,7 @@ public:
 	{
 		return Derived::Serialize(item);
 	}
+
 	static std::unique_ptr<Item> Deserialize(const T& data)
 	{
 		return Derived::Deserialize(data);

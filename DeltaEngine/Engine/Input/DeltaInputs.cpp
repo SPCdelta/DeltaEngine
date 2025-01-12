@@ -1,7 +1,8 @@
 #include "DeltaInputs.hpp"
 
-
-const std::unordered_map<Key, std::string> InputsEnum::keyMap = {
+const std::unordered_map<Key, std::string> InputsEnum::keyMap = 
+{	
+	// Letters
 	{KEY_A, "A"},
 	{KEY_B, "B"},
 	{KEY_C, "C"},
@@ -118,15 +119,18 @@ const std::unordered_map<Key, std::string> InputsEnum::keyMap = {
 	{KEY_PRINTSCREEN, "PRINTSCREEN"},
 	{KEY_SCROLLLOCK, "SCROLLLOCK"},
 	{KEY_PAUSE, "PAUSE"},
-	{KEY_UNKNOWN, "UNKNOWN"}};
+	{KEY_UNKNOWN, "UNKNOWN"}
+};
 
-const std::vector<MouseButton> InputsEnum::buttonVector = {
+const std::vector<MouseButton> InputsEnum::buttonVector = 
+{
 	MouseButton::Left,	  
 	MouseButton::Middle,
 	MouseButton::Right, 
 	MouseButton::Button4, 
 	MouseButton::Button5, 
-	MouseButton::Unknown};
+	MouseButton::Unknown
+};
 
 
 const std::unordered_map<Key, std::string>& InputsEnum::getKeyMap()
@@ -139,9 +143,7 @@ const Key InputsEnum::toKey(const std::string& key)
 	for (const auto& pair : keyMap)
 	{
 		if (pair.second == key)
-		{
 			return pair.first;
-		}
 	}
 	return KEY_UNKNOWN;
 }
@@ -150,9 +152,7 @@ const std::string& InputsEnum::toStr(Key key)
 {
 	auto it = keyMap.find(key);
 	if (it != keyMap.end())
-	{
 		return it->second;
-	}
 	return keyMap.at(KEY_UNKNOWN);
 }
 

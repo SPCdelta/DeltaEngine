@@ -11,7 +11,6 @@ namespace Math
 		float angle = std::atan2(-direction.GetY(), direction.GetX()) * Math::Rad2Deg;
 		if (angle < 0.0f)
 			angle += 360.0f;
-
 		return angle;
 	}
 }

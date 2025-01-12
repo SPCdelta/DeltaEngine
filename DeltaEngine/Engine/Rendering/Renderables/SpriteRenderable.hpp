@@ -1,23 +1,25 @@
 #pragma once
+
 #include "Renderable.hpp"
+
 #include <string>
 
 class SpriteRenderable : public Renderable
 {
-   public:
+public:
 	SpriteRenderable(const std::string& spriteName);
 	SpriteRenderable(const std::string& spriteName, std::shared_ptr<AnimationSheet> sheet);
 
 	void SetSprite(const std::string& spriteName);
 
-	const std::string& GetSprite() const { return _spriteName; }
-	SpriteData* GetSpriteData() const { return _spriteData; }
+	const std::string& GetSprite() const;
+	SpriteData* GetSpriteData() const;
 
-	std::shared_ptr<Animator> GetAnimator() const { return _animator; }
-	std::shared_ptr<AnimationSheet> GetSheet() const { return _sheet; }
+	std::shared_ptr<Animator> GetAnimator() const;
+	std::shared_ptr<AnimationSheet> GetSheet() const;
 
-	bool GetVisible() const { return _visible; }
-	void SetVisible(bool visible_) { _visible = visible_; }
+	bool GetVisible() const;
+	void SetVisible(bool visible_);
 
 protected:
 	std::string _spriteName;
@@ -27,5 +29,4 @@ protected:
 	std::shared_ptr<AnimationSheet> _sheet;
 
 	bool _visible{true};
-
 };

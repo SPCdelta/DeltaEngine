@@ -1,23 +1,28 @@
-#include "AudioLoader.hpp"
 #include "SFXSource.hpp"
+
+#include "AudioLoader.hpp"
 #include "../Rendering/ResourceManager.hpp"
 
 using namespace Audio;
 
-Audio::SFXSource::SFXSource() : AudioSource(false, "", 0), _clip(std::move(AudioLoader::LoadChunk(""))) {}
+Audio::SFXSource::SFXSource() 
+	: AudioSource(false, "", 0), 
+	_clip(std::move(AudioLoader::LoadChunk(""))) 
+{
+
+}
 
 SFXSource::SFXSource(const std::string& audioName, bool playOnAwake, int loops = 0)
 	: AudioSource(playOnAwake, audioName, loops),
 	  _clip(std::move(AudioLoader::LoadChunk(ResourceManager::GetAudio(audioName))))
 {
 	if (playOnAwake)
-	{
 		Play();
-	}
 }
 
 SFXSource::SFXSource(const SFXSource& other)
-	: AudioSource(other), _clip(AudioLoader::LoadChunk(other._audioName))
+	: AudioSource(other), 
+	  _clip(AudioLoader::LoadChunk(other._audioName))
 {
 	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
@@ -34,7 +39,8 @@ SFXSource& SFXSource::operator=(const SFXSource& other)
 }
 
 SFXSource::SFXSource(SFXSource&& other) noexcept
-	: AudioSource(other), _clip(std::move(other._clip))
+	: AudioSource(other), 
+	  _clip(std::move(other._clip))
 {
 	AudioManager::GetInstance().SetMusicVolume(_volume);
 }
@@ -50,11 +56,14 @@ SFXSource& SFXSource::operator=(SFXSource&& other) noexcept
 	return *this;
 }
 
-Audio::SFXSource::~SFXSource() {}
-
-void SFXSource::Play()
+Audio::SFXSource::~SFXSource() 
 {
-	AudioManager::GetInstance().PlaySFX(_clip.get(), _loops);
+
+}
+
+void SFXSource::Play(int channel)
+{
+	AudioManager::GetInstance().PlaySFX(_clip.get(), _loops, channel);
 }
 
 void SFXSource::Pause()

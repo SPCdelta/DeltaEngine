@@ -1,13 +1,15 @@
 #include "WeaponSelectionView.hpp"
+
 #include "../Scripts/PlayerBehaviour.hpp"
 
-WeaponSelectionView::WeaponSelectionView(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, 
-	const Math::Vector2& scale, const std::string& sceneName) 
-	: IView(scene, fontName, startPos, scale), _sceneName{sceneName}
+WeaponSelectionView::WeaponSelectionView(Scene& scene, const std::string& fontName, const Math::Vector2& startPos, const Math::Vector2& scale, 
+	const std::string& sceneName) 
+	: IView(scene, fontName, startPos, scale), 
+	  _sceneName{sceneName}
 {
 	_window = _scene.Instantiate({ _pos, 0.0f, _scale });
 	_window->AddComponent<Ui::Image>(WINDOW_FRAME_SPRITENAME)->SetLayer(Layer::Default);
-	SetCenter(); // set center must be called after initializing window
+	SetCenter(); // Set center must be called after initializing window
 	InitTitle();
 	InitBody();
 }
@@ -33,8 +35,7 @@ bool WeaponSelectionView::IsJsonScene()
 
 void WeaponSelectionView::InitTitle()
 {
-	auto& text = *_window->AddComponent<Ui::Text>(TITLE, _fontName, static_cast<int>(_scale.Magnitude() *
-		TITLE_SCALE), TEXT_COLOR);
+	auto& text = *_window->AddComponent<Ui::Text>(TITLE, _fontName, static_cast<int>(_scale.Magnitude() * TITLE_SCALE), TEXT_COLOR);
 	auto yPos = _pos.GetY();
 	yPos += _scale.GetY() * TITLE_MARGINY_SCALE;
 	text.SetPosition({ 0.f+Font::GetFontSize(text.GetFont(), text.GetText()).GetX() / 2, yPos });
@@ -42,7 +43,7 @@ void WeaponSelectionView::InitTitle()
 
 void WeaponSelectionView::InitBody()
 {
-	// don't change order!
+	// Don't change order!
 	InitGun();
 	//InitBoomerang();
 	InitBow();
@@ -58,11 +59,12 @@ void WeaponSelectionView::InitGun()
 	_gunFrame = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_gunFrame->AddComponent<Ui::Image>("hotbar_slot")->SetLayer(Layer::Foreground);
 	_gunFrame->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() -> void
-		{
-			_weapon = "gun";
-			ToggleVisibilityWeapons(false);
-			_gunFrame->GetComponent<Ui::Image>().SetVisible(true);
-		}, "WeaponSelection");
+	{
+		_weapon = "gun";
+		ToggleVisibilityWeapons(false);
+		_gunFrame->GetComponent<Ui::Image>().SetVisible(true);
+	}, "WeaponSelection");
+
 	_gun = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_gun->AddComponent<Ui::Image>(GUN_SPRITE)->SetLayer(Layer::Foreground);
 
@@ -80,11 +82,12 @@ void WeaponSelectionView::InitBoomerang()
 	_boomerangFrame = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_boomerangFrame->AddComponent<Ui::Image>("hotbar_slot")->SetLayer(Layer::Foreground);
 	_boomerangFrame->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() -> void
-		{
-			_weapon = "boomerang";
-			ToggleVisibilityWeapons(false);
-			_boomerangFrame->GetComponent<Ui::Image>().SetVisible(true);
-		}, "WeaponSelection");
+	{
+		_weapon = "boomerang";
+		ToggleVisibilityWeapons(false);
+		_boomerangFrame->GetComponent<Ui::Image>().SetVisible(true);
+	}, "WeaponSelection");
+
 	_boomerang = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_boomerang->AddComponent<Ui::Image>(BOOMERANG_SPRITE)->SetLayer(Layer::Foreground);
 
@@ -101,11 +104,12 @@ void WeaponSelectionView::InitBow()
 
 	_bowFrame = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_bowFrame->AddComponent<Ui::Button>()->SetOnLeftMouseClick([this]() -> void
-		{
-			_weapon = "bow";
-			ToggleVisibilityWeapons(false);
-			_bowFrame->GetComponent<Ui::Image>().SetVisible(true);
-		}, "WeaponSelection"); _bowFrame->AddComponent<Ui::Image>("hotbar_slot")->SetLayer(Layer::Foreground);
+	{
+		_weapon = "bow";
+		ToggleVisibilityWeapons(false);
+		_bowFrame->GetComponent<Ui::Image>().SetVisible(true);
+	}, "WeaponSelection"); _bowFrame->AddComponent<Ui::Image>("hotbar_slot")->SetLayer(Layer::Foreground);
+
 	_bow = _scene.Instantiate({ {xPos, yPos}, 0.0f, _scale * WEAPON_SCALE });
 	_bow->AddComponent<Ui::Image>(BOW_SPRITE)->SetLayer(Layer::Foreground);
 
@@ -146,51 +150,51 @@ void WeaponSelectionView::InitConfirmButton()
 {
 	auto xPos = _pos.GetX() + (_scale.GetX() * CONFIRM_BTN_MARGINX_SCALE);
 	auto yPos = _pos.GetY() + _scale.GetY() - _scale.Magnitude() * BTN_MARGINY_SCALE;
+
 	auto& quit = *_scene.Instantiate({ {xPos, yPos}, 0.0f, {0, 0} });
-	auto& quitText = *quit.AddComponent<Ui::Text>("Confirm", _fontName, static_cast<int>(_scale.Magnitude() * BUTTON_TEXT_SCALE),
-		BODY_TEXT_COLOR);
+	auto& quitText = *quit.AddComponent<Ui::Text>("Confirm", _fontName, static_cast<int>(_scale.Magnitude() * BUTTON_TEXT_SCALE), BODY_TEXT_COLOR);
+
 	quit.transform->scale = Font::GetFontSize(quitText.GetFont(), quitText.GetText());
 	auto& quitBtn = *quit.AddComponent<Ui::Button>();
 	quitBtn.SetOnLeftMouseClick([this]() -> void
-		{
-			if (_weapon.empty()) return;
+	{
+		if (_weapon.empty()) return;
 
-			std::shared_ptr<GameObject> playerObject{ _scene.Instantiate() };
-			// TODO: remove unnecessary components for initialising playerBehaviourScript?
-			std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 0, 0, 0, 0, 0, 0, 0);
-			playerSheet->AddCustomAnimation("death", 0, 0, 0);
-			playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
-			playerObject->AddComponent<Audio::SFXSource>("", false, false);
-			playerObject->AddComponent<BoxCollider>();
-			playerObject->AddComponent<Rigidbody>();
-			auto& playerBehaviour = *playerObject->AddComponent<PlayerBehaviour>();			
-			playerBehaviour.LoadPlayer();
-			playerBehaviour.SetWeapon(_weapon);
-			playerBehaviour.SavePlayer();
-			playerObject->SetTag("player");
+		std::shared_ptr<GameObject> playerObject{ _scene.Instantiate() };
+		std::shared_ptr<AnimationSheet> playerSheet = std::make_shared<AnimationSheet>(playerObject->GetComponent<Transform>(), 0, 0, 0, 0, 0, 0, 0);
+		playerSheet->AddCustomAnimation("death", 0, 0, 0);
+		playerObject->AddComponent<Sprite>("layerPlayer", playerSheet)->SetLayer(Layer::Player);
+		playerObject->AddComponent<Audio::SFXSource>("", false, false);
+		playerObject->AddComponent<BoxCollider>();
+		playerObject->AddComponent<Rigidbody>();
 
-			if (IsJsonScene())
-			{
-				_scene.LoadScene("LevelScene");
-			}
-			else
-			{
-				_scene.LoadScene(_sceneName);
-			}
-		}, "ScoreScreen");
+		auto& playerBehaviour = *playerObject->AddComponent<PlayerBehaviour>();			
+		playerBehaviour.LoadPlayer();
+		playerBehaviour.SetWeapon(_weapon);
+		playerBehaviour.SavePlayer();
+
+		playerObject->SetTag("player");
+
+		if (IsJsonScene())
+			_scene.LoadScene("LevelScene");
+		else
+			_scene.LoadScene(_sceneName);
+
+	}, "ScoreScreen");
 }
 
 void WeaponSelectionView::InitHomeBtn()
 {
 	auto xPos = _pos.GetX() + (_scale.GetX() * HOME_BTN_MARGINX_SCALE);
 	auto yPos = _pos.GetY() + _scale.GetY() - _scale.Magnitude() * BTN_MARGINY_SCALE;
+
 	auto& home = *_scene.Instantiate({ {xPos, yPos}, 0.0f, {0, 0} });
-	auto& homeText = *home.AddComponent<Ui::Text>("Return to menu", _fontName, static_cast<int>(_scale.Magnitude() * BUTTON_TEXT_SCALE),
-		BODY_TEXT_COLOR);
+	auto& homeText = *home.AddComponent<Ui::Text>("Return to menu", _fontName, static_cast<int>(_scale.Magnitude() * BUTTON_TEXT_SCALE), BODY_TEXT_COLOR);
+
 	home.transform->scale = Font::GetFontSize(homeText.GetFont(), homeText.GetText());
 	auto& homeBtn = *home.AddComponent<Ui::Button>();
 	homeBtn.SetOnLeftMouseClick([this]() -> void
-		{
-			_scene.LoadScene("MainMenuScene");
-		}, "ScoreScreen");
+	{
+		_scene.LoadScene("MainMenuScene");
+	}, "ScoreScreen");
 }

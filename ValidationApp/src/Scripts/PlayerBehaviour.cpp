@@ -1,9 +1,27 @@
 #include "PlayerBehaviour.hpp"
+
 #include "../Items/Serializers/JsonItemSerializer.hpp"
 #include "../Classes/Weapons/WeaponFactory.hpp"
 #include "../Utils/WeaponTypeUtils.hpp"
 
-void PlayerBehaviour::OnStart()
+PlayerBehaviour::~PlayerBehaviour()
+{
+	sprite = nullptr;
+	rigidbody = nullptr;
+	_sfx = nullptr;
+
+	delete _floorBehaviour;
+	delete _damageBehaviour;
+	delete _pickUpBehaviour;
+	delete _weapon;
+}
+
+Player* PlayerBehaviour::GetPlayer() const
+{
+	return _player.get();
+}
+
+void PlayerBehaviour::OnStart() 
 {
 	_player = std::make_unique<Player>();
 	sprite = &(transform->gameObject->GetComponent<Sprite>());
@@ -12,7 +30,13 @@ void PlayerBehaviour::OnStart()
 	_floorBehaviour = new FloorBehaviour(*rigidbody);
 	_damageBehaviour = new DamageBehaviour(*rigidbody, *sprite, {"goblin", "slime", "skeleton_arrow", "boss"});
 	_pickUpBehaviour = new PickUpBehaviour(*rigidbody, *sprite, *_player);
-	_sfx = &(transform->gameObject->GetComponent<Audio::SFXSource>());
+	
+	if (transform->gameObject->HasComponent<Audio::SFXSource>())
+	{
+		_sfx = &(transform->gameObject->GetComponent<Audio::SFXSource>());
+		_sfx->SetClip("taking_damage");
+		_sfx->SetVolume(10);
+	}
 
 	onMouseMove([this](Input& e) 
 	{ 
@@ -21,10 +45,9 @@ void PlayerBehaviour::OnStart()
 	});
 
 	InitHotbarKeybinds();
-	// use consumables on right mb so that left mb is reserved for maybe throwing potions and the like?
-	//onMouseButtonDown(MouseButton::Right, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // TODO: fix inputmanager. For some reason this maps to KEY_02?
-	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); // temporarily bind to KEY_V
 
+	onKeyPressed(KEY_ESCAPE, [this](Input& e) { LoadScene("MainMenuScene"); }, "Gameplay"); 
+	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); 
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{
 		_attacking = true;
@@ -33,11 +56,11 @@ void PlayerBehaviour::OnStart()
 	// Physics Events
 	rigidbody->onTriggerEnter.Register([this](Collider& collider)
 	{ 
-		// Player checks this so we could for example have a requirement on this exit (like 10 kills or 20 coins)
 		if (collider.transform.gameObject && collider.transform.gameObject->GetTag() == "level_exit" && _player->GetHealth() > 0)
 		{
 			LevelExitBehaviour& exit = collider.transform.gameObject->GetComponent<LevelExitBehaviour>();
 			SavePlayer();
+			_pickUpBehaviour->ProcessDestructionQueue();
 
 			if (!_scoreScreen)
 			{
@@ -81,32 +104,23 @@ void PlayerBehaviour::OnUpdate()
 		switch (_onFloor)
 		{
 			case FloorType::NORMAL:
-			{
-				rigidbody->SetVelocity(_moveDirection * _moveSpeed);
-			}
-			break;
+				rigidbody->SetVelocity(_moveDirection * _player->GetSpeed());
+				break;
 
 			case FloorType::ICE:
-				if (rigidbody->GetSpeed() < _moveSpeed)
-				{
-					rigidbody->AddForce(_moveDirection * _moveSpeed,
-										ForceMode::ACCELERATE);
-				}
+				if (rigidbody->GetSpeed() < _player->GetSpeed())
+					rigidbody->AddForce(_moveDirection * _player->GetSpeed(), ForceMode::ACCELERATE);
 
 				currentVelocity = rigidbody->GetVelocity();
 				rigidbody->AddForce(-currentVelocity * 1.0f,
 									ForceMode::ACCELERATE);
 				if (rigidbody->GetSpeed() <= 0.0f)
-				{
 					rigidbody->SetVelocity(Math::Vector2(0.0f, 0.0f));
-				}
 				break;
 
-			case FloorType::MUD:
-			{
-				rigidbody->SetVelocity(_moveDirection * (_moveSpeed * 0.5f));
-			}
-			break;
+			case FloorType::MUD:			
+				rigidbody->SetVelocity(_moveDirection * (_player->GetSpeed() * 0.5f));
+				break;
 		}
 	}
 	else
@@ -116,10 +130,11 @@ void PlayerBehaviour::OnUpdate()
 			case FloorType::NORMAL:
 				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
+
 			case FloorType::ICE:
-				rigidbody->AddForce(-currentVelocity * 1.0f,
-									ForceMode::ACCELERATE);
+				rigidbody->AddForce(-currentVelocity * 1.0f, ForceMode::ACCELERATE);
 				break;
+
 			case FloorType::MUD:
 				rigidbody->SetVelocity({0.0f, 0.0f});
 				break;
@@ -134,18 +149,21 @@ void PlayerBehaviour::OnUpdate()
 		if (_player->GetHealth() > 0)
 		{
 			_player->TakeDamage(_damageBehaviour->TakeDamage());
-			_sfx->SetClip("taking_damage");
 			PlayHurtParticle();
-			_sfx->Play();
+			if (_sfx)
+				_sfx->Play();
 		}
 
 		if (_player->GetHealth() <= 0)
 		{
-			if (!deathSoundPlayed &&
-				!sprite->GetSheet()->PlayCustomAnimation("death"))
+			if (!deathSoundPlayed && !sprite->GetSheet()->PlayCustomAnimation("death"))
 			{
-				_sfx->SetClip("death");
-				_sfx->Play();
+				if (_sfx)
+				{
+					_sfx->SetClip("death");
+					_sfx->SetVolume(20);
+					_sfx->Play();
+				}
 
 				deathSoundPlayed = true;
 				deathElapsedTime = 0.0f;
@@ -158,12 +176,16 @@ void PlayerBehaviour::OnUpdate()
 				{
 					if (!_scoreScreen)
 					{
-						_scoreScreen = std::make_unique<ScoreScreen>(
-							*(transform->gameObject->_scene), SCORE_SCREEN_FONT,
-							Math::Vector2{0, 0}, SCORE_SCREEN_SCALE,
+						_scoreScreen = std::make_unique<ScoreScreen>
+						(
+							*(transform->gameObject->_scene), 
+							SCORE_SCREEN_FONT,
+							Math::Vector2{0, 0}, 
+							SCORE_SCREEN_SCALE,
 							DEATH_MSG,
 							DEATH_MSG_COLOR,
-							_player->GetCoins());
+							_player->GetCoins()
+						);
 					}
 				}
 			}
@@ -176,33 +198,23 @@ void PlayerBehaviour::OnUpdate()
 	{
 		// Walking
 		if (_moveDirection.GetX() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::LEFT, false);
 		else if (_moveDirection.GetX() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::RIGHT, false);
 		else if (_moveDirection.GetY() < 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::DOWN, false);
 		else if (_moveDirection.GetY() > 0.0f)
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP,
-										false);
-
-		// Idle
-		else
-			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE,
-										false);
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::UP, false);
+		else // Idle
+			sprite->GetAnimator()->Play(sprite->GetSheet(), Direction::NONE, false);
 	}
 #pragma endregion
 
 	UpdateConsumables();
 	if (_weapon && !_scoreScreen) 
-	{
 		_weapon->Update(Time::GetDeltaTime());
-	}
 
-	this->transform->gameObject->GetCamera()->SetPosition(
-		this->transform->position);
+	this->transform->gameObject->GetCamera()->SetPosition(this->transform->position);
 }
 
 void PlayerBehaviour::SetWeapon(const std::string& weaponType)
@@ -213,9 +225,7 @@ void PlayerBehaviour::SetWeapon(const std::string& weaponType)
 void PlayerBehaviour::InitHotbarKeybinds()
 {
 	for (Uint8 i = 1; i <= 9; ++i)
-	{
 		onKeyPressed(InputsEnum::toKey(std::to_string(i)), [this, i](Input& e) { _player->SetInventoryIndex(i-1); }, "Gameplay");
-	}
 }
 
 void PlayerBehaviour::ConsumeItem()
@@ -237,21 +247,19 @@ void PlayerBehaviour::UpdateConsumables()
 	for (size_t i = 0; i < _activeConsumables.size(); ++i)
 	{
 		if (_activeConsumables[i]->Update())
-		{
 			_activeConsumables.erase(_activeConsumables.begin() + i);
-		}
 	}
 }
 
 void PlayerBehaviour::PlayHurtParticle() 
 {
 	if (transform->gameObject->HasComponent<ParticleEmitter>())
-	{
 		transform->gameObject->RemoveComponent<ParticleEmitter>();
-	}
-
-	transform->gameObject->AddComponent<ParticleEmitter>(
-		ParticleEmitterConfiguration{
+	
+	transform->gameObject->AddComponent<ParticleEmitter>
+	(
+		ParticleEmitterConfiguration
+		{
 			{"particle_big", "particle_medium_1", "particle_medium_2", "particle_small", "particle_tiny"},
 			{255, 0, 0, 255},
 			{220, 0, 0, 255},
@@ -266,9 +274,9 @@ void PlayerBehaviour::PlayHurtParticle()
 			0.0f, 360.0f, 
 			0.0f, 0.0f,
 
-			0.25f, 0.25f
-		})
-	->Start();
+			0.05f, 0.05f
+		}
+	)->Start();
 }
 
 void PlayerBehaviour::LoadPlayer()
@@ -290,7 +298,8 @@ void PlayerBehaviour::LoadPlayer()
 				auto& itemData = loadedPlayer["player"]["inventory"][i];
 				if (itemData.contains("type"))
 				{
-					auto potion = PotionFactory::CreatePotion(
+					auto potion = PotionFactory::CreatePotion
+					(
 						itemData["type"],
 						itemData["time"],
 						itemData["sprite"],

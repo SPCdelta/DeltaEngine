@@ -1,13 +1,25 @@
-#include <cmath>
 #include "Vector2.hpp"
+
+#include <cmath>
 
 using namespace Math;
 
 const Vector2 Vector2::up(0.0f, 1.0f);
 const Vector2 Vector2::right(1.0f, 0.0f);
 
-Vector2::Vector2(float x, float y) : _x{x}, _y{y} {}
-Vector2::Vector2(int x, int y) : _x{ static_cast<float>(x) }, _y{ static_cast<float>(y) } {}
+Vector2::Vector2(float x, float y) 
+	: _x{x}, 
+	  _y{y} 
+{
+
+}
+
+Vector2::Vector2(int x, int y) 
+	: _x{ static_cast<float>(x) }, 
+	  _y{ static_cast<float>(y) } 
+{
+
+}
 
 float Vector2::GetX() const
 {
@@ -81,11 +93,11 @@ Math::Vector2 Math::Vector2::DirectionTo(const Vector2& other) const
 Vector2 Vector2::MoveTowards(const Vector2& current, const Vector2& target, float maxDistanceDelta)
 {
 	Vector2 direction = target - current;
+
 	float distance = direction.Magnitude();
 	if (distance <= maxDistanceDelta)
-	{
 		return target;
-	}
+
 	direction = direction.GetNormalized() * maxDistanceDelta;
 	return current + direction;
 }
@@ -108,9 +120,7 @@ Vector2 Vector2::GetNormalized() const
 {
 	float len = Magnitude();
 	if (len != 0)
-	{
 		return Vector2(_x / len, _y / len);
-	}
 	return *this;
 }
 

@@ -176,17 +176,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Scenes\LevelScene.cpp" />
-    <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Enemy.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Goblin.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Skeleton.cpp" />
+    <ClCompile Include="src\Classes\Enemies\Slime.cpp" />
+    <ClCompile Include="src\Classes\FloorBehaviour.cpp" />
+    <ClCompile Include="src\Classes\LevelManager.cpp" />
+    <ClCompile Include="src\Classes\PickUpBehaviour.cpp" />
+    <ClCompile Include="src\Classes\PlayerInput.cpp" />
     <ClCompile Include="src\Classes\Weapons\Bow.cpp" />
     <ClCompile Include="src\Classes\Weapons\Gun.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Weapon.cpp" />
+    <ClCompile Include="src\Scenes\DeleteBugScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelEditorMenuScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelScene.cpp" />
+    <ClCompile Include="src\Classes\Weapons\Boomerang.cpp" />
     <ClCompile Include="src\Items\Coin.cpp" />
+    <ClCompile Include="src\Scenes\DevScene.cpp" />
+    <ClCompile Include="src\Scenes\FileScene.cpp" />
+    <ClCompile Include="src\Scenes\InputTestScene.cpp" />
+    <ClCompile Include="src\Scenes\LevelEditor.cpp" />
+    <ClCompile Include="src\Scenes\LevelSelectScene.cpp" />
+    <ClCompile Include="src\Scenes\ParticleScene.cpp" />
+    <ClCompile Include="src\Scenes\PhysicsScene.cpp" />
+    <ClCompile Include="src\Scenes\SpawnerScene.cpp" />
+    <ClCompile Include="src\Scenes\SwitchTestScene.cpp" />
+    <ClCompile Include="src\Scripts\DummyBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\Level\EntitySpawner.cpp" />
+    <ClCompile Include="src\Scripts\Level\LevelExitBehaviour.cpp" />
+    <ClCompile Include="src\Scripts\PhysicsBehaviour.cpp" />
+    <ClCompile Include="src\UI\BaseUIScene.cpp" />
+    <ClCompile Include="src\UI\UIFactory.cpp" />
     <ClCompile Include="src\Utils\ItemTypeUtils.cpp" />
     <ClCompile Include="src\Items\Potions\PotionFactory.cpp" />
     <ClCompile Include="src\Items\Serializers\JsonItemSerializer.cpp" />
-    <ClCompile Include="src\Items\Serializers\IItemSerializer.cpp" />
     <ClCompile Include="src\Utils\PotionTypeUtils.cpp" />
-    <ClCompile Include="src\Classes\IPrototype.cpp" />
     <ClCompile Include="src\Items\ConsumableItem.cpp" />
     <ClCompile Include="src\Items\Potions\Potion.cpp" />
     <ClCompile Include="src\Items\WorldItem.cpp" />
@@ -215,7 +239,6 @@
     <ClCompile Include="src\Scripts\BoomerangBehaviour.cpp" />
     <ClCompile Include="src\Scripts\EnemyBehaviour.cpp" />
     <ClCompile Include="src\Scripts\InputTest.cpp" />
-    <ClCompile Include="src\scripts\MainMenuBehaviour.cpp" />
     <ClCompile Include="src\Scripts\PlayerBehaviour.cpp" />
     <ClCompile Include="src\ValidationApp.cpp" />
     <ClCompile Include="src\Views\ScoreScreen.cpp" />
@@ -244,7 +267,6 @@
     <ClInclude Include="src\Utils\PotionTypeUtils.hpp" />
     <ClInclude Include="src\Classes\IPrototype.hpp" />
     <ClInclude Include="src\Items\ConsumableItem.hpp" />
-    <ClInclude Include="src\Classes\MySceneData.hpp" />
     <ClInclude Include="src\Classes\ParticleFactory.hpp" />
     <ClInclude Include="src\Scenes\ParticleScene.hpp" />
     <ClInclude Include="src\Classes\Enemies\Enemy.hpp" />
@@ -272,7 +294,6 @@
   <ItemGroup>
     <ClInclude Include="src\Items\Potions\PotionFactory.hpp" />
     <ClInclude Include="src\Scenes\DevScene.hpp" />
-    <ClInclude Include="src\Scenes\LevelEditorLevelChose.hpp" />
     <ClInclude Include="src\Views\MenuView.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -304,11 +325,8 @@
     <ClInclude Include="src\Scripts\DummyBehaviour.hpp" />
     <ClInclude Include="src\Scripts\EnemyBehaviour.hpp" />
     <ClInclude Include="src\Scripts\InputTest.hpp" />
-    <ClInclude Include="src\Scripts\MainMenuBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PhysicsBehaviour.hpp" />
     <ClInclude Include="src\Scripts\PlayerBehaviour.hpp" />
-    <ClInclude Include="src\Scripts\TempAudio.hpp" />
-    <ClInclude Include="src\Scripts\TempBehaviour.hpp" />
     <ClInclude Include="src\ValidationApp.hpp" />
     <ClInclude Include="src\Views\IView.hpp" />
     <ClInclude Include="src\Items\WorldItem.hpp" />
@@ -362,6 +380,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
+    <Image Include="Assets\Textures\Items\potions\potion_golden.png" />
     <Image Include="Assets\Textures\Particles\particles.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>

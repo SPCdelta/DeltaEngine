@@ -1,11 +1,12 @@
 #include "AudioSource.hpp"
+
 #include <SDL_mixer.h>
 
 using namespace Audio;
 
 AudioSource::AudioSource(bool playOnAwake, const std::string& path, int loops)
 	: _loops(loops),
-	  _volume(MIX_MAX_VOLUME),
+	  _volume(DEFAULT_VOLUME),
 	  _audioName(path),
 	  _playOnAwake(playOnAwake)
 {
@@ -18,6 +19,7 @@ AudioSource::AudioSource(const AudioSource& other)
 	  _audioName(other._audioName),
 	  _playOnAwake(other._playOnAwake)
 {
+
 }
 
 AudioSource& AudioSource::operator=(const AudioSource& other)
@@ -38,6 +40,7 @@ AudioSource::AudioSource(AudioSource&& other) noexcept
 	  _audioName(other._audioName),
 	  _playOnAwake(other._playOnAwake)
 {
+
 }
 
 AudioSource& AudioSource::operator=(AudioSource&& other) noexcept
@@ -52,7 +55,10 @@ AudioSource& AudioSource::operator=(AudioSource&& other) noexcept
 	return *this;
 }
 
-AudioSource::~AudioSource() {}
+AudioSource::~AudioSource() 
+{
+
+}
 
 int AudioSource::GetVolume() const
 {

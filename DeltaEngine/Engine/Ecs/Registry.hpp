@@ -20,10 +20,7 @@ namespace ecs
 			return _registry.create();
 		}
 
-		void DestroyEntity(ecs::EntityId entityId)
-		{
-			_registry.destroy(entityId);
-		}
+		void DestroyEntity(ecs::EntityId entityId);
 
 		template<typename T, typename... Components, typename... Args>
 		std::shared_ptr<T> CreateSystem(Args&&... args)
@@ -75,14 +72,8 @@ namespace ecs
 			return _registry.get<Component>(entityId);
 		}
 
-		bool Valid(ecs::EntityId entityId)
-		{
-			return _registry.valid(entityId);
-		}
+		bool Valid(ecs::EntityId entityId);
 
 		entt::registry _registry;
-	private:
 	};
 }
-
-

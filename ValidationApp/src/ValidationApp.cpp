@@ -1,4 +1,5 @@
 #include "ValidationApp.hpp"
+
 #include "Scenes/GameScene.hpp"
 #include "Scenes/InputTestScene.hpp"
 #include "Scenes/FileScene.hpp"
@@ -8,7 +9,6 @@
 #include "Scenes/DevScene.hpp"
 #include "Scenes/LevelEditor.hpp"
 #include "Scenes/ParticleScene.hpp"
-#include "Scenes/LevelEditorLevelChose.hpp"
 #include "Scenes/SpawnerScene.hpp"
 #include "Scenes/DeleteBugScene.hpp"
 #include "Scenes/WeaponSelectionScene.hpp"
@@ -22,7 +22,6 @@
 ValidationApp::ValidationApp()
 	: Application(32)
 {
-
 	LoadAssets();
 
 	// Register Scenes (Debug)
@@ -59,7 +58,8 @@ void ValidationApp::LoadAssets()
 	// Maps
 	float scale = 32.0f;
 
-	SpriteMap gamefloormap{
+	SpriteMap gamefloormap
+	{
 		"Assets\\Textures\\floor_map.png",
 		{
 
@@ -110,7 +110,6 @@ void ValidationApp::LoadAssets()
 	{
 		"Assets\\Textures\\Tiles\\floor.png",
 		{
-
 			{"tomb_0_old",			{scale * 0, scale * 0}, {scale * (0 + 1), scale * (0 + 1)}},
 			{"tomb_0_new",			{scale * 1, scale * 0}, {scale * (1 + 1), scale * (0 + 1)}},
 			{"tomb_1_old",			{scale * 2, scale * 0}, {scale * (2 + 1), scale * (0 + 1)}},
@@ -156,6 +155,33 @@ void ValidationApp::LoadAssets()
 			{ "spawner_skeleton", {scale * 2, scale * 0}, {scale * 3, scale}},
 		},
 		"enemy_spawners",
+	};
+
+	SpriteMap healthPotion
+	{
+		"Assets\\Textures\\Items\\potions\\cyan.png",
+		{
+			{ "Healing", {0, 0}, {32, 32}},
+		},
+		"potions",
+	};
+
+	SpriteMap shieldPotion
+	{
+		"Assets\\Textures\\Items\\potions\\potion_effervescent.png",
+		{
+			{ "Defense", {0, 0}, {32, 32}},
+		},
+		"potions",
+	};
+
+	SpriteMap speedPotion
+	{
+		"Assets\\Textures\\Items\\potions\\potion_golden.png",
+		{
+			{ "Speed", {0, 0}, {32, 32}},
+		},
+		"potions",
 	};
 
 	ResourceManager::AddSprite("layerPlayer", "Assets\\Textures\\Player\\player_no_weapon.png");

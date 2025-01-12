@@ -1,6 +1,7 @@
 #include "Gun.hpp"
 
-Gun::Gun(BehaviourScript* user) : Weapon{user}
+Gun::Gun(BehaviourScript* user) 
+	: Weapon{user}
 {
 	_attackCooldown = 0.3f;
 }

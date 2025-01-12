@@ -1,13 +1,14 @@
 #include "Animator.hpp"
+
 #include "../Core/Time.hpp"
 
 void Animator::Play(std::shared_ptr<AnimationSheet> sheet, Direction direc, bool pauseWalk)
 {
 	bool isMoving = true;
-	Rendering::UnsignInt32 currentTime = Rendering::GetTicks() * Time::GetMultiplier();	
+	Rendering::UnsignInt32 currentTime = static_cast<Rendering::UnsignInt32>(Rendering::GetTicks() * Time::GetMultiplier());	
 	if (!pauseWalk && currentTime - sheet->GetLastMoveTime() >= sheet->GetMoveInterval())
 	{
-		if (direc == Direction::UP) // up 
+		if (direc == Direction::UP)			// up 
 			MoveUp(sheet);
 		else if (direc == Direction::LEFT)  // left
 			MoveLeft(sheet);
