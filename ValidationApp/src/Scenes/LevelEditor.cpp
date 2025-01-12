@@ -201,7 +201,6 @@ void LevelEditor::UIBackButtonAndBinding(const float rightBarStart)
     };
 
     auto* text = backButton->AddComponent<Ui::Text>("Back", "goblin", SAVE_FONT_SIZE, Rendering::Color{ 255, 255, 255, 255 }); 
-    //text->SetBackground({ 255, 255, 255, 255 });
     
     auto* button = backButton->AddComponent<Ui::Button>();
     button->SetOnLeftMouseClick([this]() 
@@ -230,12 +229,12 @@ void LevelEditor::UISaveButtonAndBinding(const float rightBarStart)
     button->SetOnLeftMouseClick([this, text]() 
     {
         SaveLevel();
-        text->SetColor({ 0,0 ,0 });
+        text->SetColor({ 255, 255, 255 });
     }, "UI");
 
     button->SetOnMousePressed([text]() 
     {
-        text->SetColor({ 80,80 ,80 });
+        text->SetColor({ 80, 80, 80 });
     }, "UI");
 }
 
@@ -287,12 +286,10 @@ void LevelEditor::UITopBarAndBinding(int windowWidth, float titleLeftPadding, fl
     
     std::shared_ptr<GameObject> titleTxt{ Instantiate({{titleLeftPadding, TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
     auto title = titleTxt->AddComponent<Ui::Text>(_saveFileName, "goblin", TITLE_FONT_SIZE, Rendering::Color{ 255, 255, 255, 255 });
-    //title->SetBackground({ 255, 255, 255, 255 });
 
     Vector2 titleTextSize = Font::GetFontSize(title->GetFont(), _saveFileName);
     std::shared_ptr<GameObject> layerObj{ Instantiate({{titleLeftPadding + 20.0f + titleTextSize.GetX(), TITLE_TOP_PADDING}, 0.0f, {TITLE_WIDTH, TITLE_FONT_SIZE}}) };
     auto layerTxt = layerObj->AddComponent<Ui::Text>(SPRITE_CATEGORY[_layerIndexTopBar], "goblin", TITLE_FONT_SIZE, Rendering::Color{ 255, 255, 255, 255 });
-    //layerTxt->SetBackground({ 255, 255, 255, 255 });
 
     std::unordered_map<std::string, SpriteData*> sprites = ResourceManager::GetSprites(SPRITE_CATEGORY);
     std::unordered_map<std::string, std::vector<std::string>> categorySprites;
