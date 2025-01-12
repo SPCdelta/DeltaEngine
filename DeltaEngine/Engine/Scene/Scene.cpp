@@ -49,7 +49,7 @@ void Scene::Update()
 
 	_particleSystem->Update();
 
-	// LateUpdate Physics
+	// LateUpdate (Physics)
 	_physicsSystem->TransformToBox2D();
 	_physicsSystem->ApplyPhysics();
 	_physicsSystem->Box2DToTransform();

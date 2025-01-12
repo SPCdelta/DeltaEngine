@@ -7,7 +7,19 @@ Projectile::~Projectile()
 
 void Projectile::OnStart() 
 {
-
+	if (transform && transform->gameObject && transform->gameObject->HasComponent<Rigidbody>())
+	{
+		rigidbody = &transform->gameObject->GetComponent<Rigidbody>();
+		rigidbody->onTriggerEnter.Register([this](Collider& collider)
+		{ 
+			if (transform && transform->gameObject && collider.transform.gameObject && collider.transform.gameObject->GetTag() == "rect" && 
+				collider.transform.gameObject->HasComponent<Sprite>() && collider.transform.gameObject->GetComponent<Sprite>().GetVisible() && 
+				transform->gameObject->HasComponent<Sprite>())
+			{
+				transform->gameObject->GetComponent<Sprite>().SetVisible(false);
+			}		
+		});
+	}
 }
 
 void Projectile::OnUpdate()

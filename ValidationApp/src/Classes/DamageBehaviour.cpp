@@ -12,7 +12,8 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::ini
 
 	_rigidbody.onTriggerEnter.Register([this](Collider& collider)
 	{ 
-		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
+		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && 
+			collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 		{
 			_damageCount = 1; 
 			_currentCollider = std::make_shared<Collider>(collider);
@@ -21,7 +22,8 @@ DamageBehaviour:: DamageBehaviour(Rigidbody& rigidbody, Sprite& sprite, std::ini
 
 	_rigidbody.onTriggerExit.Register([this](Collider& collider)
 	{
-		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
+		if (collider.transform.gameObject && IsDamageSource(collider.transform.gameObject->GetTag()) && 
+			collider.transform.gameObject->GetComponent<Sprite>().GetVisible())
 		{
 			_damageCount = 0;
 			_currentCollider = nullptr; 
