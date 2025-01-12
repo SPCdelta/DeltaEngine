@@ -6,7 +6,7 @@
 bool Application::_isRunning = true;
 
 Application::Application(int unitPixelSize)
-	: _window("Meow!", BASE_WINDOW_W, BASE_WINDOW_H)
+	: _window("Delta Engine - Validation App", BASE_WINDOW_W, BASE_WINDOW_H)
 {
 	// Init SDL2
 	if (Rendering::Initialize(Rendering::INIT_VIDEO | Rendering::INIT_AUDIO) < 0)
