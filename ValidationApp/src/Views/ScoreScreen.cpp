@@ -75,7 +75,7 @@ void ScoreScreen::InitHomeBtn()
 	auto yPos = _pos.GetY() + _scale.GetY() - _scale.Magnitude() * BTN_MARGINY_SCALE;
 
 	auto& home = *_scene.Instantiate({ {xPos, yPos}, 0.0f, {0, 0} });
-	auto& homeText = *home.AddComponent<Ui::Text>("Return to menu", _fontName, static_cast<int>(_scale.Magnitude() * BUTTON_TEXT_SCALE), BODY_TEXT_COLOR);
+	auto& homeText = *home.AddComponent<Ui::Text>("Return to menu (esc)", _fontName, static_cast<int>(_scale.Magnitude() * BUTTON_TEXT_SCALE), BODY_TEXT_COLOR);
 	home.transform->scale = Font::GetFontSize(homeText.GetFont(), homeText.GetText());
 
 	auto& homeBtn = *home.AddComponent<Ui::Button>();

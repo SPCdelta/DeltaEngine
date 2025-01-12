@@ -31,7 +31,11 @@ void AudioManager::PlayMusic(Mix_Music* music, int loops)
 void AudioManager::PlaySFX(Mix_Chunk* sfx, int loops, int channel)
 {
 	if (Mix_PlayChannel(channel, sfx, loops) == AUDIO_ERROR)
+	{
+	#ifdef _DEBUG
 		std::cerr << "Chunk could not be played: No channel was avaliable.\n";
+	#endif
+	}	
 }
 
 void AudioManager::PauseMusic()

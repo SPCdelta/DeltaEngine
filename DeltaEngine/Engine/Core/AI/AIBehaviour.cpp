@@ -90,7 +90,10 @@ Transform* AIBehaviour::Update()
 
 		Math::Vector2 targetPos = position_->position + normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 		if (!IsWalkable(targetPos))
+		{
+			path_.clear();
 			return NewCalculation();
+		}		
 		
 		position_->position += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 		_direction = normalizedDirection;
@@ -126,8 +129,11 @@ Transform* AIBehaviour::NewCalculation()
 
 		Math::Vector2 targetPos = position_->position + normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 		if (!IsWalkable(targetPos))
+		{
+			path_.clear();
 			return position_;
-
+		}
+			
 		position_->position += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 		_direction = normalizedDirection;
 		return position_;

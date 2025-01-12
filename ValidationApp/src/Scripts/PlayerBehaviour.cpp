@@ -46,6 +46,7 @@ void PlayerBehaviour::OnStart()
 
 	InitHotbarKeybinds();
 
+	onKeyPressed(KEY_ESCAPE, [this](Input& e) { LoadScene("MainMenuScene"); }, "Gameplay"); 
 	onKeyPressed(KEY_V, [this](Input& e) { ConsumeItem(); }, "Gameplay"); 
 	keyPressed(Key::KEY_SPACE, [this](Input& e)
 	{

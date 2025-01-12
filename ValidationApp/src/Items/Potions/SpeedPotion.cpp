@@ -1,7 +1,7 @@
 #include "SpeedPotion.hpp"
 
 SpeedPotion::SpeedPotion(float time, float value, std::string name, std::string sprite)
-	: Potion(time, 5.0f, name, sprite)
+	: Potion(time, 2.0f, name, sprite)
 {
 
 }
