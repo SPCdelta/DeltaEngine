@@ -93,7 +93,7 @@ Math::Vector2 AStarStrategy::FindClosestWalkableNode(const Math::Vector2& positi
 
 	Math::Vector2 snappedPos = position;
 	snappedPos.SetX(std::round(snappedPos.GetX()));
-	snappedPos.SetY(std::round(snappedPos.GetY()));
+	snappedPos.SetY(std::floor(snappedPos.GetY()));
 
     queue.push(snappedPos);
 	visited.insert(snappedPos);
@@ -110,9 +110,9 @@ Math::Vector2 AStarStrategy::FindClosestWalkableNode(const Math::Vector2& positi
         {
 			Math::Vector2 neighbor = current + dir;
 			neighbor.SetX(std::round(neighbor.GetX()));
-			neighbor.SetY(std::round(neighbor.GetY()));
+			neighbor.SetY(std::floor(neighbor.GetY()));
 
-            if (visited.find(neighbor) == visited.end() && IsWithinBounds(neighbor))
+            if (visited.find(neighbor) == visited.end() && IsWithinBounds(neighbor) && IsWalkable(neighbor))
             {
                 queue.push(neighbor);
                 visited.insert(neighbor);
@@ -125,15 +125,15 @@ Math::Vector2 AStarStrategy::FindClosestWalkableNode(const Math::Vector2& positi
 
 bool AStarStrategy::IsWithinBounds(const Math::Vector2& position) const
 {
-    int normalizedX = static_cast<int>(std::round(position.GetX() - gridMinX));
-    int normalizedY = gridYSize - 1 - static_cast<int>(std::round(position.GetY() - gridMinY));
+	int normalizedX = static_cast<int>(std::round(position.GetX() - gridMinX));
+    int normalizedY = gridYSize - 1 - static_cast<int>(std::floor(position.GetY() - gridMinY));
 	return normalizedX >= 0 && normalizedY >= 0 && normalizedX < gridXSize && normalizedY < gridYSize;
 }
 
 std::shared_ptr<Node> AStarStrategy::CreateNode(const Math::Vector2& position, std::shared_ptr<Node> parent)
 {
 	int x = static_cast<int>(std::round(position.GetX())); 
-	int y = static_cast<int>(std::round(position.GetY()));
+	int y = static_cast<int>(std::floor(position.GetY()));
 
 	if (!IsWalkable(position)) // Skip non-walkable nodes
 		return nullptr;
@@ -146,24 +146,13 @@ std::shared_ptr<Node> AStarStrategy::CreateNode(const Math::Vector2& position, s
 bool AStarStrategy::IsWalkable(const Math::Vector2& position)
 {
 	int normalizedX = static_cast<int>(std::round(position.GetX() - gridMinX));
-	int normalizedY = gridYSize - 1 - static_cast<int>(std::round(position.GetY() - gridMinY));
+	int normalizedY = gridYSize - 1 - static_cast<int>(std::floor(position.GetY() - gridMinY));
 
 	// Check if the tile is walkable and in bounds
 	if (!IsWithinBounds(position) || !grid[normalizedY][normalizedX].walkable)
 		return false;
 
-	// Check surrounding tiles for non-walkable areas
-	for (const auto& dir : directions)
-	{
-		Math::Vector2 neighbor = position + dir;
-		int neighborX = static_cast<int>(std::round(neighbor.GetX() - gridMinX));
-		int neighborY = gridYSize - 1 - static_cast<int>(std::round(neighbor.GetY() - gridMinY));
-
-		if ((IsWithinBounds(neighbor) && !grid[neighborY][neighborX].walkable) || !IsWithinBounds(neighbor))
-			return false;  // Adjacent to a non-walkable tile
-	}
-
-	return true;  // Fully walkable
+	return grid[normalizedY][normalizedX].walkable;
 }
 
 void AStarStrategy::InitializeGrid(Transform* start)

@@ -87,11 +87,51 @@ Transform* AIBehaviour::Update()
     else
     {
 		Math::Vector2 normalizedDirection = _direction.GetNormalized();
+
+		Math::Vector2 targetPos = position_->position + normalizedDirection * _moveSpeed * Time::GetDeltaTime();
+		if (!IsWalkable(targetPos))
+			return NewCalculation();
+		
 		position_->position += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
 		_direction = normalizedDirection;
     }
 
 	return position_;
+}
+
+Transform* AIBehaviour::NewCalculation()
+{
+	CalculateNewPath();	
+
+	if (path_.empty())
+		return position_;  // No path to follow
+
+	_direction = path_.front() - position_->position;
+	float distance = _direction.Magnitude();
+
+	if (distance < NEXT_NODE_DISTANCE)	// Reached the next 'node'
+	{
+		if (path_.size() == 1 && path_.front() == _targetPosition->position)
+		{
+			path_.clear();
+			return position_;
+		}
+
+		position_->position = path_.front();
+		path_.erase(path_.begin());
+	}
+	else
+	{
+		Math::Vector2 normalizedDirection = _direction.GetNormalized();
+
+		Math::Vector2 targetPos = position_->position + normalizedDirection * _moveSpeed * Time::GetDeltaTime();
+		if (!IsWalkable(targetPos))
+			return position_;
+
+		position_->position += normalizedDirection * _moveSpeed * Time::GetDeltaTime();
+		_direction = normalizedDirection;
+		return position_;
+	}
 }
 
 void AIBehaviour::CalculateNewPath()

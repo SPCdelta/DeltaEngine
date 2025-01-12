@@ -28,6 +28,8 @@ public:
 
 	bool IsWalkable(const Math::Vector2& position);
 
+	Transform* NewCalculation();
+
 private:
 	const float NEXT_NODE_DISTANCE = 0.3f;
 
